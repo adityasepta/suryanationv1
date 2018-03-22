@@ -658,7 +658,7 @@ class User extends CI_Controller {
 
                 $message = "Foto produk tidak sesuai";
                 echo "<script type='text/javascript'>alert('$message');
-                window.location.href=location.reload();</script>";
+                window.location.href='".base_url("user/spk")."';</script>";
 
             }
             $dataInfo[] = $this->upload->data();
