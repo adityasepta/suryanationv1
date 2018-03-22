@@ -109,7 +109,7 @@
                                         <td><?php echo $p->jumlah?></td></td>
                                         <!-- <td>Rp. <?php echo number_format($p->hargaBeli,2,".","."); ?> -->
                                         <td><!-- Button trigger modal -->
-                                                        <a href="<?php echo base_url()?>user/editInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-default">Edit</a>
+                                                        <!-- <a href="<?php echo base_url()?>user/editInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-default">Edit</a> -->
                                                         <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a></td>
                                      </tr>
                                     <?php endforeach; ?>

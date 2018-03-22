@@ -426,17 +426,6 @@
 
     <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
-    <!-- iCheck -->
-    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
-            });
-        </script>
-
     <script type="text/javascript">
         $('.good').inputmask("numeric", {
             radixPoint: ".",
@@ -448,6 +437,17 @@
             oncleared: function () { self.Value(''); }
         });
     </script>
+
+    <!-- iCheck -->
+    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+        </script>
 </body>
 
 </html>
