@@ -83,7 +83,7 @@
                                     <img src="<?php echo base_url();?>assets/img/masal.jpg" style="object-fit: cover; width: 100%;" >
                                 </div>
                                 <div class="product-desc">
-                                    <h2 class="product-name text-center" style="font-size: 30px;"> MASAL</h2>
+                                    <h2 class="product-name text-center" style="font-size: 30px;"> MASSAL</h2>
                                 </div>
                             </div>
                         </div>

@@ -189,8 +189,6 @@
                                                 <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
                                                 <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
                                                 <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
-                                                <dt>Datang Berlian:</dt> <dd>  <?php echo $datangBerlian?></dd>
-                                                <dt>Jumlah Datang Berlian:</dt> <dd>  <?php echo $jumlahDatangBerlian?></dd>
                                             </dl>
                                         </div>
                                     </div>
@@ -290,6 +288,9 @@
                                         </tbody>
                                     </table>
 
+                                </div>
+                                <div>
+                                    <a href="<?php echo base_url()?>user/listPOMasal"><button type="button" class="btn btn-primary"> < Kembali</button></a>
                                 </div>
                                 </div>
 

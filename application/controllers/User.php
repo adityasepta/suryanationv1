@@ -3870,6 +3870,12 @@ class User extends CI_Controller {
         }
         else {
             
+            if(!$this->input->post('pekerjaanTambahan[]')) {
+                $pekerjaanTambahan = "Tidak Ada";
+            } else {
+                $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
+            }
+
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer
