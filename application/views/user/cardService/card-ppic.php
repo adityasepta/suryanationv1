@@ -205,8 +205,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a href="<?php echo base_url('user/invoicePO/'.$pp[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
-                            <a href="<?php echo base_url('user/invoice/'.$pp[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                    <a href="<?php echo base_url('user/invoicePOService/'.$pp[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
+                            <a href="<?php echo base_url('user/invoicePOService/'.$pp[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>
                 </div>
             </div>

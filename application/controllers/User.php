@@ -1805,7 +1805,7 @@ class User extends CI_Controller {
         //sebelum mengeksekusi query
         
         $this->form_validation->set_message('is_unique','Nomor SPK telah digunakan');
-        $this->form_validation->set_rules('nomorFaktur', 'Nomor Faktur' ,'is_unique[spk.nomorFaktur]');
+        $this->form_validation->set_rules('nomorFaktur', 'Nomor Faktur' ,'is_unique[spkService.nomorFaktur]');
         // $pos=$this->input->post('nomorFaktur');
         // print_r($pos);exit();
         $data['spkTerakhir'] = $this->mdl->spkTerakhirService();
@@ -2046,7 +2046,7 @@ class User extends CI_Controller {
         $data = array(
             'statusSPK' => 'Done'
         );
-
+        $this->mdl->updateData('idSPK',$idSPK,'spkservice',$data);
         $this->mdl->updateData('idSPK',$idSPK,'factproductionservice',$data);
 
         $iduser = ($this->session->userdata['logged_in']['iduser']);

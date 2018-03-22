@@ -205,6 +205,9 @@
                                         <?php } else if($klot==0) { ?>
                                             <a href="#" data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-info">Tambahkan Kloter</a>
 
+                                        <?php } else if($hasil->statusSPK=='Done') { ?>
+                                            <a class="btn btn-xs btn-primary">Done</a>
+
                                         <?php } else {?>
                                             <a href="<?php base_url();?>kanban" class="btn btn-xs btn-default">Masuk Ke Kanban</a>
 
