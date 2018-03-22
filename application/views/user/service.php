@@ -72,27 +72,45 @@
             <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Delivery Status</h5>
-                        </div>
-
-                        <div class="ibox-content">
-                            <div id='donut1'></div>
+                                <h5>Delivery Status</h5>
                             </div>
-                        </div>
-                    </div>
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div class="row">     
+                                        <div class="col-lg-12">
+                                            <div id="deliverystatus" style="
+                                                width:300px;
+                                                height: 300px;
+                                                padding: 0;
+                                                margin: 0 auto 0 auto;">                                    
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
                 <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Delivery Time</h5>
-                        </div>
-
-                        <div class="ibox-content">
-                              <div id='donut2'></div>
+                                <h5>Delivery Time</h5>
                             </div>
-                        </div>
-                    </div>
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div class="row">     
+                                        <div class="col-lg-12">
+                                            <div id="deliverytime" style="
+                                                width:300px;
+                                                height: 300px;
+                                                padding: 0;
+                                                margin: 0 auto 0 auto;">                                    
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -279,6 +297,10 @@ sangat luar biasa</h3>';
     <!-- ChartJS-->
     <script src="<?php echo base_url();?>assets/js/plugins/chartJs/Chart.min.js"></script>
 
+    <script src="<?php echo base_url('assets/js/plugins/chartist/chartist.min.js') ?>"></script>
+    <!-- Echarts -->
+    <script src="<?php echo base_url()?>assets/js/echarts.js"></script>
+
     <script>
 
         $(document).ready(function () {
@@ -399,6 +421,102 @@ sangat luar biasa</h3>';
 
     var ctx = document.getElementById("radarChart").getContext("2d");
     var myNewChart = new Chart(ctx).Radar(radarData, radarOptions);
+    </script>
+
+    <script type="text/javascript">
+        //GAUGE CHART//
+        var dom = document.getElementById("deliverystatus");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = 
+            {
+                tooltip : 
+                    {
+                        formatter: "{a} <br/>{b} : {c} %"
+                    },
+                
+                    series: [
+                    {
+                        name: 'deliverystatus',
+                        type: 'gauge',
+                        detail: 
+                        {formatter: '60 %'},
+                        data: 60, 
+                        name:'Success Rate',
+                        axisLine:
+                            {
+                              show: true,
+                              lineStyle:
+                                {
+                                  color: [[0.5, '#ed5666'], [0.8, '#f8ac5a'], [1, '#1bb394']],
+                                  width: 10
+                                }
+                            },
+                        pointer:
+                        {
+                            length : '50%',
+                            width : 2,
+                            color : '#394341'
+                        }  
+                    }
+                        ] 
+                
+            };
+
+
+            if (option && typeof option === "object") 
+                {
+                    myChart.setOption(option, true);
+                }
+    </script>
+
+    <script type="text/javascript">
+        //GAUGE CHART//
+        var dom = document.getElementById("deliverytime");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = 
+            {
+                tooltip : 
+                    {
+                        formatter: "{a} <br/>{b} : {c} %"
+                    },
+                
+                    series: [
+                    {
+                        name: 'deliverytime',
+                        type: 'gauge',
+                        detail: 
+                        {formatter: '86 %'},
+                        data: 86, 
+                        name:'Success Rate',
+                        axisLine:
+                            {
+                              show: true,
+                              lineStyle:
+                                {
+                                  color: [[0.5, '#ed5666'], [0.8, '#f8ac5a'], [1, '#1bb394']],
+                                  width: 10
+                                }
+                            },
+                        pointer:
+                        {
+                            length : '50%',
+                            width : 2,
+                            color : '#394341'
+                        }  
+                    }
+                        ] 
+                
+            };
+
+
+            if (option && typeof option === "object") 
+                {
+                    myChart.setOption(option, true);
+                }
     </script>
     
 
