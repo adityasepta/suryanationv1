@@ -292,6 +292,9 @@
                                     </table>
 
                                 </div>
+                                <div>
+                                    <a href="<?php echo base_url()?>user/purchaseOrder"><button type="button" class="btn btn-primary">Kembali</button></a>
+                                </div>
                                 </div>
 
                                 </div>
