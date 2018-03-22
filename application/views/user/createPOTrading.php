@@ -79,8 +79,8 @@
                                                 <label>Nomor PO</label><br>
                                                 <?php if(count($poTerakhir)>0) { ?>
                                                 <small>Nomor Purchase Order terakhir yang digunakan adalah <strong> <?php echo $poTerakhir[0]->nomorPO; ?></strong></small>
-                                                <?php } ?>
-                                                <input type="text" placeholder="Nomor PO" name="nomorPO" class="form-control" required="">
+                                                <?php $poNow =  $poTerakhir[0]->nomorPO+1; } else { $poNow = 1; } ?>
+                                                <input type="text" placeholder="Nomor PO" name="nomorPO" value="<?php echo $poNow ?>" class="form-control" readonly>
                                                 <small class="text-danger"><?php echo form_error('nomorPO'); ?></small>
                                             </div>
                                         </div>

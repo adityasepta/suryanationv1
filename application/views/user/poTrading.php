@@ -84,7 +84,7 @@
                                     <th>Nomor PO</th>
                                     <th>Nama Konsumen</th>
                                     <th>Total Harga</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -102,10 +102,10 @@
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPOTrading/' . $hasil->nomorPO, 'Delete', [
+                                        <!-- <?=anchor('user/hapusPOTrading/' . $hasil->nomorPO, 'Delete', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
-                                        ])?>
+                                        ])?> -->
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

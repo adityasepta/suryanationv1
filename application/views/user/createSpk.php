@@ -175,8 +175,11 @@
                                                     </div>
                                                     <div class="list-to-filter">
                                                         <ul class="list-unstyled">
-                                                            <?php for ($i=0; $i < count($spkTempahan) ; $i++) { ?>
-                                                                <li class="filter-item items" data-filter="<?php echo $spkTempahan[$i]->nomorPO; echo " - "; echo $spkTempahan[$i]->namaCustomer; echo " - "; echo $spkTempahan[$i]->tanggalMasuk;?>" data-value="<?php echo $spkTempahan[$i]->nomorPO?>"><?php echo $spkTempahan[$i]->nomorPO; echo " - "; echo $spkTempahan[$i]->namaCustomer; echo " - "; echo $spkTempahan[$i]->tanggalMasuk;?></li>
+                                                            <?php for ($i=0; $i < count($spkTempahan) ; $i++) { 
+                                                                $tglmsk = new DateTime($spkTempahan[$i]->tanggalMasuk);
+                                                                $tglmsk = $tglmsk->format("Y-m-d");
+                                                            ?>
+                                                                <li class="filter-item items" data-filter="<?php echo $spkTempahan[$i]->nomorPO; echo " - "; echo $spkTempahan[$i]->namaCustomer; echo " - "; echo $tglmsk;?>" data-value="<?php echo $spkTempahan[$i]->nomorPO?>"><?php echo $spkTempahan[$i]->nomorPO; echo " - "; echo $spkTempahan[$i]->namaCustomer; echo " - "; echo $tglmsk;?></li>
                                                             <?php } ?>
                                                         </ul>
                                                         <div class="no-search-results">

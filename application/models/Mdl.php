@@ -108,7 +108,7 @@ class mdl extends CI_Model {
     }
 
     public function getListSPKService() {
-        $hasil = $this->db->query("SELECT nomorPO FROM purchaseorderservice po LEFT JOIN customer cu ON po.idCustomer=cu.idCustomer WHERE po.nomorPO NOT IN( SELECT nomorPO FROM spkservice ) order by po.tanggalMasuk DESC");
+        $hasil = $this->db->query("SELECT * FROM purchaseorderservice po LEFT JOIN customer cu ON po.idCustomer=cu.idCustomer WHERE po.nomorPO NOT IN( SELECT nomorPO FROM spkservice ) order by po.tanggalMasuk DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -432,7 +432,7 @@ class mdl extends CI_Model {
 
     public function tidakSetujuDesain($nomorFaktur) {
         //Query update from ... where id = ...
-        $this->db->query("update spk set statusDesain='Proses Desain Ulang' where nomorFaktur=$nomorFaktur");
+        $this->db->query("update spk set statusDesain='Proses Desain' where nomorFaktur=$nomorFaktur");
     }
 
     public function setujuBOM($nomorFaktur) {

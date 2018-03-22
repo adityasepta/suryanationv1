@@ -1550,7 +1550,7 @@ class User extends CI_Controller {
             'statusDesain' => 'Disetujui',
         );
         $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
-        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b>, anda saat ini dapat menambahkan BOM dan Jadwal !</div>');
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b>, anda saat ini dapat menambahkan Kloter !</div>');
         redirect('user/spk');
     }
 

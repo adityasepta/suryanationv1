@@ -141,11 +141,10 @@
                                     <th class="text-center">Kadar</th>
                                     
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Tambahkan</th>
-                                    <th class="text-center" data-hide="phone,tablet">Persetujuan</th>
+                                    <th class="text-center" data-hide="phone,tablet">Status</th>
                                     
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
-                                    <th class="text-center" data-hide="phone,tablet">Status </th>
+                                    <th class="text-center" data-hide="phone,tablet">Keterangan </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -172,68 +171,59 @@
                                     <td class="text-center" ><?php echo $hasil->kadarBahan?> %</td>
                                     
                                     <td class="text-center">
-                                        <div class="dropdown">
-                                            <a data-toggle="dropdown" class="btn btn-info btn-xs dropdown-toggle" href="#o">
-                                                <span class="block "> Tambahkan</a>
-                                            <ul class="dropdown-menu m-t-xs">
+                                        <?php
 
-                                                <?php
+                                        $jadwal = 0;
+                                        for ($g=0; $g < count($cekjadwal) ; $g++) { 
+                                            if($cekjadwal[$g]->idSPK == $hasil->idSPK) {
+                                                $jadwal++;
+                                            }
+                                        } 
 
-                                                $jadwal = 0;
-                                                for ($g=0; $g < count($cekjadwal) ; $g++) { 
-                                                    if($cekjadwal[$g]->idSPK == $hasil->idSPK) {
-                                                        $jadwal++;
-                                                    }
-                                                } 
+                                        ?>
 
-                                                ?>
-                                                
-                                                <?php if($jadwal == 0) { ?>
-                                                    <li><a href="<?php base_url();?>tambahJadwal/<?php echo $hasil->nomorFaktur;?>">Jadwal</a></li>
-                                                
+                                        <?php
 
-                                                <?php } else if($hasil->statusDesain == 'Proses Desain') { ?>
-                                                    <li><a href="<?php base_url();?>tambahDesain/<?php echo $hasil->nomorFaktur;?>">Desain</a></li>
-                                                <?php } ?>
+                                        $klot = 0;
+                                        for ($g=0; $g < count($cekklot) ; $g++) { 
+                                            if($cekklot[$g]->idSPK == $hasil->idSPK) {
+                                                $klot++;
+                                            }
+                                        } 
 
-                                            </ul>       
-                                        </div>
+                                        ?>
+
+                                        <?php if($jadwal == 0) { ?>
+                                            <a href="<?php base_url();?>tambahJadwal/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Jadwal</a>
+
+                                        <?php } else if($hasil->statusDesain == 'Proses Desain') { ?>
+                                            <a href="<?php base_url();?>tambahDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Desain</a>
+
+                                        <?php } else if($hasil->statusDesain == 'Menunggu Persetujuan') { ?>
+                                            <a href="#" data-toggle="modal" data-target="#desain<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Persetujuan Desain</a>
+
+                                        <?php } else if($klot==0) { ?>
+                                            <a href="#" data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-info">Tambahkan Kloter</a>
+
+                                        <?php } else {?>
+                                            <a href="<?php base_url();?>kanban" class="btn btn-xs btn-default">Masuk Ke Kanban</a>
+
+                                        <?php } ?>
+
                                     </td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <a data-toggle="dropdown" class="btn btn-xs btn-success dropdown-toggle" href="#t">
-                                                <span class="block ">Persetujuan</a>
-                                            <ul class="dropdown-menu m-t-xs">
-                                                <?php if($hasil->statusDesain == 'Menunggu Persetujuan') { ?>
-
-                                                    <li><a href="#" data-toggle="modal" data-target="#desain<?php echo $hasil->nomorFaktur;?>">Desain</a></li>
-
-                                                <?php } ?>
-
-                                                <?php if($hasil->statusDesain == 'Disetujui' ) { ?>
-
-                                                    <!-- <li><a href="<?php echo base_url('user/invoice/'.$hasil->nomorFaktur)?>" >Akhir</a></li> -->
-                                                    
-                                                <?php } ?>
-                                                
-                                                
-                                            </ul>
-                                        </div>
-                                    </td>
-                                   
                                     
                                     <td class="text-center">
 
                                         <a href="<?php echo base_url('user/invoice/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
                                         
-                                        <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
+                                        <!-- <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
 
                                         
                                         <?=anchor('user/hapusSPK/' . $hasil->idSPK, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'
-                                        ])?>
+                                        ])?> -->
                                     </td>
                                     <td class="text-center">
                                         
