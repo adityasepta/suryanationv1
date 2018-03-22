@@ -1775,7 +1775,7 @@ class User extends CI_Controller {
                             'idPO'         => $idPO,
                             'namaBarang'    => $data['namaBarang'][$i],
                             'jumlah'       => $data['jumlah'][$i],
-                            'harga'       => $data['harga'][$i],
+                            'harga'       => $this->clean($data['harga'][$i]),
                         );
                         //print_r($dataBOM);//exit();
                         $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPOService);
