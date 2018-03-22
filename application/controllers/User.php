@@ -2921,6 +2921,7 @@ class User extends CI_Controller {
                         $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
                         $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
                         $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
+                        $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
                         $upah = $this->clean($this->input->post('upah'));
                         $budget = $this->clean($this->input->post('budget'));
                         $panjar = $this->clean($this->input->post('panjar'));
@@ -2944,7 +2945,7 @@ class User extends CI_Controller {
                             'batuZirkon'        => $this->input->post('batuZirkon'),
                             'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
                             'hargaBatuZirkon'   => $hargaBatuZirkon,
-                            'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
+                            'hargaKrumWarna'    => $hargaKrumWarna,
                             'keteranganKrum'    => $this->input->post('keteranganKrum'),
                             'kodeGambar'        => $kode,
                         );
@@ -2997,6 +2998,7 @@ class User extends CI_Controller {
                         $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
                         $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
                         $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
+                        $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
                         $upah = $this->clean($this->input->post('upah'));
                         $budget = $this->clean($this->input->post('budget'));
                         $panjar = $this->clean($this->input->post('panjar'));
@@ -3019,7 +3021,7 @@ class User extends CI_Controller {
                             'batuZirkon'        => $this->input->post('batuZirkon'),
                             'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
                             'hargaBatuZirkon'   => $hargaBatuZirkon,
-                            'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
+                            'hargaKrumWarna'    => $hargaKrumWarna,
                             'keteranganKrum'    => $this->input->post('keteranganKrum'),
                             'kodeGambar'        => $kode,
                         );

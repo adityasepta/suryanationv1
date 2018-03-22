@@ -322,7 +322,7 @@
                                     <label class="col-sm-2 control-label">Krum Warna</label>
                                     <div class="col-sm-4"><input type="text" name="krumWarna" class="form-control" value="<?php echo set_value('krumWarna'); ?>"></div>
                                     <label class="col-sm-2 control-label">Harga Krum Warna</label>
-                                    <div class="col-sm-4"><input type="text" name="hargaKrumWarna" class="form-control" value="<?php echo set_value('hargaKrumWarna'); ?>"></div>
+                                    <div class="col-sm-4"><input type="text" placeholder="Rp" name="hargaKrumWarna" class="form-control good" value="<?php echo set_value('hargaKrumWarna'); ?>"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Keterangan Krum</label>
                                     <div class="col-sm-10"><input type="text" name="keteranganKrum" class="form-control" value="<?php echo set_value('keteranganKrum'); ?>"></div>
@@ -382,7 +382,7 @@
                                     <div class="col-sm-10"><input type="text" placeholder="Rp" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Budget</label>
-                                    <div class="col-sm-10"><input type="text" placeholder="Rp" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>"></div>
+                                    <div class="col-sm-10"><input type="text" placeholder="Rp" name="budget" class="form-control good" value="<?php echo set_value('budget'); ?>"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Panjar</label>
                                     <div class="col-sm-10"><input type="text" placeholder="Rp" name="panjar" class="form-control good" value="<?php echo set_value('panjar'); ?>"></div>
