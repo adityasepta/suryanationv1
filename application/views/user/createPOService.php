@@ -145,7 +145,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Total Harga (Rp)</label>
-                                                <input type="number" name= "harga[]" class="form-control good" required>
+                                                <input type="text" name= "harga[]" class="form-control good" required>
                                             </div>
                                         </div>
                                     </div>
