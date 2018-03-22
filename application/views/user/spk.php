@@ -93,10 +93,10 @@
 
                                             <div class="row">
                                             <div class="col-lg-9">
-                                                <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter">
+                                                <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter" required="">
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="number" min="0" name="kadar" class=" form-control" placeholder="kadar">
+                                                <input type="number" min="0" name="kadar" class=" form-control" placeholder="kadar" required="">
                                             </div>
                                             <br><br><hr>
                                             <?php $b=count($klot); for ($i=0; $i < $b ; $i++) { ?> 

@@ -1193,6 +1193,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         $result = $query->result();
         return $result;
     }
+
+    public function getIdKloter($nomorFaktur) {
+        $sql = "SELECT * FROM `kloter` a, spk b where a.idSPK = b.idSPK AND b.nomorFaktur = $nomorFaktur";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+ 
+    
     
     public function listPOTrading() {
         $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");

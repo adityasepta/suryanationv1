@@ -165,7 +165,6 @@ class User extends CI_Controller {
 
         $data = array(
             'berat' => $this->input->post('berat'),
-            'beratAwal' => $this->input->post('beratAwal'),
             'kembali' => $this->input->post('kembali'),
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
@@ -533,7 +532,11 @@ class User extends CI_Controller {
         $data['cekbom'] = $this->mdl->cekbom();
         $data['cekjadwal'] = $this->mdl->cekjadwal();
         $data['jadwal'] = $this->mdl->getjadwal($nomorFaktur);
-        $data['stokbom'] = $this->mdl->getStokBOM($nomorFaktur);
+        $kloter = $this->mdl->getIdKloter($nomorFaktur);
+        if ($kloter) {
+            $data['stokbom'] = $this->mdl->getStokBOM2($kloter[0]->idKloter);
+        }
+        
         $this->load->view('user/invoice',$data);
     }
 
@@ -636,9 +639,15 @@ class User extends CI_Controller {
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['userfile']['name']);
+        $b=0;
+        for ($i=0; $i < $cpt; $i++) { 
+            if ($_FILES['userfile']['name'][$i]!=NULL) {
+                $b++;
+            }
+        }
         $produk = $this->mdl->findProduk($kodeProduk);
         $kode=$produk[0]->kodeGambar;
-
+        $a=0;
         for($i=0; $i<$cpt; $i++)
         {           
             $_FILES['userfile']['name']= $files['userfile']['name'][$i];
@@ -648,27 +657,27 @@ class User extends CI_Controller {
             $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
 
             $config['upload_path']     = './uploads/gambarDesain/'; 
-            $config['allowed_types']   = 'jpg'; 
+            $config['allowed_types']   = 'jpg|jpeg'; 
             $config['max_size']        = '2048';
             $config['file_name']       = $kode.'-d'.($i+1).'.jpg';
             $config['overwrite']        = TRUE;
 
             $this->upload->initialize($config);
-            if(!($this->upload->do_upload())) {
 
-                $message = "Foto produk tidak sesuai";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/spk")."';</script>";
-
-            }
-            $dataInfo[] = $this->upload->data();
+            if($this->upload->do_upload()) {
+                $a++;
+            };
         }
-
-        $this->mdl->prosesDesain($nomorFaktur);
-
-        $message = "Foto produk telah berhasil disimpan";
-        echo "<script type='text/javascript'>alert('$message');
-        window.location.href='".base_url("user/spk")."';</script>";
+        if($a==$b) {
+            $this->mdl->prosesDesain($nomorFaktur);
+            $message = "Foto produk telah berhasil disimpan";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/spk")."';</script>";
+        } else {
+            $message = "Foto produk tidak sesuai";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/spk")."';</script>";
+        } 
     }
 
     public function editAktivitas(){
@@ -2090,6 +2099,10 @@ class User extends CI_Controller {
         $idspk = $this->input->post('idSPK');
 
         $kode = $this->generateRandomString();
+        if (count($idspk)==0) {
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-danger">Gagal membuat kloter SPK karena belum memilih SPK.</div>');
+            redirect('user/spk');
+        }
         for ($i=0; $i < count($idspk); $i++) { 
             
             $data = array (
@@ -3446,7 +3459,7 @@ class User extends CI_Controller {
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi dengan nomor faktur <b>'.$nomorFaktur.'</b> dan kode produk <b>'.$kodeProduk.'</b></div>');
 
-        redirect('User/produk');
+        redirect('User/listProdukJadi');
 
     }
 
@@ -4576,7 +4589,7 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('berat')
+            'beratAwal' => $this->input->post('beratAwal')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
@@ -4718,6 +4731,13 @@ class User extends CI_Controller {
         $message = "Terima kasih sudah mengisi survey. Kepuasan anda adalah prioritas kami.";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("user/survey") . "';</script>";
+    }
+
+    public function listProdukJadi() {
+        $data['produk']=$this->mdl->getProd();
+        $data['bom']=$this->mdl->getBOM();
+        $data['bom2']=$this->mdl->getBOMdistinct();
+        $this->load->view('user/produkJadi',$data);
     }
 
 }
