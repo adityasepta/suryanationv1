@@ -2989,6 +2989,15 @@ class User extends CI_Controller {
                         $this->load->view('user/invoicePO',$data);  
                     }
             } else {
+                        $hargaBahan = $this->clean($this->input->post('hargaBahan'));
+                        $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
+                        $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
+                        $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
+                        $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
+                        $upah = $this->clean($this->input->post('upah'));
+                        $budget = $this->clean($this->input->post('budget'));
+                        $panjar = $this->clean($this->input->post('panjar'));
+
                         $dataProduk = array(
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
@@ -3003,10 +3012,10 @@ class User extends CI_Controller {
                             'tipeIkatan'        => $this->input->post('tipeIkatan'),
                             'model'             => $this->input->post('model'),
                             'beratBerlian'      => $this->input->post('beratBerlian'),
-                            'hargaBerlian'      => $this->input->post('hargaBerlian'),
+                            'hargaBerlian'      => $hargaBerlian,
                             'batuZirkon'        => $this->input->post('batuZirkon'),
                             'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
-                            'hargaBatuZirkon'   => $this->input->post('hargaBatuZirkon'),
+                            'hargaBatuZirkon'   => $hargaBatuZirkon,
                             'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
                             'keteranganKrum'    => $this->input->post('keteranganKrum'),
                             'kodeGambar'        => $kode,
@@ -3017,7 +3026,6 @@ class User extends CI_Controller {
                         $idProduk=$produk[0]->idProduk;
                         $harga=$this->input->post('harga');
                         $qty=$this->input->post('kuantitas');
-                        $upah=$this->input->post('upah');
                         $totalHarga=($qty*$harga)+$upah;
                         //eksekusi query insert tanpa gambar
                         $dataPO = array(
@@ -3027,22 +3035,22 @@ class User extends CI_Controller {
                             'idSalesPerson'     => $this->input->post('idSalesPerson'),
                             'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                             'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
-                            'hargaBahan'        => $this->input->post('hargaBahan'),
-                            'upah'              => $this->input->post('upah'),
+                            'hargaBahan'        => $hargaBahan,
+                            'upah'              => $upah,
                             'datangEmas'        => $this->input->post('datangEmas'),
-                            'hargaDatangEmas'   => $this->input->post('hargaDatangEmas'),
+                            'hargaDatangEmas'   => $hargaDatangEmas,
                             'kuantitas'         => $this->input->post('kuantitas'),
                             'metode'            => $this->input->post('metode'),
-                            'panjar'            => $this->input->post('panjar'),
+                            'panjar'            => $panjar,
                             'totalHarga'        => $totalHarga,
                             'tipeOrder'         => 'custom',
                             'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
-                            'budget'            => $this->input->post('budget'),
+                            'budget'            => $budget,
                             'datangBerlian'     => $this->input->post('datangBerlian'),
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
-                            'upahPasangBerlian' => $this->input->post('upahPasangBerlian'),
+                            'upahPasangBerlian' => $upahPasangBerlian,
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $this->input->post('pekerjaanTambahan'),
+                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                         );
