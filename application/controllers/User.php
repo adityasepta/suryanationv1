@@ -2265,8 +2265,9 @@ class User extends CI_Controller {
             );
         }
         $data['pegawai'] = $this->mdl->listPegawaiSales();
-        $data['poTerakhir'] = $this->mdl->poTerakhir();
+        //$data['poTerakhir'] = $this->mdl->poTerakhir();
         $data['listProduk'] = $this->mdl->listProduk();
+        $data['poTerakhir'] = $this->mdl->poTerakhir3();
         $this->load->view('user/createPOPerak',$data);
     }
 
@@ -2276,7 +2277,7 @@ class User extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE){
             $data['pegawai'] = $this->mdl->listPegawaiSales();
-            $data['poTerakhir'] = $this->mdl->poTerakhir();
+            $data['poTerakhir'] = $this->mdl->poTerakhir3();
             $this->load->view('user/createPOPerak',$data);
         }
         else {
@@ -2328,7 +2329,7 @@ class User extends CI_Controller {
                         echo "<script type='text/javascript'>alert('$message');
                         </script>";
                         $data['pegawai'] = $this->mdl->listPegawaiSales();
-                        $data['poTerakhir'] = $this->mdl->poTerakhir();
+                        $data['poTerakhir'] = $this->mdl->poTerakhir3();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
                     else {
@@ -2390,7 +2391,7 @@ class User extends CI_Controller {
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
                             'upahPasangBerlian' => $this->input->post('upahPasangBerlian'),
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $this->input->post('pekerjaanTambahan'),
+                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                             

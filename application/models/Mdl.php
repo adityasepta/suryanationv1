@@ -1831,4 +1831,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         
         return $query->row();
     }
+
+    public function poTerakhir3(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM poperak ORDER BY idPO DESC LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 }

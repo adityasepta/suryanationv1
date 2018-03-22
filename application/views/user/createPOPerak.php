@@ -74,8 +74,8 @@
                                                 <label>Nomor PO</label><br>
                                                 <?php if(count($poTerakhir)>0) { ?>
                                                 <small>Nomor Purchase Order terakhir yang digunakan adalah <strong> <?php echo $poTerakhir[0]->nomorPO; ?></strong></small>
-                                                <?php } ?>
-                                                <input type="text" placeholder="Nomor PO" name="nomorPO" class="form-control" value="<?php echo set_value('nomorPO'); ?>" required="">
+                                                <?php $poNow =  $poTerakhir[0]->nomorPO+1; } else { $poNow = 1; } ?>
+                                                <input type="text" placeholder="Nomor PO" name="nomorPO" class="form-control" value="<?php echo $poNow; ?>" readonly>
                                                 <small class="text-danger"><?php echo form_error('nomorPO'); ?></small>
                                             </div>
                                         </div>
@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>Harga Pasaran</label>
-                                            <input id="hargaBahan" type="text" placeholder="/gr" name="hargaBahan" class="form-control" value="<?php echo set_value('hargaBahan'); ?>" required="">
+                                            <input id="hargaBahan" type="text" placeholder="/gr" name="hargaBahan" class="form-control good" value="<?php echo set_value('hargaBahan'); ?>" required="">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -213,7 +213,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Harga Berlian</label>
-                                                    <input id="hargaBerlian" type="text" placeholder="Harga Berlian" name="hargaBerlian" class="form-control" value="<?php echo set_value('hargaBerlian'); ?>">
+                                                    <input id="hargaBerlian" type="text" placeholder="Harga Berlian" name="hargaBerlian" class="form-control good" value="<?php echo set_value('hargaBerlian'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Harga Batu Zirkon (/pcs)</label>
-                                                    <input id="hargaBatuZirkon" type="text" placeholder="Harga per Pcs" name="hargaBatuZirkon" class="form-control" value="<?php echo set_value('hargaBatuZirkon'); ?>">
+                                                    <input id="hargaBatuZirkon" type="text" placeholder="Harga per Pcs" name="hargaBatuZirkon" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -336,22 +336,22 @@
                                 <span>Pekerjaan Tambahan</span>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/>
-                                    <input type="radio" checked="" value="" name="pekerjaanTambahan"><small> Tidak Ada</small></label>
+                                    <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/></label>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Enamel"){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan"> <i></i> Enamel </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Enamel"){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan" > <i></i> Slap </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan"> <i></i> Kombinasi </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Laser Huruf"){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan"> <i></i> Laser Huruf </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Laser Huruf"){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan"> <i></i> Kode Cap </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
+                                        <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan"> -->
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -493,6 +493,8 @@
     <script src="<?php echo base_url();?>assets/js/livefilter.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/bootstrap-select.js"></script>
 
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
         <script>
@@ -573,6 +575,17 @@
             });
         });
     });
+    </script>
+    <script type="text/javascript">
+        $('.good').inputmask("numeric", {
+            radixPoint: ".",
+            groupSeparator: ",",
+            digits: 2,
+            autoGroup: true,
+            prefix: 'Rp ', //Space after $, this will not truncate the first character.
+            rightAlign: false,
+            oncleared: function () { self.Value(''); }
+        });
     </script>
 </body>
 </html>
