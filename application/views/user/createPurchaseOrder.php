@@ -448,12 +448,6 @@
             oncleared: function () { self.Value(''); }
         });
     </script>
-    <script type="text/javascript">
-        $('#submit').onclick(){
-            $('.good').cleanVal();
-
-        }
-    </script>
 </body>
 
 </html>
