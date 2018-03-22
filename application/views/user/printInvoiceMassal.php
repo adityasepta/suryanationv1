@@ -138,46 +138,6 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                           Harga Berlian
-                                        </td>
-                                        <td class="text-center"><?php echo $beratBerlian ?> Gram</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Harga Batu Zirkon
-                                        </td>
-                                        <td class="text-center"><?php echo $jumlahBatuZirkon ?> Pcs</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBatuZirkon,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBatuZirkon*$jumlahBatuZirkon,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Harga Krum Warna
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Upah Pasang Berlian
-                                        </td>
-                                        <td class="text-center"><?php echo $datangBerlian ?> Pcs</td>
-                                        <td class="text-right">Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Biaya Pekerjaan Tambahan
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
                                            Upah
                                         </td>
                                         <td class="text-center">-</td>

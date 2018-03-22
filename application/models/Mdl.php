@@ -244,6 +244,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function poTerakhir2(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM pomasal ORDER BY idPO DESC LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function spkTerakhir(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spk ORDER BY idSPK DESC LIMIT 1");

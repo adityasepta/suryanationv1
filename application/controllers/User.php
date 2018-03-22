@@ -293,7 +293,7 @@ class User extends CI_Controller {
             );
         }
         $data['pegawai'] = $this->mdl->listPegawaiSales();
-        $data['poTerakhir'] = $this->mdl->poTerakhir();
+        $data['poTerakhir'] = $this->mdl->poTerakhir2();
         $data['listProduk'] = $this->mdl->listProduk();
         $this->load->view('user/createPOMasal',$data);
     }
@@ -3844,7 +3844,7 @@ class User extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE){
             $data['pegawai'] = $this->mdl->listPegawaiSales();
-            $data['poTerakhir'] = $this->mdl->poTerakhir();
+            $data['poTerakhir'] = $this->mdl->poTerakhir2();
             $this->load->view('user/createPOMasal',$data);
         }
         else {
@@ -3895,6 +3895,9 @@ class User extends CI_Controller {
                     }
                     else {
                         $gambar = $this->upload->data();
+                        $hargaBahan = $this->clean($this->input->post('hargaBahan'));
+                        $upah = $this->clean($this->input->post('upah'));
+                        $panjar = $this->clean($this->input->post('panjar'));
 
                         if(count($cekProduk)==0){
                             $dataProduk = array(
@@ -3915,7 +3918,6 @@ class User extends CI_Controller {
                         $produk=$this->mdl->findProduk($kodeProduk);
                         $idProduk=$produk[0]->idProduk;
                         $harga=$this->input->post('harga');
-                        $upah=$this->input->post('upah');
                         $totalHarga=($qty*$harga)+$upah;
                         
                         //eksekusi query insert
@@ -3926,22 +3928,27 @@ class User extends CI_Controller {
                             'idSalesPerson'     => $this->input->post('idSalesPerson'),
                             'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                             'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
-                            'hargaBahan'        => $this->input->post('hargaBahan'),
-                            'upah'              => $this->input->post('upah'),
+                            'hargaBahan'        => $hargaBahan,
+                            'upah'              => $upah,
                             'datangEmas'        => $this->input->post('datangEmas'),
-                            'panjar'            => $this->input->post('panjar'),
+                            'panjar'            => $panjar,
                             'beratAkhir'        => $this->input->post('beratAkhir'),
                             'totalHarga'        => $totalHarga,
                             'tipeOrder'         => 'massal',
                             'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $this->input->post('pekerjaanTambahan'),
+                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             
                         );
                         $this->mdl->insertData('pomasal',$dataPO);      
                     }
             } else {
+
+                $hargaBahan = $this->clean($this->input->post('hargaBahan'));
+                $upah = $this->clean($this->input->post('upah'));
+                $panjar = $this->clean($this->input->post('panjar'));
+
                     if(count($cekProduk)==0){
                         $dataProduk = array(
                             'kodeProduk'        => $this->input->post('kodeProduk'),
@@ -3960,7 +3967,6 @@ class User extends CI_Controller {
                     $produk=$this->mdl->findProduk($kodeProduk);
                     $idProduk=$produk[0]->idProduk;
                     $harga=$this->input->post('harga');
-                    $upah=$this->input->post('upah');
                     //eksekusi query insert tanpa gambar
                     $dataPO = array(
                         'nomorPO'           => $this->input->post('nomorPO'),
@@ -3969,15 +3975,15 @@ class User extends CI_Controller {
                         'idSalesPerson'     => $this->input->post('idSalesPerson'),
                         'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                         'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
-                        'hargaBahan'        => $this->input->post('hargaBahan'),
-                        'upah'              => $this->input->post('upah'),
+                        'hargaBahan'        => $hargaBahan,
+                        'upah'              => $upah,
                         'datangEmas'        => $this->input->post('datangEmas'),
-                        'panjar'            => $this->input->post('panjar'),
+                        'panjar'            => $panjar,
                         'beratAkhir'        => $this->input->post('beratAkhir'),
                         'tipeOrder'         => 'massal',
                         'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
                         'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                        'pekerjaanTambahan' => $this->input->post('pekerjaanTambahan'),
+                        'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                         'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                     );
                     $this->mdl->insertData('pomasal',$dataPO);                        

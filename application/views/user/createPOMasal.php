@@ -74,7 +74,7 @@
                                                 <label>Nomor PO</label><br>
                                                 <?php if(count($poTerakhir)>0) { ?>
                                                 <small>Nomor Purchase Order terakhir yang digunakan adalah <strong> <?php echo $poTerakhir[0]->nomorPO; ?></strong></small>
-                                                <?php } $poNow =  $poTerakhir[0]->nomorPO+1;?>
+                                                <?php $poNow =  $poTerakhir[0]->nomorPO+1; } else { $poNow = 1; } ?>
                                                 <input type="text" placeholder="Nomor PO" name="nomorPO" class="form-control" value="<?php echo $poNow; ?>" readonly>
                                                 <small class="text-danger"><?php echo form_error('nomorPO'); ?></small>
                                             </div>
@@ -225,15 +225,15 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/>
-                                    <input type="radio" checked="" value="" name="pekerjaanTambahan"><small> Tidak Ada</small></label>
+                                    <!-- <input type="checkbox" checked="" value="" name="pekerjaanTambahan"><small> Tidak Ada</small> --></label>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan" > <i></i> Slap </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan"> <i></i> Kombinasi </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan"> <i></i> Kode Cap </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -255,10 +255,10 @@
                                     <div class="col-sm-10"><input type="text" name="beratAkhir" class="form-control" value="<?php echo set_value('beratAkhir'); ?>" placeholder="500gr" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Upah</label>
-                                    <div class="col-sm-10"><input type="text" name="upah" class="form-control" value="<?php echo set_value('upah'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Panjar</label>
-                                    <div class="col-sm-10"><input type="text" name="panjar" class="form-control" value="<?php echo set_value('panjar'); ?>"></div>
+                                    <div class="col-sm-10"><input type="text" name="panjar" class="form-control good" value="<?php echo set_value('panjar'); ?>"></div>
                                 </div>
                                 
                                 <div class="hr-line-dashed"></div>
