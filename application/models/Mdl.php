@@ -1778,4 +1778,57 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+    //Service
+    public function getPertanyaan() {
+        $sql   = "SELECT * from pertanyaan";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getKepuasan(){
+        $hasil = $this->db->query("SELECT COUNT(*) as 'Jumlah','Tidak Puas' as 'Status' FROM `penilaian` WHERE u1 <50
+                UNION
+                SELECT COUNT(*) as 'Jumlah', 'Puas' as 'Status' FROM `penilaian` WHERE u1 >50
+                UNION 
+                SELECT COUNT(*) as 'Jumlah', 'Netral' as 'Status' FROM `penilaian` WHERE u1=50");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getRekomendasi(){
+        $hasil = $this->db->query("SELECT COUNT(*) as 'Jumlah','Tidak Merekomendasikan' as 'Status' FROM `penilaian` WHERE u2 <=50
+                UNION
+                SELECT COUNT(*) as 'Jumlah', 'Merekomendasikan' as 'Status' FROM `penilaian` WHERE u2 >50");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getJumlahResponden() {
+        $sql   = "SELECT count(*) as 'jumlahResponden' from penilaian";
+        $query = $this->db->query($sql);
+        
+        return $query->row();
+    }
+
+    public function getDimensi() {
+        $sql   = "SELECT * from dimensi";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getRadar() {
+        $sql   = "SELECT AVG(rataHarapan) as 'rataHarapan',AVG(rataRealisasi) as 'rataRealisasi',AVG(rataHarapanT) as 'rataHarapanT',AVG(rataHarapanR) as 'rataHarapanR',AVG(rataHarapanRE) as 'rataHarapanRE',AVG(rataHarapanA) as 'rataHarapanA',AVG(rataHarapanE) as 'rataHarapanE',AVG(rataRealisasiT) as 'rataRealisasiT',AVG(rataRealisasiR) as 'rataRealisasiR',AVG(rataRealisasiRE) as 'rataRealisasiRE',AVG(rataRealisasiA) as 'rataRealisasiA',AVG(rataRealisasiE) as 'rataRealisasiE' FROM `penilaian`";
+        $query = $this->db->query($sql);
+        
+        return $query->row();
+    }
 }

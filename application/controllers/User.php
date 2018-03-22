@@ -2975,7 +2975,7 @@ class User extends CI_Controller {
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
                             'upahPasangBerlian' => $upahPasangBerlian,
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $this->input->post('pekerjaanTambahan'),
+                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                             
@@ -4547,6 +4547,111 @@ class User extends CI_Controller {
         $data['ceksub']    = $this->mdl->cekSubSPK();
         $data['cb']        = $this->mdl->cekbom2();
         $this->load->view('user/spkMasal', $data);
+    }
+
+    //Services
+    function service(){
+        $data['pertanyaan'] = $this->mdl->getPertanyaan();
+        $data['kepuasan'] = $this->mdl->getKepuasan();
+        $data['rekomendasi'] = $this->mdl->getRekomendasi();
+        $data['jumlahResponden'] = $this->mdl->getJumlahResponden();
+        $data['radar'] = $this->mdl->getRadar();
+        $data['dimensi'] = $this->mdl->getDimensi();
+        
+            if($data['kepuasan'] && $data['jumlahResponden']) {
+                $data['tidakpuas'] = $data['kepuasan'][0]->Jumlah/$data['jumlahResponden']->jumlahResponden *100;
+                $data['puas'] = $data['kepuasan'][1]->Jumlah/$data['jumlahResponden']->jumlahResponden *100;
+                $data['netral'] = $data['kepuasan'][2]->Jumlah/$data['jumlahResponden']->jumlahResponden *100;
+            }
+
+            if($data['rekomendasi'] && $data['jumlahResponden']) {
+                $data['merekomendasikan'] = $data['rekomendasi'][1]->Jumlah;
+                $data['tidakmerekomendasikan'] = $data['rekomendasi'][0]->Jumlah;
+            }
+        //print_r($data['kepuasan']);exit();
+        $this->load->view('user/service',$data);
+    }
+
+    function survey(){
+        $data['pertanyaan'] = $this->mdl->getPertanyaan();
+        $this->load->view('user/pertanyaan',$data);
+    }
+
+    function isiSurvey(){
+        $a = $this->input->post();
+        $h1 = $this->input->post('h1');
+        $h2 = $this->input->post('h2');
+        $h3 = $this->input->post('h3');
+        $h4 = $this->input->post('h4');
+        $h5 = $this->input->post('h5');
+        $h6 = $this->input->post('h6');
+        $h7 = $this->input->post('h7');
+        $h8 = $this->input->post('h8');
+        $h9 = $this->input->post('h9');
+        $h10 = $this->input->post('h10');
+        $r1 = $this->input->post('r1');
+        $r2 = $this->input->post('r2');
+        $r3 = $this->input->post('r3');
+        $r4 = $this->input->post('r4');
+        $r5 = $this->input->post('r5');
+        $r6 = $this->input->post('r6');
+        $r7 = $this->input->post('r7');
+        $r8 = $this->input->post('r8');
+        $r9 = $this->input->post('r9');
+        $r10 = $this->input->post('r10');
+        $rataHarapanT = ($h1+$h2)/2;  
+        $rataHarapanR = ($h3+$h4)/2;
+        $rataHarapanRE = ($h5+$h6)/2;
+        $rataHarapanA = ($h7+$h8)/2;
+        $rataHarapanE = ($h9+$h10)/2;
+        $rataRealisasiT = ($r1+$r2)/2;
+        $rataRealisasiR = ($r3+$r4)/2;
+        $rataRealisasiRE = ($r5+$r6)/2;
+        $rataRealisasiA = ($r7+$r8)/2;
+        $rataRealisasiE = ($r9+$r10)/2;
+        $rataHarapan = ($h1+$h2+$h3+$h4+$h5+$h6+$h7+$h8+$h9+$h10)/10;
+        $rataRealisasi = ($r1+$r2+$r3+$r4+$r5+$r6+$r7+$r8+$r9+$r10)/10;
+        $data = array(
+                'id_user'               => "1",
+                'h1'               => $h1,
+                'h2'               => $h2,
+                'h3'               => $h3,
+                'h4'               => $h4,
+                'h5'               => $h5,
+                'h6'               => $h6,
+                'h7'               => $h7,
+                'h8'               => $h8,
+                'h9'               => $h9,
+                'h10'              => $h10,
+                'r1'               => $r1,
+                'r2'               => $r2,
+                'r3'               => $r3,
+                'r4'               => $r4,
+                'r5'               => $r5,
+                'r6'               => $r6,
+                'r7'               => $r7,
+                'r8'               => $r8,
+                'r9'               => $r9,
+                'r10'              => $r10,
+                'u1'               => $this->input->post('u1'),
+                'u2'                => $this->input->post('u2'),
+                'rataHarapanT'      => $rataHarapanT,
+                'rataHarapanR'      => $rataHarapanR,
+                'rataHarapanRE'     => $rataHarapanRE,
+                'rataHarapanA'      => $rataHarapanA,
+                'rataHarapanE'      => $rataHarapanE,
+                'rataRealisasiT'     => $rataRealisasiT,
+                'rataRealisasiR'     => $rataRealisasiR,
+                'rataRealisasiRE'    => $rataRealisasiRE,
+                'rataRealisasiA'     => $rataRealisasiA,
+                'rataRealisasiE'     => $rataRealisasiE,
+                'rataHarapan'       => $rataHarapan,
+                'rataRealisasi'      => $rataRealisasi
+        );
+        $this->mdl->insertData('penilaian', $data);
+        $message = "Terima kasih sudah mengisi survey. Kepuasan anda adalah prioritas kami.";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("user/survey") . "';</script>";
     }
 
 }
