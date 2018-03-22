@@ -247,7 +247,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Harga Berlian</label>
-                                                <input type="text" placeholder="Harga Berlian" name="hargaBerlian" class="form-control" value="<?php echo set_value('hargaBerlian'); ?>">
+                                                <input type="text" placeholder="Rp" name="hargaBerlian" class="form-control good" value="<?php echo set_value('hargaBerlian'); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -277,7 +277,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Harga Batu Zirkon (/pcs)</label>
-                                                <input type="text" placeholder="Harga per Pcs" name="hargaBatuZirkon" class="form-control" value="<?php echo set_value('hargaBatuZirkon'); ?>">
+                                                <input type="text" placeholder="Rp" name="hargaBatuZirkon" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -379,13 +379,13 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Upah</label>
-                                    <div class="col-sm-10"><input type="text" name="upah" class="form-control" value="<?php echo set_value('upah'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" placeholder="Rp" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Budget</label>
-                                    <div class="col-sm-10"><input type="text" name="budget" class="form-control" value="<?php echo set_value('budget'); ?>"></div>
+                                    <div class="col-sm-10"><input type="text" placeholder="Rp" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Panjar</label>
-                                    <div class="col-sm-10"><input type="text" name="panjar" class="form-control" value="<?php echo set_value('panjar'); ?>"></div>
+                                    <div class="col-sm-10"><input type="text" placeholder="Rp" name="panjar" class="form-control good" value="<?php echo set_value('panjar'); ?>"></div>
                                 </div>
                                 
                                 <div class="hr-line-dashed"></div>
