@@ -345,7 +345,7 @@
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
-                                        <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan"> -->
+                                        <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan[]"> -->
                                     </div>
                                 </div>
                                 <div class="form-group">

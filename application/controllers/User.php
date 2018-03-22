@@ -2853,6 +2853,13 @@ class User extends CI_Controller {
             $this->load->view('user/createPurchaseOrder',$data);
         }
         else {
+
+            if(!$this->input->post('pekerjaanTambahan[]')) {
+                $pekerjaanTambahan = "Tidak Ada";
+            } else {
+                $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
+            }
+
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer
@@ -2980,7 +2987,7 @@ class User extends CI_Controller {
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
                             'upahPasangBerlian' => $upahPasangBerlian,
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
+                            'pekerjaanTambahan' => $pekerjaanTambahan,
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                             
@@ -3055,7 +3062,7 @@ class User extends CI_Controller {
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
                             'upahPasangBerlian' => $upahPasangBerlian,
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
+                            'pekerjaanTambahan' => $pekerjaanTambahan,
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                         );
