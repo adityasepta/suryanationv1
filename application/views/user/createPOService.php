@@ -216,7 +216,7 @@
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
                     <?php $jawab++;?>
-                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" name= "jumlah[]" class="form-control" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang[]" class="form-control" required></div><div class="col-md-2 "><label>Berat (gram)</label><input type="text" name= "berat[]" class="form-control" required></div><div class="col-md-3"><label>Sub Total Harga</label><input type="number" name= "harga[]" class="form-control" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" name= "jumlah[]" class="form-control good" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang[]" class="form-control" required></div><div class="col-md-2 "><label>Berat (gram)</label><input type="text" name= "berat[]" class="form-control" required></div><div class="col-md-3"><label>Sub Total Harga</label><input type="number" name= "harga[]" class="form-control" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
                 }
             });
             
