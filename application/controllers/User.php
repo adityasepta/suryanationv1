@@ -2820,7 +2820,16 @@ class User extends CI_Controller {
         $this->load->view('user/invoiceAkhirPOPertokoan',$data);
     }
 
+    function clean($string) {
+        $string = str_replace(' ', '', $string); // Replaces all spaces with hyphens.
+
+        return preg_replace('/[^0-9]/', '', $string); // Removes special chars.
+    }
+
     public function tambahPO(){
+        $ass=$this->input->post('hargaBahan');
+        $ay = $this->clean($ass);
+        print_r($ay);exit;
         $this->form_validation->set_message('is_unique','The %s is already taken');
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
         $this->form_validation->set_rules('kodeProduk', 'Kode Produk' ,'is_unique[produk.kodeProduk]');
