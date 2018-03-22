@@ -158,7 +158,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Harga Beli</label>
-                                                <input type="number" name="hargaBeli" placeholder="Harga Beli" class="form-control">
+                                                <input type="text" placeholder="Rp" name="hargaBeli" class="form-control good" value="<?php echo set_value('hargaBeli'); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +195,19 @@
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
+    <script type="text/javascript">
+        $('.good').inputmask("numeric", {
+            radixPoint: ".",
+            groupSeparator: ",",
+            digits: 2,
+            autoGroup: true,
+            prefix: 'Rp ', //Space after $, this will not truncate the first character.
+            rightAlign: false,
+            oncleared: function () { self.Value(''); }
+        });
+    </script>
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
         <script>

@@ -925,13 +925,14 @@ class User extends CI_Controller {
                     }
                     else {
                         $gambar = $this->upload->data();
+                        $hargaProduk = $this->clean($this->input->post('hargaProduk'));
                         $dataProduk = array(
                                 'kodeProduk'    => $this->input->post('kodeProduk'),
                                 'namaProduk'   => $this->input->post('namaProduk'),
                                 'jenisProduk'   => $this->input->post('jenisProduk'),
                                 'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                                 'gambarProduk'        => $kode,
-                                'hargaProduk'         => $this->input->post('hargaProduk'),
+                                'hargaProduk'         => $hargaProduk,
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->insertData("katalog",$dataProduk);
@@ -942,13 +943,14 @@ class User extends CI_Controller {
                     }
             else {
                 //form submit dengan gambar dikosongkan
+                $hargaProduk = $this->clean($this->input->post('hargaProduk'));
                $dataProduk = array(
                         'kodeProduk'    => $this->input->post('kodeProduk'),
                         'namaProduk'   => $this->input->post('namaProduk'),
                         'jenisProduk'   => $this->input->post('jenisProduk'),
                         'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                         'gambarProduk'        => $kode,
-                        'hargaProduk'         => $this->input->post('hargaProduk'),
+                        'hargaProduk'         => $hargaProduk,
                 );
                 //print_r($dataProduk);exit();
                 $this->mdl->insertData("katalog",$dataProduk);
@@ -1349,12 +1351,13 @@ class User extends CI_Controller {
             $this->load->view('user/createInventory',$data);
         }
         else {
-               $dataInventory = array(
+                $hargaBeli = $this->clean($this->input->post('hargaBeli'));
+                $dataInventory = array(
                                 'tipeBarang'   => $this->input->post('tipeBarang'),
                                 'kodeBarang'    => $this->input->post('kodeBarang'),
                                 'jumlah'        => $this->input->post('jumlah'),
                                 'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
-                                'hargaBeli'  => $this->input->post('hargaBeli')
+                                'hargaBeli'  => $hargaBeli
                         );
                //print_r($dataInventory);exit();
                if ($this->input->post('tipeBarang')=='Produk Jadi') {
