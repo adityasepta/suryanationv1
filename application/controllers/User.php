@@ -2276,7 +2276,7 @@ class User extends CI_Controller {
 
     public function tambahPOPerak(){
         $this->form_validation->set_message('is_unique','The %s is already taken');
-        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
+        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[poperak.nomorPO]');
 
         if ($this->form_validation->run() == FALSE){
             $data['pegawai'] = $this->mdl->listPegawaiSales();
@@ -2284,6 +2284,13 @@ class User extends CI_Controller {
             $this->load->view('user/createPOPerak',$data);
         }
         else {
+
+            if(!$this->input->post('pekerjaanTambahan[]')) {
+                $pekerjaanTambahan = "Tidak Ada";
+            } else {
+                $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
+            }
+
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer

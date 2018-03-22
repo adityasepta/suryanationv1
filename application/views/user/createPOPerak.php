@@ -549,7 +549,6 @@
                         $("input[name='jenisProduk']").prop('disabled',true).iCheck('update');
                         $("input[name='bahan']").prop('disabled',true).iCheck('update');
                         $('#kadarBahan').prop('readonly', true);
-                        $('#hargaBahan').prop('readonly', true);
                         $('#ukuranJari').prop('readonly', true);
                         $('#namaBatu').prop('readonly', true);
                         $('#beratBatu').prop('readonly', true);

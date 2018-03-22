@@ -115,7 +115,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="<?php echo base_url()?>user/printInvoicePerak/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print RFQ</a>
+                                        <a href="<?php echo base_url()?>user/printInvoice/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print RFQ</a>
                                         <h2><?php echo $namaProduk ?></h2>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                                Harga Pasaran Emas
                                             </td>
                                             <td class="text-center">
-                                                <label>-</label>
+                                                <label><?php echo $kuantitas ?> Pcs</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBahan,2,".","."); ?></label>
@@ -291,6 +291,9 @@
                                         </tbody>
                                     </table>
 
+                                </div>
+                                <div>
+                                    <a href="<?php echo base_url()?>user/listPOPerak"><button type="button" class="btn btn-primary"> < Kembali</button></a>
                                 </div>
                                 </div>
 
