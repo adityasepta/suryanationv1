@@ -2975,7 +2975,7 @@ class User extends CI_Controller {
                             'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
                             'upahPasangBerlian' => $upahPasangBerlian,
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan')),
+                            'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                             
