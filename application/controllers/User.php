@@ -3843,6 +3843,7 @@ class User extends CI_Controller {
             $this->load->view('user/createPOMasal',$data);
         }
         else {
+            
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer
