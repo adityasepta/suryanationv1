@@ -654,7 +654,13 @@ class User extends CI_Controller {
             $config['overwrite']        = TRUE;
 
             $this->upload->initialize($config);
-            $this->upload->do_upload();
+            if(!($this->upload->do_upload())) {
+
+                $message = "Foto produk tidak sesuai";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href=location.reload();</script>";
+
+            }
             $dataInfo[] = $this->upload->data();
         }
 
