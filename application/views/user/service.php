@@ -191,7 +191,7 @@ sangat luar biasa</h3>';
                                         <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                             <thead>
                                             <tr>
-                                                <th class="text-center">DIMESI</th>
+                                                <th class="text-center">DIMENSI</th>
                                                 <th class="text-center">HARAPAN</th>
                                                 <th class="text-center">REALISASI</th>
                                                 <th class="text-center">GAP</th>
@@ -247,7 +247,7 @@ sangat luar biasa</h3>';
                                         <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                             <thead>
                                             <tr>
-                                                <th class="text-center">DIMESI</th>
+                                                <th class="text-center">DIMENSI</th>
                                                 <th class="text-center">DEFINISI INDIKATOR</th>
                                             </tr>
                                             </thead>

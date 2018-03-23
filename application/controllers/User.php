@@ -13,24 +13,30 @@ class User extends CI_Controller {
         $this->load->model('mdl');
         
         date_default_timezone_set("Asia/Jakarta");
+
+        if (!(isset($this->session->userdata['logged_in']))) {
+
+            redirect('Login');
+
+        }
     }
 
     public function index() {
 
-        if (isset($this->session->userdata['logged_in'])) {
+        // if (isset($this->session->userdata['logged_in'])) {
 
             $this->load->view('user/dashboardutama_view');
 
-        } else {
-            redirect('user/login');
-        }
+        // } else {
+        //     redirect('user/login');
+        // }
 
         
     }
 
     public function kanban() {
 
-        if (isset($this->session->userdata['logged_in'])) {
+        // if (isset($this->session->userdata['logged_in'])) {
 
             //$data['tgl'] = date_create($time());
 
@@ -69,9 +75,9 @@ class User extends CI_Controller {
 
             $this->load->view('user/statprod_view',$data);
 
-        } else {
-            redirect('user/login');
-        }   
+        // } else {
+        //     redirect('user/login');
+        // }   
 
 
         
@@ -173,19 +179,7 @@ class User extends CI_Controller {
 
     }
 
-    public function login() {
-
-        if (isset($this->session->userdata['logged_in'])) {
-
-            redirect('user');
-
-        } else {
-            $this->load->view('user/login_view');    
-        }
-
-        
-
-    }
+  
 
     public function logout() {
         
@@ -193,31 +187,10 @@ class User extends CI_Controller {
             'email' => ''
         );
         $this->session->unset_userdata('logged_in', $sess_array);
-        redirect('user/login');
+        redirect('Login');
     }
 
-    public function proseslogin() {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        
-        $status = $this->mdl->checkAccount($username,$password);
-
-        if ($status != FALSE) {
-            $session_data = array(
-                'username' => $status[0]->username,
-                'nama' => $status[0]->nama,
-                'level' => $status[0]->level,
-                'iduser' => $status[0]->idUser,
-            );
-
-            $this->session->set_userdata('logged_in', $session_data);
-            
-            redirect('User/index');
-        } else {
-            $data['err'] = 'ada';
-            $this->load->view('user/login_view', $data);
-        }
-    }
+   
     
     public function administration() {
         $this->load->view('user/administrationDashboard');
@@ -1920,7 +1893,7 @@ class User extends CI_Controller {
 
     public function kanbanService() {
 
-        if (isset($this->session->userdata['logged_in'])) {
+        // if (isset($this->session->userdata['logged_in'])) {
 
             //$data['tgl'] = date_create($time());
 
@@ -1956,9 +1929,9 @@ class User extends CI_Controller {
 
             $this->load->view('user/statprodService_view',$data);
 
-        } else {
-            redirect('user/login');
-        }   
+        // } else {
+        //     redirect('user/login');
+        // }   
 
 
         
@@ -3468,7 +3441,7 @@ class User extends CI_Controller {
     public function kanbanMassal()
     {
         
-        if (isset($this->session->userdata['logged_in'])) {
+        // if (isset($this->session->userdata['logged_in'])) {
             
             //$data['tgl'] = date_create($time());
             
@@ -3502,9 +3475,9 @@ class User extends CI_Controller {
             
             $this->load->view('user/statprodMassal_view', $data);
             
-        } else {
-            redirect('user/login');
-        }
+        // } else {
+        //     redirect('user/login');
+        // }
         
         
         
@@ -4079,8 +4052,8 @@ class User extends CI_Controller {
 
      public function kanbanPerak() {
 
-        if (isset($this->session->userdata['logged_in'])) {
-
+        // if (isset($this->session->userdata['logged_in'])) {
+// 
             //$data['tgl'] = date_create($time());
 
             $data['s'] = $this->mdl->getSales3();
@@ -4117,9 +4090,9 @@ class User extends CI_Controller {
 
             $this->load->view('user/statprodperak_view',$data);
 
-        } else {
-            redirect('user/login');
-        }   
+        // } else {
+        //     redirect('user/login');
+        // }   
 
 
         
