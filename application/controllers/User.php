@@ -636,6 +636,7 @@ class User extends CI_Controller {
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['userfile']['name']);
+        
         $produk = $this->mdl->findProduk($kodeProduk);
         $kode=$produk[0]->kodeGambar;
 
