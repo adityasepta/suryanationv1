@@ -399,8 +399,8 @@
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <a href="<?php echo base_url('user/invoicePO/'.$kr[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
-                            <a href="<?php echo base_url('user/invoiceMassal/'.$kr[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                            <a href="<?php echo base_url('user/invoicePOMassal/'.$kr[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
+                            <a href="<?php echo base_url('user/invoiceSPKMassal/'.$kr[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>
                         </div>
                     </div>

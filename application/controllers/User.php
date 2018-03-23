@@ -612,12 +612,16 @@ class User extends CI_Controller {
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['userfile']['name']);
+
+        
+
         $b=0;
         for ($i=0; $i < $cpt; $i++) { 
             if ($_FILES['userfile']['name'][$i]!=NULL) {
                 $b++;
             }
         }
+
         $produk = $this->mdl->findProduk($kodeProduk);
         $kode=$produk[0]->kodeGambar;
         $a=0;
