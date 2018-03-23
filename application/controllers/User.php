@@ -103,11 +103,14 @@ class User extends CI_Controller {
             $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idaktivitas);
             $next = $aktivitas[0]->idAktivitas;
 
+            $beratAwal = $proses[0]->berat;
+
             $data = array(
                 'idSPK' => $idSPK,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
                 'idAktivitas' => $next,
+                'beratAwal' => $beratAwal,
                 'statusBerat' => 'Belum Disetujui'
             );
             $this->mdl->insertData('factproduction', $data);
@@ -127,7 +130,6 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('berat')
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
@@ -171,6 +173,7 @@ class User extends CI_Controller {
 
         $data = array(
             'berat' => $this->input->post('berat'),
+            'beratAwal' => $this->input->post('beratAwal'),
             'kembali' => $this->input->post('kembali'),
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
@@ -422,6 +425,7 @@ class User extends CI_Controller {
         $data['klot'] = $this->mdl->getKloterSPK();
         $data['cekklot'] = $this->mdl->cekkloter();
         $data['cb'] = $this->mdl->cekbom2();
+
         $this->load->view('user/spk',$data);
     }
 

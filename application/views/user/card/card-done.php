@@ -281,18 +281,20 @@
                                                                 <div class="modal-body">
                                                                     <?php echo form_open('user/setBerat')?>
                                                                     <div class="form-horizontal">
-                                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat <?php echo $b[$z]->namaAktivitas ?></label>
+                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $b[$z]->namaAktivitas ?></label>
 
-                                                                            <div class="col-sm-7"><input type="number" step="any" name="berat" class="form-control"></div>
-                                                                            <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
+                                                                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $do[$i]->beratAwal?>" class="form-control"></div>
+                                                                             <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
+                                                                             <div class="col-sm-7"><input type="hidden" step="any" name="berat" value="<?php echo $do[$i]->beratAwal?>" class="form-control"></div>
                                                                         </div>
                                                                     </div>
+                                                                    
                                                                     <div class="row">
                                                                         <div class="col-lg-6">
                                                                             <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $do[$i]->nomorFaktur ?>" class="btn btn-danger btn-block">Kembali</button>
                                                                         </div>
                                                                         <div class="col-lg-6">
-                                                                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                                                                            <button type="submit" class="btn btn-block btn-success">Verifikasi</button>
                                                                         </div>
                                                                     </div>
                                                                     <?php echo form_close()?>

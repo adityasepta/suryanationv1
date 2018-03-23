@@ -341,7 +341,13 @@
                                                                 <div class="modal-body">
                                                                     <?php echo form_open('user/setBerat')?>
                                                                     <div class="form-horizontal">
-                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat <?php echo $b[$z]->namaAktivitas ?></label>
+                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $b[$z]->namaAktivitas ?></label>
+
+                                                                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $go[$i]->beratAwal?>" class="form-control"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-horizontal">
+                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $b[$z]->namaAktivitas ?></label>
 
                                                                             <div class="col-sm-5"><input type="number" step="any" name="berat" class="form-control"></div>
                                                                             <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
