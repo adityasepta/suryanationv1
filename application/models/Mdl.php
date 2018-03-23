@@ -328,6 +328,11 @@ class mdl extends CI_Model {
         $this->db->insert('rencanaproduksi', $dataRencana);
     }
 
+    public function tambahRencana2($dataRencana){
+        //Quert insert into
+        $this->db->insert('rencanaproduksi2', $dataRencana);
+    }
+
     public function prosesDesain($nomorFaktur) {
         //Query update from ... where id = ...
         $this->db->query("update spk set statusDesain='Menunggu Persetujuan' where nomorFaktur=$nomorFaktur");

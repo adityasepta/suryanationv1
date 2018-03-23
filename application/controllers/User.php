@@ -3540,7 +3540,7 @@ class User extends CI_Controller {
                 'startDate' => $startDate[$b],
                 'endDate' => $endDate[$b]
             );
-            $this->mdl->tambahRencana($dataJadwal);
+            $this->mdl->tambahRencana2($dataJadwal);
             
         }
         
@@ -4610,7 +4610,7 @@ class User extends CI_Controller {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
         //$data['cekbom']    = $this->mdl->cekbom();
         //$data['cekjadwal'] = $this->mdl->cekjadwal();
-        $data['jadwal']    = $this->mdl->getjadwal4($nomorFaktur);
+        $data['jadwal']    = $this->mdl->getjadwal7($nomorFaktur);
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
         $data['isi'] = $this->mdl->getIsiSPK($nomorFaktur);
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
