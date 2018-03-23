@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2018 at 09:51 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Mar 23, 2018 at 07:08 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -101,18 +101,6 @@ CREATE TABLE `bommassal` (
   `jumlah` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `bommassal`
---
-
-INSERT INTO `bommassal` (`idBOM`, `idSubSPK`, `idMaterial`, `jumlah`) VALUES
-(1, '2', 7, 113.4),
-(2, '2', 21, 12.49),
-(3, '2', 22, 4.16),
-(4, '2', 23, 4.16),
-(5, '1', 9, 62.4),
-(6, '1', 7, -16.55);
-
 -- --------------------------------------------------------
 
 --
@@ -131,9 +119,9 @@ CREATE TABLE `bomtempahan` (
 --
 
 INSERT INTO `bomtempahan` (`idBOM`, `idKloter`, `idMaterial`, `jumlah`) VALUES
-(1, 'O6QQfRym55', 18, 123.2),
-(2, 'O6QQfRym55', 21, 9.48),
-(3, 'O6QQfRym55', 24, 1.99);
+(1, 'eIbFTRhkKe', 16, 252),
+(2, 'eIbFTRhkKe', 21, 22.91),
+(3, 'eIbFTRhkKe', 24, 4.12);
 
 -- --------------------------------------------------------
 
@@ -155,13 +143,17 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`idCustomer`, `namaCustomer`, `nomorTelepon`, `lastModified`) VALUES
 (1, 'Brenda', '087859275353', '2018-01-29 13:14:21'),
 (2, 'Mamad', '021677827', '2018-01-31 02:38:28'),
-(3, 'Melita Sari Lubis', '085262244633', '2018-02-02 03:25:26'),
+(3, 'Degananda', '085262244633', '2018-03-22 09:57:44'),
 (4, 'Denanda Putri', '087859275353', '2018-02-02 10:09:33'),
 (5, 'Ferdinan Sinaga', '087859275353', '2018-02-02 16:32:40'),
 (6, 'Adrian Afnandika', '087545586120', '2018-02-24 17:27:17'),
 (7, 'Melita Sari Lubis', '085262244633', '2018-02-27 06:59:27'),
 (8, 'Muhammad Andre', '085276185896', '2018-02-27 07:00:25'),
-(9, 'Hildan Ma''ruf', '085746324212', '2018-03-02 10:23:27');
+(9, 'Hildan Ma''ruf', '085746324212', '2018-03-02 10:23:27'),
+(10, 'Melita Sari Lubis', '085262244633', '2018-03-22 12:27:15'),
+(11, 'Muhammad Andre', '085276185896', '2018-03-22 12:29:59'),
+(12, 'Denanda Putri', '087859275353', '2018-03-22 12:33:38'),
+(13, 'Mamad', '021677827', '2018-03-22 16:45:15');
 
 -- --------------------------------------------------------
 
@@ -177,6 +169,16 @@ CREATE TABLE `detailpurchaseorderservice` (
   `harga` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detailpurchaseorderservice`
+--
+
+INSERT INTO `detailpurchaseorderservice` (`idDetailPO`, `idPO`, `namaBarang`, `jumlah`, `harga`) VALUES
+(1, 1, 'j', 1, '30000'),
+(2, 1, 'k', 1, '200000'),
+(3, 1, 'l', 2, '10000'),
+(4, 2, 'Adit', 3, '300000');
+
 -- --------------------------------------------------------
 
 --
@@ -190,6 +192,13 @@ CREATE TABLE `detailpurchaseordertrading` (
   `jumlah` int(11) NOT NULL,
   `harga` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detailpurchaseordertrading`
+--
+
+INSERT INTO `detailpurchaseordertrading` (`idDetailPO`, `idPO`, `idProduk`, `jumlah`, `harga`) VALUES
+(1, 1, '1', 2, '');
 
 -- --------------------------------------------------------
 
@@ -240,13 +249,20 @@ CREATE TABLE `factproduction` (
 --
 
 INSERT INTO `factproduction` (`idProProd`, `idSPK`, `idAktivitas`, `idPIC`, `RealisasiStartDate`, `RealisasiEndDate`, `beratAwal`, `berat`, `kembali`, `statusBerat`, `statusWork`, `statusSPK`) VALUES
-(1, 1, 1004, 0, '2018-02-25 00:32:41', '2018-02-25 00:39:05', 0, 0, 0, '', 'Done', 'Done'),
-(2, 1, 1005, 19, '2018-02-25 00:39:12', '2018-02-25 00:39:19', 0, 0, 0, 'Belum Disetujui', 'Done', 'Done'),
-(3, 1, 1006, 18, '2018-02-25 00:39:38', '2018-02-25 00:39:45', 0, 0, 0, 'Belum Disetujui', 'Done', 'Done'),
-(4, 1, 1007, 23, '2018-02-25 00:40:36', '2018-02-25 00:41:54', 50, 46, 0, 'Disetujui', 'Done', 'Done'),
-(5, 1, 1008, 21, '2018-02-25 00:42:03', '2018-02-25 00:42:29', 0, 44, 0, 'Disetujui', 'Done', 'Done'),
-(6, 1, 1013, 20, '2018-02-25 00:42:41', '2018-02-25 00:43:05', 0, 43, 0, 'Disetujui', 'Done', 'Done'),
-(7, 1, 1014, 18, '2018-02-25 00:43:38', '2018-02-25 00:43:38', 0, 42, 0, 'Belum Disetujui', 'Done', 'Done');
+(2, 1, 1004, 19, '2018-03-22 22:13:51', '2018-03-22 22:32:41', 0, 0, 0, '', 'Done', 'Done'),
+(3, 2, 1004, 19, '2018-03-22 22:13:51', '2018-03-22 22:32:41', 0, 0, 0, '', 'Done', 'Active'),
+(4, 1, 1005, 24, '2018-03-22 22:33:09', '2018-03-22 22:33:13', 0, 0, 0, 'Belum Disetujui', 'Done', 'Done'),
+(5, 2, 1005, 24, '2018-03-22 22:33:09', '2018-03-22 22:33:13', 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
+(6, 1, 1006, 19, '2018-03-22 22:33:26', '2018-03-22 22:34:16', 0, 0, 0, 'Belum Disetujui', 'Done', 'Done'),
+(7, 2, 1006, 19, '2018-03-22 22:33:26', '2018-03-22 22:34:16', 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
+(8, 1, 1007, 19, '2018-03-22 22:45:45', '2018-03-22 22:46:40', 100.45, 100.2, 0, 'Disetujui', 'Done', 'Done'),
+(9, 2, 1007, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 90.97, 0, 'Disetujui', 'Belum ada PIC', 'Active'),
+(10, 1, 1008, 19, '2018-03-22 22:46:59', '2018-03-22 22:50:21', 0, 95, 0, 'Disetujui', 'Done', 'Done'),
+(11, 1, 1009, 19, '2018-03-22 22:50:57', '2018-03-22 22:51:50', 0, 94.5, 0, 'Disetujui', 'Done', 'Done'),
+(12, 1, 1011, 22, '2018-03-22 22:52:08', '2018-03-22 22:53:14', 0, 90.86, 0, 'Disetujui', 'Done', 'Done'),
+(13, 1, 1012, 19, '2018-03-22 22:54:59', '2018-03-22 22:55:20', 0, 89.57, 0, 'Disetujui', 'Done', 'Done'),
+(14, 1, 1013, 19, '2018-03-22 22:55:26', '2018-03-22 22:56:34', 0, 90, 0, 'Disetujui', 'Done', 'Done'),
+(15, 1, 1014, 18, '2018-03-22 23:10:52', '2018-03-22 23:10:52', 0, 83.44, 0, 'Belum Disetujui', 'Done', 'Done');
 
 -- --------------------------------------------------------
 
@@ -272,29 +288,6 @@ CREATE TABLE `factproduction2` (
   `statusSPK` varchar(23) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `factproduction2`
---
-
-INSERT INTO `factproduction2` (`idProProd`, `idSPK`, `idSubSPK`, `idWadah`, `idAktivitas`, `idPIC`, `RealisasiStartDate`, `RealisasiEndDate`, `beratAwal`, `berat`, `kembali`, `jumlah`, `statusBerat`, `statusWork`, `statusSPK`) VALUES
-(1, 1, 1, 0, 1004, 20, '2018-03-02 19:10:44', '2018-03-02 19:19:37', 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
-(2, 1, 2, 0, 1004, 22, '2018-03-02 19:10:52', '2018-03-02 19:19:43', 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
-(3, 1, 1, 0, 1005, 22, '2018-03-02 19:19:53', '2018-03-02 19:20:08', 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
-(4, 1, 2, 0, 1005, 18, '2018-03-02 19:20:04', '2018-03-02 19:20:12', 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active'),
-(5, 1, 1, 0, 1006, 19, '2018-03-02 19:24:11', '2018-03-02 19:24:58', 0, 40, 0, 20, 'Disetujui', 'Done', 'Active'),
-(6, 1, 2, 0, 1006, 23, '2018-03-02 19:24:21', '2018-03-02 19:25:28', 0, 30, 0, 10, 'Disetujui', 'Done', 'Active'),
-(9, 1, 1, 1, 1007, 21, '2018-03-02 19:29:18', '2018-03-02 19:31:40', 20, 9.5, 0, 10, 'Disetujui', 'Done', 'Active'),
-(10, 1, 1, 2, 1007, 20, '2018-03-02 19:29:28', '2018-03-02 19:32:24', 20, 10, 0, 10, 'Disetujui', 'Done', 'Active'),
-(11, 1, 2, 3, 1007, 18, '2018-03-02 19:29:40', '0000-00-00 00:00:00', 30, 0, 0, 10, 'Belum Disetujui', 'On Progress', 'Active'),
-(12, 1, 1, 1, 1008, 19, '2018-03-02 19:32:38', '2018-03-02 19:33:31', 0, 9, 0, 0, 'Disetujui', 'Done', 'Active'),
-(13, 1, 1, 2, 1008, 18, '2018-03-02 19:32:46', '0000-00-00 00:00:00', 0, 0, 0, 0, 'Belum Disetujui', 'On Progress', 'Active'),
-(14, 1, 1, 1, 1009, 19, '2018-03-02 19:34:00', '2018-03-02 19:34:21', 0, 9, 0, 0, 'Disetujui', 'Done', 'Active'),
-(15, 1, 1, 1, 1010, 23, '2018-03-02 19:34:29', '2018-03-02 19:35:03', 0, 8, 0, 0, 'Disetujui', 'Done', 'Active'),
-(16, 1, 1, 1, 1011, 18, '2018-03-02 19:35:20', '2018-03-02 19:35:33', 0, 8, 0, 0, 'Disetujui', 'Done', 'Active'),
-(17, 1, 1, 1, 1012, 18, '2018-03-02 19:35:53', '2018-03-02 19:36:21', 0, 7, 0, 0, 'Disetujui', 'Done', 'Active'),
-(18, 1, 1, 1, 1013, 20, '2018-03-02 19:36:30', '2018-03-02 19:36:54', 0, 6.9, 0, 0, 'Disetujui', 'Done', 'Active'),
-(19, 1, 1, 1, 1014, 18, '2018-03-02 20:26:21', '2018-03-02 20:26:21', 0, 6.5, 0, 0, 'Disetujui', 'Done', 'Active');
-
 -- --------------------------------------------------------
 
 --
@@ -316,6 +309,22 @@ CREATE TABLE `factproductionservice` (
   `statusSPK` varchar(23) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `factproductionservice`
+--
+
+INSERT INTO `factproductionservice` (`idProProd`, `idSPK`, `idAktivitas`, `idPIC`, `RealisasiStartDate`, `RealisasiEndDate`, `berat`, `beratAwal`, `kembali`, `statusBerat`, `statusWork`, `statusSPK`) VALUES
+(1, 1, 1001, 19, '2018-03-22 23:30:01', '2018-03-22 23:30:04', 36.5, 0, 0, 'Disetujui', 'Done', 'Done'),
+(2, 1, 1002, 20, '2018-03-22 23:30:19', '2018-03-22 23:30:41', 35, 0, 0, 'Disetujui', 'Done', 'Done'),
+(3, 1, 1003, 23, '2018-03-22 23:30:48', '2018-03-22 23:31:08', 34.6, 0, 0, 'Disetujui', 'Done', 'Done'),
+(4, 1, 1004, 22, '2018-03-22 23:31:16', '2018-03-22 23:31:36', 33, 0, 0, 'Disetujui', 'Done', 'Done'),
+(5, 1, 1005, 21, '2018-03-22 23:31:42', '2018-03-22 23:32:04', 32.5, 0, 0, 'Disetujui', 'Done', 'Done'),
+(6, 1, 1006, 24, '2018-03-22 23:32:11', '2018-03-22 23:32:56', 31, 0, 0, 'Disetujui', 'Done', 'Done'),
+(7, 1, 1007, 18, '2018-03-22 23:38:59', '2018-03-22 23:38:59', 30, 0, 0, 'Belum Disetujui', 'Done', 'Done'),
+(8, 2, 1001, 22, '2018-03-22 23:46:17', '2018-03-22 23:46:31', 49, 0, 0, 'Disetujui', 'Done', 'Done'),
+(9, 2, 1006, 22, '2018-03-22 23:46:38', '2018-03-22 23:46:58', 40, 0, 0, 'Disetujui', 'Done', 'Done'),
+(10, 2, 1007, 18, '2018-03-22 23:52:27', '2018-03-22 23:52:27', 31, 0, 0, 'Belum Disetujui', 'Done', 'Done');
+
 -- --------------------------------------------------------
 
 --
@@ -336,7 +345,7 @@ CREATE TABLE `invoiceheader` (
 --
 
 INSERT INTO `invoiceheader` (`idHeader`, `nomorPO`, `total`, `jenisInvoice`, `tipeInvoice`, `lastModified`) VALUES
-(1, '1234', 17736000, 'tempahan', 'perseorangan', '2018-02-24 17:44:46');
+(1, '1', 45105100, 'tempahan', 'perseorangan', '2018-03-22 16:57:11');
 
 -- --------------------------------------------------------
 
@@ -438,7 +447,7 @@ CREATE TABLE `invoicetempahanperseorangan` (
 --
 
 INSERT INTO `invoicetempahanperseorangan` (`idTempahan`, `idHeader`, `nomorPO`, `beratTotal`, `beratBatu`, `susut`, `beratAkhir`, `hargaAkhir`, `beratHargaAkhir`, `upah`, `jumlahDatangBerlian`, `upahPasangBerlian`, `upahBerlian`, `jumlahBatuZirkon`, `hargaBatuZirkon`, `upahCZ`, `hargaKrumWarna`, `datangEmas`, `hargaDatangEmas`, `totalDatangEmas`, `panjar`, `total`) VALUES
-(1, 1, '1234', 42, 5, 1, 38, 477000, 18126000, 600000, 0, 0, 0, 20, 8000, 160000, 50000, 0, 0, 0, 1200000, 17736000);
+(1, 1, '1', 83.44, 10, 1, 74.44, 586178, 43635100, 500000, 20, 200000, 4000000, 20, 5000, 100000, 120000, 5, 450000, 2250000, 1000000, 45105100);
 
 -- --------------------------------------------------------
 
@@ -476,6 +485,34 @@ CREATE TABLE `invoicetempahanpertokoan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `katalog`
+--
+
+CREATE TABLE `katalog` (
+  `idKatalog` int(11) NOT NULL,
+  `kodeProduk` varchar(200) NOT NULL,
+  `namaProduk` varchar(255) NOT NULL,
+  `jenisProduk` varchar(150) NOT NULL,
+  `deskripsiProduk` text NOT NULL,
+  `hargaProduk` float NOT NULL,
+  `gambarProduk` varchar(50) NOT NULL,
+  `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `katalog`
+--
+
+INSERT INTO `katalog` (`idKatalog`, `kodeProduk`, `namaProduk`, `jenisProduk`, `deskripsiProduk`, `hargaProduk`, `gambarProduk`, `lastModified`) VALUES
+(0, 'MLI-2017', 'Cincin Nikah Pria', 'Cincin', 'Cincin Warna Putih Mengkilap', 1200000, 'hZuJI1TC4u', '2018-03-22 09:50:16'),
+(1, 'CLT-100', 'Cincin Saphire Biru', 'Cincin', 'Batu Zirkon 20 Buah\r\nBerat 20 gr', 2450000, 'YMNWvACcxd', '2018-03-13 08:40:27'),
+(2, 'CLT-101', 'Liontin Saphire Merah', 'Liontin', 'Berat Batu Saphire 15 Gr', 670000, 'ky9KPxnQcp', '2018-03-13 10:13:38'),
+(3, 'CPR 12312', 'Cincin Kawin', 'Liontin', 'Coba', 2000000, 'uV6uKdYjL3', '2018-03-15 05:52:51'),
+(4, 'KTO 12322', 'Cincin Nikah Pria', 'Cincin', 'contoh deskripsi produk', 1000000, 'w3Wd2XreHF', '2018-03-15 05:53:57');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kloter`
 --
 
@@ -493,8 +530,8 @@ CREATE TABLE `kloter` (
 --
 
 INSERT INTO `kloter` (`idGroup`, `idKloter`, `idSPK`, `nama`, `kadar`, `tgl_kloter`) VALUES
-(1, 'O6QQfRym55', 1, 'Kadar 60%', 60, '2018-02-25 00:32:19'),
-(2, 'NAXtcyoJY0', 3, 'Andre', 70, '2018-02-27 15:31:54');
+(2, 'eIbFTRhkKe', 1, 'Kloter-60-Andi', 60, '2018-03-22 22:13:11'),
+(3, 'eIbFTRhkKe', 2, 'Kloter-60-Andi', 60, '2018-03-22 22:13:11');
 
 -- --------------------------------------------------------
 
@@ -526,15 +563,16 @@ INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `satu
 (13, '107', 'Emas Kuning 38%', 'gram', 200, 100, 'Emas'),
 (14, '201', 'Emas Rose Gold 75%', 'gram', 885.16, 100, 'Emas'),
 (15, '202', 'Emas Rose Gold 70%', 'gram', 30.74, 100, 'Emas'),
-(16, '203', 'Emas Putih 70%', 'gram', 200, 100, 'Emas'),
+(16, '203', 'Emas Putih 70%', 'gram', -52, 100, 'Emas'),
 (17, '204', 'Emas Putih 75%', 'gram', 200, 100, 'Emas'),
 (18, '205', 'Emas Kuning 70%', 'gram', 76.8, 100, 'Emas'),
 (19, '206', 'Emas Kuning 80%', 'gram', 200, 100, 'Emas'),
 (20, '207', 'Emas Swasa 50%', 'gram', 200, 100, 'Emas'),
-(21, '301', 'Alloy', 'gram', -20.97, 100, 'Non Emas'),
+(21, '301', 'Alloy', 'gram', 156.12, 100, 'Non Emas'),
 (22, '302', 'Tembaga', 'gram', 195.84, 100, 'Non Emas'),
 (23, '303', 'Perak', 'gram', 195.84, 100, 'Non Emas'),
-(24, '304', 'Paladium', 'gram', 193.4, 100, 'Non Emas');
+(24, '304', 'Paladium', 'gram', 189.28, 100, 'Non Emas'),
+(25, 'APX-702', 'Vibranium', 'Gram', 100, 100, 'Emas');
 
 -- --------------------------------------------------------
 
@@ -659,7 +697,7 @@ CREATE TABLE `pomasal` (
 --
 
 INSERT INTO `pomasal` (`idPO`, `nomorPO`, `idProduk`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `tanggalEstimasiPenyelesaian`, `hargaBahan`, `upah`, `datangEmas`, `hargaDatangEmas`, `kadarDatangEmas`, `datangBerlian`, `jumlahDatangBerlian`, `upahPasangBerlian`, `tipeCustomer`, `pekerjaanTambahan`, `keteranganTambahan`, `biayaTambahan`, `beratAkhir`, `metode`, `panjar`, `totalHarga`, `lastModified`, `tipeOrder`) VALUES
-(1, 1238, 4, 9, 19, '2018-03-02 00:00:00', '2018-03-09 00:00:00', 0, 150000, 35, 540000, 0, '5', 2, 150000, 'Standard', '', '', 0, 30, 'Design', 500000, 150000, '2018-03-02 10:23:27', 'custom');
+(1, 1, 1, 9, 19, '2018-03-22 00:00:00', '2018-03-31 00:00:00', 600000, 800000, 12, 0, 60, '', 0, 0, 'Teliti', 'Slap,Kombinasi', 'Kode tulisan "AX"', 0, 300, '', 2000000, 0, '2018-03-22 11:43:28', 'massal');
 
 -- --------------------------------------------------------
 
@@ -695,6 +733,13 @@ CREATE TABLE `poperak` (
   `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `tipeOrder` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `poperak`
+--
+
+INSERT INTO `poperak` (`idPO`, `nomorPO`, `idProduk`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `tanggalEstimasiPenyelesaian`, `hargaBahan`, `upah`, `datangEmas`, `hargaDatangEmas`, `kadarDatangEmas`, `datangBerlian`, `jumlahDatangBerlian`, `upahPasangBerlian`, `tipeCustomer`, `pekerjaanTambahan`, `keteranganTambahan`, `biayaTambahan`, `kuantitas`, `metode`, `budget`, `panjar`, `totalHarga`, `lastModified`, `tipeOrder`) VALUES
+(1, 1, 1, 3, 19, '2018-03-22 00:00:00', '2018-03-31 00:00:00', 600000, 0, 6, 600000, 60, '1', 12, 200000, 'Teliti', 'Enamel,Slap', 'Kode nama ''AZ''', 0, 1, 'Design', 2500000, 1500000, 0, '2018-03-22 12:09:15', 'custom');
 
 -- --------------------------------------------------------
 
@@ -736,9 +781,8 @@ CREATE TABLE `potempahan` (
 --
 
 INSERT INTO `potempahan` (`idPO`, `nomorPO`, `idProduk`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `tanggalEstimasiPenyelesaian`, `hargaBahan`, `upah`, `datangEmas`, `hargaDatangEmas`, `kadarDatangEmas`, `datangBerlian`, `jumlahDatangBerlian`, `upahPasangBerlian`, `tipeCustomer`, `pekerjaanTambahan`, `keteranganTambahan`, `biayaTambahan`, `kuantitas`, `metode`, `budget`, `panjar`, `totalHarga`, `lastModified`, `tipeOrder`) VALUES
-(1, 1234, 10, 6, 19, '2018-02-25 00:00:00', '2018-03-03 00:00:00', 900000, 600000, 0, 0, 0, '0', 0, 0, 'Teliti', 'Enamel', 'AS', 50000, 1, 'Design', 2400000, 1200000, 600000, '2018-02-24 17:27:18', 'custom'),
-(2, 1235, 11, 1, 19, '2018-03-03 00:00:00', '2018-03-10 00:00:00', 500000, 1000000, 100, 450000, 70, '25', 70, 1000000, 'Teliti', 'Enamel', '', 0, 100, 'Manual', 10000000, 1000000, 1000000, '2018-02-26 01:06:27', 'custom'),
-(4, 1237, 13, 8, 21, '2018-02-27 00:00:00', '2018-03-05 00:00:00', 424500, 1000000, 0, 0, 0, '0', 0, 0, 'Teliti', 'Slap', 'Slap tikar', 30000, 1, 'Design', 15000000, 3000000, 1000000, '2018-02-27 07:00:25', 'custom');
+(1, 1, 1, 8, 21, '2018-03-22 00:00:00', '2018-03-31 00:00:00', 500000, 500000, 5, 450000, 50, '1', 20, 200000, 'Teliti', 'Enamel,Kombinasi', 'Cepet Mas', 20000, 1, 'Design', 2500000, 1000000, 500000, '2018-03-22 11:19:33', 'custom'),
+(2, 2, 2, 12, 19, '2018-03-22 00:00:00', '2018-03-30 00:00:00', 700000, 700000, 0, 0, 0, '0', 0, 0, 'Teliti', 'Tidak Ada', '', 0, 1, 'Design', 2000000, 600000, 700000, '2018-03-22 14:23:14', 'custom');
 
 -- --------------------------------------------------------
 
@@ -778,18 +822,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`idProduk`, `kodeProduk`, `namaProduk`, `jenisProduk`, `bahan`, `kadarBahan`, `namaBatu`, `beratBatu`, `ukuranJari`, `berlian`, `beratBerlian`, `hargaBerlian`, `batuZirkon`, `jumlahBatuZirkon`, `hargaBatuZirkon`, `krumWarna`, `hargaKrumWarna`, `keteranganKrum`, `tipeIkatan`, `model`, `harga`, `kodeGambar`, `stok`, `lastModified`) VALUES
-(2, 'CLS-992', 'Brenda-1230-saphire gold', 'Cincin', 'Perak', 92, 'saphire gold', 100, 31, 'diamond', 0, 0, '', 0, 0, 'merah delima', 0, '', 'Bungkus', 'ke samping', 25000000, 'LWYfTxZlYU', 100, '2018-02-11 15:52:26'),
-(3, 'CAC-102', 'Melita Sari Lubis-1233-Berlian', 'Cincin', 'Emas Putih', 70, 'Berlian', 0, 12, 'Diamond', 0, 0, '', 0, 0, 'Putih', 0, '', 'Kuku', 'Cincin Cewek Listring', 0, 'M5i41rNLO3', 1, '2018-02-11 15:52:34'),
-(4, 'CLS-311', 'Brenda-1231-Berlian', 'Cincin', 'Emas Kuning', 2, 'Shapire Biru', 2, 1, 'Diamond', 0, 0, '', 0, 0, 'Emas', 0, '', 'Bungkus', 'Keroncong', 2000000, 'egE7TK8Pjs', 10, '2018-03-02 13:26:21'),
-(5, 'CLS-1023', 'Denanda Putri-1234-Saphire', 'Anting', 'Emas Putih', 2, 'Saphire', 1, 1, 'Diamond', 0, 0, '', 0, 0, 'Silver', 0, '', 'Bungkus', 'Anting', 2300000, 'c1ocu6RvzW', 0, '2018-02-02 10:09:33'),
-(6, 'CLS-101', 'Ferdinan Sinaga-1235-Kwarsa', 'Anting', 'Perak', 2, 'Kwarsa', 2, 12, 'Berlian', 0, 0, '', 0, 0, 'Silver', 0, '', 'Bungkus Kaku', 'Cincin Wanita', 2300000, 'Boz711zK7T', 0, '2018-02-02 16:32:40'),
-(7, 'CLS-100', 'Brenda-1236-Saphire', 'Cincin', 'Emas Kuning', 65, 'Saphire', 0, 11, 'Swarowski', 0, 0, '', 0, 0, 'Kuning', 0, '', 'Tanam', 'Cincin Pria', 2300000, 'qEy7u6zwBl', 0, '2018-02-03 09:12:11'),
-(8, 'CLS-230', 'Melita Sari Lubis-1238-Permata', 'Cincin', 'Emas Putih', 6, 'Permata', 2, 12, 'Berlian', 7, 800000, 'PRQ', 20, 5000, 'Putih', 600000, 'Kombinasi', 'Bungkus', 'Cincin Pria', 0, 'o1dnPPVYd1', 0, '2018-02-12 10:13:59'),
-(9, 'CLS-444', 'Melita Sari Lubis-1239-Berlian', 'Cincin', 'Emas Kuning', 50, 'Berlian', 5, 12, 'Diamond', 5, 900000, 'Swarovski', 20, 6000, 'Emas', 60000, 'Emas Kuning', 'Bungkus', 'Cincin Pria', 0, 'WLd3sYX49I', 0, '2018-02-19 10:03:41'),
-(10, 'CLS-239', 'Adrian Afnandika-1234-Saphire', 'Cincin', 'Emas Kuning', 60, 'Saphire', 5, 12, 'Berlian', 8, 2000000, 'Swarovski', 20, 8000, 'Kuning', 50000, 'Kombinasi', 'Bungkus', 'Cincin Pria', 0, 'iPOzhIYwoy', 1, '2018-02-24 17:43:38'),
-(11, 'ABC 02', 'Brenda-1235-merah delima', 'Cincin', 'Emas Kuning', 70, 'merah delima', 10, 21, 'cj', 70, 600000, 'Swarovski', 10, 200000, 'merah', 150000, '', 'Bungkus', 'agak ke atas', 0, 'EjNw5k0y6L', 0, '2018-02-26 01:06:27'),
-(12, 'cincin kawin', 'Melita Sari Lubis-1236-saphire', 'Cincin Kawin', 'Emas Putih', 70, 'saphire', 0, 12, 'zircon', 0, 0, 'Swarovski', 20, 5000, 'putih', 50000, 'kombinasi', 'Kuku', 'cincin kawin', 0, '5KKc9GRhcd', 0, '2018-02-27 06:59:27'),
-(13, 'CLB 03', 'Muhammad Andre-1237-Berlian', 'Cincin', 'Emas Putih', 70, 'Berlian', 1, 15, '', 0, 0, 'Swarovski', 50, 5000, 'Putih', 30000, 'Putih polos', 'Mangkok Kuku', 'Cincin cowok', 0, 'g4Pr2MAFM9', 0, '2018-02-27 07:00:25');
+(1, 'CLS-100', 'Muhammad Andre-1-Ruby', 'Cincin', 'Emas Kuning', 60, 'Ruby', 10, 12, 'Ashberg', 6, 1200000, 'PRQ', 20, 5000, 'Perak', 120000, 'Mengkilat', 'Bungkus', 'Cincin Pria', 0, 'IQjrAaLKJe', 1, '2018-03-22 16:10:51'),
+(2, 'CLC-121', 'Denanda Putri-2-Saphire', 'Cincin', 'Emas Putih', 60, 'Saphire', 8, 11, 'Ashgard', 9, 2000000, 'Swarovski', 15, 6000, 'Putih', 90000, 'Mengkilat', 'Bungkus', 'Cincin Wanita', 0, 'W7G84wHaba', 0, '2018-03-22 14:23:14');
 
 -- --------------------------------------------------------
 
@@ -810,55 +844,32 @@ CREATE TABLE `produkaktivitas` (
 --
 
 INSERT INTO `produkaktivitas` (`idProses`, `idProduk`, `idAktivitas`, `durasi`, `maxOccurence`) VALUES
-(1, 10, 1001, 0, 0),
-(2, 10, 1002, 0, 0),
-(3, 10, 1003, 0, 0),
-(4, 10, 1004, 0, 0),
-(5, 10, 1005, 0, 0),
-(6, 10, 1006, 0, 0),
-(7, 10, 1007, 0, 0),
-(8, 10, 1008, 0, 0),
-(9, 10, 1013, 0, 0),
-(10, 10, 1014, 0, 0),
-(17, 11, 1001, 0, 0),
-(18, 11, 1002, 0, 0),
-(19, 11, 1003, 0, 0),
-(20, 11, 1007, 0, 0),
-(21, 11, 1013, 0, 0),
-(22, 11, 1014, 0, 0),
-(23, 13, 1001, 0, 0),
-(24, 13, 1002, 0, 0),
-(25, 13, 1003, 0, 0),
-(26, 13, 1004, 0, 0),
-(27, 13, 1011, 0, 0),
-(28, 13, 1013, 0, 0),
-(29, 13, 1014, 0, 0),
-(30, 12, 1001, 0, 0),
-(31, 12, 1002, 0, 0),
-(32, 12, 1003, 0, 0),
-(33, 12, 1004, 0, 0),
-(34, 12, 1005, 0, 0),
-(35, 12, 1006, 0, 0),
-(36, 12, 1007, 0, 0),
-(37, 12, 1008, 0, 0),
-(38, 12, 1009, 0, 0),
-(39, 12, 1010, 0, 0),
-(40, 12, 1011, 0, 0),
-(41, 12, 1012, 0, 0),
-(42, 12, 1013, 0, 0),
-(43, 12, 1014, 0, 0),
-(44, 4, 1004, 0, 0),
-(45, 4, 1004, 0, 0),
-(46, 4, 1005, 0, 0),
-(47, 4, 1006, 0, 0),
-(48, 4, 1007, 0, 0),
-(49, 4, 1008, 0, 0),
-(50, 4, 1009, 0, 0),
-(51, 4, 1010, 0, 0),
-(52, 4, 1011, 0, 0),
-(53, 4, 1012, 0, 0),
-(54, 4, 1013, 0, 0),
-(55, 4, 1014, 0, 0);
+(1, 1, 1001, 0, 0),
+(2, 1, 1002, 0, 0),
+(3, 1, 1003, 0, 0),
+(4, 1, 1004, 0, 0),
+(5, 1, 1005, 0, 0),
+(6, 1, 1006, 0, 0),
+(7, 1, 1007, 0, 0),
+(8, 1, 1008, 0, 0),
+(9, 1, 1009, 0, 0),
+(10, 1, 1011, 0, 0),
+(11, 1, 1012, 0, 0),
+(12, 1, 1013, 0, 0),
+(13, 1, 1014, 0, 0),
+(14, 2, 1001, 0, 0),
+(15, 2, 1002, 0, 0),
+(16, 2, 1003, 0, 0),
+(17, 2, 1004, 0, 0),
+(18, 2, 1005, 0, 0),
+(19, 2, 1006, 0, 0),
+(20, 2, 1007, 0, 0),
+(21, 2, 1008, 0, 0),
+(22, 2, 1009, 0, 0),
+(23, 2, 1011, 0, 0),
+(24, 2, 1012, 0, 0),
+(25, 2, 1013, 0, 0),
+(26, 2, 1014, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -877,6 +888,13 @@ CREATE TABLE `produktrading` (
   `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `produktrading`
+--
+
+INSERT INTO `produktrading` (`idProduk`, `kodeProduk`, `namaProduk`, `jenisProduk`, `harga`, `kodeGambar`, `stok`, `lastModified`) VALUES
+(1, 'TRD-111', 'Pinset', 'Alat Pasang Berlian', 40000, '', 10, '2018-03-22 12:32:35');
+
 -- --------------------------------------------------------
 
 --
@@ -893,6 +911,14 @@ CREATE TABLE `purchaseorderservice` (
   `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `tipeOrder` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purchaseorderservice`
+--
+
+INSERT INTO `purchaseorderservice` (`idPO`, `nomorPO`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `tanggalEstimasiPenyelesaian`, `lastModified`, `tipeOrder`) VALUES
+(1, '1', 10, 19, '2018-03-22 00:00:00', '2018-03-23 00:00:00', '2018-03-22 12:27:15', 'service'),
+(2, '2', 13, 19, '2018-03-22 00:00:00', '2018-03-23 00:00:00', '2018-03-22 16:45:16', 'service');
 
 -- --------------------------------------------------------
 
@@ -911,6 +937,13 @@ CREATE TABLE `purchaseordertrading` (
   `totalHarga` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `purchaseordertrading`
+--
+
+INSERT INTO `purchaseordertrading` (`idPO`, `nomorPO`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `lastModified`, `tipeOrder`, `totalHarga`) VALUES
+(1, '1', 12, 19, '2018-03-22 00:00:00', '2018-03-22 12:34:00', 'trading', 80000);
+
 -- --------------------------------------------------------
 
 --
@@ -926,13 +959,6 @@ CREATE TABLE `rekapproduksi` (
   `jenisProduksi` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `rekapproduksi`
---
-
-INSERT INTO `rekapproduksi` (`idRekapProduksi`, `kodeRekapProduksi`, `idPIC`, `waktuPengembalian`, `beratKembali`, `jenisProduksi`) VALUES
-(1, 'XFC0hBrVj6', 21, '2018-02-24 17:47:09', 1.2, 'tempahan');
-
 -- --------------------------------------------------------
 
 --
@@ -944,13 +970,6 @@ CREATE TABLE `rekapproduksiline` (
   `kodeRekapProduksi` varchar(50) NOT NULL,
   `idProProd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rekapproduksiline`
---
-
-INSERT INTO `rekapproduksiline` (`idRekapProduksiLine`, `kodeRekapProduksi`, `idProProd`) VALUES
-(1, 'XFC0hBrVj6', 2);
 
 -- --------------------------------------------------------
 
@@ -971,22 +990,32 @@ CREATE TABLE `rencanaproduksi` (
 --
 
 INSERT INTO `rencanaproduksi` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`, `endDate`) VALUES
-(1, 1, 1001, '2018-02-25 00:00:00', '2018-02-25 00:00:00'),
-(2, 1, 1002, '2018-02-26 00:00:00', '2018-02-26 00:00:00'),
-(3, 1, 1003, '2018-02-27 00:00:00', '2018-02-27 00:00:00'),
-(4, 1, 1004, '2018-02-28 00:00:00', '2018-02-28 00:00:00'),
-(5, 1, 1005, '2018-03-01 00:00:00', '2018-03-01 00:00:00'),
-(6, 1, 1006, '2018-03-02 00:00:00', '2018-03-02 00:00:00'),
-(7, 1, 1007, '2018-03-03 00:00:00', '2018-03-03 00:00:00'),
-(8, 1, 1008, '2018-03-04 00:00:00', '2018-03-04 00:00:00'),
-(9, 1, 1013, '2018-03-09 00:00:00', '2018-03-09 00:00:00'),
-(10, 1, 1014, '2018-03-10 00:00:00', '2018-03-10 00:00:00'),
-(17, 2, 1001, '2018-02-27 00:00:00', '2018-02-28 00:00:00'),
-(18, 2, 1002, '2018-03-01 00:00:00', '2018-03-02 00:00:00'),
-(19, 2, 1003, '2018-03-03 00:00:00', '2018-03-04 00:00:00'),
-(20, 2, 1007, '2018-03-06 00:00:00', '2018-03-07 00:00:00'),
-(21, 2, 1013, '2018-03-08 00:00:00', '2018-03-09 00:00:00'),
-(22, 2, 1014, '2018-03-10 00:00:00', '2018-03-11 00:00:00');
+(1, 1, 1001, '2018-03-22 00:00:00', '2018-03-22 00:00:00'),
+(2, 1, 1002, '2018-03-23 00:00:00', '2018-03-23 00:00:00'),
+(3, 1, 1003, '2018-03-24 00:00:00', '2018-03-24 00:00:00'),
+(4, 1, 1004, '2018-03-25 00:00:00', '2018-03-25 00:00:00'),
+(5, 1, 1005, '2018-03-26 00:00:00', '2018-03-26 00:00:00'),
+(6, 1, 1006, '2018-03-27 00:00:00', '2018-03-27 00:00:00'),
+(7, 1, 1007, '2018-03-28 00:00:00', '2018-03-28 00:00:00'),
+(8, 1, 1008, '2018-03-29 00:00:00', '2018-03-29 00:00:00'),
+(9, 1, 1009, '2018-03-30 00:00:00', '2018-03-30 00:00:00'),
+(10, 1, 1011, '2018-04-01 00:00:00', '2018-04-01 00:00:00'),
+(11, 1, 1012, '2018-04-02 00:00:00', '2018-04-02 00:00:00'),
+(12, 1, 1013, '2018-04-03 00:00:00', '2018-04-03 00:00:00'),
+(13, 1, 1014, '2018-04-04 00:00:00', '2018-04-04 00:00:00'),
+(14, 2, 1001, '2018-03-22 00:00:00', '2018-03-22 00:00:00'),
+(15, 2, 1002, '2018-03-23 00:00:00', '2018-03-23 00:00:00'),
+(16, 2, 1003, '2018-03-24 00:00:00', '2018-03-24 00:00:00'),
+(17, 2, 1004, '2018-03-25 00:00:00', '2018-03-25 00:00:00'),
+(18, 2, 1005, '2018-03-26 00:00:00', '2018-03-26 00:00:00'),
+(19, 2, 1006, '2018-03-27 00:00:00', '2018-03-27 00:00:00'),
+(20, 2, 1007, '2018-03-28 00:00:00', '2018-03-28 00:00:00'),
+(21, 2, 1008, '2018-03-29 00:00:00', '2018-03-29 00:00:00'),
+(22, 2, 1009, '2018-03-30 00:00:00', '2018-03-30 00:00:00'),
+(23, 2, 1011, '2018-04-01 00:00:00', '2018-04-01 00:00:00'),
+(24, 2, 1012, '2018-04-02 00:00:00', '2018-04-02 00:00:00'),
+(25, 2, 1013, '2018-04-03 00:00:00', '2018-04-03 00:00:00'),
+(26, 2, 1014, '2018-04-04 00:00:00', '2018-04-04 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1002,23 +1031,6 @@ CREATE TABLE `rencanaproduksi2` (
   `endDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `rencanaproduksi2`
---
-
-INSERT INTO `rencanaproduksi2` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`, `endDate`) VALUES
-(14, 1, 1004, '2018-03-02 00:00:00', '2018-03-02 00:00:00'),
-(15, 1, 1005, '2018-03-03 00:00:00', '2018-03-03 00:00:00'),
-(16, 1, 1006, '2018-03-04 00:00:00', '2018-03-04 00:00:00'),
-(17, 1, 1007, '2018-03-05 00:00:00', '2018-03-05 00:00:00'),
-(18, 1, 1008, '2018-03-06 00:00:00', '2018-03-06 00:00:00'),
-(19, 1, 1009, '2018-03-07 00:00:00', '2018-03-07 00:00:00'),
-(20, 1, 1010, '2018-03-08 00:00:00', '2018-03-08 00:00:00'),
-(21, 1, 1011, '2018-03-09 00:00:00', '2018-03-09 00:00:00'),
-(22, 1, 1012, '2018-03-10 00:00:00', '2018-03-10 00:00:00'),
-(23, 1, 1013, '2018-03-11 00:00:00', '2018-03-11 00:00:00'),
-(24, 1, 1014, '2018-03-12 00:00:00', '2018-03-12 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -1032,6 +1044,22 @@ CREATE TABLE `rencanaproduksiservice` (
   `startDate` datetime NOT NULL,
   `endDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rencanaproduksiservice`
+--
+
+INSERT INTO `rencanaproduksiservice` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`, `endDate`) VALUES
+(1, 1, 1001, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(2, 1, 1002, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(3, 1, 1003, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(4, 1, 1004, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(5, 1, 1005, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(6, 1, 1006, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(7, 1, 1007, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(8, 2, 1001, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(9, 2, 1006, '2018-03-22 12:03:00', '2018-03-22 12:03:00'),
+(10, 2, 1007, '2018-03-22 12:03:00', '2018-03-22 12:03:00');
 
 -- --------------------------------------------------------
 
@@ -1071,8 +1099,8 @@ CREATE TABLE `spk` (
 --
 
 INSERT INTO `spk` (`idSPK`, `nomorFaktur`, `nomorPO`, `idProduk`, `idCustomer`, `batuTerhadapKruman`, `batuTerhadapPukulan`, `batuTerhadapGoresan`, `keadaanBatuTengah`, `statusDesain`, `tanggalApprovalDesain`, `PICDesain`, `statusBOM`, `tanggalApprovalBOM`, `PICBOM`, `statusJadwal`, `tanggalApprovalJadwal`, `PICJadwal`, `statusPersetujuan`, `tanggalApprovalPersetujuan`, `PICPersetujuan`, `lastModified`, `prioritas`, `statusSPK`) VALUES
-(1, 1234, 1234, 10, 6, 'Tahan', 'Bagus', 'Lebih dari 7', 'Mulus', 'Disetujui', '2018-02-25 00:31:25', 22, 'Disetujui', '2018-02-25 00:39:05', 18, 'Disetujui', '2018-02-25 00:29:52', 18, 'Disetujui', '2018-02-25 00:39:05', 18, '2018-02-24 17:43:38', 2, 'Done'),
-(2, 1235, 1235, 11, 1, 'Tahan', 'Bagus', 'Kurang dari 6', 'Mulus', 'Menunggu Persetujuan', '0000-00-00 00:00:00', 20, 'Belum Ada', '0000-00-00 00:00:00', 18, 'Belum Ada', '0000-00-00 00:00:00', 18, 'Belum Disetujui', '0000-00-00 00:00:00', 18, '2018-02-26 01:13:45', 2, 'On progress');
+(1, 1, 1, 1, 8, 'Tahan', 'Bagus', 'Lebih dari 7', 'Sompel', 'Disetujui', '2018-03-22 22:03:31', 20, 'Disetujui', '2018-03-22 22:32:41', 18, 'Disetujui', '2018-03-22 21:13:44', 18, 'Disetujui', '2018-03-22 22:32:41', 18, '2018-03-22 16:10:52', 1, 'Done'),
+(2, 2, 2, 2, 12, 'Tahan', 'Cukup', '6,5 Sampai 7,5', 'Mulus', 'Disetujui', '2018-03-22 22:04:51', 22, 'Disetujui', '2018-03-22 22:32:41', 18, 'Disetujui', '2018-03-22 22:03:59', 18, 'Disetujui', '2018-03-22 22:32:41', 18, '2018-03-22 15:32:41', 1, 'On progress');
 
 -- --------------------------------------------------------
 
@@ -1099,13 +1127,6 @@ CREATE TABLE `spkmasal` (
   `prioritas` int(11) NOT NULL,
   `statusSPK` varchar(15) NOT NULL DEFAULT 'On progress'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `spkmasal`
---
-
-INSERT INTO `spkmasal` (`idSPK`, `nomorFaktur`, `nomorPO`, `idProduk`, `idCustomer`, `statusBOM`, `tanggalApprovalBOM`, `PICBOM`, `statusJadwal`, `tanggalApprovalJadwal`, `PICJadwal`, `statusPersetujuan`, `tanggalApprovalPersetujuan`, `PICPersetujuan`, `lastModified`, `prioritas`, `statusSPK`) VALUES
-(1, 1239, 1238, 4, 9, 'Disetujui', '2018-03-02 18:51:25', 18, 'Disetujui', '2018-03-02 17:43:37', 18, 'Disetujui', '2018-03-02 18:51:25', 18, '2018-03-02 11:51:25', 1, 'On progress');
 
 -- --------------------------------------------------------
 
@@ -1150,8 +1171,17 @@ CREATE TABLE `spkservice` (
   `tanggalApprovalJadwal` datetime NOT NULL,
   `PICJadwal` int(11) NOT NULL,
   `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `durasi` int(11) NOT NULL
+  `durasi` int(11) NOT NULL,
+  `statusSPK` varchar(25) NOT NULL DEFAULT 'On Progress'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `spkservice`
+--
+
+INSERT INTO `spkservice` (`idSPK`, `nomorFaktur`, `nomorPO`, `idCustomer`, `statusJadwal`, `tanggalApprovalJadwal`, `PICJadwal`, `lastModified`, `durasi`, `statusSPK`) VALUES
+(1, 1, 1, 10, 'Disetujui', '0000-00-00 00:00:00', 18, '2018-03-22 16:38:59', 2, 'Done'),
+(2, 2, 2, 13, 'Disetujui', '0000-00-00 00:00:00', 18, '2018-03-22 16:52:27', 5, 'Done');
 
 -- --------------------------------------------------------
 
@@ -1174,17 +1204,10 @@ CREATE TABLE `stokbarang` (
 --
 
 INSERT INTO `stokbarang` (`idStok`, `tipeBarang`, `kodeBarang`, `jumlah`, `jenisPergerakanBarang`, `hargaBeli`, `tanggal`) VALUES
-(1, 'Material Dasar', '205', 123.2, 'OUT', 0, '2018-02-25 00:39:05'),
-(2, 'Material Dasar', '301', 9.48, 'OUT', 0, '2018-02-25 00:39:05'),
-(3, 'Material Dasar', '304', 1.99, 'OUT', 0, '2018-02-25 00:39:05'),
-(4, 'Produk Jadi', 'CLS-239', 1, 'IN', 0, '2018-02-25 00:43:38'),
-(5, 'Material Dasar', '103', 62.4, 'OUT', 0, '2018-03-02 19:19:37'),
-(6, 'Material Dasar', '101', -16.55, 'OUT', 0, '2018-03-02 19:19:37'),
-(7, 'Material Dasar', '101', 113.4, 'OUT', 0, '2018-03-02 19:19:43'),
-(8, 'Material Dasar', '301', 12.49, 'OUT', 0, '2018-03-02 19:19:43'),
-(9, 'Material Dasar', '302', 4.16, 'OUT', 0, '2018-03-02 19:19:43'),
-(10, 'Material Dasar', '303', 4.16, 'OUT', 0, '2018-03-02 19:19:43'),
-(11, 'Produk Jadi', 'CLS-311', 10, 'IN', 0, '2018-03-02 20:26:21');
+(1, 'Material Dasar', '203', 252, 'OUT', 0, '2018-03-22 22:32:40'),
+(2, 'Material Dasar', '301', 22.91, 'OUT', 0, '2018-03-22 22:32:40'),
+(3, 'Material Dasar', '304', 4.12, 'OUT', 0, '2018-03-22 22:32:41'),
+(4, 'Produk Jadi', 'CLS-100', 1, 'IN', 0, '2018-03-22 23:10:51');
 
 -- --------------------------------------------------------
 
@@ -1196,14 +1219,6 @@ CREATE TABLE `subspk` (
   `idSubSPK` int(11) NOT NULL,
   `idSPK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `subspk`
---
-
-INSERT INTO `subspk` (`idSubSPK`, `idSPK`) VALUES
-(1, 1),
-(2, 1);
 
 -- --------------------------------------------------------
 
@@ -1233,7 +1248,8 @@ INSERT INTO `user` (`idUser`, `username`, `password`, `nama`, `jabatan`, `level`
 (20, 'Dika', 'Dika', 'Dika', 'Staf Desain', 0, '08725673009', 'dika@gmail.com'),
 (21, 'kurnia', 'kurnia', 'Kurnia', 'Staf Sales', 0, '082678210901', 'kurnia@gmail.com'),
 (22, 'hans', 'hans', 'Hans Juno', 'Staf Desain', 0, '082109098375', 'hans@gmail.com'),
-(23, 'weny', 'weny', 'Weny', 'Admin Produksi', 0, '084335673445', 'weny@gmail.com');
+(23, 'weny', 'weny', 'Weny', 'Admin Produksi', 0, '084335673445', 'weny@gmail.com'),
+(24, 'feridian', 'feridian', 'Feridian', 'Staf Lilin', 0, '087860218745', 'feridian@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -1245,15 +1261,6 @@ CREATE TABLE `wadah` (
   `idWadah` int(11) NOT NULL,
   `idSubSPK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `wadah`
---
-
-INSERT INTO `wadah` (`idWadah`, `idSubSPK`) VALUES
-(1, 1),
-(2, 1),
-(3, 2);
 
 --
 -- Indexes for dumped tables
@@ -1348,6 +1355,12 @@ ALTER TABLE `invoicetempahanperseorangan`
 --
 ALTER TABLE `invoicetempahanpertokoan`
   ADD PRIMARY KEY (`idTempahan`);
+
+--
+-- Indexes for table `katalog`
+--
+ALTER TABLE `katalog`
+  ADD PRIMARY KEY (`idKatalog`);
 
 --
 -- Indexes for table `kloter`
@@ -1512,7 +1525,7 @@ ALTER TABLE `billofmaterial`
 -- AUTO_INCREMENT for table `bommassal`
 --
 ALTER TABLE `bommassal`
-  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `bomtempahan`
 --
@@ -1522,32 +1535,32 @@ ALTER TABLE `bomtempahan`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `detailpurchaseorderservice`
 --
 ALTER TABLE `detailpurchaseorderservice`
-  MODIFY `idDetailPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetailPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `detailpurchaseordertrading`
 --
 ALTER TABLE `detailpurchaseordertrading`
-  MODIFY `idDetailPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetailPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `factproduction`
 --
 ALTER TABLE `factproduction`
-  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `factproduction2`
 --
 ALTER TABLE `factproduction2`
-  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `factproductionservice`
 --
 ALTER TABLE `factproductionservice`
-  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `invoiceheader`
 --
@@ -1577,12 +1590,12 @@ ALTER TABLE `invoicetempahanpertokoan`
 -- AUTO_INCREMENT for table `kloter`
 --
 ALTER TABLE `kloter`
-  MODIFY `idGroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idGroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `materialdasar`
 --
 ALTER TABLE `materialdasar`
-  MODIFY `idMaterial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idMaterial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `penilaian`
 --
@@ -1602,62 +1615,62 @@ ALTER TABLE `pomasal`
 -- AUTO_INCREMENT for table `poperak`
 --
 ALTER TABLE `poperak`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `potempahan`
 --
 ALTER TABLE `potempahan`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `produkaktivitas`
 --
 ALTER TABLE `produkaktivitas`
-  MODIFY `idProses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `idProses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `produktrading`
 --
 ALTER TABLE `produktrading`
-  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `purchaseorderservice`
 --
 ALTER TABLE `purchaseorderservice`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `purchaseordertrading`
 --
 ALTER TABLE `purchaseordertrading`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `rekapproduksi`
 --
 ALTER TABLE `rekapproduksi`
-  MODIFY `idRekapProduksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idRekapProduksi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rekapproduksiline`
 --
 ALTER TABLE `rekapproduksiline`
-  MODIFY `idRekapProduksiLine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idRekapProduksiLine` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rencanaproduksi`
 --
 ALTER TABLE `rencanaproduksi`
-  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `rencanaproduksi2`
 --
 ALTER TABLE `rencanaproduksi2`
-  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rencanaproduksiservice`
 --
 ALTER TABLE `rencanaproduksiservice`
-  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `spk`
 --
@@ -1667,7 +1680,7 @@ ALTER TABLE `spk`
 -- AUTO_INCREMENT for table `spkmasal`
 --
 ALTER TABLE `spkmasal`
-  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `spkperak`
 --
@@ -1677,27 +1690,27 @@ ALTER TABLE `spkperak`
 -- AUTO_INCREMENT for table `spkservice`
 --
 ALTER TABLE `spkservice`
-  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `stokbarang`
 --
 ALTER TABLE `stokbarang`
-  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `subspk`
 --
 ALTER TABLE `subspk`
-  MODIFY `idSubSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idSubSPK` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `wadah`
 --
 ALTER TABLE `wadah`
-  MODIFY `idWadah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idWadah` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
