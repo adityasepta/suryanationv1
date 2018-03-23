@@ -1153,9 +1153,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function getSPKTempahan(){
+    public function getSPKTempahan($idUser){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur FROM factproduction a LEFT JOIN aktivitas c ON a.idAktivitas=c.idAktivitas LEFT JOIN spk d ON a.idSPK=d.idSPK WHERE a.idPIC=19 AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
+        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur FROM factproduction a LEFT JOIN aktivitas c ON a.idAktivitas=c.idAktivitas LEFT JOIN spk d ON a.idSPK=d.idSPK WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

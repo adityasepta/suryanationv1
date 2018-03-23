@@ -156,7 +156,9 @@
                                                             <div class="list-to-filter">
                                                                 <ul class="list-unstyled">
                                                                     <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
+                                                                        <?php if ($pegawai[$i]->idUser!=0) {?>
                                                                         <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
+                                                                        <?php } ?>
                                                                     <?php } ?>
                                                                 </ul>
                                                                 <div class="no-search-results">
