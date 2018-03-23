@@ -93,10 +93,10 @@
 
                                             <div class="row">
                                             <div class="col-lg-9">
-                                                <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter">
+                                                <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter" required="">
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="number" min="0" name="kadar" class=" form-control" placeholder="kadar">
+                                                <input type="number" min="0" name="kadar" class=" form-control" placeholder="kadar" required="">
                                             </div>
                                             <br><br><hr>
                                             <?php $b=count($klot); for ($i=0; $i < $b ; $i++) { ?> 
@@ -204,6 +204,9 @@
 
                                         <?php } else if($klot==0) { ?>
                                             <a href="#" data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-info">Tambahkan Kloter</a>
+
+                                        <?php } else if($hasil->statusSPK=='Done') { ?>
+                                            <a class="btn btn-xs btn-primary">Done</a>
 
                                         <?php } else {?>
                                             <a href="<?php base_url();?>kanban" class="btn btn-xs btn-default">Masuk Ke Kanban</a>

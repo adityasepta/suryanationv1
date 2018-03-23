@@ -270,11 +270,11 @@
                         </div>
                         <div class="ibox-content">
                                 <div class="form-group"><label class="col-sm-2 control-label">Nomor Faktur</label>
-                                    <div class="col-sm-10"><input type="text" placeholder="Nomor Faktur" name="nomorFaktur" value="<?php echo set_value('nomorFaktur') ?>" class="form-control" required>
                                     <?php if(count($spkTerakhir)>0) { ?>
+                                    <?php $spkNow =  $spkTerakhir[0]->nomorFaktur+1; } else { $spkNow = 1; } ?>
+                                    <div class="col-sm-10"><input type="text" placeholder="Nomor Faktur" name="nomorFaktur" value="<?php echo $spkNow ?>" class="form-control" readonly>
                                     <small>Nomor SPK terakhir yang digunakan adalah <strong> <?php echo $spkTerakhir[0]->nomorFaktur; ?></strong></small>
-                                    <?php } ?>
-                                    <small class="text-danger"><?php echo form_error('nomorFaktur'); ?></small>
+                                   <small class="text-danger"><?php echo form_error('nomorFaktur'); ?></small>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>

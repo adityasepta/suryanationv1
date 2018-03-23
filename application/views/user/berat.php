@@ -215,89 +215,89 @@
                                                                 <div id="tab-2-<?php echo $p->idSPK ?>" class="tab-pane">
                                                                     <div class="panel-body">
                                                                         <div class="row">
-<table class="table table-hover table-responsive">
-    <thead>
-        <tr>
-            <th class="text-center">Keterangan</th>
-            <th class="text-center">Berat Awal</th>
-            <th class="text-center">Berat Akhir</th>
-            <th class="text-center">Berat Kembali</th>
-            <th class="text-center">Kehilangan</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">PIC</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        <?php for ($z=0; $z < count($b) ; ++$z) { 
-            if($b[$z]->idSPK == $p->idSPK) {
-                if($b[$z]->berat) {
-        ?>
-        <tr>  
-            <td class="text-center">Berat <?php echo $b[$z]->namaAktivitas ?></td>
-                <?php  if ($b[$z]->namaAktivitas == 'Gosok Pentol' && $b[$z]->berat) {
-                    $bAwal=(float) $b[$z]->beratAwal;
-                    $bAkhir=(float) $b[$z]->berat;
-                    $kembali=(float) $b[$z]->kembali;
-                    $selisih = round($bAwal-$bAkhir-$kembali,2);
-                    $prosen=round($selisih/$bAwal*100,2);
-                    ?>
-                    <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
-                    <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
-                    <?php if ($prosen <=3) { ?>
-                        <td class="text-center"><?php echo '<small class="label label-success">WIN</small>' ?></td>
-                    <?php } else { ?>
-                        <td class="text-center"><?php echo '<small class="label label-danger">LOSS</small>' ?></td>
-                    <?php } ?>
-                <?php } else if ($b[$z]->namaAktivitas != 'Selesai' && $b[$z]->statusBerat == 'Disetujui') { 
-                    $bAwal=(float) $b[$z-1]->berat;
-                    $bAkhir=(float) $b[$z]->berat;
-                    $kembali=(float) $b[$z]->kembali;
-                    $selisih = round($bAwal-$bAkhir-$kembali,2);
-                    $prosen=round($selisih/$bAwal*100,2);
-                    ?>
-                    <td class="text-center"><?php echo $b[$z-1]->berat." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
-                    <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
-                    <?php if ($prosen <=3) { ?>
-                        <td class="text-center"><?php echo '<small class="label label-success">WIN</small>' ?></td>
-                    <?php } else { ?>
-                        <td class="text-center"><?php echo '<small class="label label-danger">LOSS</small>' ?></td>
-                    <?php } ?>
-                <?php } else if ($b[$z]->namaAktivitas != 'Selesai' && !$b[$z+1]->berat) { ?>
-                    <td class="text-center">-</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center"><small class="label label-warning">ON PROGRESS</small></td>
-                <?php } else {?>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
-                    <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
-                    <td class="text-center"><?php echo "0 gr || 0 %" ?></td>
-                    <td class="text-center"><?php echo '<small class="label label-primary">DONE</small>' ?></td>
-                <?php } ?>
-                <td class="text-center"><?php echo $b[$z]->nama ?></td>
+                                                                            <table class="table table-hover table-responsive">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-center">Keterangan</th>
+                                                                                        <th class="text-center">Berat Awal</th>
+                                                                                        <th class="text-center">Berat Akhir</th>
+                                                                                        <th class="text-center">Berat Kembali</th>
+                                                                                        <th class="text-center">Kehilangan</th>
+                                                                                        <th class="text-center">Status</th>
+                                                                                        <th class="text-center">PIC</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    
+                                                                                    <?php for ($z=0; $z < count($b) ; ++$z) { 
+                                                                                        if($b[$z]->idSPK == $p->idSPK) {
+                                                                                            if($b[$z]->berat) {
+                                                                                    ?>
+                                                                                    <tr>  
+                                                                                        <td class="text-center">Berat <?php echo $b[$z]->namaAktivitas ?></td>
+                                                                                            <?php  if ($b[$z]->namaAktivitas == 'Gosok Pentol' && $b[$z]->berat) {
+                                                                                                $bAwal=(float) $b[$z]->beratAwal;
+                                                                                                $bAkhir=(float) $b[$z]->berat;
+                                                                                                $kembali=(float) $b[$z]->kembali;
+                                                                                                $selisih = round($bAwal-$bAkhir-$kembali,2);
+                                                                                                $prosen=round($selisih/$bAwal*100,2);
+                                                                                                ?>
+                                                                                                <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
+                                                                                                <?php if ($prosen <=3) { ?>
+                                                                                                    <td class="text-center"><?php echo '<small class="label label-success">WIN</small>' ?></td>
+                                                                                                <?php } else { ?>
+                                                                                                    <td class="text-center"><?php echo '<small class="label label-danger">LOSS</small>' ?></td>
+                                                                                                <?php } ?>
+                                                                                            <?php } else if ($b[$z]->namaAktivitas != 'Selesai' && $b[$z]->statusBerat == 'Disetujui') { 
+                                                                                                $bAwal=(float) $b[$z-1]->berat;
+                                                                                                $bAkhir=(float) $b[$z]->berat;
+                                                                                                $kembali=(float) $b[$z]->kembali;
+                                                                                                $selisih = round($bAwal-$bAkhir-$kembali,2);
+                                                                                                $prosen=round($selisih/$bAwal*100,2);
+                                                                                                ?>
+                                                                                                <td class="text-center"><?php echo $b[$z-1]->berat." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
+                                                                                                <?php if ($prosen <=3) { ?>
+                                                                                                    <td class="text-center"><?php echo '<small class="label label-success">WIN</small>' ?></td>
+                                                                                                <?php } else { ?>
+                                                                                                    <td class="text-center"><?php echo '<small class="label label-danger">LOSS</small>' ?></td>
+                                                                                                <?php } ?>
+                                                                                            <?php } else if ($b[$z]->namaAktivitas != 'Selesai' && !$b[$z+1]->berat) { ?>
+                                                                                                <td class="text-center">-</td>
+                                                                                                <td class="text-center">-</td>
+                                                                                                <td class="text-center">-</td>
+                                                                                                <td class="text-center">-</td>
+                                                                                                <td class="text-center"><small class="label label-warning">ON PROGRESS</small></td>
+                                                                                            <?php } else {?>
+                                                                                                <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
+                                                                                                <td class="text-center"><?php echo "0 gr || 0 %" ?></td>
+                                                                                                <td class="text-center"><?php echo '<small class="label label-primary">DONE</small>' ?></td>
+                                                                                            <?php } ?>
+                                                                                            <td class="text-center"><?php echo $b[$z]->nama ?></td>
 
-        </tr>
-        <?php } else { ?>
-            <tr>
-                <td class="text-center">Berat <?php echo $b[$z]->namaAktivitas ?></td>
-                <td class="text-center">-</td>
-                <td class="text-center">-</td>
-                <td class="text-center">-</td>
-                <td class="text-center">-</td>
-                <td class="text-center"><small class="label label-warning"></small></td>
-                <td class="text-center"><?php echo $b[$z]->nama ?></td>
-            </tr>
-        <?php }
-            }} ?>
-        
-    </tbody>
-</table>
+                                                                                    </tr>
+                                                                                    <?php } else { ?>
+                                                                                        <tr>
+                                                                                            <td class="text-center">Berat <?php echo $b[$z]->namaAktivitas ?></td>
+                                                                                            <td class="text-center">-</td>
+                                                                                            <td class="text-center">-</td>
+                                                                                            <td class="text-center">-</td>
+                                                                                            <td class="text-center">-</td>
+                                                                                            <td class="text-center"><small class="label label-warning"></small></td>
+                                                                                            <td class="text-center"><?php echo $b[$z]->nama ?></td>
+                                                                                        </tr>
+                                                                                    <?php }
+                                                                                        }} ?>
+                                                                                    
+                                                                                </tbody>
+                                                                            </table>
                                                                         
                                                                     </div>
                                                                 </div>

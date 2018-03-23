@@ -343,7 +343,7 @@
                                                                     <div class="form-horizontal">
                                                                         <div class="form-group"><label class="col-sm-5 control-label">Berat <?php echo $b[$z]->namaAktivitas ?></label>
 
-                                                                            <div class="col-sm-5"><input type="text" name="berat" class="form-control"></div>
+                                                                            <div class="col-sm-5"><input type="number" step="any" name="berat" class="form-control"></div>
                                                                             <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
                                                                         </div>
                                                                     </div>
@@ -420,7 +420,7 @@
                                                 <div class="form-horizontal">
                                                     <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                                        <div class="col-sm-7"><input type="text" name="berat" value="<?php echo $gp[$i]->beratAwal?>" required class="form-control"></div>
+                                                        <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $gp[$i]->beratAwal?>" required class="form-control"></div>
                                                         
                                                     </div>
                                                 </div>

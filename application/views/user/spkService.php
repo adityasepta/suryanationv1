@@ -81,6 +81,7 @@
                                     <th class="text-center">Tanggal</th>
                                     <th class="text-center">No Faktur</th>
                                     <th class="text-center">Konsumen</th>
+                                    <th class="text-center">Status SPK</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -90,10 +91,15 @@
                                     <td class="text-center"><?php echo $hasil->lastModified?></td>
                                     <td class="text-center"><?php echo $hasil->nomorFaktur?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
-                                    
+                                    <td class="text-center">
+                                            <?php if($hasil->statusSPK=='On Progress') {?>
+                                                <a class="btn btn-xs btn-warning"><?php echo $hasil->statusSPK?></a></td>
+                                            <?php } else { ?>
+                                                <a class="btn btn-xs btn-primary"><?php echo $hasil->statusSPK?></a></td>
+                                            <?php } ?>
                                     <td class="text-center">
 
-                                        <!-- <a href="<?php echo base_url('user/invoice/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
+                                        <!-- <a href="<?php echo base_url('user/invoicePOService/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
                                         
                                         <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a> -->
 

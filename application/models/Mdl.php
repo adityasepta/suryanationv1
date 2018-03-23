@@ -328,6 +328,11 @@ class mdl extends CI_Model {
         $this->db->insert('rencanaproduksi', $dataRencana);
     }
 
+    public function tambahRencana2($dataRencana){
+        //Quert insert into
+        $this->db->insert('rencanaproduksi2', $dataRencana);
+    }
+
     public function prosesDesain($nomorFaktur) {
         //Query update from ... where id = ...
         $this->db->query("update spk set statusDesain='Menunggu Persetujuan' where nomorFaktur=$nomorFaktur");
@@ -1193,6 +1198,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         $result = $query->result();
         return $result;
     }
+
+    public function getIdKloter($nomorFaktur) {
+        $sql = "SELECT * FROM `kloter` a, spk b where a.idSPK = b.idSPK AND b.nomorFaktur = $nomorFaktur";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+ 
+    
     
     public function listPOTrading() {
         $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");

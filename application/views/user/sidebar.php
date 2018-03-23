@@ -29,7 +29,7 @@
                                     <a href="<?php echo base_url();?>user/purchaseOrder">PO Tempahan</a> 
                                 </li> 
                                 <li> 
-                                    <a href="<?php echo base_url();?>user/listPOMasal">PO Masal</a> 
+                                    <a href="<?php echo base_url();?>user/listPOMasal">PO Massal</a> 
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOPerak">PO Perak</a> 
@@ -50,7 +50,7 @@
                                     <a href="<?php echo base_url();?>user/spk">SPK Tempahan</a> 
                                 </li> 
                                 <li> 
-                                    <a href="<?php echo base_url();?>user/listSPKMasal">SPK Masal</a> 
+                                    <a href="<?php echo base_url();?>user/listSPKMasal">SPK Massal</a> 
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKPerak">SPK Perak</a> 
@@ -77,6 +77,7 @@
                     <a href="#"><i class="fa fa-cube"></i> <span class="nav-label">Inventory</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url();?>user/inventory">Beranda</a></li>
+                        <li><a href="<?php echo base_url();?>user/listProdukJadi">Produk Jadi</a></li>
                         <li><a href="<?php echo base_url();?>user/stokBarang">Pergerakan Barang</a></li>
                         <li><a href="#">Rekap Order <span class="fa arrow"></span></a> 
                             <ul class="nav nav-third-level"> 
@@ -84,7 +85,7 @@
                                     <a href="<?php echo base_url();?>user/rekapBerat">Tempahan</a> 
                                 </li> 
                                 <li> 
-                                    <a href="<?php echo base_url();?>user/rekapBeratMassal">Masal</a> 
+                                    <a href="<?php echo base_url();?>user/rekapBeratMassal">Massal</a> 
                                 </li> 
                             </ul> 
                         </li>

@@ -88,7 +88,11 @@
                                 <tbody>
                                 <?php foreach($listPO as $hasil) : ?>
                                 <tr>
-                                    <td class="text-center"><?php echo $hasil->tanggalMasuk?></td>
+                                    <td class="text-center">
+                                        <?php 
+                                        $tglmsk = new DateTime($hasil->tanggalMasuk);
+                                        $tglmsk = $tglmsk->format("Y-m-d");
+                                        echo $tglmsk?></td>
                                     <td class="text-center"><?php echo $hasil->noPurchaseOrder?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
                                     <td class="text-center"><?php echo $hasil->namaProduk?></td>

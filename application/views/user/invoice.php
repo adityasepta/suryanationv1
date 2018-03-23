@@ -364,14 +364,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if ($stokbom) {?>
                                     <?php $cb = 0; $cbr=0; for($i = 0; $i < count($stokbom); ++$i) { ?>
 
                                         <tr>
                                             <td class="text-center"><?php echo ($i+1);?></td>
                                             <td><?php echo $stokbom[$i]->namaMaterial?></td>
-                                            <td class="text-center"><?php echo $stokbom[$i]->stok?> gram</td>
-                                            <td class="text-center"><?php echo $stokbom[$i]->jml?> gram</td>
-                                            <td class="text-center"><?php echo $stokbom[$i]->stokakhir?> gram</td>
+                                            <td class="text-center"><?php echo number_format($stokbom[$i]->stok,2)?> gram</td>
+                                            <td class="text-center"><?php echo number_format($stokbom[$i]->jml,2)?> gram</td>
+                                            <td class="text-center"><?php echo number_format($stokbom[$i]->stokakhir,2)?> gram</td>
                                             <td class="text-center">
                                                 <?php 
                                                     
@@ -386,6 +387,7 @@
                                             </td>
                                         </tr>
 
+                                    <?php } ?>
                                     <?php } ?>
                                 </tbody>
                             </table>
