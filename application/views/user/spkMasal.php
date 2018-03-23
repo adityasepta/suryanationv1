@@ -128,10 +128,13 @@
                                         <?php if($jadwal == 0) { ?>
 
                                             <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalMassal/<?php echo $hasil->nomorFaktur;?>">Tambahkan</a>
-                                
+
+                                        <?php } else if($hasil->statusSPK=='Done') { ?>
+                                            <a class="btn btn-xs btn-primary">Done</a>
+
                                         <?php } else {?>
 
-                                            <a class="btn btn-info btn-blocked btn-xs" disabled >Tambahkan</a>
+                                            <a class="btn btn-default btn-xs" >Masuk Ke Kanban</a>
 
                                         <?php } ?>
 
@@ -146,11 +149,11 @@
                                         <!-- <a href="<?php echo base_url('user/editSPK/' .$hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a> -->
 
                                         
-                                        <?=anchor('user/hapusSPK/' . $hasil->idSPK, 'Hapus', [
+                                        <!-- <?=anchor('user/hapusSPK/' . $hasil->idSPK, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'
-                                        ])?>
+                                        ])?> -->
                                     </td>
                                     <td class="text-center">
                                         

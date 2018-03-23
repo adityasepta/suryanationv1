@@ -2240,7 +2240,7 @@ class User extends CI_Controller {
 
         if($jumlah>0)
         {
-            $data['spkTerakhir'] = $this->mdl->spkTerakhir();
+            $data['spkTerakhir'] = $this->mdl->spkTerakhir2();
             $this->load->view('user/createSpkMasal',$data);
             
         } else {
@@ -3770,14 +3770,14 @@ class User extends CI_Controller {
         //sebelum mengeksekusi query
         
         $this->form_validation->set_message('is_unique', 'Nomor SPK telah digunakan');
-        $this->form_validation->set_rules('nomorFaktur', 'Nomor Faktur', 'is_unique[spk.nomorFaktur]');
+        $this->form_validation->set_rules('nomorFaktur', 'Nomor Faktur', 'is_unique[spkmasal.nomorFaktur]');
         // $pos=$this->input->post('nomorFaktur');
         // print_r($pos);exit();
         if ($this->form_validation->run() == FALSE) {
             $data['pegawai']     = $this->mdl->listPegawai();
             $nomorPO             = $this->input->post('nomorPO');
-            $data['dataPO']      = $this->mdl->findPO($nomorPO);
-            $data['spkTerakhir'] = $this->mdl->spkTerakhir();
+            $data['dataPO']      = $this->mdl->findPOMassal($nomorPO);
+            $data['spkTerakhir'] = $this->mdl->spkTerakhir2();
             $this->load->view('user/createSpkMasal', $data);
         } else {
             //eksekusi query insert tanpa gambar
