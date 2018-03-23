@@ -23,7 +23,7 @@
             </div>
 
             <div class="m-t" >
-                <?php echo form_open('User/proseslogin')?>
+                <?php echo form_open('Login/proseslogin')?>
                 <div class="form-group">
                     <input type="text" name="username" class="form-control" placeholder="Username" required="">
                 </div>
