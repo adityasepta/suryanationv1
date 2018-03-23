@@ -1179,8 +1179,9 @@ class User extends CI_Controller {
 
     public function createBOMMassal($idSubSPK) {
         $this->form_validation->set_rules('idSubSPK','idSubSPK', 'required');
+        // print_r($idSubSPK);exit();
         if ($this->form_validation->run() == FALSE){
-            $data['$subSPK']=$this->mdl->findSubSPK($idSubSPK);
+            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
             $data['materials']=$this->mdl->getMaterial();
             $this->load->view('user/createBOMMassal',$data);
         }
@@ -1190,7 +1191,6 @@ class User extends CI_Controller {
                             'idMaterial' => $this->input->post('kodeMaterial'),
                             'jumlah'     => $this->input->post('bahanButuh')
                         );
-
                 $this->mdl->insertData('bommassal',$dataBOM);
                 echo '<b>Data BOM berhasil disimpan.</b><br />';
         }
@@ -1248,7 +1248,7 @@ class User extends CI_Controller {
             }
                 $message = "BOM berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanban")."';</script>";
+                window.location.href='".base_url("user/kanbanMassal")."';</script>";
         }
     }
 
@@ -1269,7 +1269,7 @@ class User extends CI_Controller {
                 $this->mdl->insertData('bommassal',$dataBOM);
                 $message = "BOM berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanban")."';</script>";
+                window.location.href='".base_url("user/kanbanMassal")."';</script>";
         }
     }
 
@@ -3547,43 +3547,49 @@ class User extends CI_Controller {
         $idSPK = $this->input->post('idSPK');
         $idProProd = $this->input->post('idProProd');
 
+        if(count($berat)==0){
+            $message = "Jumlah wadah belum ditentukan, silahkan ulangi proses Separasi";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
+        } else {
 
-        for ($i=0; $i < count($berat); $i++) { 
-            
-            $data = array(
+            for ($i=0; $i < count($berat); $i++) { 
+                
+                $data = array(
 
-                'idSubSPK' => $idSubSPK
+                    'idSubSPK' => $idSubSPK
 
-            );
+                );
 
-            $this->mdl->insertData('wadah',$data);
+                $this->mdl->insertData('wadah',$data);
 
+            }
+
+            $wadah = $this->mdl->getWadah($idSubSPK);
+
+            for ($i=0; $i < count($wadah); $i++) { 
+                
+                $data = array(
+                    'idSPK' => $idSPK,
+                    'idSubSPK' => $idSubSPK,
+                    'idWadah' => $wadah[$i]->idWadah,
+                    'statusWork' => 'Belum ada PIC',
+                    'statusSPK' => 'Active',
+                    'idAktivitas' => '1007',
+                    'statusBerat' => 'Belum Disetujui',
+                    'beratawal' => $berat[$i],
+                    'jumlah' => $jumlah[$i],
+                );
+                $this->mdl->insertData('factproduction2', $data);
+
+            }
+
+            $this->mdl->deleteData('idProProd',$idProProd,'factproduction2');
+
+            $message = "Berhasil membuat wadah";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
         }
-
-        $wadah = $this->mdl->getWadah($idSubSPK);
-
-        for ($i=0; $i < count($wadah); $i++) { 
-            
-            $data = array(
-                'idSPK' => $idSPK,
-                'idSubSPK' => $idSubSPK,
-                'idWadah' => $wadah[$i]->idWadah,
-                'statusWork' => 'Belum ada PIC',
-                'statusSPK' => 'Active',
-                'idAktivitas' => '1007',
-                'statusBerat' => 'Belum Disetujui',
-                'beratawal' => $berat[$i],
-                'jumlah' => $jumlah[$i],
-            );
-            $this->mdl->insertData('factproduction2', $data);
-
-        }
-
-        $this->mdl->deleteData('idProProd',$idProProd,'factproduction2');
-
-        $message = "Berhasil membuat wadah";
-        echo "<script type='text/javascript'>alert('$message');
-        window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
     }
 
     public function setSubSPK2() {

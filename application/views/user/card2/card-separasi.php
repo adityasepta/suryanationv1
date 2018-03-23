@@ -86,7 +86,7 @@
                             &nbsp
                         </div>
                         <div class="col-lg-2">
-                            <input type="number" min="0" required="" placeholder="4" name="jmlsub" class="form-control input-lg">
+                            <input type="number" min="1" required="" placeholder="4" name="jmlsub" class="form-control input-lg">
                         </div>
                     </div>
 
