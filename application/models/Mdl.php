@@ -1866,4 +1866,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+
 }
