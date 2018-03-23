@@ -181,8 +181,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a href="<?php echo base_url('user/invoicePO/'.$j[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
-                    <a href="<?php echo base_url('user/invoiceMassal/'.$j[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                    <a href="<?php echo base_url('user/invoicePOMassal/'.$j[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
+                    <a href="<?php echo base_url('user/invoiceSPKMassal/'.$j[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                     <button type="button" class="btn btn-danger btn-outline">Reject</button>
                 </div>
             </div>
