@@ -141,9 +141,9 @@
                                     
                                     <td class="text-center">
 
-                                        <a href="<?php echo base_url('user/invoiceMassal/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
+                                        <a href="<?php echo base_url('user/invoiceSPKMassal/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
                                         
-                                        <a href="<?php echo base_url('user/editSPK/' .$hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
+                                        <!-- <a href="<?php echo base_url('user/editSPK/' .$hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a> -->
 
                                         
                                         <?=anchor('user/hapusSPK/' . $hasil->idSPK, 'Hapus', [
