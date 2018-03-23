@@ -174,7 +174,8 @@
                         <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <canvas id="radarChart"></canvas>  
+                                        <!-- <canvas id="radarChart"></canvas> -->  
+                                        <canvas id="marksChart"></canvas>
                                     </div>
                                     <div class="col-lg-12">
                                         <h2>Interpretasi Hasil</h2><b>
@@ -295,12 +296,65 @@ sangat luar biasa</h3>';
     <script src="<?php echo base_url();?>assets/js/plugins/c3/c3.min.js"></script>
 
     <!-- ChartJS-->
-    <script src="<?php echo base_url();?>assets/js/plugins/chartJs/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
 
-    <script src="<?php echo base_url('assets/js/plugins/chartist/chartist.min.js') ?>"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
     <!-- Echarts -->
     <script src="<?php echo base_url()?>assets/js/echarts.js"></script>
 
+
+    <script type="text/javascript">
+        var marksCanvas = document.getElementById("marksChart");
+
+        var marksData = {
+          labels: ["Tangibles", "Reliability", "Responsiveness", "Assurance", "Emphaty"],
+          datasets: [{
+            label: "Harapan",
+            backgroundColor: "rgba(200,0,0,0.2)",
+            borderColor: "rgba(200,0,0,0.6)",
+            fill: true,
+            radius: 6,
+            pointRadius: 6,
+            pointBorderWidth: 3,
+            pointBackgroundColor: "orange",
+            pointBorderColor: "rgba(200,0,0,0.6)",
+            pointHoverRadius: 10,
+            data: [<?php echo $radar->rataHarapanT/6*100?>,<?php echo $radar->rataHarapanR/6*100?>,<?php echo $radar->rataHarapanRE/6*100?>,<?php echo $radar->rataHarapanA/6*100?>,<?php echo $radar->rataHarapanE/6*100?>]
+          }, {
+            label: "Realisasi",
+            backgroundColor: "rgba(0,0,200,0.2)",
+            borderColor: "rgba(0,0,200,0.6)",
+            fill: true,
+            radius: 6,
+            pointRadius: 6,
+            pointBorderWidth: 3,
+            pointBackgroundColor: "cornflowerblue",
+            pointBorderColor: "rgba(0,0,200,0.6)",
+            pointHoverRadius: 10,
+            data: [<?php echo $radar->rataRealisasiT/6*100?>,<?php echo $radar->rataRealisasiR/6*100?>,<?php echo $radar->rataRealisasiRE/6*100?>,<?php echo $radar->rataRealisasiA/6*100?>,<?php echo $radar->rataRealisasiE/6*100?>]
+          }]
+        };
+
+        var chartOptions = {
+          scale: {
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: 100,
+              stepSize: 20
+            },
+            pointLabels: {
+              fontSize: 18
+            }
+          }
+        };
+
+        var radarChart = new Chart(marksCanvas, {
+            type: 'radar',
+            data: marksData,
+            options: chartOptions
+        });
+    </script>
     <script>
 
         $(document).ready(function () {
@@ -371,7 +425,7 @@ sangat luar biasa</h3>';
 
     </script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         var radarData = {
         labels: ["Tangibles", "Reliability", "Responsiveness", "Assurance", "Emphaty"],
         datasets: [
@@ -421,7 +475,7 @@ sangat luar biasa</h3>';
 
     var ctx = document.getElementById("radarChart").getContext("2d");
     var myNewChart = new Chart(ctx).Radar(radarData, radarOptions);
-    </script>
+    </script> -->
 
     <script type="text/javascript">
         //GAUGE CHART//
