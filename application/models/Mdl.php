@@ -1664,6 +1664,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
+    public function getWadahTerakhir() {
+        $sql = "SELECT * from factproduction2 order by idWadah desc limit 1 ";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function getBerat2() {
 
         $sql   = "SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas , f.berat from factproduction2 f, aktivitas a where f.idaktivitas > 1005 and f.idAktivitas = a.idAktivitas order by f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas";

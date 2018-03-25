@@ -3681,27 +3681,35 @@ class User extends CI_Controller {
         
     }
 
-    public function next4() {
+    public function next5() {
         $idProProd = $this->input->post('idProProd');
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
+        $idAktivitas = $this->input->post('idAktivitas');
 
         $proses = $this->getProsesDetail2($idProProd);
         $idSPK = $proses[0]->idSPK;
         $idSubSPK = $proses[0]->idSubSPK;
+        $idProduk   = $proses[0]->idProduk;
+
+        $wadah = $this->mdl->getWadahTerakhir();
+        $idWadah = (int)($wadah[0]->idWadah) + 1;
+
+        $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idAktivitas);
+        $next      = $aktivitas[0]->idAktivitas;
 
 
         $data = array(
                 'idSPK' => $idSPK,
                 'idSubSPK' => $idSubSPK,
                 'idWadah' => $idWadah,
-                'statusWork' => 'Belum ada PIC',
+                'statusWork' => $staf,
                 'statusSPK' => 'Active',
+                'statusWork' => 'On Progress',
                 'idAktivitas' => $next,
                 'statusBerat' => 'Belum Disetujui',
                 'jumlah'    => $jumlah,
-                'jumlahNow'    => $jumlah,
                 'beratAwal' => $beratAwal
             );
         $this->mdl->insertData('factproduction2', $data);

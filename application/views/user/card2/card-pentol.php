@@ -117,7 +117,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php echo form_open('User/next4')?>
+                            <?php echo form_open('User/next5')?>
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Pilih PIC</label>
@@ -142,12 +142,13 @@
                                     </div>
                                 </div>
                                 <div class="form-horizontal">
-                                    <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $b[$j]->namaAktivitas ?></label>
+                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                        <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $gp[$i]->beratAwal?>" class="form-control"></div>
+                                        <div class="col-sm-9"><input type="number" step="any" name="beratAwal" value="" class="form-control"></div>
                                     </div>
                                 </div>
                                 <input type="hidden" value="<?php echo $gp[$i]->idProProd?>" name="idProProd">
+                                <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
                             </div>
                         </div>
                     </div>
