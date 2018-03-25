@@ -98,7 +98,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label>Nama Material</label>
                                                 <select class="form-control" id="kode" onchange="calc();" name="kodeMaterial">
                                                 <?php
@@ -114,19 +114,23 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Kotor (gr)</label>
-                                                <input type="number" name= "beratKotor" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratKotor" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Karet (gr)</label>
-                                                <input type="number" name= "beratKaret" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratKaret" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Batu (gr)</label>
-                                                <input type="number" name= "beratBatu" step=any id="n3" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratBatu" step=any id="n3" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Bahan Pengurang (%)</label>
-                                                <input type="number" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
+                                                <input type="number" step="any" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Bahan Penentu</label>
+                                                <input type="number" step="any" name= "bahanPenentu" id="n5" onchange="calc();" value='0' class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -321,48 +325,49 @@
                     var n2 = parseFloat(document.getElementById('n2').value);
                     var n3 = parseFloat(document.getElementById('n3').value);
                     var n4 = parseFloat(document.getElementById('n4').value);
+                    var n5 = parseFloat(document.getElementById('n5').value);
                     var jenisEmas = $('#kode option:selected').text();
 
                     var beratBersih = n1-n2-n3;
                     
                     if (jenisEmas==='Emas Kuning 65%') {
-                        var bahanDasar = beratBersih*13.5;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 63%') {
-                        var bahanDasar = beratBersih*12.5;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 60%') {
-                        var bahanDasar = beratBersih*12;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 59.5%') {
-                        var bahanDasar = beratBersih*12;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 48%') {
-                        var bahanDasar = beratBersih*12;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 40%') {
-                        var bahanDasar = beratBersih*11;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 38%') {
-                        var bahanDasar = beratBersih*11;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
