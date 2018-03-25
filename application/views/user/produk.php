@@ -139,6 +139,7 @@
                                                                     </dl>
                                                                     <dl class="dl-horizontal" >
                                                                         <dt>Harga:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaProduk);?> </strong></dd>
+                                                                        <dt>Harga Modal:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaModal);?> </strong></dd>
                                                                     </dl>
                                                                 </div>
                                                             </div>

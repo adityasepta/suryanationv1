@@ -6,6 +6,7 @@ if($this->input->post('is_submitted')){
     $jenisProduk   = $set_value('jenisProduk');
     $deskripsiProduk   = $set_value('deskripsiProduk');
     $harga         = $set_value('hargaProduk');
+    $hargaModal         = $set_value('hargaModal');
 
 }
 else {
@@ -15,7 +16,7 @@ else {
     $harga       = $produk[0]->hargaProduk;
     $deskripsiProduk  = $produk[0]->deskripsiProduk;
     $gambarProduk  = $produk[0]->gambarProduk;
-
+    $hargaModal       = $produk[0]->hargaModal;
 }
 ?>
 
@@ -41,7 +42,6 @@ else {
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -119,23 +119,29 @@ else {
 
                                     <div class="col-sm-2">
                                         <div class="i-checks"><label> <input id="Cincin" type="radio" <?php $a= $jenisProduk; if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk"> <i></i> Cincin </label></div>
-                                        <div class="i-checks"><label> <input id="Liontin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
+                                        <div class="i-checks"><label> <input id="Liontin" type="radio" <?php $a= $jenisProduk; if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <div class="i-checks"><label> <input id="Gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
-                                        <div class="i-checks"><label> <input id="Anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
+                                        <div class="i-checks"><label> <input id="Gelang" type="radio" <?php $a= $jenisProduk; if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
+                                        <div class="i-checks"><label> <input id="Anting" type="radio" <?php $a= $jenisProduk; if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="i-checks"><label> <input id="Cincin Kawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
+                                        <div class="i-checks"><label> <input id="Cincin Kawin" type="radio" <?php $a= $jenisProduk; if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Deskripsi</label>
                                     <div class="col-sm-10"><textarea required name="deskripsiProduk" class="form-control" rows="8" value="<?= $deskripsiProduk ?>"><?= $deskripsiProduk ?></textarea></div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">Harga Modal</label>
+                                    <div class="col-md-10">
+                                        <input type="text" placeholder="Rp" name="hargaModal" class="form-control good" value="<?= $hargaModal ?>" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">Harga</label>
                                     <div class="col-md-10">
-                                        <input type="text" required placeholder="Harga" name="hargaProduk" class="form-control" value="<?= $harga ?>">
+                                        <input type="text" required placeholder="Harga" name="hargaProduk" class="form-control good" value="<?= $harga ?>">
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -179,6 +185,8 @@ else {
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
        
@@ -198,6 +206,17 @@ else {
                 });
             });
         </script>
+        <script type="text/javascript">
+        $('.good').inputmask("numeric", {
+            radixPoint: ".",
+            groupSeparator: ",",
+            digits: 2,
+            autoGroup: true,
+            prefix: 'Rp ', //Space after $, this will not truncate the first character.
+            rightAlign: false,
+            oncleared: function () { self.Value(''); }
+        });
+    </script>
 </body>
 
 </html>

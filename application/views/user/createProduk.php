@@ -101,6 +101,12 @@
                                     <div class="col-sm-10"><textarea required name="deskripsiProduk" class="form-control" rows="8"></textarea></div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">Harga Modal</label>
+                                    <div class="col-md-10">
+                                        <input type="text" placeholder="Rp" name="hargaModal" class="form-control good" value="<?php echo set_value('hargaModal'); ?>" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">Harga</label>
                                     <div class="col-md-10">
                                         <input type="text" placeholder="Rp" name="hargaProduk" class="form-control good" value="<?php echo set_value('hargaProduk'); ?>" required="">

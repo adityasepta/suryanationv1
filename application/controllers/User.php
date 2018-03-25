@@ -922,6 +922,7 @@ class User extends CI_Controller {
                     else {
                         $gambar = $this->upload->data();
                         $hargaProduk = $this->clean($this->input->post('hargaProduk'));
+                        $hargaModal = $this->clean($this->input->post('hargaModal'));
                         $dataProduk = array(
                                 'kodeProduk'    => $this->input->post('kodeProduk'),
                                 'namaProduk'   => $this->input->post('namaProduk'),
@@ -929,6 +930,7 @@ class User extends CI_Controller {
                                 'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                                 'gambarProduk'        => $kode,
                                 'hargaProduk'         => $hargaProduk,
+                                'hargaModal'         => $hargaModal,
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->insertData("katalog",$dataProduk);
@@ -940,6 +942,7 @@ class User extends CI_Controller {
             else {
                 //form submit dengan gambar dikosongkan
                 $hargaProduk = $this->clean($this->input->post('hargaProduk'));
+                $hargaModal = $this->clean($this->input->post('hargaModal'));
                $dataProduk = array(
                         'kodeProduk'    => $this->input->post('kodeProduk'),
                         'namaProduk'   => $this->input->post('namaProduk'),
@@ -947,6 +950,7 @@ class User extends CI_Controller {
                         'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                         'gambarProduk'        => $kode,
                         'hargaProduk'         => $hargaProduk,
+                        'hargaModal'         => $hargaModal,
                 );
                 //print_r($dataProduk);exit();
                 $this->mdl->insertData("katalog",$dataProduk);
@@ -985,13 +989,16 @@ class User extends CI_Controller {
                     }
                     else {
                         $gambar = $this->upload->data();
+                        $hargaProduk = $this->clean($this->input->post('hargaProduk'));
+                        $hargaModal = $this->clean($this->input->post('hargaModal'));
                         $dataProduk = array(
                                 'kodeProduk'    => $this->input->post('kodeProduk'),
                                 'namaProduk'   => $this->input->post('namaProduk'),
                                 'jenisProduk'   => $this->input->post('jenisProduk'),
                                 'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                                 'gambarProduk'        => $kode,
-                                'hargaProduk'         => $this->input->post('hargaProduk'),
+                                'hargaProduk'         => $hargaProduk,
+                                'hargaModal'         => $hargaModal,
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
@@ -1002,13 +1009,16 @@ class User extends CI_Controller {
                     }
             else {
                 //form submit dengan gambar dikosongkan
+                $hargaProduk = $this->clean($this->input->post('hargaProduk'));
+                $hargaModal = $this->clean($this->input->post('hargaModal'));
                $dataProduk = array(
                                 'kodeProduk'    => $this->input->post('kodeProduk'),
                                 'namaProduk'   => $this->input->post('namaProduk'),
                                 'jenisProduk'   => $this->input->post('jenisProduk'),
                                 'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
                                 'gambarProduk'        => $kode,
-                                'hargaProduk'         => $this->input->post('hargaProduk'),
+                                'hargaProduk'         => $hargaProduk,
+                                'hargaModal'         => $hargaModal,
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
@@ -2345,37 +2355,29 @@ class User extends CI_Controller {
                     else {
                         $gambar = $this->upload->data();
                         $hargaBahan = $this->clean($this->input->post('hargaBahan'));
-                        $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
-                        $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
-                        $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
-                        $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
-                        $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
+                        $hargaKrum = $this->clean($this->input->post('hargaKrum'));
                         $upah = $this->clean($this->input->post('upah'));
-                        $budget = $this->clean($this->input->post('budget'));
                         $panjar = $this->clean($this->input->post('panjar'));
-
+                        $hargaPerak = $this->clean($this->input->post('hargaPerak'));
+                        $hargaKrum = $this->clean($this->input->post('hargaKrumWarna'));
+                        $hargaSlep = $this->clean($this->input->post('hargaSlep'));
+                        $upahRombak = $this->clean($this->input->post('upahRombak'));
+                        $totalHarga = $this->clean($this->input->post('totalHarga'));
+                        $hargaResize = $this->clean($this->input->post('hargaResize'));
 
                         if(count($cekProduk)==0){
                             $dataProduk = array(
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'bahan'             => $this->input->post('bahan'),
-                            'kadarBahan'        => $this->input->post('kadarBahan'),
                             'namaBatu'          => $this->input->post('namaBatu'),
                             'beratBatu'         => $this->input->post('beratBatu'),
                             'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'berlian'           => $this->input->post('berlian'),
-                            'krumWarna'         => $this->input->post('krumWarna'),
-                            'tipeIkatan'        => $this->input->post('tipeIkatan'),
                             'model'             => $this->input->post('model'),
-                            'beratBerlian'      => $this->input->post('beratBerlian'),
-                            'hargaBerlian'      => $hargaBerlian,
-                            'batuZirkon'        => $this->input->post('batuZirkon'),
-                            'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
-                            'hargaBatuZirkon'   => $hargaBatuZirkon,
-                            'hargaKrumWarna'    => $hargaKrumWarna,
-                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                            'bahan'             => 'Perak',
+                            'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
+                            'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
+                            'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
                             'kodeGambar'        => $kode,
                             );
                             $this->mdl->tambahProduk($dataProduk);
@@ -2383,10 +2385,6 @@ class User extends CI_Controller {
 
                         $produk=$this->mdl->findProduk($kodeProduk);
                         $idProduk=$produk[0]->idProduk;
-                        $harga=$this->input->post('harga');
-                        $qty=$this->input->post('kuantitas');
-                        $upah=$this->input->post('upah');
-                        $totalHarga=($qty*$harga)+$upah;
                         
                         //eksekusi query insert
                         $dataPO = array(
@@ -2398,58 +2396,50 @@ class User extends CI_Controller {
                             'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
                             'hargaBahan'        => $hargaBahan,
                             'upah'              => $upah,
-                            'datangEmas'        => $this->input->post('datangEmas'),
-                            'hargaDatangEmas'   => $hargaDatangEmas,
-                            'kuantitas'         => $this->input->post('kuantitas'),
-                            'metode'            => $this->input->post('metode'),
                             'panjar'            => $panjar,
                             'totalHarga'        => $totalHarga,
-                            'tipeOrder'         => 'custom',
-                            'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
-                            'budget'            => $budget,
-                            'datangBerlian'     => $this->input->post('datangBerlian'),
-                            'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
-                            'upahPasangBerlian' => $upahPasangBerlian,
+                            'tipeOrder'         => 'perak',
+                            'beratAkhir'        => $this->input->post('beratAkhir'),
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $pekerjaanTambahan,
-                            'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-                            'biayaTambahan'     => $this->input->post('biayaTambahan'),
+                            'krumWarna'      => $this->input->post('krumWarna'),
+                            'keteranganKrum'      => $this->input->post('keteranganKrum'),
+                            'keteranganSlep'      => $this->input->post('keteranganSlep'),
+                            'keteranganRombak'      => $this->input->post('keteranganRombak'),
+                            'resize'      => $this->input->post('resize'),
+                            'hargaPerak'          => $hargaPerak,
+                            'hargaKrum'          => $hargaKrum,
+                            'hargaSlep'          => $hargaSlep,
+                            'upahRombak'          => $upahRombak,
+                            'hargaResize'          => $hargaResize,
                             
                         );
                         $this->mdl->insertData('poperak',$dataPO);      
                     }
             } else {
                 $hargaBahan = $this->clean($this->input->post('hargaBahan'));
-                        $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
-                        $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
-                        $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
-                        $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
-                        $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
-                        $upah = $this->clean($this->input->post('upah'));
-                        $budget = $this->clean($this->input->post('budget'));
-                        $panjar = $this->clean($this->input->post('panjar'));
+                $hargaKrum = $this->clean($this->input->post('hargaKrum'));
+                $upah = $this->clean($this->input->post('upah'));
+                $panjar = $this->clean($this->input->post('panjar'));
+                $hargaPerak = $this->clean($this->input->post('hargaPerak'));
+                $hargaKrum = $this->clean($this->input->post('hargaKrumWarna'));
+                $hargaSlep = $this->clean($this->input->post('hargaSlep'));
+                $upahRombak = $this->clean($this->input->post('upahRombak'));
+                $totalHarga = $this->clean($this->input->post('totalHarga'));
+                $hargaResize = $this->clean($this->input->post('hargaResize'));
 
                     if(count($cekProduk)==0){
                         $dataProduk = array(
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'bahan'             => $this->input->post('bahan'),
-                            'kadarBahan'        => $this->input->post('kadarBahan'),
                             'namaBatu'          => $this->input->post('namaBatu'),
                             'beratBatu'         => $this->input->post('beratBatu'),
                             'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'berlian'           => $this->input->post('berlian'),
-                            'krumWarna'         => $this->input->post('krumWarna'),
-                            'tipeIkatan'        => $this->input->post('tipeIkatan'),
                             'model'             => $this->input->post('model'),
-                            'beratBerlian'      => $this->input->post('beratBerlian'),
-                            'hargaBerlian'      => $hargaBerlian,
-                            'batuZirkon'        => $this->input->post('batuZirkon'),
-                            'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
-                            'hargaBatuZirkon'   => $hargaBatuZirkon,
-                            'hargaKrumWarna'    => $hargaKrumWarna,
-                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                            'bahan'             => 'Perak',
+                            'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
+                            'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
+                            'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
                         );
                         $this->mdl->tambahProduk($dataProduk);
                     }
@@ -2462,30 +2452,29 @@ class User extends CI_Controller {
                     $totalHarga=($qty*$harga)+$upah;
                     //eksekusi query insert tanpa gambar
                     $dataPO = array(
-                       'nomorPO'           => $this->input->post('nomorPO'),
-                            'idProduk'          => $idProduk,
-                            'idCustomer'        => $idCustomer,
-                            'idSalesPerson'     => $this->input->post('idSalesPerson'),
-                            'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
-                            'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
-                            'hargaBahan'        => $hargaBahan,
-                            'upah'              => $upah,
-                            'datangEmas'        => $this->input->post('datangEmas'),
-                            'hargaDatangEmas'   => $hargaDatangEmas,
-                            'kuantitas'         => $this->input->post('kuantitas'),
-                            'metode'            => $this->input->post('metode'),
-                            'panjar'            => $panjar,
-                            'totalHarga'        => $totalHarga,
-                            'tipeOrder'         => 'custom',
-                            'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
-                            'budget'            => $budget,
-                            'datangBerlian'     => $this->input->post('datangBerlian'),
-                            'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
-                            'upahPasangBerlian' => $upahPasangBerlian,
-                            'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                            'pekerjaanTambahan' => $pekerjaanTambahan,
-                            'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-                            'biayaTambahan'     => $this->input->post('biayaTambahan'),
+                        'nomorPO'           => $this->input->post('nomorPO'),
+                        'idProduk'          => $idProduk,
+                        'idCustomer'        => $idCustomer,
+                        'idSalesPerson'     => $this->input->post('idSalesPerson'),
+                        'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
+                        'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
+                        'hargaBahan'        => $hargaBahan,
+                        'upah'              => $upah,
+                        'panjar'            => $panjar,
+                        'totalHarga'        => $totalHarga,
+                        'tipeOrder'         => 'perak',
+                        'beratAkhir'        => $this->input->post('beratAkhir'),
+                        'tipeCustomer'      => $this->input->post('tipeCustomer'),
+                        'krumWarna'      => $this->input->post('krumWarna'),
+                        'keteranganKrum'      => $this->input->post('keteranganKrum'),
+                        'keteranganSlep'      => $this->input->post('keteranganSlep'),
+                        'keteranganRombak'      => $this->input->post('keteranganRombak'),
+                        'resize'      => $this->input->post('resize'),
+                        'hargaPerak'          => $hargaPerak,
+                        'hargaKrum'          => $hargaKrum,
+                        'hargaSlep'          => $hargaSlep,
+                        'upahRombak'          => $upahRombak,
+                        'hargaResize'          => $hargaResize,
                     );
                     $this->mdl->insertData('poperak',$dataPO);                        
                         

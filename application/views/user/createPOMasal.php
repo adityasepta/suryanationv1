@@ -97,7 +97,7 @@
                                             <div class="col-md-6">
                                                 <label>Nomor Telepon</label>
                                                 <?php if($id['idC']==0){ ?>
-                                                    <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?php echo set_value('nomorTelepon'); ?>" required="">
+                                                    <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?php echo set_value('nomorTelepon'); ?>">
                                                 <?php } else { ?>
                                                     <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?php echo $customer[0]->nomorTelepon; ?>" readonly>
                                                 <?php } ?>
@@ -169,6 +169,18 @@
                                             <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo set_value('hargaBahan'); ?>" required="">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Metode Pencampuran</label>
+                                        <div class="col-md-2">
+                                            <div class="i-checks"><label> <input id="masak" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Masak 99.5%"){?> checked="" <?php } ?> value="Masak 99.5%" name="metodePencampuran"> <i></i> Masak 99.5% </label></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="i-checks"><label> <input id="lokal" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Lokal 97%"){?> checked="" <?php } ?> value="Lokal 97%" name="metodePencampuran"> <i></i> Lokal 97% </label></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="i-checks"><label> <input id="murni" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Murni 100%"){?> checked="" <?php } ?> value="Murni 100%" name="metodePencampuran"> <i></i> Murni 100% </label></div>
+                                        </div>
+                                    </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Ukuran Jari / Tangan <br/><small class="text-navy">Pilih salah satu</small></label>
@@ -189,7 +201,7 @@
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Gambar Desain</label>
+                                <!-- <div class="form-group"><label class="col-sm-2 control-label">Gambar Desain</label>
                                     <div class="col-sm-10" id="desainBelum">
                                         <label>Insert Image(.JPG)</label>                
                                         <input type="file" name="userfile" value="<?php echo set_value('userfile'); ?>">
@@ -205,7 +217,7 @@
                                             <img id="desain3" src="" class="img img-responsive" style="max-height: 180px;">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
@@ -255,7 +267,7 @@
                                     <div class="col-sm-10"><input type="text" name="beratAkhir" class="form-control" value="<?php echo set_value('beratAkhir'); ?>" placeholder="500gr" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Upah</label>
-                                    <div class="col-sm-10"><input type="text" name="upah" class="form-control good" value="<?php echo set_value('upah'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" placeholder="%" name="upah" class="form-control" value="<?php echo set_value('upah'); ?>" required=""></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Panjar</label>
                                     <div class="col-sm-10"><input type="text" name="panjar" class="form-control good" value="<?php echo set_value('panjar'); ?>"></div>
@@ -404,16 +416,12 @@
                         $("input[name='bahan']").prop('disabled',true).iCheck('update');
                         $('#kadarBahan').prop('readonly', true);
                         $('#hargaBahan').prop('readonly', true);
-                        $('#ukuranJari').prop('readonly', true);
-                        $('#krumWarna').prop('readonly', true);
-                        $('#keteranganKrum').prop('readonly', true);
-                        $('#model').prop('readonly', true);
 
-                        document.getElementById("desainBelum").style.display = "none";
-                        document.getElementById("desainAda").style.display = "block";
-                        document.getElementById("desain1").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d1.jpg";
-                        document.getElementById("desain2").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d2.jpg";
-                        document.getElementById("desain3").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d3.jpg";
+                        // document.getElementById("desainBelum").style.display = "none";
+                        // document.getElementById("desainAda").style.display = "block";
+                        // document.getElementById("desain1").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d1.jpg";
+                        // document.getElementById("desain2").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d2.jpg";
+                        // document.getElementById("desain3").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d3.jpg";
                         document.getElementById("custom").style.backgroundColor = "#f7f7f7";
                     }
             });

@@ -326,7 +326,7 @@
                                         <div class="i-checks"><label> <input type="radio" value="Serat Halus" name="keadaanBatuTengah"> <i></i> Serat Halus </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" value="Serat Kasar" name="keadaanBatuTengah"> <i></i> Serat Kasur </label></div>
+                                        <div class="i-checks"><label> <input type="radio" value="Serat Kasar" name="keadaanBatuTengah"> <i></i> Serat Kasar </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="radio" value="Sompel" name="keadaanBatuTengah"> <i></i> Sompel </label></div>
