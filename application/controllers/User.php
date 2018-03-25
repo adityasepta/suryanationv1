@@ -4867,4 +4867,43 @@ class User extends CI_Controller {
         }
     }
 
+    public function produkTrading() {
+        $data['produk']=$this->mdl->listProdukTrading();
+        $this->load->view('user/produkTrading',$data);
+    }
+
+    public function tambahProdukTrading(){
+        $this->form_validation->set_rules('kodeProduk','Kode Produk', 'required');
+        
+        if ($this->form_validation->run() == FALSE){
+            $data['produk'] = $this->mdl->listProdukTrading($id);
+            //print_r($data['bom']);
+            $this->load->view('user/produkTrading',$data);
+        }
+        else {
+            //form submit dengan gambar dikosongkan
+           $dataProduk = array(
+                            'kodeProduk'    => $this->input->post('kodeProduk'),
+                            'namaProduk'   => $this->input->post('namaProduk'),
+                            'jenisProduk'   => $this->input->post('jenisProduk'),
+                            'satuan'   => $this->input->post('satuan'),
+                            'harga'        => $this->clean($this->input->post('harga')),
+                            'stok'         => $this->input->post('stok'),
+                    );
+                    //print_r($dataProduk);exit();
+                    $this->mdl->insertData("produkTrading",$dataProduk);
+                    $message = "Produk berhasil tambahkan";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/produkTrading")."';</script>";
+    }
+        
+    }
+
+    public function hapusProdukTrading($id){
+        $this->mdl->deleteData("idProduk",$id,"produkTrading");
+        $message = "Produk berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/produkTrading")."';</script>";
+    }
+
 }
