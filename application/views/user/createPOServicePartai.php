@@ -66,7 +66,7 @@
                             <h5>Buat PO Service <small>Isi semua data yang dibutuhkan.</small></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                            <?php echo form_open_multipart('user/createPOService/')?>
+                            <?php echo form_open_multipart('user/createPOServicePartai/')?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -81,7 +81,7 @@
                                             <div class="col-md-6">
                                                 <label>Jenis Service</label><br>
                                                 <small>Service bisa berupa Satuan atau Partai</small>
-                                                <input type="text" placeholder="Jenis Order" name="jenisOrder" value="Satuan" class="form-control" readonly>
+                                                <input type="text" placeholder="Jenis Order" name="jenisOrder" value="Partai" class="form-control" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -138,19 +138,11 @@
                                         <div class="row">
                                             <div class="col-md-1">
                                                 <label>Jumlah</label>
-                                                <input type="number" step="any" name= "jumlah[]" class="form-control" required>
+                                                <input type="number" name= "jumlah[]" class="form-control" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Nama Barang</label>
                                                 <input type="text" name= "namaBarang[]" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Berat (gr)</label>
-                                                <input type="number" step="any" name= "berat[]" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Sub Total Harga (Rp)</label>
-                                                <input type="text" name= "harga[]" class="form-control good" required>
                                             </div>
                                         </div>
                                     </div>
@@ -165,6 +157,20 @@
                                                         </div>
                                                 </div>
                                             </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label>Berat Total (gr)</label>
+                                                <input type="number" step="any" name= "berat" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Total Harga (Rp)</label>
+                                                <input type="text" name= "harga" class="form-control good" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
@@ -221,7 +227,7 @@
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
                     <?php $jawab++;?>
-                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" step="any" name= "jumlah[]" class="form-control good" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang[]" class="form-control" required></div><div class="col-md-2 "><label>Berat (gram)</label><input type="number" step="any" name= "berat[]" class="form-control" required></div><div class="col-md-3"><label>Sub Total Harga</label><input type="text" name= "harga[]" class="form-control good" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" name= "jumlah[]" class="form-control good" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang[]" class="form-control" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
                 }
             });
             
