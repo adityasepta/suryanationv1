@@ -105,7 +105,7 @@
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a type="button" data-toggle="modal" data-target="#service">
+                    <a type="button" href="<?php echo base_url('user/pilihPOService')?>">
                         <div class="ibox">
                             <div class="ibox-content product-box">
 

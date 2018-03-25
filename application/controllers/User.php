@@ -1761,6 +1761,7 @@ class User extends CI_Controller {
                 $data['namaBarang']=$this->input->post('namaBarang');
                 $data['jumlah']=$this->input->post('jumlah');
                 $data['harga']=$this->input->post('harga');
+                $data['berat']=$this->input->post('berat');
                 $dataPOService= array(
                             'nomorPO'           => $this->input->post('nomorPO'),
                             'idCustomer'        => $idCustomer,
@@ -1768,6 +1769,7 @@ class User extends CI_Controller {
                             'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                             'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
                             'tipeOrder'         => 'service',
+                            'jenisOrder'         => 'Satuan',
                         );
                 //print_r($dataPOService);exit();
                 $this->mdl->insertData('purchaseorderservice',$dataPOService);
@@ -1776,16 +1778,26 @@ class User extends CI_Controller {
                 $idPO = $data['PO'][0]->idPO;
                 //print_r($data['material']);exit();
                 $j=count($this->input->post('jumlah'));
+                $harga=0;
+                $berat=0;
                     for ($i=0; $i < $j ;$i++){
                         $dataDetailPOService= array(
                             'idPO'         => $idPO,
                             'namaBarang'    => $data['namaBarang'][$i],
                             'jumlah'       => $data['jumlah'][$i],
+                            'berat'       => $data['berat'][$i],
                             'harga'       => $this->clean($data['harga'][$i]),
                         );
-                        //print_r($dataBOM);//exit();
+
                         $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPOService);
+                        $berat = $berat + $data['berat'][$i];
+                        $harga = $harga + $this->clean($data['harga'][$i]); 
                     }
+                $dataHarga = array(
+                    'totalHarga' => $harga,
+                    'totalBerat' => $berat
+                ); 
+                $this->mdl->updateData('idPO',$idPO, 'purchaseorderservice', $dataHarga);
                 $message = "PO berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
                 window.location.href='".base_url("user/listPOService")."';</script>";
@@ -4770,6 +4782,117 @@ class User extends CI_Controller {
         $data['bom']=$this->mdl->getBOM();
         $data['bom2']=$this->mdl->getBOMdistinct();
         $this->load->view('user/produkJadi',$data);
+    }
+
+    //createPOService
+    public function pilihPOService() {
+        $data['listCustomer'] = $this->mdl->listCustomer();
+        $this->load->view('user/pilihJenisService',$data);
+    } 
+
+    public function createPOServicePartai() {
+        $this->form_validation->set_message('is_unique','The %s is already taken');
+        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[purchaseorderservice.nomorPO]');
+        $this->form_validation->set_rules('namaBarang[]','Nama Barang', 'required');
+        if ($this->form_validation->run() == FALSE){
+            //$data['BOMProduk'];
+            $idCustomer=$this->input->post('idCustomer');
+            if ($idCustomer==0){
+                $data['id'] = array(
+                    'idC' => 0,
+                );
+            } else {
+                $data['customer'] = $this->mdl->cariCustomer($idCustomer);
+                $data['id']= array(
+                    'idC' => 1,
+                );
+            }
+            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['poTerakhir'] = $this->mdl->poTerakhirService();
+            $this->load->view('user/createPOServicePartai',$data);
+        }
+        else {
+                //eksekusi query tabel Customer
+                $dataCustomer = array(
+                    'namaCustomer'        => $this->input->post('namaCustomer'),
+                    'nomorTelepon'        => $this->input->post('nomorTelepon'),
+                );
+                $this->mdl->tambahCustomer($dataCustomer);
+                $customer=$this->mdl->findCustomer();
+                $idCustomer=$customer[0]->idCustomer;
+
+                $data['namaBarang']=$this->input->post('namaBarang');
+                $data['jumlah']=$this->input->post('jumlah');
+                $dataPOService= array(
+                            'nomorPO'           => $this->input->post('nomorPO'),
+                            'idCustomer'        => $idCustomer,
+                            'idSalesPerson'     => $this->input->post('idSalesPerson'),
+                            'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
+                            'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
+                            'tipeOrder'         => 'service',
+                            'jenisOrder'         => 'Partai',
+                            'totalBerat'        => $this->input->post('berat'),
+                            'totalHarga'        => $this->clean($this->input->post('harga')),
+                        );
+                //print_r($dataPOService);exit();
+                $this->mdl->insertData('purchaseorderservice',$dataPOService);
+
+                $data['PO'] = $this->mdl->findPOService($this->input->post('nomorPO'));
+                $idPO = $data['PO'][0]->idPO;
+                //print_r($data['material']);exit();
+                $j=count($this->input->post('jumlah'));
+                $harga=0;
+                    for ($i=0; $i < $j ;$i++){
+                        $dataDetailPOService= array(
+                            'idPO'         => $idPO,
+                            'namaBarang'    => $data['namaBarang'][$i],
+                            'jumlah'       => $data['jumlah'][$i]
+                        );
+                        $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPOService);
+                    }
+                $message = "PO berhasil dibuat";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href='".base_url("user/listPOService")."';</script>";
+        }
+    }
+
+    public function produkTrading() {
+        $data['produk']=$this->mdl->listProdukTrading();
+        $this->load->view('user/produkTrading',$data);
+    }
+
+    public function tambahProdukTrading(){
+        $this->form_validation->set_rules('kodeProduk','Kode Produk', 'required');
+        
+        if ($this->form_validation->run() == FALSE){
+            $data['produk'] = $this->mdl->listProdukTrading($id);
+            //print_r($data['bom']);
+            $this->load->view('user/produkTrading',$data);
+        }
+        else {
+            //form submit dengan gambar dikosongkan
+           $dataProduk = array(
+                            'kodeProduk'    => $this->input->post('kodeProduk'),
+                            'namaProduk'   => $this->input->post('namaProduk'),
+                            'jenisProduk'   => $this->input->post('jenisProduk'),
+                            'satuan'   => $this->input->post('satuan'),
+                            'harga'        => $this->clean($this->input->post('harga')),
+                            'stok'         => $this->input->post('stok'),
+                    );
+                    //print_r($dataProduk);exit();
+                    $this->mdl->insertData("produkTrading",$dataProduk);
+                    $message = "Produk berhasil tambahkan";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/produkTrading")."';</script>";
+    }
+        
+    }
+
+    public function hapusProdukTrading($id){
+        $this->mdl->deleteData("idProduk",$id,"produkTrading");
+        $message = "Produk berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/produkTrading")."';</script>";
     }
 
 }

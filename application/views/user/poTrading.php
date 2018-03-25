@@ -146,6 +146,7 @@
 
     <!-- FooTable -->
     <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
+    
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function() {
