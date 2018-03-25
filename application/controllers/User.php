@@ -3479,7 +3479,7 @@ class User extends CI_Controller {
             $data['sl'] = $this->mdl->getProsesMassal1(1012);
             
             $data['kr'] = $this->mdl->getProsesMassal1(1013);
-            $data['do'] = $this->mdl->getProsesMassal1(1014);  
+            $data['do'] = $this->mdl->getDone();  
             
             $this->load->view('user/statprodMassal_view', $data);
             
@@ -3656,7 +3656,7 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('beratAwal')
+            'beratAwal' => $this->input->post('berat')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
@@ -3687,11 +3687,11 @@ class User extends CI_Controller {
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
         $idAktivitas = $this->input->post('idAktivitas');
+        $idProduk = $this->input->post('idProduk');
 
-        $proses = $this->getProsesDetail2($idProProd);
+        $proses = $this->mdl->getProsesDetail2($idProProd);
         $idSPK = $proses[0]->idSPK;
         $idSubSPK = $proses[0]->idSubSPK;
-        $idProduk   = $proses[0]->idProduk;
 
         $wadah = $this->mdl->getWadahTerakhir();
         $idWadah = (int)($wadah[0]->idWadah) + 1;
@@ -3699,20 +3699,45 @@ class User extends CI_Controller {
         $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idAktivitas);
         $next      = $aktivitas[0]->idAktivitas;
 
-
         $data = array(
+                
                 'idSPK' => $idSPK,
                 'idSubSPK' => $idSubSPK,
                 'idWadah' => $idWadah,
-                'statusWork' => $staf,
+                'idPIC' => $staf,
                 'statusSPK' => 'Active',
                 'statusWork' => 'On Progress',
                 'idAktivitas' => $next,
                 'statusBerat' => 'Belum Disetujui',
                 'jumlah'    => $jumlah,
-                'beratAwal' => $beratAwal
-            );
+                'jumlahNow'    => $jumlah,
+                'beratAwal' => $beratAwal,
+                'RealisasiStartDate' => date("Y-m-d H:i:s")
+        );
+
         $this->mdl->insertData('factproduction2', $data);
+
+        $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah;
+
+        if($jmlakhir >0) {
+            $statusWork = 'Waiting';
+        } else {
+            $statusWork = 'Done';
+        }
+
+        $data = array(
+                
+                'jumlahNow' => $jmlakhir,
+                'statusWork' => $statusWork,
+                'RealisasiEndDate' => date("Y-m-d H:i:s")
+                
+        );
+
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
+        redirect('User/kanbanmassal');
+
+
 
     }
 

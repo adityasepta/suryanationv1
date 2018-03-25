@@ -17,10 +17,7 @@
             No Faktur<br>
             <b><?php echo $gi[$i]->nomorFaktur ?></b>
         </div>
-        <!-- <div class="col-lg-4 text-center">
-            No Barang<br>
-            <b>0001</b>
-        </div> -->
+
         <div class="col-lg-6 text-center ">
             ID Sub SPK<br>
             <b><?php echo $gi[$i]->idSubSPK ?></b>
@@ -28,7 +25,7 @@
     </div>
     
     
-
+    
     <div class="row">
         <div class="col-lg-12 text-center">
             
@@ -40,28 +37,75 @@
     
     <div class="row">
         <br>
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <?php if ($gi[$i]->statusWork == 'Belum ada PIC') { ?>
             <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
             <?php } else { ?>
             <button class="btn btn-block btn-warning btn-xs">On Progress</button>
             <?php } ?>
         </div>
+        <div class="col-lg-3">
+            
+            <?php
 
+            $sub = 0;
+            for ($g=0; $g < count($cb) ; $g++) { 
+                if($cb[$g]->idSubSPK == $gi[$i]->idSubSPK) {
+                    $sub++;
+                }
+            } 
+
+            ?>
+            
+            <?php if($sub == 0) { ?>
+        
+                <a href="<?php echo base_url('user/createbommassal/'.$gi[$i]->idSubSPK)?>"  class="btn btn-xs btn-danger btn-block"><span class="fa fa-cubes"></span>&nbsp&nbsp<span class="fa fa-times"></span></a>
+        
+            <?php } else {?>
+
+                <a href="<?php echo base_url('user/createbommassal/'.$gi[$i]->idSubSPK)?>"  class="btn btn-xs btn-primary btn-block"><span class="fa fa-cubes"></span>&nbsp&nbsp<span class="fa fa-check"></span></a>
+
+            <?php } ?>
+        </div>
+        <div class="col-lg-3">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+            
+            
+            
+        </div>
+        
+     
         <div class="col-lg-9">
             <br>    
             <button data-toggle="modal" data-target="#detail<?php echo $gi[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
-
+        
+        
         <div class="col-lg-3">
             <br>
 
+           <?php
+
+            $sub = 0;
+            for ($g=0; $g < count($cb) ; $g++) { 
+                if($cb[$g]->idSubSPK == $gi[$i]->idSubSPK) {
+                    $sub++;
+                }
+            } 
+
+            ?>
             
-            <?php if($gi[$i]->statusWork == 'On Progress') { ?>
+            <?php if($sub > 0 AND ($gi[$i]->statusWork == 'On Progress')) { ?>
         
                 
 
-                <a href="<?php echo base_url('User/next3/'.$gi[$i]->idProduk.'/'.$idakt.'/'.$gi[$i]->idProProd.'/'.$gi[$i]->idSPK.'/'.$gi[$i]->idSubSPK.'/0')?>" onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $gi[$i]->nomorFaktur ?>?')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
+                <a href="<?php echo base_url('User/next3/'.$gi[$i]->idProduk.'/'.$idakt.'/'.$gi[$i]->idProProd.'/'.$gi[$i]->idSPK.'/'.$gi[$i]->idSubSPK.'/0')?>" 
+                    onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $gi[$i]->nomorFaktur ?> dan menyetujui Bill Of Material untuk Sub SPK id <?php echo $gi[$i]->idSubSPK ?>?')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
         
             <?php } else {?>
 
@@ -92,8 +136,6 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $gi[$i]->idProProd ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2<?php echo $gi[$i]->idProProd ?>">Jadwal</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-3<?php echo $gi[$i]->idProProd ?>">Berat</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1<?php echo $gi[$i]->idProProd ?>" class="tab-pane active">
@@ -141,81 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-2<?php echo $gi[$i]->idProProd ?>" class="tab-pane">
-                                <div class="panel-body">
-                                    <table class="table table-hover table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">No</th>
-                                                <th>Proses</th>
-                                                <th class="text-center">Tanggal</th>
-                                                <th class="text-center">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>Sales</td>
-                                                <td class="text-center"><?php echo $gi[$i]->tanggal?></td>
-                                                <td class="text-center"><label class="label label-xs label-primary">Diterima</label></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">2</td>
-                                                <td>Penjadwalan</td>
-                                                <td class="text-center"><?php echo $gi[$i]->tanggaljadwal?></td>
-                                                <td class="text-center"><label class="label label-xs label-primary">Diterima</label></td>
-                                            </tr>
-
-                                            <?php for ($q=0; $q < count($r) ; ++$q) { 
-                                                if($r[$q]->idSPK == $gi[$i]->idSPK) { ?>
-
-                                                <tr>
-                                                    <td class="text-center"><?php echo $q+3 ?></td>
-                                                    <td><?php echo $r[$q]->aktivitas ?></td>
-                                                    <td class="text-center"><?php echo $r[$q]->sd ?></td>
-                                                    <td class="text-center">
-                                                        <?php if ($r[$q]->idAktivitas == $idakt) {?>
-
-                                                        <label class="label label-xs label-warning">On Progress</label>
-
-                                                        <?php } else if ($r[$q]->STATUS == 'On Time'){ ?>
-
-                                                        <label class="label label-xs label-primary"><?php echo $r[$q]->STATUS ?></label>
-
-                                                        <?php } else { ?>
-
-                                                        <label class="label label-xs label-danger"><?php echo $r[$q]->STATUS ?></label>
-
-                                                        <?php } ?>
-                                                    </td>
-                                                </tr>
-
-                                            <?php }} ?>
-                                           
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div id="tab-3<?php echo $gi[$i]->idProProd ?>" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <table class="table table-hover table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No</th>
-                                                    <th>Keterangan</th>
-                                                    <th class="text-center">Berat</th>                                                    
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Action</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
 
 
@@ -290,7 +258,5 @@
     
     
 </li>
-
-
 
 

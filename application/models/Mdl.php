@@ -1421,21 +1421,22 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getProsesMassal1($idAktivitas) {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalJadwal, '%d %M %Y' ) AS tanggaljadwal, k.nama AS namapic, u.nama AS namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u, user k, factproduction2 f, rencanaproduksi r WHERE po.idSalesPerson = u.idUser AND k.idUser = f.idPIC AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idAktivitas = $idAktivitas AND s.idSPK = f.idSPK AND f.statusWork != 'Done' and f.idSPK = r.idSPK and r.idAktivitas = $idAktivitas ORDER BY f.idproprod";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalJadwal, '%d %M %Y' ) AS tanggaljadwal, k.nama AS namapic, u.nama AS namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u, user k, factproduction2 f, rencanaproduksi2 r WHERE po.idSalesPerson = u.idUser AND k.idUser = f.idPIC AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idAktivitas = $idAktivitas AND s.idSPK = f.idSPK AND f.statusWork != 'Done' and f.idSPK = r.idSPK and r.idAktivitas = $idAktivitas ORDER BY f.idproprod";
         $query = $this->db->query($sql);
         
         return $query->result();
 
     }
 
-    public function getProsesMassal2($idAktivitas) {
+    public function getDone() {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalJadwal, '%d %M %Y' ) AS tanggaljadwal, k.nama AS namapic, u.nama AS namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u, user k, factproduction2 f, rencanaproduksi r WHERE po.idSalesPerson = u.idUser AND k.idUser = f.idPIC AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idAktivitas = $idAktivitas AND s.idSPK = f.idSPK AND f.statusWork != 'Done' and f.idSPK = r.idSPK and r.idAktivitas = $idAktivitas and f.idSubSPK in (SELECT idsubspk from wadah) ORDER BY f.idproprod";
+        $sql   = "SELECT * from (SELECT idSPK, sum(jumlah) as max FROM `factproduction2`where idAktivitas = 1006 group by idspk) a, (SELECT idSPK, sum(jumlah) as jumlah FROM `factproduction2` where idAktivitas = 1014 and statusWork='On Progress' group by idspk) b, (SELECT idSPK, count( DISTINCT idSubSPK) as jml1,count( DISTINCT idWadah) as jml2 FROM `factproduction2` group by idspk) d, spkmasal c where a.idSPK = b.idSPK and c.idSPK = a.idSPK and a.idSPK = d.idSPK order by (max-jumlah)";
         $query = $this->db->query($sql);
         
         return $query->result();
 
     }
+
 
     public function getSeparasi2() {
 
