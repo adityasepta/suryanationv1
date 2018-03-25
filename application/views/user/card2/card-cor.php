@@ -280,7 +280,13 @@
                                                                         <div class="modal-body">
                                                                             <?php echo form_open('user/setBerat3')?>
                                                                             <div class="form-horizontal">
-                                                                                <div class="form-group"><label class="col-sm-5 control-label">Berat <?php echo $b[$j]->namaAktivitas ?></label>
+                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $b[$j]->namaAktivitas ?></label>
+
+                                                                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $co[$i]->beratAwal?>" class="form-control"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-horizontal">
+                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $b[$j]->namaAktivitas ?></label>
 
                                                                                     <div class="col-sm-5"><input type="text" name="berat" class="form-control"></div>
                                                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$j]->idProProd ?>"></div>
@@ -331,13 +337,13 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-lg-5">
-                            <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Tambah PIC</button>
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Tambah PIC dan Berat Awal</button>
 
                             <div class="modal inmodal fade" id="pic<?php echo $co[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <?php echo form_open('User/setPIC3')?>
+                                            <?php echo form_open('User/setPIC4')?>
                                             <div class="form-horizontal">
                                                 
                                                 <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
@@ -363,6 +369,13 @@
                                                 </div>
                                                 
                                             </div>
+                                            <div class="form-horizontal">
+                                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
+
+                                                        <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $co[$i]->beratAwal?>" required class="form-control"></div>
+                                                        
+                                                    </div>
+                                                </div>
                                             
                                             <div class="row">
                                                 <div class="col-lg-6">

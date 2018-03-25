@@ -3459,7 +3459,7 @@ class User extends CI_Controller {
             $data['li'] = $this->mdl->getProsesMassal1(1004);
             $data['gi'] = $this->mdl->getProsesMassal1(1005);
             $data['co'] = $this->mdl->getProsesMassal1(1006);
-            $data['sp2']  = $this->mdl->getSeparasi2();
+           // $data['sp2']  = $this->mdl->getSeparasi2();
 
             
             
@@ -3470,7 +3470,7 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord2();
             $data['b'] = $this->mdl->getBerat2();
 
-            $data['gp'] = $this->mdl->getProsesMassal2(1007);  
+            $data['gp'] = $this->mdl->getProsesMassal1(1007);  
             $data['go'] = $this->mdl->getProsesMassal1(1008);  
             $data['bo'] = $this->mdl->getProsesMassal1(1009);  
             
@@ -3656,7 +3656,7 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('berat')
+            'beratAwal' => $this->input->post('beratAwal')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
@@ -3664,9 +3664,53 @@ class User extends CI_Controller {
         
     }
 
-    public function next3($idProduk, $idAktivitas, $idProProd, $idSPK, $idSubSPK, $idWadah)
+    public function setPIC4()
     {
         
+        $idp = $this->input->post('idProProd');
+        
+        $data = array(
+            'idPIC' => $this->input->post('staf'),
+            'statusWork' => 'On Progress',
+            'RealisasiStartDate' => date("Y-m-d H:i:s"),
+            'beratAwal' => $this->input->post('beratAwal')
+        );
+        $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
+        redirect('User/kanbanMassal');
+        
+    }
+
+    public function next4() {
+        $idProProd = $this->input->post('idProProd');
+        $staf = $this->input->post('staf');
+        $jumlah = $this->input->post('jumlah');
+        $beratAwal = $this->input->post('beratAwal');
+
+        $proses = $this->getProsesDetail2($idProProd);
+        $idSPK = $proses[0]->idSPK;
+        $idSubSPK = $proses[0]->idSubSPK;
+
+
+        $data = array(
+                'idSPK' => $idSPK,
+                'idSubSPK' => $idSubSPK,
+                'idWadah' => $idWadah,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+                'idAktivitas' => $next,
+                'statusBerat' => 'Belum Disetujui',
+                'jumlah'    => $jumlah,
+                'jumlahNow'    => $jumlah,
+                'beratAwal' => $beratAwal
+            );
+        $this->mdl->insertData('factproduction2', $data);
+
+    }
+
+    public function next3($idProduk, $idAktivitas, $idProProd, $idSPK, $idSubSPK, $idWadah)
+    {
+        $proses = $this->mdl->getProsesDetail2($idProProd);
         $data = array(
                 'statusWork' => 'Done',
                 'RealisasiEndDate' => date("Y-m-d H:i:s")
@@ -3676,6 +3720,8 @@ class User extends CI_Controller {
 
         $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idAktivitas);
         $next      = $aktivitas[0]->idAktivitas;
+        $jumlah    = $proses[0]->jumlah;
+        $beratAwal    = $proses[0]->berat;
 
         $data = array(
                 'idSPK' => $idSPK,
@@ -3684,9 +3730,12 @@ class User extends CI_Controller {
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
                 'idAktivitas' => $next,
-                'statusBerat' => 'Belum Disetujui'
+                'statusBerat' => 'Belum Disetujui',
+                'jumlah'    => $jumlah,
+                'jumlahNow'    => $jumlah,
+                'beratAwal' => $beratAwal
             );
-            $this->mdl->insertData('factproduction2', $data);
+        $this->mdl->insertData('factproduction2', $data);
 
         if($idAktivitas == '1004') {
 
@@ -3712,9 +3761,6 @@ class User extends CI_Controller {
                 
             }
 
-            
-
-
 
         }
 
@@ -3732,6 +3778,7 @@ class User extends CI_Controller {
         $data = array(
             'berat' => $this->input->post('berat'),
             'kembali' => $this->input->post('kembali'),
+            'beratAwal' => $this->input->post('beratAwal'),
 
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
@@ -3747,6 +3794,7 @@ class User extends CI_Controller {
 
         $data = array(
             'berat' => $this->input->post('berat'),
+            'beratAwal' => $this->input->post('beratAwal'),
             'jumlah' => $this->input->post('jumlah'),
             'kembali' => $this->input->post('kembali'),
 

@@ -293,20 +293,6 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>SEPARASI <span class="label label-success pull-right"><?php  echo count($sp2)?></span></h3>
-                                    <p>Kumpulan dari Sub SPK yang sedang proses <br>menjadi Wadah</p>
-                                    <ul class="sortable-list connectList agile-list" id="desain">
-                                     <?php for ($i=0; $i < count($sp2) ; ++$i) { ?>
-                                           <?php include('card2/card-separasi2.php') ?>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
-                            <div class="ibox">
-                                <div class="ibox-content">
                                     <h3>GOSOK PENTOL<span class="label label-success pull-right"><?php echo count($gp)?></span></h3>
                                     <p>Kumpulan dari SPK yang sedang proses <br> Gosok Pentol </p>
                                     <ul class="sortable-list connectList agile-list" id="gosok">
