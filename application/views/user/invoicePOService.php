@@ -1,5 +1,8 @@
 <?php 
     $idPO                   = $dataPO[0]->idPO;
+    $jenisOrder             = $dataPO[0]->jenisOrder;
+    $totalBerat             = $dataPO[0]->totalBerat;
+    $totalHarga             = $dataPO[0]->totalHarga;
     $namaCustomer           = $dataPO[0]->namaCustomer;
     $nomorTelepon           = $dataPO[0]->nomorTelepon;
     $idSalesPerson          = $dataPO[0]->idSalesPerson;
@@ -87,7 +90,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Nomor PO</label>
-                                                <h5 class="text-muted"><?php echo $nomorPO?></h5>
+                                                <h5 class="text-muted"><?php echo $nomorPO." / ".$jenisOrder?></h5>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Nama Konsumen</label>
@@ -120,6 +123,7 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <br>
+                                    <?php if($jenisOrder=='Satuan') {?>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <table class="table table-hover table-responsive">
@@ -150,6 +154,44 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <?php } else { ?>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10%">No</th>
+                                                        <th style="width: 50%">Nama Barang</th>
+                                                        <th>Berat</th>
+                                                        <th>Harga</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $ijk=1; $jumlah=0; for ($ij=0; $ij < count($ds) ; $ij++) { 
+                                                        $jumlah = $jumlah + (float)$ds[$ij]->harga;
+                                                        ?>
+                                                        <tr>
+                                                            <td style="width: 10%"><?php echo $ijk; ?></td>
+                                                            <td style="width: 50%"><?php echo $ds[$ij]->namaBarang?></td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    <?php $ijk++; } ?>
+                                                        <tr>
+                                                            <td colspan="2" class="text-center"><b>Total Berat</b></td>
+                                                            <td><b><?php echo $totalBerat." gr"; ?></b></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="text-center"><b>Total Harga</b></td>
+                                                            <td></td>
+                                                            <td><b>Rp. <?php echo number_format($totalHarga,2,".","."); ?></b></td>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">

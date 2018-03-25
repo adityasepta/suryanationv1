@@ -121,6 +121,7 @@
                                     <th data-hide="phone,tablet">No</th>
                                     <th>Nama Barang</th>
                                     <th>Qty</th>
+                                    <th>Satuan</th>
                                     <th>Harga Satuan</th>
                                     <th>Sub Total</th>
                                     <th class="text-center" data-hide="phone,tablet"></th>
@@ -134,6 +135,7 @@
                                     <td><?php echo $ij+1?></td>
                                     <td><?php echo $detailPO[$ij]->namaProduk?></td>
                                     <td><?php echo $detailPO[$ij]->jumlah?></td>
+                                    <td><?php echo $detailPO[$ij]->satuan?></td>
                                     <td>Rp. <?php echo number_format($detailPO[$ij]->harga,2,".","."); ?></td>
                                     <td>Rp. <?php echo number_format($detailPO[$ij]->jumlah*$detailPO[$ij]->harga,2,".","."); ?></td>
                                     
@@ -147,7 +149,7 @@
                                 </tr>
                                 <?php $ijk++; } ?>
                                 <tr>
-                                    <td colspan="4" class="text-center"><b>Total</b></td>
+                                    <td colspan="5" class="text-center"><b>Total</b></td>
                                     <td colspan="2"><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
                                 </tr>
                                 </tbody>
@@ -198,7 +200,7 @@
                                                                     <div class="list-to-filter">
                                                                         <ul class="list-unstyled">
                                                                             <?php for ($i=0; $i < count($listProduk) ; $i++) { ?>
-                                                                                <li class="filter-item items" data-filter="<?php echo $listProduk[$i]->kodeProduk; echo " - "; echo $listProduk[$i]->jenisProduk;?>" data-value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk; echo " - "; echo $listProduk[$i]->jenisProduk;?></li>
+                                                                                <li class="filter-item items" data-filter="<?php echo $listProduk[$i]->kodeProduk; echo " - "; echo $listProduk[$i]->namaProduk;echo " - "; echo $listProduk[$i]->jenisProduk;?>" data-value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk; echo " - "; echo $listProduk[$i]->namaProduk; echo " - "; echo $listProduk[$i]->jenisProduk;?></li>
                                                                             <?php } ?>
                                                                         </ul>
                                                                         <div class="no-search-results">
@@ -210,7 +212,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-3">
                                                                     <label >Qty</label><br>
-                                                                    <input type="number" name="jumlah" class="form-control">
+                                                                    <input type="number" step="any" name="jumlah" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <input type="hidden" name="produk" id="pilihProduk" value="0" required="">
@@ -247,6 +249,7 @@
                                                                 <th data-hide="phone,tablet">No</th>
                                                                 <th>Nama Barang</th>
                                                                 <th>Qty</th>
+                                                                <th>Satuan</th>
                                                                 <th>Harga Satuan</th>
                                                                 <th>Sub Total</th>
                                                             </tr>
@@ -259,12 +262,13 @@
                                                                 <td><?php echo $ij+1?></td>
                                                                 <td><?php echo $detailPO[$ij]->namaProduk?></td>
                                                                 <td><?php echo $detailPO[$ij]->jumlah?></td>
+                                                                <td><?php echo $detailPO[$ij]->satuan?></td>
                                                                 <td>Rp. <?php echo number_format($detailPO[$ij]->harga,2,".","."); ?></td>
                                                                 <td>Rp. <?php echo number_format($detailPO[$ij]->jumlah*$detailPO[$ij]->harga,2,".","."); ?></td>
                                                             </tr>
                                                             <?php $ijk++; } ?>
                                                             <tr>
-                                                                <td colspan="4" class="text-center"><b>Total</b></td>
+                                                                <td colspan="5" class="text-center"><b>Total</b></td>
                                                                 <td colspan="2"><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
                                                             </tr>
                                                             </tbody>

@@ -126,7 +126,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label>Nama Material</label>
                                                 <select class="form-control" id="kode" onchange="calc();" name="kodeMaterial">
                                                 <?php
@@ -142,19 +142,23 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Kotor (gr)</label>
-                                                <input type="number" name= "beratKotor" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratKotor" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Karet (gr)</label>
-                                                <input type="number" name= "beratKaret" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratKaret" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Batu (gr)</label>
-                                                <input type="number" name= "beratBatu" step=any id="n3" onchange="calc();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratBatu" step=any id="n3" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Bahan Pengurang (%)</label>
-                                                <input type="number" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
+                                                <input type="number" step="any" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Bahan Penentu</label>
+                                                <input type="number" step="any" name= "bahanPenentu" id="n5" onchange="calc();" value='0' class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -188,15 +192,15 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>kadar Awal (%)</label>
-                                                <input type="number" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='' required>
+                                                <input type="number" step="any" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Emas Murni (gr)</label>
-                                                <input type="number" name= "beratEmasMurni" step=any id="m2" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratEmasMurni" step=any id="m2" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Kadar Dimau (%)</label>
-                                                <input type="number" name= "kadarDimau" step=any id="m3" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarDimau" step=any id="m3" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                         </div>
                                     </div>
@@ -266,19 +270,19 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>Kadar Bahan Ada (%)</label>
-                                                <input type="number" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Bahan Ada (gr)</label>
-                                                <input type="number" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Kadar Emas Dimiliki (%)</label>
-                                                <input type="number" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Kadar Target (%)</label>
-                                                <input type="number" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                         </div>
                                     </div>
@@ -349,48 +353,49 @@
                     var n2 = parseFloat(document.getElementById('n2').value);
                     var n3 = parseFloat(document.getElementById('n3').value);
                     var n4 = parseFloat(document.getElementById('n4').value);
+                    var n5 = parseFloat(document.getElementById('n5').value);
                     var jenisEmas = $('#kode option:selected').text();
 
                     var beratBersih = n1-n2-n3;
                     
                     if (jenisEmas==='Emas Rose Gold 75%') {
-                        var bahanDasar = beratBersih*14.5;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Rose Gold 70%') {
-                        var bahanDasar = beratBersih*14;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Putih 70%') {
-                        var bahanDasar = beratBersih*14;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Putih 75%') {
-                        var bahanDasar = beratBersih*14.5;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 70%') {
-                        var bahanDasar = beratBersih*14;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Kuning 80%') {
-                        var bahanDasar = beratBersih*15;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;
                     }
                     else if (jenisEmas==='Emas Swasa 50%') {
-                        var bahanDasar = beratBersih*12;
+                        var bahanDasar = beratBersih*n5;
                         var bahanPengurang = bahanDasar*n4/100;
                         document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
                         document.getElementById("myBtn").disabled = false;

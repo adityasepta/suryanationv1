@@ -121,6 +121,7 @@
                                                     <th data-hide="phone,tablet">No</th>
                                                     <th>Nama Barang</th>
                                                     <th>Qty</th>
+                                                    <th>Satuan</th>
                                                     <th>Harga Satuan</th>
                                                     <th>Sub Total</th>
                                                 </tr>
@@ -133,18 +134,19 @@
                                                     <td><?php echo $ij+1?></td>
                                                     <td><?php echo $detailPO[$ij]->namaProduk?></td>
                                                     <td><?php echo $detailPO[$ij]->jumlah?></td>
+                                                    <td><?php echo $detailPO[$ij]->satuan?></td>
                                                     <td>Rp. <?php echo number_format($detailPO[$ij]->harga,2,".","."); ?></td>
                                                     <td>Rp. <?php echo number_format($detailPO[$ij]->jumlah*$detailPO[$ij]->harga,2,".","."); ?></td>
                                                 </tr>
                                                 <?php $ijk++; } ?>
                                                 <tr>
-                                                    <td colspan="4" class="text-center"><b>Total</b></td>
+                                                    <td colspan="5" class="text-center"><b>Total</b></td>
                                                     <td colspan="2"><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td colspan="6">
+                                                    <td colspan="7">
                                                         <ul class="pagination pull-right"></ul>
                                                     </td>
                                                 </tr>

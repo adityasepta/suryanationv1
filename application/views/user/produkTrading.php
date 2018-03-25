@@ -68,9 +68,7 @@
                         <div class="ibox-title">
                             <h5>Daftar Produk</h5>
                             <div class="ibox-tools">
-                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createProduk">
-                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PRODUK</strong></span></i>
-                                </a>
+                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#tambahProduk"><span style="font-family: 'open sans'"><strong> TAMBAH PRODUK TRADING</strong></span></button>
                             </div>
                         </div>
 
@@ -83,8 +81,9 @@
                                 <tr>
                                     <th class="text-center">Kode Produk</th>
                                     <th>Nama Produk</th>
-                                    <th class="text-center" >Kategori</th>
+                                    <th class="text-center" >Jenis Produk</th>
                                     <th class="text-center" >Harga Produk</th>
+                                    <th class="text-center" >Stok</th>
                                     <!-- <th data-hide="phone,tablet">Foto</th> -->
                                     <th class="text-center" >Action</th>
                                 </tr>
@@ -95,15 +94,13 @@
                                                 <td class="text-center"><?php echo $produk[$j]->kodeProduk?></td>
                                                 <td><?php echo $produk[$j]->namaProduk?></td>
                                                 <td class="text-center" ><?php echo $produk[$j]->jenisProduk?></td>
-                                                <td class="text-center" >Rp. <?php echo number_format($produk[$j]->hargaProduk,2,".","."); ?></td>
+                                                <td class="text-center" >Rp. <?php echo number_format($produk[$j]->harga,2,".","."); ?></td>
+                                                <td class="text-center" ><?php echo $produk[$j]->stok." ".$produk[$j]->satuan?></td>
                                                 <td class="text-center"><!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idKatalog?>">Lihat</button>
-                                                    <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idKatalog?>" class="btn btn-xs btn-default">Edit</a>
-                                                    <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idKatalog?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a></td>
+                                                    <!-- <a href="<?php echo base_url()?>user/editProdukTrading/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default">Edit</a> -->
+                                                    <a href="<?php echo base_url()?>user/hapusProdukTrading/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a></td>
                                             </tr>
-                                        </div>
                                      <?php } ?>
-
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -113,48 +110,72 @@
                                 </tr>
                                 </tfoot>
                             </table>
-                            <?php foreach ($produk as $p) : ?>
-                                            <!-- Modal -->
-                                            <div class="modal inmodal fade" id="detail<?php echo $p->idKatalog?>" tabindex="-1" role="dialog"  aria-hidden="true">
+
+                                        </div>
+                                        <!-- Modal Tambah Produk -->
+                                        <div class="modal inmodal fade" id="tambahProduk" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
+                                                    <?php echo form_open_multipart('user/tambahProdukTrading')?>
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                        <h3 class="modal-title">Detail Produk</h3><br>
-                                                        <span >KODE PRODUK : <b class="text-success"><?php echo $p->kodeProduk?></b> | NAMA PRODUK : <b class="text-success"><?php echo $p->namaProduk?></b> | TIPE : <b class="text-success">Custom</b></span><br>
+                                                        <h3 class="modal-title">Tambah Produk Trading</h3>
                                                         </div>
                                                     <div class="modal-body">
 
                                                         <div class="tabs-container">
-                                                            <div class="row">
-                                                                <div class="col-lg-4">
-                                                                    <img src="<?php echo base_url('uploads/gambarProduk/'.$p->gambarProduk.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
+                                                                <div class="row form-group">
+                                                                    <label class="col-sm-2 control-label">Kode Produk</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" name="kodeProduk" class="form-control" required="">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-lg-7" id="cluster_info">
-                                                                    <dl class="dl-horizontal">
-                                                                        <dt>Nama Produk:</dt> <dd> <?php echo $p->namaProduk ?></dd>
-                                                                        <dt>Jenis Produk:</dt> <dd><a href="#" class="text-navy"> <?php echo $p->jenisProduk ?></a> </dd>
-                                                                        <dt>Deskripsi:</dt> <dd> <?php echo $p->deskripsiProduk ?></dd>
-                                                                        
-                                                                    </dl>
-                                                                    <dl class="dl-horizontal" >
-                                                                        <dt>Harga:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaProduk);?> </strong></dd>
-                                                                        <dt>Harga Modal:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaModal);?> </strong></dd>
-                                                                    </dl>
+                                                                <div class="row form-group">
+                                                                    <label class="col-sm-2 control-label">Nama Produk</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" name="namaProduk"  class="form-control" required="">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                                <div class="row form-group">
+                                                                    <label class="col-sm-2 control-label">Jenis Produk</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" name="jenisProduk"  class="form-control" required="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-group">
+                                                                    <label class="col-sm-2 control-label">Satuan</label>
+                                                                    <div class="col-md-2">
+                                                                            <select name="satuan" required="" class="form-control">
+                                                                              <option value="Liter">Liter</option>
+                                                                              <option value="Gram">Gram</option>
+                                                                              <option value="Pcs">Pcs</option>
+                                                                              <option value="Carat">Carat</option>
+                                                                            </select>
+                                                                    </div>
+                                                                    <label class="col-sm-2 control-label">Harga</label>
+                                                                    <div class="col-md-2">
+                                                                        <input type="text" name="harga"  class="form-control good" required="">
+                                                                    </div>
+                                                                    <label class="col-sm-2 control-label">Stok</label>
+                                                                    <div class="col-md-2">
+                                                                        <input type="number" name="stok" step="any"  class="form-control" required="">
+                                                                    </div>
+                                                                </div>
+                                                        </div>
                                                     </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" type="submit">Simpan</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                    <?php echo form_close()?> 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                            <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <div class="footer">
             <div>
                 <strong>Copyright</strong> Surya Sumatera &copy; <?php echo date('Y')?>
@@ -177,6 +198,7 @@
 
     <!-- FooTable -->
     <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function() {
@@ -185,6 +207,17 @@
 
         });
 
+    </script>
+    <script type="text/javascript">
+        $('.good').inputmask("numeric", {
+            radixPoint: ".",
+            groupSeparator: ",",
+            digits: 2,
+            autoGroup: true,
+            prefix: 'Rp ', //Space after $, this will not truncate the first character.
+            rightAlign: false,
+            oncleared: function () { self.Value(''); }
+        });
     </script>
 </body>
 

@@ -90,6 +90,9 @@
                                     <th data-hide="phone,tablet">Tanggal Masuk</th>
                                     <th>Nomor PO</th>
                                     <th>Nama Konsumen</th>
+                                    <th>Jenis Order Service</th>
+                                    <th>Total Berat</th>
+                                    <th>Total Harga</th>
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
                                 </tr>
                                 </thead>
@@ -97,10 +100,13 @@
                                 <?php foreach($listPO as $hasil) : ?>
                                 <tr>
                                     <?php $tglmsk = new DateTime($hasil->tanggalMasuk);
-                                    $tglmsk = $tglmsk->format("Y-m-d h:m:i"); ?>
+                                    $tglmsk = $tglmsk->format("d M Y"); ?>
                                     <td><?php echo $tglmsk?></td>
                                     <td><?php echo $hasil->nomorPO?></td>
                                     <td><?php echo $hasil->namaCustomer?></td>
+                                    <td><?php echo $hasil->jenisOrder?></td>
+                                    <td><?php echo $hasil->totalBerat?> gr</td>
+                                    <td><?php echo "Rp ".number_format($hasil->totalHarga,2,".",".")?></td>
                                     
                                     <td class="text-center">
                                         <?=anchor('user/invoicePOService/' . $hasil->nomorPO, 'Lihat', [
@@ -121,7 +127,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
