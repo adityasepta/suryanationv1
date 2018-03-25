@@ -164,15 +164,15 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>kadar Awal (%)</label>
-                                                <input type="number" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Emas Murni (gr)</label>
-                                                <input type="number" name= "beratEmasMurni" step=any id="m2" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratEmasMurni" step=any id="m2" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Kadar Dimau (%)</label>
-                                                <input type="number" name= "kadarDimau" step=any id="m3" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarDimau" step=any id="m3" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                         </div>
                                     </div>
@@ -242,19 +242,19 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>Kadar Bahan Ada (%)</label>
-                                                <input type="number" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Bahan Ada (gr)</label>
-                                                <input type="number" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Kadar Emas Dimiliki (%)</label>
-                                                <input type="number" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Kadar Target (%)</label>
-                                                <input type="number" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                         </div>
                                     </div>
