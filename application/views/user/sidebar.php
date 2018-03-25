@@ -15,6 +15,7 @@
                     <ul class="nav nav-second-level"> 
                         <li><a href="<?php echo base_url();?>user/kanban">Kanban Tempahan</a></li>
                         <li><a href="<?php echo base_url();?>user/kanbanMassal">Kanban Massal</a></li> 
+                        <li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> 
                         <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> 
                     </ul> 
                 </li> 

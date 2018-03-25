@@ -298,10 +298,10 @@
 
         </div>
         <div class="col-lg-3">
-            <a href="<?php echo base_url('user/createBOMPerak/'.$k1[$i]->idKloter)?>" class="btn btn-block btn-success btn-xs"><span class="fa fa-cubes"></span></a>
+            <a href="<?php echo base_url('user/createBOMPerak/'.$k1[$i]->idKloter)?>" class="btn btn-block btn-success btn-xs" disabled><span class="fa fa-cubes"></span></a>
         </div>
         <div class="col-lg-3">
-            <?php if (($k1[$i]->statusWork !== 'Belum ada PIC') AND ($asd > 0)) { ?>
+            <?php if (($k1[$i]->statusWork !== 'Belum ada PIC') ) { ?>
             <a href="<?php echo base_url('user/finalisasi3/'.$k1[$i]->idKloter) ?>" class="btn btn-block btn-info btn-xs" onclick="return confirm('Apakah anda yakin untuk finalisasi Kloter dengan nama kloter <?php echo $k1[$i]->nama ?> ?')"><span class="fa fa-arrow-right"></span></a>
             <?php } else { ?>
             <button disabled class="btn btn-block btn-info btn-xs"><span class="fa fa-arrow-right"></span></button>

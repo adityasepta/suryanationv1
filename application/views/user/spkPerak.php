@@ -144,11 +144,11 @@
                                     <th class="text-center">Kadar</th>
                                     
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Jadwal</th>
+                                    <th class="text-center" data-hide="phone,tablet">Status</th>
                                     
                                     
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
-                                    <th class="text-center" data-hide="phone,tablet">Status </th>
+                                    <th class="text-center" data-hide="phone,tablet">Keterangan </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -186,15 +186,26 @@
                                             }
                                         } 
 
+                                        $klot = 0;
+                                        for ($g=0; $g < count($cekklot) ; $g++) { 
+                                            if($cekklot[$g]->idSPK == $hasil->idSPK) {
+                                                $klot++;
+                                            }
+                                        } 
                                         ?>
+
+
 
                                         <?php if($jadwal == 0) { ?>
 
-                                            <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalPerak/<?php echo $hasil->nomorFaktur;?>">Tambahkan</a>
-                                
+                                            <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalPerak/<?php echo $hasil->nomorFaktur;?>">Tambahkan Jadwal</a>
+
+                                        <?php } else if($klot==0) { ?>
+                                            <a href="#" data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-info">Tambahkan Kloter</a>
+
                                         <?php } else {?>
 
-                                            <a class="btn btn-info btn-blocked btn-xs" disabled >Tambahkan</a>
+                                            <a class="btn btn-default btn-xs" >Masuk Ke Kanban</a>
 
                                         <?php } ?>
 
@@ -206,14 +217,14 @@
 
                                         <a href="<?php echo base_url('user/invoiceMassal/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
                                         
-                                        <a href="<?php echo base_url('user/editSPK/' .$hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
+                                        <!-- <a href="<?php echo base_url('user/editSPK/' .$hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
 
                                         
                                         <?=anchor('user/hapusSPK/' . $hasil->idSPK, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'
-                                        ])?>
+                                        ])?> -->
                                     </td>
                                     <td class="text-center">
                                         

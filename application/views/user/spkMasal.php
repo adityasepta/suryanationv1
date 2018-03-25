@@ -97,11 +97,11 @@
                                     <th class="text-center">Kadar</th>
                                     
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Jadwal</th>
+                                    <th class="text-center" data-hide="phone,tablet">Status</th>
                                     
                                     
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
-                                    <th class="text-center" data-hide="phone,tablet">Status </th>
+                                    <th class="text-center" data-hide="phone,tablet">Keterangan </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -127,14 +127,14 @@
 
                                         <?php if($jadwal == 0) { ?>
 
-                                            <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalMassal/<?php echo $hasil->nomorFaktur;?>">Tambahkan</a>
+                                            <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalMassal/<?php echo $hasil->nomorFaktur;?>">Tambahkan Jadwal</a>
 
                                         <?php } else if($hasil->statusSPK=='Done') { ?>
                                             <a class="btn btn-xs btn-primary">Done</a>
 
                                         <?php } else {?>
 
-                                            <a class="btn btn-default btn-xs" >Masuk Ke Kanban</a>
+                                            <a href="<?php base_url();?>kanbanMassal" class="btn btn-default btn-xs" >Masuk Ke Kanban</a>
 
                                         <?php } ?>
 
