@@ -144,12 +144,9 @@
                                             <div class="i-checks"><label> <input id="Cincin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk"> <i></i> Cincin </label></div>
                                             <div class="i-checks"><label> <input id="Liontin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-8">
                                             <div class="i-checks"><label> <input id="Gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
                                             <div class="i-checks"><label> <input id="Anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="i-checks"><label> <input id="Cincin Kawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -167,18 +164,6 @@
                                         <div class="col-md-4">
                                             <label>Harga Pasaran</label>
                                             <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo set_value('hargaBahan'); ?>" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Metode Pencampuran</label>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="masak" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Masak 99.5%"){?> checked="" <?php } ?> value="Masak 99.5%" name="metodePencampuran"> <i></i> Masak 99.5% </label></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="lokal" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Lokal 97%"){?> checked="" <?php } ?> value="Lokal 97%" name="metodePencampuran"> <i></i> Lokal 97% </label></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="murni" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Murni 100%"){?> checked="" <?php } ?> value="Murni 100%" name="metodePencampuran"> <i></i> Murni 100% </label></div>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

@@ -88,7 +88,9 @@
                                 <tbody>
                                 <?php foreach($listSPK as $hasil) : ?>
                                 <tr>
-                                    <td class="text-center"><?php echo $hasil->lastModified?></td>
+                                    <?php $lastModified = new DateTime($hasil->lastModified);
+                                    $lastModified = $lastModified->format("d M Y h:m:s"); ?>
+                                    <td class="text-center"><?php echo $lastModified?></td>
                                     <td class="text-center"><?php echo $hasil->nomorFaktur?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
                                     <td class="text-center">
