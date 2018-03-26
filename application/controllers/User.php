@@ -3939,6 +3939,70 @@ class User extends CI_Controller {
 
     }
 
+    public function setBeratAkhir() {
+        
+        $idSPK = $this->input->post('idSPK');
+        $idProduk = $this->input->post('idProduk');
+        $beratAkhir = $this->input->post('beratakhir');
+        $jumlah = $this->input->post('jumlah');
+
+       // print_r($idProduk);
+        $data = array(
+            'berat' => $beratAkhir,
+            'statusBerat' =>  'Disetujui',
+            'statusWork' => 'Done',
+            'RealisasiEndDate' => date("Y-m-d H:i:s"),
+            'jumlahNow' => 0
+        );
+        $where = array (
+            'idSPK' => $idSPK,
+            'idAktivitas' => 1014
+        );
+
+       // print_r($data);
+
+        $this->mdl->updateData2($where, 'factproduction2', $data);
+
+        $data = array(
+            'statusSPK' => 'Done',
+        );
+
+        $this->mdl->updateData('idSPK',$idSPK,'factproduction2', $data);
+
+        $prod       = $this->mdl->findProduk6($idProduk);
+        $kodeProduk = $prod[0]->kodeProduk;
+        $stok       = (int) $prod[0]->stok;
+        $newstok    = $stok + (int) $jumlah;
+
+        $data = array(
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $kodeProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+        $data = array(
+            'stok' => $newstok
+            
+        );
+
+        //print_r($data);
+        //exit();
+        
+        $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
+
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi </div>');
+        redirect('User/listProdukJadi');
+
+    }
+
     public function finish3($idSPK) {
 
         $data   = array(
