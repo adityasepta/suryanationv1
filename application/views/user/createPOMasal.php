@@ -144,12 +144,9 @@
                                             <div class="i-checks"><label> <input id="Cincin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk"> <i></i> Cincin </label></div>
                                             <div class="i-checks"><label> <input id="Liontin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-8">
                                             <div class="i-checks"><label> <input id="Gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
                                             <div class="i-checks"><label> <input id="Anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="i-checks"><label> <input id="Cincin Kawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
