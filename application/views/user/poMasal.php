@@ -92,7 +92,7 @@
                                 <?php foreach($listPO as $hasil) : ?>
                                 <tr>
                                     <?php $tglmsk = new DateTime($hasil->tanggalMasuk);
-                                    $tglmsk = $tglmsk->format("Y-m-d"); ?>
+                                    $tglmsk = $tglmsk->format("d M Y"); ?>
                                     <td><?php echo $tglmsk?></td>
                                     <td><?php echo $hasil->nomorPO?></td>
                                     <td><?php echo $hasil->namaCustomer?></td>
