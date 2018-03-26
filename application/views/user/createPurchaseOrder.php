@@ -137,20 +137,20 @@
                                     <label class="col-sm-2 control-label">Jenis Produk <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                     <div class="col-sm-2">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk" required> <i></i> Cincin </label></div>
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
+                                        <div class="i-checks"><label> <input id="cincin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk" onclick="produkCheck();" required> <i></i> Cincin </label></div>
+                                        <div class="i-checks"><label> <input id="liontin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk" onclick="produkCheck();"> <i></i> Liontin </label></div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
+                                        <div class="i-checks"><label> <input id="gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk" onclick="produkCheck();"> <i></i> Gelang </label></div>
+                                        <div class="i-checks"><label> <input id="anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk" onclick="produkCheck();"> <i></i> Anting </label></div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Mainan Nama"){?> checked="" <?php } ?> value="Mainan Nama" name="jenisProduk"> <i></i> Mainan Nama </label></div>
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
+                                        <div class="i-checks"><label> <input id="mainanNama" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Mainan Nama"){?> checked="" <?php } ?> value="Mainan Nama" name="jenisProduk" onclick="produkCheck();"> <i></i> Mainan Nama </label></div>
+                                        <div class="i-checks"><label> <input id="cincinKawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk" onclick="produkCheck();"><i></i> Cincin Kawin </label></div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div id="cincin" style="display: none;">
+                                <div id="produkDetail" style="display: none;">
                                     <div id="contentHeader" style="background-color: #e8e8e8; height: 30px; padding: 3px 0 2px 8px;">
                                         <h5>Detail Produk</h5>
                                     </div>
@@ -187,8 +187,25 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>Ukuran Jari / Tangan / Leher </label>
-                                                        <input type="text" placeholder="Ukuran Jari" name="ukuranJari" class="form-control" value="<?php echo set_value('ukuranJari'); ?>" required="">
+                                                        <div id="ukuranCincin" style="display: none;">
+                                                            <label>Ukuran Jari </label>
+                                                            <input type="text" placeholder="Ukuran Jari" name="ukuranJari" class="form-control" value="<?php echo set_value('ukuranJari'); ?>">
+                                                        </div>
+                                                        <div id="ukuranLiontin" style="display: none;">
+                                                            <label>Ukuran </label>
+                                                            <input type="text" placeholder="Ukuran" name="ukuran" class="form-control" value="<?php echo set_value('ukuran'); ?>">
+                                                        </div>
+                                                        <div id="ukuranGelang" class="row" style="display: none;">
+                                                            <div class="col-md-6">
+                                                               <label>Diameter Gelang</label>
+                                                                <input type="text" placeholder="Diameter Gelang" name="diameter" class="form-control" value="<?php echo set_value('diameter'); ?>"> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Lebar Gelang </label>
+                                                                <input type="text" placeholder="Lebar Gelang" name="lebar" class="form-control" value="<?php echo set_value('lebar'); ?>" required="">
+                                                            </div>
+                                                            
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Nama Batu Permata</label>
@@ -251,6 +268,15 @@
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
+                                            <label class="col-sm-2 control-label">Krum Warna</label>
+                                            <div class="col-sm-4"><input type="text" name="krumWarna" class="form-control" value="<?php echo set_value('krumWarna'); ?>"></div>
+                                            <label class="col-sm-2 control-label">Harga Krum Warna</label>
+                                            <div class="col-sm-4"><input type="text" placeholder="Rp" name="hargaKrumWarna" class="form-control good" value="<?php echo set_value('hargaKrumWarna'); ?>"></div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-2 control-label">Keterangan Krum</label>
+                                            <div class="col-sm-10"><input type="text" name="keteranganKrum" class="form-control" value="<?php echo set_value('keteranganKrum'); ?>"></div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-sm-2 control-label">Tipe Ikatan <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                             <div class="col-sm-2" style="padding-top: 10px;">
@@ -299,15 +325,6 @@
                                         <h5>Informasi Tambahan</h5>
                                     </div>
                                     <div id="contentTambahan" style="padding: 15px; background-color: #f7f7f7;">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Krum Warna</label>
-                                            <div class="col-sm-4"><input type="text" name="krumWarna" class="form-control" value="<?php echo set_value('krumWarna'); ?>"></div>
-                                            <label class="col-sm-2 control-label">Harga Krum Warna</label>
-                                            <div class="col-sm-4"><input type="text" placeholder="Rp" name="hargaKrumWarna" class="form-control good" value="<?php echo set_value('hargaKrumWarna'); ?>"></div>
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Keterangan Krum</label>
-                                            <div class="col-sm-10"><input type="text" name="keteranganKrum" class="form-control" value="<?php echo set_value('keteranganKrum'); ?>"></div>
-                                        </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="row">
@@ -480,6 +497,42 @@
         else document.getElementById('detailTambahan').style.display = 'none';
         console.log("b");
 
+    }
+
+    </script>
+    <script type="text/javascript">
+    $("#cincin").on("ifChanged", produkCheck);
+    $("#liontin").on("ifChanged", produkCheck);
+    $("#cincinKawin").on("ifChanged", produkCheck);
+    $("#mainanNama").on("ifChanged", produkCheck);
+    $("#anting").on("ifChanged", produkCheck);
+    $("#gelang").on("ifChanged", produkCheck);
+
+    function produkCheck() {
+
+        if ($('#cincin').iCheck('update')[0].checked || $('#cincinKawin').iCheck('update')[0].checked) {
+            document.getElementById('ukuranCincin').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranLiontin').style.display = 'none';
+            document.getElementById('ukuranGelang').style.display = 'none';
+            console.log("a");
+        } else if ($('#liontin').iCheck('update')[0].checked || $('#anting').iCheck('update')[0].checked || $('#mainanNama').iCheck('update')[0].checked){
+            document.getElementById('ukuranLiontin').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranCincin').style.display = 'none';
+            document.getElementById('ukuranGelang').style.display = 'none';
+            console.log("b");
+        } else if ($('#gelang').iCheck('update')[0].checked){
+            document.getElementById('ukuranGelang').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranLiontin').style.display = 'none';
+            document.getElementById('ukuranCincin').style.display = 'none';
+            console.log("c");
+        }
+        else {
+            document.getElementById('produkDetail').style.display = 'none';
+            console.log("d");
+        }
     }
 
     </script>

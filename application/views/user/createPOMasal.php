@@ -166,18 +166,6 @@
                                             <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo set_value('hargaBahan'); ?>" required="">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Metode Pencampuran</label>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="masak" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Masak 99.5%"){?> checked="" <?php } ?> value="Masak 99.5%" name="metodePencampuran"> <i></i> Masak 99.5% </label></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="lokal" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Lokal 97%"){?> checked="" <?php } ?> value="Lokal 97%" name="metodePencampuran"> <i></i> Lokal 97% </label></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="i-checks"><label> <input id="murni" type="radio" <?php $a= set_value('metodePencampuran'); if($a=="Murni 100%"){?> checked="" <?php } ?> value="Murni 100%" name="metodePencampuran"> <i></i> Murni 100% </label></div>
-                                        </div>
-                                    </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Ukuran Jari / Tangan <br/><small class="text-navy">Pilih salah satu</small></label>
