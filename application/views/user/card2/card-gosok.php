@@ -142,13 +142,13 @@
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" name="jumlah" min="1" max="<?php echo $go[$i]->jumlahNow?>"  class="form-control"></div>
+                                        <div class="col-sm-9"><input type="number" step="any" name="jumlah" required min="1"  max="<?php echo $go[$i]->jumlahNow?>"  class="form-control"></div>
                                     </div>
                                 </div>
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" name="beratAwal" value="" class="form-control"></div>
+                                        <div class="col-sm-9"><input type="number" step="any" required name="beratAwal" value="" class="form-control"></div>
                                     </div>
                                 </div>
                                 <input type="hidden" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
