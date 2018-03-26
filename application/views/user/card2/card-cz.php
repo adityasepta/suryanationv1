@@ -68,32 +68,18 @@
             
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-9">
             <br>    
             <button data-toggle="modal" data-target="#detail<?php echo $cz[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
-        <div class="col-lg-3">
-            <br>
-            <?php if($cz[$i]->berat == '0') {?>
-                <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php } else {?>
-                <?php if($cz[$i]->statusBerat == 'Belum Disetujui') {?>
-
-                <button data-toggle="modal" data-target="#serah<?php echo $cz[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span></button>
-
-                <?php } else {?>
-                <button onclick="return confirm('Sudah disetujui')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php }} ?>
-        </div>
+        
 
         <div class="col-lg-3">
             <br>
 
             
-            <?php if(($cz[$i]->statusWork == 'On Progress' or $cz[$i]->statusWork == 'Waiting') AND $cz[$i]->statusBerat == 'Disetujui') { ?>
+            <?php if(($cz[$i]->statusWork == 'On Progress')) { ?>
         
                 
 
@@ -121,7 +107,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php echo form_open('User/next5')?>
+                            
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Pilih PIC</label>
@@ -131,7 +117,7 @@
                                         
                                         <?php 
 
-                                        $js = array( 'class' => 'form-control' );
+                                        $js = array( 'class' => 'form-control', 'id' =>  $cz[$i]->idProProd."-pic");
                                         echo form_dropdown('staf', $staf, $cz[$i]->idPIC,$js);
 
                                         ?>
@@ -142,32 +128,40 @@
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" name="jumlah" required min="1"  max="<?php echo $cz[$i]->jumlahNow?>"  class="form-control"></div>
+                                        <div class="col-sm-9">
+                                            <input id="<?php echo $cz[$i]->idProProd ?>-jml" type="number" step="any" name="jumlah" required min="1"  max=""  class="form-control">
+                                            <small>jumlah maksimal adalah <b><?php echo $cz[$i]->jumlahNow?></b> pcs</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" required name="beratAwal" value="" class="form-control"></div>
+                                        <div class="col-sm-9">
+                                            <input id="<?php echo $cz[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
+                                            <small>jumlah maksimal adalah <b><?php echo $cz[$i]->beratAwal?></b> gr</small>    
+                                        </div>
+
                                     </div>
                                 </div>
-                                <input type="hidden" value="<?php echo $cz[$i]->idProProd?>" name="idProProd">
-                                <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
-                                <input type="hidden" value="<?php echo $cz[$i]->idProduk ?>" name="idProduk">
+                                
                             </div>
                         </div>
                     </div>
                     <div class="row">
                        
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+
+                            <button onclick="passing<?php echo $cz[$i]->idProProd ?>();" data-toggle="modal" data-dismiss="modal" data-target="#serah<?php echo $cz[$i]->idProProd ?>" class="btn btn-block btn-success">Simpan</button>
                         </div>
                     </div>
-                    <?php echo form_close()?>
+                    <!-- <?php echo form_close()?> -->
 
             </div>
         </div>
     </div>
+
+    
 
     <div class="modal inmodal fade" id="serah<?php echo $cz[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
@@ -176,9 +170,12 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Form Serah Terima</h3><br>
 
-                    <span >NO FAKTUR : <b class="text-success"><?php echo $cz[$i]->nomorFaktur ?></b> | ID SUB SPK : <b class="text-success"><?php echo $cz[$i]->idSubSPK ?></b></span><br>
+                    <span >No Faktur : <b class="text-success"><?php echo $cz[$i]->nomorFaktur ?></b> | ID Sub SPK : <b class="text-success"><?php echo $cz[$i]->idSubSPK ?></b>| ID Wadah : <b class="text-success"><?php echo $cz[$i]->idWadah ?></b>| Sisa Barang : <b class="text-success"><?php echo $cz[$i]->jumlahNow ?> / <?php echo $cz[$i]->jumlah ?></b></span><br>
 
                 </div>
+                <?php
+                    $atribut = array('id' => $cz[$i]->idProProd."form");
+                 echo form_open('User/next5',$atribut)?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 text-center">
@@ -187,35 +184,65 @@
                         </div>
                         <div class="col-lg-3 text-center">
                             Berat Awal<br>
-                            <b><?php echo $cz[$i]->beratAwal ?> gr</b><br><br>
+                            <b id="<?php echo $cz[$i]->idProProd ?>-berat-d"></b><br><br>
+                            <input type="hidden" id="<?php echo $cz[$i]->idProProd ?>-berat-i" required value="0" name="beratAwal">
                             
                         </div>
-                        <div class="col-lg-3 text-center">
-                            Berat Akhir<br>
-                            <b><?php echo $cz[$i]->berat ?> gr</b><br><br>
-                            
-                        </div>
+                        
                         <div class="col-lg-3 text-center">
                             Jumlah Barang<br>
-                            <b><?php echo $cz[$i]->jumlah ?> pieces</b><br><br>
+                            <b id="<?php echo $cz[$i]->idProProd ?>-jml-d"></b><br><br>
+                            <input type="hidden" id="<?php echo $cz[$i]->idProProd ?>-jml-i" required value="0" name="jumlah">
                             
                         </div>
                         <div class="col-lg-3 text-center">
-                            PIC Proses<br>
+                            PIC Awal<br>
                             <b><?php echo $cz[$i]->namapic ?></b>
-                            
                         </div>
+                        <div class="col-lg-3 text-center">
+                            PIC Selanjutnya<br>
+                            <b id="<?php echo $cz[$i]->idProProd ?>-pic-d"></b>
+                            <input type="hidden" id="<?php echo $cz[$i]->idProProd ?>-pic-i" required value="0" name="staf">
+                        </div>
+                        <input type="hidden" value="<?php echo $cz[$i]->idProProd?>" name="idProProd">
+                        <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
+                        <input type="hidden" value="<?php echo $cz[$i]->idProduk ?>" name="idProduk">
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <a href="<?php echo base_url('User/approve2/'.$cz[$i]->idProProd) ?>" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Validasi</a>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Validasi</button>
                         </div>
                     </div>
                 </div>
+                <?php echo form_close();?>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function passing<?php echo $cz[$i]->idProProd ?>() {
+            var jumlah = document.getElementById('<?php echo $cz[$i]->idProProd ?>-jml').value;
+            var berat = document.getElementById('<?php echo $cz[$i]->idProProd ?>-berat').value;
+            var pic = document.getElementById('<?php echo $cz[$i]->idProProd ?>-pic');
+            var nama = pic.options[pic.selectedIndex].text;
+            var idpic = pic.options[pic.selectedIndex].value;
+
+            if(jumlah > 10) {
+                alert('Jumlah tidak sesuai');
+                location.reload();
+            }
+
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-jml-d').innerHTML = jumlah + ' Pcs';
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-berat-d').innerHTML = berat + ' gr';
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-pic-d').innerHTML = nama;
+
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-jml-i').value = jumlah;
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-berat-i').value = berat;
+            document.getElementById('<?php echo $cz[$i]->idProProd ?>-pic-i').value = idpic;
+
+        }
+    </script>
 
     
 
@@ -302,10 +329,10 @@
                         </div>
                         <div class="col-lg-3">
                             <?php if($cz[$i]->statusWork == 'On Progress') {?>
-                                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $cz[$i]->idProProd ?>"  class="btn btn-warning btn-block btn-outline">Tambah Berat</button>
+                                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $cz[$i]->idProProd ?>"  class="btn btn-warning btn-block btn-outline">Berat</button>
                                 
                             <?php } else {?>
-                                <button disabled class="btn  btn-block ">Tambah Berat</button>
+                                <button disabled class="btn  btn-block ">Berat</button>
                             <?php } ?>
                         </div>
                             
@@ -313,7 +340,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <?php echo form_open('user/setBerat2')?>
+                                            
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
 
@@ -323,22 +350,14 @@
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
-                                                    <div class="col-sm-5"><input type="text" name="berat" class="form-control"></div>
-                                                    <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $cz[$i]->idProProd ?>"></div>
+                                                    <div class="col-sm-5"><input type="text" value="<?php echo $cz[$i]->berat?>" readonly class="form-control" readonly name="berat" class="form-control"></div>
+                                                    <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $cz[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>
                                             
                                            
                                             
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $cz[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <button type="submit" class="btn btn-block btn-success">Simpan</button>
-                                                </div>
-                                            </div>
-                                            <?php echo form_close()?>
+                                            
                                         </div>
                                     </div>
                                 </div>
