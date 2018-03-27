@@ -55,6 +55,15 @@ class mdl extends CI_Model {
         
     }
 
+    public function getAktivitasLanjut() {
+        
+        $sql   = "SELECT a.idSPK, b.namaAktivitas, b.idAktivitas FROM rencanaproduksi a, aktivitas2 b where a.idaktivitas = b.idAktivitas and a.idaktivitas > 1006 order by idaktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+        
+    }
+
      public function getSales() {
 
         $sql   = "SELECT *, left(pr.namaProduk, 20) as namap , DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal FROM potempahan po, produk pr, customer c, user u WHERE po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND po.nomorPO NOT IN( SELECT nomorPO FROM spk )";
@@ -81,7 +90,7 @@ class mdl extends CI_Model {
 
     public function getBerat() {
 
-        $sql   = "SELECT a.*,IFNULL(b.nama,'Belum ada PIC') as nama FROM (SELECT max(idProProd) as idProProd, idSPK, idAktivitas, max(namaAktivitas) as namaAktivitas, max(berat) as berat, max(beratAwal) as beratAwal, max(kembali) as kembali, idPIC, max(statusBerat) as statusBerat FROM ( SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, f.berat, f.beratAwal, f.kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 UNION ALL SELECT '0' AS idProProd, r.idSPK, r.idAktivitas, a.namaAktivitas, '0' AS berat, '0' AS beratAwal, '0' AS kembali, '0' as idPIC, '0' as statusBerat FROM aktivitas a, rencanaproduksi r WHERE a.idAktivitas = r.idAktivitas AND a.idAktivitas > 1002 ) t group by idAktivitas, idSPK order by idSPK, idAktivitas) a LEFT JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
+        $sql   = "SELECT a.*,IFNULL(b.nama,'Belum ada PIC') as nama FROM (SELECT max(idProProd) as idProProd, idSPK, idAktivitas, max(namaAktivitas) as namaAktivitas, max(berat) as berat, max(beratAwal) as beratAwal, max(kembali) as kembali, idPIC, max(statusBerat) as statusBerat FROM ( SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, f.berat, f.beratAwal, f.kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 UNION ALL SELECT '0' AS idProProd, r.idSPK, r.idAktivitas, a.namaAktivitas, '0' AS berat, '0' AS beratAwal, '0' AS kembali, '0' as idPIC, '0' as statusBerat FROM aktivitas2 a, rencanaproduksi r WHERE a.idAktivitas = r.idAktivitas AND a.idAktivitas > 1002 ) t group by idAktivitas, idSPK order by idSPK, idAktivitas) a LEFT JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -236,7 +245,7 @@ class mdl extends CI_Model {
 
     public function poTerakhir(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM potempahan ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM potempahan ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -246,7 +255,7 @@ class mdl extends CI_Model {
 
     public function poTerakhir2(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM pomasal ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM pomasal ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -287,6 +296,16 @@ class mdl extends CI_Model {
     public function listAktivitas(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM aktivitas");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listAktivitas2(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM aktivitas2");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -878,7 +897,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function poTerakhirService(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseorderservice ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseorderservice ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1120,7 +1139,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
         $sql   = "
 
-            SELECT idSPK, idAktivitas, MAX(namaAktivitas) AS aktivitas, MAX( DATE_FORMAT(startDate, '%d %M %Y') ) AS sd, MAX( DATE_FORMAT(RealisasiStartDate, '%d %M %Y') ) AS rsd, MAX( DATE_FORMAT(endDate, '%d %M %Y') ) AS ed, MAX( DATE_FORMAT(RealisasiEndDate, '%d %M %Y') ) AS red, MAX(statusWork) AS stat, MAX(state) AS STATUS FROM ( SELECT r.idSPK, r.idAktivitas, a.namaAktivitas, r.startDate, f.RealisasiStartDate, r.endDate, f.RealisasiEndDate, f.statusWork, ( CASE WHEN( DATE_ADD(f.RealisasiEndDate, INTERVAL -1 DAY) <= r.endDate ) THEN 'On Time' ELSE 'Terlambat' END ) AS state FROM factproduction f JOIN rencanaproduksi r ON f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas JOIN aktivitas a ON f.idAktivitas = a.idAktivitas UNION ALL SELECT r.idSPK, r.idAktivitas, a.namaAktivitas, r.startDate, '0000-00-00 00:00:00' AS RealisasiStartDate, r.endDate, '0000-00-00 00:00:00' AS RealisasiEndDate, '' AS statusWork, '' AS state FROM rencanaproduksi r JOIN aktivitas a ON r.idAktivitas = a.idAktivitas ) t where idAktivitas > 1003 GROUP BY idAktivitas, idSPK ORDER BY idspk, idaktivitas";
+            SELECT idSPK, idAktivitas, MAX(namaAktivitas) AS aktivitas, MAX( DATE_FORMAT(startDate, '%d %M %Y') ) AS sd, MAX( DATE_FORMAT(RealisasiStartDate, '%d %M %Y') ) AS rsd, MAX( DATE_FORMAT(endDate, '%d %M %Y') ) AS ed, MAX( DATE_FORMAT(RealisasiEndDate, '%d %M %Y') ) AS red, MAX(statusWork) AS stat, MAX(state) AS STATUS FROM ( SELECT r.idSPK, r.idAktivitas, a.namaAktivitas, r.startDate, f.RealisasiStartDate, r.endDate, f.RealisasiEndDate, f.statusWork, ( CASE WHEN( DATE_ADD( f.RealisasiEndDate, INTERVAL -1 DAY ) <= r.endDate ) THEN 'On Time' ELSE 'Terlambat' END ) AS state FROM factproduction f JOIN rencanaproduksi r ON f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas JOIN aktivitas2 a ON f.idAktivitas = a.idAktivitas UNION ALL SELECT r.idSPK, r.idAktivitas, a.namaAktivitas, r.startDate, '0000-00-00 00:00:00' AS RealisasiStartDate, r.endDate, '0000-00-00 00:00:00' AS RealisasiEndDate, '' AS statusWork, '' AS state FROM rencanaproduksi r JOIN aktivitas2 a ON r.idAktivitas = a.idAktivitas ) t WHERE idAktivitas > 1003 GROUP BY idAktivitas, idSPK ORDER BY idspk, idaktivitas";
         
         $query = $this->db->query($sql);
         
@@ -1249,7 +1268,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     
     public function poTerakhirTrading(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1887,7 +1906,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function poTerakhir3(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM poperak ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM poperak ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

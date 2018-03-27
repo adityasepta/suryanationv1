@@ -481,3 +481,26 @@
 
 
 
+
+
+
+
+
+
+
+ <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h3>GOSOK PENTOL<span class="label label-success pull-right"><?php echo count($gp)?></span></h3>
+                                    <p>Kumpulan dari SPK yang sedang proses <br> Gosok Pentol <b>1004</b></p>
+                                    <ul class="sortable-list connectList agile-list" id="gosok">
+                                        <?php for ($i=0; $i < count($gp) ; ++$i) { ?>
+                                           <?php include('card/card-pentol.php') ?>
+                                        <?php } ?> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+

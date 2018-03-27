@@ -52,6 +52,7 @@ class User extends CI_Controller {
             //$data['pp'] = $this->mdl->getPPIC();
 
              $data['staf'] = $this->mdl->getStaf();
+             $data['akt'] = $this->mdl->getAktivitasLanjut();
 
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
@@ -62,15 +63,15 @@ class User extends CI_Controller {
             $data['gi'] = $this->mdl->getProses(1005);
             $data['co'] = $this->mdl->getProses(1006);
 
-            $data['gp'] = $this->mdl->getProses(1007);  
-            $data['go'] = $this->mdl->getProses(1008);  
-            $data['bo'] = $this->mdl->getProses(1009);  
+            //$data['gp'] = $this->mdl->getProses(1007);  
+            $data['go'] = $this->mdl->getProses(1007);  
+            $data['bo'] = $this->mdl->getProses(1008);  
 
-            $data['cz'] = $this->mdl->getProses(1010);  
-            $data['po'] = $this->mdl->getProses(1011);  
-            $data['sl'] = $this->mdl->getProses(1012);
+            $data['cz'] = $this->mdl->getProses(1019);  
+            $data['po'] = $this->mdl->getProses(1010);  
+            $data['sl'] = $this->mdl->getProses(1011);
 
-            $data['kr'] = $this->mdl->getProses(1013);
+            $data['kr'] = $this->mdl->getProses(1012);
              $data['do'] = $this->mdl->getProses(1014);  
 
             $this->load->view('user/statprod_view',$data);
@@ -83,10 +84,24 @@ class User extends CI_Controller {
         
     }
 
+    public function setAktivitas() {
+        $idProduk = $this->input->post('idProduk');
+        $idSPK = $this->input->post('idSPK');
+        $idProProd = $this->input->post('idProProd');
+        $idAktivitas = $this->input->post('idAktivitas');
+
+        var_dump(get_defined_vars());exit();
+
+        $this->next($idProduk,$idAktivitas,$idProProd,$idSPK);
+
+    }
+
     public function next($idProduk,$idaktivitas,$idProProd,$idSPK) {
 
         $proses = $this->mdl->getProsesDetail($idProProd);
         $stat = $proses[0]->statusWork;
+
+
 
         if($stat == 'Belum ada PIC') {
 
@@ -100,8 +115,8 @@ class User extends CI_Controller {
             );
             $this->mdl->updateData('idProProd',$idProProd, 'factproduction', $data);
             
-            $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idaktivitas);
-            $next = $aktivitas[0]->idAktivitas;
+            
+            $next = $idaktivitas;
 
             $beratAwal = $proses[0]->berat;
 
@@ -462,7 +477,7 @@ class User extends CI_Controller {
 
     public function tambahJadwal($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
-        $data['aktivitas'] = $this->mdl->listAktivitas();
+        $data['aktivitas'] = $this->mdl->listAktivitas2();
         $this->load->view('user/spkJadwal',$data);
     }
 
@@ -2814,6 +2829,20 @@ class User extends CI_Controller {
                 'totalHarga' => $this->input->post('totalHarga')
                 );
         $this->mdl->updateData('nomorPO',$nomorPO,'purchaseordertrading',$dataCart);
+        $data['PO'] = $this->mdl->findPOTrading($nomorPO);
+        $idPO = $data['PO'][0]->idPO;
+        $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
+        for ($i=0; $i < count($data['detailPO']) ; $i++) { 
+            $jumlah = $data['detailPO'][$i]->jumlah;
+            $idProduk = $data['detailPO'][$i]->idProduk;
+            $data['produk'] = $this->mdl->findProdukTrading($idProduk);
+            $stok=$data['produk'][0]->stok;
+            $stokTerkini = $stok-$jumlah;
+            $dataStok = array(
+                'stok' => $stokTerkini
+                );
+            $this->mdl->updateData('idProduk',$idProduk,'produkTrading',$dataStok);
+        }
         redirect('user/listPOTrading');
     }
 
