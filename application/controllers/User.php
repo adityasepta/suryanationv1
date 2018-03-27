@@ -2773,6 +2773,20 @@ class User extends CI_Controller {
                 'totalHarga' => $this->input->post('totalHarga')
                 );
         $this->mdl->updateData('nomorPO',$nomorPO,'purchaseordertrading',$dataCart);
+        $data['PO'] = $this->mdl->findPOTrading($nomorPO);
+        $idPO = $data['PO'][0]->idPO;
+        $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
+        for ($i=0; $i < count($data['detailPO']) ; $i++) { 
+            $jumlah = $data['detailPO'][$i]->jumlah;
+            $idProduk = $data['detailPO'][$i]->idProduk;
+            $data['produk'] = $this->mdl->findProdukTrading($idProduk);
+            $stok=$data['produk'][0]->stok;
+            $stokTerkini = $stok-$jumlah;
+            $dataStok = array(
+                'stok' => $stokTerkini
+                );
+            $this->mdl->updateData('idProduk',$idProduk,'produkTrading',$dataStok);
+        }
         redirect('user/listPOTrading');
     }
 
