@@ -543,8 +543,15 @@ class mdl extends CI_Model {
         return $result;
     }
 
+    public function detailProduk($idProduk) {
+        $sql    = "SELECT * from produk WHERE idProduk=$idProduk LIMIT 1";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function listKatalog() {
-        $sql    = "SELECT * from katalog";
+        $sql    = "SELECT * from produk WHERE statusKatalog='Tampil'";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
