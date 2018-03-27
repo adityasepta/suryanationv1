@@ -1,5 +1,5 @@
 <?php 
-
+    
     $var = $do[$i]->endDate;
     $statr = "";
     if((time()-(60*60*24)) < strtotime($var)) {
@@ -65,27 +65,77 @@
     <div class="row">
         <br>
 
-        <div class="col-lg-12">
-            <?php if ($do[$i]->prioritas == '1') { ?>
-            <button class="btn btn-block btn-primary btn-xs">Prioritas Rendah</button>
-            <?php } else if ($do[$i]->prioritas == '2') { ?>
-            <button class="btn btn-block btn-warning btn-xs">Prioritas Sedang</button>
-            <?php } else {?>
-            <button class="btn btn-block btn-danger btn-xs">Prioritas Tinggi</button>
+        <div class="col-lg-6">
+
+            <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $do[$i]->idProProd ?>"  class="btn btn-xs btn-info btn-block ">Berat Akhir</button>
+
+            <div class="modal inmodal fade" id="berat<?php echo $do[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <?php echo form_open('User/setBerat')?>
+                            <?php echo form_close() ?>
+
+                            <?php echo form_open('User/setBerat')?>
+                            
+                            
+                                
+
+                                <input type="hidden"  step="any" name="beratAwal" readonly="" value="<?php echo $do[$i]->beratAwal?>" class="form-control">
+                                
+                            
+                            <div class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir</label>
+
+                                    <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" value="<?php echo $do[$i]->beratAwal?>" class="form-control"></div>
+                                    <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $do[$i]->idProProd ?>"></div>
+                                </div>
+                            </div>
+                            
+                           <div class="row">
+                                <div class="col-lg-6">
+                                    <button data-dismiss="modal" class="btn btn-danger btn-block">Kembali</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-block btn-success">Validasi</button>
+                                </div>
+                            </div>
+
+                            <?php echo form_close() ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            
+        </div>
+
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
             <?php } ?>
+            
+            
+            
         </div>
 
         <div class="col-lg-6">
             <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $do[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detail<?php echo $do[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
         
         <div class="col-lg-6">
             <br>
             <?php if ($do[$i]->berat != '0') { ?>
-            <a href="<?php echo base_url('User/pindah/'.$do[$i]->idProduk.'/'.$do[$i]->kuantitas.'/'.$do[$i]->idProProd.'/'.$do[$i]->idSPK.'/'.$do[$i]->nomorFaktur)?>" onclick="return confirm('Apakah anda yakin untuk mengakhiri aktivitas produksi nomor faktur <?php echo $do[$i]->nomorFaktur ?> dan memindahkan ke inventory ?')"  class="btn btn-xs btn-primary btn-block">Selesai</a>
+            <a href="<?php echo base_url('User/pindah/'.$do[$i]->idProduk.'/'.$do[$i]->kuantitas.'/'.$do[$i]->idProProd.'/'.$do[$i]->idSPK.'/'.$do[$i]->nomorFaktur)?>" onclick="return confirm('Apakah anda yakin untuk mengakhiri aktivitas produksi nomor faktur <?php echo $do[$i]->nomorFaktur ?> dan memindahkan ke inventory ?')"  class="btn btn-xs btn-success btn-block">Selesai</a>
             <?php } else { ?>
-            <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-primary btn-block">Selesai
+            <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block">Selesai
             </button>
         <?php } ?>
         </div>
@@ -93,7 +143,7 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $do[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $do[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -114,7 +164,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $do[$i]->nomorFaktur ?>">Informasi Umum</a></li>
                             <li class=""><a data-toggle="tab" href="#tab-2<?php echo $do[$i]->nomorFaktur ?>">Jadwal</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-3<?php echo $do[$i]->nomorFaktur ?>">Berat</a></li>
+                            
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1<?php echo $do[$i]->nomorFaktur ?>" class="tab-pane active">
@@ -240,78 +290,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div id="tab-3<?php echo $do[$i]->nomorFaktur ?>" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <table class="table table-hover table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No</th>
-                                                    <th>Keterangan</th>
-                                                    <th class="text-center">Berat Akhir</th>                                                    
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                                <?php for ($z=0; $z < count($b) ; ++$z) { 
-                                                    if($b[$z]->idSPK == $do[$i]->idSPK) {
-                                                ?>
-
-                                                <tr>
-                                                    <td><?php echo $z+1?></td>
-                                                    <td>Berat <?php echo $b[$z]->namaAktivitas ?></td>
-                                                    <td class="text-center"><?php echo $b[$z]->berat ?></td>
-                                                    <td class="text-center"><label class="label label-lg label-success"></label></td>
-
-                                                    <?php if ((int)$b[$z]->idAktivitas == 1014) { ?>
-
-                                                    <td  class="text-center"><button data-toggle="modal"  data-dismiss="modal" data-target="#<?php echo $b[$z]->idAktivitas ?><?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-info ">Update Berat</button></td>
-
-                                                    <?php } else { ?>
-
-                                                    <td  class="text-center"><button data-toggle="modal" disabled data-dismiss="modal" data-target="#<?php echo $b[$z]->idAktivitas ?><?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-info ">Update Berat</button></td>
-
-                                                    <?php } ?>
-
-                                                    <div class="modal inmodal fade" id="<?php echo $b[$z]->idAktivitas ?><?php echo $do[$i]->idSPK ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-body">
-                                                                    <?php echo form_open('user/setBerat')?>
-                                                                    <div class="form-horizontal">
-                                                                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $b[$z]->namaAktivitas ?></label>
-
-                                                                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $do[$i]->beratAwal?>" class="form-control"></div>
-                                                                             <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
-                                                                             <div class="col-sm-7"><input type="hidden" step="any" name="berat" value="<?php echo $do[$i]->beratAwal?>" class="form-control"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $do[$i]->nomorFaktur ?>" class="btn btn-danger btn-block">Kembali</button>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <button type="submit" class="btn btn-block btn-success">Verifikasi</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <?php echo form_close()?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </tr>
-
-                                                <?php }} ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
 
 

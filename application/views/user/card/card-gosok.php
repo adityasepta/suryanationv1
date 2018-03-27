@@ -82,7 +82,7 @@
 
         <div class="col-lg-6">
             <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $go[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detail<?php echo $go[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
         <div class="col-lg-3">
@@ -121,90 +121,62 @@
                     <h3 class="modal-title">Lanjutkan Aktivitas</h3><br>
 
                 </div>
+
                 <div class="modal-body">
+                    <?php echo form_open('User/setAktivitas')?>
+                   
+                    <?php echo form_close() ?>
 
-                    
+                    <?php echo form_open('User/setAktivitas')?>
+                    <div class="form-horizontal">
+                        
+                        <div class="form-group">
 
+                            <div class="col-sm-10">
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-horizontal">
-
-                                <?php echo form_open('user/setAktivitas'); ?>
-                                                
-                                <div class="form-group">
-                                    <div class="col-sm-7">
-
-                                        <select required class="form-control" name="idAktivitas">
-                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $go[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
-                                                
-                                            
-                                                <option value="<?php echo $akt[$k]->idAktivitas?>"><?php echo $akt[$k]->namaAktivitas?></option>
-                                            
-
-                                        <?php  }} ?>
-                                        </select>
+                                <select required class="form-control" name="idAktivitas">
+                                <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                    if($akt[$k]->idSPK == $go[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
                                         
+                                    
+                                        <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                            <?php echo $akt[$k]->namaAktivitas?>
+                                        </option>
+                                    
+
+                                <?php  }} ?>
+                                <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                    if($akt[$k]->idSPK == $go[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
                                         
-                                    </div>
-                                    <button type="submit" class="btn btn-blocked btn-success col-sm-5 "><b>LANJUT</b>&nbsp&nbsp&nbsp<span class="fa fa-arrow-right"></span></button>
+                                    
+                                        <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                            <?php echo $akt[$k]->namaAktivitas?> 
+                                            <?php 
+                                                if ($akt[$k]->idAktivitas < $idakt) {
+                                                    echo "<b> ---------- ( REWORK ) ---------- </b>";
+                                                }
+                                            ?>
+                                        </option>
+                                    
 
-                                    <div class="col-sm-2">
-                              
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProduk?>" name="idProduk">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idSPK?>" name="idSPK">
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-
-                                <?php echo form_close() ?>
-
-                                <?php echo form_open('user/setAktivitas'); ?>
-                                                
-                                <div class="form-group">
-                                    <div class="col-sm-7">
-
-                                        <select required class="form-control" name="idAktivitas">
-                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $go[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
-                                                
-                                            
-                                                <option value="<?php echo $akt[$k]->idAktivitas?>"><?php echo $akt[$k]->namaAktivitas?></option>
-                                            
-
-                                        <?php  }} ?>
-                                        </select>
-                                        
-                                        
-                                    </div>
-                                    <button type="submit" class="btn btn-blocked btn-danger col-sm-5 "><b>REWORK</b>&nbsp&nbsp&nbsp<span class="fa fa-arrow-left"></span></button>
-
-                                    <div class="col-sm-2">
-                              
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProduk?>" name="idProduk">
-                                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idSPK?>" name="idSPK">
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-
-                                <?php echo form_close() ?>
+                                <?php  }} ?>
+                                </select>
                                 
+                                
+                            </div>
+                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
+                                    <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProduk?>" name="idProduk">
+                                    <input type="hidden" class="form-control" value="<?php echo $go[$i]->idSPK?>" name="idSPK">
+                            <div class="col-sm-2">
+                      
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-block btn-success"><b>OK</b></button>
                             </div>
                         </div>
                     </div>
-
-
-                    
-
+                  
+                    <?php echo form_close() ?>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -251,7 +223,7 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $go[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $go[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -445,6 +417,16 @@
                                                     <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
                                                         <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $go[$i]->beratAwal?>" required class="form-control"></div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal">
+                                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
+
+                                                        <div class="col-sm-7">
+                                                            <input type="number" step="any" name="beratTambahan" value="<?php echo $go[$i]->beratTambahan?>" required class="form-control">
+                                                            <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
+                                                        </div>
                                                         
                                                     </div>
                                                 </div>

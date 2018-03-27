@@ -82,7 +82,7 @@
 
         <div class="col-lg-6">
             <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
         <div class="col-lg-3">
@@ -136,14 +136,24 @@
 
                                 <select required class="form-control" name="idAktivitas">
                                 <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                    if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas != $idakt) { ?>
+                                    if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
+                                        
+                                    
+                                        <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                            <?php echo $akt[$k]->namaAktivitas?>
+                                        </option>
+                                    
+
+                                <?php  }} ?>
+                                <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                    if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
                                         
                                     
                                         <option value="<?php echo $akt[$k]->idAktivitas?>">
                                             <?php echo $akt[$k]->namaAktivitas?> 
                                             <?php 
                                                 if ($akt[$k]->idAktivitas < $idakt) {
-                                                    echo "<b>- ( REWORK )</b>";
+                                                    echo "<b> ---------- ( REWORK ) ---------- </b>";
                                                 }
                                             ?>
                                         </option>
@@ -154,12 +164,12 @@
                                 
                                 
                             </div>
-                            <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
-                                    <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProduk?>" name="idProduk">
-                                    <input type="hidden" class="form-control" value="<?php echo $go[$i]->idSPK?>" name="idSPK">
+                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
+                                    <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProduk?>" name="idProduk">
+                                    <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idSPK?>" name="idSPK">
                             <div class="col-sm-2">
                       
-                                <button type="submit" class="btn btn-block btn-success"><b>OK</b></button>
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-block btn-success"><b>OK</b></button>
                             </div>
                         </div>
                     </div>
@@ -213,7 +223,7 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $bo[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -404,6 +414,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="form-horizontal">
+                                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
+
+                                                        <div class="col-sm-7">
+                                                            <input type="number" step="any" name="beratTambahan" value="<?php echo $bo[$i]->beratTambahan?>" required class="form-control">
+                                                            <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
                                             
                                             <div class="row">
                                                 <div class="col-lg-6">
