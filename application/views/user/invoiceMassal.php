@@ -13,17 +13,11 @@
         $kadarBahan             = set_value('kadarBahan');
         $hargaBahan             = set_value('hargaBahan');      
         $datangEmas             = set_value('datangEmas');
-        $hargaDatangEmas        = set_value('hargaDatangEmas');      
-        $namaBatu               = set_value('namaBatu');
-        $beratBatu              = set_value('beratBatu');
+        $hargaDatangEmas        = set_value('hargaDatangEmas');    
         $ukuranJari             = set_value('ukuranJari');
-        $berlian                = set_value('berlian');
-        $upah                   = set_value('upah');
-        $tipeIkatan             = set_value('tipeIkatan');
         $metode                 = set_value('metode');
         $krumWarna              = set_value('krumWarna');      
         $model                  = set_value('model');
-        $kuantitas              = set_value('kuantitas');
         $totalHarga             = set_value('totalHarga');      
         $panjar                 = set_value('panjar');
         $idProduk               = set_value('idProduk');
@@ -43,13 +37,8 @@
         $kadarBahan             = $dataSPK[0]->kadarBahan;
         $hargaBahan             = $dataSPK[0]->hargaBahan;      
         $datangEmas             = $dataSPK[0]->datangEmas;
-        $hargaDatangEmas        = $dataSPK[0]->hargaDatangEmas;      
-        $namaBatu               = $dataSPK[0]->namaBatu;
-        $beratBatu              = $dataSPK[0]->beratBatu;
+        $hargaDatangEmas        = $dataSPK[0]->hargaDatangEmas;
         $ukuranJari             = $dataSPK[0]->ukuranJari;
-        $berlian                = $dataSPK[0]->berlian;
-        $upah                   = $dataSPK[0]->upah;
-        $tipeIkatan             = $dataSPK[0]->tipeIkatan;
         $metode                 = $dataSPK[0]->metode;
         $krumWarna              = $dataSPK[0]->krumWarna;      
         $model                  = $dataSPK[0]->model;
@@ -226,41 +215,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-sm-2">Nama Batu</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $namaBatu?></label>
-                                    </div>
-                                    <label class="col-sm-2">Berat Batu</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $beratBatu?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <label class="col-sm-2">Ukuran Jari</label>
                                     <div class="col-sm-10">
                                         <label class="text-muted">: <?php echo $ukuranJari?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Swarowskri / Diamond</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $berlian?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Upah</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: Rp. <?php echo number_format($upah,2,".","."); ?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Tipe Ikatan</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $tipeIkatan?></label>
-                                    </div>
-                                    <label class="col-sm-2">Metode</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $metode?></label>
                                     </div>
                                 </div>
                                 <div class="row">
