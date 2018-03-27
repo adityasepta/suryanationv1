@@ -9,6 +9,7 @@
                         <li><a href="<?php echo base_url();?>user/material">Material Dasar</a></li>
                         <li><a href="<?php echo base_url();?>user/pegawai">Pegawai</a></li> 
                         <li><a href="<?php echo base_url();?>user/pelanggan">Pelanggan</a></li> 
+                        <li><a href="<?php echo base_url();?>user/jabatan">Jabatan</a></li>
                     </ul> 
                 </li>
                 <li> 

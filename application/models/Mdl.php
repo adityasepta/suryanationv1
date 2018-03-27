@@ -221,6 +221,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listJabatan(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM jabatan");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listDesain(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staf Desain'");
