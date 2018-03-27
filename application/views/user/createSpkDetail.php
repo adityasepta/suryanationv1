@@ -54,7 +54,7 @@
         $kuantitas              = $dataPO[0]->kuantitas;
         $totalHarga             = $dataPO[0]->totalHarga;      
         $panjar                 = $dataPO[0]->panjar;
-        $harga                 = $dataPO[0]->harga;
+        $harga                 = $dataPO[0]->hargaJual;
         $idProduk               = $dataPO[0]->idProduk;
         $idCustomer             = $dataPO[0]->idCustomer;
         $kodeProduk             = $dataPO[0]->kodeProduk;

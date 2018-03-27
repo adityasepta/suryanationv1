@@ -23,7 +23,7 @@
     $krumWarna              = $dataSPK[0]->krumWarna;      
     $model                  = $dataSPK[0]->model;
     $kuantitas              = $dataSPK[0]->kuantitas;
-    $harga                  = $dataSPK[0]->harga;      
+    $harga                  = $dataSPK[0]->hargaJual;      
     $panjar                 = $dataSPK[0]->panjar;
     $idProduk               = $dataSPK[0]->idProduk;
     $idCustomer             = $dataSPK[0]->idCustomer;
@@ -364,8 +364,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if ($stokbom) {?>
-                                    <?php $cb = 0; $cbr=0; for($i = 0; $i < count($stokbom); ++$i) { ?>
+                                    <?php $cbr=0; if (isset($stokbom)) {?>
+                                    <?php $cb = 0;  for($i = 0; $i < count($stokbom); ++$i) { ?>
 
                                         <tr>
                                             <td class="text-center"><?php echo ($i+1);?></td>

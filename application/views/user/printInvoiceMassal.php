@@ -11,18 +11,13 @@
     $kadarBahan             = $dataPO[0]->kadarBahan;
     $hargaBahan             = $dataPO[0]->hargaBahan;      
     $datangEmas             = $dataPO[0]->datangEmas;
-    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;      
-    $namaBatu               = $dataPO[0]->namaBatu;
-    $beratBatu              = $dataPO[0]->beratBatu;
+    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;    
     $ukuranJari             = $dataPO[0]->ukuranJari;
-    $berlian                = $dataPO[0]->berlian;
     $upah                   = $dataPO[0]->upah;
-    $tipeIkatan             = $dataPO[0]->tipeIkatan;
     $metode                 = $dataPO[0]->metode;
     $krumWarna              = $dataPO[0]->krumWarna;      
     $model                  = $dataPO[0]->model;
-    $beratAkhir             = $dataPO[0]->beratAkhir;
-    $harga                  = $dataPO[0]->harga;      
+    $beratAkhir             = $dataPO[0]->beratAkhir;     
     $panjar                 = $dataPO[0]->panjar;
     $idProduk               = $dataPO[0]->idProduk;
     $idCustomer             = $dataPO[0]->idCustomer;
@@ -37,12 +32,6 @@
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
     $biayaTambahan          = $dataPO[0]->biayaTambahan;
-    $beratBerlian           = $dataPO[0]->beratBerlian;
-    $hargaBerlian           = $dataPO[0]->hargaBerlian;
-    $batuZirkon             = $dataPO[0]->batuZirkon;      
-    $jumlahBatuZirkon       = $dataPO[0]->jumlahBatuZirkon;
-    $hargaBatuZirkon        = $dataPO[0]->hargaBatuZirkon;
-    $hargaKrumWarna         = $dataPO[0]->hargaKrumWarna;
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $kodeGambar             = $dataPO[0]->kodeGambar;
     $tglmsk     = new DateTime($tanggalMasuk);
@@ -146,7 +135,7 @@
                                     </tr>
                                     <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                         <td class="text-left" colspan="3"><strong>Estimasi Total Biaya</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$hargaBerlian+($hargaBatuZirkon*$jumlahBatuZirkon)+$hargaKrumWarna+$upahPasangBerlian+$biayaTambahan+$upah,2,".","."); ?></strong></td>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$biayaTambahan+$upah,2,".","."); ?></strong></td>
                                     </tr>
                                 </tbody>
                             </table>

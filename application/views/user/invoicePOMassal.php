@@ -11,18 +11,13 @@
     $kadarBahan             = $dataPO[0]->kadarBahan;
     $hargaBahan             = $dataPO[0]->hargaBahan;      
     $datangEmas             = $dataPO[0]->datangEmas;
-    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;      
-    $namaBatu               = $dataPO[0]->namaBatu;
-    $beratBatu              = $dataPO[0]->beratBatu;
+    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;    
     $ukuranJari             = $dataPO[0]->ukuranJari;
-    $berlian                = $dataPO[0]->berlian;
     $upah                   = $dataPO[0]->upah;
-    $tipeIkatan             = $dataPO[0]->tipeIkatan;
     $metode                 = $dataPO[0]->metode;
     $krumWarna              = $dataPO[0]->krumWarna;      
     $model                  = $dataPO[0]->model;
-    $beratAkhir             = $dataPO[0]->beratAkhir;
-    $harga                  = $dataPO[0]->harga;      
+    $beratAkhir             = $dataPO[0]->beratAkhir;     
     $panjar                 = $dataPO[0]->panjar;
     $idProduk               = $dataPO[0]->idProduk;
     $idCustomer             = $dataPO[0]->idCustomer;
@@ -37,12 +32,6 @@
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
     $biayaTambahan          = $dataPO[0]->biayaTambahan;
-    $beratBerlian           = $dataPO[0]->beratBerlian;
-    $hargaBerlian           = $dataPO[0]->hargaBerlian;
-    $batuZirkon             = $dataPO[0]->batuZirkon;      
-    $jumlahBatuZirkon       = $dataPO[0]->jumlahBatuZirkon;
-    $hargaBatuZirkon        = $dataPO[0]->hargaBatuZirkon;
-    $hargaKrumWarna         = $dataPO[0]->hargaKrumWarna;
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $kodeGambar             = $dataPO[0]->kodeGambar;
     $tglmsk     = new DateTime($tanggalMasuk);
@@ -163,22 +152,15 @@
                                         </div>
                                         <div class="col-lg-6" id="cluster_info">
                                             <dl class="dl-horizontal" >
-                                                <dt>Nama Batu Permata:</dt> <dd>  <?php echo $namaBatu?></dd>
-                                                <dt>Berat Batu Permata:</dt> <dd><?php echo $beratBatu?></dd>
-                                                <dt>Berlian:</dt> <dd>  <?php echo $berlian?></dd>
-                                                <dt>Berat Berlian:</dt> <dd>  <?php echo $beratBerlian?></dd>
-                                                <dt>Batu Zirkon:</dt> <dd>  <?php echo $batuZirkon?></dd>
-                                                <dt>Jumlah Batu Zirkon:</dt> <dd>  <?php echo $jumlahBatuZirkon?></dd>
+                                                
                                             </dl>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <dl class="dl-horizontal">
-                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
                                                 <dt>Model:</dt> <dd> <?php echo $model ?></dd>
                                                 <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
-                                                <dt>Harga Krum Warna:</dt> <dd> <?php echo $hargaKrumWarna?> </dd>
                                                 <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
                                                 <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
                                             </dl>
@@ -217,50 +199,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                               Harga Berlian
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $beratBerlian ?> Gram</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Batu Zirkon
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $jumlahBatuZirkon ?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBatuZirkon,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Krum Warna
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Upah Pasang Berlian
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $datangBerlian ?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
                                                Biaya Pekerjaan Tambahan
                                             </td>
                                             <td class="text-center">
@@ -283,7 +221,7 @@
                                         </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="2"><strong>Estimasi Total Biaya</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$hargaBerlian+($hargaBatuZirkon*$jumlahBatuZirkon)+$hargaKrumWarna+$upahPasangBerlian+$biayaTambahan+$upah,2,".","."); ?></strong></td>
+                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$biayaTambahan+$upah,2,".","."); ?></strong></td>
                                         </tr>
                                         </tbody>
                                     </table>

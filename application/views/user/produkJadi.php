@@ -107,7 +107,7 @@
                                                 <td class="text-center"><?php echo $produk[$j]->kode?></td>
                                                 <td><?php echo $produk[$j]->namaProduk?></td>
                                                 <td class="text-center" ><?php echo $produk[$j]->jenisProduk?></td>
-                                                <td class="text-center" >Rp. <?php echo number_format($produk[$j]->harga,2,".","."); ?></td>
+                                                <td class="text-center" >Rp. <?php echo number_format($produk[$j]->hargaJual,2,".","."); ?></td>
                                                 <td class="text-center" ><?php echo $produk[$j]->stok?></td>
                                                 <td class="text-center"><!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idProduk?>">Lihat</button>
