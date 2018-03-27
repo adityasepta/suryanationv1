@@ -202,7 +202,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>Lebar Gelang </label>
-                                                                <input type="text" placeholder="Lebar Gelang" name="lebar" class="form-control" value="<?php echo set_value('lebar'); ?>" required="">
+                                                                <input type="text" placeholder="Lebar Gelang" name="lebar" class="form-control" value="<?php echo set_value('lebar'); ?>">
                                                             </div>
                                                             
                                                         </div>
@@ -334,7 +334,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Kadar Datang Emas</label>
-                                                        <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control" required="">
+                                                        <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Harga Datang Emas</label>
@@ -352,7 +352,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Kadar Datang Berlian</label>
-                                                        <input type="text" name="jumlahDatangBerlian" placeholder="Carat" value="<?php echo set_value('jumlahDatangBerlian'); ?>"  class="form-control" required="">
+                                                        <input type="text" name="jumlahDatangBerlian" placeholder="Carat" value="<?php echo set_value('jumlahDatangBerlian'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Upah Pasang Berlian</label>
