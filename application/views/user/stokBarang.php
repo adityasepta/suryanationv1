@@ -101,7 +101,9 @@
                                 <tbody>
                                     <?php foreach($stokBarang as $p) : ?>
                                     <tr>
-                                        <td><?php echo  $p->tanggal?></td>
+                                        <?php $tglmsk = new DateTime($p->tanggal);
+                                        $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
+                                        <td><?php echo $tglmsk?></td>
                                         <td><?php echo $p->tipeBarang?></td>
                                         <td><?php echo $p->kodeProduk?></td>
                                         <td><?php echo $p->namaProduk?></td>

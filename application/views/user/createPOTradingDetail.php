@@ -346,7 +346,7 @@
                         // This just sends the value of the dropdown 
                         data: { kodeProduk: $(this).val() }, 
                         success: function(response) { 
-                             
+                            console.log("success"); 
                             // Parse the jSON that is returned 
                             // Using conditions here would probably apply 
                             // incase nothing is returned 
@@ -354,7 +354,7 @@
                             console.log(Vals); 
                             // var Vals    =   JSON.parse(response); 
                             // These are the inputs that will populate 
-                            $("input[name='harga']").val(Vals[0].harga);
+                            $("input[name='harga']").val(Vals[0].hargaJual);
 
 
                         } 

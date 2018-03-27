@@ -87,6 +87,7 @@
                                     <th data-hide="phone">Nama</th>
                                     <th data-hide="all">Deskripsi</th>
                                     <th> Harga Jual</th>
+                                    <th> Stok</th>
                                     <th data-hide="phone,tablet" >Kategori</th>
                                     <th data-hide="phone"> Status Katalog</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
@@ -103,6 +104,9 @@
                                     </td>
                                     <td>
                                         Rp. <?php echo number_format($produk[$j]->hargaJual,2,".","."); ?>
+                                    </td>
+                                     <td>
+                                        <?php echo $produk[$j]->stok." ".$produk[$j]->satuan; ?>
                                     </td>
                                     <td>
                                         <?php echo $produk[$j]->kategori?>

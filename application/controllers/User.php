@@ -990,6 +990,7 @@ class User extends CI_Controller {
                         'gambar2'           => $file1,
                         'gambar3'           => $file2,
                         'gambar4'           => $file3,
+                        'stok'              => $this->input->post('stok'),
                     );
 
                     $this->mdl->insertData("produk",$dataProduk);
@@ -1019,6 +1020,7 @@ class User extends CI_Controller {
                     'hargaModal'        => $hargaModal,
                     'kategori'          => $this->input->post('kategori'),
                     'statusKatalog'     => $this->input->post('statusKatalog'),
+                    'stok'              => $this->input->post('stok'),
                 );
                 //print_r($dataProduk);exit();
                 $this->mdl->insertData("produk",$dataProduk);
@@ -1067,6 +1069,7 @@ class User extends CI_Controller {
                                 'gambarProduk'        => $kode,
                                 'hargaProduk'         => $hargaProduk,
                                 'hargaModal'         => $hargaModal,
+                                'stok'              => $this->input->post('stok'),
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
@@ -1087,6 +1090,7 @@ class User extends CI_Controller {
                                 'gambarProduk'        => $kode,
                                 'hargaProduk'         => $hargaProduk,
                                 'hargaModal'         => $hargaModal,
+                                'stok'              => $this->input->post('stok'),
                         );
                         //print_r($dataProduk);exit();
                         $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
@@ -2819,6 +2823,7 @@ class User extends CI_Controller {
     public function cariProduk2() {
         $kodeProduk = $this->input->post('kodeProduk');
         $data['produk'] = $this->mdl->findProdukTrading($kodeProduk);
+        echo json_encode($data['produk']);
     }
 
     public function tambahCart($idPO) {
@@ -2863,7 +2868,19 @@ class User extends CI_Controller {
             $dataStok = array(
                 'stok' => $stokTerkini
                 );
-            $this->mdl->updateData('idProduk',$idProduk,'produkTrading',$dataStok);
+            $this->mdl->updateData('idProduk',$idProduk,'produk',$dataStok);
+
+
+            $kodeBarang=$data['produk'][0]->kodeProduk;
+            $harga=$data['detailPO'][0]->harga;
+            $dataInventory = array(
+                    'tipeBarang'   => "Produk Jadi",
+                    'kodeBarang'    => $kodeBarang,
+                    'jumlah'        => $jumlah,
+                    'jenisPergerakanBarang'  => "OUT",
+                    'hargaBeli'  => $harga*$jumlah
+            );
+            $this->mdl->insertInventory($dataInventory);
         }
         redirect('user/listPOTrading');
     }

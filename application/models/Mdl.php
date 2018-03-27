@@ -233,7 +233,7 @@ class mdl extends CI_Model {
 
     public function listDesain(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staf Desain'");
+        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staff Desain Tempahan'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -243,7 +243,7 @@ class mdl extends CI_Model {
 
     public function listPegawaiSales(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staf Sales'");
+        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staff Sales & Marketing'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -253,7 +253,7 @@ class mdl extends CI_Model {
 
     public function listPegawaiDesain(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staf Desain'");
+        $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staff Desain Tempahan'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1312,7 +1312,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listProdukTrading(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produktrading");
+        $hasil = $this->db->query("SELECT * FROM produk where kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1322,7 +1322,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findProdukTrading($kodeProduk){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produktrading WHERE idProduk = '$kodeProduk' LIMIT 1");
+        $hasil = $this->db->query("SELECT *,hargaJual as 'harga' FROM produk WHERE idProduk = '$kodeProduk' AND kategori='trading' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1332,7 +1332,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findPOTradingDetail($idPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produktrading p on a.idProduk = p.idProduk WHERE idPO='$idPO'");
+        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE idPO='$idPO' AND kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1342,7 +1342,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findPOTradingDetailbyPO($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produktrading p on a.idProduk = p.idProduk WHERE nomorPO='$nomorPO'");
+        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE nomorPO='$nomorPO' AND kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1398,7 +1398,75 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listPO3(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,d.statusSPK,e.idHeader,e.jenisInvoice FROM (SELECT a.idPO,a.nomorPO,a.idProduk,a.idCustomer,a.idSalesPerson,a.tanggalMasuk,a.tanggalEstimasiPenyelesaian,a.hargaBahan,a.upah,a.datangEmas,a.hargaDatangEmas,a.kadarDatangEmas,a.datangBerlian,a.jumlahDatangBerlian,a.upahPasangBerlian,a.tipeCustomer,a.pekerjaanTambahan,a.keteranganTambahan,a.biayaTambahan,a.metode,a.panjar,a.totalHarga,a.lastModified,a.tipeOrder,b.kodeProduk,b.namaProduk,b.jenisProduk,b.bahan,b.kadarBahan,b.namaBatu,b.beratBatu,b.ukuranJari,b.berlian,b.beratBerlian,b.hargaBerlian,b.batuZirkon,b.jumlahBatuZirkon,b.hargaBatuZirkon,b.krumWarna,b.hargaKrumWarna,b.keteranganKrum,b.tipeIkatan,b.model,b.harga,b.kodeGambar,b.stok,c.namaCustomer,c.nomorTelepon FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN spk d on a.nomorPO=d.nomorPO LEFT JOIN invoiceheader e ON a.nomorPO=e.nomorPO WHERE d.statusSPK = 'Done' AND e.jenisInvoice IS NULL");
+        $hasil = $this->db->query("SELECT
+                                          a.*,
+                                          d.statusSPK,
+                                          e.idHeader,
+                                          e.jenisInvoice
+                                        FROM
+                                          (
+                                          SELECT
+                                            a.idPO,
+                                            a.nomorPO,
+                                            a.idProduk,
+                                            a.idCustomer,
+                                            a.idSalesPerson,
+                                            a.tanggalMasuk,
+                                            a.tanggalEstimasiPenyelesaian,
+                                            a.hargaBahan,
+                                            a.upah,
+                                            a.datangEmas,
+                                            a.hargaDatangEmas,
+                                            a.kadarDatangEmas,
+                                            a.datangBerlian,
+                                            a.jumlahDatangBerlian,
+                                            a.upahPasangBerlian,
+                                            a.tipeCustomer,
+                                            a.pekerjaanTambahan,
+                                            a.keteranganTambahan,
+                                            a.biayaTambahan,
+                                            a.metode,
+                                            a.panjar,
+                                            a.totalHarga,
+                                            a.lastModified,
+                                            a.tipeOrder,
+                                            b.kodeProduk,
+                                            b.namaProduk,
+                                            b.jenisProduk,
+                                            a.bahan,
+                                            a.kadarBahan,
+                                            a.namaBatu,
+                                            a.beratBatu,
+                                            a.ukuranJari,
+                                            a.berlian,
+                                            a.beratBerlian,
+                                            a.hargaBerlian,
+                                            a.batuZirkon,
+                                            a.jumlahBatuZirkon,
+                                            a.hargaBatuZirkon,
+                                            a.krumWarna,
+                                            a.hargaKrumWarna,
+                                            a.keteranganKrum,
+                                            a.tipeIkatan,
+                                            a.model,
+                                            b.hargaJual,
+                                            b.hargaModal,
+                                            b.stok,
+                                            c.namaCustomer,
+                                            c.nomorTelepon
+                                          FROM
+                                            potempahan a
+                                          LEFT JOIN
+                                            produk b ON a.idProduk = b.idProduk
+                                          LEFT JOIN
+                                            customer c ON a.idCustomer = c.idCustomer
+                                        ) a
+                                        LEFT JOIN
+                                          spk d ON a.nomorPO = d.nomorPO
+                                        LEFT JOIN
+                                          invoiceheader e ON a.nomorPO = e.nomorPO
+                                        WHERE
+                                          d.statusSPK = 'Done' AND e.jenisInvoice IS NULL");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
