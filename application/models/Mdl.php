@@ -245,7 +245,7 @@ class mdl extends CI_Model {
 
     public function poTerakhir(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM potempahan ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM potempahan ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -255,7 +255,7 @@ class mdl extends CI_Model {
 
     public function poTerakhir2(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM pomasal ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM pomasal ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -897,7 +897,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function poTerakhirService(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseorderservice ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseorderservice ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1268,7 +1268,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     
     public function poTerakhirTrading(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1906,7 +1906,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function poTerakhir3(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM poperak ORDER BY idPO DESC LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM poperak ORDER BY nomorPO DESC LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
