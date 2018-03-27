@@ -67,12 +67,15 @@ class User extends CI_Controller {
             $data['go'] = $this->mdl->getProses(1007);  
             $data['bo'] = $this->mdl->getProses(1008);  
 
-            $data['cz'] = $this->mdl->getProses(1019);  
+            $data['cz'] = $this->mdl->getProses(1009);  
             $data['po'] = $this->mdl->getProses(1010);  
             $data['sl'] = $this->mdl->getProses(1011);
 
             $data['kr'] = $this->mdl->getProses(1012);
-             $data['do'] = $this->mdl->getProses(1014);  
+            $data['bt'] = $this->mdl->getProses(1013);
+             $data['do'] = $this->mdl->getProses(1014);
+
+             $data['jd'] = $this->mdl->getJadi();  
 
             $this->load->view('user/statprod_view',$data);
 
@@ -90,7 +93,7 @@ class User extends CI_Controller {
         $idProProd = $this->input->post('idProProd');
         $idAktivitas = $this->input->post('idAktivitas');
 
-        var_dump(get_defined_vars());exit();
+        //var_dump(get_defined_vars());exit();
 
         $this->next($idProduk,$idAktivitas,$idProProd,$idSPK);
 
@@ -119,6 +122,7 @@ class User extends CI_Controller {
             $next = $idaktivitas;
 
             $beratAwal = $proses[0]->berat;
+            $beratTambahan = $proses[0]->beratTambahan;
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -126,10 +130,11 @@ class User extends CI_Controller {
                 'statusSPK' => 'Active',
                 'idAktivitas' => $next,
                 'beratAwal' => $beratAwal,
+                'beratTambahan' => $beratTambahan,
                 'statusBerat' => 'Belum Disetujui'
             );
             $this->mdl->insertData('factproduction', $data);
-            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil memperbarui proses produksi</div>');
             redirect('User/kanban');    
         }
 
@@ -144,6 +149,7 @@ class User extends CI_Controller {
         $data = array(
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
+            'beratTambahan' => $this->input->post('beratTambahan'),
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
@@ -1605,6 +1611,12 @@ class User extends CI_Controller {
         
     }
 
+    public function detailProduk($idProduk) {
+        $data['produk'] = $this->mdl->detailProduk($idProduk);
+        $this->load->view("user/detailProduk",$data);
+        
+    }
+
     public function catalogue() {
         $data['produk'] = $this->mdl->listKatalog();
         $this->load->view("user/catalogue_view",$data);
@@ -2444,14 +2456,8 @@ class User extends CI_Controller {
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'namaBatu'          => $this->input->post('namaBatu'),
-                            'beratBatu'         => $this->input->post('beratBatu'),
-                            'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'model'             => $this->input->post('model'),
-                            'bahan'             => 'Perak',
-                            'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
-                            'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
-                            'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
+                            'kategori'          => 'Perak',
+                            'statusKatalog'     => 'Tidak Tampil',
                             'kodeGambar'        => $kode,
                             );
                             $this->mdl->tambahProduk($dataProduk);
@@ -2472,7 +2478,7 @@ class User extends CI_Controller {
                             'upah'              => $upah,
                             'panjar'            => $panjar,
                             'totalHarga'        => $totalHarga,
-                            'tipeOrder'         => 'perak',
+                            'tipeOrder'         => 'Perak',
                             'beratAkhir'        => $this->input->post('beratAkhir'),
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
                             'krumWarna'      => $this->input->post('krumWarna'),
@@ -2485,7 +2491,14 @@ class User extends CI_Controller {
                             'hargaSlep'          => $hargaSlep,
                             'upahRombak'          => $upahRombak,
                             'hargaResize'          => $hargaResize,
-                            
+                            'namaBatu'          => $this->input->post('namaBatu'),
+                            'beratBatu'         => $this->input->post('beratBatu'),
+                            'ukuranJari'        => $this->input->post('ukuranJari'),
+                            'model'             => $this->input->post('model'),
+                            'bahan'             => 'Perak',
+                            'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
+                            'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
+                            'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
                         );
                         $this->mdl->insertData('poperak',$dataPO);      
                     }
@@ -2506,14 +2519,9 @@ class User extends CI_Controller {
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'namaBatu'          => $this->input->post('namaBatu'),
-                            'beratBatu'         => $this->input->post('beratBatu'),
-                            'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'model'             => $this->input->post('model'),
-                            'bahan'             => 'Perak',
-                            'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
-                            'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
-                            'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
+                            'kategori'         => 'Tempahan',
+                            'statusKatalog'         => 'Tidak Tampil',
+                            'kodeGambar'        => $kode,
                         );
                         $this->mdl->tambahProduk($dataProduk);
                     }
@@ -2536,7 +2544,7 @@ class User extends CI_Controller {
                         'upah'              => $upah,
                         'panjar'            => $panjar,
                         'totalHarga'        => $totalHarga,
-                        'tipeOrder'         => 'perak',
+                        'tipeOrder'         => 'Perak',
                         'beratAkhir'        => $this->input->post('beratAkhir'),
                         'tipeCustomer'      => $this->input->post('tipeCustomer'),
                         'krumWarna'      => $this->input->post('krumWarna'),
@@ -2549,6 +2557,14 @@ class User extends CI_Controller {
                         'hargaSlep'          => $hargaSlep,
                         'upahRombak'          => $upahRombak,
                         'hargaResize'          => $hargaResize,
+                        'namaBatu'          => $this->input->post('namaBatu'),
+                        'beratBatu'         => $this->input->post('beratBatu'),
+                        'ukuranJari'        => $this->input->post('ukuranJari'),
+                        'model'             => $this->input->post('model'),
+                        'bahan'             => 'Perak',
+                        'keadaanBatuTengah'     => $this->input->post('keadaanBatuTengah'),
+                        'batuTerhadapKruman'    => $this->input->post('batuTerhadapKruman'),
+                        'batuTerhadapPukulan'   => $this->input->post('batuTerhadapPukulan'),
                     );
                     $this->mdl->insertData('poperak',$dataPO);                        
                         
@@ -2989,9 +3005,9 @@ class User extends CI_Controller {
             if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
                 $ukuranJari=$this->input->post('ukuranJari');
             } else if ($this->input->post('jenisProduk')=='Gelang') {
-                $ukuranJari='';
+                $ukuranJari=$this->input->post('diameter');
             } else {
-                $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO').'-'.$this->input->post('namaBatu');
+                $ukuranJari=$this->input->post('ukuran');
             };
             
 
@@ -3051,22 +3067,8 @@ class User extends CI_Controller {
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'bahan'             => $this->input->post('bahan'),
-                            'kadarBahan'        => $this->input->post('kadarBahan'),
-                            'namaBatu'          => $this->input->post('namaBatu'),
-                            'beratBatu'         => $this->input->post('beratBatu'),
-                            'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'berlian'           => $this->input->post('berlian'),
-                            'krumWarna'         => $this->input->post('krumWarna'),
-                            'tipeIkatan'        => $this->input->post('tipeIkatan'),
-                            'model'             => $this->input->post('model'),
-                            'beratBerlian'      => $this->input->post('beratBerlian'),
-                            'hargaBerlian'      => $hargaBerlian,
-                            'batuZirkon'        => $this->input->post('batuZirkon'),
-                            'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
-                            'hargaBatuZirkon'   => $hargaBatuZirkon,
-                            'hargaKrumWarna'    => $hargaKrumWarna,
-                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                            'kategori'          => 'Tempahan',
+                            'statusKatalog'     => 'Tidak Tampil',
                             'kodeGambar'        => $kode,
                         );
                         $this->mdl->tambahProduk($dataProduk);
@@ -3105,6 +3107,22 @@ class User extends CI_Controller {
                             'biayaTambahan'     => $this->input->post('biayaTambahan'),
                             'beratAkhir'        => $this->input->post('beratAkhir'),
                             'susut'             => $this->input->post('susut'),
+                            'bahan'             => $this->input->post('bahan'),
+                            'kadarBahan'        => $this->input->post('kadarBahan'),
+                            'namaBatu'          => $this->input->post('namaBatu'),
+                            'beratBatu'         => $this->input->post('beratBatu'),
+                            'ukuranJari'        => $ukuranJari,
+                            'berlian'           => $this->input->post('berlian'),
+                            'krumWarna'         => $this->input->post('krumWarna'),
+                            'tipeIkatan'        => $this->input->post('tipeIkatan'),
+                            'model'             => $this->input->post('model'),
+                            'beratBerlian'      => $this->input->post('beratBerlian'),
+                            'hargaBerlian'      => $hargaBerlian,
+                            'batuZirkon'        => $this->input->post('batuZirkon'),
+                            'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
+                            'hargaBatuZirkon'   => $hargaBatuZirkon,
+                            'hargaKrumWarna'    => $hargaKrumWarna,
+                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
                         );
                         $this->mdl->tambahPO($dataPO);    
                         $data['pegawai'] = $this->mdl->listPegawai();
@@ -3132,7 +3150,7 @@ class User extends CI_Controller {
                     'kadarBahan'        => $this->input->post('kadarBahan'),
                     'namaBatu'          => $this->input->post('namaBatu'),
                     'beratBatu'         => $this->input->post('beratBatu'),
-                    'ukuranJari'        => $this->input->post('ukuranJari'),
+                    'ukuranJari'        => $ukuranJari,
                     'berlian'           => $this->input->post('berlian'),
                     'krumWarna'         => $this->input->post('krumWarna'),
                     'tipeIkatan'        => $this->input->post('tipeIkatan'),
@@ -4201,12 +4219,8 @@ class User extends CI_Controller {
                                 'kodeProduk'        => $this->input->post('kodeProduk'),
                                 'namaProduk'        => $namaProduk,
                                 'jenisProduk'       => $this->input->post('jenisProduk'),
-                                'bahan'             => $this->input->post('bahan'),
-                                'kadarBahan'        => $this->input->post('kadarBahan'),
-                                'ukuranJari'        => $this->input->post('ukuranJari'),
-                                'krumWarna'         => $this->input->post('krumWarna'),
-                                'model'             => $this->input->post('model'),
-                                'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                                'kategori'        => 'Massal',
+                                'statusKatalog'        => 'Tidak Tampil',
                                 'kodeGambar'        => $kode,
                             );
                             $this->mdl->tambahProduk($dataProduk);
@@ -4236,7 +4250,12 @@ class User extends CI_Controller {
                             'tipeCustomer'      => $this->input->post('tipeCustomer'),
                             'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-                            
+                            'bahan'             => $this->input->post('bahan'),
+                            'kadarBahan'        => $this->input->post('kadarBahan'),
+                            'ukuranJari'        => $this->input->post('ukuranJari'),
+                            'krumWarna'         => $this->input->post('krumWarna'),
+                            'model'             => $this->input->post('model'),
+                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
                         );
                         $this->mdl->insertData('pomasal',$dataPO);      
                     }
@@ -4251,12 +4270,9 @@ class User extends CI_Controller {
                             'kodeProduk'        => $this->input->post('kodeProduk'),
                             'namaProduk'        => $namaProduk,
                             'jenisProduk'       => $this->input->post('jenisProduk'),
-                            'bahan'             => $this->input->post('bahan'),
-                            'kadarBahan'        => $this->input->post('kadarBahan'),
-                            'ukuranJari'        => $this->input->post('ukuranJari'),
-                            'krumWarna'         => $this->input->post('krumWarna'),
-                            'model'             => $this->input->post('model'),
-                            'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                            'kategori'        => 'Massal',
+                            'statusKatalog'        => 'Tidak Tampil',
+                            'kodeGambar'        => $kode,
                         );
                         $this->mdl->tambahProduk($dataProduk);
                     }
@@ -4277,11 +4293,18 @@ class User extends CI_Controller {
                         'datangEmas'        => $this->input->post('datangEmas'),
                         'panjar'            => $panjar,
                         'beratAkhir'        => $this->input->post('beratAkhir'),
+                        'totalHarga'        => $totalHarga,
                         'tipeOrder'         => 'massal',
                         'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
                         'tipeCustomer'      => $this->input->post('tipeCustomer'),
                         'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
                         'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
+                        'bahan'             => $this->input->post('bahan'),
+                        'kadarBahan'        => $this->input->post('kadarBahan'),
+                        'ukuranJari'        => $this->input->post('ukuranJari'),
+                        'krumWarna'         => $this->input->post('krumWarna'),
+                        'model'             => $this->input->post('model'),
+                        'keteranganKrum'    => $this->input->post('keteranganKrum'),
                     );
                     $this->mdl->insertData('pomasal',$dataPO);                        
                         
@@ -4813,7 +4836,8 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('beratAwal')
+            'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');

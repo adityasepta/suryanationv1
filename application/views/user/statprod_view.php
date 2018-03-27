@@ -411,12 +411,12 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>PASANG BATU TENGAH<span class="label label-success pull-right"><?php// echo count($bt)?></span></h3>
+                                    <h3>PASANG BATU TENGAH<span class="label label-success pull-right"><?php echo count($bt)?></span></h3>
                                     <p>Kumpulan dari SPK yang sedang proses <br> Batu Tengah <b>1013</b></p>
                                     <ul class="sortable-list connectList agile-list" id="chrome">
-                                     <!--  <?php for ($i=0; $i < count($kr) ; ++$i) { ?>
-                                           <?php include('card/card-krum.php') ?>
-                                        <?php } ?>  -->
+                                      <?php for ($i=0; $i < count($bt) ; ++$i) { ?>
+                                           <?php include('card/card-batu.php') ?>
+                                        <?php } ?> 
                                     </ul>
                                 </div>
                             </div>
@@ -430,6 +430,21 @@
                                     <ul class="sortable-list connectList agile-list" id="done">
                                       <?php for ($i=0; $i < count($do) ; ++$i) { ?>
                                            <?php include('card/card-done.php') ?>
+                                        <?php } ?> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h3>FINANCE / SALES<span class="label label-success pull-right"><?php echo count($jd)?></span></h3>
+                                    <p>Kumpulan dari PO Produk yang<br>
+                                    menunggu diambil customer</p>
+                                    <ul class="sortable-list connectList agile-list" id="done">
+                                      <?php for ($i=0; $i < count($jd) ; ++$i) { ?>
+                                           <?php include('card/card-jadi.php') ?>
                                         <?php } ?> 
                                     </ul>
                                 </div>
