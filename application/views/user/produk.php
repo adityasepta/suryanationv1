@@ -59,12 +59,14 @@
                 </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
+            
+
+
             <div class="row">
                 <div class="col-lg-12">
-
                     <?php echo $this->session->flashdata('msg'); ?>
                     
-                    <div class="ibox float-e-margins">
+                    <div class="ibox">
                         <div class="ibox-title">
                             <h5>Daftar Produk</h5>
                             <div class="ibox-tools">
@@ -75,85 +77,96 @@
                         </div>
 
                         <div class="ibox-content">
-                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                                   placeholder="Search in table">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" data-page-size="15" data-filter="#filter">
                                 <thead>
                                 <tr>
-                                    <th class="text-center">Kode Produk</th>
-                                    <th>Nama Produk</th>
-                                    <th class="text-center" >Kategori</th>
-                                    <th class="text-center" >Harga Produk</th>
-                                    <!-- <th data-hide="phone,tablet">Foto</th> -->
-                                    <th class="text-center" >Action</th>
+
+                                    <th data-toggle="true">Kode Produk</th>
+                                    <th data-hide="phone">Nama</th>
+                                    <th data-hide="all">Deskripsi</th>
+                                    <th> Harga Jual</th>
+                                    <th data-hide="phone,tablet" >Kategori</th>
+                                    <th data-hide="phone"> Status Katalog</th>
+                                    <th class="text-right" data-sort-ignore="true">Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                     <?php for ($j=0; $j < count($produk); $j++) { ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $produk[$j]->kodeProduk?></td>
-                                                <td><?php echo $produk[$j]->namaProduk?></td>
-                                                <td class="text-center" ><?php echo $produk[$j]->jenisProduk?></td>
-                                                <td class="text-center" >Rp. <?php echo number_format($produk[$j]->hargaProduk,2,".","."); ?></td>
-                                                <td class="text-center"><!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idKatalog?>">Lihat</button>
-                                                    <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idKatalog?>" class="btn btn-xs btn-default">Edit</a>
-                                                    <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idKatalog?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a></td>
-                                            </tr>
-                                        </div>
-                                     <?php } ?>
-
-                                </tbody>
-                                <tfoot>
                                 <tr>
-                                    <td colspan="7">
-                                        <ul class="pagination pull-right"></ul>
+                                    <?php for ($j=0; $j < count($produk); $j++) { ?>
+                                    <td> <?php echo $produk[$j]->kodeProduk?> </td>
+                                    <td> <?php echo $produk[$j]->namaProduk?> </td>
+                                    <td>
+                                        <?php echo $produk[$j]->deskripsi?>
+                                    </td>
+                                    <td>
+                                        Rp. <?php echo number_format($produk[$j]->hargaJual,2,".","."); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $produk[$j]->kategori?>
+                                    </td>
+                                    <td>
+                                        <?php if($produk[$j]->statusKatalog=="Tampil"){ ?>
+                                            <span class="label label-primary">Tampil</span>
+                                        <?php } else { ?>
+                                            <span class="label label-danger">Tidak Tampil</span>
+                                        <?php } ?>
+                                    </td>
+                                    <td class="text-right"><!-- Button trigger modal -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idProduk?>">Lihat</button>
+                                            <!-- <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default">Edit</a> -->
+                                            <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a>
+                                        </div>
                                     </td>
                                 </tr>
-                                </tfoot>
-                            </table>
-                            <?php foreach ($produk as $p) : ?>
-                                            <!-- Modal -->
-                                            <div class="modal inmodal fade" id="detail<?php echo $p->idKatalog?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                        <h3 class="modal-title">Detail Produk</h3><br>
-                                                        <span >KODE PRODUK : <b class="text-success"><?php echo $p->kodeProduk?></b> | NAMA PRODUK : <b class="text-success"><?php echo $p->namaProduk?></b> | TIPE : <b class="text-success">Custom</b></span><br>
-                                                        </div>
-                                                    <div class="modal-body">
+                                <!-- Modal -->
+                                <div class="modal inmodal fade" id="detail<?php echo $produk[$j]->idProduk ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <h3 class="modal-title">Detail Produk</h3><br>
+                                                <span >KODE PRODUK : <b class="text-success"><?php echo $produk[$j]->kodeProduk?></b> | NAMA PRODUK : <b class="text-success"><?php echo $produk[$j]->namaProduk?></b> </span><br>
+                                                </div>
+                                            <div class="modal-body">
 
-                                                        <div class="tabs-container">
-                                                            <div class="row">
-                                                                <div class="col-lg-4">
-                                                                    <img src="<?php echo base_url('uploads/gambarProduk/'.$p->gambarProduk.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
-                                                                </div>
-                                                                <div class="col-lg-7" id="cluster_info">
-                                                                    <dl class="dl-horizontal">
-                                                                        <dt>Nama Produk:</dt> <dd> <?php echo $p->namaProduk ?></dd>
-                                                                        <dt>Jenis Produk:</dt> <dd><a href="#" class="text-navy"> <?php echo $p->jenisProduk ?></a> </dd>
-                                                                        <dt>Deskripsi:</dt> <dd> <?php echo $p->deskripsiProduk ?></dd>
-                                                                        
-                                                                    </dl>
-                                                                    <dl class="dl-horizontal" >
-                                                                        <dt>Harga:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaProduk);?> </strong></dd>
-                                                                        <dt>Harga Modal:</dt> <dd><strong> Rp. <?php echo  number_format($p->hargaModal);?> </strong></dd>
-                                                                    </dl>
-                                                                </div>
-                                                            </div>
+                                                <div class="tabs-container">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <img src="<?php echo base_url('uploads/gambarProduk/'.$produk[$j]->gambar1)?>" class="img img-responsive pull-right" style="max-height: 125px;">
+                                                        </div>
+                                                        <div class="col-lg-7" id="cluster_info">
+                                                            <dl class="dl-horizontal">
+                                                                <dt>Nama Produk:</dt> <dd> <?php echo $produk[$j]->namaProduk ?></dd>
+                                                                <dt>Jenis Produk:</dt> <dd><a href="#" class="text-navy"> <?php echo $produk[$j]->jenisProduk ?></a> </dd>
+                                                                <dt>Deskripsi:</dt> <dd> <?php echo $produk[$j]->deskripsi ?></dd>
+                                                                
+                                                            </dl>
+                                                            <dl class="dl-horizontal" >
+                                                                <dt>Harga Jual:</dt> <dd><strong> Rp. <?php echo  number_format($produk[$j]->hargaJual);?> </strong></dd>
+                                                                <dt>Harga Modal:</dt> <dd><strong> Rp. <?php echo  number_format($produk[$j]->hargaModal);?> </strong></dd>
+                                                            </dl>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                            <?php endforeach; ?>
+                                </div>
+                                <?php } ?>
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
         <div class="footer">
             <div>
