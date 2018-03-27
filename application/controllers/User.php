@@ -3374,7 +3374,7 @@ class User extends CI_Controller {
     }
 
     public function invoiceAkhirPOMassalPerseorangan($nomorPO) {
-        $data['PO'] = $this->mdl->findPOMasal($nomorPO);
+        $data['PO'] = $this->mdl->findPOMassal($nomorPO);
         $data['SPK'] = $this->mdl->findSPKMassalbyPO($nomorPO);
         if ($data['SPK']) {
             $idSPK = $data['SPK']->idSPK;
@@ -3390,7 +3390,7 @@ class User extends CI_Controller {
     }
 
     public function invoiceAkhirPOMassalPertokoan($nomorPO) {
-        $data['PO'] = $this->mdl->findPOMasal($nomorPO);
+        $data['PO'] = $this->mdl->findPOMassal($nomorPO);
         $data['SPK'] = $this->mdl->findSPKMassalbyPO($nomorPO);
         if ($data['SPK']) {
             $idSPK = $data['SPK']->idSPK;
