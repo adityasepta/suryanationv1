@@ -128,6 +128,15 @@
                                                         <option value="Trading" <?php $a= set_value('kategori'); if($a=="Trading"){?> selected="" <?php } ?>>Trading</option>
                                                     </select>
                                                 </div>
+                                                <label class="col-sm-2 control-label">Satuan</label>
+                                                <div class="col-md-2">
+                                                    <select name="satuan" required="" class="form-control">
+                                                      <option value="Pcs" <?php $a= set_value('satuan'); if($a=="Pcs"){?> selected="" <?php } ?>>Pcs</option>
+                                                      <option value="Liter" <?php $a= set_value('satuan'); if($a=="Liter"){?> selected="" <?php } ?>>Liter</option>
+                                                      <option value="Gram" <?php $a= set_value('satuan'); if($a=="Gram"){?> selected="" <?php } ?>>Gram</option>
+                                                      <option value="Carat" <?php $a= set_value('satuan'); if($a=="Carat"){?> selected="" <?php } ?>>Carat</option>
+                                                    </select>
+                                                </div>
                                                 <label class="col-sm-2 control-label">Status Katalog</label>
                                                 <div class="col-sm-1" style="margin-top: 7px;">
                                                     <div class="i-checks"><label> <input type="radio" <?php $a= set_value('statusKatalog'); if($a=="Tampil"){?> checked="" <?php } ?> value="Tampil" name="statusKatalog" required> <i></i> Tampil </label></div>
