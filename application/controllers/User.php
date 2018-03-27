@@ -67,12 +67,15 @@ class User extends CI_Controller {
             $data['go'] = $this->mdl->getProses(1007);  
             $data['bo'] = $this->mdl->getProses(1008);  
 
-            $data['cz'] = $this->mdl->getProses(1019);  
+            $data['cz'] = $this->mdl->getProses(1009);  
             $data['po'] = $this->mdl->getProses(1010);  
             $data['sl'] = $this->mdl->getProses(1011);
 
             $data['kr'] = $this->mdl->getProses(1012);
-             $data['do'] = $this->mdl->getProses(1014);  
+            $data['bt'] = $this->mdl->getProses(1013);
+             $data['do'] = $this->mdl->getProses(1014);
+
+             $data['jd'] = $this->mdl->getJadi();  
 
             $this->load->view('user/statprod_view',$data);
 
@@ -90,7 +93,7 @@ class User extends CI_Controller {
         $idProProd = $this->input->post('idProProd');
         $idAktivitas = $this->input->post('idAktivitas');
 
-        var_dump(get_defined_vars());exit();
+        //var_dump(get_defined_vars());exit();
 
         $this->next($idProduk,$idAktivitas,$idProProd,$idSPK);
 
@@ -119,6 +122,7 @@ class User extends CI_Controller {
             $next = $idaktivitas;
 
             $beratAwal = $proses[0]->berat;
+            $beratTambahan = $proses[0]->beratTambahan;
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -126,10 +130,11 @@ class User extends CI_Controller {
                 'statusSPK' => 'Active',
                 'idAktivitas' => $next,
                 'beratAwal' => $beratAwal,
+                'beratTambahan' => $beratTambahan,
                 'statusBerat' => 'Belum Disetujui'
             );
             $this->mdl->insertData('factproduction', $data);
-            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil memperbarui proses produksi</div>');
             redirect('User/kanban');    
         }
 
@@ -144,6 +149,7 @@ class User extends CI_Controller {
         $data = array(
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
+            'beratTambahan' => $this->input->post('beratTambahan'),
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
@@ -4754,7 +4760,8 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('beratAwal')
+            'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
