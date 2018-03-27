@@ -49,26 +49,28 @@
         <div class="row">
             <?php for ($i=0; $i < count($produk) ; $i++) { ?>
                 <div class="col-md-3">
-                    <div class="ibox">
-                        <div class="ibox-content product-box">
+                    <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
 
-                            <div class="product-imitation" style="height: 100%; position:relative; background: url('<?php echo base_url();?>uploads/gambarProduk/<?php echo $produk[$i]->gambarProduk?>-cust.jpg')no-repeat; background-size: cover; background-position: center;">
-                            </div>
-                            <div class="product-desc">
-                                <span class="product-price">
-                                    <?php echo $produk[$i]->hargaProduk?>
-                                </span>
-                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?></small>
-                                <div style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis; ">
-                                    <a href="#" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
+                                <div class="product-imitation" style="height: 100%; position:relative; background: url('<?php echo base_url();?>uploads/gambarProduk/<?php echo $produk[$i]->gambar1?>')no-repeat; background-size: cover; background-position: center;">
                                 </div>
-                                
-                                <div class="small m-t-xs">
-                                    <?php echo $produk[$i]->kodeProduk?>
+                                <div class="product-desc">
+                                    <span class="product-price">
+                                        Rp. <?php echo  number_format($produk[$i]->hargaJual);?>
+                                    </span>
+                                    <small class="text-muted"><?php echo $produk[$i]->jenisProduk?></small>
+                                    <div style="white-space: nowrap; width: 15em; overflow: hidden; text-overflow: ellipsis; ">
+                                        <a href="#" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
+                                    </div>
+                                    
+                                    <div class="small m-t-xs">
+                                        Kode Produk <strong><?php echo $produk[$i]->kodeProduk?></strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             <?php } ?>
         </div>

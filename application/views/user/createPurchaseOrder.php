@@ -197,16 +197,7 @@
                                                         </div>
                                                         <div id="ukuranGelang" class="row" style="display: none;">
                                                             <label>Diameter X lebar </label>
-                                                            <input type="text" placeholder="Ukuran" name="ukuran" class="form-control" value="<?php echo set_value('ukuran'); ?>">
-                                                            <div class="col-md-6">
-                                                               <label>Diameter Gelang</label>
-                                                                <input type="text" placeholder="Diameter Gelang" name="diameter" class="form-control" value="<?php echo set_value('diameter'); ?>"> 
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Lebar Gelang </label>
-                                                                <input type="text" placeholder="Lebar Gelang" name="lebar" class="form-control" value="<?php echo set_value('lebar'); ?>">
-                                                            </div>
-                                                            
+                                                            <input type="text" placeholder="12cm X 22cm" name="diameter" class="form-control" value="<?php echo set_value('diameter'); ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
