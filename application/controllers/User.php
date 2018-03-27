@@ -3719,15 +3719,18 @@ class User extends CI_Controller {
         $this->mdl->insertData('factproduction2', $data);
 
         $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah;
+        $beratAkhir = (float)$proses[0]->beratAwal + (float)$beratAwal;
 
-        if($jmlakhir >0) {
-            $statusWork = 'Waiting';
+        if($jmlakhir > 0) {
+            $statusWork = 'On Progress';
         } else {
             $statusWork = 'Done';
         }
 
         $data = array(
                 
+                'statusBerat' => 'Disetujui',
+                'berat' => $beratAkhir,
                 'jumlahNow' => $jmlakhir,
                 'statusWork' => $statusWork,
                 'RealisasiEndDate' => date("Y-m-d H:i:s")
