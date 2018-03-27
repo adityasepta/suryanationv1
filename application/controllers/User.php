@@ -716,7 +716,9 @@ class User extends CI_Controller {
     }
 
     public function pegawai() {
-        $data['pegawai']=$this->mdl->listPegawai();  
+        $data['pegawai']=$this->mdl->listPegawai(); 
+        $data['jabatana']=$this->mdl->listJabatan(); 
+
         $this->load->view('user/pegawai',$data);
     }
 
@@ -729,6 +731,7 @@ class User extends CI_Controller {
             'level'             => '0',
             'phone'             => $this->input->post('phone'),
             'email'             => $this->input->post('email'),
+            'alamat'             => $this->input->post('alamat'),
         );
         //print_r($dataPegawai);exit();
         $this->mdl->insertData('user', $dataPegawai);
@@ -743,6 +746,7 @@ class User extends CI_Controller {
             'jabatan'     => $this->input->post('jabatan'),
             'phone'             => $this->input->post('phone'),
             'email'             => $this->input->post('email'),
+            'alamat'             => $this->input->post('alamat'),
         );
         //print_r($dataPegawai);exit();
         $this->mdl->updateData('idUser', $idUser, 'user', $dataPegawai);
@@ -5069,6 +5073,38 @@ class User extends CI_Controller {
         $message = "Produk berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/produkTrading")."';</script>";
+    }
+
+
+    //Jabatan
+    public function jabatan() {
+        $data['jabatan']=$this->mdl->listJabatan();  
+        $this->load->view('user/jabatan',$data);
+    }
+
+    public function createJabatan() {
+        $dataJabatan = array(
+            'namaJabatan'          => $this->input->post('namaJabatan'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('jabatan', $dataJabatan);
+        redirect('user/jabatan');
+    }
+
+    public function editJabatan($idJabatan) {
+        $dataJabatan = array(
+            'namaJabatan'          => $this->input->post('namaJabatan'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->updateData('idJabatan', $idJabatan, 'jabatan', $dataJabatan);
+        redirect('user/jabatan');
+    }
+
+    public function deleteJabatan($idJabatan) {
+        $this->mdl->deleteData('idJabatan', $idJabatan, 'jabatan');
+        $message = "Data Jabatan berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/jabatan")."';</script>";
     }
 
 }

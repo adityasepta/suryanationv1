@@ -84,6 +84,7 @@
                     $level    = $set_value('level');
                     $phone    = $set_value('phone');
                     $email    = $set_value('email');
+                    $alamat    = $set_value('alamat');
                 }
                 else {
                     $username    = $p->username;
@@ -93,10 +94,11 @@
                     $level    = $p->level;
                     $phone    = $p->phone;
                     $email    = $p->email;
+                    $alamat    = $p->alamat;
                 }
                 ?>
-                <div class="col-lg-4">
-                <div class="contact-box">
+                <div class="col-lg-6">
+                <div class="contact-box" style="height: 200px">
                     <div class="col-sm-4">
                         <div class="text-center">
                             <img alt="image" class="img-circle m-t-xs img-responsive" src="<?php echo base_url();?>assets/img/profile_small.jpg">
@@ -107,6 +109,7 @@
                         <h3><strong><?php echo $p->nama?></strong></h3>
                         <p><i class="fa fa-phone"></i><?php echo " ".$p->phone?></p>
                         <p><i class="fa fa-envelope-square"></i><?php echo " ".$p->email?></p>
+                        <p><i class="fa fa-map-marker"></i><?php echo " ".$p->alamat?></p>
                         <address>
                             <a href="href="#" data-toggle="modal" data-target="#desain<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
                             <a href="<?php echo base_url('user/deletePegawai/' . $idUser) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data pegawai ini?')">Delete</a>
@@ -135,17 +138,21 @@
                                     <div class="col-md-4">
                                         <label>Jabatan</label>
                                         <select id="jabatan" class="form-control"  name="jabatan">
-                                            <option value="Admin Produksi" <?php if ($jabatan=="Admin Produksi"){?> selected <?php } ?>>Admin Produksi</option>
-                                            <option value="Staf Sales" <?php if ($jabatan=="Staf Sales"){?> selected <?php } ?>>Staf Sales</option>
-                                            <option value="Staf Desain" <?php if ($jabatan=="Staf Desain"){?> selected <?php } ?>>Staf Desain</option>
-                                            <option value="Staf Lilin" <?php if ($jabatan=="Staf Lilin"){?> selected <?php } ?>>Staf Lilin</option>
-                                            <option value="Staf Gips" <?php if ($jabatan=="Staf Gips"){?> selected <?php } ?>>Staf Gips</option>
-                                            <option value="Staf Cor">Staf Cor</option>
+                                            <?php
+                                            for ($i=0; $i < count($jabatana); $i++) { 
+                                            if($jabatana[$i]->namaJabatan == $jabatan) {
+                                            echo "<option value='".$jabatana[$i]->namaJabatan."' selected>".$jabatana[$i]->namaJabatan."</option>";
+                                            }
+                                            else {
+                                                echo "<option value='".$jabatana[$i]->namaJabatan."'>".$jabatana[$i]->namaJabatan."</option>";
+                                            }
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label>No Telepon</label>
-                                        <input type="number" name= "phone"  class="form-control" value="<?= $phone?>" required>
+                                        <input type="number" name= "phone"  class="form-control" value="<?= $phone?>" >
                                     </div>
                             
                         </div>
@@ -163,6 +170,15 @@
                                     <div class="col-md-4">
                                         <label>Email</label>
                                         <input type="text" name= "email"  class="form-control" value="<?= $email?>">
+                                    </div>
+                            
+                        </div>
+                        <br>
+                        <div class="row">
+                            
+                                    <div class="col-md-12">
+                                        <label>Alamat</label>
+                                        <textarea name= "alamat" class="form-control" required><?php echo $alamat;?></textarea>
                                     </div>
                             
                         </div>
@@ -201,12 +217,13 @@
                                     <div class="col-md-4">
                                         <label>Jabatan</label>
                                         <select id="jabatan" class="form-control"  name="jabatan">
-                                            <option value="Admin Produksi">Admin Produksi</option>
-                                            <option value="Staf Sales">Staf Sales</option>
-                                            <option value="Staf Desain">Staf Desain</option>
-                                            <option value="Staf Lilin">Staf Lilin</option>
-                                            <option value="Staf Gips">Staf Gips</option>
-                                            <option value="Staf Cor">Staf Cor</option>
+                                            <?php
+                                            for ($i=0; $i < count($jabatana); $i++) { 
+                                            /*if($j->nama!="Belum ada PIC") {*/
+                                            echo "<option value='".$jabatana[$i]->namaJabatan."'>".$jabatana[$i]->namaJabatan."</option>";
+                                            }
+                                            /*}*/
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -231,6 +248,15 @@
                                         <input type="text" name= "email"  class="form-control">
                                     </div>
                            
+                        </div>
+                        <br>
+                        <div class="row">
+                            
+                                    <div class="col-md-12">
+                                        <label>Alamat</label>
+                                        <textarea name= "alamat" class="form-control"></textarea>
+                                    </div>
+                            
                         </div>
                     </div>
                   </div>

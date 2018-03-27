@@ -32,8 +32,8 @@ class Login extends CI_Controller {
         $password = $this->input->post('password');
         
         $status = $this->mdl->checkAccount($username,$password);
-
-        if ($status != FALSE) {
+        
+        if ($status != FALSE AND $status[0]->username!=NULL AND $status[0]->password!=NULL) {
             $session_data = array(
                 'username' => $status[0]->username,
                 'nama' => $status[0]->nama,
