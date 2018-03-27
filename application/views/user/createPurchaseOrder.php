@@ -196,6 +196,8 @@
                                                             <input type="text" placeholder="Ukuran" name="ukuran" class="form-control" value="<?php echo set_value('ukuran'); ?>">
                                                         </div>
                                                         <div id="ukuranGelang" class="row" style="display: none;">
+                                                            <label>Diameter X lebar </label>
+                                                            <input type="text" placeholder="Ukuran" name="ukuran" class="form-control" value="<?php echo set_value('ukuran'); ?>">
                                                             <div class="col-md-6">
                                                                <label>Diameter Gelang</label>
                                                                 <input type="text" placeholder="Diameter Gelang" name="diameter" class="form-control" value="<?php echo set_value('diameter'); ?>"> 
@@ -392,13 +394,14 @@
                                 </div>
                                 
                                                               
-                                
-                                <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Model</label>
                                     <div class="col-sm-10"><input type="text" name="model" class="form-control" value="<?php echo set_value('model'); ?>"></div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Kuantitas</label>
-                                    <div class="col-sm-10"><input type="number" name="kuantitas" class="form-control" value="<?php echo set_value('kuantitas'); ?>" required=""></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Kuantitas</label>
+                                    <div class="col-sm-4"><input type="number" name="kuantitas" class="form-control" value="<?php echo set_value('kuantitas'); ?>" required=""></div>
+                                    <label class="col-sm-2 control-label">Estimasi Berat Akhir</label>
+                                    <div class="col-sm-4"><input type="number" step="any" name="beratAkhir" class="form-control" value="<?php echo set_value('beratAkhir'); ?>" required=""></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Tipe Customer <br/><small class="text-navy">Pilih salah satu</small></label>
@@ -408,6 +411,8 @@
                                     <div class="col-sm-2" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeCustomer'); if($a=="Standard"){?> checked="" <?php } ?> value="Standard" name="tipeCustomer"> <i></i> Standard </label></div>
                                     </div>
+                                    <label class="col-sm-2 control-label">Susut</label>
+                                    <div class="col-sm-4"><input type="number" step="any" name="susut" class="form-control" value="<?php echo set_value('susut'); ?>" required=""></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Foto Sampel</label>

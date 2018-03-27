@@ -1,5 +1,5 @@
 <?php
-    $idKatalog    = $produk[0]->idKatalog;
+    $idProduk    = $produk[0]->idProduk;
 if($this->input->post('is_submitted')){
     $kodeProduk    = $set_value('kodeProduk');
     $namaProduk    = $set_value('namaProduk');
