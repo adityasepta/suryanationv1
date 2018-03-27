@@ -100,6 +100,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="i-checks"><label> <input id="Cincin Kawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"> <i></i> Cincin Kawin </label></div>
+                                                    <div class="i-checks"><label> <input id="Lainnya" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Lainnya"){?> checked="" <?php } ?> value="Lainnya" name="jenisProduk"> <i></i> Lainnya </label></div>
                                                 </div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label">Deskripsi</label>
