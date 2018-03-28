@@ -70,9 +70,9 @@
                                 </div>
                                 <div class="col-lg-6 text-right">
                                     
-                                    <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createSPK">
+                                    <!-- <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createSPK">
                                         <span class="fa fa-pencil"></span><strong> TAMBAH SPK</strong>
-                                    </a>
+                                    </a> -->
                                     <button data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-white"><i class="fa fa-qrcode"></i><strong> TAMBAH KLOTER</strong></button>
 
                                 </div>
