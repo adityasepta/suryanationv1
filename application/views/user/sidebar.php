@@ -68,9 +68,9 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listInvoiceTempahan">PO Tempahan</a> 
                                 </li> 
-                                <li> 
+                                <!-- <li> 
                                     <a href="<?php echo base_url();?>user/listInvoiceMassal">PO Massal</a> 
-                                </li> 
+                                </li> --> 
                             </ul> 
                         </li>
                     </ul> 

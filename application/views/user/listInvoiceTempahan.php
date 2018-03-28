@@ -91,7 +91,7 @@
                                     <td class="text-center">
                                         <?php 
                                         $tglmsk = new DateTime($hasil->tanggalMasuk);
-                                        $tglmsk = $tglmsk->format("Y-m-d");
+                                        $tglmsk = $tglmsk->format("d M Y");
                                         echo $tglmsk?></td>
                                     <td class="text-center"><?php echo $hasil->noPurchaseOrder?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
