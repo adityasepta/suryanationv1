@@ -74,6 +74,15 @@ class mdl extends CI_Model {
         
     }
 
+    public function getAktivitasLanjut2() {
+        
+        $sql   = "SELECT a.idSPK, b.namaAktivitas, b.idAktivitas FROM rencanaproduksi2 a, aktivitas b where a.idaktivitas = b.idAktivitas and a.idaktivitas > 1006 order by idaktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+        
+    }
+
      public function getSales() {
 
         $sql   = "SELECT *, left(pr.namaProduk, 20) as namap , DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal FROM potempahan po, produk pr, customer c, user u WHERE po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND po.nomorPO NOT IN( SELECT nomorPO FROM spk )";

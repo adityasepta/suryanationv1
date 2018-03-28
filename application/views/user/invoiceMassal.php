@@ -239,8 +239,8 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="row">
                                     <label class="col-sm-2">Foto Sampel</label>
-                                    <div class="col-sm-10">
-                                        <img src="<?php echo base_url();?>uploads/gambarProduk/<?php echo $dataSPK[0]->kodeGambar?>-cust.jpg" height="100 px">
+                                    <div class="col-sm-2">
+                                        <img class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url();?>uploads/gambarProduk/<?php echo $dataSPK[0]->kodeGambar?>-cust.jpg" height="100 px">
                                     </div>
                                 </div>
                              

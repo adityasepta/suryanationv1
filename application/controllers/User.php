@@ -3516,7 +3516,7 @@ class User extends CI_Controller {
             $data['co'] = $this->mdl->getProsesMassal1(1006);
            // $data['sp2']  = $this->mdl->getSeparasi2();
 
-            
+            $data['akt'] = $this->mdl->getAktivitasLanjut2();
             
             $data['staf'] = $this->mdl->getStaf();
             $data['ceksub'] = $this->mdl->cekSubSPK();
@@ -3743,7 +3743,7 @@ class User extends CI_Controller {
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
-        $idAktivitas = $this->input->post('idAktivitas');
+        $idAktivitas = $this->input->post('idAktivitas2');
         $idProduk = $this->input->post('idProduk');
 
         $proses = $this->mdl->getProsesDetail2($idProProd);
@@ -3753,8 +3753,7 @@ class User extends CI_Controller {
         $wadah = $this->mdl->getWadahTerakhir();
         $idWadah = (int)($wadah[0]->idWadah) + 1;
 
-        $aktivitas = $this->mdl->getNextAktivitas($idProduk, $idAktivitas);
-        $next      = $aktivitas[0]->idAktivitas;
+        $next      = $idAktivitas;
 
         $data = array(
                 
