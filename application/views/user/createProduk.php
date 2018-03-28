@@ -123,6 +123,15 @@
                                                 <div class="col-md-4">
                                                     <input type="number" step="any" name="stok" class="form-control" value="<?php echo set_value('stok'); ?>">
                                                 </div>
+                                                <label class="col-sm-2 control-label">Satuan</label>
+                                                <div class="col-md-4">
+                                                    <select name="satuan" required="" class="form-control">
+                                                      <option value="Pcs" <?php $a= set_value('satuan'); if($a=="Pcs"){?> selected="" <?php } ?>>Pcs</option>
+                                                      <option value="Liter" <?php $a= set_value('satuan'); if($a=="Liter"){?> selected="" <?php } ?>>Liter</option>
+                                                      <option value="Gram" <?php $a= set_value('satuan'); if($a=="Gram"){?> selected="" <?php } ?>>Gram</option>
+                                                      <option value="Carat" <?php $a= set_value('satuan'); if($a=="Carat"){?> selected="" <?php } ?>>Carat</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Kategori Produk</label>
@@ -135,15 +144,7 @@
                                                         <option value="Trading" <?php $a= set_value('kategori'); if($a=="Trading"){?> selected="" <?php } ?>>Trading</option>
                                                     </select>
                                                 </div>
-                                                <label class="col-sm-2 control-label">Satuan</label>
-                                                <div class="col-md-4">
-                                                    <select name="satuan" required="" class="form-control">
-                                                      <option value="Pcs" <?php $a= set_value('satuan'); if($a=="Pcs"){?> selected="" <?php } ?>>Pcs</option>
-                                                      <option value="Liter" <?php $a= set_value('satuan'); if($a=="Liter"){?> selected="" <?php } ?>>Liter</option>
-                                                      <option value="Gram" <?php $a= set_value('satuan'); if($a=="Gram"){?> selected="" <?php } ?>>Gram</option>
-                                                      <option value="Carat" <?php $a= set_value('satuan'); if($a=="Carat"){?> selected="" <?php } ?>>Carat</option>
-                                                    </select>
-                                                </div>
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Status Katalog</label>

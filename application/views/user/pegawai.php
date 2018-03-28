@@ -101,7 +101,7 @@
                 <div class="contact-box" style="height: 200px">
                     <div class="col-sm-4">
                         <div class="text-center">
-                            <img alt="image" class="img-circle m-t-xs img-responsive" src="<?php echo base_url();?>assets/img/profile_small.jpg">
+                            <img alt="image" class="img-circle m-t-xs img-responsive" src="<?php echo base_url();?>assets/img/profile_small.jpg" style= "display:block; margin:auto;">
                             <div class="m-t-xs font-bold"><?php echo $p->jabatan?></div>
                         </div>
                     </div>
