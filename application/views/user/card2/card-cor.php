@@ -315,12 +315,12 @@
                                                 
                                             </div>
                                             <div class="form-horizontal">
-                                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
+                                                <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                                        <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $co[$i]->beratAwal?>" required class="form-control"></div>
-                                                        
-                                                    </div>
+                                                    <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $co[$i]->beratAwal?>" required class="form-control"></div>
+                                                    
                                                 </div>
+                                            </div>
                                             
                                             <div class="row">
                                                 <div class="col-lg-6">

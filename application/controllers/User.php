@@ -3603,7 +3603,8 @@ class User extends CI_Controller {
             $data['sl'] = $this->mdl->getProsesMassal1(1012);
             
             $data['kr'] = $this->mdl->getProsesMassal1(1013);
-            $data['do'] = $this->mdl->getDone();  
+            $data['do'] = $this->mdl->getDone();
+            $data['jd'] = $this->mdl->getJadi2();  
             
             $this->load->view('user/statprodMassal_view', $data);
             
@@ -3780,7 +3781,8 @@ class User extends CI_Controller {
             'idPIC' => $this->input->post('staf'),
             'statusWork' => 'On Progress',
             'RealisasiStartDate' => date("Y-m-d H:i:s"),
-            'beratAwal' => $this->input->post('berat')
+            'beratAwal' => $this->input->post('berat'),
+            'beratTambahan' => $this->input->post('beratTambahan')
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan PIC</div>');
