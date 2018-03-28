@@ -174,7 +174,7 @@
                                                                                 :&nbsp&nbsp<b><?php echo $p->berlian?></b><br>
                                                                                 :&nbsp&nbsp<b><?php echo $p->krumWarna?></b><br>
                                                                                 :&nbsp&nbsp<b><?php echo $p->tipeIkatan?></b><br>
-                                                                                :&nbsp&nbsp<b><?php echo $p->harga?></b><br>
+                                                                                :&nbsp&nbsp<b><?php echo $p->hargaJual?></b><br>
                                                                                 :&nbsp&nbsp<b><?php echo $p->stok?></b><br>
                                                                                 :&nbsp&nbsp<b><?php echo $p->model?></b><br>
                                                                             </div>

@@ -46,10 +46,10 @@
                     <h2>Administration</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="<?php echo base_url();?>user/administration">Beranda</a>
+                            <a href="<?php echo base_url();?>user">Beranda</a>
                         </li>
                         <li class="active">
-                            <strong>Surat Perintah Kerja</strong>
+                            <strong>Invoice Akhir</strong>
                         </li>
                     </ol>
                 </div>
@@ -63,7 +63,7 @@
                     <?php echo $this->session->flashdata('msg'); ?>
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Daftar SPK</h5>
+                            <h5>Daftar Invoice Akhir</h5>
                             <div class="ibox-tools">
                                 <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createInvoiceAkhirPO">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> BUAT INVOICE CUSTOMER</strong></span></i>
@@ -91,7 +91,7 @@
                                     <td class="text-center">
                                         <?php 
                                         $tglmsk = new DateTime($hasil->tanggalMasuk);
-                                        $tglmsk = $tglmsk->format("Y-m-d");
+                                        $tglmsk = $tglmsk->format("d M Y");
                                         echo $tglmsk?></td>
                                     <td class="text-center"><?php echo $hasil->noPurchaseOrder?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>

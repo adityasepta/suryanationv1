@@ -22,7 +22,7 @@
     $krumWarna              = $dataPO[0]->krumWarna;      
     $model                  = $dataPO[0]->model;
     $kuantitas              = $dataPO[0]->kuantitas;
-    $harga                  = $dataPO[0]->harga;      
+    $harga                  = $dataPO[0]->hargaJual;      
     $panjar                 = $dataPO[0]->panjar;
     $idProduk               = $dataPO[0]->idProduk;
     $idCustomer             = $dataPO[0]->idCustomer;

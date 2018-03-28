@@ -119,6 +119,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-sm-2 control-label">Stok</label>
+                                                <div class="col-md-4">
+                                                    <input type="number" step="any" name="stok" class="form-control" value="<?php echo set_value('stok'); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="col-sm-2 control-label">Kategori Produk</label>
                                                 <div class="col-md-4">
                                                     <select class="form-control"  name="kategori">
