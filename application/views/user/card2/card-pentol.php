@@ -124,6 +124,43 @@
                             <?php echo form_open('User/next5')?>
                             <div class="form-horizontal">
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Pilih Aktivitas</label>
+
+                                    <div class="col-sm-9">
+
+                                        
+                                        <select required class="form-control" name="idAktivitas2">
+                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                            if($akt[$k]->idSPK == $gp[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
+                                                
+                                            
+                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                                    <?php echo $akt[$k]->namaAktivitas?>
+                                                </option>
+                                            
+
+                                        <?php  }} ?>
+                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                            if($akt[$k]->idSPK == $gp[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
+                                                
+                                            
+                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                                    <?php echo $akt[$k]->namaAktivitas?> 
+                                                    <?php 
+                                                        if ($akt[$k]->idAktivitas < $idakt) {
+                                                            echo "<b> ---------- ( REWORK ) ---------- </b>";
+                                                        }
+                                                    ?>
+                                                </option>
+                                            
+
+                                        <?php  }} ?>
+                                        </select>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label">Pilih PIC</label>
 
                                     <div class="col-sm-9">
@@ -350,6 +387,8 @@
                                         <div class="modal-body">
                                             <?php echo form_open('User/setPIC3')?>
                                             <div class="form-horizontal">
+
+
                                                 
                                                 <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
 
