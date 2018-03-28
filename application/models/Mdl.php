@@ -80,6 +80,14 @@ class mdl extends CI_Model {
         return $query->result();
     }
 
+    public function getJadi2() {
+
+        $sql   = "SELECT * FROM (SELECT idSPK, DATE_FORMAT(max(RealisasiEndDate), '%d %M %Y') as tgljadi FROM `factproduction2` where statusPengambilan = 'Belum' and statusSPK = 'Done' GROUP by idSPK) a, spkmasal b, customer c, produk d where a.idSPK = b.idSPK and b.idCustomer = c.idCustomer and b.idProduk = d.idProduk order by tgljadi";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
 
     public function getProsesDetail($idProProd) {
         $sql   = "SELECT * from factproduction where idProProd = $idProProd";
