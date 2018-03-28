@@ -928,6 +928,7 @@ class User extends CI_Controller {
             $this->load->view('user/createProduk');
         }
         else {
+            // print_r($_FILES['userfile']);
              // print_r($this->input->post());exit();
             $kode = $this->generateRandomString();
             if (array_sum($_FILES['userfile']['error']) < 16) {
@@ -963,6 +964,7 @@ class User extends CI_Controller {
 
                     if (!$this->upload->do_upload()){
                         $error = array('error' => $this->upload->display_errors());
+
                         ${"file" . $i}=NULL;
                     }
                     else {
@@ -973,6 +975,7 @@ class User extends CI_Controller {
                 }
 
                 if($a==$b) {
+
                     $hargaProduk = $this->clean($this->input->post('hargaJual'));
                     $hargaModal = $this->clean($this->input->post('hargaModal'));
                     $dataProduk = array(
@@ -1005,7 +1008,7 @@ class User extends CI_Controller {
                 } 
    
             } else {
-
+                print_r($a.'&'.$b);exit();
                 //form submit dengan gambar dikosongkan
                 $hargaProduk = $this->clean($this->input->post('hargaJual'));
                 $hargaModal = $this->clean($this->input->post('hargaModal'));
@@ -4239,7 +4242,7 @@ class User extends CI_Controller {
                 'tipeOrder'         => 'massal',
                 'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
                 'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                'pekerjaanTambahan' => implode(',',$this->input->post('pekerjaanTambahan[]')),
+                'pekerjaanTambahan' => $pekerjaanTambahan,
                 'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
                 'bahan'             => $this->input->post('bahan'),
                 'kadarBahan'        => $this->input->post('kadarBahan'),

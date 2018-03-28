@@ -213,7 +213,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Kadar Datang Emas</label>
-                                                <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control" required="">
+                                                <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -398,9 +398,6 @@
 
                         $('#kodeProduk').prop('readonly', true);
                         $("input[name='jenisProduk']").prop('disabled',true).iCheck('update');
-                        $("input[name='bahan']").prop('disabled',true).iCheck('update');
-                        $('#kadarBahan').prop('readonly', true);
-                        $('#hargaBahan').prop('readonly', true);
 
                         // document.getElementById("desainBelum").style.display = "none";
                         // document.getElementById("desainAda").style.display = "block";
