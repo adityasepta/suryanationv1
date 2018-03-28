@@ -366,17 +366,17 @@
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <img class="img-responsive" src="<?php echo base_url('assets/img/cincin5.jpg')?>"><br>
+                                        <img  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';"  src="<?php echo base_url('assets/img/cincin5.jpg')?>"><br>
                                         <b>Emas Putih</b><br>
                                         <span>1023 Terjual</span>
                                     </div>
                                     <div class="col-lg-4">
-                                        <img class="img-responsive" src="<?php echo base_url('assets/img/cincin3.jpg')?>"><br>
+                                        <img  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';"  src="<?php echo base_url('assets/img/cincin3.jpg')?>"><br>
                                         <b>Swarosvki</b><br>
                                         <span>978 Terjual</span>
                                     </div>
                                     <div class="col-lg-4">
-                                        <img class="img-responsive" src="<?php echo base_url('assets/img/cincin4.jpg')?>"><br>
+                                        <img  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';"  src="<?php echo base_url('assets/img/cincin4.jpg')?>"><br>
                                         <b>Love Ring</b><br>
                                         <span>747 Terjual</span>
                                     </div>

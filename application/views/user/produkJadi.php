@@ -180,7 +180,7 @@
                                                                             </div>
                                                                              <div class="col-lg-3 text-left">
                                                                                 <b>Foto Produk</b><br><br>
-                                                                                <img src="<?php echo base_url()?>uploads/gambarProduk/<?php echo $p->kodeGambar?>-cust.jpg" class="img-responsive">
+                                                                                <img src="<?php echo base_url()?>uploads/gambarProduk/<?php echo $p->kodeGambar?>-cust.jpg"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                                                             </div>
 
                                                                         </div>

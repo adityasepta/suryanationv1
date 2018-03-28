@@ -222,12 +222,12 @@
                                     <div class="row">
                                         <div class="col-lg-4 text-center">
                                             <b>Foto Refrensi</b><br><br>
-                                            <img src="<?php echo base_url('uploads/gambarProduk/'.$sl[$i]->kodeGambar.'-cust.jpg')?>" class="img-responsive">
+                                            <img src="<?php echo base_url('uploads/gambarProduk/'.$sl[$i]->kodeGambar.'-cust.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                         </div>
                                      
                                         <div class="col-lg-4 text-center">
                                             <b>Foto PIC</b><br><br>
-                                            <img src="<?php echo base_url('assets/img/agus.jpg')?>" class="img-responsive">
+                                            <img src="<?php echo base_url('assets/img/agus.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                         </div>
                                     </div>
                                 </div>

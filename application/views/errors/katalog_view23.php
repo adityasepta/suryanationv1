@@ -132,7 +132,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/biofast.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/biofast.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">Biofast</a></h3>
@@ -167,7 +167,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/agrotech.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/agrotech.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">Agrotech</a></h3>
@@ -202,7 +202,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/npro.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/npro.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">N-pro</a></h3>
@@ -237,7 +237,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/trivia.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/trivia.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">Trivia</a></h3>
@@ -272,7 +272,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/sangkur.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/sangkur.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">Sangkur</a></h3>
@@ -307,7 +307,7 @@
                         <div class="box box-solid">
                            <!-- /.box-header -->
                            <div class="box-body">
-                              <img src="<?php echo base_url('foto/snaildown.jpg');?>" class="img-responsive">
+                              <img src="<?php echo base_url('foto/snaildown.jpg');?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                               <div class="row">
                                  <div class="col-xs-8">
                                     <h3><a href="">Snaildown</a></h3>

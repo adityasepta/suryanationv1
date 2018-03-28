@@ -56,7 +56,7 @@
         <br>
         <div class="col-lg-9">
             <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detail2x<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
         <div class="col-lg-3">
             <br>    
@@ -104,7 +104,7 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $sp[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail2x<?php echo $sp[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -156,12 +156,12 @@
                                     <div class="row">
                                         <div class="col-lg-6 text-center">
                                             <b>Foto Produk</b><br><br>
-                                            <img src="<?php echo base_url('uploads/gambarProduk/'.$sp[$i]->kodeGambar.'-cust.jpg')?>" class="img-responsive">
+                                            <img src="<?php echo base_url('uploads/gambarProduk/'.$sp[$i]->kodeGambar.'-cust.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                         </div>
                                      
                                         <div class="col-lg-6 text-center">
                                             <b>Foto PIC</b><br><br>
-                                            <img src="<?php echo base_url('assets/img/agus.jpg')?>" class="img-responsive">
+                                            <img src="<?php echo base_url('assets/img/agus.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                         </div>
                                     </div>
                                 </div>
