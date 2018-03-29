@@ -44,16 +44,10 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-9">
+
+        <div class="col-lg-3">
             
-            <?php if ($gp[$i]->statusWork == 'Belum ada PIC') { ?>
-            <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
-            <?php } else if(($gp[$i]->statusWork == 'On Progress')){ ?>
-            <button class="btn btn-block btn-warning btn-xs">On Progress</button>
-            <?php } else {?>
-            <button class="btn btn-block btn-success btn-xs">Menunggu</button>
-            <?php } ?>
+            <button data-toggle="modal" data-target="#detail<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
 
         <div class="col-lg-3">
@@ -63,51 +57,30 @@
             <?php } else { ?>
                 <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
             <?php } ?>
-            
-            
-            
+
         </div>
 
+        
+        
         <div class="col-lg-6">
-            <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
-        </div>
-
-        <div class="col-lg-3">
-            <br>
-            <?php if($gp[$i]->berat == '0') {?>
-                <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php } else {?>
-                <?php if($gp[$i]->statusBerat == 'Belum Disetujui') {?>
-
-                <button data-toggle="modal" data-target="#serah<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span></button>
-
-                <?php } else {?>
-                <button onclick="return confirm('Sudah disetujui')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php }} ?>
-        </div>
-
-        <div class="col-lg-3">
-            <br>
-
             
-            <?php if(($gp[$i]->statusWork == 'On Progress' or $gp[$i]->statusWork == 'Waiting') AND $gp[$i]->statusBerat == 'Disetujui') { ?>
-        
-                
-
-           <a data-toggle="modal" data-target="#kasih<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
-        
-            <?php } else {?>
-
-                <button disabled class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></button>
-
+            <?php if ($gp[$i]->statusWork == 'Belum ada PIC') { ?>
+                <button data-toggle="modal" data-target="#pic<?php echo $gp[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+            <?php } else if($gp[$i]->statusWork == 'On Progress' AND $gp[$i]->berat == 0 ) {  ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $gp[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
+            <?php } else if($gp[$i]->statusWork == 'On Progress' AND $gp[$i]->berat > 0 AND $gp[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
+                <button data-toggle="modal" data-target="#serah<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
+            <?php } else if($gp[$i]->statusWork == 'On Progress' AND $gp[$i]->statusBerat == 'Disetujui' ) { ?>                
+                <button data-toggle="modal" data-target="#kasih<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</button>
             <?php } ?>
-         
-            
             
         </div>
+
+        
+
+        
+
+       
 
         
     </div>
@@ -129,7 +102,7 @@
                                     <div class="col-sm-9">
 
                                         
-                                        <select required class="form-control" name="idAktivitas2">
+                                        <select required class="form-control" name="idAktivitas">
                                         <?php for ($k=0; $k < count($akt) ; $k++) { 
                                             if($akt[$k]->idSPK == $gp[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
                                                 
@@ -179,17 +152,23 @@
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" name="jumlah" required min="1"  max="<?php echo $gp[$i]->jumlahNow?>"  class="form-control"></div>
+                                        <div class="col-sm-9">
+                                            <input type="number" step="any" name="jumlah" required min="1"  max="<?php echo $gp[$i]->jumlahNow?>"  class="form-control">
+                                            <small>jumlah maksimal adalah <b><?php echo $gp[$i]->jumlahNow?></b> pcs</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
 
-                                        <div class="col-sm-9"><input type="number" step="any" required name="beratAwal" value="" class="form-control"></div>
+                                        <div class="col-sm-9">
+                                            <input type="number" step="any" required name="beratAwal" value="" class="form-control">
+                                            <small>jumlah maksimal adalah <b><?php echo (float)$gp[$i]->beratAwal+(float)$gp[$i]->beratTambahan?></b> gr</small>  
+                                        </div>
                                     </div>
                                 </div>
                                 <input type="hidden" value="<?php echo $gp[$i]->idProProd?>" name="idProProd">
-                                <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
+                                <input type="hidden" value="<?php echo $gp[$i]->beratTambahan?>" name="beratTambahan">
                                 <input type="hidden" value="<?php echo $gp[$i]->idProduk ?>" name="idProduk">
                             </div>
                         </div>

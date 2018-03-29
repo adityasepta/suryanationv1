@@ -3743,7 +3743,8 @@ class User extends CI_Controller {
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
-        $idAktivitas = $this->input->post('idAktivitas2');
+        $beratTambahan = $this->input->post('beratTambahan');
+        $idAktivitas = $this->input->post('idAktivitas');
         $idProduk = $this->input->post('idProduk');
 
         $proses = $this->mdl->getProsesDetail2($idProProd);
@@ -3757,6 +3758,7 @@ class User extends CI_Controller {
 
         $data = array(
                 
+                'idProProdAsal' => $idProProd,
                 'idSPK' => $idSPK,
                 'idSubSPK' => $idSubSPK,
                 'idWadah' => $idWadah,
@@ -3768,6 +3770,7 @@ class User extends CI_Controller {
                 'jumlah'    => $jumlah,
                 'jumlahNow'    => $jumlah,
                 'beratAwal' => $beratAwal,
+                'beratTambahan' => $beratTambahan,
                 'RealisasiStartDate' => date("Y-m-d H:i:s")
         );
 
