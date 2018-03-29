@@ -129,7 +129,7 @@
                                     <div class="col-sm-9">
 
                                         
-                                        <select required class="form-control" name="idAktivitas2">
+                                        <select required class="form-control" name="idAktivitas">
                                         <?php for ($k=0; $k < count($akt) ; $k++) { 
                                             if($akt[$k]->idSPK == $gp[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
                                                 
@@ -189,7 +189,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" value="<?php echo $gp[$i]->idProProd?>" name="idProProd">
-                                <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
+                                
                                 <input type="hidden" value="<?php echo $gp[$i]->idProduk ?>" name="idProduk">
                             </div>
                         </div>

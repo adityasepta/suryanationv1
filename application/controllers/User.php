@@ -3818,7 +3818,7 @@ class User extends CI_Controller {
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
-        $idAktivitas = $this->input->post('idAktivitas2');
+        $idAktivitas = $this->input->post('idAktivitas');
         $idProduk = $this->input->post('idProduk');
 
         $proses = $this->mdl->getProsesDetail2($idProProd);

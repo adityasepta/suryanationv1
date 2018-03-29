@@ -110,6 +110,43 @@
                             
                             <div class="form-horizontal">
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Pilih Aktivitas</label>
+
+                                    <div class="col-sm-9">
+
+                                        
+                                        <select id="<?php echo $bo[$i]->idProProd ?>-akt" required class="form-control" name="idAktivitas2">
+                                      <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
+                                                
+                                            
+                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                                    <?php echo $akt[$k]->namaAktivitas?>
+                                                </option>
+                                            
+
+                                        <?php  }} ?> 
+                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
+                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
+                                                
+                                            
+                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
+                                                    <?php echo $akt[$k]->namaAktivitas?> 
+                                                    <?php 
+                                                        if ($akt[$k]->idAktivitas < $idakt) {
+                                                            echo "( REWORK )";
+                                                        }
+                                                    ?>
+                                                </option>
+                                            
+
+                                        <?php  }} ?>
+                                        </select>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label">Pilih PIC</label>
 
                                     <div class="col-sm-9">
@@ -181,6 +218,8 @@
                         <div class="col-lg-6 text-center">
                             Asal Aktivitas
                             <h1 class="text-success"><?php echo $namakt?></h1>
+                            Aktivitas Selanjutnya
+                            <h1 id="<?php echo $bo[$i]->idProProd ?>-akt-d" class="text-success"></h1><br>
                         </div>
                         <div class="col-lg-3 text-center">
                             Berat Awal<br>
@@ -188,8 +227,15 @@
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-berat-i" required value="0" name="beratAwal">
                             
                         </div>
-                        
+
                         <div class="col-lg-3 text-center">
+                            Berat Tambahan<br>
+                            <b><?php echo $bo[$i]->beratTambahan ?> gr</b><br><br>
+                            <input type="hidden"  required value="<?php echo $bo[$i]->beratTambahan ?>" name="beratTambahan">
+                            
+                        </div>
+                        
+                        <div class="col-lg-6 text-center">
                             Jumlah Barang<br>
                             <b id="<?php echo $bo[$i]->idProProd ?>-jml-d"></b><br><br>
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-jml-i" required value="0" name="jumlah">
@@ -205,7 +251,7 @@
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-pic-i" required value="0" name="staf">
                         </div>
                         <input type="hidden" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
-                        <input type="hidden" value="<?php echo $idakt ?>" name="idAktivitas">
+                        <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-akt-i" required value="0" name="idAktivitas">
                         <input type="hidden" value="<?php echo $bo[$i]->idProduk ?>" name="idProduk">
                     </div>
                     <div class="row">
@@ -227,8 +273,11 @@
             var pic = document.getElementById('<?php echo $bo[$i]->idProProd ?>-pic');
             var nama = pic.options[pic.selectedIndex].text;
             var idpic = pic.options[pic.selectedIndex].value;
-
-            if(jumlah > 10) {
+            var akt = document.getElementById('<?php echo $bo[$i]->idProProd ?>-akt');
+            var namaakt = akt.options[akt.selectedIndex].text;
+            var idakt = akt.options[akt.selectedIndex].value;
+            console.log(nama);
+            if(jumlah > <?php echo $bo[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();
             }
@@ -236,10 +285,12 @@
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-jml-d').innerHTML = jumlah + ' Pcs';
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-berat-d').innerHTML = berat + ' gr';
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-pic-d').innerHTML = nama;
+            document.getElementById('<?php echo $bo[$i]->idProProd ?>-akt-d').innerHTML = namaakt;
 
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-jml-i').value = jumlah;
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-berat-i').value = berat;
             document.getElementById('<?php echo $bo[$i]->idProProd ?>-pic-i').value = idpic;
+            document.getElementById('<?php echo $bo[$i]->idProProd ?>-akt-i').value = idakt;
 
         }
     </script>
@@ -328,12 +379,7 @@
                             <?php } ?>
                         </div>
                         <div class="col-lg-3">
-                            <?php if($bo[$i]->statusWork == 'On Progress') {?>
-                                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $bo[$i]->idProProd ?>"  class="btn btn-warning btn-block btn-outline">Berat</button>
-                                
-                            <?php } else {?>
-                                <button disabled class="btn  btn-block ">Berat</button>
-                            <?php } ?>
+                            
                         </div>
                             
                             <div class="modal inmodal fade" id="berat<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
