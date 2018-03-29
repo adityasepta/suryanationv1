@@ -44,16 +44,10 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-9">
+
+        <div class="col-lg-3">
             
-            <?php if ($bo[$i]->statusWork == 'Belum ada PIC') { ?>
-            <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
-            <?php } else if(($bo[$i]->statusWork == 'On Progress')){ ?>
-            <button class="btn btn-block btn-warning btn-xs">On Progress</button>
-            <?php } else {?>
-            <button class="btn btn-block btn-success btn-xs">Menunggu</button>
-            <?php } ?>
+            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
 
         <div class="col-lg-3">
@@ -63,35 +57,13 @@
             <?php } else { ?>
                 <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
             <?php } ?>
-            
-            
-            
-        </div>
 
-        <div class="col-lg-9">
-            <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
         
-
-        <div class="col-lg-3">
-            <br>
-
+        <div class="col-lg-6">
             
-            <?php if(($bo[$i]->statusWork == 'On Progress')) { ?>
-        
-                
-
-           <a data-toggle="modal" data-target="#kasih<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
-        
-            <?php } else {?>
-
-                <button disabled class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></button>
-
-            <?php } ?>
-         
-            
+            <button data-toggle="modal" data-target="#kasih<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</button>
             
         </div>
 
@@ -176,7 +148,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $bo[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo $bo[$i]->beratAwal?></b> gr</small>    
+                                            <small>jumlah maksimal adalah <b><?php echo (float)$bo[$i]->beratAwal+(float)$bo[$i]->beratTambahan?></b> gr</small>    
                                         </div>
 
                                     </div>
@@ -215,45 +187,36 @@
                  echo form_open('User/next5',$atribut)?>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6 text-center">
+
+                        <div class="col-lg-9 text-center">
                             Asal Aktivitas
-                            <h1 class="text-success"><?php echo $namakt?></h1>
+                            <h1 class="text-success"><?php echo $namakt?></h1><br>
                             Aktivitas Selanjutnya
-                            <h1 id="<?php echo $bo[$i]->idProProd ?>-akt-d" class="text-success"></h1><br>
+                            <h1 id="<?php echo $bo[$i]->idProProd ?>-akt-d" class="text-success"></h1>
                         </div>
-                        <div class="col-lg-3 text-center">
+                        <div class="col-lg-3">
                             Berat Awal<br>
                             <b id="<?php echo $bo[$i]->idProProd ?>-berat-d"></b><br><br>
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-berat-i" required value="0" name="beratAwal">
-                            
-                        </div>
-
-                        <div class="col-lg-3 text-center">
                             Berat Tambahan<br>
                             <b><?php echo $bo[$i]->beratTambahan ?> gr</b><br><br>
                             <input type="hidden"  required value="<?php echo $bo[$i]->beratTambahan ?>" name="beratTambahan">
-                            
-                        </div>
-                        
-                        <div class="col-lg-6 text-center">
                             Jumlah Barang<br>
                             <b id="<?php echo $bo[$i]->idProProd ?>-jml-d"></b><br><br>
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-jml-i" required value="0" name="jumlah">
-                            
-                        </div>
-                        <div class="col-lg-3 text-center">
                             PIC Awal<br>
-                            <b><?php echo $bo[$i]->namapic ?></b>
-                        </div>
-                        <div class="col-lg-3 text-center">
+                            <b><?php echo $bo[$i]->namapic ?></b><br><br>
                             PIC Selanjutnya<br>
                             <b id="<?php echo $bo[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-pic-i" required value="0" name="staf">
                         </div>
+
+                    </div>
+
                         <input type="hidden" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
                         <input type="hidden" id="<?php echo $bo[$i]->idProProd ?>-akt-i" required value="0" name="idAktivitas">
                         <input type="hidden" value="<?php echo $bo[$i]->idProduk ?>" name="idProduk">
-                    </div>
+                    
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
