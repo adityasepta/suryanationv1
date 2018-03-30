@@ -215,13 +215,13 @@
         <tr>  
             <td class="text-center">Berat <?php echo $b[$z]->namaAktivitas ?></td>
                 <?php  if ($b[$z]->namaAktivitas == 'Cor' && $b[$z]->berat) {
-                    $bAwal=(float) $b[$z]->berat;
+                    $bAwal=(float) $b[$z]->beratAwal;
                     $bAkhir=(float) $b[$z]->berat;
                     $kembali=(float) $b[$z]->kembali;
                     $selisih = round($bAwal-$bAkhir-$kembali,2);
                     $prosen=round($selisih/$bAwal*100,2);
                     ?>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                    <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
                     <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
@@ -231,13 +231,13 @@
                         <td class="text-center"><?php echo '<small class="label label-danger">LOSS</small>' ?></td>
                     <?php } ?>
                 <?php } else if ($b[$z]->namaAktivitas != 'Selesai' && $b[$z]->statusBerat == 'Disetujui') { 
-                    $bAwal=(float) $b[$z-1]->berat;
+                    $bAwal=(float) $b[$z]->beratAwal;
                     $bAkhir=(float) $b[$z]->berat;
                     $kembali=(float) $b[$z]->kembali;
                     $selisih = round($bAwal-$bAkhir-$kembali,2);
                     $prosen=round($selisih/$bAwal*100,2);
                     ?>
-                    <td class="text-center"><?php echo $b[$z-1]->berat." gr" ?></td>
+                    <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
                     <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>
@@ -253,7 +253,7 @@
                     <td class="text-center">-</td>
                     <td class="text-center"><small class="label label-warning">ON PROGRESS</small></td>
                 <?php } else {?>
-                    <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
+                    <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
                     <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
                     <td class="text-center"><?php echo "0 gr || 0 %" ?></td>

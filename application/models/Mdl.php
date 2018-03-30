@@ -1974,7 +1974,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getBeratMassal() {
 
-        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
+        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idSubSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idSubSPK,idAktivitas";
         $query = $this->db->query($sql);
         
         /*SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas*/
