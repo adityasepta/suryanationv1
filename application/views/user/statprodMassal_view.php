@@ -198,22 +198,7 @@
 
                 <div  class="wrapper testimonial-group wrapper-content animated fadeInRight " >
                     <div id="kanban" class="row pre-scrollable">
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
-                            <div class="ibox">
-                                <div class="ibox-content">
-                                    <h3>SALES <span class="label label-success pull-right"><?php echo count($s)?></span></h3>
-                                    <p>Kumpulan dari Purchase Order yang masuk <br>dan belum dibuat SPK</p>
-                                    <ul class="sortable-list connectList agile-list" id="sales">
-
-                                        <?php for ($i=0; $i < count($s) ; ++$i) { ?>
-                                           <?php include('card2/card-sales.php') ?>
-                                        <?php } ?>
-                                        
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">

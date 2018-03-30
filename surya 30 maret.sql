@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2018 at 09:36 AM
+-- Generation Time: Mar 30, 2018 at 05:44 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -137,7 +137,13 @@ CREATE TABLE `bommassal` (
 --
 
 INSERT INTO `bommassal` (`idBOM`, `idSubSPK`, `idMaterial`, `jumlah`) VALUES
-(1, '1', 9, 15.12);
+(1, '1', 10, 6.8),
+(2, '1', 7, 22.5),
+(3, '2', 7, 39.2),
+(4, '2', 21, 27.3),
+(5, '2', 22, 9.1),
+(6, '2', 23, 9.1),
+(7, '3', 7, 5.44);
 
 -- --------------------------------------------------------
 
@@ -287,6 +293,7 @@ CREATE TABLE `factproduction` (
 
 CREATE TABLE `factproduction2` (
   `idProProd` int(11) NOT NULL,
+  `idProProdAsal` int(11) NOT NULL,
   `idSPK` int(11) NOT NULL,
   `idSubSPK` int(11) NOT NULL,
   `idWadah` int(11) NOT NULL,
@@ -310,16 +317,21 @@ CREATE TABLE `factproduction2` (
 -- Dumping data for table `factproduction2`
 --
 
-INSERT INTO `factproduction2` (`idProProd`, `idSPK`, `idSubSPK`, `idWadah`, `idAktivitas`, `idPIC`, `RealisasiStartDate`, `RealisasiEndDate`, `beratAwal`, `beratTambahan`, `berat`, `kembali`, `jumlah`, `jumlahNow`, `statusBerat`, `statusWork`, `statusSPK`, `statusPengambilan`) VALUES
-(1, 1, 1, 0, 1004, 20, '2018-03-29 01:37:11', '2018-03-29 01:37:42', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
-(3, 1, 1, 0, 1005, 26, '2018-03-29 01:37:50', '2018-03-29 01:37:55', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
-(4, 1, 1, 0, 1006, 48, '2018-03-29 01:38:05', '2018-03-29 01:52:03', 13, 0, 11, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(5, 1, 1, 0, 1007, 26, '2018-03-29 01:58:00', '2018-03-29 02:34:32', 11, 2, 26, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(7, 1, 1, 1, 1009, 26, '2018-03-29 02:34:32', '2018-03-29 12:53:30', 15, 0, 30, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(8, 1, 1, 2, 1007, 26, '2018-03-29 13:02:54', '2018-03-29 13:03:24', 15, 0, 29, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(9, 1, 1, 3, 1007, 26, '2018-03-29 13:03:24', '2018-03-29 13:24:23', 14, 0, 26, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(10, 1, 1, 4, 1007, 20, '2018-03-29 13:24:23', '2018-03-29 13:25:43', 12, 0, 22, 0, 20, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
-(11, 1, 1, 5, 1009, 41, '2018-03-29 13:26:12', '0000-00-00 00:00:00', 10, 2, 0, 0, 20, 20, 'Belum Disetujui', 'On Progress', 'Active', 'Belum');
+INSERT INTO `factproduction2` (`idProProd`, `idProProdAsal`, `idSPK`, `idSubSPK`, `idWadah`, `idAktivitas`, `idPIC`, `RealisasiStartDate`, `RealisasiEndDate`, `beratAwal`, `beratTambahan`, `berat`, `kembali`, `jumlah`, `jumlahNow`, `statusBerat`, `statusWork`, `statusSPK`, `statusPengambilan`) VALUES
+(1, 0, 0, 1, 0, 1004, 27, '2018-03-29 23:48:34', '2018-03-29 23:48:40', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
+(2, 0, 0, 2, 0, 1004, 15, '2018-03-29 23:51:28', '2018-03-29 23:59:49', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
+(3, 0, 0, 3, 0, 1004, 40, '2018-03-29 23:54:02', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'On Progress', 'Active', 'Belum'),
+(4, 0, 0, 1, 0, 1005, 25, '2018-03-29 23:58:29', '2018-03-29 23:59:59', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
+(5, 0, 0, 2, 0, 1005, 13, '2018-03-30 00:12:34', '2018-03-30 00:12:37', 0, 0, 0, 0, 0, 0, 'Belum Disetujui', 'Done', 'Active', 'Belum'),
+(6, 0, 0, 1, 0, 1006, 48, '2018-03-30 00:02:15', '2018-03-30 00:08:32', 25, 0, 15, 0, 30, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
+(7, 0, 0, 1, 0, 1007, 38, '2018-03-30 00:08:43', '2018-03-30 00:11:03', 15, 0, 26, 0, 30, 5, 'Disetujui', 'On Progress', 'Active', 'Belum'),
+(8, 7, 0, 1, 1, 1008, 15, '2018-03-30 00:11:16', '2018-03-30 00:11:34', 11, 2, 17, 0, 25, 15, 'Disetujui', 'On Progress', 'Active', 'Belum'),
+(9, 8, 0, 1, 2, 1012, 28, '2018-03-30 00:11:34', '2018-03-30 00:12:01', 6, 2, 8, 0, 10, 7, 'Disetujui', 'On Progress', 'Active', 'Belum'),
+(10, 9, 0, 1, 3, 1010, 45, '2018-03-30 00:12:01', '0000-00-00 00:00:00', 2, 2, 0, 0, 3, 3, 'Belum Disetujui', 'On Progress', 'Active', 'Belum'),
+(11, 0, 0, 2, 0, 1006, 16, '2018-03-30 00:12:50', '2018-03-30 00:15:19', 43, 0, 31, 0, 14, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
+(12, 0, 0, 2, 0, 1007, 2, '2018-03-30 00:15:35', '2018-03-30 00:18:29', 31, 4, 32, 0, 14, 11, 'Disetujui', 'On Progress', 'Active', 'Belum'),
+(13, 12, 0, 2, 4, 1009, 26, '2018-03-30 00:18:29', '2018-03-30 00:18:54', 1, 4, 5, 0, 3, 0, 'Disetujui', 'Done', 'Active', 'Belum'),
+(14, 13, 0, 2, 5, 1012, 8, '2018-03-30 00:18:54', '0000-00-00 00:00:00', 4, 4, 0, 0, 3, 3, 'Belum Disetujui', 'On Progress', 'Active', 'Belum');
 
 -- --------------------------------------------------------
 
@@ -624,10 +636,10 @@ CREATE TABLE `materialdasar` (
 --
 
 INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `satuan`, `stokMaterial`, `safetyStock`, `kategori`) VALUES
-(7, '101', 'Emas Kuning 65%', 'gram', -1496.6, 100, 'Emas'),
+(7, '101', 'Emas Kuning 65%', 'gram', -1558.3, 100, 'Emas'),
 (8, '102', 'Emas Kuning 63%', 'gram', 200, 100, 'Emas'),
 (9, '103', 'Emas Kuning 60%', 'gram', 120.88, 100, 'Emas'),
-(10, '104', 'Emas Kuning 59.5%', 'gram', -579.8, 100, 'Emas'),
+(10, '104', 'Emas Kuning 59.5%', 'gram', -586.6, 100, 'Emas'),
 (11, '105', 'Emas Kuning 48%', 'gram', 200, 100, 'Emas'),
 (12, '106', 'Emas Kuning 40%', 'gram', 101, 100, 'Emas'),
 (13, '107', 'Emas Kuning 38%', 'gram', 200, 100, 'Emas'),
@@ -638,9 +650,9 @@ INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `satu
 (18, '205', 'Emas Kuning 70%', 'gram', 40.12, 100, 'Emas'),
 (19, '206', 'Emas Kuning 80%', 'gram', 200, 100, 'Emas'),
 (20, '207', 'Emas Swasa 50%', 'gram', 200, 100, 'Emas'),
-(21, '301', 'Alloy', 'gram', 153.98, 100, 'Non Emas'),
-(22, '302', 'Tembaga', 'gram', 195.13, 100, 'Non Emas'),
-(23, '303', 'Perak', 'gram', 195.13, 100, 'Non Emas'),
+(21, '301', 'Alloy', 'gram', 126.68, 100, 'Non Emas'),
+(22, '302', 'Tembaga', 'gram', 186.03, 100, 'Non Emas'),
+(23, '303', 'Perak', 'gram', 186.03, 100, 'Non Emas'),
 (24, '304', 'Paladium', 'gram', 189.28, 100, 'Non Emas'),
 (25, 'APX-702', 'Vibranium', 'Gram', 100, 100, 'Emas');
 
@@ -746,7 +758,7 @@ CREATE TABLE `pomasal` (
   `hargaBahan` float NOT NULL,
   `bahan` varchar(200) NOT NULL,
   `kadarBahan` int(11) NOT NULL,
-  `ukuranJari` int(11) NOT NULL,
+  `ukuranJari` varchar(50) NOT NULL,
   `krumWarna` varchar(200) NOT NULL,
   `keteranganKrum` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
@@ -774,7 +786,7 @@ CREATE TABLE `pomasal` (
 --
 
 INSERT INTO `pomasal` (`idPO`, `nomorPO`, `idProduk`, `idCustomer`, `idSalesPerson`, `tanggalMasuk`, `tanggalEstimasiPenyelesaian`, `hargaBahan`, `bahan`, `kadarBahan`, `ukuranJari`, `krumWarna`, `keteranganKrum`, `model`, `upah`, `datangEmas`, `hargaDatangEmas`, `kadarDatangEmas`, `datangBerlian`, `jumlahDatangBerlian`, `upahPasangBerlian`, `tipeCustomer`, `pekerjaanTambahan`, `keteranganTambahan`, `biayaTambahan`, `beratAkhir`, `metode`, `panjar`, `totalHarga`, `lastModified`, `tipeOrder`) VALUES
-(1, 1, 1, 19, 36, '2018-03-28 00:00:00', '2018-03-31 00:00:00', 200000, 'Emas Kuning', 90, 12, 'Merah', 'Mengkilat', 'Bagus', 4, 30, 0, 90, '', 0, 0, 'Teliti', 'Slap', 'ndang garap', 0, 300, '', 100000, 0, '2018-03-28 17:19:25', 'massal');
+(0, 1, 1, 5, 36, '2018-03-29 00:00:00', '2018-04-26 00:00:00', 300000, 'Emas Kuning', 90, '12', 'Merah', 'Mengkilap', 'Ngganteng', 5, 20, 0, 80, '', 0, 0, 'Teliti', 'Slap', 'Ndangan', 0, 400, '', 100000, 0, '2018-03-29 09:38:13', 'massal');
 
 -- --------------------------------------------------------
 
@@ -1050,17 +1062,17 @@ CREATE TABLE `rencanaproduksi2` (
 --
 
 INSERT INTO `rencanaproduksi2` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`, `endDate`) VALUES
-(1, 1, 1004, '2018-03-28 00:00:00', '2018-03-28 00:00:00'),
-(2, 1, 1005, '2018-03-29 00:00:00', '2018-03-29 00:00:00'),
-(3, 1, 1006, '2018-03-30 00:00:00', '2018-03-30 00:00:00'),
-(4, 1, 1007, '2018-03-31 00:00:00', '2018-03-31 00:00:00'),
-(5, 1, 1008, '2018-04-01 00:00:00', '2018-04-01 00:00:00'),
-(6, 1, 1009, '2018-04-02 00:00:00', '2018-04-02 00:00:00'),
-(7, 1, 1010, '2018-04-03 00:00:00', '2018-04-03 00:00:00'),
-(8, 1, 1011, '2018-04-04 00:00:00', '2018-04-04 00:00:00'),
-(9, 1, 1012, '2018-04-05 00:00:00', '2018-04-05 00:00:00'),
-(10, 1, 1013, '2018-04-06 00:00:00', '2018-04-06 00:00:00'),
-(11, 1, 1014, '2018-04-07 00:00:00', '2018-04-07 00:00:00');
+(1, 0, 1004, '2018-03-29 00:00:00', '2018-03-30 00:00:00'),
+(2, 0, 1005, '2018-03-30 00:00:00', '2018-03-30 00:00:00'),
+(3, 0, 1006, '2018-03-31 00:00:00', '2018-03-31 00:00:00'),
+(4, 0, 1007, '2018-04-01 00:00:00', '2018-04-01 00:00:00'),
+(5, 0, 1008, '2018-04-02 00:00:00', '2018-04-02 00:00:00'),
+(6, 0, 1009, '2018-04-03 00:00:00', '2018-04-03 00:00:00'),
+(7, 0, 1010, '2018-04-04 00:00:00', '2018-04-04 00:00:00'),
+(8, 0, 1011, '2018-04-05 00:00:00', '2018-04-05 00:00:00'),
+(9, 0, 1012, '2018-04-06 00:00:00', '2018-04-06 00:00:00'),
+(10, 0, 1013, '2018-04-07 00:00:00', '2018-04-07 00:00:00'),
+(11, 0, 1014, '2018-04-08 00:00:00', '2018-04-08 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1154,7 +1166,7 @@ CREATE TABLE `spkmasal` (
 --
 
 INSERT INTO `spkmasal` (`idSPK`, `nomorFaktur`, `nomorPO`, `idProduk`, `idCustomer`, `statusBOM`, `tanggalApprovalBOM`, `PICBOM`, `statusJadwal`, `tanggalApprovalJadwal`, `PICJadwal`, `statusPersetujuan`, `tanggalApprovalPersetujuan`, `PICPersetujuan`, `lastModified`, `prioritas`, `statusSPK`) VALUES
-(1, 1, 1, 1, 19, 'Disetujui', '2018-03-29 01:30:45', 48, 'Disetujui', '2018-03-29 00:58:28', 48, 'Disetujui', '2018-03-29 01:30:45', 48, '2018-03-28 18:30:45', 1, 'On progress');
+(0, 1, 1, 1, 5, 'Disetujui', '2018-03-29 23:26:59', 48, 'Disetujui', '2018-03-29 18:14:52', 48, 'Disetujui', '2018-03-29 23:26:59', 48, '2018-03-29 16:26:59', 0, 'On progress');
 
 -- --------------------------------------------------------
 
@@ -1225,7 +1237,13 @@ CREATE TABLE `stokbarang` (
 --
 
 INSERT INTO `stokbarang` (`idStok`, `tipeBarang`, `kodeBarang`, `jumlah`, `satuan`, `jenisPergerakanBarang`, `hargaBeli`, `tanggal`) VALUES
-(1, 'Material Dasar', '103', 15.12, '', 'OUT', 0, '2018-03-29 01:37:42');
+(1, 'Material Dasar', '103', 15.12, '', 'OUT', 0, '2018-03-29 01:37:42'),
+(2, 'Material Dasar', '104', 6.8, '', 'OUT', 0, '2018-03-29 23:48:40'),
+(3, 'Material Dasar', '101', 22.5, '', 'OUT', 0, '2018-03-29 23:48:40'),
+(4, 'Material Dasar', '101', 39.2, '', 'OUT', 0, '2018-03-29 23:59:49'),
+(5, 'Material Dasar', '301', 27.3, '', 'OUT', 0, '2018-03-29 23:59:49'),
+(6, 'Material Dasar', '302', 9.1, '', 'OUT', 0, '2018-03-29 23:59:49'),
+(7, 'Material Dasar', '303', 9.1, '', 'OUT', 0, '2018-03-29 23:59:49');
 
 -- --------------------------------------------------------
 
@@ -1243,7 +1261,9 @@ CREATE TABLE `subspk` (
 --
 
 INSERT INTO `subspk` (`idSubSPK`, `idSPK`) VALUES
-(1, 1);
+(1, 0),
+(2, 0),
+(3, 0);
 
 -- --------------------------------------------------------
 
@@ -1626,7 +1646,7 @@ ALTER TABLE `billofmaterial`
 -- AUTO_INCREMENT for table `bommassal`
 --
 ALTER TABLE `bommassal`
-  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `bomperak`
 --
@@ -1661,7 +1681,7 @@ ALTER TABLE `factproduction`
 -- AUTO_INCREMENT for table `factproduction2`
 --
 ALTER TABLE `factproduction2`
-  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `factproduction3`
 --
@@ -1733,11 +1753,6 @@ ALTER TABLE `penilaian`
 ALTER TABLE `pertanyaan`
   MODIFY `id_pertanyaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT for table `pomasal`
---
-ALTER TABLE `pomasal`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `poperak`
 --
 ALTER TABLE `poperak`
@@ -1808,11 +1823,6 @@ ALTER TABLE `rencanaproduksiservice`
 ALTER TABLE `spk`
   MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `spkmasal`
---
-ALTER TABLE `spkmasal`
-  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `spkperak`
 --
 ALTER TABLE `spkperak`
@@ -1826,12 +1836,12 @@ ALTER TABLE `spkservice`
 -- AUTO_INCREMENT for table `stokbarang`
 --
 ALTER TABLE `stokbarang`
-  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `subspk`
 --
 ALTER TABLE `subspk`
-  MODIFY `idSubSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idSubSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --

@@ -1894,6 +1894,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();   
     }
 
+    public function getTrackProduksi($nomorFaktur) {
+        $sql   = "SELECT a.*, IFNULL(b.idWadahAsal,'-') as idWadahAsal FROM ( SELECT f.idProProd, f.idProProdAsal, f.idSubSPK, f.idWadah, a.namaAktivitas, f.beratAwal, f.beratTambahan, f.berat, f.jumlah, f.jumlahNow, f.statusBerat, f.statusWork, u.nama, DATE_FORMAT( f.RealisasiStartDate, '%d %M %Y %T' ) AS sd, IFNULL( DATE_FORMAT( f.RealisasiEndDate, '%d %M %Y %T' ), '-' ) AS ed FROM `factproduction2` f, USER u, aktivitas2 a, spkmasal s WHERE f.idpic = u.idUser AND f.idaktivitas = a.idAktivitas AND s.idSPK = f.idspk AND s.nomorFaktur = $nomorFaktur ORDER BY sd ) a LEFT JOIN ( SELECT idProProd, idWadah AS idWadahAsal FROM factproduction2 ) b ON a.idProProdAsal = b.idProProd";
+        $query = $this->db->query($sql);
+        
+        return $query->result();   
+    }
+
     public function getProsesDetail3($idWadah, $idAktivitas) {
         $sql   = "SELECT * from factproduction2 where idWadah = $idWadah and idAktivitas = $idAktivitas";
         $query = $this->db->query($sql);
@@ -2013,7 +2020,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getjadwal7($nomorFaktur) {
-        $sql   = "SELECT *,DATE_FORMAT(r.startDate, '%d %M %Y' ) as sd, DATE_FORMAT(r.endDate, '%d %M %Y' ) as ed FROM aktivitas a, rencanaproduksi2 r, spkmasal s where s.idSPK = r.idSPK and a.idAktivitas = r.idAktivitas and s.nomorFaktur = '$nomorFaktur' order by r.idAktivitas";
+        $sql   = "SELECT *, DATE_FORMAT(r.startDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(r.endDate, '%Y-%m-%d') AS tglend, DATE_FORMAT(r.startDate, '%d %M %Y') AS sd, DATE_FORMAT(r.endDate, '%d %M %Y') AS ed FROM aktivitas a, rencanaproduksi2 r, spkmasal s WHERE s.idSPK = r.idSPK AND a.idAktivitas = r.idAktivitas AND s.nomorFaktur = 1 ORDER BY r.idAktivitas";
         $query = $this->db->query($sql);
         
         return $query->result();

@@ -318,6 +318,7 @@
                                                 <th class="text-center">Aktivitas</th>
                                                 <th class="text-center">Tanggal Mulai</th>
                                                 <th class="text-center">Tanggal Selesai</th>
+                                                <th class="text-center">Action</th>    
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -328,6 +329,7 @@
                                                     <td><?php echo $jadwal[$i]->namaAktivitas?></td>
                                                     <td class="text-center"><?php echo $jadwal[$i]->sd?></td>
                                                     <td class="text-center"><?php echo $jadwal[$i]->ed?></td>
+                                                    <td class="text-center"><button class="btn btn-xs btn-info">Edit</button></td>
                                                 </tr>
 
                                             <?php } ?>
