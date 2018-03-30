@@ -17,36 +17,20 @@
             No Faktur<br>
             <b><?php echo $co[$i]->nomorFaktur ?></b>
         </div>
-        <!-- <div class="col-lg-4 text-center">
-            No Barang<br>
-            <b>0001</b>
-        </div> -->
         <div class="col-lg-6 text-center ">
             ID Sub SPK<br>
             <b><?php echo $co[$i]->idSubSPK ?></b>
         </div>
     </div>
-    
-    
 
+    
+    <br>
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-3">
             
-            <!-- <span class="fa fa-warning text-muted"></span> -->
+            <button data-toggle="modal" data-target="#detail<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
 
-        </div>
-    </div>
-    
-    
-    <div class="row">
-        <br>
-        <div class="col-lg-9">
-            <?php if ($co[$i]->statusWork == 'Belum ada PIC') { ?>
-            <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
-            <?php } else { ?>
-            <button class="btn btn-block btn-warning btn-xs">On Progress</button>
-            <?php } ?>
-        </div>
         <div class="col-lg-3">
 
             <?php if($statr == 'success') {?>
@@ -54,53 +38,25 @@
             <?php } else { ?>
                 <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
             <?php } ?>
-            
-            
-            
+
         </div>
 
+        
+        
         <div class="col-lg-6">
-            <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
-        </div>
-
-        <div class="col-lg-3">
-            <br>
-            <?php if($co[$i]->berat == '0') {?>
-                <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php } else {?>
-                <?php if($co[$i]->statusBerat == 'Belum Disetujui') {?>
-
-                <button data-toggle="modal" data-target="#serah<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span></button>
-
-                <?php } else {?>
-                <button onclick="return confirm('Sudah disetujui')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php }} ?>
-        </div>
-
-        <div class="col-lg-3">
-            <br>
-
             
-            <?php if($co[$i]->statusWork == 'On Progress' AND $co[$i]->statusBerat == 'Disetujui') { ?>
-        
-                
-
-                <a href="<?php echo base_url('User/next3/'.$co[$i]->idProduk.'/'.$idakt.'/'.$co[$i]->idProProd.'/'.$co[$i]->idSPK.'/'.$co[$i]->idSubSPK.'/0')?>" onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $co[$i]->nomorFaktur ?>?')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
-        
-            <?php } else {?>
-
-                <button disabled class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></button>
-
+            <?php if ($co[$i]->statusWork == 'Belum ada PIC') { ?>
+                <button data-toggle="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat == 0 ) {  ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $co[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat > 0 AND $co[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
+                <button data-toggle="modal" data-target="#serah<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->statusBerat == 'Disetujui' ) { ?>                
+                <a href="<?php echo base_url('User/next3/'.$co[$i]->idProduk.'/'.$idakt.'/'.$co[$i]->idProProd.'/'.$co[$i]->idSPK.'/'.$co[$i]->idSubSPK.'/0')?>" 
+                    onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $co[$i]->nomorFaktur ?> dan menyetujui Bill Of Material untuk Sub SPK id <?php echo $co[$i]->idSubSPK ?>?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
             <?php } ?>
-         
-            
             
         </div>
-
-        
     </div>
 
     <div class="modal inmodal fade" id="serah<?php echo $co[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
