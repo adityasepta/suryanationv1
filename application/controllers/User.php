@@ -4742,6 +4742,30 @@ class User extends CI_Controller {
         
     }
 
+    public function editProduksi() {
+        $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
+        $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
+
+        $data = array(
+            'jumlah' => $this->input->post('jumlah'),
+            'jumlahNow' => $this->input->post('jumlahNow'),
+            'berat' => $this->input->post('berat'),
+            'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan'),
+            'idPIC' => $this->input->post('idPIC'),
+            'RealisasiStartDate' =>$tglmsk,
+            'RealisasiEndDate' =>$tglend
+        );
+
+        $idProProd = $this->input->post('idProProd');
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+        $message = "Berhasil Mengedit Informasi Produksi";
+
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("User/invoiceSPKMassal/".$nomorFaktur) ."';</script>";
+    }
+
     //Inventory
     public function rekapBeratMassal() {
         $data['b'] = $this->mdl->getBeratMassal();
@@ -4760,6 +4784,7 @@ class User extends CI_Controller {
         $data['isi'] = $this->mdl->getIsiSPK($nomorFaktur);
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
+        $data['staf'] = $this->mdl->getStaf();
         $this->load->view('user/invoiceMassal', $data);
     }
 
@@ -4780,6 +4805,26 @@ class User extends CI_Controller {
 
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("User/invoiceSPKMassal/".$nomorFaktur) ."';</script>";
+
+    }
+
+    public function editJadwalTempahan() {
+
+        $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
+        $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
+        $data = array(
+            'startDate' => $tglmsk,
+            'endDate' => $tglend,
+        );
+        $idRencana = $this->input->post('idRencana');
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $this->mdl->updateData('idRencana',$idRencana,'rencanaproduksi',$data);
+
+
+        $message = "Berhasil Memperbarui Jadwal";
+
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("User/invoice/".$nomorFaktur) ."';</script>";
 
     }
 

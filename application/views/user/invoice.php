@@ -47,7 +47,7 @@
     $keteranganKrum         = $dataSPK[0]->keteranganKrum;
     $budget                 = $dataSPK[0]->budget;
     $kodeGambar             = $dataSPK[0]->kodeGambar;
-    $prioritas              = $dataSPK[0]->prioritas;
+    
     $batuTerhadapKruman     = $dataSPK[0]->batuTerhadapKruman;
     $batuTerhadapPukulan    = $dataSPK[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataSPK[0]->batuTerhadapGoresan;
@@ -243,18 +243,7 @@
                 <div class="col-lg-3">
                     <div class="ibox">
                         <div class="ibox-content text-right">
-                            <h3>Keterangan</h3><br>
-                            <?php if($prioritas==1){?>
-                                <h4>Prioritas <i class="fa fa-circle text-info"></i></h4>
-                                <h2>Rendah</h2>
-                            <?php } elseif($prioritas==2){ ?>
-                                <h4>Prioritas <i class="fa fa-circle text-warning"></i></h4>
-                                <h2>Sedang</h2>
-                            <?php } else { ?>
-                                <h4>Prioritas <i class="fa fa-circle text-danger"></i></h4>
-                                <h2>Tinggi</h2>
-                            <?php } ?>
-                            <br>
+                            
                             <h4>Tipe Konsumen</h4>
                             <h2><?php echo $tipeCustomer ?></h2>
                         </div>
@@ -274,7 +263,7 @@
                                     
                                     <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
                                     
-                                        <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
+                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
                                     <?php } ?>        
 
                                          
@@ -302,7 +291,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                    <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Rencana Produksi</h5>
@@ -318,6 +307,7 @@
                                                 <th class="text-center">Aktivitas</th>
                                                 <th class="text-center">Tanggal Mulai</th>
                                                 <th class="text-center">Tanggal Selesai</th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -328,7 +318,46 @@
                                                     <td><?php echo $jadwal[$i]->namaAktivitas?></td>
                                                     <td class="text-center"><?php echo $jadwal[$i]->sd?></td>
                                                     <td class="text-center"><?php echo $jadwal[$i]->ed?></td>
+                                                    <td class="text-center"><button data-toggle="modal" data-target="#edit<?php echo $jadwal[$i]->idRencana ?>" class="btn btn-xs btn-info">Edit</button></td>
                                                 </tr>
+
+                                                <div class="modal inmodal fade" id="edit<?php echo $jadwal[$i]->idRencana ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                <h3 class="modal-title">Edit Tanggal Aktivitas</h3><br>
+                                                                <h4 class="text-muted"><em><?php echo $jadwal[$i]->namaAktivitas?></em></h4>
+
+
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <div class="row">
+                                                                    <?php echo form_open('User/editJadwalTempahan')?>
+                                                                    <div class="col-lg-6">
+                                                                        <b>Tanggal Mulai</b><br><br>
+                                                                        <input type="date" name="tglmsk" value="<?php echo $jadwal[$i]->tglmsk?>" class="form-control">
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <b>Tanggal Selesai</b><br><br>
+                                                                        <input type="date" name="tglend" value="<?php echo $jadwal[$i]->tglend?>" class="form-control">
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <br><br>
+                                                                        <input type="hidden" name="idRencana" value="<?php echo $jadwal[$i]->idRencana ?>" class="form-control">
+                                                                        <input type="hidden" name="nomorFaktur" value="<?php echo $nomorFaktur ?>" class="form-control">
+                                                                        <button class="btn btn-success btn-block">Simpan</button>
+                                                                    </div>
+                                                                    <?php echo form_close()?>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
 
                                             <?php } ?>
                                         </tbody>
@@ -341,7 +370,7 @@
 
                     </div> 
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <div class="col-lg-6">
