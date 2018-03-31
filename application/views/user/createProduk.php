@@ -104,7 +104,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label">Deskripsi</label>
-                                                <div class="col-sm-10"><textarea required name="deskripsi" class="form-control" rows="8"></textarea></div>
+                                                <div class="col-sm-10"><textarea required name="deskripsi" value="<?php echo set_value('deskripsi'); ?>" class="form-control" rows="8"><?php echo set_value('deskripsi'); ?></textarea></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Harga Modal</label>
@@ -148,7 +148,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Status Katalog</label>
-                                                <div class="col-sm-1" style="margin-top: 7px;">
+                                                <div class="col-sm-2" style="margin-top: 7px;">
                                                     <div class="i-checks"><label> <input type="radio" <?php $a= set_value('statusKatalog'); if($a=="Tampil"){?> checked="" <?php } ?> value="Tampil" name="statusKatalog" required> <i></i> Tampil </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="margin-top: 7px;">
