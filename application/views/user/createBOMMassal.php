@@ -145,9 +145,15 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
-                                        <button id='myBtn' class="btn btn-primary" type="submit">Save changes</button>
+                                    <div class="col-sm-8">
+                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
+                                        <button id='myBtn' class="btn btn-primary" type="submit">Tambahkan</button>
+                                        
+                                    </div>
+                                    <div class="col-sm-4 text-muted-right">
+                                        <input type="button" class="btn btn-info" value="Isi Kembali" onClick="window.location.reload()">
+                                        <a class="btn btn-success " href="<?php echo base_url('user/kanbanmassal')?>">Kanban</a>
+                                        
                                     </div>
                                 </div>
                              <?php echo form_close()?> 
@@ -204,8 +210,8 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
-                                        <button id='myBtn1' class="btn btn-primary" type="submit" disabled>Save changes</button>
+                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
+                                        <button id='myBtn1' class="btn btn-primary" type="submit" disabled>Tambahkan</button>
                                     </div>
                                 </div>
                              <?php echo form_close()?>  
@@ -278,8 +284,8 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
-                                        <button id='myBtn2' class="btn btn-primary" type="submit" disabled>Save changes</button>
+                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
+                                        <button id='myBtn2' class="btn btn-primary" type="submit" disabled>Tambahkan</button>
                                     </div>
                                 </div>
                              <?php echo form_close()?>  

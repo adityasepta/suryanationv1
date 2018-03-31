@@ -148,7 +148,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $cz[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$cz[$i]->beratAwal+(float)$cz[$i]->beratTambahan?></b> gr</small>    
+                                            <small>jumlah maksimal adalah <b><?php echo (float)$cz[$i]->beratAwal?></b> gr</small>    
                                         </div>
 
                                     </div>

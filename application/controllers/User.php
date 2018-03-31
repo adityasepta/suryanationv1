@@ -5081,6 +5081,7 @@ class User extends CI_Controller {
     //Inventory
     public function rekapBeratMassal() {
         $data['b'] = $this->mdl->getBeratMassal();
+        $data['c'] = $this->mdl->getBeratMassal2();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPKMassal();    
         $data['rekapBerat']=$this->mdl->rekapBeratMassal();
@@ -5095,7 +5096,28 @@ class User extends CI_Controller {
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
         $data['isi'] = $this->mdl->getIsiSPK($nomorFaktur);
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
+        $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $this->load->view('user/invoiceMassal', $data);
+    }
+
+    public function editJadwal() {
+
+        $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
+        $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
+        $data = array(
+            'startDate' => $tglmsk,
+            'endDate' => $tglend,
+        );
+        $idRencana = $this->input->post('idRencana');
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $this->mdl->updateData('idRencana',$idRencana,'rencanaproduksi2',$data);
+
+
+        $message = "Berhasil Memperbarui Jadwal";
+
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("User/invoiceSPKMassal/".$nomorFaktur) ."';</script>";
+
     }
 
     public function listSPKMasal()

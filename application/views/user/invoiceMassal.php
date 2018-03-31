@@ -249,6 +249,62 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-lg-12">
+                           <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Track Proses Produksi</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <div class="row" >
+                                        <div class="col-sm-12">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">IDS</th>
+                                                        <th class="text-center">IDW</th>
+                                                        <th class="text-center">IDA</th>
+                                                        <th class="text-center">Aktivitas</th>
+                                                        <th class="text-center">PIC</th>
+                                                        <th class="text-center">Berat Awal</th>
+                                                        <th class="text-center">Berat Akhir</th>
+                                                        <th class="text-center">Berat Tambahan</th>                                                    
+                                                        <th class="text-center">Jumlah Awal</th>
+                                                        <th class="text-center">Jumlah Akhir</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php for($i = 0; $i < count($tr); ++$i) {?>
+
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $tr[$i]->idSubSPK?></td>
+                                                            <td class="text-center"><?php echo $tr[$i]->idWadah?></td>
+                                                            <td class="text-center"><?php echo $tr[$i]->idWadahAsal?></td>
+                                                            <td class="text-center"><?php echo $tr[$i]->namaAktivitas?></td>
+                                                            <td class="text-center"><?php echo $tr[$i]->nama ?></td>
+                                                            <td class="text-center"><?php echo $tr[$i]->beratAwal?> gr</td>
+                                                            <td class="text-center"><?php echo $tr[$i]->berat?> gr</td>
+                                                            <td class="text-center"><?php echo $tr[$i]->beratTambahan?> gr</td>                                                    
+                                                            <td class="text-center"><?php echo $tr[$i]->jumlah ?> pcs</td>
+                                                            <td class="text-center"><?php echo $tr[$i]->jumlahNow ?> pcs</td>
+                                                            <td class="text-center"><?php echo $tr[$i]->statusWork?></td>
+                                                            <td class="text-center"><button class="btn btn-xs btn-default"><span class="fa fa-edit"></span></button></td>
+                                                        </tr>
+
+                                                    <?php } ?>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6">
                            <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -265,6 +321,7 @@
                                                         <th class="text-center">Aktivitas</th>
                                                         <th class="text-center">Tanggal Mulai</th>
                                                         <th class="text-center">Tanggal Selesai</th>
+                                                        <th class="text-center">Action</th>    
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -275,7 +332,44 @@
                                                             <td><?php echo $jadwal[$i]->namaAktivitas?></td>
                                                             <td class="text-center"><?php echo $jadwal[$i]->sd?></td>
                                                             <td class="text-center"><?php echo $jadwal[$i]->ed?></td>
+                                                            <td class="text-center"><button data-toggle="modal" data-target="#edit<?php echo $jadwal[$i]->idRencana ?>" class="btn btn-xs btn-info">Edit</button></td>
                                                         </tr>
+
+                                                        <div class="modal inmodal fade" id="edit<?php echo $jadwal[$i]->idRencana ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                        <h3 class="modal-title">Edit Tanggal Aktivitas</h3><br>
+                                                                        <h4 class="text-muted"><em><?php echo $jadwal[$i]->namaAktivitas?></em></h4>
+
+
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        <div class="row">
+                                                                            <?php echo form_open('User/editJadwal')?>
+                                                                            <div class="col-lg-6">
+                                                                                <b>Tanggal Mulai</b><br><br>
+                                                                                <input type="date" name="tglmsk" value="<?php echo $jadwal[$i]->tglmsk?>" class="form-control">
+                                                                            </div>
+                                                                            <div class="col-lg-6">
+                                                                                <b>Tanggal Selesai</b><br><br>
+                                                                                <input type="date" name="tglend" value="<?php echo $jadwal[$i]->tglend?>" class="form-control">
+                                                                            </div>
+                                                                            <div class="col-lg-12">
+                                                                                <br><br>
+                                                                                <input type="hidden" name="idRencana" value="<?php echo $jadwal[$i]->idRencana ?>" class="form-control">
+                                                                                <input type="hidden" name="nomorFaktur" value="<?php echo $nomorFaktur ?>" class="form-control">
+                                                                                <button class="btn btn-success btn-block">Simpan</button>
+                                                                            </div>
+                                                                            <?php echo form_close()?>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                     <?php } ?>
                                                 </tbody>
@@ -303,103 +397,53 @@
                                 <div class="ibox-content">
                                     <table class="table table-responsive table-hover">
                                         <thead>
-                                            <tr>
-                                                <th class="text-center">ID Sub SPK</th>
-                                                <th class="text-center">ID Wadah</th>
-                                                <th class="text-center">Status BOM</th>
-                                                <th class="text-center">Aktivitas</th>
-                                            </tr>
+                                            
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Bahan</th>
+                                                    <th class="text-center">Stock Awal</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Stock Akhir</th>
+                                                    <th class="text-center">Status</th>
+                                                </tr>
+                                            
                                         </thead>
                                         <tbody>
+                                            <?php $cbr=0; for ($j=0; $j < count($stokbom) ; $j++) { 
+                                                 ?>
 
-                                            <?php for ($i=0; $i < count($isi); $i++) { ?>
-                                                
                                                 <tr>
-                                                    <td class="text-center"><?php echo $isi[$i]->idSubSPK?></td>
-                                                    <td class="text-center"><?php echo $isi[$i]->idWadah?></td>
+                                                    <td><?php echo $stokbom[$j]->idSubSPK?></td>
+                                                    <td><?php echo $stokbom[$j]->namaMaterial?></td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->stok?> gram</td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->jml?> gram</td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->stokakhir?> gram</td>
                                                     <td class="text-center">
-                                                        <button data-toggle="modal" data-dismiss="modal" data-target="#bom<?php echo $isi[$i]->idSubSPK ?>"  class="btn btn-xs btn-info">Lihat BOM</button>
-                                                        <div class="modal inmodal fade" id="bom<?php echo $isi[$i]->idSubSPK ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-body">
-
-                                                                        <table class="table table-responsive table-hover">
-                                                                            <thead>
-                                                                                
-                                                                                    <tr>
-                                                      
-                                                                                        <th>Bahan</th>
-                                                                                        <th class="text-center">Stock Awal</th>
-                                                                                        <th class="text-center">Jumlah</th>
-                                                                                        <th class="text-center">Stock Akhir</th>
-                                                                                        <th class="text-center">Status</th>
-                                                                                    </tr>
-                                                                                
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <?php $cbr=0; for ($j=0; $j < count($stokbom) ; $j++) { 
-                                                                                    if($stokbom[$j]->idSubSPK == $isi[$i]->idSubSPK) { ?>
-
-                                                                                    <tr>
-                                                                                        <td><?php echo $stokbom[$j]->namaMaterial?></td>
-                                                                                        <td class="text-center"><?php echo $stokbom[$j]->stok?> gram</td>
-                                                                                        <td class="text-center"><?php echo $stokbom[$j]->jml?> gram</td>
-                                                                                        <td class="text-center"><?php echo $stokbom[$j]->stokakhir?> gram</td>
-                                                                                        <td class="text-center">
-                                                                                            <?php 
-                                                                                                
-                                                                                                 if((float)$stokbom[$j]->stokakhir < (float)$stokbom[$j]->ss) { ?>
-                                                                                                    <span class="fa fa-warning text-warning"></span>
-                                                                                                <?php $cbr++; }
-                                                                                                else { ?> 
-                                                                                                    <span class="fa fa-check text-success"></span>
-                                                                                                <?php } 
-                                                                                                    
-                                                                                            ?>
-                                                                                        </td>
-                                                                                    </tr>
-
-                                                                                <?php }}?>
-                                                                            </tbody>
-                                                                        </table>
-
-                                                                        <?php if($cbr > 0) {?>
-
-                                                                            <div class="alert alert-danger">
-                                                                                Terdapat material yang dibawah safety stock.
-                                                                            </div>
-
-                                                                        <?php } ?>
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
+                                                        <?php 
+                                                            
+                                                             if((float)$stokbom[$j]->stokakhir < (float)$stokbom[$j]->ss) { ?>
+                                                                <span class="fa fa-warning text-warning"></span>
+                                                            <?php $cbr++; }
+                                                            else { ?> 
+                                                                <span class="fa fa-check text-success"></span>
+                                                            <?php } 
+                                                                
+                                                        ?>
                                                     </td>
-                                                    <td class="text-center"><?php echo $isi[$i]->namaAktivitas?></td>
                                                 </tr>
 
                                             <?php }?>
-                                            
                                         </tbody>
                                     </table>
 
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                                    <?php if($cbr > 0) {?>
 
-                                            <small >*pastikan semua wadah telah selesai dan tidak ada di kanban massal</small><br><br>
-
-                                            <?php if($cf[0]->jml == '0'){ ?>
-                                                <a href="<?php echo base_url('User/finish3/'.$dataSPK[0]->idSPK)?>" class="btn btn-block btn-success btn-lg" href="">Finish SPK</a>
-                                            <?php } else {?>
-                                            <a class="btn btn-block btn-success btn-lg" disabled href="">Finish SPK</a>
-                                            <?php } ?>
+                                        <div class="alert alert-danger">
+                                            Terdapat material yang dibawah safety stock.
                                         </div>
-                                    </div>
-                                    
+
+                                    <?php } ?>
+                                   
                            
                                 </div>
 
