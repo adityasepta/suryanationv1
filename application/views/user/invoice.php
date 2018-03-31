@@ -250,45 +250,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Desain Produk</h5>
-                        </div>
-                        <div class="ibox-content">
-
-                            <div class="row" >
-                                <div class="col-sm-4">
-                                    
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                    <?php } ?>        
-
-                                         
-                                    
-                                </div>
-                                <div class="col-sm-4">
-                                   
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d2.jpg')?>"><br><br>
-                                    <?php } ?>
-                                                     
-                                    
-                                </div>
-                                <div class="col-sm-4">
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d3.jpg')?>"><br><br>
-                                    <?php } ?> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row">
                 <div class="col-lg-6">
@@ -427,6 +389,32 @@
                                 </div>
 
                             <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Desain Produk</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="row" >
+                                <div class="col-sm-12">
+                                    
+                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
+                                    
+                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
+                                    <?php } ?>        
+
+                                         
+                                    
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

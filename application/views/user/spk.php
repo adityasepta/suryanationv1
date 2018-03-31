@@ -333,15 +333,10 @@
                                       <div class="modal-body">
                                         <?php if($hasil->statusDesain !== 'Proses Desain') {?>
                                             <div class="row">
-                                               <div class="col-lg-4">
+                                               <div class="col-lg-12">
                                                    <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d1.jpg')?>" class="img img-responsive">
                                                </div>
-                                               <div class="col-lg-4">
-                                                   <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d2.jpg')?>" class="img img-responsive">
-                                               </div>
-                                               <div class="col-lg-4">
-                                                   <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d3.jpg')?>" class="img img-responsive">
-                                               </div>
+                                              
                                            </div>
                                         <?php } else { ?>
 

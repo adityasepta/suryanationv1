@@ -333,49 +333,38 @@
                             <h5>Tambah Desain <small>Isi semua data yang dibutuhkan.</small></h5>
                         </div>
                         <div class="ibox-content">
-                            <!-- <form method="get" class="form-horizontal" enctype="multipart/form-data" action="<?php echo base_url();?>user/tambahPO"> -->
+                            
                             <?php echo form_open_multipart('user/uploadDesain','class="form-horizontal"')?>
-                                <input type="hidden" placeholder="ID Konsumen" name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
-                                <input type="hidden" placeholder="ID Produk" name="idProduk" value="<?= $idProduk ?>" class="form-control">
-                                <input type="hidden" placeholder="Kode Produk" name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
-                                <input type="hidden" placeholder="Nomor Faktur" name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
+                                <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
+                                <input type="hidden"  name="idProduk" value="<?= $idProduk ?>" class="form-control">
+                                <input type="hidden"  name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
+                                <input type="hidden"  name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
 
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Foto Desain</label>
-                                    <div class="col-sm-3">
-                                        
-                                        <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                        
-                                            <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                        <?php } ?>        
+                                <div class="row">
+                                    <div class="col-sm-6 ">
 
-                                        <label>Upload Gambar 1 (.JPG)</label>        
-                                        <input type="file" name="userfile[]">
-                                    </div>
-                                    <div class="col-sm-3">
-                                       
-                                        <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
+                                        <?php if($dataSPK[0]->statusDesain == 'Proses Desain'    ) { ?>
                                         
-                                            <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d2.jpg')?>"><br><br>
-                                        <?php } ?>
-                                         <label>Upload Gambar 2 (.JPG)</label>                 
-                                        <input type="file" name="userfile[]">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                        
-                                            <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d3.jpg')?>"><br><br>
+                                            <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
                                         <?php } ?> 
-                                        <label>Upload Gambar 3 (.JPG)</label>                
-                                        <input type="file" name="userfile[]">
+                                        
+                                        
                                     </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
+                                    <div class="col-sm-6">
+
+                                        <label>Upload Gambar Desain</label>        
+                                        <br>
+                                        <small class="text-danger">Upload maksimal 6 MB, tipe file jpg</small>
+                                        <br><br>
+                                        <input type="file" required name="userfile[]">
+                                        <hr>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
+                                         
                                     </div>
+
                                 </div>
+                           
+                                
 
                             <?php echo form_close()?>
                         </div>

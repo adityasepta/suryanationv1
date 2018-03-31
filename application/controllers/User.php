@@ -835,12 +835,15 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/spk")."';</script>";
     }
 
+ 
+
     public function uploadDesain()
     {       
         $kodeProduk=$this->input->post('kodeProduk');
         $nomorFaktur=$this->input->post('nomorFaktur');
+        $iduser = ($this->session->userdata['logged_in']['iduser']);
         $up=$this->input->post();
-        //print_r($nomorFaktur);exit();
+
         $this->load->library('upload');
         $dataInfo = array();
         $files = $_FILES;
@@ -868,7 +871,7 @@ class User extends CI_Controller {
 
             $config['upload_path']     = './uploads/gambarDesain/'; 
             $config['allowed_types']   = 'jpg|jpeg'; 
-            $config['max_size']        = '2048';
+            $config['max_size']        = '6000';
             $config['file_name']       = $kode.'-d'.($i+1).'.jpg';
             $config['overwrite']        = TRUE;
 
@@ -880,6 +883,11 @@ class User extends CI_Controller {
         }
         if($a==$b) {
             $this->mdl->prosesDesain($nomorFaktur);
+            $data = array(
+                'PICDesain' => $iduser
+            );
+            $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
+
             $message = "Foto produk telah berhasil disimpan";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/spk")."';</script>";
