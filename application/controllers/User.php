@@ -301,17 +301,13 @@ class User extends CI_Controller {
     }
 
     public function editPO($nomorPO) {
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
-        
-        $this->load->view('user/editPurchaseOrder',$data);
-        $this->form_validation->set_message('is_unique','The %s is already taken');
-        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
-        $this->form_validation->set_rules('kodeProduk', 'Kode Produk' ,'is_unique[produk.kodeProduk]');
+
+        $this->form_validation->set_rules('kodeProduk','Kode Produk', 'required');
 
         if ($this->form_validation->run() == FALSE){
             $data['dataPO'] = $this->mdl->findPO($nomorPO);
             $data['pegawai'] = $this->mdl->listPegawaiSales();
-            $this->load->view('user/createPurchaseOrder',$data);
+            $this->load->view('user/editPurchaseOrder',$data);
         }
         else {
 
@@ -321,34 +317,6 @@ class User extends CI_Controller {
                 $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
             }
 
-            $idC=$this->input->post('idCustomer');
-            if($idC==0){
-                //eksekusi query tabel Customer
-                $dataCustomer = array(
-                    'namaCustomer'        => $this->input->post('namaCustomer'),
-                    'nomorTelepon'        => $this->input->post('nomorTelepon'),
-                );
-
-                $idCustomer=$this->mdl->insertDataGetLast('customer',$dataCustomer);
-            } else {
-                $idCustomer=$idC;
-            }
-            
-            
-            if ($this->input->post('namaBatu')==NULL) {
-                $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO');
-            } else {
-                $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO').'-'.$this->input->post('namaBatu');
-            };
-
-            
-            if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
-                $ukuranJari=$this->input->post('ukuranJari');
-            } else if ($this->input->post('jenisProduk')=='Gelang') {
-                $ukuranJari=$this->input->post('diameter');
-            } else {
-                $ukuranJari=$this->input->post('ukuran');
-            };
 
             $hargaBahan = $this->clean($this->input->post('hargaBahan'));
             $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
@@ -362,7 +330,7 @@ class User extends CI_Controller {
             
 
             $kodeProduk=$this->input->post('kodeProduk');
-            $kode = $this->generateRandomString();
+            $kode = $this->input->post('kodeGambar');
              
             // print_r($dataProduk);exit();
             if($_FILES['userfile']['name'] != NULL){
@@ -3449,6 +3417,10 @@ class User extends CI_Controller {
                 'kadarBahan'        => $this->input->post('kadarBahan'),
                 'namaBatu'          => $this->input->post('namaBatu'),
                 'beratBatu'         => $this->input->post('beratBatu'),
+                'batuTerhadapGoresan' => $this->input->post('batuTerhadapGoresan'),
+                'batuTerhadapPukulan' => $this->input->post('batuTerhadapPukulan'),
+                'batuTerhadapKruman'  => $this->input->post('batuTerhadapKruman'),
+                'keadaanBatuTengah'   => $this->input->post('keadaanBatuTengah'),
                 'ukuranJari'        => $ukuranJari,
                 'berlian'           => $this->input->post('berlian'),
                 'krumWarna'         => $this->input->post('krumWarna'),
