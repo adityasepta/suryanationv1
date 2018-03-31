@@ -1,4 +1,4 @@
-
+<?php $idakt = 1005 ?>
 <li class="element" id="task1">
 
     <div class="row">
@@ -228,73 +228,74 @@
         
     </div>
 
-    <div class="row">
+       <div class="row">
         <div class="col-lg-12">
-            <?php if ($k2[$i]->statusWork == 'Belum ada PIC') { ?>
-            <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
-            <?php } else { ?>
-            <button class="btn btn-block btn-warning btn-xs">On Progress</button>
-            <?php } ?>
-        </div>
-        <br><br>
-        <div class="col-lg-9">
-            <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $k2[$i]->idKloter ?>" class="btn btn-block btn-white btn-xs">Tambah PIC</button>
+
+            <?php 
+
+            $asd = 0;
+
+            for ($d=0; $d < count($cb) ; $d++) {
+                if($k2[$i]->idKloter == $cb[$d]->idKloter) {
+                    $asd++;
+                }}
+            ?>
             
-            <div class="modal inmodal fade" id="pic<?php echo $k2[$i]->idKloter ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <?php echo form_open('User/setPIC2')?>
-                            <div class="form-horizontal">
-                                
-                                <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
-
-                                    <div class="col-sm-7">
-
-                                        
-                                        <?php 
-
-                                        $js = array( 'class' => 'form-control' );
-                                        echo form_dropdown('staf', $staf, $k2[$i]->idPIC,$js);
-
-                                        ?>
-                                        
-                                    </div>
-                                    <div class="col-sm-2">
-                              
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" value="<?php echo $k2[$i]->idKloter?>" name="idKloter">
-                                            <input type="hidden" class="form-control" value="1005" name="idAktivitas">
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <button data-toggle="modal" data-dismiss="modal" class="btn btn-danger btn-block">Kembali</button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-block btn-success">Simpan</button>
-                                </div>
-                            </div>
-                            <?php echo form_close() ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-lg-3">
-            <?php if (($k2[$i]->statusWork !== 'Belum ada PIC') ) { ?>
-            <a href="<?php echo base_url('user/next2/'.$k2[$i]->idKloter.'/1005') ?>" class="btn btn-block btn-info btn-xs" onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi kloter dengan nama kloter <?php echo $k2[$i]->nama ?> ?')"><span class="fa fa-arrow-right"></span></a>
-            <?php } else { ?>
-            <button disabled class="btn btn-block btn-info btn-xs"><span class="fa fa-arrow-right"></span></button>
+            <?php if ($gi[$i]->statusWork == 'Belum ada PIC') { ?>
+                <button data-toggle="modal" data-target="#pic<?php echo $gi[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+            <?php } else if($gi[$i]->statusWork == 'On Progress' AND $asd == 0 ) {  ?>
+                <a href="<?php echo base_url('user/createBOMTempahan/'.$k2[$i]->idKloter)?>" class="btn btn-xs btn-success btn-block">Tambah BOM</a>
+            <?php } else  { ?>                          
+                <a href="<?php echo base_url('user/next2/'.$k2[$i]->idKloter.'/'.$idakt) ?>" class="btn btn-block btn-success btn-xs" onclick="return confirm('Apakah anda yakin untuk finalisasi Kloter dengan nama kloter <?php echo $k2[$i]->nama ?> ?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
             <?php } ?>
+            
         </div>
     </div>
 
+    <div class="modal inmodal fade" id="pic<?php echo $k2[$i]->idKloter ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <?php echo form_open('User/setPIC2')?>
+                    <div class="form-horizontal">
+                        
+                        <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
+
+                            <div class="col-sm-7">
+
+                                
+                                <?php 
+
+                                $js = array( 'class' => 'form-control' );
+                                echo form_dropdown('staf', $staf, $k2[$i]->idPIC,$js);
+
+                                ?>
+                                
+                            </div>
+                            <div class="col-sm-2">
+                      
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" value="<?php echo $k2[$i]->idKloter?>" name="idKloter">
+                                    <input type="hidden" class="form-control" value="<?php echo $idakt ?>" name="idAktivitas">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button data-toggle="modal" data-dismiss="modal" class="btn btn-danger btn-block">Kembali</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                        </div>
+                    </div>
+                    <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </li>
     

@@ -535,6 +535,8 @@ class User extends CI_Controller {
         $data['cekjadwal'] = $this->mdl->cekjadwal();
         $data['jadwal'] = $this->mdl->getjadwal($nomorFaktur);
         $kloter = $this->mdl->getIdKloter($nomorFaktur);
+        $data['tr'] = $this->mdl->getTrackProduksiTempahan($nomorFaktur);
+        $data['staf'] = $this->mdl->getStaf();
         if ($kloter) {
             $data['stokbom'] = $this->mdl->getStokBOM2($kloter[0]->idKloter);
         }
@@ -631,12 +633,15 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/spk")."';</script>";
     }
 
+ 
+
     public function uploadDesain()
     {       
         $kodeProduk=$this->input->post('kodeProduk');
         $nomorFaktur=$this->input->post('nomorFaktur');
+        $iduser = ($this->session->userdata['logged_in']['iduser']);
         $up=$this->input->post();
-        //print_r($nomorFaktur);exit();
+
         $this->load->library('upload');
         $dataInfo = array();
         $files = $_FILES;
@@ -664,7 +669,7 @@ class User extends CI_Controller {
 
             $config['upload_path']     = './uploads/gambarDesain/'; 
             $config['allowed_types']   = 'jpg|jpeg'; 
-            $config['max_size']        = '2048';
+            $config['max_size']        = '6000';
             $config['file_name']       = $kode.'-d'.($i+1).'.jpg';
             $config['overwrite']        = TRUE;
 
@@ -676,6 +681,11 @@ class User extends CI_Controller {
         }
         if($a==$b) {
             $this->mdl->prosesDesain($nomorFaktur);
+            $data = array(
+                'PICDesain' => $iduser
+            );
+            $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
+
             $message = "Foto produk telah berhasil disimpan";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/spk")."';</script>";
@@ -4900,6 +4910,28 @@ class User extends CI_Controller {
 
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("User/invoiceSPKMassal/".$nomorFaktur) ."';</script>";
+    }
+
+    public function editProduksi2() {
+        $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
+        $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
+
+        $data = array(
+            'berat' => $this->input->post('berat'),
+            'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan'),
+            'idPIC' => $this->input->post('idPIC'),
+            'RealisasiStartDate' =>$tglmsk,
+            'RealisasiEndDate' =>$tglend
+        );
+
+        $idProProd = $this->input->post('idProProd');
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction',$data);
+        $message = "Berhasil Mengedit Informasi Produksi";
+
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("User/invoice/".$nomorFaktur) ."';</script>";
     }
 
     //Inventory

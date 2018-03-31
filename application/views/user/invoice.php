@@ -250,39 +250,160 @@
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
+                   <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Desain Produk</h5>
+                            <h5>Track Proses Produksi</h5>
                         </div>
                         <div class="ibox-content">
 
                             <div class="row" >
-                                <div class="col-sm-4">
-                                    
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                    <?php } ?>        
+                                <div class="col-sm-12">
+                                    <table class="table table-hover table-responsive">
+                                        <thead>
+                                            <tr>
+                                                
+                                                
+                                                <th class="text-center">Aktivitas</th>
+                                                <th class="text-center">PIC</th>
+                                                <th class="text-center">Berat Awal</th>
+                                                <th class="text-center">Berat Akhir</th>
+                                                <th class="text-center">Berat Tambahan</th>                                  
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php for($i = 0; $i < count($tr); ++$i) {?>
 
-                                         
-                                    
-                                </div>
-                                <div class="col-sm-4">
-                                   
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d2.jpg')?>"><br><br>
-                                    <?php } ?>
-                                                     
-                                    
-                                </div>
-                                <div class="col-sm-4">
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
-                                        <img class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d3.jpg')?>"><br><br>
-                                    <?php } ?> 
+                                                <tr>
+                                                    
+                                                    
+                                                    <td class="text-center"><?php echo $tr[$i]->namaAktivitas?></td>
+                                                    <td class="text-center"><?php echo $tr[$i]->nama ?></td>
+                                                    <td class="text-center"><?php echo $tr[$i]->beratAwal?> gr</td>
+                                                    <td class="text-center"><?php echo $tr[$i]->berat?> gr</td>
+                                                    <td class="text-center"><?php echo $tr[$i]->beratTambahan?> gr</td>
+                                                    <td class="text-center"><?php echo $tr[$i]->statusWork?></td>
+                                                    <td class="text-center"><button data-toggle="modal" data-target="#edit<?php echo $tr[$i]->idProProd ?>"  class="btn btn-xs btn-default"><span class="fa fa-edit"></span></button></td>
+
+                                                    <div class="modal inmodal fade" id="edit<?php echo $tr[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                <h3 class="modal-title">Edit Informasi Produksi</h3><br>
+                                                                <h4 class="text-muted"><em>pastikan diteliti kembali sebelum mengedit informasi produksi</em></h4>
+                                                                <h4 class="text-success"><b><?php echo $tr[$i]->namaAktivitas?></b></h4>
+
+
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <?php echo form_open('user/editProduksi2')?>
+                                                                <div class="row">
+                                                                 
+                                                                    <div class="col-lg-6 text-left">
+                                                                        <div class="form-horizontal">
+
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-3 control-label">Pilih PIC</label>
+
+                                                                                <div class="col-sm-9">
+
+                                                                                    
+                                                                                    <?php 
+
+                                                                                    $js = array( 'class' => 'form-control');
+                                                                                    echo form_dropdown('idPIC', $staf, $tr[$i]->idPIC,$js);
+
+                                                                                    ?>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                         
+                                                                            <div class="form-group">
+
+                                                                                <label class="col-sm-6 control-label">Tanggal Dimulai</label>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <input value="<?php echo $tr[$i]->tglmsk ?>" type="date" name="tglmsk" required max=""  class="form-control">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+
+                                                                                <label class="col-sm-6 control-label">Tanggal Dimulai</label>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <input value="<?php echo $tr[$i]->tglend ?>" type="date" name="tglend" required max=""  class="form-control">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="col-lg-6 text-left">
+                                                                        <div class="form-horizontal">
+
+                                                                            <div class="form-group">
+
+                                                                                <label class="col-sm-6 control-label">Berat Awal ( gr )</label>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <input value="<?php echo $tr[$i]->beratAwal ?>" type="number" step="any" name="beratAwal" required min="0"  max=""  class="form-control">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+
+                                                                                <label class="col-sm-6 control-label">Berat Akhir ( gr )</label>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <input value="<?php echo $tr[$i]->berat ?>" type="number" step="any" name="berat" required min="0"  max=""  class="form-control">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+
+                                                                                <label class="col-sm-6 control-label">Berat Tambahan ( gr )</label>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <input value="<?php echo $tr[$i]->beratTambahan ?>" type="number" step="any" name="beratTambahan" required min="0"  max=""  class="form-control">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-10">
+                                                                        &nbsp
+                                                                    </div>
+                                                                    <div class="col-lg-2 text-right">
+                                                                        <input type="hidden" value="<?php echo $tr[$i]->idProProd ?>" name="idProProd">
+                                                                        <input type="hidden" value="<?php echo $nomorFaktur ?>" name="nomorFaktur">
+                                                                        <button type="submit" class="btn btn-block btn-success pull-left ">Edit</button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </tr>
+
+                                            <?php } ?>
+                                        </tbody>
+
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -427,6 +548,32 @@
                                 </div>
 
                             <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Desain Produk</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="row" >
+                                <div class="col-sm-12">
+                                    
+                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
+                                    
+                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
+                                    <?php } ?>        
+
+                                         
+                                    
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

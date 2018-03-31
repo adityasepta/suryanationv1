@@ -52,57 +52,37 @@
         </div>
         
     </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            
-            <!-- <span class="fa fa-warning text-muted"></span> -->
 
-        </div>
-    </div>
-    
-    
     <div class="row">
         <br>
         <div class="col-lg-12">
-            <button data-toggle="modal" data-target="#detail<?php echo $m[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detailx2<?php echo $m[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
-        <!-- <div class="col-lg-3">
-            <a href="" disabled class="btn btn-xs btn-warning btn-block"><span class="fa fa-refresh"></span></a>
-        </div>
-        <div class="col-lg-3">
-            <a href="" disabled class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
-        </div> -->
-        
+
     </div>
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $m[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detailx2<?php echo $m[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Detail Proses Produksi</h3><br>
-                    <!-- <span >NO FAKTUR : <b class="text-success">1423342</b> | NO BARANG : <b class="text-success">001</b> | TIPE : <b class="text-success">Custom</b></span><br> -->
-
-                    <!-- <span >NO PO : <b class="text-success"><?php echo $m[$i]->nomorPO ?></b> | TIPE : <b class="text-success"><?php echo $m[$i]->tipeOrder ?></b></span><br> -->
 
                     <span >NO PO : <b class="text-success"><?php echo $m[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $m[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $m[$i]->tipeOrder ?></b></span><br>
-   <!--                  <h2><span class="fa fa-warning text-danger"></span>
-                    <span class="fa fa-warning text-danger"></span>
-                    <span class="fa fa-warning text-danger"></span></h2> -->
+
                 </div>
                 <div class="modal-body">
 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $m[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2<?php echo $m[$i]->nomorFaktur ?>">Jadwal</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-3<?php echo $m[$i]->nomorFaktur ?>">Berat</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-1x2<?php echo $m[$i]->nomorFaktur ?>">Informasi Umum</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2x2<?php echo $m[$i]->nomorFaktur ?>">Jadwal</a></li>
+
                         </ul>
                         <div class="tab-content">
-                            <div id="tab-1<?php echo $m[$i]->nomorFaktur ?>" class="tab-pane active">
+                            <div id="tab-1x2<?php echo $m[$i]->nomorFaktur ?>" class="tab-pane active">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-4 text-right ">
@@ -152,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-2<?php echo $m[$i]->nomorFaktur ?>" class="tab-pane">
+                            <div id="tab-2x2<?php echo $m[$i]->nomorFaktur ?>" class="tab-pane">
                                 <div class="panel-body">
                                     <table class="table table-hover table-responsive">
                                         <thead>
@@ -188,24 +168,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div id="tab-3<?php echo $m[$i]->nomorFaktur ?>" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <table class="table table-hover table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No</th>
-                                                    <th>Keterangan</th>
-                                                    <th class="text-center">Berat</th>                                                    
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Action</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                       
                         </div>
 
 
