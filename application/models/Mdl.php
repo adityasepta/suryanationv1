@@ -432,6 +432,26 @@ class mdl extends CI_Model {
         }
     }
 
+    public function poMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT *, DATE_FORMAT(a.tanggalMasuk, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(a.tanggalEstimasiPenyelesaian, '%Y-%m-%d') AS tglpsy FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO=$nomorPO LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function poPerak($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT *, DATE_FORMAT(a.tanggalMasuk, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(a.tanggalEstimasiPenyelesaian, '%Y-%m-%d') AS tglpsy FROM poperak a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO=$nomorPO LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findPOMassal($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE a.nomorPO=$nomorPO LIMIT 1");

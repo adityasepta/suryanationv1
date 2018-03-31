@@ -166,12 +166,23 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Edit Purchase Order <small>Isi semua data yang dibutuhkan.</small></h5>
+                            <h5>Edit Purchase Order Tempahan <small>Isi semua data yang dibutuhkan.</small></h5>
                         </div>
                         <div class="ibox-content">
-                            <?php echo form_open_multipart('user/editPO/'.$idPO,'class="form-horizontal"')?>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Nomor PO <?php echo $nomorPO ?></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p><strong>Pembeli </strong><?php echo $dataPO[0]->namaCustomer ?> | <?php echo $dataPO[0]->nomorTelepon ?></p>
+                                    <hr>
+                                </div>
+                            </div>
+                            <?php echo form_open_multipart('user/updatePO/'.$idPO,'class="form-horizontal"')?>
                                 <div class="form-group">
-                                    <input type="hidden" name="kodeGambar" class="form-control" value="<?php echo $produk[0]->kodeGambar; ?>">
+                                    <input type="hidden" name="kodeGambar" class="form-control" value="<?php echo $dataPO[0]->kodeGambar; ?>">
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -194,32 +205,19 @@
                                     </div>
                                 </div>
                                 
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Kode Produk</label>
-                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CLS 00010" class="form-control" value="<?php echo $dataPO[0]->kodeProduk; ?>" readonly></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Jenis Produk <br/><small class="text-navy">Pilih salah satu</small></label>
-
-                                    <div class="col-sm-2">
-                                        <div class="i-checks"><label> <input id="cincin" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk" required> <i></i> Cincin </label></div>
-                                        <div class="i-checks"><label> <input id="liontin" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="i-checks"><label> <input id="gelang" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
-                                        <div class="i-checks"><label> <input id="anting" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="i-checks"><label> <input id="mainanNama" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Mainan Nama"){?> checked="" <?php } ?> value="Mainan Nama" name="jenisProduk"> <i></i> Mainan Nama </label></div>
-                                        <div class="i-checks"><label> <input id="cincinKawin" type="radio" <?php $a= $dataPO[0]->jenisProduk; if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk"><i></i> Cincin Kawin </label></div>
-                                    </div>
-                                </div>
+                                
                                 <div class="hr-line-dashed"></div>
                                 <div id="produkDetail">
                                     <div id="contentHeader" style="background-color: #e8e8e8; height: 30px; padding: 3px 0 2px 8px;">
                                         <h5>Detail Produk</h5>
                                     </div>
                                     <div id="contentDetail" style="padding: 15px; background-color: #f7f7f7;">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h4>Kode Produk <strong><?php echo $dataPO[0]->kodeProduk ?></strong> | <small>Jenis Produk <?php echo $dataPO[0]->jenisProduk ?></small></h4>
+                                                <hr>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-md-4">
                                                 <div class="row">
@@ -484,19 +482,29 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/></label>
                                             <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= $pekerjaanTambahan; if($a=="Enamel"){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
+                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                    if ($pekerjaan[$i]=="Enamel") { $a++; }
+                                                } if($a>0){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
                                             </div>
                                             <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= $pekerjaanTambahan; if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
+                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                    if ($pekerjaan[$i]=="Slap") { $a++; }
+                                                } if($a>0){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
                                             </div>
                                             <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= $pekerjaanTambahan; if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
+                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                    if ($pekerjaan[$i]=="Kombinasi") { $a++; }
+                                                } if($a>0){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
                                             </div>
                                             <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= $pekerjaanTambahan; if($a=="Laser Huruf"){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
+                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                    if ($pekerjaan[$i]=="Laser Huruf") { $a++; }
+                                                } if($a>0){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
                                             </div>
                                             <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= $pekerjaanTambahan; if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
+                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                    if ($pekerjaan[$i]=="Kode Cap") { $a++; }
+                                                } if($a>0){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
                                                 <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan"> -->
                                             </div>
                                         </div>
@@ -533,8 +541,7 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Foto Sampel</label>
                                     <div class="col-sm-10">
-                                        <label>Insert Image(.JPG)</label>                
-                                        <input type="file" name="userfile" value="<?php echo set_value('userfile'); ?>">
+                                        <img src="<?php echo base_url('uploads/gambarProduk/'.$dataPO[0]->kodeGambar.'-cust.jpg')?>" class="img img-responsive" style="max-height: 125px;">
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>

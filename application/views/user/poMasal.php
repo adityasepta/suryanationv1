@@ -104,14 +104,14 @@
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <!-- <?=anchor('user/editPO/' . $hasil->nomorPO, 'Edit', [
+                                        <?=anchor('user/editPOMassal/' . $hasil->nomorPO, 'Edit', [
                                           'class' => 'btn btn-warning btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPO/' . $hasil->nomorPO, 'Delete', [
+                                        <?=anchor('user/hapusPOMassal/' . $hasil->nomorPO, 'Delete', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
-                                        ])?> -->
+                                        ])?>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
