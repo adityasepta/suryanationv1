@@ -64,14 +64,14 @@
     <div class="row">
         <br>
         <div class="col-lg-12">
-            <button data-toggle="modal" data-target="#detail<?php echo $d[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+            <button data-toggle="modal" data-target="#detailx2<?php echo $d[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
     </div>
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $d[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detailx2<?php echo $d[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,12 +85,12 @@
 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $d[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2<?php echo $d[$i]->nomorFaktur ?>">Jadwal</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-3<?php echo $d[$i]->nomorFaktur ?>">Berat</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-1x2<?php echo $d[$i]->nomorFaktur ?>">Informasi Umum</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2x2<?php echo $d[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            
                         </ul>
                         <div class="tab-content">
-                            <div id="tab-1<?php echo $d[$i]->nomorFaktur ?>" class="tab-pane active">
+                            <div id="tab-1x2<?php echo $d[$i]->nomorFaktur ?>" class="tab-pane active">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-4 text-right ">
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-2<?php echo $d[$i]->nomorFaktur ?>" class="tab-pane">
+                            <div id="tab-2x2<?php echo $d[$i]->nomorFaktur ?>" class="tab-pane">
                                 <div class="panel-body">
                                     <table class="table table-hover table-responsive">
                                         <thead>
@@ -152,13 +152,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>Sales</td>
-                                                <td class="text-center"><?php echo $d[$i]->tanggal?></td>
-                                                <td class="text-center"><label class="label label-xs label-primary">Diterima</label></td>
-
-                                            </tr>
+                                      
                                             <tr>
                                                 <td class="text-center">2</td>
                                                 <td>Penjadwalan</td>
@@ -176,24 +170,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div id="tab-3<?php echo $d[$i]->nomorFaktur ?>" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <table class="table table-hover table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No</th>
-                                                    <th>Keterangan</th>
-                                                    <th class="text-center">Berat</th>                                                    
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Action</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
 
 
