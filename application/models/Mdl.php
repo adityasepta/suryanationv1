@@ -1175,19 +1175,11 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    // public function getPPIC() {
-
-    //     $sql   = "SELECT *,left(pr.namaProduk, 20) as namap,DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u WHERE po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and s.statusPersetujuan != 'Disetujui' ";
-    //     $query = $this->db->query($sql);
-        
-    //     return $query->result();
-    // }
-
     public function getProses($idAktivitas) {
 
         $sql   = "
 
-            SELECT $idAktivitas as idAktivitas, DATE_FORMAT(r.endDate, '%m/%d/%Y') AS tgs, DATE_FORMAT(r.startDate, '%d %M %Y') AS tglmulai, DATE_FORMAT(r.endDate, '%d %M %Y') AS tglselesai, k.nama AS namaSales, LEFT(pr.namaProduk, 20) AS namaProduk, u.nama AS namaPIC, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalDesain, '%d %M %Y' ) AS tanggaldes, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT( tanggalApprovalPersetujuan, '%d %M %Y' ) AS tanggalsetuju FROM potempahan po, produk pr, customer c, spk s, factproduction f, rencanaproduksi r, user u, user k, kloter kl WHERE s.idSPK = kl.idSPK and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork != 'Done' ";
+            SELECT *, $idAktivitas as idAktivitas, DATE_FORMAT(r.endDate, '%m/%d/%Y') AS tgs, DATE_FORMAT(r.startDate, '%d %M %Y') AS tglmulai, DATE_FORMAT(r.endDate, '%d %M %Y') AS tglselesai, k.nama AS namaSales, LEFT(pr.namaProduk, 20) AS namaProduk, u.nama AS namaPIC, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalDesain, '%d %M %Y' ) AS tanggaldes, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT( tanggalApprovalPersetujuan, '%d %M %Y' ) AS tanggalsetuju FROM potempahan po, produk pr, customer c, spk s, factproduction f, rencanaproduksi r, user u, user k, kloter kl WHERE s.idSPK = kl.idSPK and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork != 'Done' ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1901,7 +1893,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getTrackProduksi($nomorFaktur) {
-        $sql   = "SELECT a.*, IFNULL(b.idWadahAsal,'-') as idWadahAsal FROM ( SELECT f.idProProd, f.idProProdAsal, f.idSubSPK, f.idWadah, a.namaAktivitas, f.beratAwal, f.beratTambahan, f.berat, f.jumlah, f.idPIC, f.jumlahNow, f.statusBerat, f.statusWork, u.nama, DATE_FORMAT( f.RealisasiStartDate, '%d %M %Y %T' ) AS sd, IFNULL( DATE_FORMAT( f.RealisasiEndDate, '%d %M %Y %T' ), '-' ) AS ed,DATE_FORMAT(f.RealisasiStartDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(f.RealisasiEndDate, '%Y-%m-%d') AS tglend FROM `factproduction2` f, USER u, aktivitas a, spkmasal s WHERE f.idpic = u.idUser AND f.idaktivitas = a.idAktivitas AND s.idSPK = f.idspk AND s.nomorFaktur = $nomorFaktur ORDER BY sd ) a LEFT JOIN ( SELECT idProProd, idWadah AS idWadahAsal FROM factproduction2 ) b ON a.idProProdAsal = b.idProProd";
+        $sql   = "SELECT a.*, IFNULL(b.idWadahAsal,'-') as idWadahAsal FROM ( SELECT f.idProProd, f.idProProdAsal, f.idSubSPK, f.idWadah, a.namaAktivitas, f.beratAwal, f.beratTambahan, f.berat, f.jumlah, f.idPIC, f.jumlahNow, f.statusBerat, f.statusWork, u.nama, DATE_FORMAT( f.RealisasiStartDate, '%d %M %Y %T' ) AS sd, IFNULL( DATE_FORMAT( f.RealisasiEndDate, '%d %M %Y %T' ), '-' ) AS ed,DATE_FORMAT(f.RealisasiStartDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(f.RealisasiEndDate, '%Y-%m-%d') AS tglend FROM `factproduction2` f, USER u, aktivitas a, spkmasal s WHERE f.idpic = u.idUser AND f.idaktivitas = a.idAktivitas AND s.idSPK = f.idspk AND s.nomorFaktur = $nomorFaktur ORDER BY f.idProProd ) a LEFT JOIN ( SELECT idProProd, idWadah AS idWadahAsal FROM factproduction2 ) b ON a.idProProdAsal = b.idProProd";
+        $query = $this->db->query($sql);
+        
+        return $query->result();   
+    }
+
+    public function getTrackProduksiTempahan($nomorFaktur) {
+        $sql   = "SELECT *, DATE_FORMAT( f.RealisasiStartDate, '%d %M %Y %T' ) AS sd, IFNULL( DATE_FORMAT( f.RealisasiEndDate, '%d %M %Y %T' ), '-' ) AS ed,DATE_FORMAT(f.RealisasiStartDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(f.RealisasiEndDate, '%Y-%m-%d') AS tglend FROM `factproduction` f, USER u, aktivitas2 a, spk s WHERE f.idpic = u.idUser AND f.idaktivitas = a.idAktivitas AND s.idSPK = f.idspk AND s.nomorFaktur = $nomorFaktur ORDER BY f.idProProd";
         $query = $this->db->query($sql);
         
         return $query->result();   

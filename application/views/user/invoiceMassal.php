@@ -389,7 +389,7 @@
                                                                                     </div>
                                                                                     <div class="form-group">
 
-                                                                                        <label class="col-sm-6 control-label">Tanggal Dimulai</label>
+                                                                                        <label class="col-sm-6 control-label">Tanggal Selesai</label>
 
                                                                                         <div class="col-sm-6">
                                                                                             <input value="<?php echo $tr[$i]->tglend ?>" type="date" name="tglend" required max=""  class="form-control">

@@ -59,15 +59,12 @@
     
     
     <div class="row">
-        <br>
-        <div class="col-lg-9">
-            <?php if ($po[$i]->statusWork == 'Belum ada PIC') { ?>
-            <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
-            <?php } else { ?>
-            <button class="btn btn-block btn-warning btn-xs">On Progress</button>
-            <?php } ?>
+
+        <div class="col-lg-3">
+            
+            <button data-toggle="modal" data-target="#detail<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
-        
+
         <div class="col-lg-3">
 
             <?php if($statr == 'success') {?>
@@ -75,42 +72,21 @@
             <?php } else { ?>
                 <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
             <?php } ?>
-            
-            
-            
-        </div>
 
-        <div class="col-lg-6">
-            <br>    
-            <button data-toggle="modal" data-target="#detail<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
-        </div>
-
-        <div class="col-lg-3">
-            <br>
-            <?php if($po[$i]->berat == '0') {?>
-                <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span>
-                </button>
-            <?php } else {?>
-                <?php if($po[$i]->statusBerat == 'Belum Disetujui') {?>
-
-                <button data-toggle="modal" data-target="#serah<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block"><span class="fa fa-check-square-o"></span></button>
-
-                <?php } else {?>
-                <button onclick="return confirm('Sudah disetujui')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span>
-                </button>
-            <?php }} ?>
         </div>
         
-        <div class="col-lg-3">
-            <br>
-            <?php if($po[$i]->statusBerat == 'Belum Disetujui') {?>
-            <button  disabled class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-left"></span>&nbsp&nbsp<span class="fa fa-arrow-right"></span></button>
-            <?php } else {?>
-            <a data-toggle="modal" data-target="#akt<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-left"></span>&nbsp&nbsp<span class="fa fa-arrow-right"></span></a>
-            <!-- <a href="<?php echo base_url('User/next/'.$po[$i]->idProduk.'/'.$idakt.'/'.$po[$i]->idProProd.'/'.$po[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $po[$i]->nomorFaktur ?>?')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a> -->
+        <div class="col-lg-6">
+            <?php if ($po[$i]->statusWork == 'Belum ada PIC') { ?>
+                <button data-toggle="modal" data-target="#pic<?php echo $po[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+            <?php } else if($po[$i]->statusWork == 'On Progress' AND $po[$i]->berat == 0 ) {  ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $po[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
+            <?php } else if($po[$i]->statusWork == 'On Progress' AND $po[$i]->berat > 0 AND $po[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
+                <button data-toggle="modal" data-target="#serah<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
+            <?php } else if($po[$i]->statusWork == 'On Progress' AND $po[$i]->statusBerat == 'Disetujui' ) { ?>                
+                <a  data-toggle="modal" data-target="#akt<?php echo $po[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
             <?php } ?>
         </div>
-        
+
     </div>
 
     <div class="modal inmodal fade" id="akt<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -221,7 +197,40 @@
         </div>
     </div>
 
-    
+    <div class="modal inmodal fade" id="berat<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <?php echo form_open('User/setBerat')?>
+                    
+                    <div class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
+
+                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $po[$i]->beratAwal?>" class="form-control"></div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
+
+                            <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
+                            <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $po[$i]->idProProd ?>"></div>
+                        </div>
+                    </div>
+                    
+                   <div class="row">
+                        <div class="col-lg-6">
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $po[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal inmodal fade" id="detail<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
@@ -385,60 +394,7 @@
                                 <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $po[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Update PIC</button>
                             <?php } ?>
 
-                            <div class="modal inmodal fade" id="pic<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <?php echo form_open('User/setPIC')?>
-                                            <div class="form-horizontal">
-                                                
-                                                <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
-
-                                                    <div class="col-sm-7">
-
-                                                        
-                                                        <?php 
-
-                                                        $js = array( 'class' => 'form-control' );
-                                                        echo form_dropdown('staf', $staf, $po[$i]->idPIC,$js);
-
-                                                        ?>
-                                                        
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                              
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" value="<?php echo $po[$i]->idProProd?>" name="idProProd">
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
-
-                                                    <div class="col-sm-7">
-                                                        <input type="number" step="any" name="beratTambahan" value="<?php echo $po[$i]->beratTambahan?>" required class="form-control">
-                                                        <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $po[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <button type="submit" class="btn btn-block btn-success">Simpan</button>
-                                                </div>
-                                            </div>
-                                            <?php echo form_close() ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="col-lg-3">
 
@@ -449,40 +405,7 @@
                                 <button disabled class="btn  btn-block ">Berat</button>
                             <?php } ?>
 
-                            <div class="modal inmodal fade" id="berat<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-
-                                            <?php echo form_open('User/setBerat')?>
-                                            
-                                            <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
-
-                                                    <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $po[$i]->beratAwal?>" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
-
-                                                    <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
-                                                    <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $po[$i]->idProProd ?>"></div>
-                                                </div>
-                                            </div>
-                                            
-                                           <div class="row">
-                                                <div class="col-lg-6">
-                                                    <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $po[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <button type="submit" class="btn btn-block btn-success">Simpan</button>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                         </div>
                         <div class="col-lg-6">
@@ -496,10 +419,66 @@
             </div>
         </div>
     </div>
+
+    <div class="modal inmodal fade" id="pic<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <?php echo form_open('User/setPIC')?>
+                    <?php echo form_close(); ?>
+                    <?php echo form_open('User/setPIC')?>
+                    <div class="form-horizontal">
+                        
+                        <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
+
+                            <div class="col-sm-7">
+
+                                
+                                <?php 
+
+                                $js = array( 'class' => 'form-control' );
+                                echo form_dropdown('staf', $staf, $po[$i]->idPIC,$js);
+
+                                ?>
+                                
+                            </div>
+                            <div class="col-sm-2">
+                      
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" value="<?php echo $po[$i]->idProProd?>" name="idProProd">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
+
+                                <div class="col-sm-7">
+                                    <input type="number" step="any" name="beratTambahan" value="<?php echo $po[$i]->beratTambahan?>" required class="form-control">
+                                    <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $po[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                        </div>
+                    </div>
+                    <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
     
     
 </li>
-
 
 
 

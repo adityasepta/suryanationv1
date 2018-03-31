@@ -739,6 +739,8 @@ class User extends CI_Controller {
         $data['cekjadwal'] = $this->mdl->cekjadwal();
         $data['jadwal'] = $this->mdl->getjadwal($nomorFaktur);
         $kloter = $this->mdl->getIdKloter($nomorFaktur);
+        $data['tr'] = $this->mdl->getTrackProduksiTempahan($nomorFaktur);
+        $data['staf'] = $this->mdl->getStaf();
         if ($kloter) {
             $data['stokbom'] = $this->mdl->getStokBOM2($kloter[0]->idKloter);
         }
@@ -5108,6 +5110,28 @@ class User extends CI_Controller {
 
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("User/invoiceSPKMassal/".$nomorFaktur) ."';</script>";
+    }
+
+    public function editProduksi2() {
+        $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
+        $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
+
+        $data = array(
+            'berat' => $this->input->post('berat'),
+            'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan'),
+            'idPIC' => $this->input->post('idPIC'),
+            'RealisasiStartDate' =>$tglmsk,
+            'RealisasiEndDate' =>$tglend
+        );
+
+        $idProProd = $this->input->post('idProProd');
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction',$data);
+        $message = "Berhasil Mengedit Informasi Produksi";
+
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("User/invoice/".$nomorFaktur) ."';</script>";
     }
 
     //Inventory
