@@ -302,8 +302,216 @@ class User extends CI_Controller {
 
     public function editPO($nomorPO) {
         $data['pegawai'] = $this->mdl->listPegawaiSales();
-        $data['dataPO'] = $this->mdl->findPO($nomorPO);
+        
         $this->load->view('user/editPurchaseOrder',$data);
+        $this->form_validation->set_message('is_unique','The %s is already taken');
+        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
+        $this->form_validation->set_rules('kodeProduk', 'Kode Produk' ,'is_unique[produk.kodeProduk]');
+
+        if ($this->form_validation->run() == FALSE){
+            $data['dataPO'] = $this->mdl->findPO($nomorPO);
+            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $this->load->view('user/createPurchaseOrder',$data);
+        }
+        else {
+
+            if(!$this->input->post('pekerjaanTambahan[]')) {
+                $pekerjaanTambahan = "Tidak Ada";
+            } else {
+                $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
+            }
+
+            $idC=$this->input->post('idCustomer');
+            if($idC==0){
+                //eksekusi query tabel Customer
+                $dataCustomer = array(
+                    'namaCustomer'        => $this->input->post('namaCustomer'),
+                    'nomorTelepon'        => $this->input->post('nomorTelepon'),
+                );
+
+                $idCustomer=$this->mdl->insertDataGetLast('customer',$dataCustomer);
+            } else {
+                $idCustomer=$idC;
+            }
+            
+            
+            if ($this->input->post('namaBatu')==NULL) {
+                $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO');
+            } else {
+                $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO').'-'.$this->input->post('namaBatu');
+            };
+
+            
+            if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
+                $ukuranJari=$this->input->post('ukuranJari');
+            } else if ($this->input->post('jenisProduk')=='Gelang') {
+                $ukuranJari=$this->input->post('diameter');
+            } else {
+                $ukuranJari=$this->input->post('ukuran');
+            };
+
+            $hargaBahan = $this->clean($this->input->post('hargaBahan'));
+            $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
+            $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
+            $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
+            $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
+            $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
+            $upah = $this->clean($this->input->post('upah'));
+            $budget = $this->clean($this->input->post('budget'));
+            $panjar = $this->clean($this->input->post('panjar'));
+            
+
+            $kodeProduk=$this->input->post('kodeProduk');
+            $kode = $this->generateRandomString();
+             
+            // print_r($dataProduk);exit();
+            if($_FILES['userfile']['name'] != NULL){
+                //form sumbit dengan gambar diisi
+                //load uploading file library
+
+                 
+                 $config['upload_path']     = './uploads/gambarProduk/'; 
+                 $config['allowed_types']   = 'jpg'; 
+                 $config['max_size']        = '2048';
+                 $config['file_name']       = $kode."-cust.jpg";
+                 $config['overwrite']        = TRUE;
+                
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                    if ( !$this->upload->do_upload()){
+                        $data['error'] = array(
+                            'error' => $this->upload->display_errors()
+                        );
+                        $message = "Gambar tidak mendukung";
+                        echo "<script type='text/javascript'>alert('$message');
+                        </script>";
+                        $idCustomer = $this->input->post('idCustomer');
+                        // print_r($idCustomer);exit();
+                        if ($idCustomer==0){
+                            $data['id'] = array(
+                                'idC' => 0,
+                            );
+                        } else {
+                            $data['customer'] = $this->mdl->cariCustomer($idCustomer);
+                            $data['id']= array(
+                                'idC' => 1,
+                            );
+                        }
+                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['poTerakhir'] = $this->mdl->poTerakhir();
+                        $this->load->view('user/createPurchaseOrder',$data);
+                    }
+                    else {
+                        $gambar = $this->upload->data();
+                        $dataProduk = array(
+                            'kodeProduk'        => $this->input->post('kodeProduk'),
+                            'namaProduk'        => $namaProduk,
+                            'jenisProduk'       => $this->input->post('jenisProduk'),
+                            'kategori'          => 'Tempahan',
+                            'statusKatalog'     => 'Tidak Tampil',
+                            'kodeGambar'        => $kode,
+                        );
+                        $idProduk=$this->mdl->insertDataGetLast('produk',$dataProduk);
+                        
+                    }
+            } else {
+                
+                $dataProduk = array(
+                    'kodeProduk'        => $this->input->post('kodeProduk'),
+                    'namaProduk'        => $namaProduk,
+                    'jenisProduk'       => $this->input->post('jenisProduk'),
+                    'kategori'          => 'Tempahan',
+                    'statusKatalog'     => 'Tidak Tampil',
+                    'kodeGambar'        => $kode,
+                );
+                $idProduk=$this->mdl->insertDataGetLast('produk',$dataProduk);
+
+            }
+
+            $harga=$this->input->post('harga');
+            $qty=$this->input->post('kuantitas');
+            $totalHarga=($qty*$harga)+$upah;
+            
+            //Query Tambah PO
+            $dataPO = array(
+                'nomorPO'           => $this->input->post('nomorPO'),
+                'idProduk'          => $idProduk,
+                'idCustomer'        => $idCustomer,
+                'idSalesPerson'     => $this->input->post('idSalesPerson'),
+                'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
+                'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
+                'hargaBahan'        => $hargaBahan,
+                'upah'              => $upah,
+                'datangEmas'        => $this->input->post('datangEmas'),
+                'hargaDatangEmas'   => $hargaDatangEmas,
+                'kuantitas'         => $this->input->post('kuantitas'),
+                'metode'            => $this->input->post('metode'),
+                'panjar'            => $panjar,
+                'totalHarga'        => $totalHarga,
+                'tipeOrder'         => 'custom',
+                'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
+                'budget'            => $budget,
+                'datangBerlian'     => $this->input->post('datangBerlian'),
+                'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
+                'upahPasangBerlian' => $upahPasangBerlian,
+                'tipeCustomer'      => $this->input->post('tipeCustomer'),
+                'pekerjaanTambahan' => $pekerjaanTambahan,
+                'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
+                'biayaTambahan'     => $this->input->post('biayaTambahan'),
+                'beratAkhir'        => $this->input->post('beratAkhir'),
+                'susut'             => $this->input->post('susut'),
+                'bahan'             => $this->input->post('bahan'),
+                'kadarBahan'        => $this->input->post('kadarBahan'),
+                'namaBatu'          => $this->input->post('namaBatu'),
+                'beratBatu'         => $this->input->post('beratBatu'),
+                'batuTerhadapGoresan' => $this->input->post('batuTerhadapGoresan'),
+                'batuTerhadapPukulan' => $this->input->post('batuTerhadapPukulan'),
+                'batuTerhadapKruman'  => $this->input->post('batuTerhadapKruman'),
+                'keadaanBatuTengah'   => $this->input->post('keadaanBatuTengah'),
+                'ukuranJari'        => $ukuranJari,
+                'berlian'           => $this->input->post('berlian'),
+                'krumWarna'         => $this->input->post('krumWarna'),
+                'tipeIkatan'        => $this->input->post('tipeIkatan'),
+                'model'             => $this->input->post('model'),
+                'beratBerlian'      => $this->input->post('beratBerlian'),
+                'hargaBerlian'      => $hargaBerlian,
+                'batuZirkon'        => $this->input->post('batuZirkon'),
+                'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
+                'hargaBatuZirkon'   => $hargaBatuZirkon,
+                'hargaKrumWarna'    => $hargaKrumWarna,
+                'keteranganKrum'    => $this->input->post('keteranganKrum'),
+            );
+            $this->mdl->tambahPO($dataPO);    
+             
+
+            //Query Tambah SPK
+            $sd='Proses Desain';
+            $sb='Belum Ada';
+            $sj='Belum Ada';
+            $sp='Belum Disetujui';
+            $iduser = ($this->session->userdata['logged_in']['iduser']);
+            $dataSPK = array(
+                'nomorFaktur'           => $this->input->post('nomorPO'),
+                'nomorPO'               => $this->input->post('nomorPO'),
+                'idProduk'              => $idProduk,
+                'idCustomer'            => $idCustomer,
+                'statusDesain'          => $sd,
+                'PICDesain'             => 'Belum Ada',
+                'statusBOM'             => $sb,
+                'PICBOM'                => $iduser,
+                'statusJadwal'          => $sj,
+                'PICJadwal'             => $iduser,
+                'statusPersetujuan'     => $sp,
+                'PICPersetujuan'        => $iduser,
+            );
+            $this->mdl->tambahSPK($dataSPK); 
+
+            $data['pegawai'] = $this->mdl->listPegawai();
+            $nomorPO=$this->input->post('nomorPO');
+            $data['dataPO'] = $this->mdl->findPO($nomorPO);
+            $this->load->view('user/invoicePO',$data); 
+
+        }
     }
 
     public function updatePO($idPO){
@@ -907,6 +1115,7 @@ class User extends CI_Controller {
 
     public function stokBarang() {
         $data['stokBarang']=$this->mdl->getStokProduk();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $this->load->view('user/stokBarang',$data);
     }
 
@@ -1008,7 +1217,7 @@ class User extends CI_Controller {
                 } 
    
             } else {
-                print_r($a.'&'.$b);exit();
+
                 //form submit dengan gambar dikosongkan
                 $hargaProduk = $this->clean($this->input->post('hargaJual'));
                 $hargaModal = $this->clean($this->input->post('hargaModal'));
@@ -1038,68 +1247,113 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('kodeProduk','Kode Produk', 'required');
         
         if ($this->form_validation->run() == FALSE){
-            $data['produk'] = $this->mdl->findKatalog($id);
+            $data['produk'] = $this->mdl->findProdukId($id);
             //print_r($data['bom']);
             $this->load->view('user/editProduk',$data);
         }
         else {
-            $produk=$this->mdl->findKatalog($id);
-            $kode=$produk[0]->gambarProduk;
-            if (isset($_FILES['userfile']['name'])&&!empty($_FILES['userfile']['name'])) {
+            // print_r($_FILES['userfile']);
+             // print_r($this->input->post());exit();
+            $kode = $this->input->post('kodeGambar');
+            if (array_sum($_FILES['userfile']['error']) < 16) {
                 //form sumbit dengan gambar diisi
                 //load uploading file library
-                 $config['upload_path']   = './uploads/gambarProduk/'; 
-                 $config['allowed_types'] = 'jpg'; 
-                 $config['max_size']    = '2048';
-                 $config['file_name']   = $kode.'-cust.jpg';
-                 $config['overwrite']   = TRUE;
-                
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+
+                $b=0;
+                for ($i=0; $i < 4; $i++) { 
+                    if ($_FILES['userfile']['name'][$i]!=NULL) {
+                        $b++;
+                    }
+                }
+
+                $a=0;
+                $files = $_FILES;
+                $this->load->library('upload');
+                $dataInfo = array();
+                for($i=0; $i<4; $i++) {      
+
+                    $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+                    $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+                    $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+                    $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+                    $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+
+                    $config['upload_path']     = './uploads/gambarProduk/'; 
+                    $config['allowed_types']   = 'jpg|jpeg|png|bmp'; 
+                    $config['max_size']        = '2048';
+                    $config['file_name']       = $kode.($i+1).'.jpg';
+                    $config['overwrite']        = TRUE;
+
+                    $this->upload->initialize($config);
+
                     if (!$this->upload->do_upload()){
                         $error = array('error' => $this->upload->display_errors());
-                        var_dump($error);
+
+                        ${"file" . $i}=NULL;
                     }
                     else {
                         $gambar = $this->upload->data();
-                        $hargaProduk = $this->clean($this->input->post('hargaProduk'));
-                        $hargaModal = $this->clean($this->input->post('hargaModal'));
-                        $dataProduk = array(
-                                'kodeProduk'    => $this->input->post('kodeProduk'),
-                                'namaProduk'   => $this->input->post('namaProduk'),
-                                'jenisProduk'   => $this->input->post('jenisProduk'),
-                                'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
-                                'gambarProduk'        => $kode,
-                                'hargaProduk'         => $hargaProduk,
-                                'hargaModal'         => $hargaModal,
-                                'stok'              => $this->input->post('stok'),
-                        );
-                        //print_r($dataProduk);exit();
-                        $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
-                        $message = "Produk berhasil diedit";
-                        echo "<script type='text/javascript'>alert('$message');
-                        window.location.href='".base_url("user/produk")."';</script>";
-                        }
-                    }
-            else {
+                        $a++;
+                        ${"file" . $i}=$gambar['file_name'];
+                    };
+                }
+
+                if($a==$b) {
+
+                    $hargaProduk = $this->clean($this->input->post('hargaJual'));
+                    $hargaModal = $this->clean($this->input->post('hargaModal'));
+                    $dataProduk = array(
+                        'kodeProduk'        => $this->input->post('kodeProduk'),
+                        'namaProduk'        => $this->input->post('namaProduk'),
+                        'jenisProduk'       => $this->input->post('jenisProduk'),
+                        'deskripsi'         => $this->input->post('deskripsi'),
+                        'satuan'            => $this->input->post('satuan'),
+                        'kodeGambar'        => $kode,
+                        'hargaJual'         => $hargaProduk,
+                        'hargaModal'        => $hargaModal,
+                        'kategori'          => $this->input->post('kategori'),
+                        'statusKatalog'     => $this->input->post('statusKatalog'),
+                        'gambar1'           => $file0,
+                        'gambar2'           => $file1,
+                        'gambar3'           => $file2,
+                        'gambar4'           => $file3,
+                        'stok'              => $this->input->post('stok'),
+                    );
+
+                    $this->mdl->updateData("idProduk",$id,"produk",$dataProduk);
+                    $message = "Produk berhasil diperbaharui";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/produk")."';</script>";
+                } else {
+
+                    $message = "Terdapat foto produk tidak sesuai";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                    $this->load->view('user/createProduk');
+                } 
+   
+            } else {
+
                 //form submit dengan gambar dikosongkan
-                $hargaProduk = $this->clean($this->input->post('hargaProduk'));
+                $hargaProduk = $this->clean($this->input->post('hargaJual'));
                 $hargaModal = $this->clean($this->input->post('hargaModal'));
-               $dataProduk = array(
-                                'kodeProduk'    => $this->input->post('kodeProduk'),
-                                'namaProduk'   => $this->input->post('namaProduk'),
-                                'jenisProduk'   => $this->input->post('jenisProduk'),
-                                'deskripsiProduk'   => $this->input->post('deskripsiProduk'),
-                                'gambarProduk'        => $kode,
-                                'hargaProduk'         => $hargaProduk,
-                                'hargaModal'         => $hargaModal,
-                                'stok'              => $this->input->post('stok'),
-                        );
-                        //print_r($dataProduk);exit();
-                        $this->mdl->updateData("idKatalog",$id,"katalog",$dataProduk);
-                        $message = "Produk berhasil diedit";
-                        echo "<script type='text/javascript'>alert('$message');
-                        window.location.href='".base_url("user/produk")."';</script>";
+                $dataProduk = array(
+                    'kodeProduk'        => $this->input->post('kodeProduk'),
+                    'namaProduk'        => $this->input->post('namaProduk'),
+                    'jenisProduk'       => $this->input->post('jenisProduk'),
+                    'deskripsi'         => $this->input->post('deskripsi'),
+                    'satuan'            => $this->input->post('satuan'),
+                    'kodeGambar'        => $kode,
+                    'hargajual'         => $hargaProduk,
+                    'hargaModal'        => $hargaModal,
+                    'kategori'          => $this->input->post('kategori'),
+                    'statusKatalog'     => $this->input->post('statusKatalog'),
+                    'stok'              => $this->input->post('stok'),
+                );
+                //print_r($dataProduk);exit();
+                $this->mdl->updateData("idProduk",$id,"produk",$dataProduk);
+                $message = "Produk berhasil diperbaharui";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href='".base_url("user/produk")."';</script>";
             }
         }
     }
@@ -1422,7 +1676,39 @@ class User extends CI_Controller {
         redirect('user/produk');
     }
 
-   public function createInventory() {
+    public function tambahPergerakan() {
+        $tipePergerakan=$this->input->post('tipePergerakan');
+        $jenisProduksi=$this->input->post('jenisProduksi');
+
+        if ($tipePergerakan=='Beli Material' || $tipePergerakan=='Transfer Material') {
+            $data['materialDasar']=$this->mdl->getMaterial();
+            $data['produk']=$this->mdl->getMovement();
+            $data['produkJadi']=$this->mdl->getProduk();
+        } else if ($tipePergerakan=='Produk Jadi' || $tipePergerakan=='Transaksi') {
+            $data['produkJadi']=$this->mdl->getProduk();
+        } else if ($tipePergerakan=='Balik Abu' || $tipePergerakan=='Balik Bahan') {
+            $idUser=$this->input->post('idUser');
+
+            if ($jenisProduksi=="tempahan") {
+                $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
+            }
+            $data['user'] = $this->mdl->findPegawai($idUser);
+        } else {
+            $data['materialDasar']=$this->mdl->getMaterial();
+            $data['produk']=$this->mdl->getMovement();
+            $data['produkJadi']=$this->mdl->getProduk();
+        }
+
+        $data['pegawai'] = $this->mdl->listPegawai();
+        $data['pergerakan'] = array(
+            'tipePergerakan'    => $tipePergerakan,
+            'jenisProduksi'          => $jenisProduksi
+        );
+
+        $this->load->view('user/createInventory',$data);
+    }
+
+    public function createInventory() {
         $this->form_validation->set_rules('kodeBarang','Kode Barang', 'required');
         
         if ($this->form_validation->run() == FALSE){
@@ -1434,11 +1720,13 @@ class User extends CI_Controller {
         else {
                 $hargaBeli = $this->clean($this->input->post('hargaBeli'));
                 $dataInventory = array(
-                                'tipeBarang'   => $this->input->post('tipeBarang'),
-                                'kodeBarang'    => $this->input->post('kodeBarang'),
-                                'jumlah'        => $this->input->post('jumlah'),
-                                'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
-                                'hargaBeli'  => $hargaBeli
+                            'idPIC'         => $this->input->post('idUser'),
+                            'tipeBarang'    => $this->input->post('tipeBarang'),
+                            'tipePergerakan'=> $this->input->post('tipePergerakan'),
+                            'kodeBarang'    => $this->input->post('kodeBarang'),
+                            'jumlah'        => $this->input->post('jumlah'),
+                            'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
+                            'hargaBeli'     => $hargaBeli
                         );
                //print_r($dataInventory);exit();
                if ($this->input->post('tipeBarang')=='Produk Jadi') {
@@ -1467,6 +1755,43 @@ class User extends CI_Controller {
                     $this->mdl->insertInventory($dataInventory);
                     $this->mdl->updateStokProduk2($this->input->post('kodeBarang'),$stokBarangTerbaru);
                }
+                
+                redirect('user/stokBarang');   
+        }
+    }
+
+    public function createInventoryTransfer() {
+        $this->form_validation->set_rules('kodeBarang','Kode Barang', 'required');
+        
+        if ($this->form_validation->run() == FALSE){
+            $data['produk']=$this->mdl->getMovement();
+            $data['produkJadi']=$this->mdl->getProduk();
+            $data['materialDasar']=$this->mdl->getMaterial();
+            $this->load->view('user/createInventory',$data);
+        }
+        else {
+            $dataInventory = array(
+                'idPIC'         => $this->input->post('idUser'),
+                'tipeBarang'    => 'Material Dasar',
+                'tipePergerakan'=> $this->input->post('tipePergerakan'),
+                'kodeBarang'    => $this->input->post('kodeBarang'),
+                'jumlah'        => $this->input->post('jumlah'),
+                'jenisPergerakanBarang'  => 'OUT',
+                'hargaBeli'     => 0,
+            );
+            $this->mdl->insertData('stokbarang',$dataInventory);
+
+            $dataInventory = array(
+                'idPIC'         => $this->input->post('idPIC'),
+                'tipeBarang'    => 'Material Dasar',
+                'tipePergerakan'=> $this->input->post('tipePergerakan'),
+                'kodeBarang'    => $this->input->post('kodeBarang'),
+                'jumlah'        => $this->input->post('jumlah'),
+                'jenisPergerakanBarang'  => 'IN',
+                'hargaBeli'     => 0,
+            );
+            $this->mdl->insertData('stokbarang',$dataInventory);
+
                 
                 redirect('user/stokBarang');   
         }
@@ -1739,7 +2064,7 @@ class User extends CI_Controller {
     }
 
     public function hapusPO($nomorPO){
-        $this->mdl->hapusPO($nomorPO);
+        $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         redirect('user/purchaseOrder');
     }
 
@@ -2636,9 +2961,20 @@ class User extends CI_Controller {
                 $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
             }
 
+            $dataInventory = array(
+                'idPIC'         => 9,
+                'tipeBarang'    => 'Material Dasar',
+                'tipePergerakan'=> $this->input->post('tipePergerakan'),
+                'kodeBarang'    => $this->input->post('kodeBarang'),
+                'jumlah'        => $this->input->post('jumlah'),
+                'jenisPergerakanBarang'  => 'IN',
+                'hargaBeli'     => 0,
+            );
+            $this->mdl->insertData("stokbarang",$dataInventory);
+
             $message = "Rekap Produksi Telah Berhasil di Simpan";
             echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/rekapProduksi")."';</script>";
+            window.location.href='".base_url("user/stokbarang")."';</script>";
         }
     }
 
@@ -4769,6 +5105,7 @@ class User extends CI_Controller {
     //Inventory
     public function rekapBeratMassal() {
         $data['b'] = $this->mdl->getBeratMassal();
+        $data['c'] = $this->mdl->getBeratMassal2();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPKMassal();    
         $data['rekapBerat']=$this->mdl->rekapBeratMassal();

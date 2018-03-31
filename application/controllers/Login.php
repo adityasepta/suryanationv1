@@ -39,6 +39,7 @@ class Login extends CI_Controller {
                 'nama' => $status[0]->nama,
                 'level' => $status[0]->level,
                 'iduser' => $status[0]->idUser,
+                'jabatan' => $status[0]->jabatan,
             );
 
             $this->session->set_userdata('logged_in', $session_data);

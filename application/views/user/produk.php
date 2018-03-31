@@ -121,7 +121,7 @@
                                     <td class="text-right"><!-- Button trigger modal -->
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idProduk?>">Lihat</button>
-                                            <!-- <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default">Edit</a> -->
+                                            <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default">Edit</a>
                                             <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a>
                                         </div>
                                     </td>

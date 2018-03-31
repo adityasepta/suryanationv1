@@ -452,6 +452,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function findProdukId($idProduk){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE idProduk = '$idProduk' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
 
 
     public function tambahProduk($dataProduk){
@@ -724,7 +734,7 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT idStok,tipeBarang,kodeBarang as kodeProduk,namaProduk,jumlah,jenisPergerakanBarang,hargaBeli,tanggal from stokbarang a JOIN (SELECT idProduk,kodeProduk,namaProduk,stok from produk UNION SELECT idMaterial,kodeMaterial,namaMaterial,stokMaterial FROM materialdasar order by namaProduk) b on a.kodeBarang=b.kodeProduk order by tanggal DESC";
+        $sql    = "SELECT idStok,tipeBarang,kodeBarang as kodeProduk,namaProduk,jumlah,jenisPergerakanBarang,hargaBeli,tanggal,c.nama from stokbarang a JOIN (SELECT idProduk,kodeProduk,namaProduk,stok from produk UNION SELECT idMaterial,kodeMaterial,namaMaterial,stokMaterial FROM materialdasar order by namaProduk) b on a.kodeBarang=b.kodeProduk LEFT JOIN user c ON a.idPIC=c.idUser order by tanggal DESC";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1977,7 +1987,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getBeratMassal() {
 
-        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
+        $sql   = "SELECT f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali  FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas ORDER BY idSPK,idAktivitas";
+        $query = $this->db->query($sql);
+        
+        /*SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas*/
+        return $query->result();
+    }
+
+    public function getBeratMassal2() {
+
+        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idSubSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
         /*SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas*/

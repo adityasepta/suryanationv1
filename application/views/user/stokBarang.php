@@ -69,7 +69,7 @@
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH STOK BARANG</strong></span></i>
                                 </a> -->
                                 <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal">
-                                    <i class="fa fa-pencil"></i><strong> TAMBAH PERGERAKAN</strong>
+                                    <i class="fa fa-pencil"></i><strong> TAMBAH PERGERAKAN BARANG</strong>
                                 </a>
                             </div>
                         </div>
@@ -82,6 +82,7 @@
                                 <thead>
                                 <tr>
                                     <th>Tanggal</th>
+                                    <th>PIC</th>
                                     <th>Tipe Barang</th>
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
@@ -97,6 +98,7 @@
                                         <?php $tglmsk = new DateTime($p->tanggal);
                                         $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
                                         <td><?php echo $tglmsk?></td>
+                                        <td><?php echo $p->nama?></td>
                                         <td><?php echo $p->tipeBarang?></td>
                                         <td><?php echo $p->kodeProduk?></td>
                                         <td><?php echo $p->namaProduk?></td>
@@ -119,57 +121,72 @@
                             </table>
                             <!-- Modal -->
                             <div class="modal inmodal fade" id="modal" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
+                                <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h3 class="modal-title">Jenis Produksi</h3>
+                                            <h3 class="modal-title">Tipe Pergerakan Barang</h3>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <?php echo form_open_multipart('user/tambahRekapProduksi','class="form-horizontal"')?>
-                                                    <h3 class="m-t-none m-b">Pilih Jenis Produksi</h3>
-                                                    <select id="jenisProduksi" class="form-control"  name="jenisProduksi">
-                                                        <option value="tempahan">Tempahan</option>
-                                                        <option value="massal">Massal</option>
-                                                        <option value="perak">Perak</option>
+                                                    <?php echo form_open_multipart('user/tambahPergerakan','class="form-horizontal"')?>
+                                                    <h3 class="m-t-none m-b">Pilih Tipe Pergerakan</h3>
+                                                    <select id="tipePergerakan" class="form-control"  name="tipePergerakan">
+                                                        <option value="Beli Material">Beli Material</option>
+                                                        <option value="Transfer Material">Transfer Material</option>
+                                                        <option value="Balik Bahan">Balik Bahan</option>
+                                                        <option value="Balik Abu">Balik Abu</option>
+                                                        <option value="Produk Jadi">Produk Jadi</option>
+                                                        <option value="Transaksi">Transaksi</option>
+                                                        <option value="Stok Opname">Stok Opname</option>
                                                     </select>
-                                                    <hr>
-                                                    <h3 class="m-t-none m-b">Pilih Pegawai</h3>
-                                                    <div id="idUser" class="selectpicker" data-live="true">
-                                                        <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
-                                                            <span class="placeholder">Pilih Pegawai</span>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
-                                                                <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
-                                                                <div class="search-box">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-addon" id="search-icon3">
-                                                                            <span class="fa fa-search"></span>
-                                                                            <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
-                                                                        </span>
-                                                                        <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
+                                                    
+                                                    <div id="jenisProduksi" style="display: none;">
+                                                        <hr>
+                                                        <h3 class="m-t-none m-b">Pilih Jenis Produksi</h3>
+                                                        <select id="jenisProduksi" class="form-control"  name="jenisProduksi">
+                                                            <option value="tempahan">Tempahan</option>
+                                                            <option value="massal">Massal</option>
+                                                            <option value="perak">Perak</option>
+                                                        </select>
+                                                        <br>
+                                                        <h3 class="m-t-none m-b">Pilih Pegawai</h3>
+                                                        <div id="idUser" class="selectpicker" data-live="true">
+                                                            <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
+                                                                <span class="placeholder">Pilih Pegawai</span>
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
+                                                                    <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
+                                                                    <div class="search-box">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon" id="search-icon3">
+                                                                                <span class="fa fa-search"></span>
+                                                                                <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
+                                                                            </span>
+                                                                            <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="list-to-filter">
-                                                                    <ul class="list-unstyled">
-                                                                        <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
-                                                                            <?php if ($pegawai[$i]->idUser!=0) {?>
-                                                                            <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
+                                                                    <div class="list-to-filter">
+                                                                        <ul class="list-unstyled">
+                                                                            <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
+                                                                                <?php if ($pegawai[$i]->idUser!=0) {?>
+                                                                                <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
+                                                                                <?php } ?>
                                                                             <?php } ?>
-                                                                        <?php } ?>
-                                                                    </ul>
-                                                                    <div class="no-search-results">
-                                                                        <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
+                                                                        </ul>
+                                                                        <div class="no-search-results">
+                                                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" name="idUser" value="0" required="">
                                                         </div>
-                                                        <input type="hidden" name="idUser" value="0" required="">
                                                     </div>
+                                                    
                                                     <div class="col-md-12">
                                                         <div class="hr-line-dashed"></div>
                                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
@@ -208,6 +225,10 @@
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
+    <script src="<?php echo base_url();?>assets/js/tabcomplete.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/livefilter.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap-select.js"></script>
+
     <!-- FooTable -->
     <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
     <!-- Page-Level Scripts -->
@@ -219,6 +240,17 @@
 
         });
 
+    </script>
+    <script type="text/javascript">
+        $('#tipePergerakan').change(function(){
+
+            if ($(this).val() == "Balik Bahan" || $(this).val() == "Balik Abu"){
+                document.getElementById('jenisProduksi').style.display = 'block';
+            } else {
+                document.getElementById('jenisProduksi').style.display = 'none';
+            }
+        });
+        
     </script>
 </body>
 
