@@ -347,52 +347,10 @@
 
                     var beratBersih = n1-n2-n3;
                     
-                    if (jenisEmas==='Emas Kuning 65%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 63%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 60%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 59.5%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 48%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 40%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 38%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else {
-                        document.getElementById('result').value = "Pilih Material Untuk Massal";
-                        document.getElementById("myBtn").disabled = true;
-                    }      
+                    var bahanDasar = beratBersih*n5;
+                    var bahanPengurang = bahanDasar*n4/100;
+                    document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
+                    document.getElementById("myBtn").disabled = false;
                 }
         </script>
         <script type="text/javascript">
