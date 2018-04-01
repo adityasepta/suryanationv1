@@ -174,7 +174,7 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
+                                        <a href="<?php echo base_url()?>user/listPOService"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

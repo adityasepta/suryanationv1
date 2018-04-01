@@ -187,7 +187,7 @@
                                                 <div class="col-md-12">
                                                         <div class="form-group">
                                                             <div class="input_fields_wrap" >
-                                                                <button class="btn btn-success add_field_button" style="margin-bottom: 5px;">Tambah Material</button>
+                                                                <button class="btn btn-success add_field_button" style="margin-bottom: 5px;">Tambah Barang</button>
                                                                 
                                                             </div>
                                                         </div>
@@ -196,7 +196,7 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
+                                        <a href="<?php echo base_url()?>user/listPOService"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
