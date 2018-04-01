@@ -258,7 +258,7 @@ class mdl extends CI_Model {
 
     public function listPegawai(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user");
+        $hasil = $this->db->query("SELECT * FROM user WHERE idUser != 0");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
