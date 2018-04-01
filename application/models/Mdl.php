@@ -865,7 +865,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function stokEmas() {
-        $sql="SELECT 'EMAS' as material,SUM(stokMaterial) as jumlah,satuan FROM `materialdasar` where namaMaterial = 'Emas Murni'";
+        $sql="SELECT 'EMAS' as material,SUM(stokMaterial) as jumlah,satuan FROM `materialdasar` WHERE kategori= 'Emas'";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
