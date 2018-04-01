@@ -70,7 +70,7 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title text-center">
                             <h5>Stok Emas Murni</h5>
@@ -81,10 +81,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title text-center">
-                            <h5>Total Berat yang Hilang</h5>
+                            <h5>Total Berat Tempahan yang Hilang</h5>
                         </div>
                         <div class="ibox-content text-center">
                             <h1 style="font-size: 40px; color: #00000""><strong><?php echo $jumlahHilang;?></strong></h1>
@@ -94,7 +94,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title text-center">
+                            <h5>Total Berat Massal yang Hilang</h5>
+                        </div>
+                        <div class="ibox-content text-center">
+                            <h1 style="font-size: 40px; color: #00000""><strong><?php echo $jumlahHilangMassal;?></strong></h1>
+                            <medium>Gram</medium>
+                            <br><br>
+                            <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#detailBeratHilangMassal">Lihat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title text-center">
                             <h5>Jenis Produk Jadi</h5>
@@ -105,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title text-center">
                             <h5>Barang Masuk</h5>
@@ -116,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title text-center">
                             <h5>Barang Keluar</h5>
@@ -217,12 +232,12 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal inmodal fade" id="detailBeratHilang" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal inmodal fade" id="detailBeratHilangMassal" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title">Detail Berat Hilang</h3><br>
+                        <h3 class="modal-title">Detail Berat Tempahan Hilang</h3><br>
                         <br>
                     </div>
                     <div class="modal-body">
@@ -245,39 +260,114 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Cor</td>
-                                                        <td class="text-center"><?php echo $berat3.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal6.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Gosok Pentol</td>
-                                                        <td class="text-center"><?php echo $berat4.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal7.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Gosok</td>
-                                                        <td class="text-center"><?php echo $berat5.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal8.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Boom</td>
-                                                        <td class="text-center"><?php echo $berat6.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal9.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Pasang CZ</td>
-                                                        <td class="text-center"><?php echo $berat7.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal10.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Polish</td>
-                                                        <td class="text-center"><?php echo $berat8.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal11.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Sleb</td>
-                                                        <td class="text-center"><?php echo $berat9.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal12.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Krum</td>
-                                                        <td class="text-center"><?php echo $berat10.' gram';?></td>      
+                                                        <td class="text-center"><?php echo $beratMassal13.' gram';?></td>      
                                                     </tr>
                                                     <tr>
                                                         <td class="text-center">Aktivitas Selesai</td>
+                                                        <td class="text-center"><?php echo $beratMassal14.' gram';?></td>     
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal inmodal fade" id="detailBeratHilang" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title">Detail Berat Massal Hilang</h3><br>
+                        <br>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1">Detail Berat Hilang</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Keterangan</th>
+                                                        <th class="text-center">Kehilangan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Cor</td>
+                                                        <td class="text-center"><?php echo $berat6.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Gosok</td>
+                                                        <td class="text-center"><?php echo $berat7.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Boom</td>
+                                                        <td class="text-center"><?php echo $berat8.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Pasang CZ</td>
+                                                        <td class="text-center"><?php echo $berat9.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Polish</td>
+                                                        <td class="text-center"><?php echo $berat10.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Sleb</td>
                                                         <td class="text-center"><?php echo $berat11.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Krum</td>
+                                                        <td class="text-center"><?php echo $berat12.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Pasang Batu Tengah</td>
+                                                        <td class="text-center"><?php echo $berat13.' gram';?></td>      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Aktivitas Selesai</td>
+                                                        <td class="text-center"><?php echo $berat14.' gram';?></td>     
                                                     </tr>
                                                 </tbody>
                                             </table>
