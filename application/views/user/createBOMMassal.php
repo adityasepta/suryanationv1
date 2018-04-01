@@ -41,16 +41,7 @@
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
+         
 
         </nav>
         </div>
@@ -86,10 +77,18 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-2">
                                                 <label>Sub SPK</label>
                                                 <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $idSubSPK?>" readonly> 
                                                 <input type="hidden" name="idSubSPK" value="<?php echo $idSubSPK?>">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Nomor Faktur</label>
+                                                <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $subSPK[0]->nomorFaktur ?>" readonly> 
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Nomor PO</label>
+                                                <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $subSPK[0]->nomorPO ?>" readonly> 
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +97,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <label>Nama Material</label>
                                                 <select class="form-control" id="kode" onchange="calc();" name="kodeMaterial">
                                                 <?php
@@ -129,19 +128,30 @@
                                                 <input type="number" step="any" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
                                             </div>
                                             <div class="col-md-2">
+                                                <br>
                                                 <label>Bahan Penentu</label>
                                                 <input type="number" step="any" name= "bahanPenentu" id="n5" onchange="calc();" value='0' class="form-control" required>
                                             </div>
+                                            <div class="col-md-3">
+                                                <br>
+                                                <label>Jumlah Bahan Butuh</label>
+                                                <input type="text" name= "bahanButuh" id="result" class="form-control" readonly="true">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <br>
+                                                <?php if(count($emas)>0) { ?>
+                                                <h4 class="text-muted">*Terdapat datang emas sebesar <b><?php echo $emas[0]->jumlah ?> gr</b> - (<?php echo $emas[0]->namaMaterial ?>)</h4>
+
+                                                <?php } ?>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12 row">
-                                            <div class="col-md-3">
-                                                <label>Jumlah Bahan Butuh</label>
-                                                <input type="text" name= "bahanButuh" id="result" class="form-control" readonly="true">
-                                            </div>
-                                        </div>
+                                    <div class="row">
+
+                                    </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
@@ -151,6 +161,7 @@
                                         
                                     </div>
                                     <div class="col-sm-4 text-muted-right">
+                                        <a href="<?php echo base_url('user/invoiceSPKMassal/'.$subSPK[0]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                                         <input type="button" class="btn btn-info" value="Isi Kembali" onClick="window.location.reload()">
                                         <a class="btn btn-success " href="<?php echo base_url('user/kanbanmassal')?>">Kanban</a>
                                         

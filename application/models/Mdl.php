@@ -654,7 +654,7 @@ class mdl extends CI_Model {
     }
 
     public function getMaterial() {
-        $sql    = "SELECT * from materialdasar";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where asal = 'Datang Emas' and stokMaterial > 0";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2070,13 +2070,24 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findSubSPK($idSubSPK){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM subspk WHERE idSubSPK = '$idSubSPK' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM subspk a, spkmasal b, pomasal c WHERE b.nomorPO = c.nomorPO and idSubSPK = '$idSubSPK' and a.idSPK = b.idSPK LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
     }
+
+    public function cekDatangEmas($idSubSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM subspk a, spkmasal b, pomasal c, stokbarang d, materialdasar e WHERE c.idStokBarang = d.idStok and d.kodeBarang = e.kodeMaterial and b.nomorPO = c.nomorPO and idSubSPK = '$idSubSPK' and a.idSPK = b.idSPK LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
 
     public function findKatalog($idKatalog){
         //Query mencari record berdasarkan ID
