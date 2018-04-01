@@ -91,6 +91,14 @@ class mdl extends CI_Model {
         return $query->result();
     }
 
+    public function getStokPerId($idUser) {
+
+        $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = 19 and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = 19 and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'IN'),0)) AS tot";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getJadi() {
 
         $sql   = "SELECT * FROM (SELECT idSPK, DATE_FORMAT(max(RealisasiEndDate), '%d %M %Y') as tgljadi FROM `factproduction` where statusPengambilan = 'Belum' and statusSPK = 'Done' GROUP by idSPK) a, spk b, customer c, produk d where a.idSPK = b.idSPK and b.idCustomer = c.idCustomer and b.idProduk = d.idProduk order by tgljadi";

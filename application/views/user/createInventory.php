@@ -100,6 +100,12 @@
         </div>
         
         <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="ibox-content">
+                    <h2>Stok Emas yang anda bawa <?php echo $stok[0]->tot ?> Gram</h2>
+                </div>
+            </div>
+
             <!-- Stok Opname -->
             <div class="row" id="opname" style="display: none;">
                 <div class="col-lg-12">
@@ -134,9 +140,16 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                                <input type="number" step="any" max="<?php $stok[0]->tot ?>" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Tipe Barang</label>
+                                                <select class="form-control" name="satuan">
+                                                    <option value="gr">Gram</option>
+                                                    <option value="cr">Carat</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Jenis Pergerakan Barang</label>
@@ -229,9 +242,16 @@
                                                     <?php } ?> 
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label>Jumlah</label>
                                                 <input type="number" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Tipe Barang</label>
+                                                <select class="form-control" name="satuan">
+                                                    <option value="gr">Gram</option>
+                                                    <option value="cr">Carat</option>
+                                                </select>
                                             </div>
                                             
                                         </div>
@@ -336,7 +356,7 @@
                                 <input type="hidden" name="jenisProduksi" value="<?php echo  $pergerakan['jenisProduksi'];?>" class="form-control">
                                 <div class="form-group"><label class="col-sm-2 control-label">Nama Barang</label>
                                     <div class="col-sm-4">
-                                        <select class="form-control" id="slct2" name="kodeBarang">
+                                        <select class="form-control" name="kodeBarang">
                                             <?php for ($i=0; $i < count($materialDasar) ; $i++) { ?> 
                                                 <option value="<?php echo $materialDasar[$i]->kodeMaterial ?>"><?php echo $materialDasar[$i]->namaMaterial ?></option>
                                             <?php } ?> 
@@ -399,9 +419,16 @@
                                                     <?php } ?> 
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label>Jumlah</label>
                                                 <input type="number" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Tipe Barang</label>
+                                                <select class="form-control" name="satuan">
+                                                    <option value="gr">Gram</option>
+                                                    <option value="cr">Carat</option>
+                                                </select>
                                             </div>
                                             
                                         </div>
@@ -411,43 +438,11 @@
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Pilih Pengirim</label>
-                                                <div id="idUser" class="selectpicker" data-live="true">
-                                                    <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
-                                                        <span class="placeholder">Pilih Pegawai</span>
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
-                                                            <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
-                                                            <div class="search-box">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="search-icon3">
-                                                                        <span class="fa fa-search"></span>
-                                                                        <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
-                                                                    </span>
-                                                                    <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="list-to-filter">
-                                                                <ul class="list-unstyled">
-                                                                    <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
-                                                                        <?php if ($pegawai[$i]->idUser!=0) {?>
-                                                                        <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                </ul>
-                                                                <div class="no-search-results">
-                                                                    <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <input type="hidden" name="idUser" value="0" required="">
-                                                </div>
+                                                <label>Pengirim</label>
+                                                <h3><?php echo $this->session->userdata['logged_in']['nama']?> </h3>
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Pilih PIC</label>
+                                                <label>Pilih Penerima</label>
                                                 <div id="idPIC" class="selectpicker" data-live="true">
                                                     <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
                                                         <span class="placeholder">Pilih Pegawai</span>

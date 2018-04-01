@@ -1504,7 +1504,8 @@ class User extends CI_Controller {
             $data['produk']=$this->mdl->getMovement();
             $data['produkJadi']=$this->mdl->getProduk();
         }
-
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $data['stok'] = $this->mdl->getStokPerId($idUser);
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['pergerakan'] = array(
             'tipePergerakan'    => $tipePergerakan,
@@ -1531,6 +1532,7 @@ class User extends CI_Controller {
                             'tipePergerakan'=> $this->input->post('tipePergerakan'),
                             'kodeBarang'    => $this->input->post('kodeBarang'),
                             'jumlah'        => $this->input->post('jumlah'),
+                            'satuan'        => $this->input->post('satuan'),
                             'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
                             'hargaBeli'     => $hargaBeli
                         );
@@ -1577,11 +1579,12 @@ class User extends CI_Controller {
         }
         else {
             $dataInventory = array(
-                'idPIC'         => $this->input->post('idUser'),
+                'idPIC'         => $this->session->userdata['logged_in']['iduser'],
                 'tipeBarang'    => 'Material Dasar',
                 'tipePergerakan'=> $this->input->post('tipePergerakan'),
                 'kodeBarang'    => $this->input->post('kodeBarang'),
                 'jumlah'        => $this->input->post('jumlah'),
+                'satuan'        => $this->input->post('satuan'),
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
             );
@@ -1593,6 +1596,7 @@ class User extends CI_Controller {
                 'tipePergerakan'=> $this->input->post('tipePergerakan'),
                 'kodeBarang'    => $this->input->post('kodeBarang'),
                 'jumlah'        => $this->input->post('jumlah'),
+                'satuan'        => $this->input->post('satuan'),
                 'jenisPergerakanBarang'  => 'IN',
                 'hargaBeli'     => 0,
             );
