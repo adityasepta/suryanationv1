@@ -101,8 +101,11 @@
         
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="ibox-content">
-                    <h2>Stok Emas yang anda bawa <?php echo $stok[0]->tot ?> Gram</h2>
+                <div class="col-lg-12">
+                    <div class="ibox-content">
+                        <h2>Stok Emas yang anda bawa <?php echo $stok[0]->tot ?> Gram</h2>
+                    </div>
+                    <br>
                 </div>
             </div>
 
@@ -142,7 +145,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" step="any" max="<?php $stok[0]->tot ?>" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                                <input type="number" step="any" onchange="handleChange(this);" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Tipe Barang</label>
@@ -244,10 +247,10 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                                <input type="number" name="jumlah" step="any" onchange="handleChange(this);" placeholder="Jumlah Barang Masuk" class="form-control">
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Tipe Barang</label>
+                                                <label>Satuan</label>
                                                 <select class="form-control" name="satuan">
                                                     <option value="gr">Gram</option>
                                                     <option value="cr">Carat</option>
@@ -397,7 +400,7 @@
                 </div>
             </div>
 
-            <!-- Beli Material dan Transfer Material -->
+            <!--  Transfer Material -->
             <div class="row" id="transfer" style="display: none;">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -421,10 +424,10 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                                <input type="number" name="jumlah" step="any" onchange="handleChange(this);" placeholder="Jumlah Barang Masuk" class="form-control">
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Tipe Barang</label>
+                                                <label>Satuan</label>
                                                 <select class="form-control" name="satuan">
                                                     <option value="gr">Gram</option>
                                                     <option value="cr">Carat</option>
@@ -494,6 +497,69 @@
             </div>
 
 
+            <!-- Beli Material -->
+            <div class="row" id="beli" style="display: none;">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Pergerakan Barang | <?php echo $pergerakan['tipePergerakan'] ?></h5>
+                        </div>
+                        <div class="ibox-content form-horizontal">
+                            <?php echo form_open_multipart('user/createInventoryTransfer')?>
+                                <div class="form-group">
+                                    <input type="hidden" name="tipePergerakan" value="<?php echo $pergerakan['tipePergerakan']?>" class="form-control">
+                                    <input type="hidden" name="idUser" value="<?php echo $this->session->userdata['logged_in']['nama']?>" class="form-control">
+                                    <input type="hidden" name="tipeBarang" value="Material Dasar" class="form-control">
+                                    <input type="hidden" name="jenisPergerakanBarang" value="IN" class="form-control">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Nama Barang</label>
+                                                <select class="form-control" id="slct2" name="kodeBarang">
+                                                    <?php for ($i=0; $i < count($materialDasar) ; $i++) { ?> 
+                                                        <option value="<?php echo $materialDasar[$i]->kodeMaterial ?>"><?php echo $materialDasar[$i]->namaMaterial ?></option>
+                                                    <?php } ?> 
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Jumlah</label>
+                                                <input type="number" name="jumlah" step="any" placeholder="Jumlah Barang Masuk" class="form-control">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>Satuan</label>
+                                                <select class="form-control" name="satuan">
+                                                    <option value="gr">Gram</option>
+                                                    <option value="cr">Carat</option>
+                                                </select>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>PIC</label>
+                                                <h3><?php echo $this->session->userdata['logged_in']['nama']?> </h3>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <a href="<?php echo base_url()?>user/stokBarang"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                             <?php echo form_close()?>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         <div class="footer">
             <div>
@@ -544,28 +610,47 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var tipePergerakan = "<?php echo $pergerakan['tipePergerakan'] ?>";
-            if (tipePergerakan=='Beli Material' || tipePergerakan=='Transfer Material') {
+            if (tipePergerakan=='Transfer Material') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
                 document.getElementById('transaksi').style.display = 'none';
                 document.getElementById('transfer').style.display = 'block';
+                document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Produk Jadi' || tipePergerakan=='Transaksi') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
                 document.getElementById('transaksi').style.display = 'block';
                 document.getElementById('transfer').style.display = 'none';
+                document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Balik Abu' || tipePergerakan=='Balik Bahan') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'block';
                 document.getElementById('transaksi').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
+                document.getElementById('beli').style.display = 'none';
+            } else if (tipePergerakan=='Beli Material') {
+                document.getElementById('opname').style.display = 'none';
+                document.getElementById('balik').style.display = 'none';
+                document.getElementById('transaksi').style.display = 'none';
+                document.getElementById('transfer').style.display = 'none';
+                document.getElementById('beli').style.display = 'block';
             } else {
                 document.getElementById('opname').style.display = 'block';
                 document.getElementById('balik').style.display = 'none';
                 document.getElementById('transaksi').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
+                document.getElementById('beli').style.display = 'none';
             }
         });
+    </script>
+    <script>
+      function handleChange(input) {
+        if (input.value < 0) input.value = 0;
+        if (input.value >  <?php echo $stok[0]->tot?>) {
+            input.value = <?php echo $stok[0]->tot?>;
+            alert("Stok emas tidak memenuhi");
+        }
+      }
     </script>
 </body>
 

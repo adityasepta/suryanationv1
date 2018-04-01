@@ -181,7 +181,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>kadar Awal (%)</label>
-                                                <input type="number" step="any" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarAwal" min="1" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Emas Murni (gr)</label>
@@ -259,7 +259,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>Kadar Bahan Ada (%)</label>
-                                                <input type="number" step="any" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarBahanAda" min="1" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Bahan Ada (gr)</label>
@@ -288,7 +288,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label> Berat Bahan Target (gr)</label>
-                                                <input type="text" name= "beratBahanTarget" id="result13" class="form-control" readonly="true">
+                                                <input type="text" required name= "beratBahanTarget" id="result13" class="form-control" readonly="true">
                                             </div>
                                         </div>
                                 </div>
