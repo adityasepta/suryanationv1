@@ -1328,20 +1328,21 @@ class User extends CI_Controller {
 
     public function createBOMMassal($idSubSPK) {
         $this->form_validation->set_rules('idSubSPK','idSubSPK', 'required');
-        // print_r($idSubSPK);exit();
+        
         if ($this->form_validation->run() == FALSE){
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
+            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
             $data['materials']=$this->mdl->getMaterial();
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
-                $dataBOM= array(
-                            'idSubSPK'   => $idSubSPK,
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('bahanButuh')
-                        );
-                $this->mdl->insertData('bommassal',$dataBOM);
-                echo '<b>Data BOM berhasil disimpan.</b><br />';
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $this->input->post('kodeMaterial'),
+                'jumlah'     => $this->input->post('bahanButuh')
+            );
+            $this->mdl->insertData('bommassal',$dataBOM);
+            echo '<b>Data BOM berhasil disimpan.</b><br />';
         }
     }
 
@@ -1349,8 +1350,9 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
         if ($this->form_validation->run() == FALSE){
 
-            $data['$subSPK']=$this->mdl->findSubSPK($idSubSPK);
+            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
             $data['materials']=$this->mdl->getMaterial();
+            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
 
             $this->load->view('user/createBOMMassal',$data);
         }
@@ -1404,7 +1406,8 @@ class User extends CI_Controller {
     public function createBOMMassalNaik($idSubSPK) {
         $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
         if ($this->form_validation->run() == FALSE){
-            $data['$subSPK']=$this->mdl->findSubSPK($idSubSPK);
+            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
+            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
             $data['materials']=$this->mdl->getMaterial();
             $this->load->view('user/createBOMMassal',$data);
         }
@@ -1422,65 +1425,65 @@ class User extends CI_Controller {
         }
     }
 
-    public function createBOM($id) {
-        $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
-        if ($this->form_validation->run() == FALSE){
-            //$data['BOMProduk'];
-            $data['produk']=$this->mdl->findProduk2($id);
-            $data['material']=$this->mdl->getMaterialDropdown();
-            $data['material2']=$this->mdl->getMaterialDropdown2();
-            $data['materials']=$this->mdl->getMaterial();
-            /*print_r($data['material']);
-            print_r($data['material2']);exit();*/
-            $this->load->view('user/createBOM',$data);
-        }
-        else {
-                $data['material']=$this->input->post('kodeMaterial');
-                $data['jumlah']=$this->input->post('jumlah');
-                $kodeProduk = $this->input->post('kodeProduk');
+    // public function createBOM($id) {
+    //     $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
+    //     if ($this->form_validation->run() == FALSE){
+    //         //$data['BOMProduk'];
+    //         $data['produk']=$this->mdl->findProduk2($id);
+    //         $data['material']=$this->mdl->getMaterialDropdown();
+    //         $data['material2']=$this->mdl->getMaterialDropdown2();
+    //         $data['materials']=$this->mdl->getMaterial();
+    //         /*print_r($data['material']);
+    //         print_r($data['material2']);exit();*/
+    //         $this->load->view('user/createBOM',$data);
+    //     }
+    //     else {
+    //             $data['material']=$this->input->post('kodeMaterial');
+    //             $data['jumlah']=$this->input->post('jumlah');
+    //             $kodeProduk = $this->input->post('kodeProduk');
 
-                //print_r($data['material']);exit();
-                $j=count($this->input->post('jumlah'));
-                    for ($i=0; $i < $j ;$i++){
-                        $dataBOM= array(
-                            'kodeProduk'   => $kodeProduk,
-                            'kodeMaterial' => $data['material'][$i],
-                            'jumlah'       => $data['jumlah'][$i],
-                        );
-                        //print_r($dataBOM);//exit();
-                        $this->mdl->insertBOM($dataBOM);
-                    }
-                redirect('user/produk');
-        }
-    }
+    //             //print_r($data['material']);exit();
+    //             $j=count($this->input->post('jumlah'));
+    //                 for ($i=0; $i < $j ;$i++){
+    //                     $dataBOM= array(
+    //                         'kodeProduk'   => $kodeProduk,
+    //                         'kodeMaterial' => $data['material'][$i],
+    //                         'jumlah'       => $data['jumlah'][$i],
+    //                     );
+    //                     //print_r($dataBOM);//exit();
+    //                     $this->mdl->insertBOM($dataBOM);
+    //                 }
+    //             redirect('user/produk');
+    //     }
+    // }
 
-    public function editBOM($id) {
-        $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
-        if ($this->form_validation->run() == FALSE){
-            //$data['BOMProduk'];
-            $data['produk']=$this->mdl->findProduk2($id);
-            $data['material']=$this->mdl->getMaterialDropdown();
-            $data['material2']=$this->mdl->getMaterialDropdown2();
-            $data['materials']=$this->mdl->getMaterial();
-            $this->load->view('user/editBOM',$data);
-        }
-        else {
-                $dataBOM = array(
-                                'kodeMaterial'    => $this->input->post('kodeMaterial'),
-                                'jumlah'          => $this->input->post('jumlah')
-                        );
-                //print_r($dataBOM);exit();
-                $this->mdl->updateBOM($id,$dataBOM);
-                $message = "BOM berhasil diedit";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/produk")."';</script>"; 
-        }
-    }
+    // public function editBOM($id) {
+    //     $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
+    //     if ($this->form_validation->run() == FALSE){
+    //         //$data['BOMProduk'];
+    //         $data['produk']=$this->mdl->findProduk2($id);
+    //         $data['material']=$this->mdl->getMaterialDropdown();
+    //         $data['material2']=$this->mdl->getMaterialDropdown2();
+    //         $data['materials']=$this->mdl->getMaterial();
+    //         $this->load->view('user/editBOM',$data);
+    //     }
+    //     else {
+    //             $dataBOM = array(
+    //                             'kodeMaterial'    => $this->input->post('kodeMaterial'),
+    //                             'jumlah'          => $this->input->post('jumlah')
+    //                     );
+    //             //print_r($dataBOM);exit();
+    //             $this->mdl->updateBOM($id,$dataBOM);
+    //             $message = "BOM berhasil diedit";
+    //             echo "<script type='text/javascript'>alert('$message');
+    //             window.location.href='".base_url("user/produk")."';</script>"; 
+    //     }
+    // }
 
-    public function deleteBOM($id){
-        $this->mdl->deleteBOM($id);
-        redirect('user/produk');
-    }
+    // public function deleteBOM($id){
+    //     $this->mdl->deleteBOM($id);
+    //     redirect('user/produk');
+    // }
 
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
@@ -3227,7 +3230,7 @@ class User extends CI_Controller {
                 $dataMaterial = array(
                     'kodeMaterial'    => $kode,
                     'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
-                    'satuan'          => 'Gram',
+                    'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('datangEmas'),
                     'safetyStock'     => 0,
                     'asal'            => 'Datang Emas',
@@ -3235,11 +3238,13 @@ class User extends CI_Controller {
                 //print_r($dataMaterial);exit();
                 $this->mdl->insertData('materialdasar',$dataMaterial);
 
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
                 //Stok Datang Emas
                 $dataInventory = array(
-                    'idPIC'         => 19,
+                    'idPIC'         => $iduser,
                     'tipeBarang'    => 'Material Dasar',
                     'tipePergerakan'=> 'Bahan Datang',
+                    'satuan'          => 'gr',
                     'kodeBarang'    => $kode,
                     'jumlah'        => $this->input->post('datangEmas'),
                     'jenisPergerakanBarang'  => 'IN',
@@ -4340,7 +4345,7 @@ class User extends CI_Controller {
                 $dataMaterial = array(
                     'kodeMaterial'    => $kode,
                     'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
-                    'satuan'          => 'Gram',
+                    'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('datangEmas'),
                     'safetyStock'     => 0,
                     'asal'            => 'Datang Emas',
@@ -4348,15 +4353,17 @@ class User extends CI_Controller {
                 //print_r($dataMaterial);exit();
                 $this->mdl->insertData('materialdasar',$dataMaterial);
 
-                //Stok Datang Emas
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
                 $dataInventory = array(
-                    'idPIC'         => 19,
+                    'idPIC'         => $iduser,
                     'tipeBarang'    => 'Material Dasar',
                     'tipePergerakan'=> 'Bahan Datang',
                     'kodeBarang'    => $kode,
+                    'satuan'          => 'gr',
                     'jumlah'        => $this->input->post('datangEmas'),
                     'jenisPergerakanBarang'  => 'IN',
                     'hargaBeli'     => 0,
+                    'tanggal'   => date("Y-m-d H:i:s"),
                 );
                 $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
             }

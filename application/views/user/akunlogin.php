@@ -4,7 +4,7 @@
                              </span>
                         <a>
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $this->session->userdata['logged_in']['nama'] ?></strong>
-                             </span> <span class="text-muted text-xs block"><?php echo $this->session->userdata['logged_in']['jabatan'] ?> </span> </a>
+                             </span> <span class="text-muted text-xs block"><?php echo $this->session->userdata['logged_in']['jabatan'] ?> / <b><?php echo $this->session->userdata['logged_in']['iduser'] ?></b> </span> </a>
                         
                     </div>
                     <div class="logo-element">
