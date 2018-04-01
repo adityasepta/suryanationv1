@@ -2017,10 +2017,87 @@ class User extends CI_Controller {
                     'totalBerat' => $berat
                 ); 
                 $this->mdl->updateData('idPO',$idPO, 'purchaseorderservice', $dataHarga);
-                $message = "PO berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/listPOService")."';</script>";
+
+
+                //Query Tambah SPK
+                $sj='Belum Ada';
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataSPK = array(
+                    'nomorFaktur'           => $this->input->post('nomorPO'),
+                    'nomorPO'               => $this->input->post('nomorPO'),
+                    'idCustomer'            => $idCustomer,
+                    'statusJadwal'          => $sj,
+                    'PICJadwal'             => $iduser,
+                );
+                $this->mdl->insertData('spkservice',$dataSPK); 
+
+                $data['pegawai'] = $this->mdl->listPegawai();
+                $nomorPO=$this->input->post('nomorPO');
+                $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+                $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
+                $this->load->view('user/invoicePOService',$data);
         }
+    }
+
+    public function tambahJadwalService($nomorFaktur)
+    {
+        $data['dataSPK']   = $this->mdl->findSPKService($nomorFaktur);
+        $data['aktivitas'] = $this->mdl->listAktivitasService();
+        $this->load->view('user/spkJadwalService', $data);
+    }
+
+    public function uploadJadwalService()
+    {
+        //eksekusi query insert tanpa gambar
+        $idAktivitas    = $this->input->post('idAktivitas');
+        $nomorAktivitas = $this->input->post('nomorAktivitas');
+        $startDate      = $this->input->post('startDate');
+        $endDate        = $this->input->post('endDate');
+        $nomorFaktur    = $this->input->post('nomorFaktur');
+        // print_r($idAktivitas);exit();
+        for ($i = 0; $i < count($nomorAktivitas); $i++) {
+            $b             = $nomorAktivitas[$i];
+            $data = array(
+                'idSPK' => $this->input->post('idSPK'),
+                'idAktivitas' => $idAktivitas[$b],
+                'startDate' => $startDate[$b],
+                'endDate' => $endDate[$b]
+            );
+            //$this->mdl->tambahRencana($dataJadwal);
+            $this->mdl->insertData('rencanaproduksiservice',$data);
+            
+        }
+        
+        $idSPK = $this->input->post('idSPK');
+        
+        $data = array(
+            'statusJadwal' => 'Sudah Ada',
+            'tanggalApprovalJadwal' => date("Y-m-d H:i:s"),
+            'durasi'    => $this->input->post('durasi')
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkService', $data);
+
+        $ren = $this->mdl->getAktivitasService($nomorFaktur);
+        
+        $idAktivitas = $ren[0]->idAktivitas;
+        $idSPK = $ren[0]->idSPK;
+
+        $data = array(
+            'idSPK' => $idSPK,
+            'idAktivitas' => $idAktivitas,
+            'statusWork' => 'Belum ada PIC',
+            'statusBerat' => 'Belum Disetujui',
+            'statusSPK' => 'Active',
+        );
+
+        $this->mdl->insertData('factproductionservice',$data); 
+        
+        //$this->mdl->prosesJadwal($nomorFaktur);
+        
+        $message = "Penjadwalan telah berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("user/listSPKService") . "';</script>";
     }
 
     public function tambahSPKService($nomorPO){
@@ -2132,6 +2209,7 @@ class User extends CI_Controller {
 
     public function listSPKService() {
         $data['listSPK'] = $this->mdl->listSPKService();
+        $data['cekjadwal'] = $this->mdl->cekjadwalservice();
         $this->load->view('user/spkService',$data);
     }
 
@@ -5256,9 +5334,23 @@ class User extends CI_Controller {
                         );
                         $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPOService);
                     }
-                $message = "PO berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/listPOService")."';</script>";
+                //Query Tambah SPK
+                $sj='Belum Ada';
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataSPK = array(
+                    'nomorFaktur'           => $this->input->post('nomorPO'),
+                    'nomorPO'               => $this->input->post('nomorPO'),
+                    'idCustomer'            => $idCustomer,
+                    'statusJadwal'          => $sj,
+                    'PICJadwal'             => $iduser,
+                );
+                $this->mdl->insertData('spkservice',$dataSPK); 
+
+                $data['pegawai'] = $this->mdl->listPegawai();
+                $nomorPO=$this->input->post('nomorPO');
+                $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+                $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
+                $this->load->view('user/invoicePOService',$data);
         }
     }
 

@@ -91,6 +91,7 @@
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Nama Barang</th>
+                                                        <th>Berat</th>
                                                         <th>Jumlah</th>
                                                         <th>Harga</th>
                                                     </tr>
@@ -102,12 +103,13 @@
                                                         <tr>
                                                             <td><?php echo $ijk; ?></td>
                                                             <td><?php echo $ds[$ij]->namaBarang?></td>
+                                                            <td><?php echo number_format($ds[$ij]->berat,2,".","."); ?> gram</td>
                                                             <td><?php echo $ds[$ij]->jumlah?></td>
                                                             <td>Rp. <?php echo number_format($ds[$ij]->harga,2,".","."); ?></td>
                                                         </tr>
                                                     <?php $ijk++; } ?>
                                                         <tr>
-                                                            <td colspan="3" class="text-center"><b>Sub Total</b></td>
+                                                            <td colspan="4" class="text-center"><b>Total Harga</b></td>
                                                             <td><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
                                                         </tr>
                                                 </tbody>

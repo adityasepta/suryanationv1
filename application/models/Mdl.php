@@ -1762,6 +1762,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function cekjadwalservice() {
+        $sql   = "SELECT * from rencanaproduksiservice";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function findSPKPerak($nomorFaktur){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkperak a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
@@ -1781,6 +1788,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
 
     public function cekkloter3() {
         $sql   = "SELECT * from kloter2";
@@ -2061,6 +2069,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+    public function findSPKService($nomorFaktur){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spkservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN purchaseorderservice d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=1 LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+   
 
     public function getjadwal7($nomorFaktur) {
         $sql   = "SELECT *, DATE_FORMAT(r.startDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(r.endDate, '%Y-%m-%d') AS tglend, DATE_FORMAT(r.startDate, '%d %M %Y') AS sd, DATE_FORMAT(r.endDate, '%d %M %Y') AS ed FROM aktivitas a, rencanaproduksi2 r, spkmasal s WHERE s.idSPK = r.idSPK AND a.idAktivitas = r.idAktivitas AND s.nomorFaktur = 1 ORDER BY r.idAktivitas";
