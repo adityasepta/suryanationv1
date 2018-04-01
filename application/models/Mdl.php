@@ -1113,6 +1113,18 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function getBeratHargaService($nomorPO) {
+
+        $sql   = "SELECT po.idPO,po.nomorPO,SUM(d.berat) as berat,SUM(d.jumlah) as jumlah,SUM(d.harga) as harga FROM purchaseorderservice po, detailpurchaseorderservice d WHERE po.idPO = d.idPO AND po.nomorPO='$nomorPO' GROUP BY po.nomorPO";
+        $hasil = $this->db->query($sql);
+        
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function getProsesService($idAktivitas) {
 
         $sql   = "SELECT  s.durasi,f.berat, f.statusBerat, f.kembali, r.endDate, r.startDate, DATE_FORMAT( r.endDate, '%m/%d/%Y %h:%m:%i' ) AS tgs , DATE_FORMAT( r.startDate, '%d %M %Y %h:%m:%i' ) AS tglmulai, DATE_FORMAT( r.endDate, '%d %M %Y %h:%m:%i' ) AS tglselesai, f.idAktivitas,f.idPIC,f.idSPK, f.statusWork, f.statusSPK, f.idProProd, po.nomorPO, s.nomorFaktur, po.tipeOrder, c.namaCustomer, k.nama AS namaSales, u.nama AS namaPIC, s.statusJadwal, DATE_FORMAT(tanggalMasuk, '%d %M %Y %h:%m:%i') AS tanggal FROM purchaseorderservice po, customer c, spkservice s, factproductionservice f, rencanaproduksiservice r, user u, user k WHERE po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork = 'On Progress'
