@@ -203,6 +203,7 @@
                                                                             <th class="text-center">Berat Kembali</th>
                                                                             <th class="text-center">Kehilangan</th>
                                                                             <th class="text-center">Status</th>
+                                                                            <th class="text-center">PIC</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -258,6 +259,7 @@
                                                                                     <td class="text-center"><?php echo "0 gr || 0 %" ?></td>
                                                                                     <td class="text-center"><?php echo '<small class="label label-primary">DONE</small>' ?></td>
                                                                                 <?php } ?>
+                                                                                <td class="text-center"><?php echo $b[$z]->nama?></td>
 
                                                                         </tr>
                                                                         <?php } else { ?>
@@ -268,6 +270,7 @@
                                                                                 <td class="text-center">-</td>
                                                                                 <td class="text-center">-</td>
                                                                                 <td class="text-center"><small class="label label-warning"></small></td>
+                                                                                <td class="text-center"><?php echo $b[$z]->nama?></td>
                                                                             </tr>
                                                                         <?php }
                                                                             }} ?>
