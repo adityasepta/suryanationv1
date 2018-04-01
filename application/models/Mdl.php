@@ -1956,7 +1956,21 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getBom2($nomorFaktur) {
-        $sql   = "SELECT d.idSPK, c.idSubSPK, b.namaMaterial, b.stokMaterial as stok, a.jumlah as jml, b.safetyStock as ss, round((b.stokMaterial - a.jumlah),2) as stokakhir FROM bommassal a, materialdasar b, subspk c, spkmasal d where a.idMaterial = b.idMaterial and c.idSubSPK = a.idSubSPK and c.idSPK = d.idSPK and d.nomorFaktur = $nomorFaktur";
+        $sql   = "SELECT a.*, d.idSPK, c.idSubSPK, b.namaMaterial, b.stokMaterial as stok, a.jumlah as jml, b.safetyStock as ss, round((b.stokMaterial - a.jumlah),2) as stokakhir FROM bommassal a, materialdasar b, subspk c, spkmasal d where a.idMaterial = b.idMaterial and c.idSubSPK = a.idSubSPK and c.idSPK = d.idSPK and d.nomorFaktur = $nomorFaktur";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getUserByJabatan($jabatan) {
+        $sql   = "SELECT * from user where jabatan = '$jabatan'";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getStokMaterial($idPIC, $idMaterial) {
+        $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'OUT'),0)) AS TOT";
         $query = $this->db->query($sql);
         
         return $query->result();

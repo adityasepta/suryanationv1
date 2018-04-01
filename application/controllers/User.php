@@ -13,6 +13,7 @@ class User extends CI_Controller {
         $this->load->model('mdl');
         
         date_default_timezone_set("Asia/Jakarta");
+        $idUser=$this->session->userdata['logged_in']['iduser'];
 
         if (!(isset($this->session->userdata['logged_in']))) {
 
@@ -1336,18 +1337,31 @@ class User extends CI_Controller {
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
-            $dataBOM= array(
+            $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
+            $jml = $stok[0]->TOT;
+            $jmlbutuh = $this->input->post('bahanButuh');
+            if ($jmlbutuh > $jml) {
+                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
+            } else {
+                $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $this->input->post('kodeMaterial'),
-                'jumlah'     => $this->input->post('bahanButuh')
-            );
-            $this->mdl->insertData('bommassal',$dataBOM);
-            echo '<b>Data BOM berhasil disimpan.</b><br />';
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+                );
+                
+                $this->mdl->insertData('bommassal',$dataBOM);
+                echo '<b>Data BOM berhasil disimpan.</b><br />';
+
+            }
+            
         }
     }
 
     public function createBOMMassalTurun($idSubSPK) {
         $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
         if ($this->form_validation->run() == FALSE){
 
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
@@ -1360,46 +1374,91 @@ class User extends CI_Controller {
             if ($this->input->post('beratAlloy') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Alloy');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratAlloy');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+
+                $dataBOM1= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratAlloy')
+                    'jumlah'     => $jmlbutuh,
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratTembaga') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratTembaga');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+
+                $dataBOM2= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratTembaga')
+                    'jumlah'     => $jmlbutuh,
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratPerak') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Perak');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratPerak');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+                $dataBOM3= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPerak')
+                    'jumlah'     => $jmlbutuh
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratPaladium') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Paladium');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+
+                $jmlbutuh = $this->input->post('beratPaladium');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+                $dataBOM4= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPaladium')
+                    'jumlah'     => $jmlbutuh
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
-                $message = "BOM berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanbanMassal")."';</script>";
+
+            $this->mdl->insertData('bommassal',$dataBOM1);
+            $this->mdl->insertData('bommassal',$dataBOM2);
+            $this->mdl->insertData('bommassal',$dataBOM3);
+            $this->mdl->insertData('bommassal',$dataBOM4);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/kanbanMassal")."';</script>";
         }
     }
 
@@ -4017,14 +4076,24 @@ class User extends CI_Controller {
         if($idAktivitas == '1004') {
 
             $bom = $this->mdl->getbom4($idSubSPK);
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+
+            $data = array(
+                'status' => 'Disetujui'
+            );
+
+            $this->mdl->updateData('idSubSPK',$idSubSPK,'bommassal',$data);
 
             for ($i=0; $i < count($bom) ; $i++) { 
 
                 $data = array(
+                    'idPIC' => $idUser,
                     'tipeBarang' => "Material Dasar",
                     'kodeBarang' => $bom[$i]->kodeMaterial,
                     'jumlah' => $bom[$i]->jumlah,
                     'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
                     'tanggal' => date("Y-m-d H:i:s")
                 );
                 
@@ -4042,6 +4111,22 @@ class User extends CI_Controller {
         }
 
         if($idAktivitas == '1006') {
+
+            $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+            $idg = $userx[0]->idUser;
+
+            $data = array(
+                'idPIC' => $idg,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $proses[0]->jumlah,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'pcs',
+                'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+            $this->mdl->insertData('stokbarang', $data);
 
         }
 
@@ -4221,13 +4306,37 @@ class User extends CI_Controller {
         $stok       = (int) $prod[0]->stok;
         $newstok    = $stok + (int) $jumlah;
 
+        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+        $idg = $userx[0]->idUser;
+
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+
         $data = array(
+            'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $kodeProduk,
+            'kodeBarang' => $idProduk,
             'jumlah' => $jumlah,
             'satuan' => 'Pcs',
             'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN'
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Transfer'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+
+        $data = array(
+            'idPIC' => $idg,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Transfer'
             
         );
 
@@ -5025,6 +5134,13 @@ class User extends CI_Controller {
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $data['staf'] = $this->mdl->getStaf();
         $this->load->view('user/invoiceMassal', $data);
+    }
+
+    public function hapusmaterial($idBOM,$tipe,$nomorFaktur) {
+        if($tipe == 'massal') {
+            $this->mdl->deleteData('idBOM',$idBOM,'bommassal');
+            redirect('user/invoiceSPKMassal/'.$nomorFaktur);
+        }
     }
 
     public function editJadwal() {

@@ -363,6 +363,7 @@
                                         <th class="text-center">Jumlah</th>
                                         <th class="text-center">Stock Akhir</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -386,6 +387,7 @@
                                                         
                                                 ?>
                                             </td>
+                                            
                                         </tr>
 
                                     <?php } ?>
