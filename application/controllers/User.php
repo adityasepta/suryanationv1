@@ -4177,6 +4177,10 @@ class User extends CI_Controller {
 
         }
 
+        if($idAktivitas == '1006') {
+
+        }
+
        
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanbanmassal');
