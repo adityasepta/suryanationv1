@@ -81,30 +81,37 @@
                             <?php echo form_open_multipart('user/createMaterial')?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                            <div class="col-md-2">
-                                                <label>Kode Material</label>
-                                                <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Nama Material</label>
-                                                <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required>
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label>Kode Material</label>
+                                            <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Nama Material</label>
+                                            <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Satuan</label>
+                                            <select class="form-control" name="kategori">
+                                                <option value="Emas">Emas</option>
+                                                <option value="Non Emas">Non Emas</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                     <div class="form-group">
                                     <div class="col-sm-12">
-                                            <div class="col-md-4">
-                                                <label>Stok Terkini</label>
-                                                <input type="number" name= "stokMaterial" placeholder="Jumlah" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Safety Stok</label>
-                                                <input type="number" name= "safetyStock"  placeholder="Jumlah" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Satuan</label>
-                                                <input type="text" name= "satuan"  placeholder="Satuan" class="form-control" required>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label>Stok Terkini</label>
+                                            <input type="number" name= "stokMaterial" placeholder="Jumlah" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Safety Stok</label>
+                                            <input type="number" name= "safetyStock"  placeholder="Jumlah" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Satuan</label>
+                                            <input type="text" name= "satuan"  placeholder="Satuan" class="form-control" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
