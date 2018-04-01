@@ -64,11 +64,6 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Daftar SPK</h5>
-                            <div class="ibox-tools">
-                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createSPKService">
-                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH SPK SERVICE</strong></span></i>
-                                </a>
-                            </div>
                         </div>
 
                         <div class="ibox-content">
@@ -88,29 +83,41 @@
                                 <tbody>
                                 <?php foreach($listSPK as $hasil) : ?>
                                 <tr>
+                                        
                                     <?php $lastModified = new DateTime($hasil->lastModified);
-                                    $lastModified = $lastModified->format("d M Y h:m:s"); ?>
+                                    $lastModified = $lastModified->format("d M Y h:m:s"); 
+                                    $jadwal = 0;
+                                        for ($g=0; $g < count($cekjadwal) ; $g++) { 
+                                            if($cekjadwal[$g]->idSPK == $hasil->idSPK) {
+                                                $jadwal++;
+                                            }
+                                        } 
+                                    ?>
                                     <td class="text-center"><?php echo $lastModified?></td>
                                     <td class="text-center"><?php echo $hasil->nomorFaktur?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
                                     <td class="text-center">
                                             <?php if($hasil->statusSPK=='On Progress') {?>
-                                                <a class="btn btn-xs btn-warning"><?php echo $hasil->statusSPK?></a></td>
-                                            <?php } else { ?>
+                                                <?php if($jadwal==0) {?>
+                                                    <a href="<?php base_url();?>tambahJadwalService/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Jadwal</a>
+                                                <?php } else {?>
+                                                    <a href="<?php base_url();?>kanbanService" class="btn btn-default btn-xs" >Masuk Ke Kanban</a>
+                                                <?php } ?>
+                                            <?php } else if ($hasil->statusSPK=='Done'){ ?>
                                                 <a class="btn btn-xs btn-primary"><?php echo $hasil->statusSPK?></a></td>
                                             <?php } ?>
                                     <td class="text-center">
 
-                                        <!-- <a href="<?php echo base_url('user/invoicePOService/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
+                                        <a href="<?php echo base_url('user/invoicePOService/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-primary" >Lihat</a>
                                         
-                                        <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a> -->
+                                        <!-- <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a>
 
                                         
                                         <?=anchor('user/hapusSPKService/' . $hasil->idSPK, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'
-                                        ])?>
+                                        ])?> -->
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

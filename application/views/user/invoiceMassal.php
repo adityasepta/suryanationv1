@@ -531,6 +531,7 @@
                                                     <th class="text-center">Jumlah</th>
                                                     <th class="text-center">Stock Akhir</th>
                                                     <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             
                                         </thead>
@@ -541,9 +542,9 @@
                                                 <tr>
                                                     <td><?php echo $stokbom[$j]->idSubSPK?></td>
                                                     <td><?php echo $stokbom[$j]->namaMaterial?></td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->stok?> gram</td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->jml?> gram</td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->stokakhir?> gram</td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->stok?> gr</td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->jml?> gr</td>
+                                                    <td class="text-center"><?php echo $stokbom[$j]->stokakhir?> gr</td>
                                                     <td class="text-center">
                                                         <?php 
                                                             
@@ -555,6 +556,14 @@
                                                             <?php } 
                                                                 
                                                         ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?php if ($stokbom[$j]->status !== 'Disetujui') { ?>
+                                                            <a class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ?')"  href="<?php echo base_url('user/hapusmaterial/'.$stokbom[$j]->idBOM.'/massal/'.$nomorFaktur)?>">Hapus</a>
+                                                        <?php } else {?>
+                                                            <a class="btn btn-xs btn-danger" disabled href="">Hapus</a>
+                                                        <?php } ?>
+                                                        
                                                     </td>
                                                 </tr>
 

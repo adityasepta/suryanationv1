@@ -269,7 +269,7 @@
                                                                             <td class="text-center">-</td>
                                                                             <td class="text-center">-</td>
                                                                             <td class="text-center">-</td>
-                                                                            <td class="text-center"><small class="label label-warning">ON PROGRESS</small></td>
+                                                                            <td class="text-center"><small class="label label-warning"></small>-</td>
                                                                         </tr>
                                                                     <?php }
                                                                         }} ?>
@@ -358,7 +358,7 @@
                                                                             <td class="text-center">-</td>
                                                                             <td class="text-center">-</td>
                                                                             <td class="text-center">-</td>
-                                                                            <td class="text-center"><small class="label label-warning">ON PROGRESS</small></td>
+                                                                            <td class="text-center"><small class="label label-warning"></small>-</td>
                                                                             <td class="text-center"><?php echo $c[$z]->nama ?>
                                                                         </tr>
                                                                     <?php }

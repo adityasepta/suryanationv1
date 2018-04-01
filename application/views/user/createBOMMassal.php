@@ -181,7 +181,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>kadar Awal (%)</label>
-                                                <input type="number" step="any" name= "kadarAwal" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarAwal" min="1" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Emas Murni (gr)</label>
@@ -259,7 +259,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label>Kadar Bahan Ada (%)</label>
-                                                <input type="number" step="any" name= "kadarBahanAda" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
+                                                <input type="number" step="any" name= "kadarBahanAda" min="1" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Bahan Ada (gr)</label>
@@ -288,7 +288,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label> Berat Bahan Target (gr)</label>
-                                                <input type="text" name= "beratBahanTarget" id="result13" class="form-control" readonly="true">
+                                                <input type="text" required name= "beratBahanTarget" id="result13" class="form-control" readonly="true">
                                             </div>
                                         </div>
                                 </div>
@@ -347,52 +347,10 @@
 
                     var beratBersih = n1-n2-n3;
                     
-                    if (jenisEmas==='Emas Kuning 65%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 63%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 60%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 59.5%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 48%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 40%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else if (jenisEmas==='Emas Kuning 38%') {
-                        var bahanDasar = beratBersih*n5;
-                        var bahanPengurang = bahanDasar*n4/100;
-                        document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
-                        document.getElementById("myBtn").disabled = false;
-                    }
-                    else {
-                        document.getElementById('result').value = "Pilih Material Untuk Massal";
-                        document.getElementById("myBtn").disabled = true;
-                    }      
+                    var bahanDasar = beratBersih*n5;
+                    var bahanPengurang = bahanDasar*n4/100;
+                    document.getElementById('result').value = (bahanDasar-bahanPengurang).toFixed(2);
+                    document.getElementById("myBtn").disabled = false;
                 }
         </script>
         <script type="text/javascript">

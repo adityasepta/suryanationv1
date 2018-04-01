@@ -13,6 +13,7 @@ class User extends CI_Controller {
         $this->load->model('mdl');
         
         date_default_timezone_set("Asia/Jakarta");
+        $idUser=$this->session->userdata['logged_in']['iduser'];
 
         if (!(isset($this->session->userdata['logged_in']))) {
 
@@ -785,6 +786,7 @@ class User extends CI_Controller {
     //Inventory
     public function rekapBerat() {
         $data['b'] = $this->mdl->getBerat();
+        $data['c'] = $this->mdl->getBerat22();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPK();    
         $data['rekapBerat']=$this->mdl->rekapBerat();
@@ -793,7 +795,8 @@ class User extends CI_Controller {
 
     public function inventory() {
         $data['aktivitas'] = $this->mdl->getAktivitas2();
-        $data['b'] = $this->mdl->getBerat();
+        $data['b'] = $this->mdl->getBeratRekap();
+        $data['bb'] = $this->mdl->getBeratMassal();
         $data['spk']=$this->mdl->getSPK(); 
         $data['produk']=$this->mdl->getProd();  
         $data['barangMasuk']=$this->mdl->barangMasuk();
@@ -802,7 +805,8 @@ class User extends CI_Controller {
         $data['material']=$this->mdl->getMaterialDasar(); 
         $data['material2']=$this->mdl->getMaterialDasar2(); 
         $spk=$this->mdl->getSPK();
-        $b = $this->mdl->getBerat();
+        $b = $this->mdl->getBeratRekap();
+        $bb = $this->mdl->getBeratMassal();
         $data['rekapBerat']=$this->mdl->rekapBerat();
         $jumlahHilang=0;
         $jumlahHilang2=0;
@@ -812,112 +816,194 @@ class User extends CI_Controller {
 
         for ($z=0; $z < count($b); $z++) { 
             if ($b[$z]->berat) {
-            if((int)$b[$z]->idAktivitas == 1003) { 
                 $bAwal= $bAwal + $b[$z]->beratAwal;
                 $bAkhir=$bAkhir + $b[$z]->berat;
                 $kembali = $kembali + $b[$z]->kembali;
                 $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            } else if((int)$b[$z]->idAktivitas == 1011) { 
-                $bAwal= $bAwal + $b[$z]->berat;
-                $bAkhir=$bAkhir + $b[$z]->berat;
-                $kembali = $kembali + $b[$z]->kembali;
-                $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            }
-            else {
-                $bAwal= $bAwal + $b[$z-1]->berat;
-                $bAkhir=$bAkhir + $b[$z]->berat;
-                $kembali = $kembali + $b[$z]->kembali;
-                $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            }
             // /$jumlahHilang2=$jumlahHilang2+$jumlahHilang;
             }
         }
+
+        
         
         $data['jumlahHilang']=$jumlahHilang;
-        $data['berat3']=0;
-        $data['berat4']=0;
-        $data['berat5']=0;
         $data['berat6']=0;
         $data['berat7']=0;
         $data['berat8']=0;
         $data['berat9']=0;
         $data['berat10']=0;
         $data['berat11']=0;
+        $data['berat12']=0;
+        $data['berat13']=0;
+        $data['berat14']=0;
 
         for ($z=0; $z < count($b); $z++) { 
             if ($b[$z]->berat) {
-            if((int)$b[$z]->idAktivitas == 1003) {
+                    if ((int)$b[$z]->idAktivitas == 1006) {
                         $bAwal=(float) $b[$z]->beratAwal;
-                        $bAkhir=(float) $b[$z]->berat;
-                        $kembali=(float) $b[$z]->kembali;
-                        $selisih = round($bAwal-$bAkhir-$kembali,2);
-                        $data['berat3'] = $data['berat3'] +  $selisih;
-                    }
-                    else if ((int)$b[$z]->idAktivitas == 1004) {
-                        $bAwal=(float) $b[$z-1]->berat;
-                        $bAkhir=(float) $b[$z]->berat;
-                        $kembali=(float) $b[$z]->kembali;
-                        $selisih = round($bAwal-$bAkhir-$kembali,2);
-                        $data['berat4'] = $data['berat4'] +  $selisih;
-                    }
-                    else if ((int)$b[$z]->idAktivitas == 1005) {
-                        $bAwal=(float) $b[$z-1]->berat;
-                        $bAkhir=(float) $b[$z]->berat;
-                        $kembali=(float) $b[$z]->kembali;
-                        $selisih = round($bAwal-$bAkhir-$kembali,2);
-                        $data['berat5'] = $data['berat5'] +  $selisih;
-                    }
-                    else if ((int)$b[$z]->idAktivitas == 1006) {
-                        $bAwal=(float) $b[$z-1]->berat;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat6'] = $data['berat6'] +  $selisih;
                     }
                     else if ((int)$b[$z]->idAktivitas == 1007) {
-                        $bAwal=(float) $b[$z-1]->berat;
+                        $bAwal=(float) $b[$z]->beratAwal;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat7'] = $data['berat7'] +  $selisih;
                     }
                     else if ((int)$b[$z]->idAktivitas == 1008) {
-                        $bAwal=(float) $b[$z-1]->berat;
+                        $bAwal=(float) $b[$z]->beratAwal;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat8'] = $data['berat8'] +  $selisih;
                     }
                     else if ((int)$b[$z]->idAktivitas == 1009) {
-                        $bAwal=(float) $b[$z-1]->berat;
+                        $bAwal=(float) $b[$z]->beratAwal;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat9'] = $data['berat9'] +  $selisih;
                     }
                     else if ((int)$b[$z]->idAktivitas == 1010) {
-                        $bAwal=(float) $b[$z-1]->berat;
+                        $bAwal=(float) $b[$z]->beratAwal;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat10'] = $data['berat10'] +  $selisih;
                     }
                     else if ((int)$b[$z]->idAktivitas == 1011) {
-                        $bAwal=(float) $b[$z]->berat;
+                        $bAwal=(float) $b[$z]->beratAwal;
                         $bAkhir=(float) $b[$z]->berat;
                         $kembali=(float) $b[$z]->kembali;
                         $selisih = round($bAwal-$bAkhir-$kembali,2);
                         $data['berat11'] = $data['berat11'] +  $selisih;
                     }
+                    else if ((int)$b[$z]->idAktivitas == 1012) {
+                        $bAwal=(float) $b[$z]->beratAwal;
+                        $bAkhir=(float) $b[$z]->berat;
+                        $kembali=(float) $b[$z]->kembali;
+                        $selisih = round($bAwal-$bAkhir-$kembali,2);
+                        $data['berat12'] = $data['berat12'] +  $selisih;
+                    }
+                    else if ((int)$b[$z]->idAktivitas == 1013) {
+                        $bAwal=(float) $b[$z]->beratAwal;
+                        $bAkhir=(float) $b[$z]->berat;
+                        $kembali=(float) $b[$z]->kembali;
+                        $selisih = round($bAwal-$bAkhir-$kembali,2);
+                        $data['berat13'] = $data['berat13'] +  $selisih;
+                    }
+                    else if ((int)$b[$z]->idAktivitas == 1014) {
+                        $bAwal=(float) $b[$z]->beratAwal;
+                        $bAkhir=(float) $b[$z]->berat;
+                        $kembali=(float) $b[$z]->kembali;
+                        $selisih = round($bAwal-$bAkhir-$kembali,2);
+                        $data['berat14'] = $data['berat14'] +  $selisih;
+                    }
             // /$jumlahHilang2=$jumlahHilang2+$jumlahHilang;
             }
         }
+
+        $bb = $this->mdl->getBeratMassal();
+        $data['rekapBeratMassal']=$this->mdl->rekapBeratMassal();
+        $jumlahHilang=0;
+        $jumlahHilang2=0;
+        $kembali=0;
+        $bAwal=0;
+        $bAkhir=0;
+
+        for ($z=0; $z < count($bb); $z++) { 
+            if ($bb[$z]->berat) {
+                $bAwal= $bAwal + $bb[$z]->beratAwal;
+                $bAkhir=$bAkhir + $bb[$z]->berat;
+                $kembali = $kembali + $bb[$z]->kembali;
+                $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
+            // /$jumlahHilang2=$jumlahHilang2+$jumlahHilang;
+            }
+        }
+
+        $data['jumlahHilangMassal']=$jumlahHilang;
+        $data['beratMassal6']=0;
+        $data['beratMassal7']=0;
+        $data['beratMassal8']=0;
+        $data['beratMassal9']=0;
+        $data['beratMassal10']=0;
+        $data['beratMassal11']=0;
+        $data['beratMassal12']=0;
+        $data['beratMassal13']=0;
+        $data['beratMassal14']=0;
+
+        for ($z=0; $z < count($bb); $z++) { 
+            if ($bb[$z]->berat) {
+                    if ((int)$bb[$z]->idAktivitas == 1006) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal6'] = $data['beratMassal6'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1007) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal7'] = $data['beratMassal7'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1008) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal8'] = $data['beratMassal8'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1009) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal9'] = $data['beratMassal9'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1010) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal10'] = $data['beratMassal10'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1011) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal11'] = $data['beratMassal11'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1012) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal12'] = $data['beratMassal12'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1013) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal13'] = $data['beratMassal13'] +  $selisih;
+                    }
+                    else if ((int)$bb[$z]->idAktivitas == 1014) {
+                        $bbAwal=(float) $bb[$z]->beratAwal;
+                        $bbAkhir=(float) $bb[$z]->berat;
+                        $kembali=(float) $bb[$z]->kembali;
+                        $selisih = round($bbAwal-$bbAkhir-$kembali,2);
+                        $data['beratMassal14'] = $data['beratMassal14'] +  $selisih;
+                    }
+            // /$jumlahHilang2=$jumlahHilang2+$jumlahHilang;
+            }
+        }
+
         $this->load->view('user/inventoryDashboard',$data);
     }
 
@@ -1339,18 +1425,31 @@ class User extends CI_Controller {
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
-            $dataBOM= array(
+            $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
+            $jml = $stok[0]->TOT;
+            $jmlbutuh = $this->input->post('bahanButuh');
+            if ($jmlbutuh > $jml) {
+                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
+            } else {
+                $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $this->input->post('kodeMaterial'),
-                'jumlah'     => $this->input->post('bahanButuh')
-            );
-            $this->mdl->insertData('bommassal',$dataBOM);
-            echo '<b>Data BOM berhasil disimpan.</b><br />';
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+                );
+                
+                $this->mdl->insertData('bommassal',$dataBOM);
+                echo '<b>Data BOM berhasil disimpan.</b><br />';
+
+            }
+            
         }
     }
 
     public function createBOMMassalTurun($idSubSPK) {
         $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
         if ($this->form_validation->run() == FALSE){
 
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
@@ -1363,46 +1462,91 @@ class User extends CI_Controller {
             if ($this->input->post('beratAlloy') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Alloy');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratAlloy');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+
+                $dataBOM1= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratAlloy')
+                    'jumlah'     => $jmlbutuh,
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratTembaga') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratTembaga');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+
+                $dataBOM2= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratTembaga')
+                    'jumlah'     => $jmlbutuh,
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratPerak') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Perak');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+                $jmlbutuh = $this->input->post('beratPerak');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+                $dataBOM3= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPerak')
+                    'jumlah'     => $jmlbutuh
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
             if ($this->input->post('beratPaladium') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Paladium');
                 $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
+
+                $jmlbutuh = $this->input->post('beratPaladium');
+                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
+                $jml = $stok[0]->TOT;
+                
+                if($jmlbutuh > $jml) {
+                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
+                }
+                $dataBOM4= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPaladium')
+                    'jumlah'     => $jmlbutuh
                 ); 
-                $this->mdl->insertData('bommassal',$dataBOM);
+                
             }
-                $message = "BOM berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanbanMassal")."';</script>";
+
+            $this->mdl->insertData('bommassal',$dataBOM1);
+            $this->mdl->insertData('bommassal',$dataBOM2);
+            $this->mdl->insertData('bommassal',$dataBOM3);
+            $this->mdl->insertData('bommassal',$dataBOM4);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/kanbanMassal")."';</script>";
         }
     }
 
@@ -2020,10 +2164,87 @@ class User extends CI_Controller {
                     'totalBerat' => $berat
                 ); 
                 $this->mdl->updateData('idPO',$idPO, 'purchaseorderservice', $dataHarga);
-                $message = "PO berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/listPOService")."';</script>";
+
+
+                //Query Tambah SPK
+                $sj='Belum Ada';
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataSPK = array(
+                    'nomorFaktur'           => $this->input->post('nomorPO'),
+                    'nomorPO'               => $this->input->post('nomorPO'),
+                    'idCustomer'            => $idCustomer,
+                    'statusJadwal'          => $sj,
+                    'PICJadwal'             => $iduser,
+                );
+                $this->mdl->insertData('spkservice',$dataSPK); 
+
+                $data['pegawai'] = $this->mdl->listPegawai();
+                $nomorPO=$this->input->post('nomorPO');
+                $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+                $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
+                $this->load->view('user/invoicePOService',$data);
         }
+    }
+
+    public function tambahJadwalService($nomorFaktur)
+    {
+        $data['dataSPK']   = $this->mdl->findSPKService($nomorFaktur);
+        $data['aktivitas'] = $this->mdl->listAktivitasService();
+        $this->load->view('user/spkJadwalService', $data);
+    }
+
+    public function uploadJadwalService()
+    {
+        //eksekusi query insert tanpa gambar
+        $idAktivitas    = $this->input->post('idAktivitas');
+        $nomorAktivitas = $this->input->post('nomorAktivitas');
+        $startDate      = $this->input->post('startDate');
+        $endDate        = $this->input->post('endDate');
+        $nomorFaktur    = $this->input->post('nomorFaktur');
+        // print_r($idAktivitas);exit();
+        for ($i = 0; $i < count($nomorAktivitas); $i++) {
+            $b             = $nomorAktivitas[$i];
+            $data = array(
+                'idSPK' => $this->input->post('idSPK'),
+                'idAktivitas' => $idAktivitas[$b],
+                'startDate' => $startDate[$b],
+                'endDate' => $endDate[$b]
+            );
+            //$this->mdl->tambahRencana($dataJadwal);
+            $this->mdl->insertData('rencanaproduksiservice',$data);
+            
+        }
+        
+        $idSPK = $this->input->post('idSPK');
+        
+        $data = array(
+            'statusJadwal' => 'Sudah Ada',
+            'tanggalApprovalJadwal' => date("Y-m-d H:i:s"),
+            'durasi'    => $this->input->post('durasi')
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkService', $data);
+
+        $ren = $this->mdl->getAktivitasService($nomorFaktur);
+
+        $idAktivitas = $ren[0]->idAktivitas;
+        $idSPK = $ren[0]->idSPK;
+
+        $data = array(
+            'idSPK' => $idSPK,
+            'idAktivitas' => $idAktivitas,
+            'statusWork' => 'Belum ada PIC',
+            'statusBerat' => 'Belum Disetujui',
+            'statusSPK' => 'Active',
+        );
+
+        $this->mdl->insertData('factproductionservice',$data); 
+        
+        //$this->mdl->prosesJadwal($nomorFaktur);
+        
+        $message = "Penjadwalan telah berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("user/listSPKService") . "';</script>";
     }
 
     public function tambahSPKService($nomorPO){
@@ -2135,6 +2356,7 @@ class User extends CI_Controller {
 
     public function listSPKService() {
         $data['listSPK'] = $this->mdl->listSPKService();
+        $data['cekjadwal'] = $this->mdl->cekjadwalservice();
         $this->load->view('user/spkService',$data);
     }
 
@@ -4020,14 +4242,24 @@ class User extends CI_Controller {
         if($idAktivitas == '1004') {
 
             $bom = $this->mdl->getbom4($idSubSPK);
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+
+            $data = array(
+                'status' => 'Disetujui'
+            );
+
+            $this->mdl->updateData('idSubSPK',$idSubSPK,'bommassal',$data);
 
             for ($i=0; $i < count($bom) ; $i++) { 
 
                 $data = array(
+                    'idPIC' => $idUser,
                     'tipeBarang' => "Material Dasar",
                     'kodeBarang' => $bom[$i]->kodeMaterial,
                     'jumlah' => $bom[$i]->jumlah,
                     'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
                     'tanggal' => date("Y-m-d H:i:s")
                 );
                 
@@ -4045,6 +4277,22 @@ class User extends CI_Controller {
         }
 
         if($idAktivitas == '1006') {
+
+            $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+            $idg = $userx[0]->idUser;
+
+            $data = array(
+                'idPIC' => $idg,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $proses[0]->jumlah,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'pcs',
+                'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+            $this->mdl->insertData('stokbarang', $data);
 
         }
 
@@ -4224,13 +4472,37 @@ class User extends CI_Controller {
         $stok       = (int) $prod[0]->stok;
         $newstok    = $stok + (int) $jumlah;
 
+        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+        $idg = $userx[0]->idUser;
+
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+
         $data = array(
+            'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $kodeProduk,
+            'kodeBarang' => $idProduk,
             'jumlah' => $jumlah,
             'satuan' => 'Pcs',
             'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN'
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Transfer'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+
+        $data = array(
+            'idPIC' => $idg,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Transfer'
             
         );
 
@@ -5030,6 +5302,13 @@ class User extends CI_Controller {
         $this->load->view('user/invoiceMassal', $data);
     }
 
+    public function hapusmaterial($idBOM,$tipe,$nomorFaktur) {
+        if($tipe == 'massal') {
+            $this->mdl->deleteData('idBOM',$idBOM,'bommassal');
+            redirect('user/invoiceSPKMassal/'.$nomorFaktur);
+        }
+    }
+
     public function editJadwal() {
 
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
@@ -5259,9 +5538,23 @@ class User extends CI_Controller {
                         );
                         $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPOService);
                     }
-                $message = "PO berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/listPOService")."';</script>";
+                //Query Tambah SPK
+                $sj='Belum Ada';
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataSPK = array(
+                    'nomorFaktur'           => $this->input->post('nomorPO'),
+                    'nomorPO'               => $this->input->post('nomorPO'),
+                    'idCustomer'            => $idCustomer,
+                    'statusJadwal'          => $sj,
+                    'PICJadwal'             => $iduser,
+                );
+                $this->mdl->insertData('spkservice',$dataSPK); 
+
+                $data['pegawai'] = $this->mdl->listPegawai();
+                $nomorPO=$this->input->post('nomorPO');
+                $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+                $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
+                $this->load->view('user/invoicePOService',$data);
         }
     }
 
