@@ -2947,6 +2947,12 @@ class User extends CI_Controller {
         $this->load->view('user/rekapProduksi',$data);
     }
 
+    public function rekapEmas() {
+        $data['dataRekap'] = $this->mdl->listRekapProduksi();
+        $data['pegawai'] = $this->mdl->listPegawai();
+        $this->load->view('user/rekapEmas',$data);
+    }
+
     public function tambahRekapProduksi() {
         $jenisProduksi=$this->input->post('jenisProduksi');
         $idUser=$this->input->post('idUser');
