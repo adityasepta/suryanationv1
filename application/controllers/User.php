@@ -218,7 +218,9 @@ class User extends CI_Controller {
    
     
     public function administration() {
-        $this->load->view('user/administrationDashboard');
+        $data['poPerMonth'] = $this->mdl->poPerMonth();
+        $data['poSum'] = $this->mdl->poSum();
+        $this->load->view('user/administrationDashboard',$data);
     }
 
     public function purchaseOrder() {
@@ -1264,18 +1266,19 @@ class User extends CI_Controller {
             $this->load->view('user/createMaterial');
         }
         else {
-               $dataMaterial = array(
-                                'kodeMaterial'    => $this->input->post('kodeMaterial'),
-                                'namaMaterial'    => $this->input->post('namaMaterial'),
-                                'satuan'          => $this->input->post('satuan'),
-                                'stokMaterial'    => $this->input->post('stokMaterial'),
-                                'safetyStock'     => $this->input->post('safetyStock')
-                        );
-                        //print_r($dataMaterial);exit();
-                        $this->mdl->insertMaterial($dataMaterial);
-                        $message = "Material dasar berhasil dibuat";
-                        echo "<script type='text/javascript'>alert('$message');
-                        window.location.href='".base_url("user/material")."';</script>";   
+            $dataMaterial = array(
+                    'kodeMaterial'    => $this->input->post('kodeMaterial'),
+                    'namaMaterial'    => $this->input->post('namaMaterial'),
+                    'satuan'          => $this->input->post('satuan'),
+                    'stokMaterial'    => $this->input->post('stokMaterial'),
+                    'safetyStock'     => $this->input->post('safetyStock'),
+                    'kategori'        => $this->input->post('kategori')
+            );
+            //print_r($dataMaterial);exit();
+            $this->mdl->insertMaterial($dataMaterial);
+            $message = "Material dasar berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/material")."';</script>";   
         }
     }
 
@@ -2942,6 +2945,12 @@ class User extends CI_Controller {
         $data['dataRekap'] = $this->mdl->listRekapProduksi();
         $data['pegawai'] = $this->mdl->listPegawai();
         $this->load->view('user/rekapProduksi',$data);
+    }
+
+    public function rekapEmas() {
+        $data['dataRekap'] = $this->mdl->listRekapProduksi();
+        $data['pegawai'] = $this->mdl->listPegawai();
+        $this->load->view('user/rekapEmas',$data);
     }
 
     public function tambahRekapProduksi() {
@@ -5625,5 +5634,8 @@ class User extends CI_Controller {
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/jabatan")."';</script>";
     }
+
+
+
 
 }

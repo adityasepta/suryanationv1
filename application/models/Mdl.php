@@ -93,7 +93,7 @@ class mdl extends CI_Model {
 
     public function getStokPerId($idUser) {
 
-        $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = 19 and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = 19 and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'IN'),0)) AS tot";
+        $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idUser and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idUser and b.kategori = 'Emas' and a.jenisPergerakanBarang = 'OUT'),0)) AS tot";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2214,6 +2214,29 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+    // Dashboard Administration ----------------------------------------------------------------------------------
+
+    public function poPerMonth(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT COUNT(po.idPO) AS jumlah, MONTH(po.tanggalMasuk) AS bulan FROM (SELECT a.idPO,a.tanggalMasuk,'Tempahan' AS kategori FROM potempahan a UNION SELECT b.idPO,b.tanggalMasuk,'Perak' AS kategori FROM poperak b UNION SELECT c.idPO,c.tanggalMasuk,'Massal' AS kategori FROM pomasal c UNION SELECT d.idPO,d.tanggalMasuk,'Service' AS kategori FROM purchaseorderservice d UNION SELECT e.idPO,e.tanggalMasuk,'Trading' AS kategori FROM purchaseordertrading e) po WHERE YEAR(po.tanggalMasuk) = YEAR(CURDATE()) GROUP BY MONTH(po.tanggalMasuk) ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function poSum(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT COUNT(po.idPO) AS jumlah FROM (SELECT a.idPO,a.tanggalMasuk,'Tempahan' AS kategori FROM potempahan a UNION SELECT b.idPO,b.tanggalMasuk,'Perak' AS kategori FROM poperak b UNION SELECT c.idPO,c.tanggalMasuk,'Massal' AS kategori FROM pomasal c UNION SELECT d.idPO,d.tanggalMasuk,'Service' AS kategori FROM purchaseorderservice d UNION SELECT e.idPO,e.tanggalMasuk,'Trading' AS kategori FROM purchaseordertrading e) po WHERE YEAR(po.tanggalMasuk) = YEAR(CURDATE())");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+    
 
 
 }
