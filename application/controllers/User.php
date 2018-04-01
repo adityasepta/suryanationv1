@@ -3159,8 +3159,6 @@ class User extends CI_Controller {
             if($_FILES['userfile']['name'] != NULL){
                 //form sumbit dengan gambar diisi
                 //load uploading file library
-
-                 
                  $config['upload_path']     = './uploads/gambarProduk/'; 
                  $config['allowed_types']   = 'jpg'; 
                  $config['max_size']        = '2048';
@@ -3222,6 +3220,34 @@ class User extends CI_Controller {
             $harga=$this->input->post('harga');
             $qty=$this->input->post('kuantitas');
             $totalHarga=($qty*$harga)+$upah;
+
+            $datangEmas=$this->input->post('datangEmas');
+            $idStokBarang = '';
+            if ($datangEmas>0) {
+                $dataMaterial = array(
+                    'kodeMaterial'    => $kode,
+                    'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
+                    'satuan'          => 'Gram',
+                    'stokMaterial'    => $this->input->post('datangEmas'),
+                    'safetyStock'     => 0,
+                    'asal'            => 'Datang Emas',
+                );
+                //print_r($dataMaterial);exit();
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                //Stok Datang Emas
+                $dataInventory = array(
+                    'idPIC'         => 19,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Bahan Datang',
+                    'kodeBarang'    => $kode,
+                    'jumlah'        => $this->input->post('datangEmas'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            }
+            
             
             //Query Tambah PO
             $dataPO = array(
@@ -3229,6 +3255,7 @@ class User extends CI_Controller {
                 'idProduk'          => $idProduk,
                 'idCustomer'        => $idCustomer,
                 'idSalesPerson'     => $this->input->post('idSalesPerson'),
+                'idStokBarang'      => $idStokBarang,
                 'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                 'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
                 'hargaBahan'        => $hargaBahan,
@@ -3300,7 +3327,7 @@ class User extends CI_Controller {
             $data['pegawai'] = $this->mdl->listPegawai();
             $nomorPO=$this->input->post('nomorPO');
             $data['dataPO'] = $this->mdl->findPO($nomorPO);
-            $this->load->view('user/invoicePO',$data); 
+            $this->load->view('user/invoicePO',$data);
 
         }
     }
@@ -4302,6 +4329,33 @@ class User extends CI_Controller {
 
             $harga=$this->input->post('harga');
             $totalHarga=0;
+
+            $datangEmas=$this->input->post('datangEmas');
+            $idStokBarang = '';
+            if ($datangEmas>0) {
+                $dataMaterial = array(
+                    'kodeMaterial'    => $kode,
+                    'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
+                    'satuan'          => 'Gram',
+                    'stokMaterial'    => $this->input->post('datangEmas'),
+                    'safetyStock'     => 0,
+                    'asal'            => 'Datang Emas',
+                );
+                //print_r($dataMaterial);exit();
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                //Stok Datang Emas
+                $dataInventory = array(
+                    'idPIC'         => 19,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Bahan Datang',
+                    'kodeBarang'    => $kode,
+                    'jumlah'        => $this->input->post('datangEmas'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            }
             
             //eksekusi query insert
             $dataPO = array(
@@ -4309,6 +4363,7 @@ class User extends CI_Controller {
                 'idProduk'          => $idProduk,
                 'idCustomer'        => $idCustomer,
                 'idSalesPerson'     => $this->input->post('idSalesPerson'),
+                'idStokBarang'      => $idStokBarang,
                 'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
                 'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
                 'hargaBahan'        => $hargaBahan,
