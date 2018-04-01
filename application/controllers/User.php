@@ -783,6 +783,7 @@ class User extends CI_Controller {
     //Inventory
     public function rekapBerat() {
         $data['b'] = $this->mdl->getBerat();
+        $data['c'] = $this->mdl->getBerat22();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPK();    
         $data['rekapBerat']=$this->mdl->rekapBerat();
@@ -810,31 +811,17 @@ class User extends CI_Controller {
 
         for ($z=0; $z < count($b); $z++) { 
             if ($b[$z]->berat) {
-            if((int)$b[$z]->idAktivitas == 1003) { 
                 $bAwal= $bAwal + $b[$z]->beratAwal;
                 $bAkhir=$bAkhir + $b[$z]->berat;
                 $kembali = $kembali + $b[$z]->kembali;
                 $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            } else if((int)$b[$z]->idAktivitas == 1011) { 
-                $bAwal= $bAwal + $b[$z]->berat;
-                $bAkhir=$bAkhir + $b[$z]->berat;
-                $kembali = $kembali + $b[$z]->kembali;
-                $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            }
-            else {
-                $bAwal= $bAwal + $b[$z-1]->berat;
-                $bAkhir=$bAkhir + $b[$z]->berat;
-                $kembali = $kembali + $b[$z]->kembali;
-                $jumlahHilang = round((($bAwal-$bAkhir-$kembali)),2);
-                /*print_r($jumlahHilang);
-                echo "<br>";*/
-            }
+                if ($jumlahHilang != 0) {
+                    print_r($jumlahHilang);
+                    echo "<br>";
+                }
             // /$jumlahHilang2=$jumlahHilang2+$jumlahHilang;
-            }
+            }else {
+                echo "-<br>";}
         }
         
         $data['jumlahHilang']=$jumlahHilang;
@@ -2079,7 +2066,7 @@ class User extends CI_Controller {
         $this->mdl->updateData('idSPK', $idSPK, 'spkService', $data);
 
         $ren = $this->mdl->getAktivitasService($nomorFaktur);
-        
+
         $idAktivitas = $ren[0]->idAktivitas;
         $idSPK = $ren[0]->idSPK;
 

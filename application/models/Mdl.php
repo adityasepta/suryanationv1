@@ -2039,6 +2039,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function getBerat22() {
+
+        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas,idProProd) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
+        $query = $this->db->query($sql);
+        
+        /*SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas*/
+        return $query->result();
+    }
+
+
     public function getSPKMassal() {
         $sql    = "SELECT *, DATE_FORMAT (lastModified,'%d %M %Y') AS tglspk FROM spkmasal WHERE idSPK IN (select DISTINCT(idSPK) FROM rencanaproduksi2) ORDER BY lastModified DESC";
         $query  = $this->db->query($sql);
