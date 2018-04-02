@@ -134,7 +134,7 @@
                                     <hr>
                                 </div>
                             </div>
-                            <?php echo form_open_multipart('user/updatePOPerak/'.$idPO,'class="form-horizontal"')?>
+                            <?php echo form_open_multipart('user/updatePOMassal/'.$idPO,'class="form-horizontal"')?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">

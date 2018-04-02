@@ -4485,6 +4485,38 @@ class User extends CI_Controller {
 
         $data = array(
             'idPIC' => $idUser,
+            'tipeBarang' => 'Produk Semi Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Produksi'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+        $data = array(
+            'idPIC' => $idUser,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Produksi'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+        $data = array(
+            'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
             'kodeBarang' => $idProduk,
             'jumlah' => $jumlah,
@@ -4527,7 +4559,7 @@ class User extends CI_Controller {
         $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi </div>');
-        redirect('User/listProdukJadi');
+        redirect('user/produk');
 
     }
 
@@ -4570,6 +4602,7 @@ class User extends CI_Controller {
         $this->form_validation->set_message('is_unique','The %s is already taken');
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[pomasal.nomorPO]');
 
+        
         if ($this->form_validation->run() == FALSE){
             $data['pegawai'] = $this->mdl->listPegawaiSales();
             $data['poTerakhir'] = $this->mdl->poTerakhir2();
