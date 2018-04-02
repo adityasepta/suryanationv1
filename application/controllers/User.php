@@ -1842,7 +1842,8 @@ class User extends CI_Controller {
                             'jumlah'        => $this->input->post('jumlah'),
                             'satuan'        => $this->input->post('satuan'),
                             'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
-                            'hargaBeli'     => $hargaBeli
+                            'hargaBeli'     => $hargaBeli,
+                            'tanggal' => date("Y-m-d H:i:s"),
                         );
                //print_r($dataInventory);exit();
                if ($this->input->post('tipeBarang')=='Produk Jadi') {
@@ -1895,6 +1896,7 @@ class User extends CI_Controller {
                 'satuan'        => $this->input->post('satuan'),
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
+                'tanggal' => date("Y-m-d H:i:s"),
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
@@ -1907,6 +1909,7 @@ class User extends CI_Controller {
                 'satuan'        => $this->input->post('satuan'),
                 'jenisPergerakanBarang'  => 'IN',
                 'hargaBeli'     => 0,
+                'tanggal' => date("Y-m-d H:i:s"),
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
@@ -3171,6 +3174,7 @@ class User extends CI_Controller {
                 'jumlah'        => $this->input->post('jumlah'),
                 'jenisPergerakanBarang'  => 'IN',
                 'hargaBeli'     => 0,
+                'tanggal' => date("Y-m-d H:i:s"),
             );
             $this->mdl->insertData("stokbarang",$dataInventory);
 
