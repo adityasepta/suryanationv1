@@ -1,3 +1,29 @@
+<?php 
+  $idPO=$dataPO[0]->idPO;
+  if($this->input->post('is_submitted')){
+    $nomorPO           = set_value('nomorPO');
+    $idCustomer        = set_value('idCustomer');
+    $idSalesPerson     = set_value('idSalesPerson');
+    $tanggalMasuk      = set_value('tanggalMasuk');
+    $tanggalEstimasiPenyelesaian    = set_value('tanggalEstimasiPenyelesaian');
+    $totalBerat    = set_value('totalBerat');
+    $totalHarga    = set_value('totalHarga');
+  }
+  else {
+    $nomorPO           = $dataPO[0]->nomorPO;
+    $idCustomer        = $dataPO[0]->idCustomer;
+    $idSalesPerson     = $dataPO[0]->idSalesPerson;
+    $tanggalMasuk      = $dataPO[0]->tanggalMasuk;
+    $tanggalEstimasiPenyelesaian    = $dataPO[0]->tanggalEstimasiPenyelesaian;
+    $totalBerat    = $dataPO[0]->totalBerat;
+    $totalHarga    = $dataPO[0]->totalHarga;
+  }
+  $tglmsk = new DateTime($tanggalMasuk);
+  $tglmsk = $tglmsk->format("Y-m-d");
+  $tglpyl = new DateTime($tanggalEstimasiPenyelesaian);
+  $tglpyl = $tglpyl->format("Y-m-d");
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -66,22 +92,20 @@
                             <h5>Buat PO Service <small>Isi semua data yang dibutuhkan.</small></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                            <?php echo form_open_multipart('user/createPOService/')?>
+                            <?php echo form_open_multipart('user/editPOServicePartai/'.$nomorPO)?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nomor PO</label><br>
-                                                <?php if(count($poTerakhir)>0) { ?>
-                                                <small>Nomor Purchase Order terakhir yang digunakan adalah <strong> <?php echo $poTerakhir[0]->nomorPO; ?></strong></small>
-                                                <?php $poNow =  $poTerakhir[0]->nomorPO+1; } else { $poNow = 1; } ?>
-                                                <input type="text" placeholder="Nomor PO" name="nomorPO" value="<?php echo $poNow ?>" class="form-control" readonly>
+                                                <input type="text" placeholder="Nomor PO" name="nomorPO" value="<?= $nomorPO ?>" class="form-control" readonly>
+                                                <input type="hidden" name="idPO" value="<?= $idPO ?>">
+                                                <input type="hidden" name="idCustomer" value="<?= $idCustomer ?>">
                                                 <small class="text-danger"><?php echo form_error('nomorPO'); ?></small>
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Jenis Service</label><br>
-                                                <small>Service bisa berupa Satuan atau Partai</small>
-                                                <input type="text" placeholder="Jenis Order" name="jenisOrder" value="Satuan" class="form-control" readonly>
+                                                <label>Jenis Service</label>
+                                                <input type="text" placeholder="Jenis Order" name="jenisOrder" value="Partai" class="form-control" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -91,70 +115,48 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nama Konsumen</label>
-                                                <?php if($id['idC']==0){ ?>
-                                                    <input type="text" placeholder="Nama Konsumen" name="namaCustomer" class="form-control" value="<?php echo set_value('namaCustomer'); ?>" required="">
-                                                    <input type="hidden" name="idCustomer" class="form-control" value="0">
-                                                <?php } else { ?>
-                                                    <input type="text" placeholder="Nama Konsumen" name="namaCustomer" class="form-control" value="<?php echo $customer[0]->namaCustomer; ?>" readonly>
-                                                    <input type="hidden" name="idCustomer" class="form-control" value="<?php echo $customer[0]->idCustomer; ?>">
-                                                <?php } ?>
+                                                    <input type="text" placeholder="Nama Konsumen" name="namaCustomer" class="form-control" value="<?= $dataPO[0]->namaCustomer; ?>" readonly>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Nomor Telepon</label>
-                                                <?php if($id['idC']==0){ ?>
-                                                    <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?php echo set_value('nomorTelepon'); ?>" required="">
-                                                <?php } else { ?>
-                                                    <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?php echo $customer[0]->nomorTelepon; ?>" readonly>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Sales Person</label>
-                                                <select id="idSalesPerson" class="form-control"  name="idSalesPerson">
-                                                    <?php $ky=count($pegawai); for ($i=0; $i < $ky ; $i++) { ?> 
-                                                        <option value="<?php echo $pegawai[$i]->idUser ?>" <?php $a= set_value('idSalesPerson'); if($a==$pegawai[$i]->idUser){?> selected="" <?php } ?>><?php echo $pegawai[$i]->nama;?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Terima</label>
-                                                <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo set_value('tanggalMasuk'); ?>" required="">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Estimasi Penyelesaian</label>
-                                                <input type="date" placeholder="Estimasi Penyelesaian" name="tanggalEstimasiPenyelesaian" value="<?php echo set_value('tanggalEstimasiPenyelesaian'); ?>" class="form-control">
+                                                    <input type="text" placeholder="Nomor Telepon" name="nomorTelepon" class="form-control" value="<?= $dataPO[0]->nomorTelepon; ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
+                                <?php for ($i=0; $i < count($ds); $i++) {
+                                        $idDetailPO=$ds[$i]->idDetailPO; 
+                                        if($this->input->post('is_submitted')){
+                                            $namaBarang        = set_value('namaBarang');
+                                            $berat             = set_value('berat');
+                                            $jumlah            = set_value('jumlah');
+                                            $harga             = set_value('harga');
+                                          }
+                                        else {
+                                            $namaBarang        = $ds[$i]->namaBarang;
+                                            $berat             = $ds[$i]->berat;
+                                            $jumlah            = $ds[$i]->jumlah;
+                                            $harga             = $ds[$i]->harga;
+                                          }
+
+                                ?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-1">
                                                 <label>Jumlah</label>
-                                                <input type="number" step="any" name= "jumlah[]" class="form-control" required>
+                                                <input type="number" name= "jumlah[]" value="<?= $jumlah?>" class="form-control" required>
+                                                <input type="hidden" name= "idDetailPO[]" value="<?= $idDetailPO?>" class="form-control">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Nama Barang</label>
-                                                <input type="text" name= "namaBarang[]" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Berat (gr)</label>
-                                                <input type="number" step="any" name= "berat[]" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Sub Total Harga (Rp)</label>
-                                                <input type="text" name= "harga[]" class="form-control good" required>
+                                                <input type="text" name= "namaBarang[]" value="<?= $namaBarang?>"" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
                                 <div class="row" id="multiple_choice" style="margin-left: 0;">
                                                 <div class="col-md-12">
                                                         <div class="form-group">
@@ -165,6 +167,20 @@
                                                         </div>
                                                 </div>
                                             </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label>Berat Total (gr)</label>
+                                                <input type="number" step="any" name= "berat" value="<?= $totalBerat?>" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Total Harga (Rp)</label>
+                                                <input type="text" name= "harga" class="form-control good" value="<?= $totalHarga?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
@@ -221,7 +237,7 @@
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
                     <?php $jawab++;?>
-                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" step="any" name= "jumlah[]" class="form-control good" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang[]" class="form-control" required></div><div class="col-md-2 "><label>Berat (gram)</label><input type="number" step="any" name= "berat[]" class="form-control" required></div><div class="col-md-3"><label>Sub Total Harga</label><input type="text" name= "harga[]" class="form-control good" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-1"><label>Jumlah</label><input type="number" name= "jumlah1[]" class="form-control good" required></div><div class="col-md-4"><label>Nama Barang</label><input type="text" name= "namaBarang1[]" class="form-control" required></div><br><button class="btn remove_field" style="margin-bottom: 5px;"">Hapus</button></div>'); //add input box
                 }
             });
             

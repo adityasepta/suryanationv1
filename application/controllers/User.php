@@ -324,6 +324,152 @@ class User extends CI_Controller {
         $this->load->view('user/editPOPerak',$data);
     }
 
+    public function editPOService($nomorPO) {
+        $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
+        if ($data['dataPO'][0]->jenisOrder=='Satuan') {
+            $this->load->view('user/editPOServiceSatuan',$data);
+        }else{
+            $this->load->view('user/editPOServicePartai',$data);
+        }
+        //print_r($data['ds']);exit();
+    }
+
+    public function editPOServiceSatuan($nomorPO) {
+        $idPO = $this->input->post('idPO');
+        $dataPO = array(
+            'nomorPO'           => $this->input->post('nomorPO'),
+            'idSalesPerson'     => $this->input->post('idSalesPerson'),
+            'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
+            'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
+            'tipeOrder'         => 'service',
+            'jenisOrder'         => 'Satuan',
+        );
+        $this->mdl->updateData('idPO',$idPO,'purchaseorderservice',$dataPO);
+
+        $idDetailPO = $this->input->post('idDetailPO[]');
+        $jumlah = $this->input->post('jumlah[]');
+        $namaBarang = $this->input->post('namaBarang[]');
+        $berat = $this->input->post('berat[]');
+        $harga = $this->input->post('harga[]');
+
+
+        if(count($jumlah)>0){
+            $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+            $data['ds'] = $this->mdl->getBeratHargaService($nomorPO);
+            $totalHarga1 = $data['dataPO'][0]->totalHarga;
+            $totalHarga2 = $data['ds'][0]->harga;
+            $totalHarga = $totalHarga1 - $totalHarga2;
+
+            $totalBerat1 = $data['dataPO'][0]->totalBerat;
+            $totalBerat2 = $data['ds'][0]->berat;
+            $totalBerat = $totalBerat1 - $totalBerat2;/*
+            print_r($totalHarga);
+            print_r($totalBerat);exit();*/
+            for ($i=0; $i < count($jumlah); $i++) { 
+                $id = $idDetailPO[$i];
+                $dataDetailPO = array(
+                        'namaBarang' => $namaBarang[$i],
+                        'jumlah' => $jumlah[$i],
+                        'berat' => $berat[$i], 
+                        'harga' => $this->clean($harga[$i])      
+                );
+                $this->mdl->updateData('idDetailPO',$id,'detailpurchaseorderservice',$dataDetailPO);
+                $totalHarga = $totalHarga + $this->clean($harga[$i]);
+                $totalBerat = $totalBerat + $berat[$i];
+            }
+            $dataHarga = array(
+                'totalHarga' => $totalHarga,
+                'totalBerat' => $totalBerat
+            );
+            $this->mdl->updateData('idPO',$idPO,'purchaseorderservice',$dataHarga);
+        }
+
+        $jumlah1 = $this->input->post('jumlah1[]');
+        $namaBarang1 = $this->input->post('namaBarang1[]');
+        $berat1 = $this->input->post('berat1[]');
+        $harga1 = $this->input->post('harga1[]');
+
+        if(count($jumlah1)>0) {
+            $data['dataPO'] = $this->mdl->findPOService($nomorPO);
+            $totalHarga = $data['dataPO'][0]->totalHarga;
+            $totalBerat = $data['dataPO'][0]->totalBerat;
+            $idPO = $data['dataPO'][0]->idPO; 
+            for ($i=0; $i < count($jumlah1); $i++) { 
+                $dataDetailPO = array(
+                        'idPO' => $idPO,
+                        'namaBarang' => $namaBarang1[$i],
+                        'jumlah' => $jumlah1[$i],
+                        'berat' => $berat1[$i], 
+                        'harga' => $harga1[$i]      
+                );
+                $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPO);
+                $totalHarga = $totalHarga + $harga1[$i];
+                $totalBerat = $totalBerat + $berat1[$i];
+            }
+
+            $dataHarga = array(
+                'totalHarga' => $totalHarga,
+                'totalBerat' => $totalBerat
+            );
+            $this->mdl->updateData('idPO',$idPO,'purchaseorderservice',$dataHarga);
+        }
+        $message = "PO berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/listPOService")."';</script>";
+    }
+
+    public function editPOServicePartai($nomorPO) {
+        /*$a = $this->clean($this->input->post('harga'));
+        print_r($a);exit();*/
+        $idPO = $this->input->post('idPO');
+
+        $idDetailPO = $this->input->post('idDetailPO[]');
+        $jumlah = $this->input->post('jumlah[]');
+        $namaBarang = $this->input->post('namaBarang[]');
+
+
+        if(count($jumlah)>0){
+            for ($i=0; $i < count($jumlah); $i++) { 
+                $id = $idDetailPO[$i];
+                $dataDetailPO = array(
+                        'namaBarang' => $namaBarang[$i],
+                        'jumlah' => $jumlah[$i],    
+                );
+                $this->mdl->updateData('idDetailPO',$id,'detailpurchaseorderservice',$dataDetailPO);
+            }
+            
+        }
+
+        $jumlah1 = $this->input->post('jumlah1[]');
+        $namaBarang1 = $this->input->post('namaBarang1[]');
+
+
+        if(count($jumlah1)>0){
+            for ($i=0; $i < count($jumlah1); $i++) { 
+                $dataDetailPO = array(
+                        'idPO' => $idPO,
+                        'namaBarang' => $namaBarang1[$i],
+                        'jumlah' => $jumlah1[$i],    
+                );
+                $this->mdl->insertData('detailpurchaseorderservice',$dataDetailPO);
+            }
+            
+        }
+
+        $dataHarga = array(
+                'totalBerat' => $this->input->post('berat'),
+                'totalHarga' => $this->clean($this->input->post('harga'))
+        );
+        
+        $this->mdl->updateData('idPO',$idPO,'purchaseorderservice',$dataHarga);
+
+        $message = "PO berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/listPOService")."';</script>";
+    }
+
     public function updatePO($idPO){
         if(!$this->input->post('pekerjaanTambahan[]')) {
             $pekerjaanTambahan = "Tidak Ada";
@@ -1559,16 +1705,28 @@ class User extends CI_Controller {
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
+            $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
+            $jml = $stok[0]->TOT;
+            $jmltarget = $this->input->post('beratBahanTarget');
+            if ($jmltarget > $jml) {
+                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
+            } else {
+
                 $dataBOM= array(
-                            'idSubSPK'   => $idSubSPK,
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('beratBahanTarget')
-                        );
+                    'idSubSPK'   => $idSubSPK,
+                    'idMaterial' => $idMaterial,
+                    'jumlah'     => $jmltarget
+                );
                 
                 $this->mdl->insertData('bommassal',$dataBOM);
                 $message = "BOM berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
                 window.location.href='".base_url("user/kanbanMassal")."';</script>";
+
+            }
+                
         }
     }
 
@@ -3315,7 +3473,8 @@ class User extends CI_Controller {
     }
 
     function clean($string) {
-        $string = str_replace(' ', '', $string); // Replaces all spaces with hyphens.
+        $string = str_replace('.00', '', $string); // Replaces all spaces with hyphens.
+        $string = str_replace(' ', '', $string);
 
         return preg_replace('/[^0-9]/', '', $string); // Removes special chars.
     }
@@ -4485,6 +4644,38 @@ class User extends CI_Controller {
 
         $data = array(
             'idPIC' => $idUser,
+            'tipeBarang' => 'Produk Semi Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Produksi'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+        $data = array(
+            'idPIC' => $idUser,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $jumlah,
+            'satuan' => 'Pcs',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Produksi'
+            
+        );
+
+       // print_r($data);
+        
+        $this->mdl->insertData('stokbarang', $data);
+
+        $data = array(
+            'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
             'kodeBarang' => $idProduk,
             'jumlah' => $jumlah,
@@ -4527,7 +4718,7 @@ class User extends CI_Controller {
         $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi </div>');
-        redirect('User/listProdukJadi');
+        redirect('user/produk');
 
     }
 
@@ -4570,6 +4761,7 @@ class User extends CI_Controller {
         $this->form_validation->set_message('is_unique','The %s is already taken');
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[pomasal.nomorPO]');
 
+        
         if ($this->form_validation->run() == FALSE){
             $data['pegawai'] = $this->mdl->listPegawaiSales();
             $data['poTerakhir'] = $this->mdl->poTerakhir2();

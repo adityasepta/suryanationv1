@@ -772,7 +772,7 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT idStok,tipeBarang,kodeBarang as kodeProduk,namaProduk,jumlah,jenisPergerakanBarang,hargaBeli,tanggal,c.nama from stokbarang a JOIN (SELECT idProduk,kodeProduk,namaProduk,stok from produk UNION SELECT idMaterial,kodeMaterial,namaMaterial,stokMaterial FROM materialdasar order by namaProduk) b on a.kodeBarang=b.kodeProduk LEFT JOIN user c ON a.idPIC=c.idUser order by tanggal DESC";
+        $sql    = "SELECT idStok,tipeBarang,kodeBarang as kodeProduk,namaProduk,jumlah,jenisPergerakanBarang,hargaBeli,tanggal,c.nama from stokbarang a LEFT JOIN (SELECT idProduk,kodeProduk,namaProduk,stok from produk UNION SELECT idMaterial,kodeMaterial,namaMaterial,stokMaterial FROM materialdasar order by namaProduk) b on a.kodeBarang=b.kodeProduk LEFT JOIN user c ON a.idPIC=c.idUser order by tanggal DESC";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1104,6 +1104,18 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getDetailSalesService2($nomorPO) {
 
         $sql   = "SELECT * FROM purchaseorderservice po, detailpurchaseorderservice d WHERE po.idPO = d.idPO AND po.nomorPO='$nomorPO'";
+        $hasil = $this->db->query($sql);
+        
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getBeratHargaService($nomorPO) {
+
+        $sql   = "SELECT po.idPO,po.nomorPO,SUM(d.berat) as berat,SUM(d.jumlah) as jumlah,SUM(d.harga) as harga FROM purchaseorderservice po, detailpurchaseorderservice d WHERE po.idPO = d.idPO AND po.nomorPO='$nomorPO' GROUP BY po.nomorPO";
         $hasil = $this->db->query($sql);
         
         if($hasil->num_rows() > 0){

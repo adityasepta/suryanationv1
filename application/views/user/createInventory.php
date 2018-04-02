@@ -505,10 +505,10 @@
                             <h5>Pergerakan Barang | <?php echo $pergerakan['tipePergerakan'] ?></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                            <?php echo form_open_multipart('user/createInventoryTransfer')?>
+                            <?php echo form_open_multipart('user/createInventory')?>
                                 <div class="form-group">
                                     <input type="hidden" name="tipePergerakan" value="<?php echo $pergerakan['tipePergerakan']?>" class="form-control">
-                                    <input type="hidden" name="idUser" value="<?php echo $this->session->userdata['logged_in']['nama']?>" class="form-control">
+                                    <input type="hidden" name="idUser" value="<?php echo $this->session->userdata['logged_in']['iduser']?>" class="form-control">
                                     <input type="hidden" name="tipeBarang" value="Material Dasar" class="form-control">
                                     <input type="hidden" name="jenisPergerakanBarang" value="IN" class="form-control">
                                     <div class="col-sm-12">
