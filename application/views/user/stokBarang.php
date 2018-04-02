@@ -137,8 +137,6 @@
                                                         <option value="Transfer Material">Transfer Material</option>
                                                         <option value="Balik Bahan">Balik Bahan</option>
                                                         <option value="Balik Abu">Balik Abu</option>
-                                                        <option value="Produk Jadi">Produk Jadi</option>
-                                                        <option value="Transaksi">Transaksi</option>
                                                         <option value="Stok Opname">Stok Opname</option>
                                                     </select>
                                                     
