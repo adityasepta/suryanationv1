@@ -1705,16 +1705,28 @@ class User extends CI_Controller {
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
+            $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
+            $jml = $stok[0]->TOT;
+            $jmltarget = $this->input->post('beratBahanTarget');
+            if ($jmltarget > $jml) {
+                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
+            } else {
+
                 $dataBOM= array(
-                            'idSubSPK'   => $idSubSPK,
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('beratBahanTarget')
-                        );
+                    'idSubSPK'   => $idSubSPK,
+                    'idMaterial' => $idMaterial,
+                    'jumlah'     => $jmltarget
+                );
                 
                 $this->mdl->insertData('bommassal',$dataBOM);
                 $message = "BOM berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
                 window.location.href='".base_url("user/kanbanMassal")."';</script>";
+
+            }
+                
         }
     }
 
