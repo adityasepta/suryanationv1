@@ -724,6 +724,13 @@ class mdl extends CI_Model {
         return $result;
     }
 
+    public function findMaterialByKode($kodeMaterial) {
+        $sql    = "SELECT * from materialdasar where kodeMaterial=$kodeMaterial";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+        return $result;
+    }
+
     public function updateProduk2($id, $dataProduk) {
         $this->db->where('idProduk', $id)
                  ->update('produk', $dataProduk);
@@ -782,12 +789,14 @@ class mdl extends CI_Model {
         $sql    = "UPDATE produk set stok='$stok' where kodeProduk='$id'";
         $query  = $this->db->query($sql);
     }
+
     public function findStok($id) {
         $sql    = "SELECT * from stokbarang where idStok='$id'";
         $query  = $this->db->query($sql);
         $result = $query->row();
         return $result;
     }
+
     public function findProduk3($id) {
         $sql    = "SELECT * from produk where kodeProduk='$id'";
         $query  = $this->db->query($sql);

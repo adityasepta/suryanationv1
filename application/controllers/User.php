@@ -1412,15 +1412,33 @@ class User extends CI_Controller {
             $this->load->view('user/createMaterial');
         }
         else {
+
+            if($this->input->post('kategori')=="Emas"){
+                $kadar=$this->input->post('kadar');
+                $clarity="";
+                $color="";
+            } else if($this->input->post('kategori')=="Berlian") {
+                $kadar=$this->input->post('carat');
+                $clarity=$this->input->post('clarity');
+                $color=$this->input->post('color');
+            } else {
+                $kadar="";
+                $clarity="";
+                $color="";
+            }
+
             $dataMaterial = array(
-                    'kodeMaterial'    => $this->input->post('kodeMaterial'),
-                    'namaMaterial'    => $this->input->post('namaMaterial'),
-                    'satuan'          => $this->input->post('satuan'),
-                    'stokMaterial'    => $this->input->post('stokMaterial'),
-                    'safetyStock'     => $this->input->post('safetyStock'),
-                    'kategori'        => $this->input->post('kategori')
+                'kodeMaterial'    => $this->input->post('kodeMaterial'),
+                'namaMaterial'    => $this->input->post('namaMaterial'),
+                'satuan'          => $this->input->post('satuan'),
+                'stokMaterial'    => $this->input->post('stokMaterial'),
+                'safetyStock'     => $this->input->post('safetyStock'),
+                'kategori'        => $this->input->post('kategori'),
+                'kadar'           => $kadar,
+                'clarity'         => $clarity,
+                'color'           => $color,
             );
-            //print_r($dataMaterial);exit();
+            
             $this->mdl->insertMaterial($dataMaterial);
             $message = "Material dasar berhasil dibuat";
             echo "<script type='text/javascript'>alert('$message');
@@ -1436,18 +1454,37 @@ class User extends CI_Controller {
             $this->load->view('user/editMaterial',$data);
         }
         else {
-               $dataMaterial = array(
-                                'kodeMaterial'    => $this->input->post('kodeMaterial'),
-                                'namaMaterial'    => $this->input->post('namaMaterial'),
-                                'satuan'          => $this->input->post('satuan'),
-                                'stokMaterial'    => $this->input->post('stokMaterial'),
-                                'safetyStock'    => $this->input->post('safetyStock')
-                        );
-                        //print_r($dataMaterial);exit();
-                        $this->mdl->updateMaterial($id,$dataMaterial);
-                        $message = "Material dasar berhasil diedit";
-                        echo "<script type='text/javascript'>alert('$message');
-                        window.location.href='".base_url("user/material")."';</script>"; 
+
+            if($this->input->post('kategori')=="Emas"){
+                $kadar=$this->input->post('kadar');
+                $clarity="";
+                $color="";
+            } else if($this->input->post('kategori')=="Berlian") {
+                $kadar=$this->input->post('carat');
+                $clarity=$this->input->post('clarity');
+                $color=$this->input->post('color');
+            } else {
+                $kadar="";
+                $clarity="";
+                $color="";
+            }
+
+            $dataMaterial = array(
+                'kodeMaterial'    => $this->input->post('kodeMaterial'),
+                'namaMaterial'    => $this->input->post('namaMaterial'),
+                'satuan'          => $this->input->post('satuan'),
+                'stokMaterial'    => $this->input->post('stokMaterial'),
+                'safetyStock'     => $this->input->post('safetyStock'),
+                'kategori'        => $this->input->post('kategori'),
+                'kadar'           => $kadar,
+                'clarity'         => $clarity,
+                'color'           => $color,
+            );
+
+            $this->mdl->updateMaterial($id,$dataMaterial);
+            $message = "Material dasar berhasil diedit";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/material")."';</script>"; 
         }
     }
 
@@ -1833,18 +1870,19 @@ class User extends CI_Controller {
             $this->load->view('user/createInventory',$data);
         }
         else {
+
                 $hargaBeli = $this->clean($this->input->post('hargaBeli'));
                 $dataInventory = array(
-                            'idPIC'         => $this->input->post('idUser'),
-                            'tipeBarang'    => $this->input->post('tipeBarang'),
-                            'tipePergerakan'=> $this->input->post('tipePergerakan'),
-                            'kodeBarang'    => $this->input->post('kodeBarang'),
-                            'jumlah'        => $this->input->post('jumlah'),
-                            'satuan'        => $this->input->post('satuan'),
-                            'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
-                            'hargaBeli'     => $hargaBeli,
-                            'tanggal' => date("Y-m-d H:i:s"),
-                        );
+                    'idPIC'         => $this->input->post('idUser'),
+                    'tipeBarang'    => $this->input->post('tipeBarang'),
+                    'tipePergerakan'=> $this->input->post('tipePergerakan'),
+                    'kodeBarang'    => $this->input->post('kodeBarang'),
+                    'jumlah'        => $this->input->post('jumlah'),
+                    'satuan'        => $this->input->post('satuan'),
+                    'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
+                    'hargaBeli'     => $hargaBeli,
+                    'tanggal' => date("Y-m-d H:i:s"),
+                );
                //print_r($dataInventory);exit();
                if ($this->input->post('tipeBarang')=='Produk Jadi') {
                     $data['produk']=$this->mdl->findProduk3($this->input->post('kodeBarang'));

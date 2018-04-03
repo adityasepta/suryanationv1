@@ -38,16 +38,6 @@
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
         </div>
@@ -85,20 +75,47 @@
                                             <label>Kode Material</label>
                                             <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" required>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label>Nama Material</label>
-                                            <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required>
-                                        </div>
                                         <div class="col-md-2">
-                                            <label>Satuan</label>
-                                            <select class="form-control" name="kategori">
+                                            <label>Kategori</label>
+                                            <select class="form-control" name="kategori" id="kategori">
                                                 <option value="Emas">Emas</option>
+                                                <option value="Berlian">Berlian</option>
                                                 <option value="Non Emas">Non Emas</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-8">
+                                            <label>Nama Material</label>
+                                            <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required>
+                                        </div>
                                     </div>
                                 </div>
-                                    <div class="form-group">
+                                <div class="form-group" id="emas" style="display: none; padding: 10px 0 10px 0; background-color: #f7f7f7;">
+                                    <div class="col-sm-12">
+                                        <div class="col-md-8">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Kadar</label>
+                                            <input type="number" step="any" name= "kadar" placeholder="%" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="berlian" style="display: none; padding: 10px 0 10px 0; background-color: #f7f7f7;">
+                                    <div class="col-sm-12">
+                                        <div class="col-md-4">
+                                            <label>Carat</label>
+                                            <input type="number" step="any" name= "carat" placeholder="cr" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Clarity</label>
+                                            <input type="text" name= "clarity" placeholder="Clarity" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Color</label>
+                                            <input type="text" name= "color" placeholder="Color" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="col-md-4">
                                             <label>Stok Terkini</label>
@@ -149,14 +166,32 @@
 
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
-        </script>
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            document.getElementById('emas').style.display = 'block';
+        });
+        $('#kategori').change(function(){
+            if ($(this).val() == "Emas"){
+                document.getElementById('emas').style.display = 'block';
+                document.getElementById('berlian').style.display = 'none';
+            } else if ($(this).val() == "Berlian"){
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'block';
+            } else {
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'none';
+            }
+            
+        });
+    </script>
 </body>
 
 </html>

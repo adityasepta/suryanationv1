@@ -1,11 +1,15 @@
 <?php
     $idMaterial    = $material->idMaterial;
 if($this->input->post('is_submitted')){
-    $kodeProduk    = $set_value('kodeMaterial');
-    $namaProduk    = $set_value('namaMaterial');
-    $satuan        = $set_value('satuan');
-    $stokMaterial    = $set_value('stokMaterial');
-    $safetyStock    = $set_value('safetyStock');
+    $kodeProduk    = set_value('kodeMaterial');
+    $namaProduk    = set_value('namaMaterial');
+    $satuan        = set_value('satuan');
+    $stokMaterial    = set_value('stokMaterial');
+    $safetyStock    = set_value('safetyStock');
+    $kadar      = set_value('kadar');
+    $clarity    = set_value('clarity');
+    $color      = set_value('color');
+    $kategori      = set_value('kategori');
 }
 else {
     $kodeMaterial  = $material->kodeMaterial;
@@ -13,6 +17,10 @@ else {
     $satuan        = $material->satuan;
     $stokMaterial  = $material->stokMaterial;
     $safetyStock  = $material->safetyStock;
+    $kadar      = $material->kadar;
+    $clarity    = $material->clarity;
+    $color      = $material->color;
+    $kategori      = $material->kategori;
 }
 ?>
 
@@ -56,16 +64,6 @@ else {
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
         </div>
@@ -99,30 +97,64 @@ else {
                             <?php echo form_open_multipart('user/editMaterial/'.$idMaterial)?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                            <div class="col-md-2">
-                                                <label>Kode Material</label>
-                                                <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" required value="<?= $kodeMaterial?>">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Nama Material</label>
-                                                <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required value="<?= $namaMaterial?>">
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label>Kode Material</label>
+                                            <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" value="<?php echo $kodeMaterial ?>">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Kategori</label>
+                                            <select class="form-control" name="kategori" id="kategori">
+                                                <option <?php $a=$kategori; if($a=="Emas"){?> selected <?php } ?> value="Emas">Emas</option>
+                                                <option <?php $a=$kategori; if($a=="Berlian"){?> selected <?php } ?> value="Berlian">Berlian</option>
+                                                <option <?php $a=$kategori; if($a=="Non Emas"){?> selected <?php } ?> value="Non Emas">Non Emas</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label>Nama Material</label>
+                                            <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" value="<?php echo $namaMaterial ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="emas" style="display: none; padding: 10px 0 10px 0; background-color: #f7f7f7;">
+                                    <div class="col-sm-12">
+                                        <div class="col-md-8">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Kadar</label>
+                                            <input type="number" step="any" name= "kadar" placeholder="%" class="form-control" value="<?php echo $kadar ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="berlian" style="display: none; padding: 10px 0 10px 0; background-color: #f7f7f7;">
+                                    <div class="col-sm-12">
+                                        <div class="col-md-4">
+                                            <label>Carat</label>
+                                            <input type="number" step="any" name= "carat" placeholder="cr" class="form-control" value="<?php echo $kadar ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Clarity</label>
+                                            <input type="text" name= "clarity" placeholder="Clarity" class="form-control" value="<?php echo $clarity ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Color</label>
+                                            <input type="text" name= "color" placeholder="Color" class="form-control" value="<?php echo $color ?>">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                            <div class="col-md-4">
-                                                <label>Stok</label>
-                                                <input type="number" name= "stokMaterial"  placeholder="Jumlah" class="form-control" required value="<?= $stokMaterial?>">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Safety Stok</label>
-                                                <input type="number" name= "safetyStock"  placeholder="Jumlah" class="form-control" required value="<?= $safetyStock?>">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Satuan</label>
-                                                <input type="text" name= "satuan"  placeholder="Satuan" class="form-control" required value="<?= $satuan?>">
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label>Stok Terkini</label>
+                                            <input type="number" name= "stokMaterial" placeholder="Jumlah" class="form-control" value="<?php echo $stokMaterial ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Safety Stok</label>
+                                            <input type="number" name= "safetyStock"  placeholder="Jumlah" class="form-control" value="<?php echo $safetyStock ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Satuan</label>
+                                            <input type="text" name= "satuan" placeholder="Satuan" class="form-control" value="<?php echo $satuan ?>">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -132,7 +164,7 @@ else {
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
-                             <?php echo form_close()?>  
+                            <?php echo form_close()?>  
                         </div>
                     </div>
                 </div>
@@ -160,14 +192,41 @@ else {
 
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
-        </script>
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            if ($('#kategori').val() == "Emas"){
+                document.getElementById('emas').style.display = 'block';
+                document.getElementById('berlian').style.display = 'none';
+            } else if ($('#kategori').val() == "Berlian"){
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'block';
+            } else {
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'none';
+            }
+        });
+        $('#kategori').change(function(){
+            if ($(this).val() == "Emas"){
+                document.getElementById('emas').style.display = 'block';
+                document.getElementById('berlian').style.display = 'none';
+            } else if ($(this).val() == "Berlian"){
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'block';
+            } else {
+                document.getElementById('emas').style.display = 'none';
+                document.getElementById('berlian').style.display = 'none';
+            }
+            
+        });
+    </script>
 </body>
 
 </html>

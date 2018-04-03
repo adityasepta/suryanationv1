@@ -514,12 +514,14 @@
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Nama Barang</label>
-                                                <select class="form-control" id="slct2" name="kodeBarang">
+                                                <label>Nama Barang | </label>
+                                                <small>Jika tidak material yang tersedia silahkan buat material terlebih dahulu <a href="<?php echo base_url();?>user/createMaterial"> disini!</a></small>
+                                                <select class="form-control" name="kodeBarang">
                                                     <?php for ($i=0; $i < count($materialDasar) ; $i++) { ?> 
                                                         <option value="<?php echo $materialDasar[$i]->kodeMaterial ?>"><?php echo $materialDasar[$i]->namaMaterial ?></option>
                                                     <?php } ?> 
                                                 </select>
+                                                
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
@@ -584,7 +586,8 @@
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
-    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="<?php echo base_url();?>assets/js/inputmask.bundle.js"></script>
+    
 
     <script type="text/javascript">
         $('.good').inputmask("numeric", {
