@@ -82,10 +82,10 @@
                     <?php echo form_open('user/setSubSPK2')?>
 
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             &nbsp
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-4">
                             <input type="number" min="1" required="" placeholder="4" name="jmlsub" class="form-control input-lg">
                         </div>
                     </div>
