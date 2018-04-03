@@ -239,7 +239,21 @@
             var akt = document.getElementById('<?php echo $go[$i]->idProProd ?>-akt');
             var namaakt = akt.options[akt.selectedIndex].text;
             var idakt = akt.options[akt.selectedIndex].value;
-            console.log(nama);
+            
+            $.ajax({
+                    // Change the link to the file you are using
+                    url: '<?php echo base_url();?>user/cariPegawai',
+                    type: 'post',
+                    // This just sends the value of the dropdown
+                    data: { idpic },
+                    success: function(response) {
+                        
+                        var Vals = $.parseJSON(response);
+                        console.log(Vals);
+                        // var Vals    =   JSON.parse(response);
+
+                    }
+            });
             if(jumlah > <?php echo $go[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();

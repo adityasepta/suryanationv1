@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<?php $display = 1; ?>
 <head>
 
     <meta charset="utf-8">
@@ -16,13 +16,13 @@
           white-space: nowrap;
         }
 
-        .testimonial-group > .row > .col-lg-4 {
+        .testimonial-group > .row > .col-lg-1 {
           display: inline-block;
           float: none;
         }
 
         .pre-scrollable {
-            max-height: 500px;
+            max-height: 3700px;
             overflow-y: scroll;
         }
 
@@ -200,7 +200,7 @@
                     <div id="kanban" class="row pre-scrollable">
                         
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PENJADWALAN <span class="label label-success pull-right"><?php  echo count($j)?></span></h3>
@@ -216,11 +216,11 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>SEPARASI <span class="label label-success pull-right"><?php  echo count($sp)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses menjadi <br>Sub SPK</p>
+                                    <p>Kumpulan dari SPK yang sedang proses <br>menjadi Sub SPK</p>
                                     <ul class="sortable-list connectList agile-list" id="desain">
                                      <?php for ($i=0; $i < count($sp) ; ++$i) { ?>
                                            <?php include('card2/card-separasi.php') ?>
@@ -230,7 +230,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>LILIN <span class="label label-success pull-right"><?php  echo count($li)?></span></h3>
@@ -244,7 +244,7 @@
                             </div>
                         </div> 
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GIPS<span class="label label-success pull-right"><?php  echo count($gi)?></span></h3>
@@ -258,7 +258,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>COR<span class="label label-success pull-right"><?php  echo count($co)?></span></h3>
@@ -275,7 +275,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GOSOK PENTOL<span class="label label-success pull-right"><?php echo count($gp)?></span></h3>
@@ -289,7 +289,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GOSOK<span class="label label-success pull-right"><?php  echo count($go)?></span></h3>
@@ -303,7 +303,7 @@
                             </div>
                         </div>
 
-                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                         <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>BOOM<span class="label label-success pull-right"><?php echo count($bo)?></span></h3>
@@ -319,7 +319,7 @@
 
                         
 
-                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                         <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PASANG CZ<span class="label label-success pull-right"><?php  echo count($cz)?></span></h3>
@@ -333,7 +333,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content"> 
                                     <h3>POLISH<span class="label label-success pull-right"><?php  echo count($po)?></span></h3>
@@ -347,7 +347,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>SLEB<span class="label label-success pull-right"><?php echo count($sl)?></span></h3>
@@ -360,7 +360,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>KRUM<span class="label label-success pull-right"><?php echo count($kr)?></span></h3>
@@ -373,7 +373,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>DONE<span class="label label-success pull-right"><?php echo count($do)?></span></h3>
@@ -387,7 +387,7 @@
                                 </div>
                             </div>
                         </div>  
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
+                        <div class="col-lg-1" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>FINANCE / SALES<span class="label label-success pull-right"><?php echo count($jd)?></span></h3>

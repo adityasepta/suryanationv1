@@ -63,11 +63,21 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Stok Barang</h5>
+                            <h5>Stok Barang Anda</h5>
                             <div class="ibox-tools">
-                                <!-- <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createInventory">
-                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH STOK BARANG</strong></span></i>
-                                </a> -->
+                               
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+
+                        </div>
+                    </div>
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Pergerakan Barang</h5>
+                            <div class="ibox-tools">
                                 <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal">
                                     <i class="fa fa-pencil"></i><strong> TAMBAH PERGERAKAN BARANG</strong>
                                 </a>
@@ -97,16 +107,15 @@
                                     <tr>
                                         <?php $tglmsk = new DateTime($p->tanggal);
                                         $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
-                                        <td><?php echo $tglmsk?></td>
-                                        <td><?php echo $p->nama?></td>
+                                        <td><?php echo $p->tgl?></td>
+                                        <td><?php echo $p->namaMaterial?></td>
                                         <td><?php echo $p->tipeBarang?></td>
-                                        <td><?php echo $p->kodeProduk?></td>
-                                        <td><?php echo $p->namaProduk?></td>
+                                        <td><?php echo $p->kodeBarang?></td>
+                                        <td><?php echo $p->tipePergerakan?></td>
                                         <td><?php echo $p->jenisPergerakanBarang?></td>
-                                        <td><?php echo $p->jumlah?></td>
-                                        <!-- <td>Rp. <?php echo number_format($p->hargaBeli,2,".","."); ?> -->
-                                        <td><!-- Button trigger modal -->
-                                                        <!-- <a href="<?php echo base_url()?>user/editInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-default">Edit</a> -->
+                                        <td><?php echo $p->jumlah?> <?php echo $p->satuan?> </td>
+                                        
+                                        <td>
                                                         <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a></td>
                                      </tr>
                                     <?php endforeach; ?>

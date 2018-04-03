@@ -303,6 +303,12 @@ class User extends CI_Controller {
         echo json_encode($data['produk']);
     }
 
+    public function cariPegawai() {
+        $idpic = $this->input->post('idpic');
+        $data['pegawai'] = $this->mdl->findPegawai($idpic);
+        echo json_encode($data['pegawai']);
+    }
+
     public function editPO($nomorPO) {
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
         $data['pegawai'] = $this->mdl->listPegawaiSales();
@@ -3669,6 +3675,7 @@ class User extends CI_Controller {
                     'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('datangEmas'),
                     'safetyStock'     => 0,
+                    'kadar'     => $this->input->post('kadarDatangEmas'),
                     'asal'            => 'Datang Emas',
                 );
                 //print_r($dataMaterial);exit();
@@ -4112,7 +4119,49 @@ class User extends CI_Controller {
 
     }
 
+    public function display($tipe)
+    {
+        
+        if($tipe == 'massal') {
 
+            $data['s']  = $this->mdl->getSales2();
+            $data['j']  = $this->mdl->getPenjadwalan2();
+            $data['sp']  = $this->mdl->getSeparasi();
+            
+            $data['li'] = $this->mdl->getProsesMassal1(1004);
+            $data['gi'] = $this->mdl->getProsesMassal1(1005);
+            $data['co'] = $this->mdl->getProsesMassal1(1006);
+           
+
+            $data['akt'] = $this->mdl->getAktivitasLanjut2();
+            
+            $data['staf'] = $this->mdl->getStaf();
+            $data['ceksub'] = $this->mdl->cekSubSPK();
+            $data['cb'] = $this->mdl->cekbom3();
+            
+            $data['r'] = $this->mdl->getRecord2();
+            $data['b'] = $this->mdl->getBerat2();
+
+            $data['gp'] = $this->mdl->getProsesMassal1(1007);  
+            $data['go'] = $this->mdl->getProsesMassal1(1008);  
+            $data['bo'] = $this->mdl->getProsesMassal1(1009);  
+            
+            $data['cz'] = $this->mdl->getProsesMassal1(1010);  
+            $data['po'] = $this->mdl->getProsesMassal1(1011);  
+            $data['sl'] = $this->mdl->getProsesMassal1(1012);
+            
+            $data['kr'] = $this->mdl->getProsesMassal1(1013);
+            $data['do'] = $this->mdl->getDone();
+            $data['jd'] = $this->mdl->getJadi2();  
+            
+            $this->load->view('user/display_massal', $data);
+
+        }
+            
+            
+        
+        
+    }
     
     public function kanbanMassal()
     {
