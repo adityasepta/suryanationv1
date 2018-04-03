@@ -638,15 +638,7 @@
             }
         });
     </script>
-    <script>
-      function handleChange(input) {
-        if (input.value < 0) input.value = 0;
-        if (input.value >  <?php echo $stok[0]->tot?>) {
-            input.value = <?php echo $stok[0]->tot?>;
-            alert("Stok emas tidak memenuhi");
-        }
-      }
-    </script>
+
 </body>
 
 </html>

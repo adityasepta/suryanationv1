@@ -1162,7 +1162,21 @@ class User extends CI_Controller {
     public function stokBarang() {
         $data['stokBarang']=$this->mdl->getStokProduk();
         $data['pegawai'] = $this->mdl->listPegawai();
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $data['st'] = $this->mdl->getYourStock($idUser);
+        $data['pd'] = $this->mdl->getPending($idUser);
         $this->load->view('user/stokBarang',$data);
+    }
+
+    public function terimabarang($idStok) {
+        $data = array(
+            'statusTransfer' => 'Valid'
+        );
+        $this->mdl->updateData('idStok',$idStok,'stokbarang',$data);
+        $message = "Berhasil Menerima Barang";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        redirect('user/stokBarang');
+
     }
 
     public function produk() {
@@ -1941,6 +1955,7 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
+                
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
@@ -1954,6 +1969,7 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang'  => 'IN',
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
+                'statusTransfer' => 'Pending',
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 

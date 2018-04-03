@@ -254,6 +254,7 @@
 
                     }
             });
+            
             if(jumlah > <?php echo $go[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();

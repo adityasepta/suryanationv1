@@ -779,7 +779,7 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT * from (SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk) a order by tanggal desc";
+        $sql    = "SELECT * from (SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama as namapic FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk) a order by tanggal desc";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2010,6 +2010,20 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getStokMaterial($idPIC, $idMaterial) {
         $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'OUT'),0)) AS TOT";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getYourStock($idPIC) {
+        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadar*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial ORDER BY nama";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getPending($idPIC) {
+        $sql   = "SELECT * FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial";
         $query = $this->db->query($sql);
         
         return $query->result();
