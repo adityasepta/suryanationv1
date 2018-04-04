@@ -63,11 +63,113 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Stok Barang</h5>
+                            <h5>Stok Barang Anda</h5>
                             <div class="ibox-tools">
-                                <!-- <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createInventory">
-                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH STOK BARANG</strong></span></i>
-                                </a> -->
+                               
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+
+                            <div class="row">
+                                <div class="col-lg-3 text-center">
+
+                                    <span class="">Total Berat Emas Lokal Anda</span>
+                                    <h1 class="text-success">
+                                        <br>
+                                         <?php $g = 0; 
+
+                                         for ($i=0; $i < count($st); ++$i) { 
+                                             if($st[$i]->jenis == 'IN') {
+                                                $g += (float)$st[$i]->beratlokal;
+                                             } else {
+                                                $g -= (float)$st[$i]->beratlokal;
+                                             }
+                                        } echo $g." gr" ?>
+
+                                        <?php if(count($pd) > 0) {?>
+                                            <br><br>
+                                            <button data-toggle="modal" data-target="#terima" class="btn btn-sm btn-warning">Terdapat Transfer Barang Baru !</button>
+
+                                            <div class="modal inmodal fade" id="terima" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h3 class="modal-title">Terima Transfer Barang</h3><br>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-stripped table-responsive text-center">
+                                                                <thead>
+                                                                    <th class="text-center">Nama Barang</th>
+                                                                    <th class="text-center">Kadar</th>
+                                                                    <th class="text-center">Berat</th>
+                                                                    <th class="text-center">Action</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php for ($i=0; $i < count($pd); ++$i) { ?>
+                                                                        <tr>
+                                                                            <td><?php echo $pd[$i]->namaMaterial?></td>
+                                                                            <td><?php echo $pd[$i]->kadar?></td>
+                                                                            <td><?php echo $pd[$i]->jumlah?> gr</td>
+                                                                            <td><a href="<?php echo base_url('user/terimabarang/'.$pd[$i]->idStok)?>" class="btn btn-xs btn-info">Terima</a></td>
+                                                                        </tr>
+                                                                    <?php }?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <?php } ?>
+                                    </h1>
+                                </div>
+                                <div class="col-lg-9 text-center">
+                                    <table data-page-size="4" class=" footable table table-responsive table-stripped">
+
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Arah</th>
+                                                <th class="text-center">Barang</th>
+                                                <th class="text-center">Kadar</th>
+                                                <th class="text-center">Berat</th>
+                                                <th class="text-center">Kadar Lokal</th>
+                                                <th class="text-center">Berat Lokal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php for ($i=0; $i < count($st); ++$i) { ?>
+                                                <tr>
+                                                    <td><?php echo $st[$i]->jenis?></td>
+                                                    <td><?php echo $st[$i]->nama?></td>
+                                                    <td><?php echo $st[$i]->kadar?> %</td>
+                                                    <td><?php echo $st[$i]->jmlmasuk?> gr</td>
+                                                    <td><?php echo $st[$i]->lokal?> %</td>
+                                                    <td><?php echo $st[$i]->beratlokal?> gr</td>
+                                                </tr>
+                                            <?php }?>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <ul class="pagination pull-right"></ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                        
+                                    </table>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Pergerakan Barang Keseluruhan</h5>
+                            <div class="ibox-tools">
                                 <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal">
                                     <i class="fa fa-pencil"></i><strong> TAMBAH PERGERAKAN BARANG</strong>
                                 </a>
@@ -83,13 +185,15 @@
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>PIC</th>
-                                    <th>Tipe Barang</th>
-                                    <th>Kode Barang</th>
                                     <th>Nama Barang</th>
-                                    <th data-hide="phone,tablet">Jenis Pergerakan</th>
-                                    <th data-hide="phone,tablet">Jumlah</th>
-                                    <!-- <th data-hide="phone,tablet">Harga Beli</th> -->
-                                    <th data-hide="phone,tablet">Action</th>
+                                    <th>Tipe Barang</th>
+                                    
+                                    <th>Jenis Pergerakan</th>
+                                    <th>Arah</th>
+                                    <th>Jumlah</th>
+                                    
+                                    <th>Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -97,26 +201,30 @@
                                     <tr>
                                         <?php $tglmsk = new DateTime($p->tanggal);
                                         $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
-                                        <td><?php echo $tglmsk?></td>
-                                        <td><?php echo $p->nama?></td>
+                                        <td><?php echo $p->tgl?></td>
+                                        <td><?php echo $p->namapic?></td>
+                                        <td><?php echo $p->namaMaterial?></td>
                                         <td><?php echo $p->tipeBarang?></td>
-                                        <td><?php echo $p->kodeProduk?></td>
-                                        <td><?php echo $p->namaProduk?></td>
+                                        
+                                        <td><?php echo $p->tipePergerakan?></td>
                                         <td><?php echo $p->jenisPergerakanBarang?></td>
-                                        <td><?php echo $p->jumlah?></td>
-                                        <!-- <td>Rp. <?php echo number_format($p->hargaBeli,2,".","."); ?> -->
-                                        <td><!-- Button trigger modal -->
-                                                        <!-- <a href="<?php echo base_url()?>user/editInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-default">Edit</a> -->
-                                                        <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a></td>
+                                        <td><?php echo $p->jumlah?> <?php echo $p->satuan?> </td>
+                                        
+                                        <td>
+                                            <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a>
+                                            <?php if($p->statusTransfer == 'Pending') { ?>
+                                                &nbsp<button class="btn btn-warning btn-xs" disabled>Pending</button>
+                                            <?php } ?>
+                                        </td>
                                      </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td colspan="8">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                             <!-- Modal -->

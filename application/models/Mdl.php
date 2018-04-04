@@ -133,7 +133,7 @@ class mdl extends CI_Model {
 
     public function getBerat() {
 
-        /*$sql   = "SELECT a.*,IFNULL(b.nama,'Belum ada PIC') as nama FROM (SELECT max(idProProd) as idProProd, idSPK, idAktivitas, max(namaAktivitas) as namaAktivitas, max(berat) as berat, max(beratAwal) as beratAwal, max(kembali) as kembali, idPIC, max(statusBerat) as statusBerat FROM ( SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, f.berat, f.beratAwal, f.kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 UNION ALL SELECT '0' AS idProProd, r.idSPK, r.idAktivitas, a.namaAktivitas, '0' AS berat, '0' AS beratAwal, '0' AS kembali, '0' as idPIC, '0' as statusBerat FROM aktivitas2 a, rencanaproduksi r WHERE a.idAktivitas = r.idAktivitas AND a.idAktivitas > 1002 ) t group by idAktivitas, idSPK order by idSPK, idAktivitas) a LEFT JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";*/
+
         $sql = "SELECT a.*,b.nama FROM (SELECT f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali,idPIC  FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b on a.idPIC=b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
@@ -142,7 +142,7 @@ class mdl extends CI_Model {
 
     public function getBeratRekap() {
 
-        /*$sql   = "SELECT a.*,IFNULL(b.nama,'Belum ada PIC') as nama FROM (SELECT max(idProProd) as idProProd, idSPK, idAktivitas, max(namaAktivitas) as namaAktivitas, max(berat) as berat, max(beratAwal) as beratAwal, max(kembali) as kembali, idPIC, max(statusBerat) as statusBerat FROM ( SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, f.berat, f.beratAwal, f.kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 UNION ALL SELECT '0' AS idProProd, r.idSPK, r.idAktivitas, a.namaAktivitas, '0' AS berat, '0' AS beratAwal, '0' AS kembali, '0' as idPIC, '0' as statusBerat FROM aktivitas2 a, rencanaproduksi r WHERE a.idAktivitas = r.idAktivitas AND a.idAktivitas > 1002 ) t group by idAktivitas, idSPK order by idSPK, idAktivitas) a LEFT JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";*/
+
         $sql = "SELECT a.*,b.nama FROM (SELECT f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali,idPIC  FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas,idProProd) a JOIN user b on a.idPIC=b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
@@ -779,7 +779,7 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT idStok,tipeBarang,kodeBarang as kodeProduk,namaProduk,jumlah,jenisPergerakanBarang,hargaBeli,tanggal,c.nama from stokbarang a LEFT JOIN (SELECT idProduk,kodeProduk,namaProduk,stok from produk UNION SELECT idMaterial,kodeMaterial,namaMaterial,stokMaterial FROM materialdasar order by namaProduk) b on a.kodeBarang=b.kodeProduk LEFT JOIN user c ON a.idPIC=c.idUser order by idStok DESC";
+        $sql    = "SELECT * from (SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama as namapic FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk) a order by tanggal desc";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2040,6 +2040,20 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getStokMaterial($idPIC, $idMaterial) {
         $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'OUT'),0)) AS TOT";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getYourStock($idPIC) {
+        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadar*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial ORDER BY nama";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getPending($idPIC) {
+        $sql   = "SELECT * FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial";
         $query = $this->db->query($sql);
         
         return $query->result();

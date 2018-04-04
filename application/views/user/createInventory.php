@@ -100,15 +100,7 @@
         </div>
         
         <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox-content">
-                        <h2>Stok Emas yang anda bawa <?php echo $stok[0]->tot ?> Gram</h2>
-                    </div>
-                    <br>
-                </div>
-            </div>
-
+            
             <!-- Stok Opname -->
             <div class="row" id="opname" style="display: none;">
                 <div class="col-lg-12">
@@ -646,15 +638,7 @@
             }
         });
     </script>
-    <script>
-      function handleChange(input) {
-        if (input.value < 0) input.value = 0;
-        if (input.value >  <?php echo $stok[0]->tot?>) {
-            input.value = <?php echo $stok[0]->tot?>;
-            alert("Stok emas tidak memenuhi");
-        }
-      }
-    </script>
+
 </body>
 
 </html>

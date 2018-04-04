@@ -209,8 +209,30 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $go[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $go[$i]->idProProd ?>-pic-i" required value="0" name="staf">
+                            <input type="hidden" id="password-pic" required value="0" name="password">
                         </div>
 
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-4 text-center">
+                            Password PIC Selanjutnya
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <input type="password" id="password-pic-2" required  value="0" name="password2">
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <button type="button" onclick="cek();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" >
+                        <div class="col-lg-12 text-center" id='cek' style="display: none;">
+                            Password tidak cocok. Silahkan coba lagi.
+                        </div>
+                        <div class="col-lg-12 text-center" id='cek1' style="display: none;">
+                            Password valid.
+                        </div>
                     </div>
 
                         <input type="hidden" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
@@ -220,7 +242,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -239,7 +261,22 @@
             var akt = document.getElementById('<?php echo $go[$i]->idProProd ?>-akt');
             var namaakt = akt.options[akt.selectedIndex].text;
             var idakt = akt.options[akt.selectedIndex].value;
-            console.log(nama);
+            
+            $.ajax({
+                    // Change the link to the file you are using
+                    url: '<?php echo base_url();?>user/cariPegawai',
+                    type: 'post',
+                    // This just sends the value of the dropdown
+                    data: { idpic },
+                    success: function(response) {
+                        
+                        var Vals = $.parseJSON(response);
+                        console.log(Vals);
+                        // var Vals    =   JSON.parse(response);
+                        $("input[name='password']").val(Vals[0].password);
+                    }
+            });
+            
             if(jumlah > <?php echo $go[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();
@@ -255,6 +292,26 @@
             document.getElementById('<?php echo $go[$i]->idProProd ?>-pic-i').value = idpic;
             document.getElementById('<?php echo $go[$i]->idProProd ?>-akt-i').value = idakt;
 
+        }
+
+        function cek() {
+            var password = document.getElementById('password-pic').value;
+            var password2 = document.getElementById('password-pic-2').value;
+            console.log(password);
+            console.log(password2);
+            var x = document.getElementById("cek");
+            var y = document.getElementById("cek1");
+
+            if(password==password2) {
+                $('#tombolvalidasi').prop('disabled', false);
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+            else {
+                $('#tombolvalidasi').prop('disabled', true);
+                x.style.display = "block";
+                y.style.display = "none";
+            }
         }
     </script>
 
