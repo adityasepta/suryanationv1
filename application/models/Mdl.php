@@ -964,6 +964,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function listCustomerInvoice(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.* FROM customer a RIGHT JOIN pomasal b ON a.idCustomer=b.idCustomer");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function cariCustomer($idCustomer){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM customer WHERE idCustomer=$idCustomer");
@@ -1561,6 +1571,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function findInvoice3($nomorPO,$table){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM invoiceheader a JOIN $table b ON a.idHeader = b.idHeader WHERE b.nomorPO = $nomorPO");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listPOMassalByCustomer($idCustomer){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user f ON a.idSalesPerson=f.idUser LEFT JOIN spkmasal d ON a.nomorPO = d.nomorPO WHERE a.idCustomer=5 AND a.nomorPO NOT IN (SELECT e.nomorPO FROM invoicemassal e)");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listPOMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("select * from (SELECT max(berat) as berat, sum(jumlah) as jumlah, max(idSPK) as idSPK FROM factproduction2 where idAktivitas = 1014 and statusSPK = 'Done' group by idAktivitas) a, spkmasal b, pomasal c, produk d, customer e, user f where a.idSPK = b.idSPK and b.nomorPO = c.nomorPO and c.idProduk=d.idProduk and c.idCustomer=e.idCustomer and c.idSalesPerson=f.idUser and c.nomorPO IN ($nomorPO)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

@@ -3882,15 +3882,19 @@ class User extends CI_Controller {
             $data['dataPO'] = $this->mdl->findPO($nomorPO);
             $data['PO'] = $this->mdl->findInvoice3($nomorPO,'invoicetempahanpertokoan');
             $this->load->view('user/printInvoiceTempahanPertokoan',$data);
-        }
-        
+        }   
     }
 
-
-
     public function createInvoiceAkhirPOMassal() {
-        $data['listPO'] = $this->mdl->listPO4();
-        $this->load->view('user/pilihJenisInvoicePOMassal',$data);
+        $idCustomer=$this->input->post('idCustomer');
+        $data['PO'] = $this->mdl->listPOMassalByCustomer($idCustomer);
+        $this->load->view('user/invoiceAkhirPOMassal',$data);
+    }
+
+    public function detailInvoiceAkhirPOMassal() {
+        $nomorPO = implode(',',$this->input->post('nomorPO[]'));
+        $data['PO'] = $this->mdl->listPOMassal($nomorPO);
+        $this->load->view('user/createInvoiceAkhirPOMassal',$data);
     }
 
     public function convertInvoiceMassalPerseorangan() {
@@ -5452,6 +5456,7 @@ class User extends CI_Controller {
    
     public function listInvoiceMassal() {
         $data['listPO'] = $this->mdl->listInvoiceMassal();
+        $data['customer']=$this->mdl->listCustomerInvoice();
         $this->load->view('user/listInvoiceMassal',$data);
     }
     
