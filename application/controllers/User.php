@@ -1165,6 +1165,7 @@ class User extends CI_Controller {
         $idUser=$this->session->userdata['logged_in']['iduser'];
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
+        $data['pass'] = $this->session->userdata['logged_in']['password'];
         $this->load->view('user/stokBarang',$data);
     }
 
