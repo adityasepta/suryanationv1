@@ -5940,5 +5940,47 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/jabatan")."';</script>";
     }
 
+    //Finance
+    public function akun() {
+        $data['akun1'] = $this->mdl->listAkun();
+        $data['akun2'] = $this->mdl->listSubAkun();
+        $this->load->view('user/akun',$data);
+    } 
+
+    public function createAkun() {
+        $dataAkun = array(
+            'kodeAkun'          => $this->input->post('kodeAkun'),
+            'kodeSubAkun'          => $this->input->post('kodeSubAkun'),
+            'namaAkun'          => $this->input->post('namaAkun'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('subakun', $dataAkun);
+        $message = "Akun berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/akun")."';</script>";
+    }
+
+    public function editAkun($idSubAkun) {
+        $data['akun'] = $this->mdl->findAkun($idSubAkun);
+        $id = $data['akun'][0]->idSubAkun;
+        $dataAkun = array(
+            'kodeAkun'          => $this->input->post('kodeAkun'),
+            'kodeSubAkun'          => $this->input->post('kodeSubAkun'),
+            'namaAkun'          => $this->input->post('namaAkun'),
+        );
+        /*print_r($dataAkun);exit();*/
+        $this->mdl->updateData('idSubAkun',$id,'subakun', $dataAkun);
+        $message = "Akun berhasil diedit";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/akun")."';</script>";
+    }
+
+    public function deleteAkun($idSubAkun) {
+        $this->mdl->deleteData('idSubAkun', $idSubAkun, 'subakun');
+        $message = "Akun berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/akun")."';</script>";
+    }
+
 
 }
