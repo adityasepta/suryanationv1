@@ -46,6 +46,10 @@
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $budget                 = $dataPO[0]->budget;
     $kodeGambar             = $dataPO[0]->kodeGambar;
+    $batuTerhadapKruman     = $dataPO[0]->batuTerhadapKruman;
+    $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
+    $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
+    $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -143,7 +147,12 @@
                                     </tr>
                                     <tr>
                                         <td><p id="namaBatu">Nama Batu Permata: <?php echo $namaBatu ?><br>
-                                        Berat Batu Permata: <?php echo $beratBatu ?></p></td>
+                                        Berat Batu Permata: <?php echo $beratBatu ?><br>
+                                        Batu Terhadap Kruman: <?php echo $batuTerhadapKruman ?><br>
+                                        Batu Terhadap Pukulan: <?php echo $batuTerhadapPukulan ?><br>
+                                        Batu Terhadap Goresan: <?php echo $batuTerhadapGoresan ?><br>
+                                        Keadaan Batu Tengah: <?php echo $keadaanBatuTengah ?>
+                                        </p></td>
 
                                         <td><p id="berlian">Berlian: <?php echo $berlian ?><br>
                                         Berat Berlian: <?php echo $beratBerlian ?> carat</p></td>
@@ -157,110 +166,14 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <thead>
-                                <tr>
-                                    <th class="text-left">Keperluan</th>
-                                    <th class="text-center">Jumlah</th>
-                                    <th class="text-right">Biaya</th>
-                                    <th class="text-right">Sub Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                     <tr>
-                                        <td>
-                                           Harga Pasaran Emas
-                                        </td>
-                                        <td class="text-center"><?php echo $kuantitas ?> Pcs</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBahan,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBahan,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Harga Berlian
-                                        </td>
-                                        <td class="text-center"><?php echo $beratBerlian ?> Gram</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Harga Batu Zirkon
-                                        </td>
-                                        <td class="text-center"><?php echo $jumlahBatuZirkon ?> Pcs</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBatuZirkon,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBatuZirkon*$jumlahBatuZirkon,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Harga Krum Warna
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Upah Pasang Berlian
-                                        </td>
-                                        <td class="text-center"><?php echo $datangBerlian ?> Pcs</td>
-                                        <td class="text-right">Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Biaya Pekerjaan Tambahan
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Upah
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($upah,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($upah,2,".","."); ?></td>
-                                    </tr>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="3"><strong>Estimasi Total Biaya</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$hargaBerlian+($hargaBatuZirkon*$jumlahBatuZirkon)+$hargaKrumWarna+$upahPasangBerlian+$biayaTambahan+$upah,2,".","."); ?></strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: 600; text-align: left;" colspan="3">Panjar</td>
-                                        <td class="text-right" >Rp. <?php echo number_format($panjar,2,".","."); ?></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding: 0 0 20px;">
-                                <tbody>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                <tr bgcolor="#F1F1F1" style="font-size: 15px; color: #42B549; background-color: rgba(0,0,0,0.1);">
-                                                    <td style="padding: 15px 0 15px 15px; font-weight: 600;">Harus Dibayar</td>
-                                                    <td class="text-right" style="padding: 15px 15px 15px 0; font-weight: 600; text-align: right; ">Rp. <?php echo number_format($total-$panjar,2,".","."); ?></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                
-                                            </table>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <label>Gambar Sampel</label>
+                                        <img src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 200px;">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

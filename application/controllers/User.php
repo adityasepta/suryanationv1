@@ -2245,6 +2245,12 @@ class User extends CI_Controller {
         $this->load->view('user/printInvoice',$data);
     }
 
+    public function printSPKTempahan($nomorFaktur){
+        $data['dataPO'] = $this->mdl->findSPKTempahan($nomorFaktur);
+        // print_r($data);exit();
+        $this->load->view('user/printSPKTempahan',$data);
+    }
+
 
     public function createPOService() {
         $this->form_validation->set_message('is_unique','The %s is already taken');
