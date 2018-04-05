@@ -148,27 +148,15 @@
                                                 <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
                                                 <dt>Harga Pasaran Bahan:</dt> <dd> <?php echo $hargaBahan?> </dd>
                                                 <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
+                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
                                             </dl>
                                         </div>
                                         <div class="col-lg-6" id="cluster_info">
                                             <dl class="dl-horizontal" >
-                                                
-                                            </dl>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal">
                                                 <dt>Model:</dt> <dd> <?php echo $model ?></dd>
                                                 <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
                                                 <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
                                                 <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" >
-                                                <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
-                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
                                                 <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
                                                 <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
                                             </dl>
