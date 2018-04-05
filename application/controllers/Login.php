@@ -37,6 +37,7 @@ class Login extends CI_Controller {
             $session_data = array(
                 'username' => $status[0]->username,
                 'nama' => $status[0]->nama,
+                'password' => $status[0]->password,
                 'level' => $status[0]->level,
                 'iduser' => $status[0]->idUser,
                 'jabatan' => $status[0]->jabatan,

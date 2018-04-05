@@ -85,7 +85,7 @@
                                              } else {
                                                 $g -= (float)$st[$i]->beratlokal;
                                              }
-                                        } echo $g." gr" ?>
+                                        } echo $g." gr <br><br>" ?>
 
                                         <?php if(count($pd) > 0) {?>
                                             <br><br>
@@ -98,6 +98,18 @@
                                                             <h3 class="modal-title">Terima Transfer Barang</h3><br>
                                                         </div>
                                                         <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-9">
+                                                                    <input id="passx" type="password" name="pass" class="form-control" placeholder="Masukkan Password" >
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <button id="simpan" class="btn btn-block btn-success">Simpan</button>
+                                                                </div>
+                                                            </div>
+
+                                                            
+                                                            <br>
+
                                                             <table class="table table-stripped table-responsive text-center">
                                                                 <thead>
                                                                     <th class="text-center">Nama Barang</th>
@@ -111,7 +123,7 @@
                                                                             <td><?php echo $pd[$i]->namaMaterial?></td>
                                                                             <td><?php echo $pd[$i]->kadar?></td>
                                                                             <td><?php echo $pd[$i]->jumlah?> gr</td>
-                                                                            <td><a href="<?php echo base_url('user/terimabarang/'.$pd[$i]->idStok)?>" class="btn btn-xs btn-info">Terima</a></td>
+                                                                            <td><a href="<?php echo base_url('user/terimabarang/'.$pd[$i]->idStok)?>" disabled class="btn terima btn-xs btn-info">Terima</a></td>
                                                                         </tr>
                                                                     <?php }?>
                                                                 </tbody>
@@ -124,8 +136,8 @@
                                         <?php } ?>
                                     </h1>
                                 </div>
-                                <div class="col-lg-9 text-center">
-                                    <table data-page-size="4" class=" footable table table-responsive table-stripped">
+                                <div class="col-lg-9 table-responsive text-center">
+                                    <table data-page-size="4" class=" footable table  table-stripped">
 
                                         <thead>
                                             <tr>
@@ -348,6 +360,13 @@
 
     </script>
     <script type="text/javascript">
+        function cek() {
+            var t = document.getElementById('passx').value;
+            var b = <?php echo $pass?>
+            console.log("t");
+        }
+    </script>
+    <script type="text/javascript">
         $('#tipePergerakan').change(function(){
 
             if ($(this).val() == "Balik Bahan" || $(this).val() == "Balik Abu"){
@@ -357,6 +376,18 @@
             }
         });
         
+    </script>
+    <script type="text/javascript">
+        $("#simpan").on('click', function() {
+            var t = document.getElementById('passx').value;
+            var b = <?php echo $pass?>;
+            if(b == t) {
+            $('.terima').attr('disabled',false);
+            } else {
+                alert('Maaf Password Salah');
+            }
+        });
+
     </script>
 </body>
 

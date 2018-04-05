@@ -99,7 +99,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Nama Material</label>
-                                                <select class="form-control" id="kode" onchange="calc();" name="kodeMaterial">
+                                                <select class="form-control" id="kode" onchange="calc();"  name="kodeMaterial">
                                                 <?php
                                                 foreach($materials as $m)
                                                 {
@@ -110,6 +110,35 @@
 
                                                 ?>
                                                 </select>
+                                            </div>
+                                            <script type="text/javascript">
+
+                                                // $("#kode").change(function() {
+
+                                                    // var c = document.getElementById('kode').value;
+                                                    // var x = [
+                                                    //     <?php 
+
+                                                    //     for($o = 0; $o < count($materials); ++$o) {
+                                                            
+                                                    //         echo $materials[$o]->idMaterial.",";
+
+                                                    //     }
+
+                                                    //     ?>
+                                                    // ];
+
+                                                    // var f = x.indexOf(c);
+
+                                                    // console.log(c);
+
+                                                // });
+                                                
+
+                                            </script>
+                                            <div class="col-md-2">
+                                                <label>Kadar %</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="k1" readonly onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Kotor (gr)</label>
@@ -124,6 +153,7 @@
                                                 <input type="number" step="any" name= "beratBatu" step=any id="n3" onchange="calc();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
+                                                <br>
                                                 <label>Bahan Pengurang (%)</label>
                                                 <input type="number" step="any" name= "bahanPengurang" id="n4" onchange="calc();" value='0' class="form-control" required>
                                             </div>
@@ -336,8 +366,33 @@
                 });
             });
         </script>
+        
         <script type="text/javascript">
                 function calc(){
+
+                    
+                    var c = document.getElementById('kode').value;
+                    var d = c.toString();
+                    var xs = <?php 
+                                echo '[';
+                                for($o = 0; $o < count($materials); $o++) {
+                                    
+                                    echo $materials[$o]->idMaterial;
+
+                                    if($o == count($materials)-1) {
+                                    } else {
+                                        echo ",";
+                                    }
+                                } echo ']';
+                                ?>;
+                        
+                    
+
+                    var zs=[1,2,3,4,5,6,7];
+                    var bkk = xs.indexOf(" " + d + " ");
+                    console.log(d);
+                    console.log(bkk);
+
                     var n1 = parseFloat(document.getElementById('n1').value);
                     var n2 = parseFloat(document.getElementById('n2').value);
                     var n3 = parseFloat(document.getElementById('n3').value);

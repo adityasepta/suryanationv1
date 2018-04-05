@@ -2301,6 +2301,37 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+    //Akun
+    public function listAkun(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM akun");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listSubAkun(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT b.*,a.namaAkun as akun,a.kodeAkun FROM akun a, subakun b WHERE a.kodeAkun = b.kodeAkun order by b.kodeSubAkun");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function findAkun($idSubAkun){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT b.*,a.namaAkun as akun,a.kodeAkun FROM akun a, subakun b WHERE a.kodeAkun = b.kodeAkun AND b.idSubAkun='$idSubAkun' order by b.kodeSubAkun LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
     
 
 

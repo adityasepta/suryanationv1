@@ -55,7 +55,7 @@
     </script>
 
     <script type="text/javascript">
-        $(function(){   
+        (function($){   
         var content_id = "kanban";
         var content = '';
         
@@ -426,7 +426,7 @@
     <?php include('footer.php') ?>
 
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
 
             var max_fields      = 10; //maximum input boxes allowed
@@ -508,7 +508,7 @@
         });
 
 
-    </script>
+    </script> -->
 
 
 
