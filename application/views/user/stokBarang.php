@@ -85,7 +85,7 @@
                                              } else {
                                                 $g -= (float)$st[$i]->beratlokal;
                                              }
-                                        } echo $g." gr" ?>
+                                        } echo $g." gr <br><br>" ?>
 
                                         <?php if(count($pd) > 0) {?>
                                             <br><br>
@@ -136,8 +136,8 @@
                                         <?php } ?>
                                     </h1>
                                 </div>
-                                <div class="col-lg-9 text-center">
-                                    <table data-page-size="4" class=" footable table table-responsive table-stripped">
+                                <div class="col-lg-9 table-responsive text-center">
+                                    <table data-page-size="4" class=" footable table  table-stripped">
 
                                         <thead>
                                             <tr>
