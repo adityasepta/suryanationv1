@@ -1621,6 +1621,7 @@ class User extends CI_Controller {
 
     public function createBOMMassal($idSubSPK) {
         $this->form_validation->set_rules('idSubSPK','idSubSPK', 'required');
+        $data['lk'] = $this->mdl->getSetting();
         
         if ($this->form_validation->run() == FALSE){
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
@@ -1643,9 +1644,9 @@ class User extends CI_Controller {
                 'jumlah'     => $jmlbutuh
                 );
             
-            print_r($idm[0][0]);exit();
+            //print_r($idm[0][0]);exit();
 
-            //$this->mdl->insertData('bommassal',$dataBOM);
+            $this->mdl->insertData('bommassal',$dataBOM);
             echo '<b>Data BOM berhasil disimpan.</b><br />';
             
         }
@@ -1667,59 +1668,50 @@ class User extends CI_Controller {
                 $data['material'] = $this->mdl->findNamaMaterial('Alloy');
                 $idMaterial = $data['material'][0]->idMaterial;
                 $jmlbutuh = $this->input->post('beratAlloy');
-                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
-                $jml = $stok[0]->TOT;
                 
-                if($jmlbutuh > $jml) {
-                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
-                }
+                
+                
+                 
+                
 
                 $dataBOM1= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
                     'jumlah'     => $jmlbutuh,
-                ); 
+                );
                 
             }
             if ($this->input->post('beratTembaga') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
                 $idMaterial = $data['material'][0]->idMaterial;
                 $jmlbutuh = $this->input->post('beratTembaga');
-                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
-                $jml = $stok[0]->TOT;
                 
-                if($jmlbutuh > $jml) {
-                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
-                }
+                
+                
+                
+                
 
                 $dataBOM2= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
                     'jumlah'     => $jmlbutuh,
-                ); 
+                );
                 
             }
             if ($this->input->post('beratPerak') != 0) {
                 $data['material'] = $this->mdl->findNamaMaterial('Perak');
                 $idMaterial = $data['material'][0]->idMaterial;
                 $jmlbutuh = $this->input->post('beratPerak');
-                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
-                $jml = $stok[0]->TOT;
                 
-                if($jmlbutuh > $jml) {
-                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
-                }
+                
+                
+                
+                
                 $dataBOM3= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
                     'jumlah'     => $jmlbutuh
-                ); 
+                );
                 
             }
             if ($this->input->post('beratPaladium') != 0) {
@@ -1727,19 +1719,16 @@ class User extends CI_Controller {
                 $idMaterial = $data['material'][0]->idMaterial;
 
                 $jmlbutuh = $this->input->post('beratPaladium');
-                $stok = $this->mdl->getStokMaterial($idUser,$idMaterial);
-                $jml = $stok[0]->TOT;
                 
-                if($jmlbutuh > $jml) {
-                    $message = "Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu ";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>"; 
-                }
+                
+                
+                
+                
                 $dataBOM4= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
                     'jumlah'     => $jmlbutuh
-                ); 
+                );
                 
             }
 
@@ -1765,12 +1754,12 @@ class User extends CI_Controller {
         else {
             $idMaterial = $this->input->post('kodeMaterial');
             $idUser=$this->session->userdata['logged_in']['iduser'];
-            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
-            $jml = $stok[0]->TOT;
+            
+            
             $jmltarget = $this->input->post('beratBahanTarget');
-            if ($jmltarget > $jml) {
-                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
-            } else {
+            
+                
+            
 
                 $dataBOM= array(
                     'idSubSPK'   => $idSubSPK,
@@ -1783,70 +1772,12 @@ class User extends CI_Controller {
                 echo "<script type='text/javascript'>alert('$message');
                 window.location.href='".base_url("user/kanbanMassal")."';</script>";
 
-            }
+            
                 
         }
     }
 
-    // public function createBOM($id) {
-    //     $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
-    //     if ($this->form_validation->run() == FALSE){
-    //         //$data['BOMProduk'];
-    //         $data['produk']=$this->mdl->findProduk2($id);
-    //         $data['material']=$this->mdl->getMaterialDropdown();
-    //         $data['material2']=$this->mdl->getMaterialDropdown2();
-    //         $data['materials']=$this->mdl->getMaterial();
-    //         /*print_r($data['material']);
-    //         print_r($data['material2']);exit();*/
-    //         $this->load->view('user/createBOM',$data);
-    //     }
-    //     else {
-    //             $data['material']=$this->input->post('kodeMaterial');
-    //             $data['jumlah']=$this->input->post('jumlah');
-    //             $kodeProduk = $this->input->post('kodeProduk');
-
-    //             //print_r($data['material']);exit();
-    //             $j=count($this->input->post('jumlah'));
-    //                 for ($i=0; $i < $j ;$i++){
-    //                     $dataBOM= array(
-    //                         'kodeProduk'   => $kodeProduk,
-    //                         'kodeMaterial' => $data['material'][$i],
-    //                         'jumlah'       => $data['jumlah'][$i],
-    //                     );
-    //                     //print_r($dataBOM);//exit();
-    //                     $this->mdl->insertBOM($dataBOM);
-    //                 }
-    //             redirect('user/produk');
-    //     }
-    // }
-
-    // public function editBOM($id) {
-    //     $this->form_validation->set_rules('namaProduk','Nama Produk', 'required');
-    //     if ($this->form_validation->run() == FALSE){
-    //         //$data['BOMProduk'];
-    //         $data['produk']=$this->mdl->findProduk2($id);
-    //         $data['material']=$this->mdl->getMaterialDropdown();
-    //         $data['material2']=$this->mdl->getMaterialDropdown2();
-    //         $data['materials']=$this->mdl->getMaterial();
-    //         $this->load->view('user/editBOM',$data);
-    //     }
-    //     else {
-    //             $dataBOM = array(
-    //                             'kodeMaterial'    => $this->input->post('kodeMaterial'),
-    //                             'jumlah'          => $this->input->post('jumlah')
-    //                     );
-    //             //print_r($dataBOM);exit();
-    //             $this->mdl->updateBOM($id,$dataBOM);
-    //             $message = "BOM berhasil diedit";
-    //             echo "<script type='text/javascript'>alert('$message');
-    //             window.location.href='".base_url("user/produk")."';</script>"; 
-    //     }
-    // }
-
-    // public function deleteBOM($id){
-    //     $this->mdl->deleteBOM($id);
-    //     redirect('user/produk');
-    // }
+    
 
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
@@ -4449,6 +4380,7 @@ class User extends CI_Controller {
         $next      = $aktivitas[0]->idAktivitas;
         $jumlah    = $proses[0]->jumlah;
         $beratAwal    = $proses[0]->berat;
+        $beratKecap    = $proses[0]->beratKecap;
 
         $data = array(
                 'idSPK' => $idSPK,
@@ -4462,9 +4394,16 @@ class User extends CI_Controller {
                 'jumlahNow'    => $jumlah,
                 'beratAwal' => $beratAwal
             );
-        $this->mdl->insertData('factproduction2', $data);
+        $f = $this->mdl->insertDataGetLast('factproduction2', $data);
 
-        if($idAktivitas == '1004') {
+        if($idAktivitas == '1006') {
+
+            $data = array(
+
+                'beratAwal' => $beratKecap
+            );
+
+            $this->mdl->updateData('idProProd',$f,'factproduction2',$data);
 
             $bom = $this->mdl->getbom4($idSubSPK);
             $idUser=$this->session->userdata['logged_in']['iduser'];
@@ -4557,6 +4496,18 @@ class User extends CI_Controller {
 
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
+
+        $bk = $this->input->post('beratkecap');
+
+        if($bk > 0) {
+
+            $data = array(
+            'beratKecap' => $bk,
+            
+            );
+            $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
+        }
+
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan Berat</div>');
         redirect('User/kanbanmassal');
         

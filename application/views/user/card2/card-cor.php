@@ -49,7 +49,9 @@
                 <button data-toggle="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
             <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat == 0 ) {  ?>
                 <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $co[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
-            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat > 0 AND $co[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat > 0 AND $co[$i]->statusBerat == 'Belum Disetujui' AND $co[$i]->beratKecap == 0 ) { ?>                
+                <button data-toggle="modal" data-target="#berat<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Berat Kecap</button>            
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat > 0 AND $co[$i]->statusBerat == 'Belum Disetujui' AND $co[$i]->beratKecap > 0 ) { ?>                
                 <button data-toggle="modal" data-target="#serah<?php echo $co[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
             <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->statusBerat == 'Disetujui' ) { ?>                
                 <a href="<?php echo base_url('User/next3/'.$co[$i]->idProduk.'/'.$idakt.'/'.$co[$i]->idProProd.'/'.$co[$i]->idSPK.'/'.$co[$i]->idSubSPK.'/0')?>" 
@@ -213,8 +215,15 @@
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
-                                                    <div class="col-sm-5"><input type="text" name="berat" class="form-control"></div>
+                                                    <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->berat?>"  name="berat" class="form-control"></div>
                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $co[$i]->idProProd ?>"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Kecap</label>
+
+                                                    <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->beratKecap?>" name="beratkecap" class="form-control"></div>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="form-horizontal">

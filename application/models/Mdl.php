@@ -206,6 +206,13 @@ class mdl extends CI_Model {
         return $query->result();
     }
 
+    public function getSetting() {
+        $sql   = "SELECT * from setting";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function listPO(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");
@@ -2056,7 +2063,10 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getYourStock($idPIC) {
-        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadar*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial ORDER BY nama";
+        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadar*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial 
+            UNION
+            SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(c.beratAkhir) as jmlmasuk, max(c.kadarBahan) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadarBahan*100*(SUM(c.beratAkhir)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama
+";
         $query = $this->db->query($sql);
         
         return $query->result();
