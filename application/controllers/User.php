@@ -3977,99 +3977,41 @@ class User extends CI_Controller {
     }
 
     public function invoiceMassal(){
-        /*$je=$this->input->post();
-        print_r($je);exit();*/
-        $jenisMassal      = $this->input->post('jenisMassal');
-        $nomorPO            = $this->input->post('nomorPO');
+        // $je=$this->input->post('');
+        // print_r($je);exit();
+        $jenisMassal        = $this->input->post('jenisMassal');
+        
+        $tipeInvoice = 'pertokoan';
+        $headerInvoice = array(
+                'jenisInvoice'          => 'massal',
+                'tipeInvoice'           => 'pertokoan',
+                'total'                 => $this->input->post('beratTotal'),
+                'datangEmas'            => $this->input->post('datangEmas'),
+        );
+        
+        $idHeader=$this->mdl->insertDataGetLast('invoiceheader',$headerInvoice);
 
-        if ($jenisMassal=='perseorangan') {
-                $tipeInvoice = 'perseorangan';
-                $headerInvoice = array(
-                        'nomorPO'               => $nomorPO,
-                        'jenisInvoice'          => 'massal',
-                        'tipeInvoice'           => 'perseorangan',
-                        'total'                 => $this->input->post('total2')
-                );
-                //print_r($headerInvoice);exit();
-                $this->mdl->insertData('invoiceheader',$headerInvoice);
+        $nomorPO=$this->input->post('nomorPO[]');
+        $kadar=$this->input->post('kadar[]');
+        $upah=$this->input->post('upah[]');
+        $kuantitas=$this->input->post('kuantitas[]');
+        $berat=$this->input->post('berat[]');
 
-                $data['invoice'] = $this->mdl->findInvoice($nomorPO);
-                $idHeader = $data['invoice'][0]->idHeader;
-
-                $dataInvoice = array(
-                        'idHeader'              => $idHeader,
-                        'nomorPO'               => $this->input->post('nomorPO'),
-                        'beratTotal'            => $this->input->post('beratTotal'),
-                        'beratBatu'             => $this->input->post('beratBatu'),
-                        'susut'                 => $this->input->post('susut'),
-                        'beratAkhir'            => $this->input->post('beratAkhir'),
-                        'hargaAkhir'            => $this->input->post('hargaAkhir'),
-                        'beratHargaAkhir'       => $this->input->post('berathargaAkhir2'),
-                        'upah'                  => $this->input->post('upah'),
-                        'jumlahDatangBerlian'   => $this->input->post('jumlahDatangBerlian'),
-                        'upahPasangBerlian'     => $this->input->post('upahPasangBerlian'),
-                        'upahBerlian'           => $this->input->post('upahBerlian'),
-                        'jumlahBatuZirkon'      => $this->input->post('jumlahBatuZirkon'),
-                        'hargaBatuZirkon'       => $this->input->post('hargaBatuZirkon'),
-                        'upahCZ'                => $this->input->post('upahCZ'),
-                        'hargaKrumWarna'        => $this->input->post('hargaKrumWarna'),
-                        'datangEmas'            => $this->input->post('datangEmas'),
-                        'hargaDatangEmas'       => $this->input->post('hargaDatangEmas'),
-                        'totalDatangEmas'       => $this->input->post('totalDatangEmas'),
-                        'panjar'                => $this->input->post('panjar'),
-                        'total'                 => $this->input->post('total2')
-                );
-
-                $this->mdl->insertData('invoicemassalperseorangan',$dataInvoice);
-                redirect('user/printInvoiceMassal/'.$nomorPO.'/'.$tipeInvoice);
-        } 
-        else if ($jenisMassal=='pertokoan') {
-                $tipeInvoice = 'pertokoan';
-                $headerInvoice = array(
-                        'nomorPO'               => $nomorPO,
-                        'jenisInvoice'          => 'massal',
-                        'tipeInvoice'           => 'pertokoan',
-                        'total'                 => $this->input->post('total2')
-                );
-                //print_r($headerInvoice);exit();
-                $this->mdl->insertData('invoiceheader',$headerInvoice);
-
-                $data['invoice'] = $this->mdl->findInvoice($nomorPO);
-                $idHeader = $data['invoice'][0]->idHeader;
-
-                $dataInvoice = array(
-                        'idHeader'              => $idHeader,
-                        'nomorPO'               => $this->input->post('nomorPO'),
-                        'beratTotal'            => $this->input->post('beratTotal'),
-                        'beratBatu'             => $this->input->post('beratBatu'),
-                        'susut'                 => $this->input->post('susut'),
-                        'beratAkhir'            => $this->input->post('beratAkhir'),
-                        'prosentase'            => $this->input->post('prosentase'),
-                        'hargaAkhir'            => $this->input->post('hargaAkhir'),
-                        'beratHargaAkhir'       => $this->input->post('berathargaAkhir2'),
-                        'upah'                  => $this->input->post('upah'),
-                        'beratDatangBerlian'   => $this->input->post('beratDatangBerlian'),
-                        'jumlahDatangBerlian'   => $this->input->post('jumlahDatangBerlian'),
-                        'upahPasangBerlian'     => $this->input->post('upahPasangBerlian'),
-                        'upahBerlian'           => $this->input->post('upahBerlian'),
-                        'jumlahBatuZirkon'      => $this->input->post('jumlahBatuZirkon'),
-                        'hargaBatuZirkon'       => $this->input->post('hargaBatuZirkon'),
-                        'upahCZ'                => $this->input->post('upahCZ'),
-                        'hargaKrumWarna'        => $this->input->post('hargaKrumWarna'),
-                        'datangEmas'            => $this->input->post('datangEmas'),
-                        'hargaDatangEmas'       => $this->input->post('hargaDatangEmas'),
-                        'totalDatangEmas'       => $this->input->post('totalDatangEmas'),
-                        'panjar'                => $this->input->post('panjar'),
-                        'total'                 => $this->input->post('total2')
-                );
-
-                $this->mdl->insertData('invoicemassalpertokoan',$dataInvoice);
-                redirect('user/printInvoiceMassal/'.$nomorPO.'/'.$tipeInvoice);
+        for ($i=0; $i < count($nomorPO) ; $i++) { 
+            
+            $dataInvoice = array(
+                'idHeader'       => $idHeader,
+                'nomorPO'               => $nomorPO[$i],
+                'kadar'            => $kadar[$i],
+                'upah'               => $upah[$i],
+                'kuantitas'            => $kuantitas[$i],
+                'berat'            => $berat[$i],
+            );
+            
+            $this->mdl->insertData('invoicemassal',$dataInvoice);
         }
-
-        else {
-            redirect('user');
-        }
+        redirect('user/listInvoiceMassal');
+        
         //redirect('user/printInvoiceTempahan/'.$jenisTempahan);
     }
 

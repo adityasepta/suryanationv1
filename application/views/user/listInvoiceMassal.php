@@ -94,7 +94,7 @@
                                     <td class="text-center"><?php echo $hasil->noPurchaseOrder?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
                                     <td class="text-center"><?php echo $hasil->namaProduk?></td>
-                                    <td class="text-center"><?php if ($hasil->tipeInvoice) { echo 'Sudah ada invoice';} else {echo 'Belum ada invoice';}?></td>
+                                    <td class="text-center"><?php if ($hasil->idHeader) { echo 'Sudah ada invoice';} else {echo 'Belum ada invoice';}?></td>
                                     
                                     <td class="text-center">
                                         <?php if ($hasil->tipeInvoice) {?>

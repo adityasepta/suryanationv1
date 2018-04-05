@@ -2101,7 +2101,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function listInvoiceMassal() {
-        $hasil = $this->db->query("SELECT * FROM (SELECT a.idPO,a.nomorPO as noPurchaseOrder,a.tanggalMasuk,b.namaProduk,c.namaCustomer FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN invoiceheader i ON a.noPurchaseOrder=i.nomorPO");
+        $hasil = $this->db->query("SELECT * FROM (SELECT a.idPO,a.nomorPO as noPurchaseOrder,a.tanggalMasuk,b.namaProduk,c.namaCustomer FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN invoicemassal i ON a.noPurchaseOrder=i.nomorPO LEFT JOIN invoiceheader f ON i.idHeader=f.idHeader");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
