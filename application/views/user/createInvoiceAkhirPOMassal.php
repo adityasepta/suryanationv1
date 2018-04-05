@@ -79,7 +79,7 @@
                         <div class="ibox-content">
                             <?php echo form_open_multipart('user/invoiceMassal/')?>
                             <input type="hidden" name="jenisMassal" value="pertokoan" class="form-control">
-                            <input type="hidden" name="nomorPO" value="<?php echo $nomorPO?>" class="form-control">
+                            
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-sm-12">
@@ -129,6 +129,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         Nomor PO <?php echo $PO[$i]->nomorPO; ?>
+                                        <input type="hidden" name="nomorPO" value="<?php echo $PO[$i]->nomorPO?>" class="form-control">
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-2">
@@ -143,19 +144,23 @@
                                             <label>Berat</label>
                                             <input type="text" name="berat[]" value="<?php echo $PO[$i]->berat;?>" class="form-control" readonly>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-1">
                                             <label>Kadar</label>
                                             <input type="text" name="kadar[]" value="<?php echo $PO[$i]->kadarBahan;?>" class="form-control" readonly>
                                         </div>
+                                        <div class="col-sm-1">
+                                            <label>Upah</label>
+                                            <input type="text" name="upah[]" value="<?php echo $PO[$i]->upah;?>" class="form-control" readonly>
+                                        </div>
                                         <div class="col-sm-2">
                                             <label>Total</label>
-                                            <input type="text" name="total[]" value="<?php $total=$PO[$i]->berat*$PO[$i]->kadarBahan/100; echo $total; ?>" class="form-control" readonly>
+                                            <input type="text" name="total[]" value="<?php $total=$PO[$i]->berat*($PO[$i]->kadarBahan+$PO[$i]->upah)/100; echo $total; ?>" class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
                             <?php 
                                 $de+=(float)$PO[$i]->datangEmas;
-                                $tw+=(float)$PO[$i]->kadarBahan*$PO[$i]->berat/100;
+                                $tw+=(float)($PO[$i]->kadarBahan+$PO[$i]->upah)*$PO[$i]->berat/100;
                                 } 
                             ?>
                             <div class="form-group row">
@@ -191,155 +196,7 @@
                                 </div>
                             </div>
                             
-                            <!-- <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Berat Total </label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratTotal" id="beratTotal" onchange="calc();" value="<?php echo $beratTotal;?>" class="form-control" required readonly>
-                                    </div>
-                                    <div class="col-sm-1" style="width:0;">gram</div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Berat Batu </label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratBatu" id="beratBatu" value="<?php echo $PO[0]->beratBatu;?>" class="form-control" required readonly>
-                                    </div>
-                                    <div class="col-sm-1" style="width:0;">gram</div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Susut </label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="susut" value="0" id="susut" onchange="calc();"  class="form-control" required><div class="hr-line-dashed"></div>
-                                    </div>
-                                    <div class="col-sm-1" style="width:0;">gram</div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2"></label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratAkhir" id= "beratAkhir" value="" class="form-control" required readonly>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2"><input type="number" name="prosentase" onchange="calc();" placeholder="%" id="prosentase" value="" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2"><input type="number" name="hargaAkhir" onchange="calc();" placeholder="Rp" id="hargaAkhir" value="" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2"></label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" name="berathargaAkhir" id="berathargaAkhir" value="" placeholder="Rp"  class="form-control" required readonly>
-                                        <input type="hidden" name="berathargaAkhir2" id="berathargaAkhir2">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Upah </label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->upah,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" name="upah" id="upah" placeholder="Rp" value="<?php echo$PO[0]->upah;?>" class="form-control" required readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Upah Pasang Berlian (pcs x Harga)</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="beratDatangBerlian" placeholder= 'gr' id= "beratDatangBerlian" class="form-control"   value='' onchange="calc();" required >
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-1"><input type="text" name="jumlahDatangBerlian" placeholder= 'pcs' id= "jumlahDatangBerlian" class="form-control"  value='' onchange="calc();"  required >
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="upahPasangBerlian" id="upahPasangBerlian" class="form-control"  onchange="calc();" value=''  required>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">=</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" name="upahBerlianText" id="upahBerlianText" value="" placeholder="Rp"  class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="upahBerlian" id="upahBerlian" value="" class="form-control" required >
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">CZ (pcs x Harga)</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="jumlahBatuZirkon" id="jumlahBatuZirkon" value="<?php echo $PO[0]->jumlahBatuZirkon?>" class="form-control" required readonly>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->hargaBatuZirkon,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="hargaBatuZirkon" id="hargaBatuZirkon" value="<?php echo $PO[0]->hargaBatuZirkon?>" class="form-control" required >
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">=</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->jumlahBatuZirkon*$PO[0]->hargaBatuZirkon,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="upahCZ" id="upahCZ" value="<?php echo $PO[0]->jumlahBatuZirkon*$PO[0]->hargaBatuZirkon?>" class="form-control" required >
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Krum</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->hargaKrumWarna,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" text" placeholder="Rp" name="hargaKrumWarna" id="hargaKrumWarna" value="<?php echo $PO[0]->hargaKrumWarna;?>" class="form-control" required >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Datang Emas</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="datangEmas" id="datangEmas" value="<?php echo $PO[0]->datangEmas;?>" class="form-control" required readonly>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->hargaDatangEmas,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $PO[0]->hargaDatangEmas;?>" class="form-control" required >
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">=</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->datangEmas*$PO[0]->hargaDatangEmas,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $PO[0]->datangEmas*$PO[0]->hargaDatangEmas;?>" class="form-control" required >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Panjar</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->panjar,2,".","."); ?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="panjar" id='panjar' value="<?php echo $PO[0]->panjar;?>" class="form-control" required >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">Total</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" placeholder="Rp" name="total" id="total" class="form-control" required readonly>
-                                        <input type="hidden" name="total2" id='total2' class="form-control" required >
-                                    </div>
-                                </div>
-                            </div> -->
+                            
                             <div class="hr-line-dashed"></div>
                                 <div class="form-group row">
                                     <div class="col-sm-4">
