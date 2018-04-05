@@ -4314,6 +4314,8 @@ class User extends CI_Controller {
         $idSPK = $proses[0]->idSPK;
         $idSubSPK = $proses[0]->idSubSPK;
 
+        
+
         $wadah = $this->mdl->getWadahTerakhir();
         $idWadah = (int)($wadah[0]->idWadah) + 1;
 
@@ -4368,16 +4370,23 @@ class User extends CI_Controller {
 
         $rw = $this->mdl->cekRework($idSubSPK,$idAktivitas);
 
-        if(count($rw) > 0) {
+        if(count($rw) > 1) {
 
             $data = array(
 
                 'statusRework' => 'Yes'
             );
 
-            $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
+            
 
+        } else {
+            $data = array(
+
+                'statusRework' => 'No'
+            );
         }
+
+        $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanbanmassal');
