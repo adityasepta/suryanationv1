@@ -1631,22 +1631,22 @@ class User extends CI_Controller {
         else {
             $idMaterial = $this->input->post('kodeMaterial');
             $idUser=$this->session->userdata['logged_in']['iduser'];
-            $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
-            $jml = $stok[0]->TOT;
+            // $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
+            // $jml = $stok[0]->TOT;
             $jmlbutuh = $this->input->post('bahanButuh');
-            if ($jmlbutuh > $jml) {
-                echo '<b>Stok Material Tidak Mencukupi, Silahkan Transfer Material Terlebih Dahulu </b><br />';
-            } else {
-                $dataBOM= array(
+
+            $idm = explode(",",$idMaterial);
+            
+            $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
                 'idMaterial' => $idMaterial,
                 'jumlah'     => $jmlbutuh
                 );
-                
-                $this->mdl->insertData('bommassal',$dataBOM);
-                echo '<b>Data BOM berhasil disimpan.</b><br />';
+            
+            print_r($idm[0][0]);exit();
 
-            }
+            //$this->mdl->insertData('bommassal',$dataBOM);
+            echo '<b>Data BOM berhasil disimpan.</b><br />';
             
         }
     }

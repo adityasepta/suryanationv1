@@ -103,7 +103,7 @@
                                                 <?php
                                                 foreach($materials as $m)
                                                 {
-                                                    echo "<option value='".$m->idMaterial."'";
+                                                    echo "<option value='".$m->idMaterial.",".$m->kadar."'";
                                                     echo ">".$m->namaMaterial."</option>";
 
                                                 }
@@ -372,26 +372,10 @@
 
                     
                     var c = document.getElementById('kode').value;
-                    var d = c.toString();
-                    var xs = <?php 
-                                echo '[';
-                                for($o = 0; $o < count($materials); $o++) {
-                                    
-                                    echo $materials[$o]->idMaterial;
+                    var t = c.split(",");
+                    console.log(t[1]);
 
-                                    if($o == count($materials)-1) {
-                                    } else {
-                                        echo ",";
-                                    }
-                                } echo ']';
-                                ?>;
-                        
-                    
-
-                    var zs=[1,2,3,4,5,6,7];
-                    var bkk = xs.indexOf(" " + d + " ");
-                    console.log(d);
-                    console.log(bkk);
+                    document.getElementById('k1').value = t[1];
 
                     var n1 = parseFloat(document.getElementById('n1').value);
                     var n2 = parseFloat(document.getElementById('n2').value);
