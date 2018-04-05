@@ -148,7 +148,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $kr[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$kr[$i]->beratAwal?></b> gr</small>    
+                                            <small>jumlah maksimal adalah <b><?php echo (float)$kr[$i]->beratAwal?></b> gr</small>  
                                         </div>
 
                                     </div>
@@ -209,7 +209,7 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $kr[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $kr[$i]->idProProd ?>-pic-i" required value="0" name="staf">
-                            <input type="hidden" id="<?php echo $kr[$i]->idProProd ?>-krum?>-password-1" required value="0" name="password">
+                            <input type="hidden" id="password-pic-<?php echo $kr[$i]->idProProd ?>" required value="0" name="password">
                         </div>
 
                     </div>
@@ -219,18 +219,18 @@
                             Password PIC Selanjutnya
                         </div>
                         <div class="col-lg-4 text-center">
-                            <input type="password" id="<?php echo $kr[$i]->idProProd ?>-krum?>-password-2" required  value="0" name="password2">
+                            <input type="password" id="password-pic-2" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
-                            <button type="button" onclick="cekkrum<?php echo $kr[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                            <button type="button" onclick="cek<?php echo $kr[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
                         </div>
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd ?>-krum?>-cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd ?>-krum?>-cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $kr[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $kr[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="<?php echo $kr[$i]->idProProd?>-krum" disabled="true">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $kr[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $kr[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
             var akt = document.getElementById('<?php echo $kr[$i]->idProProd ?>-akt');
             var namaakt = akt.options[akt.selectedIndex].text;
             var idakt = akt.options[akt.selectedIndex].value;
-            console.log(nama);
+            
             $.ajax({
                     // Change the link to the file you are using
                     url: '<?php echo base_url();?>user/cariPegawai',
@@ -273,9 +273,10 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $kr[$i]->idProProd?>-krum?>-password-1']").val(Vals[0].password);
+                        $("#password-pic-<?php echo $kr[$i]->idProProd ?>").val(Vals[0].password);
                     }
             });
+            
             if(jumlah > <?php echo $kr[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();
@@ -292,21 +293,22 @@
             document.getElementById('<?php echo $kr[$i]->idProProd ?>-akt-i').value = idakt;
 
         }
-        function cekkrum<?php echo $kr[$i]->idProProd ?>() {
-            var password = document.getElementById('<?php echo $kr[$i]->idProProd ?>-krum?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $kr[$i]->idProProd ?>-krum?>-password-2').value;
-            console.log(password);
-            console.log(password2);
-            var x = document.getElementById("<?php echo $kr[$i]->idProProd ?>-krum?>-cek");
-            var y = document.getElementById("<?php echo $kr[$i]->idProProd ?>-krum?>-cek1");
+
+        function cek<?php echo $kr[$i]->idProProd ?>() {
+            var password = document.getElementById('password-pic-<?php echo $kr[$i]->idProProd ?>').value;
+            var password2 = document.getElementById('password-pic-2').value;
+            // console.log(password);
+            // console.log(password2);
+            var x = document.getElementById("cek");
+            var y = document.getElementById("cek1");
 
             if(password==password2) {
-                $('#<?php echo $kr[$i]->idProProd ?>-krum').prop('disabled', false);
+                $('#tombolvalidasi').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#<?php echo $kr[$i]->idProProd ?>-krum').prop('disabled', true);
+                $('#tombolvalidasi').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }

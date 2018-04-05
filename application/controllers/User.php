@@ -4331,10 +4331,16 @@ class User extends CI_Controller {
                 'RealisasiStartDate' => date("Y-m-d H:i:s")
         );
 
-        $this->mdl->insertData('factproduction2', $data);
+        $b = $this->mdl->insertDataGetLast('factproduction2', $data);
 
         $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah;
-        $beratAkhir = (float)$proses[0]->beratAwal + (float)$beratAwal;
+
+        if($idAktivitas !== 1007) {
+            $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal;    
+        } else {
+            $beratAkhir = (float)$proses[0]->berat;
+        }
+        
 
         if($jmlakhir > 0) {
             $statusWork = 'On Progress';
@@ -4353,6 +4359,20 @@ class User extends CI_Controller {
         );
 
         $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+
+        $rw = $this->mdl->cekRework($idSubSPK,$idAktivitas);
+
+        if(count($rw) > 0) {
+
+            $data = array(
+
+                'statusRework' => 'Yes'
+            );
+
+            $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
+
+        }
+
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanbanmassal');
 

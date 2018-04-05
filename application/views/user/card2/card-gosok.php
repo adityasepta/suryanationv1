@@ -209,7 +209,7 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $go[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $go[$i]->idProProd ?>-pic-i" required value="0" name="staf">
-                            <input type="hidden" id="password-pic" required value="0" name="password">
+                            <input type="hidden" id="password-pic-<?php echo $go[$i]->idProProd ?>" required value="0" name="password">
                         </div>
 
                     </div>
@@ -273,7 +273,7 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $go[$i]->idProProd?>-gosok?>-password-1']").val(Vals[0].password);
+                        $("#password-pic-<?php echo $go[$i]->idProProd ?>").val(Vals[0].password);
                     }
             });
             
@@ -295,10 +295,10 @@
         }
 
         function cek<?php echo $go[$i]->idProProd ?>() {
-            var password = document.getElementById('password-pic').value;
+            var password = document.getElementById('password-pic-<?php echo $go[$i]->idProProd ?>').value;
             var password2 = document.getElementById('password-pic-2').value;
-            console.log(password);
-            console.log(password2);
+            // console.log(password);
+            // console.log(password2);
             var x = document.getElementById("cek");
             var y = document.getElementById("cek1");
 

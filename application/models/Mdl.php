@@ -1288,6 +1288,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function cekRework($idSubSPK, $idAktivitas) {
+
+        $sql   = "SELECT * FROM factproduction2 where idSubSPK = $idSubSPK and idAktivitas = $idAktivitas ";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function findPOPerak($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM poperak a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO=$nomorPO LIMIT 1");
