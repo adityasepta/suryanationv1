@@ -222,7 +222,7 @@
                             <input type="password" id="<?php echo $bo[$i]->idProProd?>-boom?>-password-2" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
-                            <button type="button" onclick="cekboom();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                            <button type="button" onclick="cekboom<?php echo $bo[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
                         </div>
                     </div>
                     <br>
@@ -273,7 +273,7 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[name='password']").val(Vals[0].password);
+                        $("input[id='<?php echo $bo[$i]->idProProd?>-boom?>-password-1']").val(Vals[0].password);
                     }
             });
 
@@ -295,7 +295,7 @@
 
         }
 
-        function cekboom() {
+        function cekboom<?php echo $bo[$i]->idProProd ?>() {
             var password = document.getElementById('<?php echo $bo[$i]->idProProd?>-boom?>-password-1').value;
             var password2 = document.getElementById('<?php echo $bo[$i]->idProProd?>-boom?>-password-2').value;
             console.log(password);

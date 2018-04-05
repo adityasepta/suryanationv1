@@ -222,7 +222,7 @@
                             <input type="password" id="password-pic-2" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
-                            <button type="button" onclick="cek();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                            <button type="button" onclick="cek<?php echo $go[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
                         </div>
                     </div>
                     <br>
@@ -273,7 +273,7 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[name='password']").val(Vals[0].password);
+                        $("input[id='<?php echo $go[$i]->idProProd?>-gosok?>-password-1']").val(Vals[0].password);
                     }
             });
             
@@ -294,7 +294,7 @@
 
         }
 
-        function cek() {
+        function cek<?php echo $go[$i]->idProProd ?>() {
             var password = document.getElementById('password-pic').value;
             var password2 = document.getElementById('password-pic-2').value;
             console.log(password);
