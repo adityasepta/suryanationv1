@@ -108,6 +108,7 @@
                     <a href="index.html"><i class="fa fa-money"></i> <span class="nav-label">Keuangan</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
+                        <li><a href="<?php echo base_url()?>user/akun">Akun</a></li>
                         <li><a href="<?php echo base_url()?>user/revenue">Pendapatan</a></li>
                         <li><a href="<?php echo base_url()?>user/cost">Pengeluaran</a></li>
                         <li><a href="<?php echo base_url()?>user/profit">Keuntungan</a></li>

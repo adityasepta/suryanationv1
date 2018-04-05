@@ -77,7 +77,7 @@
         
         <div class="col-lg-6">
             <?php if ($cz[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $cz[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+                <button data-toggle="modal" data-target="#pic<?php echo $cz[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block" onclick="tambahpic<?php echo $cz[$i]->idProProd ?>();">Tambah PIC</button>
             <?php } else if($cz[$i]->statusWork == 'On Progress' AND $cz[$i]->berat == 0 ) {  ?>
                 <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $cz[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
             <?php } else if($cz[$i]->statusWork == 'On Progress' AND $cz[$i]->berat > 0 AND $cz[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
@@ -436,7 +436,7 @@
                                 
                                 <?php 
 
-                                $js = array( 'class' => 'form-control' );
+                                $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$cz[$i]->idProProd.'()', 'id' =>  $cz[$i]->idProProd."-pic");
                                 echo form_dropdown('staf', $staf, $cz[$i]->idPIC,$js);
 
                                 ?>
@@ -462,13 +462,35 @@
                                 
                             </div>
                         </div>
-                    
+                    <div class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
+
+                                <div class="col-sm-4">
+                                    <input type="password" id="<?php echo $cz[$i]->idProProd?>-cz?>-password-2" required  value="0" name="password2" class="form-control">
+                                    <input type="hidden" id="<?php echo $cz[$i]->idProProd?>-cz?>-password-1" required value="0" name="password">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" onclick="cekcz<?php echo $cz[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-horizontal" >
+                            <div class="form-group">
+                            <div class="col-lg-12 text-center" id='<?php echo $cz[$i]->idProProd?>-cz?>-cek' style="display: none;">
+                                Password tidak cocok. Silahkan coba lagi.
+                            </div>
+                            <div class="col-lg-12 text-center" id='<?php echo $cz[$i]->idProProd?>-cz?>-cek1' style="display: none;">
+                                Password valid.
+                            </div>
+                             </div>
+                        </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $cz[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                            <button type="submit" class="btn btn-block btn-success" id="<?php echo $cz[$i]->idProProd?>-cz" disabled="true">Simpan</button>
                         </div>
                     </div>
                     <?php echo form_close() ?>
@@ -479,6 +501,52 @@
     
     
 </li>
+<script type="text/javascript">
+        function tambahpic<?php echo $cz[$i]->idProProd ?>() {
+            passing<?php echo $cz[$i]->idProProd ?>();
+        };
+
+        function passing<?php echo $cz[$i]->idProProd ?>() {
+            var pic = document.getElementById('<?php echo $cz[$i]->idProProd ?>-pic');
+            var idpic = pic.options[pic.selectedIndex].value;
+            console.log(idpic);
+            $.ajax({
+                    // Change the link to the file you are using
+                    url: '<?php echo base_url();?>user/cariPegawai',
+                    type: 'post',
+                    // This just sends the value of the dropdown
+                    data: { idpic },
+                    success: function(response) {
+                        
+                        var Vals = $.parseJSON(response);
+                        /*console.log(Vals);*/
+                        var Vals    =   JSON.parse(response);
+                        $("input[id='<?php echo $cz[$i]->idProProd?>-cz?>-password-1']").val(Vals[0].password);
+                    }
+            });
+        }
+</script>
+<script type="text/javascript">
+        function cekcz<?php echo $cz[$i]->idProProd?>() {
+            var password = document.getElementById('<?php echo $cz[$i]->idProProd ?>-cz?>-password-1').value;
+            var password2 = document.getElementById('<?php echo $cz[$i]->idProProd ?>-cz?>-password-2').value;
+            console.log(password);
+            console.log(password2);
+            var x = document.getElementById("<?php echo $cz[$i]->idProProd ?>-cz?>-cek");
+            var y = document.getElementById("<?php echo $cz[$i]->idProProd ?>-cz?>-cek1");
+
+            if(password==password2) {
+                $('#<?php echo $cz[$i]->idProProd ?>-cz').prop('disabled', false);
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+            else {
+                $('#<?php echo $cz[$i]->idProProd ?>-cz').prop('disabled', true);
+                x.style.display = "block";
+                y.style.display = "none";
+            }
+        }
+    </script>
 
 
 
