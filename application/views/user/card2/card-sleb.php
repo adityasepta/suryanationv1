@@ -227,10 +227,10 @@
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -299,8 +299,8 @@
             var password2 = document.getElementById('password-pic-2<?php echo $sl[$i]->idProProd ?>').value;
             // console.log(password);
             // console.log(password2);
-            var x = document.getElementById("cek");
-            var y = document.getElementById("cek1");
+            var x = document.getElementById("<?php echo $sl[$i]->idProProd?>-sleb?>-cek");
+            var y = document.getElementById("<?php echo $sl[$i]->idProProd?>-sleb?>-cek1");
 
             if(password==password2) {
                 $('#tombolvalidasi<?php echo $sl[$i]->idProProd ?>').prop('disabled', false);
