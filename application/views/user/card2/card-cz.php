@@ -219,7 +219,7 @@
                             Password PIC Selanjutnya
                         </div>
                         <div class="col-lg-4 text-center">
-                            <input type="password" id="password-pic-2" required  value="0" name="password2">
+                            <input type="password" id="password-pic-2<?php echo $cz[$i]->idProProd ?>" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
                             <button type="button" onclick="cek<?php echo $cz[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi" disabled="true">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi<?php echo $cz[$i]->idProProd ?>" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -296,19 +296,19 @@
 
         function cek<?php echo $cz[$i]->idProProd ?>() {
             var password = document.getElementById('password-pic-<?php echo $cz[$i]->idProProd ?>').value;
-            var password2 = document.getElementById('password-pic-2').value;
+            var password2 = document.getElementById('password-pic-2<?php echo $cz[$i]->idProProd ?>').value;
             // console.log(password);
             // console.log(password2);
             var x = document.getElementById("cek");
             var y = document.getElementById("cek1");
 
             if(password==password2) {
-                $('#tombolvalidasi').prop('disabled', false);
+                $('#tombolvalidasi<?php echo $cz[$i]->idProProd ?>').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#tombolvalidasi').prop('disabled', true);
+                $('#tombolvalidasi<?php echo $cz[$i]->idProProd ?>').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }
