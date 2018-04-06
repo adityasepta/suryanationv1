@@ -4318,7 +4318,7 @@ class User extends CI_Controller {
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
-        $beratTambahan = $this->input->post('beratTambahan');
+        $beratTambahan = 0;
         $idAktivitas = $this->input->post('idAktivitas');
         $idProduk = $this->input->post('idProduk');
 
@@ -4673,6 +4673,12 @@ class User extends CI_Controller {
         $idProduk = $this->input->post('idProduk');
         $beratAkhir = $this->input->post('beratakhir');
         $jumlah = $this->input->post('jumlah');
+
+        $data = array(
+            'statusSPK' => 'Done',
+        );
+
+        $this->mdl->updateData('idSPK',$idSPK,'spkmasal', $data);
 
        // print_r($idProduk);
         $data = array(
