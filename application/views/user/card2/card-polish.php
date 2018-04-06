@@ -210,7 +210,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $po[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$po[$i]->beratAwal?></b> gr</small>  
+                                            <small>berat maksimal adalah <b><?php echo (float)$po[$i]->beratAwal-(float)$po[$i]->berat?></b> gr</small>  
                                         </div>
 
                                     </div>
@@ -289,10 +289,10 @@
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $po[$i]->idProProd?>-polish?>-cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $po[$i]->idProProd?>-polish?>-cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -361,8 +361,8 @@
             var password2 = document.getElementById('password-pic-2<?php echo $po[$i]->idProProd ?>').value;
             // console.log(password);
             // console.log(password2);
-            var x = document.getElementById("cek");
-            var y = document.getElementById("cek1");
+            var x = document.getElementById("<?php echo $po[$i]->idProProd?>-polish?>-cek");
+            var y = document.getElementById("<?php echo $po[$i]->idProProd?>-polish?>-cek1");
 
             if(password==password2) {
                 $('#tombolvalidasi<?php echo $po[$i]->idProProd ?>').prop('disabled', false);

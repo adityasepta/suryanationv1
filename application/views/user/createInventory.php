@@ -329,7 +329,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Pergerakan Barang | <?php echo $pergerakan['tipePergerakan']?></h5>
+                            <h5>Pergerakan Barang | <?php echo $pergerakan['tipePergerakan'];?></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
                             <div class="row">
@@ -554,7 +554,7 @@
                 </div>
             </div>
 
-
+        </div>
         <div class="footer">
             <div>
                 <strong>Copyright</strong> Surya Sumatera &copy; <?php echo date('Y');?>
