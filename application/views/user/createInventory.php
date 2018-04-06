@@ -215,8 +215,8 @@
                 </div>
             </div>
 
-            <!-- Transaksi dan Produk Jadi -->
-            <div class="row" id="transaksi" style="display: none;">
+            <!-- Balik Bahan -->
+            <div class="row" id="balikBahan" style="display: none;">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -324,7 +324,7 @@
                 </div>
             </div>
 
-            <!-- Balik Abu dan Balik Bahan -->
+            <!-- Balik Abu -->
             <div class="row" id="balik" style="display: none;">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -608,31 +608,31 @@
             if (tipePergerakan=='Transfer Material') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('transaksi').style.display = 'none';
+                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'block';
                 document.getElementById('beli').style.display = 'none';
-            } else if (tipePergerakan=='Produk Jadi' || tipePergerakan=='Transaksi') {
+            } else if (tipePergerakan=='Balik Bahan') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('transaksi').style.display = 'block';
+                document.getElementById('balikBahan').style.display = 'block';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
-            } else if (tipePergerakan=='Balik Abu' || tipePergerakan=='Balik Bahan') {
+            } else if (tipePergerakan=='Balik Abu') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'block';
-                document.getElementById('transaksi').style.display = 'none';
+                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Beli Material') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('transaksi').style.display = 'none';
+                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'block';
             } else {
                 document.getElementById('opname').style.display = 'block';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('transaksi').style.display = 'none';
+                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
             }
