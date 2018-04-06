@@ -4765,7 +4765,7 @@ class User extends CI_Controller {
             'satuan' => 'Pcs',
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'IN',
-            'tipePergerakan' => 'Transfer'
+            'tipePergerakan' => 'Transfer',
             'statusTransfer' => 'Pending',
             
         );
