@@ -4406,6 +4406,42 @@ class User extends CI_Controller {
             );
         }
 
+        if($idAktivitas == 1014) {
+
+            $data = array(
+                'idPIC' => $idUser,
+                'tipeBarang' => 'Produk Semi Jadi',
+                'kodeBarang' => $idProduk,
+                'jumlah' => $beratakhir,
+                'satuan' => 'gr',
+                'tanggal' => date("Y-m-d H:i:s"),
+                'jenisPergerakanBarang' => 'OUT',
+                'tipePergerakan' => 'Produksi'
+                
+            );
+
+           // print_r($data);
+            
+            $this->mdl->insertData('stokbarang', $data);
+
+            $data = array(
+                'idPIC' => $idUser,
+                'tipeBarang' => 'Produk Jadi',
+                'kodeBarang' => $idProduk,
+                'jumlah' => $beratakhir,
+                'satuan' => 'gr',
+                'tanggal' => date("Y-m-d H:i:s"),
+                'jenisPergerakanBarang' => 'IN',
+                'tipePergerakan' => 'Produksi'
+                
+            );
+
+           // print_r($data);
+            
+            $this->mdl->insertData('stokbarang', $data);
+
+        }
+
         $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
@@ -4498,9 +4534,9 @@ class User extends CI_Controller {
                 'idPIC' => $idg,
                 'tipeBarang' => "Produk Semi Jadi",
                 'kodeBarang' => $idProduk,
-                'jumlah' => $proses[0]->jumlah,
+                'jumlah' => $proses[0]->beratKecap,
                 'jenisPergerakanBarang' => "IN",
-                'satuan' => 'pcs',
+                'satuan' => 'gr',
                 'tipePergerakan' => 'Produksi',
                 'tanggal' => date("Y-m-d H:i:s")
             );
@@ -4713,49 +4749,17 @@ class User extends CI_Controller {
         $stok       = (int) $prod[0]->stok;
         $newstok    = $stok + (int) $jumlah;
 
-        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
-        $idg = $userx[0]->idUser;
-
+        
         $idUser=$this->session->userdata['logged_in']['iduser'];
 
-        $data = array(
-            'idPIC' => $idUser,
-            'tipeBarang' => 'Produk Semi Jadi',
-            'kodeBarang' => $idProduk,
-            'jumlah' => $jumlah,
-            'satuan' => 'Pcs',
-            'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'OUT',
-            'tipePergerakan' => 'Produksi'
-            
-        );
-
-       // print_r($data);
         
-        $this->mdl->insertData('stokbarang', $data);
 
         $data = array(
             'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
             'kodeBarang' => $idProduk,
-            'jumlah' => $jumlah,
-            'satuan' => 'Pcs',
-            'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN',
-            'tipePergerakan' => 'Produksi'
-            
-        );
-
-       // print_r($data);
-        
-        $this->mdl->insertData('stokbarang', $data);
-
-        $data = array(
-            'idPIC' => $idUser,
-            'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $idProduk,
-            'jumlah' => $jumlah,
-            'satuan' => 'Pcs',
+            'jumlah' => $beratakhir,
+            'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'OUT',
             'tipePergerakan' => 'Transfer'
@@ -4766,6 +4770,8 @@ class User extends CI_Controller {
         
         $this->mdl->insertData('stokbarang', $data);
 
+        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+        $idg = $userx[0]->idUser;
 
         $data = array(
             'idPIC' => $idg,
@@ -4776,6 +4782,7 @@ class User extends CI_Controller {
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'IN',
             'tipePergerakan' => 'Transfer'
+            'statusTransfer' => 'Pending',
             
         );
 
