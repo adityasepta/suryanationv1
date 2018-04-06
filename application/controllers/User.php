@@ -4896,6 +4896,7 @@ class User extends CI_Controller {
                     'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('datangEmas'),
                     'safetyStock'     => 0,
+                    'kadar'           =>$this->input->post('kadarDatangEmas'),
                     'asal'            => 'Datang Emas',
                 );
                 //print_r($dataMaterial);exit();
@@ -5561,8 +5562,8 @@ class User extends CI_Controller {
 
     public function invoiceSPKMassal($nomorFaktur) {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
-        //$data['cekbom']    = $this->mdl->cekbom();
-        //$data['cekjadwal'] = $this->mdl->cekjadwal();
+        $idSPK = $data['dataSPK'][0]->idSPK;
+        $data['rkp'] = $this->mdl->getRekapMassal($idSPK);
         $data['jadwal']    = $this->mdl->getjadwal7($nomorFaktur);
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
         $data['isi'] = $this->mdl->getIsiSPK($nomorFaktur);

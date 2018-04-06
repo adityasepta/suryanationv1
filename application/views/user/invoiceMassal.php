@@ -96,16 +96,6 @@
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
         </div>
@@ -123,7 +113,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="title-action">
-                        <!-- <a href="invoice_print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a> -->
+
                     </div>
                 </div>
             </div>
@@ -257,8 +247,8 @@
                                 <div class="ibox-content">
 
                                     <div class="row" >
-                                        <div class="col-sm-12">
-                                            <table class="table table-hover table-responsive">
+                                        <div class="col-sm-12 table-responsive">
+                                            <table data-page-size="8" class=" footable table table-hover ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">IDS</th>
@@ -421,6 +411,13 @@
 
                                                     <?php } ?>
                                                 </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="12">
+                                                        <ul class="pagination pull-right"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
 
                                             </table>
                                         </div>
@@ -429,6 +426,60 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                           <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Track Proses Produksi</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <div class="row" >
+                                        <div class="col-sm-12 table-responsive">
+                                            <table data-page-size="20" class=" footable table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Aktivitas</th>
+                                                        <th class="text-center">Berat Awal</th>
+                                                        <th class="text-center">Berat Akhir</th>
+                                                        <th class="text-center">Kembali</th>
+                                                        <th class="text-center">Berat Tambahan</th>
+                                                        <th class="text-center">Susut Awal</th>
+                                                        <th class="text-center">Jumlah Barang</th>
+                                                        <th class="text-center">Jumlah Sub SPK</th>
+                                                        <th class="text-center">Jumlah Wadah</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php for($p = 0; $p < count($rkp); ++$p) {?>
+
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $rkp[$p]->namaAktivitas?></td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->beratAwal?> gr</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->berat?> gr</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->kembali?> gr</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->beratTambahan?> gr</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->susut?> gr</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->jumlah?> pcs</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->jmlsub?> item</td>
+                                                            <td class="text-center"><?php echo $rkp[$p]->jmlwadah?> item</td>
+                                                        </tr>
+
+                                                    <?php } ?>
+                                                    
+                                                </tbody>
+                                                <tfoot>
+                                                    
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     <div class="row">
                         <div class="col-lg-6">
@@ -613,6 +664,9 @@
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+    <!-- FooTable -->
+    <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
+
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
@@ -627,6 +681,33 @@
                 });
             });
         </script>
+
+        <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+            var max_fields      = 10; //maximum input boxes allowed
+            var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+            
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<div class="row"><br><div class="col-lg-4"><input class="form-control" type="number" placeholder="berat" required name="berat[]"/></div><div class="col-lg-4"><input class="form-control" placeholder="jumlah" required type="number" name="jumlah[]"/></div><a href="#" class="btn btn-danger remove_field">Hapus</a></div>'); //add input box
+                }
+            });
+            
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+        });
+
+    </script>   
 </body>
 
 </html>
