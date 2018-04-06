@@ -1798,16 +1798,6 @@ class User extends CI_Controller {
             }
             $data['user'] = $this->mdl->findPegawai($idUser);
 
-         } else if ($tipePergerakan=='Balik Bahan') {
-            $idUser=$this->input->post('idUser');
-
-            if ($jenisProduksi=="tempahan") {
-                $data['listSPK'] = $this->mdl->getListKloter();
-            } else if ($jenisProduksi=="massal") {
-                $data['listSPK'] = $this->mdl->getListSPKMassal($idUser);
-            }
-            $data['user'] = $this->mdl->findPegawai($idUser);
-
         } else {
             $data['materialDasar']=$this->mdl->getMaterial();
             $data['produk']=$this->mdl->getMovement();
@@ -3167,6 +3157,7 @@ class User extends CI_Controller {
                 'idPIC'             => $idUser,
                 'kodeRekapProduksi' => $kode,
                 'beratKembali'      => $this->input->post('beratKembali'),
+                'kadar'             => $this->input->post('kadar'),
                 'jenisProduksi'     => $jenisProduksi,
             );
             $this->mdl->insertData("rekapproduksi",$dataRekap);  
@@ -3970,18 +3961,11 @@ class User extends CI_Controller {
         //redirect('user/printInvoiceTempahan/'.$jenisTempahan);
     }
 
-    public function printInvoiceMassal($nomorPO,$tipeInvoice){
-        // print_r($data);exit();
-        if ($tipeInvoice=='perseorangan') {
-            $data['dataPO'] = $this->mdl->findPO($nomorPO);
-            $data['PO'] = $this->mdl->findInvoice3($nomorPO,'invoicemassalperseorangan');
-            $this->load->view('user/printInvoiceMassalPerseorangan',$data);
-        }
-        else if ($tipeInvoice=='pertokoan') {
-            $data['dataPO'] = $this->mdl->findPO($nomorPO);
-            $data['PO'] = $this->mdl->findInvoice3($nomorPO,'invoicemassalpertokoan');
-            $this->load->view('user/printInvoiceMassalPertokoan',$data);
-        }
+    public function printInvoiceMassal($idHeader){
+        $po=$this->mdl->findPOFromInvoice($idHeader);
+        $nomorPO=$po[0]->nomorPO;
+        $data['dataPO'] = $this->mdl->listPOMassal($nomorPO);
+        $this->load->view('user/printInvoiceAkhirMassal',$data);
         
     }
 

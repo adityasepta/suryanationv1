@@ -91,14 +91,14 @@
                                     <?php $tglmsk = new DateTime($hasil->tanggalMasuk);
                                     $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
                                     <td class="text-center"><?php echo $tglmsk?></td>
-                                    <td class="text-center"><?php echo $hasil->noPurchaseOrder?></td>
+                                    <td class="text-center"><?php if($hasil->idHeader!=NULL){ echo $hasil->po;} else echo $hasil->noPurchaseOrder;?></td>
                                     <td class="text-center"><?php echo $hasil->namaCustomer?></td>
                                     <td class="text-center"><?php echo $hasil->namaProduk?></td>
                                     <td class="text-center"><?php if ($hasil->idHeader) { echo 'Sudah ada invoice';} else {echo 'Belum ada invoice';}?></td>
                                     
                                     <td class="text-center">
                                         <?php if ($hasil->tipeInvoice) {?>
-                                        <a href="<?php echo base_url('user/printInvoiceMassal/' . $hasil->noPurchaseOrder.'/'.$hasil->tipeInvoice) ?>" class="btn btn-xs btn-primary" >Print Invoice</a>
+                                        <a href="<?php echo base_url('user/printInvoiceMassal/' . $hasil->idHeader) ?>" class="btn btn-xs btn-primary" >Print Invoice</a>
                                         <?php } else { ?>
                                         <?php } ?>
                                        <!--  <a href="<?php echo base_url('user/editSPK/' . $hasil->nomorFaktur) ?>" class="btn btn-xs btn-warning" >Edit</a> -->

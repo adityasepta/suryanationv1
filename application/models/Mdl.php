@@ -983,7 +983,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listCustomerInvoice(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT DISTINCT(a.idCustomer),a.namaCustomer,a.nomorTelepon FROM customer a RIGHT JOIN pomasal b ON a.idCustomer=b.idCustomer");
+        $hasil = $this->db->query("SELECT DISTINCT(a.idCustomer),a.namaCustomer,a.nomorTelepon FROM customer a RIGHT JOIN pomasal b ON a.idCustomer=b.idCustomer LEFT JOIN spkmasal c ON b.nomorPO=c.nomorPO WHERE c.statusSPK='Done' AND b.nomorPO NOT IN (SELECT nomorPO FROM invoicemassal)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1643,6 +1643,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findPOFromInvoice($idHeader){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT nomorPO FROM invoiceheader WHERE idHeader=$idHeader");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listPO4(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT
@@ -2149,7 +2159,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function listInvoiceMassal() {
-        $hasil = $this->db->query("SELECT * FROM (SELECT a.idPO,a.nomorPO as noPurchaseOrder,a.tanggalMasuk,b.namaProduk,c.namaCustomer FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN invoicemassal i ON a.noPurchaseOrder=i.nomorPO LEFT JOIN invoiceheader f ON i.idHeader=f.idHeader");
+        $hasil = $this->db->query("SELECT *,f.nomorPO AS po FROM (SELECT a.idPO,a.nomorPO as noPurchaseOrder,a.tanggalMasuk,b.namaProduk,c.namaCustomer FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN invoicemassal i ON a.noPurchaseOrder=i.nomorPO LEFT JOIN invoiceheader f ON i.idHeader=f.idHeader WHERE i.idHeader IS NOT NULL GROUP BY i.idHeader
+            UNION
+            SELECT *,f.nomorPO AS po FROM (SELECT a.idPO,a.nomorPO as noPurchaseOrder,a.tanggalMasuk,b.namaProduk,c.namaCustomer FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer) a LEFT JOIN invoicemassal i ON a.noPurchaseOrder=i.nomorPO LEFT JOIN invoiceheader f ON i.idHeader=f.idHeader WHERE i.idHeader IS NULL");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

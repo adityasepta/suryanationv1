@@ -369,11 +369,11 @@
 
                                               $tglmsk = new DateTime($listSPK[$i]->RealisasiEndDate);
                                               $tglmsk->modify('+'.$i.' day');
-                                              $tglmsk1 = $tglmsk->format("Y-m-d");
+                                              $tglmsk1 = $tglmsk->format("d F Y");
 
                                             ?>
-                                            <div class="col-md-3">
-                                                <div class="i-checks"><label><input type="checkbox" value="<?php echo $listSPK[$i]->idProProd?>" checked name="idProProd[]"><i></i> <?php echo $listSPK[$i]->nomorFaktur; echo ' - '; echo $tglmsk1;?></label></div>
+                                            <div class="col-md-4">
+                                                <div class="i-checks"><label><input type="checkbox" value="<?php echo $listSPK[$i]->idProProd?>" checked name="idProProd[]"><i></i> Nomor Faktur <?php echo $listSPK[$i]->nomorFaktur; echo ' ('.$tglmsk1.')';?></label></div>
                                             </div>
                                         <?php } ?>
                                     </div>                         

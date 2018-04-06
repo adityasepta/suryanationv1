@@ -130,7 +130,7 @@
                                             <a class="btn btn-info btn-blocked btn-xs" href="<?php base_url();?>tambahJadwalMassal/<?php echo $hasil->nomorFaktur;?>">Tambahkan Jadwal</a>
 
                                         <?php } else if($hasil->statusSPK=='Done') { ?>
-                                            <a class="btn btn-xs btn-default">Selesai Produksi</a>
+                                            <h3><span class="label label-default">Selesai Produksi</span></h3>
 
                                         <?php } else {?>
 
