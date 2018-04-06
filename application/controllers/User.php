@@ -4031,9 +4031,9 @@ class User extends CI_Controller {
 
     }
 
-    public function display($tipe)
+    public function display($tipe,$rf)
     {
-        
+        $data['rf'] = $rf;
         if($tipe == 'massal') {
 
             $data['s']  = $this->mdl->getSales2();
