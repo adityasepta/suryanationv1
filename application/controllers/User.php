@@ -4434,13 +4434,17 @@ class User extends CI_Controller {
             );
         }
 
+        $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
+
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+
         if($idAktivitas == 1014) {
 
             $data = array(
                 'idPIC' => $idUser,
                 'tipeBarang' => 'Produk Semi Jadi',
                 'kodeBarang' => $idProduk,
-                'jumlah' => $beratakhir,
+                'jumlah' => $beratAwal,
                 'satuan' => 'gr',
                 'tanggal' => date("Y-m-d H:i:s"),
                 'jenisPergerakanBarang' => 'OUT',
@@ -4456,7 +4460,7 @@ class User extends CI_Controller {
                 'idPIC' => $idUser,
                 'tipeBarang' => 'Produk Jadi',
                 'kodeBarang' => $idProduk,
-                'jumlah' => $beratakhir,
+                'jumlah' => $beratAwal,
                 'satuan' => 'gr',
                 'tanggal' => date("Y-m-d H:i:s"),
                 'jenisPergerakanBarang' => 'IN',
@@ -4470,7 +4474,7 @@ class User extends CI_Controller {
 
         }
 
-        $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
+        
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanbanmassal');
@@ -4786,7 +4790,7 @@ class User extends CI_Controller {
             'idPIC' => $idUser,
             'tipeBarang' => 'Produk Jadi',
             'kodeBarang' => $idProduk,
-            'jumlah' => $beratakhir,
+            'jumlah' => $beratAkhir,
             'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'OUT',
@@ -4805,8 +4809,8 @@ class User extends CI_Controller {
             'idPIC' => $idg,
             'tipeBarang' => 'Produk Jadi',
             'kodeBarang' => $idProduk,
-            'jumlah' => $jumlah,
-            'satuan' => 'Pcs',
+            'jumlah' => $beratAkhir,
+            'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'IN',
             'tipePergerakan' => 'Transfer',

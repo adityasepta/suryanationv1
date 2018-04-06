@@ -2120,7 +2120,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getYourStock($idPIC) {
         $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadar*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial 
             UNION
-            SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(c.beratAkhir) as jmlmasuk, max(c.kadarBahan) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadarBahan*100*(SUM(c.beratAkhir)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama
+            SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar, (select nilai from setting where id = 1) as lokal, round(((kadarBahan*100*(SUM(a.jumlah)))/(select nilai from setting where id = 1))/100,2) as beratlokal FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama
 ";
         $query = $this->db->query($sql);
         
@@ -2128,7 +2128,12 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getPending($idPIC) {
-        $sql   = "SELECT * FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial";
+        $sql   = "
+
+        SELECT a.*,b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial
+        UNION
+        SELECT a.*,(b.namaProduk) as namaMaterial, c.kadarBahan as kadar FROM stokbarang a, produk b, pomasal c where b.idProduk = c.idProduk and a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.idProduk
+        ";
         $query = $this->db->query($sql);
         
         return $query->result();
