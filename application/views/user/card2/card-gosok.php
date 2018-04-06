@@ -148,7 +148,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $go[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$go[$i]->beratAwal?></b> gr</small>  
+                                            <small>berat maksimal adalah <b><?php echo (float)$go[$i]->beratAwal-(float)$go[$i]->berat?></b> gr</small>  
                                         </div>
 
                                     </div>
@@ -209,7 +209,7 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $go[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $go[$i]->idProProd ?>-pic-i" required value="0" name="staf">
-                            <input type="hidden" id="password-pic" required value="0" name="password">
+                            <input type="hidden" id="password-pic-<?php echo $go[$i]->idProProd ?>" required value="0" name="password">
                         </div>
 
                     </div>
@@ -219,7 +219,7 @@
                             Password PIC Selanjutnya
                         </div>
                         <div class="col-lg-4 text-center">
-                            <input type="password" id="password-pic-2" required  value="0" name="password2">
+                            <input type="password" id="password-pic-2<?php echo $go[$i]->idProProd ?>" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
                             <button type="button" onclick="cek<?php echo $go[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
@@ -227,10 +227,10 @@
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $go[$i]->idProProd?>-gosok?>-cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $go[$i]->idProProd?>-gosok?>-cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi" disabled="true">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi<?php echo $go[$i]->idProProd ?>" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -273,7 +273,7 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $go[$i]->idProProd?>-gosok?>-password-1']").val(Vals[0].password);
+                        $("#password-pic-<?php echo $go[$i]->idProProd ?>").val(Vals[0].password);
                     }
             });
             
@@ -295,20 +295,20 @@
         }
 
         function cek<?php echo $go[$i]->idProProd ?>() {
-            var password = document.getElementById('password-pic').value;
-            var password2 = document.getElementById('password-pic-2').value;
-            console.log(password);
-            console.log(password2);
-            var x = document.getElementById("cek");
-            var y = document.getElementById("cek1");
+            var password = document.getElementById('password-pic-<?php echo $go[$i]->idProProd ?>').value;
+            var password2 = document.getElementById('password-pic-2<?php echo $go[$i]->idProProd ?>').value;
+            // console.log(password);
+            // console.log(password2);
+            var x = document.getElementById("<?php echo $go[$i]->idProProd?>-gosok?>-cek");
+            var y = document.getElementById("<?php echo $go[$i]->idProProd?>-gosok?>-cek1");
 
             if(password==password2) {
-                $('#tombolvalidasi').prop('disabled', false);
+                $('#tombolvalidasi<?php echo $go[$i]->idProProd ?>').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#tombolvalidasi').prop('disabled', true);
+                $('#tombolvalidasi<?php echo $go[$i]->idProProd ?>').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }

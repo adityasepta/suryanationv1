@@ -12,6 +12,64 @@
 ?>
 
 <li class="<?php echo $statr ?>-element" id="task1">
+
+    <?php if(isset($display)) {?>
+
+    <div class="row">
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $cz[$i]->nomorFaktur ?> - <?php echo $cz[$i]->idSubSPK ?> - <?php echo $cz[$i]->idWadah ?> | <?php echo $cz[$i]->jumlahNow ?> / <?php echo $cz[$i]->jumlah ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $cz[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $cz[$i]->namaProduk ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">PIC</span>
+            <b class="pull-right"><?php echo $cz[$i]->namapic ?></b>
+        </div>
+
+        
+        
+        <div class="col-lg-12">
+            <br>
+            <div class="progress progress-striped active">
+                <?php 
+
+                    $val = round(($cz[$i]->jumlahNow/$cz[$i]->jumlah)*100);
+
+                ?>
+                <div style="width: <?php echo $val?>%" aria-valuemax="<?php echo $cz[$i]->jumlah ?>" aria-valuemin="0" aria-valuenow="<?php echo $cz[$i]->jumlahNow ?>" role="progressbar" class="progress-bar progress-bar-info progress-small">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            
+            <button data-toggle="modal" data-target="#detail<?php echo $cz[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+    
+    </div>
+
+
+
+    <?php } else {?>
+
     <div class="row">
         <div class="col-lg-4 text-center ">
             ID Sub SPK<br>
@@ -69,6 +127,10 @@
 
         
     </div>
+
+    <?php } ?>
+
+    
 
     <div class="modal inmodal fade" id="kasih<?php echo $cz[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
@@ -148,7 +210,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $cz[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$cz[$i]->beratAwal?></b> gr</small>    
+                                            <small>berat maksimal adalah <b><?php echo (float)$cz[$i]->beratAwal-(float)$cz[$i]->berat?></b> gr</small>  
                                         </div>
 
                                     </div>
@@ -209,7 +271,7 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $cz[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $cz[$i]->idProProd ?>-pic-i" required value="0" name="staf">
-                            <input type="hidden" id="<?php echo $cz[$i]->idProProd?>-cz?>-password-1" required value="0" name="password">
+                            <input type="hidden" id="password-pic-<?php echo $cz[$i]->idProProd ?>" required value="0" name="password">
                         </div>
 
                     </div>
@@ -219,10 +281,10 @@
                             Password PIC Selanjutnya
                         </div>
                         <div class="col-lg-4 text-center">
-                            <input type="password" id="<?php echo $cz[$i]->idProProd?>-cz?>-password-2" required  value="0" name="password2">
+                            <input type="password" id="password-pic-2<?php echo $cz[$i]->idProProd ?>" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
-                            <button type="button" onclick="cekcz<?php echo $bo[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                            <button type="button" onclick="cek<?php echo $cz[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
                         </div>
                     </div>
                     <br>
@@ -242,7 +304,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="<?php echo $cz[$i]->idProProd?>-cz" disabled="true">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $cz[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $cz[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi<?php echo $cz[$i]->idProProd ?>" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -261,7 +323,7 @@
             var akt = document.getElementById('<?php echo $cz[$i]->idProProd ?>-akt');
             var namaakt = akt.options[akt.selectedIndex].text;
             var idakt = akt.options[akt.selectedIndex].value;
-            console.log(nama);
+            
             $.ajax({
                     // Change the link to the file you are using
                     url: '<?php echo base_url();?>user/cariPegawai',
@@ -273,9 +335,10 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $cz[$i]->idProProd?>-cz?>-password-1']").val(Vals[0].password);
+                        $("#password-pic-<?php echo $cz[$i]->idProProd ?>").val(Vals[0].password);
                     }
             });
+            
             if(jumlah > <?php echo $cz[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();
@@ -292,21 +355,22 @@
             document.getElementById('<?php echo $cz[$i]->idProProd ?>-akt-i').value = idakt;
 
         }
-        function cekcz<?php echo $cz[$i]->idProProd ?>() {
-            var password = document.getElementById('<?php echo $cz[$i]->idProProd?>-cz?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $cz[$i]->idProProd?>-cz?>-password-2').value;
-            console.log(password);
-            console.log(password2);
+
+        function cek<?php echo $cz[$i]->idProProd ?>() {
+            var password = document.getElementById('password-pic-<?php echo $cz[$i]->idProProd ?>').value;
+            var password2 = document.getElementById('password-pic-2<?php echo $cz[$i]->idProProd ?>').value;
+            // console.log(password);
+            // console.log(password2);
             var x = document.getElementById("<?php echo $cz[$i]->idProProd?>-cz?>-cek");
             var y = document.getElementById("<?php echo $cz[$i]->idProProd?>-cz?>-cek1");
 
             if(password==password2) {
-                $('#<?php echo $cz[$i]->idProProd?>-cz').prop('disabled', false);
+                $('#tombolvalidasi<?php echo $cz[$i]->idProProd ?>').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#<?php echo $cz[$i]->idProProd?>-cz').prop('disabled', true);
+                $('#tombolvalidasi<?php echo $cz[$i]->idProProd ?>').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }

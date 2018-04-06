@@ -148,7 +148,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $po[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>jumlah maksimal adalah <b><?php echo (float)$po[$i]->beratAwal?></b> gr</small>    
+                                            <small>berat maksimal adalah <b><?php echo (float)$po[$i]->beratAwal-(float)$po[$i]->berat?></b> gr</small>  
                                         </div>
 
                                     </div>
@@ -209,7 +209,7 @@
                             PIC Selanjutnya<br>
                             <b id="<?php echo $po[$i]->idProProd ?>-pic-d"></b>
                             <input type="hidden" id="<?php echo $po[$i]->idProProd ?>-pic-i" required value="0" name="staf">
-                            <input type="hidden" id="<?php echo $po[$i]->idProProd?>-polish?>-password-1" required value="0" name="password">
+                            <input type="hidden" id="password-pic-<?php echo $po[$i]->idProProd ?>" required value="0" name="password">
                         </div>
 
                     </div>
@@ -219,10 +219,10 @@
                             Password PIC Selanjutnya
                         </div>
                         <div class="col-lg-4 text-center">
-                            <input type="password" id="<?php echo $po[$i]->idProProd?>-polish?>-password-2" required  value="0" name="password2">
+                            <input type="password" id="password-pic-2<?php echo $po[$i]->idProProd ?>" required  value="0" name="password2">
                         </div>
                         <div class="col-lg-4 text-center">
-                            <button type="button" onclick="cekpolish<?php echo $po[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
+                            <button type="button" onclick="cek<?php echo $po[$i]->idProProd ?>();" class="btn btn-xs btn-primary btn-block">Cek</button>
                         </div>
                     </div>
                     <br>
@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $po[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $po[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="<?php echo $po[$i]->idProProd?>-polish" disabled="true">Validasi</button>
+                            <button type="submit" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $po[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $po[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block" id="tombolvalidasi<?php echo $po[$i]->idProProd ?>" disabled="true">Validasi</button>
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
             var akt = document.getElementById('<?php echo $po[$i]->idProProd ?>-akt');
             var namaakt = akt.options[akt.selectedIndex].text;
             var idakt = akt.options[akt.selectedIndex].value;
-            console.log(nama);
+            
             $.ajax({
                     // Change the link to the file you are using
                     url: '<?php echo base_url();?>user/cariPegawai',
@@ -273,9 +273,10 @@
                         var Vals = $.parseJSON(response);
                         console.log(Vals);
                         // var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $po[$i]->idProProd?>-polish?>-password-1']").val(Vals[0].password);
+                        $("#password-pic-<?php echo $po[$i]->idProProd ?>").val(Vals[0].password);
                     }
             });
+            
             if(jumlah > <?php echo $po[$i]->jumlahNow?>) {
                 alert('Jumlah tidak sesuai');
                 location.reload();
@@ -293,21 +294,21 @@
 
         }
 
-        function cekpolish<?php echo $po[$i]->idProProd ?>() {
-            var password = document.getElementById('<?php echo $po[$i]->idProProd ?>-polish?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $po[$i]->idProProd ?>-polish?>-password-2').value;
-            console.log(password);
-            console.log(password2);
-            var x = document.getElementById("<?php echo $po[$i]->idProProd ?>-polish?>-cek");
-            var y = document.getElementById("<?php echo $po[$i]->idProProd ?>-polish?>-cek1");
+        function cek<?php echo $po[$i]->idProProd ?>() {
+            var password = document.getElementById('password-pic-<?php echo $po[$i]->idProProd ?>').value;
+            var password2 = document.getElementById('password-pic-2<?php echo $po[$i]->idProProd ?>').value;
+            // console.log(password);
+            // console.log(password2);
+            var x = document.getElementById("<?php echo $po[$i]->idProProd?>-polish?>-cek");
+            var y = document.getElementById("<?php echo $po[$i]->idProProd?>-polish?>-cek1");
 
             if(password==password2) {
-                $('#<?php echo $po[$i]->idProProd ?>-polish').prop('disabled', false);
+                $('#tombolvalidasi<?php echo $po[$i]->idProProd ?>').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#<?php echo $po[$i]->idProProd ?>-polish').prop('disabled', true);
+                $('#tombolvalidasi<?php echo $po[$i]->idProProd ?>').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }
@@ -500,8 +501,6 @@
     
     
 </li>
-
-
 
 
 
