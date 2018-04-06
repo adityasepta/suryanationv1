@@ -12,30 +12,38 @@
 ?>
 
 <li class="<?php echo $statr ?>-element" id="task1">
-    <div class="row">
-        <div class="col-lg-6 text-center">
-            No Faktur<br>
-            <b><?php echo $li[$i]->nomorFaktur ?></b>
-        </div>
 
-        <div class="col-lg-6 text-center ">
-            ID Sub SPK<br>
-            <b><?php echo $li[$i]->idSubSPK ?></b>
-        </div>
-    </div>
-    
-    <br>
 
     <?php if(isset($display)) {?>
 
     <div class="row">
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $li[$i]->nomorFaktur ?> - <?php echo $li[$i]->idSubSPK ?> </b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $li[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $li[$i]->namaProduk ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">PIC</span>
+            <b class="pull-right"><?php echo $li[$i]->namapic ?></b>
+        </div>
+
+        
+
+
         <div class="col-lg-6">
-            
+            <br>    
             <button data-toggle="modal" data-target="#detail<?php echo $li[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
 
         <div class="col-lg-6">
-
+            <br>
             <?php if($statr == 'success') {?>
                 <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
             <?php } else { ?>
@@ -43,9 +51,21 @@
             <?php } ?>
 
         </div>
+    
     </div>
 
     <?php } else { ?>
+
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                No Faktur<br>
+                <b><?php echo $li[$i]->nomorFaktur ?></b><br><br>
+            </div>
+            <div class="col-lg-6 text-center ">
+                ID Sub SPK<br>
+                <b><?php echo $li[$i]->idSubSPK ?></b><br><br>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-3">

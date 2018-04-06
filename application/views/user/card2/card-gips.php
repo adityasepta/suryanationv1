@@ -12,27 +12,38 @@
 ?>
 
 <li class="<?php echo $statr ?>-element" id="task1">
+    
+
+    <?php if(isset($display)) {?>
+
     <div class="row">
-        <div class="col-lg-6 text-center">
-            No Faktur<br>
-            <b><?php echo $gi[$i]->nomorFaktur ?></b>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $gi[$i]->nomorFaktur ?> - <?php echo $gi[$i]->idSubSPK ?> </b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $gi[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $gi[$i]->namaProduk ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">PIC</span>
+            <b class="pull-right"><?php echo $gi[$i]->namapic ?></b>
         </div>
 
-        <div class="col-lg-6 text-center ">
-            ID Sub SPK<br>
-            <b><?php echo $gi[$i]->idSubSPK ?></b>
-        </div>
-    </div>
+        
 
-  <br>
-    <div class="row">
-        <div class="col-lg-3">
-            
+
+        <div class="col-lg-6">
+            <br>    
             <button data-toggle="modal" data-target="#detail<?php echo $gi[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
 
-        <div class="col-lg-3">
-
+        <div class="col-lg-6">
+            <br>
             <?php if($statr == 'success') {?>
                 <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
             <?php } else { ?>
@@ -40,33 +51,68 @@
             <?php } ?>
 
         </div>
-
-        
-        
-        <div class="col-lg-6">
-
-            <?php
-
-            $sub = 0;
-            for ($g=0; $g < count($cb) ; $g++) { 
-                if($cb[$g]->idSubSPK == $gi[$i]->idSubSPK) {
-                    $sub++;
-                }
-            } 
-
-            ?>
-            
-            <?php if ($gi[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $gi[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
-            <?php } else if($gi[$i]->statusWork == 'On Progress' AND $sub == 0 ) {  ?>
-                <a href="<?php echo base_url('user/createbommassal/'.$gi[$i]->idSubSPK)?>" class="btn btn-xs btn-success btn-block">Tambah BOM</a>
-            <?php } else  { ?>                          
-                <a href="<?php echo base_url('User/next3/'.$gi[$i]->idProduk.'/'.$idakt.'/'.$gi[$i]->idProProd.'/'.$gi[$i]->idSPK.'/'.$gi[$i]->idSubSPK.'/0')?>" 
-                    onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $gi[$i]->nomorFaktur ?> dan menyetujui Bill Of Material untuk Sub SPK id <?php echo $gi[$i]->idSubSPK ?>?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
-            <?php } ?>
-            
-        </div>
+    
     </div>
+
+    <?php } else { ?>
+
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                No Faktur<br>
+                <b><?php echo $gi[$i]->nomorFaktur ?></b><br><br>
+            </div>
+            <div class="col-lg-6 text-center ">
+                ID Sub SPK<br>
+                <b><?php echo $gi[$i]->idSubSPK ?></b><br><br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                
+                <button data-toggle="modal" data-target="#detail<?php echo $gi[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+            </div>
+
+            <div class="col-lg-3">
+
+                <?php if($statr == 'success') {?>
+                    <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+                <?php } else { ?>
+                    <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+                <?php } ?>
+
+            </div>
+
+            
+            
+            <div class="col-lg-6">
+
+                <?php
+
+                $sub = 0;
+                for ($g=0; $g < count($cb) ; $g++) { 
+                    if($cb[$g]->idSubSPK == $gi[$i]->idSubSPK) {
+                        $sub++;
+                    }
+                } 
+
+                ?>
+                
+                <?php if ($gi[$i]->statusWork == 'Belum ada PIC') { ?>
+                    <button data-toggle="modal" data-target="#pic<?php echo $gi[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+                <?php } else if($gi[$i]->statusWork == 'On Progress' AND $sub == 0 ) {  ?>
+                    <a href="<?php echo base_url('user/createbommassal/'.$gi[$i]->idSubSPK)?>" class="btn btn-xs btn-success btn-block">Tambah BOM</a>
+                <?php } else  { ?>                          
+                    <a href="<?php echo base_url('User/next3/'.$gi[$i]->idProduk.'/'.$idakt.'/'.$gi[$i]->idProProd.'/'.$gi[$i]->idSPK.'/'.$gi[$i]->idSubSPK.'/0')?>" 
+                        onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $gi[$i]->nomorFaktur ?> dan menyetujui Bill Of Material untuk Sub SPK id <?php echo $gi[$i]->idSubSPK ?>?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+                <?php } ?>
+                
+            </div>
+        </div>
+
+    <?php } ?>
+
+
 
     <div class="modal inmodal fade" id="detail<?php echo $gi[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
