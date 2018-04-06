@@ -198,17 +198,15 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">CZ (pcs x Harga)</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="jumlahBatuZirkon" id="jumlahBatuZirkon" value="<?php echo $PO[0]->jumlahBatuZirkon?>" class="form-control" required readonly>
+                                    <div class="col-sm-1"><input type="text" name="jumlahBatuZirkon" id="jumlahBatuZirkon" value="<?php echo $PO[0]->jumlahBatuZirkon?>" onchange="calc1()" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->hargaBatuZirkon,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="hargaBatuZirkon" id="hargaBatuZirkon" value="<?php echo $PO[0]->hargaBatuZirkon?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="hargaBatuZirkon" onchange="calc1()" id="hargaBatuZirkon" value="<?php echo $PO[0]->hargaBatuZirkon?>" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" value="Rp <?php echo number_format($PO[0]->jumlahBatuZirkon*$PO[0]->hargaBatuZirkon,2,".",".");?>" class="form-control" required readonly>
-                                        <input type="hidden" placeholder="Rp" name="upahCZ" id="upahCZ" value="<?php echo $PO[0]->jumlahBatuZirkon*$PO[0]->hargaBatuZirkon?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="upahCZ" id="upahCZ" value="<?php echo $PO[0]->jumlahBatuZirkon*$PO[0]->hargaBatuZirkon?>" class="form-control" required readonly>
 
                                     </div>
                                 </div>
@@ -293,6 +291,15 @@
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
 
+    <script type="text/javascript">
+        function calc1(){
+            
+            var a = parseFloat(document.getElementById('jumlahBatuZirkon').value);
+            var b = parseFloat(document.getElementById('hargaBatuZirkon').value);
+            var c = a*b;
+            document.getElementById('upahCZ').value = c;
+        };
+    </script>
     <script type="text/javascript">
             function calc(){
                     var beratTotal = parseFloat(document.getElementById('beratTotal').value);

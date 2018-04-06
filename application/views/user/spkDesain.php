@@ -4,7 +4,7 @@
   if($this->input->post('is_submitted')){
         $namaCustomer           = set_value('namaCustomer');
         $nomorTelepon           = set_value('nomorTelepon');
-        $idSalesPerson        = set_value('idSalesPerson');
+        $idSalesPerson          = set_value('idSalesPerson');
         $tanggalMasuk           = set_value('tanggalMasuk');
         $tanggalEstimasiPenyelesaian = set_value('tanggalEstimasiPenyelesaian');
         $nomorPO                = set_value('nomorPO');
@@ -28,12 +28,18 @@
         $panjar                 = set_value('panjar');
         $idProduk               = set_value('idProduk');
         $idCustomer             = set_value('idCustomer');
-        $kodeProduk             = set_value('kodeProduk');
+        $idSPK                  = set_value('idSPK');
+        $kodeGambar             = set_value('kodeGambar');
+    
+        $batuTerhadapKruman     = set_value('batuTerhadapKruman');
+        $batuTerhadapPukulan    = set_value('batuTerhadapPukulan');
+        $batuTerhadapGoresan    = set_value('batuTerhadapGoresan');
+        $keadaanBatuTengah      = set_value('keadaanBatuTengah');
   }
   else {
         $namaCustomer           = $dataSPK[0]->namaCustomer;
         $nomorTelepon           = $dataSPK[0]->nomorTelepon;
-        $idSalesPerson        = $dataSPK[0]->idSalesPerson;
+        $idSalesPerson          = $dataSPK[0]->idSalesPerson;
         $tanggalMasuk           = $dataSPK[0]->tanggalMasuk;
         $tanggalEstimasiPenyelesaian = $dataSPK[0]->tanggalEstimasiPenyelesaian;
         $nomorPO                = $dataSPK[0]->nomorPO;
@@ -58,9 +64,26 @@
         $idProduk               = $dataSPK[0]->idProduk;
         $idCustomer             = $dataSPK[0]->idCustomer;
         $kodeProduk             = $dataSPK[0]->kodeProduk;
-        $nama             = $dataSPK[0]->nama;
+        $idSPK                  = $dataSPK[0]->idSPK;
+        $nama                   = $dataSPK[0]->nama;
+        $kodeGambar             = $dataSPK[0]->kodeGambar;
+        
+        $datangBerlian          = $dataSPK[0]->datangBerlian;      
+        $jumlahDatangBerlian    = $dataSPK[0]->jumlahDatangBerlian;
+        $batuZirkon             = $dataSPK[0]->batuZirkon;      
+        $jumlahBatuZirkon       = $dataSPK[0]->jumlahBatuZirkon;
+        $kadarDatangEmas        = $dataSPK[0]->kadarDatangEmas;
+        $beratBerlian           = $dataSPK[0]->beratBerlian;
+        $keteranganKrum         = $dataSPK[0]->keteranganKrum;
+        $namaProduk             = $dataSPK[0]->namaProduk;
+        $tipeCustomer           = $dataSPK[0]->tipeCustomer; 
+        $batuTerhadapKruman     = $dataSPK[0]->batuTerhadapKruman;
+        $batuTerhadapPukulan    = $dataSPK[0]->batuTerhadapPukulan;
+        $batuTerhadapGoresan    = $dataSPK[0]->batuTerhadapGoresan;
+        $keadaanBatuTengah      = $dataSPK[0]->keadaanBatuTengah;
   }
-    $tglmsk = new DateTime($tanggalMasuk);
+
+  $tglmsk = new DateTime($tanggalMasuk);
   $tglmsk = $tglmsk->format("d F Y");
   $tglpyl = new DateTime($tanggalEstimasiPenyelesaian);
   $tglpyl = $tglpyl->format("d F Y");
@@ -105,16 +128,6 @@
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
         </div>
@@ -151,181 +164,109 @@
                                
                             </div>
                         </div>
-                        <div class="ibox-content form-horizontal">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nomor PO</label>
-                                                <h5 class="text-muted"><?php echo $nomorPO?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Nama Konsumen</label>
-                                                <h5 class="text-muted"><?php echo $namaCustomer?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Terima</label>
-                                                <h5 class="text-muted"><?php echo $tglmsk;?></h5>
-                                            </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="m-b-md">
+                                        <a href="<?php echo base_url()?>user/printSPKTempahan/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
+                                        <h2><?php echo $namaProduk ?></h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
+                                </div>
+                                <div class="col-lg-7" id="cluster_info">
+                                    <dl class="dl-horizontal">
+                                        <dt>Nama Konsumen:</dt> <dd> <?php echo $namaCustomer ?></dd>
+                                        <dt>Nomor Telepon:</dt> <dd> <?php echo $nomorTelepon ?></dd>
+                                        <dt>Nomor PO:</dt> <dd><a href="#" class="text-navy"> <?php echo $nomorPO ?></a> </dd>
+                                        <dt>Sales Person:</dt> <dd> <?php echo $dataSPK[0]->nama?> </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal" >
+                                        <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
+                                        <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab-1" data-toggle="tab">Detail Produk</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                <div class="tab-content">
+                                <div class="tab-pane active" id="tab-1">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <dl class="dl-horizontal">
+                                                <dt>Kode Produk:</dt>  <dd><a href="#" class="text-navy"> <?php echo $kodeProduk ?> </a></dd>
+                                                <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
+                                                <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
+                                                <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
+                                                <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
+                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <dl class="dl-horizontal">
+                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
+                                                <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
+                                                <dt>Model:</dt> <dd> <?php echo $model ?></dd>
+                                                <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
+                                                <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
+                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6" id="cluster_info">
+                                            <dl class="dl-horizontal" >
+                                                <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
+                                                <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
+                                                <dt id="berlian">Berlian:</dt> <dd id="berlian1">  <?php echo $berlian?></dd>
+                                                <dt id="beratBerlian">Berat Berlian:</dt> <dd id="beratBerlian1">  <?php echo $beratBerlian?></dd>
+                                                <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>
+                                                <dt id="jumlahBatuZirkon">Jumlah Batu Zirkon:</dt> <dd id="jumlahBatuZirkon1">  <?php echo $jumlahBatuZirkon?></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-lg-6" id="cluster_info">
+                                            <dl class="dl-horizontal" >
+                                                <dt id="datangEmas">Datang Emas:</dt> <dd id="datangEmas1">  <?php echo $datangEmas?></dd>
+                                                <dt id="kadarDatangEmas">Kadar Datang Emas:</dt> <dd id="kadarDatangEmas1">  <?php echo $kadarDatangEmas?></dd>
+                                                <dt id="datangBerlian">Datang Berlian:</dt> <dd id="datangBerlian1">  <?php echo $datangBerlian?></dd>
+                                                <dt id="jumlahDatangBerlian">Jumlah Datang Berlian:</dt> <dd id="jumlahDatangBerlian1">  <?php echo $jumlahDatangBerlian?></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <dl class="dl-horizontal" id="namaBatu2">
+                                                <dt>Batu Terhadap Kruman:</dt>  <dd> <?php echo $batuTerhadapKruman ?> </dd>
+                                                <dt>Batu Terhadap Pukulan:</dt> <dd> <?php echo $batuTerhadapPukulan ?></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-lg-6" id="cluster_info">
+                                            <dl class="dl-horizontal" id="namaBatu3">
+                                                <dt>Batu Terhadap Goresan:</dt> <dd> <?php echo $batuTerhadapGoresan?> </dd>
+                                                <dt>Keadaan Batu Tengah:</dt> <dd>  <?php echo $keadaanBatuTengah?></dd>
+                                            </dl>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nomor Faktur</label>
-                                                <h5 class="text-muted"><?php echo $nomorFaktur?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Nomor Telepon</label>
-                                                <h5 class="text-muted"><?php echo $nomorTelepon?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Estimasi Penyelesaian</label>
-                                                <h5 class="text-muted"><?php echo $tglpyl?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nama Sales Person</label>
-                                                <h5 class="text-muted"><?php echo $nama?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Jenis Produk</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $jenisProduk?></label>
-                                    </div>
-                                    <label class="col-sm-2">Bahan</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $bahan?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Kadar</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $kadarBahan . "%"?></label>
-                                    </div>
-                                    <label class="col-sm-2">Harga Pasaran</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted pull-left">: Rp. <?php echo number_format($hargaBahan,2,".","."); ?></label>
-                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2">Datang Emas</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $datangEmas?></label>
-                                    </div>
-                                    <label class="col-sm-2">Harga Datang Emas</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: Rp. <?php echo number_format($hargaDatangEmas,2,".","."); ?></label>
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Nama Batu</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $namaBatu?></label>
-                                    </div>
-                                    <label class="col-sm-2">Berat Batu</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $beratBatu?></label>
-                                    </div>
+
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Ukuran Jari</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $ukuranJari?></label>
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Swarowskri / Diamond</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $berlian?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Upah</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: Rp. <?php echo number_format($upah,2,".","."); ?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Tipe Ikatan</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $tipeIkatan?></label>
-                                    </div>
-                                    <label class="col-sm-2">Metode</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $metode?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Krum Warna</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $krumWarna?></label>
-                                    </div>
-                                    <label class="col-sm-2">Model</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $model?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Kuantitas</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $kuantitas?></label>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Foto Sampel</label>
-                                    <div class="col-sm-10">
-                                        <img src="<?php echo base_url();?>uploads/gambarProduk/<?php echo $dataSPK[0]->kodeGambar?>-cust.jpg" height="100 px">
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group"> 
-                                    <label class="col-sm-2">Total Estimasti Harga</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: Rp. <?php echo number_format($totalHarga,2,".","."); ?></label>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2">Panjar</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: Rp. <?php echo number_format($panjar,2,".","."); ?></label>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-3">Batu Terhadap Kruman</label>
-                                    <div class="col-sm-3">
-                                        <label class="text-muted">: <?php echo $dataSPK[0]->batuTerhadapKruman?></label>
-                                    </div>
-                                    <label class="col-sm-3">Batu Terhadap Pukulan</label>
-                                    <div class="col-sm-3">
-                                        <label class="text-muted">: <?php echo $dataSPK[0]->batuTerhadapPukulan?></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3">Batu Terhadap Goresan</label>
-                                    <div class="col-sm-3">
-                                        <label class="text-muted">: <?php echo $dataSPK[0]->batuTerhadapGoresan?></label>
-                                    </div>
-                                    <label class="col-sm-3">Keadaan Batu Tengah</label>
-                                    <div class="col-sm-3">
-                                        <label class="text-muted">: <?php echo $dataSPK[0]->keadaanBatuTengah?></label>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="ibox float-e-margins">
@@ -402,6 +343,68 @@
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
+
+                var a = <?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>;
+                if(a==null||a==0){
+                    document.getElementById('namaBatu').style.display = 'none';
+                    document.getElementById('namaBatu1').style.display = 'none';
+                    document.getElementById('namaBatu2').style.display = 'none';
+                    document.getElementById('namaBatu3').style.display = 'none';
+                };
+
+                var b = <?php echo $beratBatu?>;
+                if(b==null||b==0){
+                    document.getElementById('beratBatu').style.display = 'none';
+                    document.getElementById('beratBatu1').style.display = 'none';
+                };
+
+                var c = <?php if($berlian!=null){echo $berlian;} else echo 0;?>;
+                if(c==null||c==0){
+                    document.getElementById('berlian').style.display = 'none';
+                    document.getElementById('berlian1').style.display = 'none';
+                };
+
+                var d = <?php echo $beratBerlian?>;
+                if(d==null||d==0){
+                    document.getElementById('beratBerlian').style.display = 'none';
+                    document.getElementById('beratBerlian1').style.display = 'none';
+                };
+
+                var e = <?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>;
+                if(e==null||e==0){
+                    document.getElementById('batuZirkon').style.display = 'none';
+                    document.getElementById('batuZirkon1').style.display = 'none';
+                };
+
+                var f = <?php echo $jumlahBatuZirkon?>;
+                if(f==null||f==0){
+                    document.getElementById('jumlahBatuZirkon').style.display = 'none';
+                    document.getElementById('jumlahBatuZirkon1').style.display = 'none';
+                };
+
+                var g = <?php echo $datangEmas?>;
+                if(g==null||g==0){
+                    document.getElementById('datangEmas').style.display = 'none';
+                    document.getElementById('datangEmas1').style.display = 'none';
+                };
+
+                var h = <?php echo $kadarDatangEmas?>;
+                if(h==null||h==0){
+                    document.getElementById('kadarDatangEmas').style.display = 'none';
+                    document.getElementById('kadarDatangEmas1').style.display = 'none';
+                };
+
+                var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+                if(i==null||i==0){
+                    document.getElementById('datangBerlian').style.display = 'none';
+                    document.getElementById('datangBerlian1').style.display = 'none';
+                };
+
+                var j = <?php echo $jumlahDatangBerlian?>;
+                if(j==null||j==0){
+                    document.getElementById('jumlahDatangBerlian').style.display = 'none';
+                    document.getElementById('jumlahDatangBerlian1').style.display = 'none';
+                };
             });
         </script>
 </body>

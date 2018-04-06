@@ -39,16 +39,6 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                 </div>
-                    <!-- <ul class="nav navbar-top-links navbar-right">
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">Selamat Datang Victoriavici.</span>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-sign-out"></i> Log out
-                            </a>
-                        </li>
-                    </ul> -->
 
                 </nav>
             </div>
@@ -88,9 +78,9 @@
                                 <table class="footable table table-stripped" data-page-size="15" data-filter=#filter>
                                     <thead>
                                     <tr>
+                                        <th>Kode Tipe Akun</th>
+                                        <th>Tipe</th>
                                         <th>Kode Akun</th>
-                                        <th>Jenis</th>
-                                        <th>Kode Sub Akun</th>
                                         <th>Nama Akun</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -98,28 +88,28 @@
                                     <tbody>
                                         <?php $no=0; foreach($akun2 as $p) : 
                                             $no++;
-                                            $idAkun    = $p->idSubAkun;
+                                            $idAkun    = $p->idAkun;
                                             if($this->input->post('is_submitted')){
-                                                $kodeAkun    = $set_value('kodeAkun');
-                                                $akun        = $set_value('namaAkun');
-                                                $kodeSubAkun    = $set_value('kodeSubAkun');
-                                                $namaAkun = $set_value('namaSubAkun');
+                                                $kodeTipeAkun   = set_value('kodeTipeAkun');
+                                                $namaTipeAkun   = set_value('namaTipeAkun');
+                                                $kodeAkun       = set_value('kodeAkun');
+                                                $namaAkun       = set_value('namaAkun');
                                             }
                                             else {
-                                                $kodeAkun    = $p->kodeAkun;
-                                                $akun        = $p->akun;
-                                                $kodeSubAkun = $p->kodeSubAkun;
-                                                $namaAkun = $p->namaAkun;
+                                                $kodeTipeAkun   = $p->kodeTipeAkun;
+                                                $namaTipeAkun   = $p->namaTipeAkun;
+                                                $kodeAkun       = $p->kodeAkun;
+                                                $namaAkun       = $p->namaAkun;
                                             }
                                         ?>
                                         <tr>
+                                            <td><?php echo $p->kodeTipeAkun?></td>
+                                            <td><?php echo $p->namaTipeAkun?></td>
                                             <td><?php echo $p->kodeAkun?></td>
-                                            <td><?php echo $p->akun?></td>
-                                            <td><?php echo $p->kodeSubAkun?></td>
                                             <td><?php echo $p->namaAkun?></td>
                                             <td><!-- Button trigger modal -->
-                                                            <a href="href="#" data-toggle="modal" data-target="#akun<?php echo $p->idSubAkun;?>" class="btn btn-xs btn-warning" >Edit</a>
-                                                            <a href="<?php echo base_url()?>user/deleteAkun/<?php echo $p->idSubAkun?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus akun ini?')">Hapus</a></td>
+                                                            <a href="href="#" data-toggle="modal" data-target="#akun<?php echo $p->idAkun;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                            <a href="<?php echo base_url()?>user/deleteAkun/<?php echo $p->idAkun?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus akun ini?')">Hapus</a></td>
                                          </tr>
                                          <?php if($akun2) {?>
                                         <!-- Modal -->
@@ -136,14 +126,14 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Kode Akun</label>
-                                                            <select type="text" name= "kodeAkun"  class="form-control" required >
+                                                            <select type="text" name= "kodeTipeAkun"  class="form-control" required >
                                                             <?php
                                                                 for ($i=0; $i < count($akun1); $i++) { 
-                                                                if($akun1[$i]->kodeAkun == $kodeAkun) {
-                                                                echo "<option value='".$akun1[$i]->kodeAkun."' selected>".$akun1[$i]->kodeAkun." - ".$akun1[$i]->namaAkun."</option>";
+                                                                if($akun1[$i]->kodeTipeAkun == $kodeTipeAkun) {
+                                                                echo "<option value='".$akun1[$i]->kodeTipeAkun."' selected>".$akun1[$i]->kodeTipeAkun." - ".$akun1[$i]->namaTipeAkun."</option>";
                                                                 }
                                                                 else {
-                                                                    echo "<option value='".$akun1[$i]->kodeAkun."'>".$akun1[$i]->kodeAkun." - ".$akun1[$i]->namaAkun."</option>";
+                                                                    echo "<option value='".$akun1[$i]->kodeTipeAkun."'>".$akun1[$i]->kodeTipeAkun." - ".$akun1[$i]->namaTipeAkun."</option>";
                                                                 }
                                                                 }
                                                                 ?>
@@ -151,7 +141,7 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Kode Sub Akun</label>
-                                                            <input type="text" name= "kodeSubAkun"  class="form-control" required value="<?= $kodeSubAkun?>">
+                                                            <input type="text" name= "kodeAkun"  class="form-control" required value="<?= $kodeAkun?>">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label>Nama Akun</label>
@@ -195,17 +185,17 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Kode Akun</label>
-                                                            <select type="text" name= "kodeAkun"  class="form-control" required>
+                                                            <select type="text" name= "kodeTipeAkun"  class="form-control" required>
                                                             <?php
                                                                 for ($i=0; $i < count($akun1); $i++) { 
-                                                                echo "<option value='".$akun1[$i]->kodeAkun."'>".$akun1[$i]->kodeAkun." - ".$akun1[$i]->namaAkun."</option>";
+                                                                echo "<option value='".$akun1[$i]->kodeTipeAkun."'>".$akun1[$i]->kodeTipeAkun." - ".$akun1[$i]->namaTipeAkun."</option>";
                                                                 }
                                                                 ?>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Kode Sub Akun</label>
-                                                            <input type="text" name= "kodeSubAkun"  class="form-control" required>
+                                                            <input type="text" name= "kodeAkun"  class="form-control" required>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label>Nama Akun</label>

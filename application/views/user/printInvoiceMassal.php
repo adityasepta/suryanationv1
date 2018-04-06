@@ -10,11 +10,9 @@
     $bahan                  = $dataPO[0]->bahan;
     $kadarBahan             = $dataPO[0]->kadarBahan;
     $hargaBahan             = $dataPO[0]->hargaBahan;      
-    $datangEmas             = $dataPO[0]->datangEmas;
-    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;    
+    $datangEmas             = $dataPO[0]->datangEmas;    
     $ukuranJari             = $dataPO[0]->ukuranJari;
     $upah                   = $dataPO[0]->upah;
-    $metode                 = $dataPO[0]->metode;
     $krumWarna              = $dataPO[0]->krumWarna;      
     $model                  = $dataPO[0]->model;
     $beratAkhir             = $dataPO[0]->beratAkhir;     
@@ -25,13 +23,9 @@
     $totalHarga             = $dataPO[0]->totalHarga;
     $namaProduk             = $dataPO[0]->namaProduk;
     $kadarDatangEmas        = $dataPO[0]->kadarDatangEmas;
-    $datangBerlian          = $dataPO[0]->datangBerlian;      
-    $jumlahDatangBerlian    = $dataPO[0]->jumlahDatangBerlian;
-    $upahPasangBerlian      = $dataPO[0]->upahPasangBerlian;
     $tipeCustomer           = $dataPO[0]->tipeCustomer;      
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
-    $biayaTambahan          = $dataPO[0]->biayaTambahan;
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $kodeGambar             = $dataPO[0]->kodeGambar;
     $tglmsk     = new DateTime($tanggalMasuk);
@@ -77,7 +71,9 @@
                                             <span style="font-size: 20px; font-weight: 600px">RFQ</span>
                                         </td>
                                         <td style="text-align: right; padding-right: 15px;">
-                                        <a href="<?php echo base_url()?>user/listPOMasal"><button type="button" class="btn btn-primary"> < Kembali</button></a>
+                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/listPOMasal">
+                                                <span style="vertical-align: middle"> < Kembali </span>
+                                            </a>&nbsp
                                             <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
                                                 <span style="vertical-align: middle">Cetak</span>
                                                 <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
@@ -108,6 +104,30 @@
                                      </tr>
                                 </tbody>
                             </table>
+                            <table class="footable table no-border" data-page-size="8" data-filter=#filter style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kode Produk: <?php echo $kodeProduk ?><br>
+                                        Jenis Produk: <?php echo $jenisProduk ?><br>
+                                        Ukuran Jari: <?php echo $ukuranJari ?> mm</td>
+
+                                        <td>Bahan: <?php echo $bahan ?><br>
+                                        Kadar Bahan: <?php echo $kadarBahan ?>%<br>
+                                        Model: <?php echo $model ?></td>
+
+                                        <td>
+                                        Krum Warna: <?php echo $krumWarna ?><br>
+                                        Keterangan Krum: <?php echo $keteranganKrum ?></td>
+
+                                        <td>
+                                        Datang Emas: <?php echo $datangEmas ?><br>
+                                        Kadar Datang Emas: <?php echo $kadarDatangEmas ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                 <thead>
                                 <tr>
@@ -136,7 +156,7 @@
                                     </tr>
                                     <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                         <td class="text-left" colspan="3"><strong>Estimasi Total Biaya</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$biayaTambahan+$upah,2,".","."); ?></strong></td>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$upah,2,".","."); ?></strong></td>
                                     </tr>
                                 </tbody>
                             </table>
