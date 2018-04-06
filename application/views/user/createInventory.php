@@ -349,20 +349,22 @@
                             <?php echo form_open_multipart('user/tambahRekap','class="form-horizontal"')?>
                                 <input type="hidden" name="idPIC" value="<?php echo $user[0]->idUser;?>" class="form-control">
                                 <input type="hidden" name="jenisProduksi" value="<?php echo  $pergerakan['jenisProduksi'];?>" class="form-control">
-                                <div class="form-group"><label class="col-sm-2 control-label">Nama Barang</label>
-                                    <div class="col-sm-4">
-                                        <select class="form-control" name="kodeBarang">
-                                            <?php for ($i=0; $i < count($materialDasar) ; $i++) { ?> 
-                                                <option value="<?php echo $materialDasar[$i]->kodeMaterial ?>"><?php echo $materialDasar[$i]->namaMaterial ?></option>
-                                            <?php } ?> 
-                                        </select>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Berat Kembalian</label>
-                                    <div class="col-sm-4"><input type="text" placeholder="gr" name="beratKembali" class="form-control" required="">
+                                <div class="form-group"><label class="col-sm-2 control-label">Nama Barang:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="namaMaterial" placeholder="Nama Material" class="form-control">
                                     </div>
                                 </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Berat Kembalian:</label>
+                                    <div class="col-sm-4"><input type="text" placeholder="gr" name="beratKembali" class="form-control" required="">
+                                    </div>
+                                    <label class="col-sm-2 control-label">Kadar:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="kadar" placeholder="%" class="form-control">
+                                    </div>
+                                    
+                                </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Pilih SPK</label>  
+                                    <label class="col-sm-2 control-label">Pilih SPK:</label>  
                                     <div class="col-lg-10">
                                         <?php $b=count($listSPK); for ($i=0; $i < $b ; $i++) { ?> 
                                             <?php 

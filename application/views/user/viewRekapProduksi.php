@@ -113,7 +113,7 @@
                                                    <?php echo $rekap[$i]->nomorFaktur ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo $rekap[$i]->beratAwal ?>
+                                                    <?php echo $rekap[$i]->beratAwal-$rekap[$i]->kembali ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $rekap[$i]->berat ?>
@@ -122,7 +122,7 @@
                                                 <td class="text-center">-</td>
                                             </tr>
                                         <?php 
-                                                $jumlahBeratAwal+=$rekap[$i]->beratAwal;
+                                                $jumlahBeratAwal+=$rekap[$i]->beratAwal-$rekap[$i]->kembali;
                                                 $jumlahBerat+=$rekap[$i]->berat;
                                             } 
                                         ?>
@@ -132,7 +132,7 @@
                                             <td class="text-center" ><strong><?php echo $jumlahBeratAwal; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $jumlahBerat; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $rekap[0]->beratKembali; ?> Gram</strong></td>
-                                            <td class="text-center" ><strong><?php echo $jumlahBeratAwal-($jumlahBerat+$rekap[0]->beratKembali); ?> Gram</strong></td>
+                                            <td class="text-center" ><strong><?php $susut=$jumlahBeratAwal-($jumlahBerat+$rekap[0]->beratKembali); echo number_format($susut,2) ?> Gram</strong></td>
                                         </tr>
                                         </tbody>
                                     </table>

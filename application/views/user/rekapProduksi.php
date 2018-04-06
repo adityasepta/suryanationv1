@@ -94,7 +94,7 @@
                                     <td><?php echo $tglmsk?></td>
                                     <td><?php echo $hasil->jenisProduksi?></td>
                                     <td class="text-center">
-                                        <?=anchor('user/lihatRekap/' . $hasil->kodeRekapProduksi, 'Lihat', [
+                                        <?=anchor('user/lihatRekap/'.$hasil->jenisProduksi.'/'.$hasil->kodeRekapProduksi, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>

@@ -3119,16 +3119,19 @@ class User extends CI_Controller {
     }
 
     public function tambahRekapProduksi() {
-        $jenisProduksi=$this->input->post('jenisProduksi');
         $idUser=$this->input->post('idUser');
+        $jenisProduksi=$this->input->post('jenisProduksi');
 
         if ($jenisProduksi=="tempahan") {
             $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
+        } else if ($jenisProduksi=="massal") {
+            $data['listSPK'] = $this->mdl->getListSPKMassal($idUser);
         }
         $data['user'] = $this->mdl->findPegawai($idUser);
         $data['data'] = array(
             'jenisProduksi' => $jenisProduksi,
         );
+
         $this->load->view('user/createRekapProduksi',$data);
     }
 
@@ -3139,10 +3142,11 @@ class User extends CI_Controller {
         $idUser=$this->input->post('idPIC');
 
         if ($this->form_validation->run() == FALSE){
-            
 
             if ($jenisProduksi=="tempahan") {
                 $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
+            } else if ($jenisProduksi=="massal") {
+                $data['listSPK'] = $this->mdl->getListSPKMassal($idUser);
             }
             $data['user'] = $this->mdl->findPegawai($idUser);
             $data['data'] = array(
@@ -3171,17 +3175,52 @@ class User extends CI_Controller {
                 $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
             }
 
-            $dataInventory = array(
-                'idPIC'         => 9,
-                'tipeBarang'    => 'Material Dasar',
-                'tipePergerakan'=> $this->input->post('tipePergerakan'),
-                'kodeBarang'    => $this->input->post('kodeBarang'),
-                'jumlah'        => $this->input->post('jumlah'),
-                'jenisPergerakanBarang'  => 'IN',
-                'hargaBeli'     => 0,
-                'tanggal' => date("Y-m-d H:i:s"),
-            );
-            $this->mdl->insertData("stokbarang",$dataInventory);
+            $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadarDatangEmas').'%';
+            $t = $this->mdl->cekMaterial($namaMaterial);
+            $d = count($t);
+
+            if($d == 0) {
+                $dataMaterial = array(
+                    'kodeMaterial'    => $kode,
+                    'namaMaterial'    => $namaMaterial,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => $this->input->post('beratKembali'),
+                    'safetyStock'     => 0,
+                    'kadar'           => $this->input->post('kadar'),
+                    'asal'            => 'Balik Abu',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataInventory = array(
+                    'idPIC'         => $iduser,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Balik Abu',
+                    'kodeBarang'    => $kode,
+                    'satuan'          => 'gr',
+                    'jumlah'        => $this->input->post('beratKembali'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                    'tanggal'   => date("Y-m-d H:i:s"),
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            } else {
+                $kode = $t[0]->kodeMaterial;
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataInventory = array(
+                    'idPIC'         => $iduser,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Balik Abu',
+                    'kodeBarang'    => $kode,
+                    'satuan'        => 'gr',
+                    'jumlah'        => $this->input->post('beratKembali'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                    'tanggal'   => date("Y-m-d H:i:s"),
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            }
 
             $message = "Rekap Produksi Telah Berhasil di Simpan";
             echo "<script type='text/javascript'>alert('$message');
@@ -3189,8 +3228,13 @@ class User extends CI_Controller {
         }
     }
 
-    public function lihatRekap($kodeRekapProduksi) {
-        $data['rekap'] = $this->mdl->findRekap($kodeRekapProduksi);
+    public function lihatRekap($jenisProduksi,$kodeRekapProduksi) {
+
+        if ($jenisProduksi=="tempahan") {
+            $data['rekap'] = $this->mdl->findRekap($kodeRekapProduksi);
+        } else if ($jenisProduksi=="massal") {
+            $data['rekap'] = $this->mdl->findRekapMassal($kodeRekapProduksi);
+        }
         
         $this->load->view('user/viewRekapProduksi',$data);
     }
