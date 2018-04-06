@@ -210,7 +210,7 @@
 
                                         <div class="col-sm-9">
                                             <input id="<?php echo $sl[$i]->idProProd ?>-berat" type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>berat maksimal adalah <b><?php echo (float)$sl[$i]->beratAwal-(float)$sl[$i]->berat?></b> gr</small>  
+                                            <small>berat maksimal adalah <b><?php echo ((float)$sl[$i]->beratAwal-(float)$sl[$i]->berat)+(float)$sl[$i]->beratTambahan?></b> gr</small>  
                                         </div>
 
                                     </div>

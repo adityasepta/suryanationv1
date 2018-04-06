@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="<?php echo $rf ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Surya Sumatera | Status Produksi</title>
@@ -181,7 +182,7 @@
                                         <span class="pull-left"><b><?php echo date('d F Y - ')?></b><b><span id="txt"></span></b></span>
                                     </div>
                                     <div class="col-lg-4 text-right form-group">
-                                        <a class="btn btn-xs btn-danger" href="<?php echo base_url('user/display/massal')?>">Display Kanban</a>
+                                        <a class="btn btn-xs btn-danger" href="<?php echo base_url('user/display/massal/3600')?>">Stop Auto Refresh</a>
                                     </div>
                                     
                                 </div>
