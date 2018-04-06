@@ -76,13 +76,6 @@
             
         </div>
 
-        
-
-        
-
-       
-
-        
     </div>
 
     <div class="modal inmodal fade" id="kasih<?php echo $gp[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
