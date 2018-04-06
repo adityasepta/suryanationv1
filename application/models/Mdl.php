@@ -983,7 +983,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listCustomerInvoice(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.* FROM customer a RIGHT JOIN pomasal b ON a.idCustomer=b.idCustomer");
+        $hasil = $this->db->query("SELECT DISTINCT(a.idCustomer),a.namaCustomer,a.nomorTelepon FROM customer a RIGHT JOIN pomasal b ON a.idCustomer=b.idCustomer");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1597,7 +1597,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listPOMassalByCustomer($idCustomer){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user f ON a.idSalesPerson=f.idUser LEFT JOIN spkmasal d ON a.nomorPO = d.nomorPO WHERE a.idCustomer=5 AND a.nomorPO NOT IN (SELECT e.nomorPO FROM invoicemassal e)");
+        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user f ON a.idSalesPerson=f.idUser LEFT JOIN spkmasal d ON a.nomorPO = d.nomorPO WHERE a.idCustomer=$idCustomer AND a.nomorPO NOT IN (SELECT e.nomorPO FROM invoicemassal e)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
