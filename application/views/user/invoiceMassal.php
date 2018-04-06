@@ -23,7 +23,16 @@
         $idProduk               = set_value('idProduk');
         $idCustomer             = set_value('idCustomer');
         $kodeProduk             = set_value('kodeProduk');
-        $nama             = set_value('nama');
+        $nama                   = set_value('nama');
+        $idCustomer             = set_value('idCustomer');
+        $tipeCustomer           = set_value('tipeCustomer');      
+        $pekerjaanTambahan      = set_value('pekerjaanTambahan');
+        $keteranganTambahan     = set_value('keteranganTambahan');
+        $keteranganKrum         = set_value('keteranganKrum');
+        $kodeGambar             = set_value('kodeGambar');
+        $namaProduk             = set_value('namaProduk');
+        $beratAkhir             = set_value('beratAkhir');
+        $kadarDatangEmas        = set_value('kadarDatangEmas'); 
   }
   else {
         $namaCustomer           = $dataSPK[0]->namaCustomer;
@@ -37,18 +46,24 @@
         $kadarBahan             = $dataSPK[0]->kadarBahan;
         $hargaBahan             = $dataSPK[0]->hargaBahan;      
         $datangEmas             = $dataSPK[0]->datangEmas;
-        $hargaDatangEmas        = $dataSPK[0]->hargaDatangEmas;
         $ukuranJari             = $dataSPK[0]->ukuranJari;
-        $metode                 = $dataSPK[0]->metode;
         $krumWarna              = $dataSPK[0]->krumWarna;      
         $model                  = $dataSPK[0]->model;
-        $kuantitas              = $dataSPK[0]->beratAkhir;
         $totalHarga             = $dataSPK[0]->totalHarga;      
         $panjar                 = $dataSPK[0]->panjar;
         $idProduk               = $dataSPK[0]->idProduk;
         $idCustomer             = $dataSPK[0]->idCustomer;
         $kodeProduk             = $dataSPK[0]->kodeProduk;
-        $nama             = $dataSPK[0]->nama;
+        $nama                   = $dataSPK[0]->nama;
+        $idCustomer             = $dataSPK[0]->idCustomer;
+        $tipeCustomer           = $dataSPK[0]->tipeCustomer;      
+        $pekerjaanTambahan      = $dataSPK[0]->pekerjaanTambahan;
+        $keteranganTambahan     = $dataSPK[0]->keteranganTambahan;
+        $keteranganKrum         = $dataSPK[0]->keteranganKrum;
+        $kodeGambar             = $dataSPK[0]->kodeGambar;
+        $namaProduk             = $dataSPK[0]->namaProduk;
+        $beratAkhir             = $dataSPK[0]->beratAkhir;
+        $kadarDatangEmas        = $dataSPK[0]->kadarDatangEmas; 
   }
 
   $tglmsk = new DateTime($tanggalMasuk);
@@ -56,6 +71,7 @@
   $tglpyl = new DateTime($tanggalEstimasiPenyelesaian);
   $tglpyl = $tglpyl->format("d F Y");
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -96,22 +112,12 @@
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Selamat Datang.</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
-                    <h2>Detil SPK</h2>
+                    <h2>Detail SPK</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="<?php echo base_url();?>user/administration">Beranda</a>
@@ -123,139 +129,91 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="title-action">
-                        <!-- <a href="invoice_print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a> -->
+
                     </div>
                 </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Detil SPK</h5>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="m-b-md">
+                                    <a href="<?php echo base_url()?>user/printSPKMassal/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
+                                    <h2><?php echo $namaProduk ?></h2>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
+                            </div>
+                            <div class="col-lg-7" id="cluster_info">
+                                <dl class="dl-horizontal">
+                                    <dt>Nama Konsumen:</dt> <dd> <?php echo $namaCustomer ?></dd>
+                                    <dt>Nomor Telepon:</dt> <dd> <?php echo $nomorTelepon ?></dd>
+                                    <dt>Nomor PO:</dt> <dd><a href="#" class="text-navy"> <?php echo $nomorPO ?></a> </dd>
+                                    <dt>Sales Person:</dt> <dd> <?php echo $dataSPK[0]->nama?> </dd>
+                                </dl>
+                                <dl class="dl-horizontal" >
+                                    <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
+                                    <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-lg-12">
+                            <div class="panel blank-panel">
+                            <div class="panel-heading">
+                                <div class="panel-options">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#tab-1" data-toggle="tab">Detail Produk</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                            <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <dl class="dl-horizontal">
+                                            <dt>Kode Produk:</dt>  <dd><a href="#" class="text-navy"> <?php echo $kodeProduk ?> </a></dd>
+                                            <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
+                                            <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
+                                            <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
+                                            <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
+                                            <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-6" id="cluster_info">
+                                        <dl class="dl-horizontal" >
+                                            <dt>Model:</dt> <dd> <?php echo $model ?></dd>
+                                            <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
+                                            <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
+                                            <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
+                                            <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
+                                            <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nomor PO</label>
-                                                <h5 class="text-muted"><?php echo $nomorPO?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Nama Konsumen</label>
-                                                <h5 class="text-muted"><?php echo $namaCustomer?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Terima</label>
-                                                <h5 class="text-muted"><?php echo $tglmsk;?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nomor Faktur</label>
-                                                <h5 class="text-muted"><?php echo $nomorFaktur?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Nomor Telepon</label>
-                                                <h5 class="text-muted"><?php echo $nomorTelepon?></h5>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Tanggal Estimasi Penyelesaian</label>
-                                                <h5 class="text-muted"><?php echo $tglpyl?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Nama Sales Person</label>
-                                                <h5 class="text-muted"><?php echo $nama?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="row">
-                                    <label class="col-sm-2">Jenis Produk</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $jenisProduk?></label>
-                                    </div>
-                                    <label class="col-sm-2">Bahan</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $bahan?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Kadar</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $kadarBahan . "%"?></label>
-                                    </div>
-                                    <label class="col-sm-2">Harga Pasaran</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted pull-left">: Rp. <?php echo number_format($hargaBahan,2,".","."); ?></label>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="col-sm-2">Datang Emas</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $datangEmas?></label>
-                                    </div>
-                                    <label class="col-sm-2">Harga Datang Emas</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: Rp. <?php echo number_format($hargaDatangEmas,2,".","."); ?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Ukuran Jari</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $ukuranJari?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Krum Warna</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $krumWarna?></label>
-                                    </div>
-                                    <label class="col-sm-2">Model</label>
-                                    <div class="col-sm-2">
-                                        <label class="text-muted">: <?php echo $model?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2">Kuantitas</label>
-                                    <div class="col-sm-10">
-                                        <label class="text-muted">: <?php echo $kuantitas?></label>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="row">
-                                    <label class="col-sm-2">Foto Sampel</label>
-                                    <div class="col-sm-2">
-                                        <img class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url();?>uploads/gambarProduk/<?php echo $dataSPK[0]->kodeGambar?>-cust.jpg" height="100 px">
-                                    </div>
-                                </div>
-                             
-                            
+                            </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
-                           <div class="ibox float-e-margins">
+                            <br>
+                            <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                     <h5>Track Proses Produksi</h5>
                                 </div>
                                 <div class="ibox-content">
-
                                     <div class="row" >
                                         <div class="col-sm-12">
                                             <table class="table table-hover table-responsive">
@@ -277,7 +235,6 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php for($i = 0; $i < count($tr); ++$i) {?>
-
                                                         <tr>
                                                             <td class="text-center"><?php echo $tr[$i]->idSubSPK?></td>
                                                             <td class="text-center"><?php echo $tr[$i]->idWadah?></td>
@@ -286,7 +243,7 @@
                                                             <td class="text-center"><?php echo $tr[$i]->nama ?></td>
                                                             <td class="text-center"><?php echo $tr[$i]->beratAwal?> gr</td>
                                                             <td class="text-center"><?php echo $tr[$i]->berat?> gr</td>
-                                                            <td class="text-center"><?php echo $tr[$i]->beratTambahan?> gr</td>                                    
+                                                            <td class="text-center"><?php echo $tr[$i]->beratTambahan?> gr</td>                                  
                                                             <td class="text-center"><?php echo $tr[$i]->jumlah ?> pcs</td>
                                                             <td class="text-center"><?php echo $tr[$i]->jumlahNow ?> pcs</td>
                                                             <td class="text-center"><?php echo $tr[$i]->statusWork?></td>
@@ -300,59 +257,49 @@
                                                                         <h3 class="modal-title">Edit Informasi Produksi</h3><br>
                                                                         <h4 class="text-muted"><em>pastikan diteliti kembali sebelum mengedit informasi produksi</em></h4>
                                                                         <h4 class="text-success"><b><?php echo $tr[$i]->namaAktivitas?></b></h4>
-
-
                                                                     </div>
                                                                     <div class="modal-body">
-
                                                                         <?php echo form_open('user/editProduksi')?>
                                                                         <div class="row">
-                                                                         
                                                                             <div class="col-lg-6 text-left">
-                                                                                <div class="form-horizontal">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Pilih PIC</label>
 
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-sm-3 control-label">Pilih PIC</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <?php 
 
-                                                                                        <div class="col-sm-9">
+                                                                                        $js = array( 'class' => 'form-control');
+                                                                                        echo form_dropdown('idPIC', $staf, $tr[$i]->idPIC,$js);
 
-                                                                                            
-                                                                                            <?php 
+                                                                                        ?>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="form-group">
 
-                                                                                            $js = array( 'class' => 'form-control');
-                                                                                            echo form_dropdown('idPIC', $staf, $tr[$i]->idPIC,$js);
+                                                                                    <label class="col-sm-6 control-label">Jumlah Barang Awal ( pcs )</label>
 
-                                                                                            ?>
-                                                                                            
-                                                                                        </div>
+                                                                                    <div class="col-sm-6">
+                                                                                        <input value="<?php echo $tr[$i]->jumlah ?>" type="number" step="any" name="jumlah" required min="0"  max=""  class="form-control">
                                                                                         
                                                                                     </div>
-                                                                                    <div class="form-group">
+                                                                                </div>
+                                                                                <div class="form-group">
 
-                                                                                        <label class="col-sm-6 control-label">Jumlah Barang Awal ( pcs )</label>
+                                                                                    <label class="col-sm-6 control-label">Jumlah Barang Terkini ( pcs )</label>
 
-                                                                                        <div class="col-sm-6">
-                                                                                            <input value="<?php echo $tr[$i]->jumlah ?>" type="number" step="any" name="jumlah" required min="0"  max=""  class="form-control">
-                                                                                            
-                                                                                        </div>
+                                                                                    <div class="col-sm-6">
+                                                                                        <input value="<?php echo $tr[$i]->jumlahNow ?>" type="number" step="any" name="jumlahNow" required min="0"  max=""  class="form-control">
+                                                                                        
                                                                                     </div>
-                                                                                    <div class="form-group">
+                                                                                </div>
+                                                                                <div class="form-group">
 
-                                                                                        <label class="col-sm-6 control-label">Jumlah Barang Terkini ( pcs )</label>
+                                                                                    <label class="col-sm-6 control-label">Tanggal Dimulai</label>
 
-                                                                                        <div class="col-sm-6">
-                                                                                            <input value="<?php echo $tr[$i]->jumlahNow ?>" type="number" step="any" name="jumlahNow" required min="0"  max=""  class="form-control">
-                                                                                            
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-
-                                                                                        <label class="col-sm-6 control-label">Tanggal Dimulai</label>
-
-                                                                                        <div class="col-sm-6">
-                                                                                            <input value="<?php echo $tr[$i]->tglmsk ?>" type="date" name="tglmsk" required max=""  class="form-control">
-                                                                                            
-                                                                                        </div>
+                                                                                    <div class="col-sm-6">
+                                                                                        <input value="<?php echo $tr[$i]->tglmsk ?>" type="date" name="tglmsk" required max=""  class="form-control">
+                                                                                        
                                                                                     </div>
                                                                                 </div>
 
@@ -397,7 +344,6 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -411,17 +357,15 @@
                                                                             </div>
                                                                         </div>
 
-                                                                    </form>
+                                                                    <?php echo form_close() ?>
 
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                            </div>
                                                         </tr>
-
                                                     <?php } ?>
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
@@ -437,7 +381,6 @@
                                     <h5>Rencana Produksi</h5>
                                 </div>
                                 <div class="ibox-content">
-
                                     <div class="row" >
                                         <div class="col-sm-12 text-center">
                                             <table class="table table-hover table-responsive">
@@ -468,29 +411,26 @@
                                                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                                                         <h3 class="modal-title">Edit Tanggal Aktivitas</h3><br>
                                                                         <h4 class="text-muted"><em><?php echo $jadwal[$i]->namaAktivitas?></em></h4>
-
-
                                                                     </div>
                                                                     <div class="modal-body">
-
-                                                                        <div class="row">
-                                                                            <?php echo form_open('User/editJadwal')?>
-                                                                            <div class="col-lg-6">
-                                                                                <b>Tanggal Mulai</b><br><br>
-                                                                                <input type="date" name="tglmsk" value="<?php echo $jadwal[$i]->tglmsk?>" class="form-control">
-                                                                            </div>
-                                                                            <div class="col-lg-6">
-                                                                                <b>Tanggal Selesai</b><br><br>
-                                                                                <input type="date" name="tglend" value="<?php echo $jadwal[$i]->tglend?>" class="form-control">
-                                                                            </div>
-                                                                            <div class="col-lg-12">
-                                                                                <br><br>
-                                                                                <input type="hidden" name="idRencana" value="<?php echo $jadwal[$i]->idRencana ?>" class="form-control">
-                                                                                <input type="hidden" name="nomorFaktur" value="<?php echo $nomorFaktur ?>" class="form-control">
-                                                                                <button class="btn btn-success btn-block">Simpan</button>
-                                                                            </div>
-                                                                            <?php echo form_close()?>
+                                                                    <div class="row">
+                                                                        <?php echo form_open('User/editJadwal')?>
+                                                                        <div class="col-lg-6">
+                                                                            <b>Tanggal Mulai</b><br><br>
+                                                                            <input type="date" name="tglmsk" value="<?php echo $jadwal[$i]->tglmsk?>" class="form-control">
                                                                         </div>
+                                                                        <div class="col-lg-6">
+                                                                            <b>Tanggal Selesai</b><br><br>
+                                                                            <input type="date" name="tglend" value="<?php echo $jadwal[$i]->tglend?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <br><br>
+                                                                            <input type="hidden" name="idRencana" value="<?php echo $jadwal[$i]->idRencana ?>" class="form-control">
+                                                                            <input type="hidden" name="nomorFaktur" value="<?php echo $nomorFaktur ?>" class="form-control">
+                                                                            <button class="btn btn-success btn-block">Simpan</button>
+                                                                        </div>
+                                                                        <?php echo form_close()?>
+                                                                    </div>
 
                                                                     </div>
                                                                 </div>
@@ -500,16 +440,9 @@
                                                     <?php } ?>
                                                 </tbody>
                                             </table>
-                                            <?php 
-
-
-                                            ?>
-                                            
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div> 
                         </div>
                         <div class="col-lg-6">
@@ -579,21 +512,10 @@
 
                                     <?php } ?>
                                    
-                           
                                 </div>
-
-
-
                             </div>
                         </div>
-
                     </div>
-
-                    
-
-                    
-
-                    
                 </div>
             </div>
         </div>

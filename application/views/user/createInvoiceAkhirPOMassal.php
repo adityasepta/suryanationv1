@@ -89,8 +89,8 @@
                                                 <h5 class="text-muted"><?php echo $namaCustomer?></h5>
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Nomor PO</label>
-                                                <h5 class="text-muted"><?php echo $nomorPO?></h5>
+                                                <label>Nama Sales Person</label>
+                                                <h5 class="text-muted"><?php echo $nama?></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -101,20 +101,6 @@
                                             <div class="col-md-6">
                                                 <label>Nomor Telepon</label>
                                                 <h5 class="text-muted"><?php echo $nomorTelepon?></h5>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Nama Produk</label>
-                                                <h5 class="text-muted"><?php echo $namaProduk?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Nama Sales Person</label>
-                                                <h5 class="text-muted"><?php echo $nama?></h5>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Tanggal Terima</label>
@@ -129,7 +115,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         Nomor PO <?php echo $PO[$i]->nomorPO; ?>
-                                        <input type="hidden" name="nomorPO" value="<?php echo $PO[$i]->nomorPO?>" class="form-control">
+                                        <input type="hidden" name="nomorPO[]" value="<?php echo $PO[$i]->nomorPO?>" class="form-control">
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-2">

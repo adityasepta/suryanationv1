@@ -10,11 +10,9 @@
     $bahan                  = $dataPO[0]->bahan;
     $kadarBahan             = $dataPO[0]->kadarBahan;
     $hargaBahan             = $dataPO[0]->hargaBahan;      
-    $datangEmas             = $dataPO[0]->datangEmas;
-    $hargaDatangEmas        = $dataPO[0]->hargaDatangEmas;    
+    $datangEmas             = $dataPO[0]->datangEmas;    
     $ukuranJari             = $dataPO[0]->ukuranJari;
     $upah                   = $dataPO[0]->upah;
-    $metode                 = $dataPO[0]->metode;
     $krumWarna              = $dataPO[0]->krumWarna;      
     $model                  = $dataPO[0]->model;
     $beratAkhir             = $dataPO[0]->beratAkhir;     
@@ -25,13 +23,9 @@
     $totalHarga             = $dataPO[0]->totalHarga;
     $namaProduk             = $dataPO[0]->namaProduk;
     $kadarDatangEmas        = $dataPO[0]->kadarDatangEmas;
-    $datangBerlian          = $dataPO[0]->datangBerlian;      
-    $jumlahDatangBerlian    = $dataPO[0]->jumlahDatangBerlian;
-    $upahPasangBerlian      = $dataPO[0]->upahPasangBerlian;
     $tipeCustomer           = $dataPO[0]->tipeCustomer;      
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
-    $biayaTambahan          = $dataPO[0]->biayaTambahan;
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $kodeGambar             = $dataPO[0]->kodeGambar;
     $tglmsk     = new DateTime($tanggalMasuk);
@@ -132,7 +126,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#tab-1" data-toggle="tab">Detail Produk</a></li>
-                                            <li class=""><a href="#tab-2" data-toggle="tab">Detail Biaya</a></li>
+                                            <li class=""><a href="#tab-2" data-toggle="tab">Detail Estimasi Biaya</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -187,17 +181,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                               Biaya Pekerjaan Tambahan
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
                                                Upah
                                             </td>
                                             <td class="text-center">
@@ -209,7 +192,7 @@
                                         </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="2"><strong>Estimasi Total Biaya</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$biayaTambahan+$upah,2,".","."); ?></strong></td>
+                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$upah,2,".","."); ?></strong></td>
                                         </tr>
                                         </tbody>
                                     </table>

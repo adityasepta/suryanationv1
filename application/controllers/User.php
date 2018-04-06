@@ -2259,8 +2259,12 @@ class User extends CI_Controller {
 
     public function printSPKTempahan($nomorFaktur){
         $data['dataPO'] = $this->mdl->findSPKTempahan($nomorFaktur);
-        // print_r($data);exit();
         $this->load->view('user/printSPKTempahan',$data);
+    }
+
+    public function printSPKMassal($nomorFaktur){
+        $data['dataSPK'] = $this->mdl->findSPKMassal($nomorFaktur);
+        $this->load->view('user/printSPKMassal',$data);
     }
 
 
@@ -3927,14 +3931,15 @@ class User extends CI_Controller {
     }
 
     public function invoiceMassal(){
-        // $je=$this->input->post('');
+        // $je=$this->input->post();
         // print_r($je);exit();
         $jenisMassal        = $this->input->post('jenisMassal');
-        
+        $po = implode(',',$this->input->post('nomorPO[]'));
         $tipeInvoice = 'pertokoan';
         $headerInvoice = array(
                 'jenisInvoice'          => 'massal',
                 'tipeInvoice'           => 'pertokoan',
+                'nomorPO'               => $po,
                 'total'                 => $this->input->post('beratTotal'),
                 'datangEmas'            => $this->input->post('datangEmas'),
         );
@@ -5895,41 +5900,39 @@ class User extends CI_Controller {
 
     //Finance
     public function akun() {
-        $data['akun1'] = $this->mdl->listAkun();
-        $data['akun2'] = $this->mdl->listSubAkun();
+        $data['akun1'] = $this->mdl->listTipeAkun();
+        $data['akun2'] = $this->mdl->listAkun();
         $this->load->view('user/akun',$data);
     } 
 
     public function createAkun() {
         $dataAkun = array(
+            'kodeTipeAkun'      => $this->input->post('kodeTipeAkun'),
             'kodeAkun'          => $this->input->post('kodeAkun'),
-            'kodeSubAkun'          => $this->input->post('kodeSubAkun'),
             'namaAkun'          => $this->input->post('namaAkun'),
         );
         //print_r($dataPegawai);exit();
-        $this->mdl->insertData('subakun', $dataAkun);
+        $this->mdl->insertData('akun', $dataAkun);
         $message = "Akun berhasil dibuat";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akun")."';</script>";
     }
 
-    public function editAkun($idSubAkun) {
-        $data['akun'] = $this->mdl->findAkun($idSubAkun);
-        $id = $data['akun'][0]->idSubAkun;
+    public function editAkun($idAkun) {
         $dataAkun = array(
+            'kodeTipeAkun'      => $this->input->post('kodeTipeAkun'),
             'kodeAkun'          => $this->input->post('kodeAkun'),
-            'kodeSubAkun'          => $this->input->post('kodeSubAkun'),
             'namaAkun'          => $this->input->post('namaAkun'),
         );
         /*print_r($dataAkun);exit();*/
-        $this->mdl->updateData('idSubAkun',$id,'subakun', $dataAkun);
+        $this->mdl->updateData('idAkun',$idAkun,'akun', $dataAkun);
         $message = "Akun berhasil diedit";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akun")."';</script>";
     }
 
-    public function deleteAkun($idSubAkun) {
-        $this->mdl->deleteData('idSubAkun', $idSubAkun, 'subakun');
+    public function deleteAkun($idAkun) {
+        $this->mdl->deleteData('idAkun', $idAkun, 'akun');
         $message = "Akun berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akun")."';</script>";

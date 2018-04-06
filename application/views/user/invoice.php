@@ -133,7 +133,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <img src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
+                                    <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal">

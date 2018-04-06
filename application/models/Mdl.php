@@ -1635,7 +1635,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listPOMassal($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("select * from (SELECT max(berat) as berat, sum(jumlah) as jumlah, max(idSPK) as idSPK FROM factproduction2 where idAktivitas = 1014 and statusSPK = 'Done' group by idAktivitas) a, spkmasal b, pomasal c, produk d, customer e, user f where a.idSPK = b.idSPK and b.nomorPO = c.nomorPO and c.idProduk=d.idProduk and c.idCustomer=e.idCustomer and c.idSalesPerson=f.idUser and c.nomorPO IN ($nomorPO)");
+        $hasil = $this->db->query("select * from (SELECT max(berat) as berat, sum(jumlah) as jumlah, idSPK as idSPK FROM factproduction2 where idAktivitas = 1014 and statusSPK = 'Done' group by idAktivitas, idSPK) a, spkmasal b, pomasal c, produk d, customer e, user f where a.idSPK = b.idSPK and b.nomorPO = c.nomorPO and c.idProduk=d.idProduk and c.idCustomer=e.idCustomer and c.idSalesPerson=f.idUser and c.nomorPO IN ($nomorPO)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2351,9 +2351,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     //Akun
-    public function listAkun(){
+    public function listTipeAkun(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM akun");
+        $hasil = $this->db->query("SELECT * FROM tipeakun");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2361,9 +2361,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function listSubAkun(){
+    public function listAkun(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT b.*,a.namaAkun as akun,a.kodeAkun FROM akun a, subakun b WHERE a.kodeAkun = b.kodeAkun order by b.kodeSubAkun");
+        $hasil = $this->db->query("SELECT b.*,a.namaTipeAkun,a.kodeTipeAkun FROM tipeakun a, akun b WHERE a.kodeTipeAkun = b.kodeTipeAkun order by b.kodeAkun ASC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2373,7 +2373,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findAkun($idSubAkun){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT b.*,a.namaAkun as akun,a.kodeAkun FROM akun a, subakun b WHERE a.kodeAkun = b.kodeAkun AND b.idSubAkun='$idSubAkun' order by b.kodeSubAkun LIMIT 1");
+        $hasil = $this->db->query("SELECT b.*,a.namaTipeAkun as akun,a.kodeTipeAkun FROM tipeakun a, akun b WHERE a.kodeTipeAkun= b.kodeTipeAkun AND b.idAkun=1 order by b.kodeAkun LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
