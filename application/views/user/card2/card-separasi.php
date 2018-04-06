@@ -1,15 +1,44 @@
 
 
 <li class="element" id="task1">
+
+
+    <?php if(isset($display)) {?>
+
+    <div class="row">
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $sp[$i]->nomorFaktur ?> </b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $sp[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $sp[$i]->namaProduk ?></b>
+        </div>
+
+
+
+        <div class="col-lg-12">
+            <br>    
+            <button data-toggle="modal" data-target="#detail2x<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+
+    </div>
+
+
+
+    <?php } else {?>
+
     <div class="row">
         <div class="col-lg-6 text-center">
-            No PO<br>
-            <b><?php echo $sp[$i]->nomorPO ?></b>
+            No Faktur<br>
+            <b><?php echo $sp[$i]->nomorFaktur ?></b>
         </div>
-        <!-- <div class="col-lg-4 text-center">
-            No Barang<br>
-            <b>0001</b>
-        </div> -->
+
         <div class="col-lg-6 text-center ">
             Tipe Order<br>
             <b><?php echo $sp[$i]->tipeOrder ?></b>
@@ -42,23 +71,14 @@
         </div>
         
     </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            
-            <!-- <span class="fa fa-warning text-muted"></span> -->
-
-        </div>
-    </div>
-    
     
     <div class="row">
         <br>
-        <div class="col-lg-9">
+        <div class="col-lg-6">
             <br>    
             <button data-toggle="modal" data-target="#detail2x<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
             <br>    
             <button data-toggle="modal" data-target="#subspk<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-sitemap"></span></button>
         </div>
@@ -66,6 +86,11 @@
 
         
     </div>
+
+
+    <?php } ?>
+
+    
 
     <div class="modal inmodal fade" id="subspk<?php echo $sp[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">

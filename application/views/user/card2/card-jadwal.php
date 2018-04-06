@@ -1,4 +1,36 @@
-<li class="success-element" id="task1">
+<li class="element" id="task1">
+
+
+    <?php if(isset($display)) {?>
+
+    <div class="row">
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $j[$i]->nomorFaktur ?> </b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $j[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $j[$i]->namaProduk ?></b>
+        </div>
+
+
+
+        <div class="col-lg-12">
+            <br>    
+            <button data-toggle="modal" data-target="#detail2x<?php echo $j[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+
+    </div>
+
+
+
+    <?php } else {?>
+
     <div class="row">
         <div class="col-lg-4 text-center">
             No PO<br>
@@ -40,21 +72,21 @@
         </div>
         
     </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
 
-        </div>
-    </div>
-    
-    
-    <div class="row">
+     <div class="row">
         <br>
         <div class="col-lg-12">
             <button data-toggle="modal" data-target="#detail2x<?php echo $j[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
     </div>
+
+    <?php } ?>
+
+
+    
+    
+   
    
 
     <div class="modal inmodal fade" id="detail2x<?php echo $j[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">

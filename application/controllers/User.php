@@ -4539,11 +4539,21 @@ class User extends CI_Controller {
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
 
         $bk = $this->input->post('beratkecap');
+        $km = $this->input->post('kembali');
 
         if($bk > 0) {
 
             $data = array(
             'beratKecap' => $bk,
+            
+            );
+            $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
+        }
+
+        if($km > 0) {
+
+            $data = array(
+            'kembali' => $km,
             
             );
             $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
