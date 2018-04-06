@@ -2083,6 +2083,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function cekMaterial($namaMaterial) {
+        $sql   = "SELECT * from materialdasar where namaMaterial = '$namaMaterial'";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getStokMaterial($idPIC, $idMaterial) {
         $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'OUT'),0)) AS TOT";
         $query = $this->db->query($sql);
