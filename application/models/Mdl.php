@@ -2093,6 +2093,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function cekMaterial($namaMaterial) {
+        $sql   = "SELECT * from materialdasar where namaMaterial = '$namaMaterial'";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getStokMaterial($idPIC, $idMaterial) {
         $sql   = "SELECT (IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'IN'),0) - IFNULL((SELECT SUM(a.jumlah) as jmlmasuk FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial and a.idPIC = $idPIC and b.idMaterial = $idMaterial and a.jenisPergerakanBarang = 'OUT'),0)) AS TOT";
         $query = $this->db->query($sql);
@@ -2318,6 +2325,29 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getDimensi() {
         $sql   = "SELECT * from dimensi";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getRekapMassal($idSPK) {
+        $sql   = "
+
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut, sum(jumlah) as jumlah , count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        
+        UNION 
+        
+        SELECT 2 as idAktivitas, 'Kecap' as namaAktivitas, sum(berat) as beratAwal, sum(beratKecap) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(berat)-sum(beratKecap)) as susut, sum(jumlah) as jumlah,count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+
+        UNION 
+
+        SELECT (a.idAktivitas-1000), b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-(sum(berat)-sum(beratTambahan)))-sum(kembali)) as susut, sum(jumlah) as jumlah, count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas > 1006 and a.idAktivitas < 1014 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas 
+
+        UNION 
+
+        SELECT (a.idAktivitas-1000) as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, max(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(beratAwal)-max(berat)) as susut, sum(jumlah) as jumlah, count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1014 and a.idAktivitas = b.idAktivitas 
+
+        order by idAktivitas";
         $query = $this->db->query($sql);
         
         return $query->result();

@@ -69,10 +69,7 @@
                                     <h5>Daftar SPK</h5>
                                 </div>
                                 <div class="col-lg-6 text-right">
-                                    
-                                    <!-- <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createSPK">
-                                        <span class="fa fa-pencil"></span><strong> TAMBAH SPK</strong>
-                                    </a> -->
+
                                     
 
                                 </div>

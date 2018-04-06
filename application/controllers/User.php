@@ -4879,30 +4879,55 @@ class User extends CI_Controller {
             $datangEmas=$this->input->post('datangEmas');
             $idStokBarang = '';
             if ($datangEmas>0) {
-                $dataMaterial = array(
-                    'kodeMaterial'    => $kode,
-                    'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
-                    'satuan'          => 'gr',
-                    'stokMaterial'    => $this->input->post('datangEmas'),
-                    'safetyStock'     => 0,
-                    'asal'            => 'Datang Emas',
-                );
-                //print_r($dataMaterial);exit();
-                $this->mdl->insertData('materialdasar',$dataMaterial);
 
-                $iduser = ($this->session->userdata['logged_in']['iduser']);
-                $dataInventory = array(
-                    'idPIC'         => $iduser,
-                    'tipeBarang'    => 'Material Dasar',
-                    'tipePergerakan'=> 'Bahan Datang',
-                    'kodeBarang'    => $kode,
-                    'satuan'          => 'gr',
-                    'jumlah'        => $this->input->post('datangEmas'),
-                    'jenisPergerakanBarang'  => 'IN',
-                    'hargaBeli'     => 0,
-                    'tanggal'   => date("Y-m-d H:i:s"),
-                );
-                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+                $namaMaterial = 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%';
+                $t = $this->mdl->cekMaterial($namaMaterial);
+                $d = count($t);
+
+                if($d == 0) {
+                    $dataMaterial = array(
+                        'kodeMaterial'    => $kode,
+                        'namaMaterial'    => $namaMaterial,
+                        'satuan'          => 'gr',
+                        'stokMaterial'    => $this->input->post('datangEmas'),
+                        'safetyStock'     => 0,
+                        'kadar'           =>$this->input->post('kadarDatangEmas'),
+                        'asal'            => 'Datang Emas',
+                    );
+                    
+                    $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'kodeBarang'    => $kode,
+                        'satuan'          => 'gr',
+                        'jumlah'        => $this->input->post('datangEmas'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                        'tanggal'   => date("Y-m-d H:i:s"),
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+                } else {
+                    $kode = $t[0]->kodeMaterial;
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'kodeBarang'    => $kode,
+                        'satuan'          => 'gr',
+                        'jumlah'        => $this->input->post('datangEmas'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                        'tanggal'   => date("Y-m-d H:i:s"),
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+                }
+
+                
             }
             
             //eksekusi query insert
@@ -5550,8 +5575,8 @@ class User extends CI_Controller {
 
     public function invoiceSPKMassal($nomorFaktur) {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
-        //$data['cekbom']    = $this->mdl->cekbom();
-        //$data['cekjadwal'] = $this->mdl->cekjadwal();
+        $idSPK = $data['dataSPK'][0]->idSPK;
+        $data['rkp'] = $this->mdl->getRekapMassal($idSPK);
         $data['jadwal']    = $this->mdl->getjadwal7($nomorFaktur);
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
         $data['isi'] = $this->mdl->getIsiSPK($nomorFaktur);
