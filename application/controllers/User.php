@@ -1787,15 +1787,27 @@ class User extends CI_Controller {
             $data['materialDasar']=$this->mdl->getMaterial();
             $data['produk']=$this->mdl->getMovement();
             $data['produkJadi']=$this->mdl->getProduk();
-        } else if ($tipePergerakan=='Produk Jadi' || $tipePergerakan=='Transaksi') {
-            $data['produkJadi']=$this->mdl->getProduk();
-        } else if ($tipePergerakan=='Balik Abu' || $tipePergerakan=='Balik Bahan') {
+
+        } else if ($tipePergerakan=='Balik Abu') {
             $idUser=$this->input->post('idUser');
 
             if ($jenisProduksi=="tempahan") {
                 $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
+            } else if ($jenisProduksi=="massal") {
+                $data['listSPK'] = $this->mdl->getListSPKMassal($idUser);
             }
             $data['user'] = $this->mdl->findPegawai($idUser);
+
+         } else if ($tipePergerakan=='Balik Bahan') {
+            $idUser=$this->input->post('idUser');
+
+            if ($jenisProduksi=="tempahan") {
+                $data['listSPK'] = $this->mdl->getListKloter();
+            } else if ($jenisProduksi=="massal") {
+                $data['listSPK'] = $this->mdl->getListSPKMassal($idUser);
+            }
+            $data['user'] = $this->mdl->findPegawai($idUser);
+
         } else {
             $data['materialDasar']=$this->mdl->getMaterial();
             $data['produk']=$this->mdl->getMovement();

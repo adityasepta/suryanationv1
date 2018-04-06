@@ -1336,6 +1336,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function getListSPKMassal($idUser){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur FROM factproduction2 a LEFT JOIN aktivitas2 c ON a.idAktivitas=c.idAktivitas LEFT JOIN spkmasal d ON a.idSPK=d.idSPK WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getListKloter(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM kloter");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findPegawai($idUser){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM user WHERE idUser = $idUser");
