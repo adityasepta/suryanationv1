@@ -377,8 +377,8 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>DONE<span class="label label-success pull-right"><?php echo count($do)?></span></h3>
-                                    <p>Kumpulan dari SPK yang selesai proses<br>
-                                    produksi dan menunggu dipindah ke gudang</p>
+                                    <p>SPK yang selesai proses produksi <br>
+                                    dan menunggu dipindah ke gudang</p>
                                     <ul class="sortable-list connectList agile-list" id="done">
                                       <?php for ($i=0; $i < count($do) ; ++$i) { ?>
                                            <?php include('card2/card-done.php') ?>

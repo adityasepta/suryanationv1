@@ -12,6 +12,64 @@
 ?>
 
 <li class="<?php echo $statr ?>-element" id="task1">
+
+    <?php if(isset($display)) {?>
+
+    <div class="row">
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Kode</span>
+            <b class="pull-right "><?php echo $gp[$i]->nomorFaktur ?> - <?php echo $gp[$i]->idSubSPK ?> - <?php echo $gp[$i]->idWadah ?> | <?php echo $gp[$i]->jumlahNow ?> / <?php echo $gp[$i]->jumlah ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nama</span>
+            <b class="pull-right"><?php echo $gp[$i]->namaCustomer ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Produk</span>
+            <b class="pull-right"><?php echo $gp[$i]->namaProduk ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">PIC</span>
+            <b class="pull-right"><?php echo $gp[$i]->namapic ?></b>
+        </div>
+
+        
+        
+        <div class="col-lg-12">
+            <br>
+            <div class="progress progress-striped active">
+                <?php 
+
+                    $val = round(($gp[$i]->jumlahNow/$gp[$i]->jumlah)*100);
+
+                ?>
+                <div style="width: <?php echo $val?>%" aria-valuemax="<?php echo $gp[$i]->jumlah ?>" aria-valuemin="0" aria-valuenow="<?php echo $gp[$i]->jumlahNow ?>" role="progressbar" class="progress-bar progress-bar-info progress-small">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            
+            <button data-toggle="modal" data-target="#detail<?php echo $gp[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+    
+    </div>
+
+
+
+    <?php } else {?>
+
     <div class="row">
         <div class="col-lg-4 text-center ">
             ID Sub SPK<br>
@@ -78,6 +136,9 @@
 
     </div>
 
+    <?php } ?>
+    
+
     <div class="modal inmodal fade" id="kasih<?php echo $gp[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -90,6 +151,7 @@
                             <?php echo form_open('User/next5')?>
                             <div class="form-horizontal">
                                 <div class="form-group">
+                                    <input type="hidden" name="idAktivitasAwal" value="<?php echo $idakt ?>">
                                     <label class="col-sm-3 control-label">Pilih Aktivitas</label>
 
                                     <div class="col-sm-9">

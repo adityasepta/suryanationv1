@@ -6,62 +6,105 @@
 ?>
 
 <li class="info-element" id="task1">
+
+    <?php if(isset($display)) { ?>
+
     <div class="row">
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $do[$i]->nomorFaktur ?></b>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Nomor Faktur</span>
+            <b class="pull-right "><?php echo $do[$i]->nomorFaktur ?></b>
         </div>
-        <div class="col-lg-4 text-center">
-            SubSPK<br>
-            <b><?php echo $do[$i]->jml1 ?> Item</b>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Jumlah Sub SPK</span>
+            <b class="pull-right "><?php echo $do[$i]->jml1 ?> Item</b>
         </div>
-        <div class="col-lg-4 text-center">
-            Wadah<br>
-            <b><?php echo $do[$i]->jml2 ?> Item</b>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Jumlah Wadah</span>
+            <b class="pull-right "><?php echo $do[$i]->jml2 ?> Item</b>
         </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Selesai / Total</span>
+            <b class="pull-right "><?php echo $do[$i]->jumlah ?> / <?php echo $do[$i]->max ?></b>
+        </div>
+        <div class="col-lg-12 text-center ">
+            <span class="pull-left">Presentase</span>
+            <b class="pull-right "><?php $prs = round(($do[$i]->jumlah/$do[$i]->max)*100); echo $prs; ?> %</b>
+        </div>
+            
+            
+            <div class="col-lg-12"><br>
+                <div class="progress progress-striped active">
+                    
+                    <div style="width: <?php echo round(($do[$i]->jumlah/$do[$i]->max)*100) ?>%" aria-valuemax="<?php echo $do[$i]->max ?>" aria-valuemin="0" aria-valuenow="<?php echo $do[$i]->jumlah ?>" role="progressbar" class="progress-bar progress-bar-danger progress-small">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <a href="<?php echo base_url('user/invoiceSPKMassal/'.$do[$i]->nomorFaktur) ?>" class="btn btn-xs btn-default btn-block">Detail</a>
+            </div>
         
     </div>
-    <br>
-    <div class="row">
-     
-        <div class="col-lg-4 text-center ">
-            Jumlah Barang<br>
-            <b><?php echo $do[$i]->jumlah ?> / <?php echo $do[$i]->max ?> </b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Kurang<br>
-            <b><?php echo round(($do[$i]->max-$do[$i]->jumlah)) ?> Pcs</b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Prosentase<br>
-            <b><?php $prs = round(($do[$i]->jumlah/$do[$i]->max)*100); echo $prs; ?> %</b>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="progress progress-striped active">
 
-                <div style="width: <?php echo round(($do[$i]->jumlah/$do[$i]->max)*100) ?>%" aria-valuemax="<?php echo $do[$i]->max ?>" aria-valuemin="0" aria-valuenow="<?php echo $do[$i]->jumlah ?>" role="progressbar" class="progress-bar progress-bar-danger progress-small">
-                    
+    <?php } else {?>
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                No Faktur<br>
+                <b><?php echo $do[$i]->nomorFaktur ?></b>
+            </div>
+            <div class="col-lg-4 text-center">
+                SubSPK<br>
+                <b><?php echo $do[$i]->jml1 ?> Item</b>
+            </div>
+            <div class="col-lg-4 text-center">
+                Wadah<br>
+                <b><?php echo $do[$i]->jml2 ?> Item</b>
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+         
+            <div class="col-lg-4 text-center ">
+                Jumlah Barang<br>
+                <b><?php echo $do[$i]->jumlah ?> / <?php echo $do[$i]->max ?> </b>
+            </div>
+            <div class="col-lg-4 text-center ">
+                Kurang<br>
+                <b><?php echo round(($do[$i]->max-$do[$i]->jumlah)) ?> Pcs</b>
+            </div>
+            <div class="col-lg-4 text-center ">
+                Prosentase<br>
+                <b><?php $prs = round(($do[$i]->jumlah/$do[$i]->max)*100); echo $prs; ?> %</b>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="progress progress-striped active">
+
+                    <div style="width: <?php echo round(($do[$i]->jumlah/$do[$i]->max)*100) ?>%" aria-valuemax="<?php echo $do[$i]->max ?>" aria-valuemin="0" aria-valuenow="<?php echo $do[$i]->jumlah ?>" role="progressbar" class="progress-bar progress-bar-danger progress-small">
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-9">
-            <a href="<?php echo base_url('user/invoiceSPKMassal/'.$do[$i]->nomorFaktur) ?>" class="btn btn-xs btn-default btn-block">Detail</a>
-        </div>
-        <div class="col-lg-3">
-            <?php if($prs == 100) {?>
-                <a data-toggle="modal" data-target="#beratakhir<?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
-            <?php } else {?>
-                <a disabled class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
-            <?php } ?>
-            
-        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="<?php echo base_url('user/invoiceSPKMassal/'.$do[$i]->nomorFaktur) ?>" class="btn btn-xs btn-default btn-block">Detail</a>
+            </div>
+            <div class="col-lg-3">
+                <?php if($prs == 100) {?>
+                    <a data-toggle="modal" data-target="#beratakhir<?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
+                <?php } else {?>
+                    <a disabled class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
+                <?php } ?>
+                
+            </div>
 
-    </div>
+        </div>
+    <?php } ?>
+    
 
     <div class="modal inmodal fade" id="beratakhir<?php echo $do[$i]->idSPK  ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">

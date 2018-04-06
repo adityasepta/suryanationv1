@@ -4343,10 +4343,13 @@ class User extends CI_Controller {
 
         $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah;
 
-        if($idAktivitas !== 1007) {
-            $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal;    
+        $tr = $this->input->post('idAktivitasAwal');
+
+        if($tr > 0) {
+            $beratAkhir = (float)$proses[0]->berat;    
         } else {
-            $beratAkhir = (float)$proses[0]->berat;
+            $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal;
+
         }
         
 
