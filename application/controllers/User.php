@@ -1918,7 +1918,17 @@ class User extends CI_Controller {
         }
     }
 
+
     public function editInventory($id) {
+        $data['stokBarang'] = $this->mdl->findStok($id);
+
+        $dataInventory = array(
+            'jumlah'        => $this->input->post('jumlah')
+        );
+        $this->mdl->updateData('idStok',$id,'stokbarang',$dataInventory);\
+        redirect('user/stokBarang');   
+    }
+    /*public function editInventory($id) {
         $this->form_validation->set_rules('kodeBarang','Kode Barang', 'required');
         
         if ($this->form_validation->run() == FALSE){
@@ -1984,7 +1994,7 @@ class User extends CI_Controller {
                 
                 redirect('user/stokBarang');   
         }
-    }
+    }*/
     public function deleteInventory($id){
         //
         $data['stokBarang'] = $this->mdl->findStok($id);
