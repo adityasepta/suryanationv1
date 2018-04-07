@@ -501,25 +501,21 @@
             if (tipePergerakan=='Transfer Material') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'block';
                 document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Balik Abu') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'block';
-                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Beli Material') {
                 document.getElementById('opname').style.display = 'none';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'block';
             } else {
                 document.getElementById('opname').style.display = 'block';
                 document.getElementById('balik').style.display = 'none';
-                document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
             }

@@ -46,13 +46,10 @@
                     <h2>Data Harga Emas</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="<?php echo base_url();?>user/administration">Beranda</a>
+                            <a href="<?php echo base_url();?>user">Beranda</a>
                         </li>
-                        <li>
-                            <a href="<?php echo base_url();?>user/purchaseOrder">Surat Perintah Kerja</a>
-                        </li>
-                        <li class="active">
-                            <strong>Tambah Surat Perintah Kerja</strong>
+                        <li >
+                            <strong>Data Harga Emas</strong>
                         </li>
                     </ol>
                 </div>
@@ -62,59 +59,65 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-5">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Rencana Penjadwalan <small>Isi semua data yang dibutuhkan.</small></h5>
+                            <h5>Daftar Harga Emas Per Hari</h5>
                         </div>
                         <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <dl class="dl-horizontal">
-                                        <dt>Nama Pegawai:</dt> <dd> <?php echo $user[0]->nama;?></dd>
-                                        <dt>Jabatan:</dt> <dd> <?php echo $user[0]->jabatan;?></dd>
-                                    </dl>
+                            <?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($this->session->userdata['logged_in']['tanggal']))){ ?> 
+                                <?php echo form_open('user/tambahCurrency')?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p><span class="label label-warning">Update Harga Emas Hari Ini</span></p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <dl class="dl-horizontal">
-                                        <dt>Jenis Produksi:</dt> <dd> <?php echo $data['jenisProduksi'] ?></dd>
-                                    </dl>
+                                <div class="form-group row">
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control input-sm m-b-xs" placeholder="Harga Emas Saat Ini" name="hargaEmas">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button class="btn btn-primary btn-sm btn-block" type="submit">Update</button>
+                                    </div>
                                 </div>
-                                <hr>
+                                
+                                <?php echo form_close()?>
+                            <?php } ?>
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Harga Emas</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($currency as $p) : ?>
+                                    <tr>
+                                        <?php 
+                                          $tgl = new DateTime($p->tanggal);
+                                          $tglsk = $tgl->format("d F Y");
+                                        ?>
+                                        <td><?php echo $tglsk ?></td>
+                                        <td>Rp <?php echo number_format($p->hargaEmas,2)?></td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-default">Edit</a>
+                                        </td>
+                                     </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
                             </div>
-                            <?php echo form_open_multipart('user/tambahRekap','class="form-horizontal"')?>
-                                <input type="hidden" name="idPIC" value="<?php echo $user[0]->idUser;?>" class="form-control">
-                                <input type="hidden" name="jenisProduksi" value="<?php echo  $data['jenisProduksi'];?>" class="form-control">
-                                <div class="form-group"><label class="col-sm-2 control-label">Berat Kembalian</label>
-                                    <div class="col-sm-10"><input type="text" placeholder="Berat Kembalian" name="beratKembali" class="form-control" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Pilih SPK</label>  
-                                    <div class="col-lg-10">
-                                        <?php $b=count($listSPK); for ($i=0; $i < $b ; $i++) { ?> 
-                                            <?php 
-
-                                              $tglmsk = new DateTime($listSPK[$i]->RealisasiEndDate);
-                                              $tglmsk->modify('+'.$i.' day');
-                                              $tglmsk1 = $tglmsk->format("Y-m-d");
-
-                                            ?>
-                                            <div class="col-md-3">
-                                                <div class="i-checks"><label><input type="checkbox" value="<?php echo $listSPK[$i]->idProProd?>" checked name="idProProd[]"><i></i> <?php echo $listSPK[$i]->nomorFaktur; echo ' - '; echo $tglmsk1;?></label></div>
-                                            </div>
-                                        <?php } ?>
-                                    </div>                         
-                                </div>
-                                
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                    </div>
-                                </div>
-                                
-                            <?php echo form_close()?>
                         </div>
                     </div>
                 </div>

@@ -1787,7 +1787,7 @@ class User extends CI_Controller {
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
         $jenisProduksi=$this->input->post('jenisProduksi');
-
+        
         if ($tipePergerakan=='Beli Material' || $tipePergerakan=='Transfer Material') {
             $data['materialDasar']=$this->mdl->getMaterial();
             $data['produk']=$this->mdl->getMovement();
@@ -6034,8 +6034,18 @@ class User extends CI_Controller {
     //Currency
     public function currency() {
         $data['currency'] = $this->mdl->listCurrency();
-        $this->load->view('user/akun',$data);
+        $this->load->view('user/currency',$data);
     } 
+
+    public function tambahCurrency() {
+        $dataCurrency = array(
+            'hargaEmas'     => $this->input->post('hargaEmas'),
+            'tanggal'       => date("Y-m-d H:i:s"),
+        );
+        /*print_r($dataAkun);exit();*/
+        $this->mdl->insertData('currency', $dataCurrency);
+        redirect('currency');
+    }
 
 
 }
