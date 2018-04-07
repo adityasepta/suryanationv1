@@ -242,7 +242,7 @@
                                 <input type="hidden" name="jenisProduksi" value="<?php echo  $pergerakan['jenisProduksi'];?>" class="form-control">
                                 <div class="form-group"><label class="col-sm-2 control-label">Nama Barang:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="namaMaterial" placeholder="Nama Material" class="form-control">
+                                        <input type="text" name="namaMaterial" value="Emas Kuning" readonly placeholder="Nama Material" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Berat Kembalian:</label>

@@ -99,12 +99,25 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($material as $p) : ?>
+                                        <?php foreach($material as $p) : 
+                                            $stokk = 0;
+                                            for($i=0;$i<count($pergerakan);$i++) {
+                                                if($p->kodeMaterial==$pergerakan[$i]->kodeBarang) {
+                                                    if($pergerakan[$i]->jenisPergerakanBarang=='IN') {
+                                                        $stokk=$stokk+$pergerakan[$i]->jumlah;
+                                                    }
+                                                    else {
+                                                        $stokk=$stokk-$pergerakan[$i]->jumlah;   
+                                                    }
+                                                }
+                                            }
+
+                                        ?>
                                         <tr>
                                             <td><?php echo $p->kodeMaterial?></td>
                                             <td><?php echo $p->namaMaterial?></td>
                                             <td><?php echo $p->kadar?></td>
-                                            <td><?php echo $p->stokMaterial.'&nbsp'.$p->satuan?></td>
+                                            <td><?php echo $stokk.'&nbsp'.$p->satuan?></td>
                                             <td><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
                                             <td><?php echo $p->asal?></td>
                                             <td><?php if ($p->stokMaterial>$p->safetyStock) { ?>
@@ -121,7 +134,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="7">
                                             <ul class="pagination pull-right"></ul>
                                         </td>
                                     </tr>

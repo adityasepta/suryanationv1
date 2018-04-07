@@ -2446,6 +2446,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+    public function getPergerakan(){
+        $sql= "SELECT * FROM stokbarang";
+        $query=$this->db->query($sql);
+        $result=$query->result();
+        return $result;
+    }
     
     //Currency
     public function listCurrency(){
