@@ -209,7 +209,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($stokBarang as $p) : ?>
+                                    <?php foreach($stokBarang as $p) : 
+
+                                    if($this->input->post('is_submitted')){
+                                        $jumlah    = set_value('jumlah');
+                                    }
+                                    else {
+                                        $jumlah  = $p->jumlah;
+                                    }
+                                    ?>
                                     <tr>
                                         <?php $tglmsk = new DateTime($p->tanggal);
                                         $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
@@ -223,13 +231,52 @@
                                         <td><?php echo $p->jumlah?> <?php echo $p->satuan?> </td>
                                         
                                         <td>
-                                            <a href="<?php echo base_url()?>user/editInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-default">Edit</a>
+                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#editPergerakan<?php echo $p->idStok?>">
+                                                Edit
+                                            </a>
                                             <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a>
                                             <?php if($p->statusTransfer == 'Pending') { ?>
                                                 &nbsp<button class="btn btn-warning btn-xs" disabled>Pending</button>
                                             <?php } ?>
                                         </td>
                                      </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="editPergerakan<?php echo $p->idStok?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                      <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Edit Pergerakan Barang</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                            <?php echo form_open_multipart('user/editInventory/'.$p->idStok)?>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label>Nama Barang</label>
+                                                        <input type="text" name= "namaBarang"  class="form-control" readonly="" value="<?php echo $p->namaMaterial?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label>Jumlah</label>
+                                                        <input type="number" step="any" name= "jumlah"  class="form-control" required value="<?= $jumlah ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button class="btn btn-primary" type="submit">Simpan</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        </div>
+                                        <?php echo form_close()?> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- End of Modal -->
                                     <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>
