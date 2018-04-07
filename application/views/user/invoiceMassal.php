@@ -411,21 +411,23 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    <?php for($p = 0; $p < count($rkp); ++$p) {?>
+                                                    <?php for($p = 0; $p < count($rkp); ++$p) {
+                                                            if($rkp[$p]->idAktivitas > 0){
+                                                        ?>
 
                                                         <tr>
                                                             <td class="text-center"><?php echo $rkp[$p]->namaAktivitas?></td>
-                                                            <td class="text-center"><?php echo $rkp[$p]->beratAwal?> gr</td>
-                                                            <td class="text-center"><?php echo $rkp[$p]->berat?> gr</td>
-                                                            <td class="text-center"><?php echo $rkp[$p]->kembali?> gr</td>
-                                                            <td class="text-center"><?php echo $rkp[$p]->beratTambahan?> gr</td>
-                                                            <td class="text-center"><?php echo $rkp[$p]->susut?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->beratAwal,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->berat,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->kembali,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->beratTambahan,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->susut,2);?> gr</td>
                                                             <td class="text-center"><?php echo $rkp[$p]->jumlah?> pcs</td>
                                                             <td class="text-center"><?php echo $rkp[$p]->jmlsub?> item</td>
                                                             <td class="text-center"><?php echo $rkp[$p]->jmlwadah?> item</td>
                                                         </tr>
 
-                                                    <?php } ?>
+                                                    <?php }} ?>
                                                     
                                                 </tbody>
                                                 <tfoot>

@@ -1737,6 +1737,10 @@ class User extends CI_Controller {
             $this->mdl->insertData('bommassal',$dataBOM3);
             $this->mdl->insertData('bommassal',$dataBOM4);
 
+            $data = array(
+
+            );
+
             $message = "BOM berhasil dibuat";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/kanbanMassal")."';</script>";
