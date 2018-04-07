@@ -110,6 +110,8 @@
                     <a href="index.html"><i class="fa fa-money"></i> <span class="nav-label">Keuangan</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
+                        <li><a href="<?php echo base_url()?>user/cashflow">Cashflow</a></li>
+                        <li><a href="<?php echo base_url()?>user/jurnal">Jurnal</a></li>
                         <li><a href="<?php echo base_url()?>user/revenue">Pendapatan</a></li>
                         <li><a href="<?php echo base_url()?>user/cost">Pengeluaran</a></li>
                         <li><a href="<?php echo base_url()?>user/profit">Keuntungan</a></li>
@@ -125,15 +127,15 @@
                 <li >
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
                 </li>
-                <li >
+                <li style="background-color: rgb(1, 177, 209, 0.1); ">
                     <a href="<?php echo base_url();?>user/currency"> 
-                        <span class="nav-label">Harga Emas Hari Ini</span>
-                        <h2 style="margin-top: -0.5%;"><strong>Rp. <?php if($this->session->userdata['logged_in']['currentCurrency']!=NULL){ echo number_format($this->session->userdata['logged_in']['currentCurrency'],2);} else echo 0 ?></strong></h2>
+                        <span class="nav-label" style="color:rgb(209, 156, 0);">Harga Emas Hari Ini</span>
+                        <h2 class="nav-label" style="margin-top: -0.5%;"><strong>Rp. <?php if($this->session->userdata['logged_in']['currentCurrency']!=NULL){ echo number_format($this->session->userdata['logged_in']['currentCurrency'],2);} else echo 0 ?></strong></h2>
                         <?php 
                           $tgl = new DateTime($this->session->userdata['logged_in']['tanggal']);
                           $tglsk = $tgl->format("d F Y");
                         ?>
-                        <p style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
-                        <p style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($this->session->userdata['logged_in']['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
+                        <p class="nav-label" style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
+                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($this->session->userdata['logged_in']['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
                     </a>
                 </li>

@@ -20,6 +20,8 @@ class User extends CI_Controller {
             redirect('Login');
 
         }
+
+        // print_r($data['currentCurrency']);exit();
     }
 
     public function index() {
@@ -1670,14 +1672,16 @@ class User extends CI_Controller {
             $jmlbutuh = $this->input->post('bahanButuh');
 
             $idm = explode(",",$idMaterial);
+
+            //print_r($idMaterial);exit();
             
             $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $idMaterial,
+                'idMaterial' => $idm[0][0],
                 'jumlah'     => $jmlbutuh
                 );
             
-            //print_r($idm[0][0]);exit();
+            
 
             $this->mdl->insertData('bommassal',$dataBOM);
             echo '<b>Data BOM berhasil disimpan.</b><br />';
@@ -1685,102 +1689,72 @@ class User extends CI_Controller {
         }
     }
 
-    public function createBOMMassalTurun($idSubSPK) {
-        $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
-        $idUser=$this->session->userdata['logged_in']['iduser'];
-        if ($this->form_validation->run() == FALSE){
+    public function createBOMMassalTurun() {
 
-            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
+        $idSubSPK = $this->input->post('idSubSPK');
 
-            $this->load->view('user/createBOMMassal',$data);
-        }
-        else {
-            if ($this->input->post('beratAlloy') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Alloy');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratAlloy');
-                
-                
-                
-                 
-                
+        $data['material'] = $this->mdl->findNamaMaterial('Alloy');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratAlloy');
 
-                $dataBOM1= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh,
-                );
-                
-            }
-            if ($this->input->post('beratTembaga') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratTembaga');
-                
-                
-                
-                
-                
+        $dataBOM1= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratTembaga');
+        
 
-                $dataBOM2= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh,
-                );
-                
-            }
-            if ($this->input->post('beratPerak') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Perak');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratPerak');
-                
-                
-                
-                
-                
-                $dataBOM3= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh
-                );
-                
-            }
-            if ($this->input->post('beratPaladium') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Paladium');
-                $idMaterial = $data['material'][0]->idMaterial;
+        $dataBOM2= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Perak');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratPerak');
+        
 
-                $jmlbutuh = $this->input->post('beratPaladium');
-                
-                
-                
-                
-                
-                $dataBOM4= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh
-                );
-                
-            }
-
-            $this->mdl->insertData('bommassal',$dataBOM1);
-            $this->mdl->insertData('bommassal',$dataBOM2);
-            $this->mdl->insertData('bommassal',$dataBOM3);
-            $this->mdl->insertData('bommassal',$dataBOM4);
-
-            $data = array(
-
+        $dataBOM3= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh
             );
+            
 
-            $message = "BOM berhasil dibuat";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/kanbanMassal")."';</script>";
-        }
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idm = explode(",",$idMaterial);
+
+        
+        $jmlbutuh = $this->input->post('beratEmasMurni');
+        $data = array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm[0][0],
+            'jumlah'     => $jmlbutuh
+        );
+
+
+        $this->mdl->insertData('bommassal',$dataBOM1);
+        $this->mdl->insertData('bommassal',$dataBOM2);
+        $this->mdl->insertData('bommassal',$dataBOM3);
+        $this->mdl->insertData('bommassal',$data);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
     }
 
-    public function createBOMMassalNaik($idSubSPK) {
+    public function createBOMMassalNaik() {
         $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
         if ($this->form_validation->run() == FALSE){
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
@@ -1796,8 +1770,6 @@ class User extends CI_Controller {
             $jmltarget = $this->input->post('beratBahanTarget');
             
                 
-            
-
                 $dataBOM= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
@@ -6080,15 +6052,138 @@ class User extends CI_Controller {
     } 
 
     public function tambahCurrency() {
+        $hargaEmas = $this->input->post('hargaEmas');
+
         $dataCurrency = array(
-            'hargaEmas'     => $this->input->post('hargaEmas'),
+            'hargaEmas'     => $hargaEmas,
             'tanggal'       => date("Y-m-d H:i:s"),
         );
-        /*print_r($dataAkun);exit();*/
         $this->mdl->insertData('currency', $dataCurrency);
-        redirect('currency');
+
+        $session_data = array(
+            'username'  => $this->session->userdata['logged_in']['username'],
+            'nama'      => $this->session->userdata['logged_in']['nama'],
+            'password'  => $this->session->userdata['logged_in']['password'],
+            'level'     => $this->session->userdata['logged_in']['level'],
+            'iduser'    => $this->session->userdata['logged_in']['iduser'],
+            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
+            'currentCurrency'   => $hargaEmas,
+            'tanggal'   => date("Y-m-d H:i:s"),
+        );
+        $this->session->set_userdata('logged_in', $session_data);
+        
+        redirect('user/currency');
     }
 
+    public function editCurrency($idCurrency) {
+        $hargaEmas = $this->input->post('hargaEmas');
+
+        $dataCurrency = array(
+            'hargaEmas'     => $hargaEmas,
+            'tanggal'       => date("Y-m-d H:i:s"),
+        );
+        $this->mdl->updateData('idCurrency',$idCurrency,'currency', $dataCurrency);
+
+        $session_data = array(
+            'username'  => $this->session->userdata['logged_in']['username'],
+            'nama'      => $this->session->userdata['logged_in']['nama'],
+            'password'  => $this->session->userdata['logged_in']['password'],
+            'level'     => $this->session->userdata['logged_in']['level'],
+            'iduser'    => $this->session->userdata['logged_in']['iduser'],
+            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
+            'currentCurrency'   => $hargaEmas,
+            'tanggal'   => date("Y-m-d H:i:s"),
+        );
+        $this->session->set_userdata('logged_in', $session_data);
+        
+        redirect('user/currency');
+    }
+
+    //CashFlow
+    public function cashflow() {
+        $data['cashflow'] = $this->mdl->listCashflow();
+        $this->load->view('user/cashflow',$data);
+    } 
+
+    public function tambahCashflow() {
+        $dataCashflow = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'          => $this->input->post('tanggal'),
+            'jumlah'          => $this->input->post('jumlah'),
+            'kategori'      => $this->input->post('kategori'),
+            'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('cashflow', $dataCashflow);
+        $message = "Cashflow berhasil ditambah";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    public function editCashflow($idCashflow) {
+        $dataCashflow = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'          => $this->input->post('tanggal'),
+            'jumlah'          => $this->input->post('jumlah'),
+            'kategori'      => $this->input->post('kategori'),
+            'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+        );
+        /*print_r($dataAkun);exit();*/
+        $this->mdl->updateData('idCashflow',$idCashflow,'cashflow', $dataCashflow);
+        $message = "Transaksi berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    public function deleteCashflow($idCashflow) {
+        $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
+        $message = "Akun berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    //CashFlow
+    public function jurnal() {
+        $data['jurnal'] = $this->mdl->listJurnal();
+        $this->load->view('user/jurnal',$data);
+    } 
+
+    // public function tambahCashflow() {
+    //     $dataCashflow = array(
+    //         'keterangan'      => $this->input->post('keterangan'),
+    //         'tanggal'          => $this->input->post('tanggal'),
+    //         'jumlah'          => $this->input->post('jumlah'),
+    //         'kategori'      => $this->input->post('kategori'),
+    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+    //     );
+    //     //print_r($dataPegawai);exit();
+    //     $this->mdl->insertData('cashflow', $dataCashflow);
+    //     $message = "Cashflow berhasil ditambah";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
+
+    // public function editCashflow($idCashflow) {
+    //     $dataCashflow = array(
+    //         'keterangan'      => $this->input->post('keterangan'),
+    //         'tanggal'          => $this->input->post('tanggal'),
+    //         'jumlah'          => $this->input->post('jumlah'),
+    //         'kategori'      => $this->input->post('kategori'),
+    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+    //     );
+    //     /*print_r($dataAkun);exit();*/
+    //     $this->mdl->updateData('idCashflow',$idCashflow,'cashflow', $dataCashflow);
+    //     $message = "Transaksi berhasil diperbaharui";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
+
+    // public function deleteCashflow($idCashflow) {
+    //     $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
+    //     $message = "Akun berhasil dihapus";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
 
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);

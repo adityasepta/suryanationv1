@@ -163,7 +163,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>Harga Pasaran</label>
-                                            <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo set_value('hargaBahan'); ?>" required="">
+                                            <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo $this->session->userdata['logged_in']['currentCurrency']; ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

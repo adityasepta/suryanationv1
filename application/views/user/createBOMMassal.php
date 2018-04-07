@@ -175,7 +175,7 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-8">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
+
                                         <button id='myBtn' class="btn btn-primary" type="submit">Tambahkan</button>
                                         
                                     </div>
@@ -194,11 +194,11 @@
                             <h5><input type="checkbox" onchange="document.getElementById('myBtn1').disabled = !this.checked;"> Menurunkan Kadar <small>Centang untuk memilih menurunkan kadar</small></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                <?php echo form_open('user/createBOMMassalTurun/' .$idSubSPK)?>
+                                <?php echo form_open('user/createBOMMassalTurun')?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <label>Material</label>
                                                 <select class="form-control" id="kode2" onchange="calc1();"  name="kodeMaterial">
                                                 <?php
@@ -213,53 +213,75 @@
                                                 </select>
                                             </div>
                                             
-                                             <div class="col-md-2">
-                                                <label>Kadar Murni (%)</label>
-                                                <input type="number" step="any" name= "kadar" step=any id="k3" readonly onchange="calc1();" class="form-control" value='0' required>
-                                            </div>
+                                            
                                             <div class="col-md-2">
-                                                <label>Kadar Lokal (%)</label>
-                                                <input type="number" step="any" name= "kadar" step=any id="k4" readonly onchange="calc1();" class="form-control" value='0' required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Berat Emas Murni (gr)</label>
+
+                                                <label>Berat (gr)</label>
                                                 <input type="number" step="any" name= "beratEmasMurni" step=any id="m2" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
+
                                                 <label>Kadar Dimau (%)</label>
                                                 <input type="number" step="any" name= "kadarDimau" step=any id="m3" onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12 row">
-                                            <div class="col-md-3">
-                                                <label>Berat Total Campuran (gr)</label>
-                                                <input type="text" name= "beratTotalCampuran" id="result1" class="form-control" readonly="true">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Berat Total Tanpa Emas (gr)</label>
-                                                <input type="text" name= "beratTotalTanpaEmas" id="result2" class="form-control" readonly="true">
+                                        <div class="row">
+                                             <div class="col-md-2">
+                                                <br>
+                                                <label>Kadar Murni (%)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="k3" readonly onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Berat Alloy (gr)</label>
-                                                <input type="text" name= "beratAlloy" id="result3" class="form-control" readonly="true">
+                                                <br>
+                                                <label>Emas Murni (gr)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="e1" readonly onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Berat Tembaga (gr)</label>
-                                                <input type="text" name= "beratTembaga" id="result4" class="form-control" readonly="true">
+                                                <br>
+                                                <label>Kadar Lokal (%)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="k4" readonly onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Berat Perak (gr)</label>
-                                                <input type="text" name= "beratPerak" id="result5" class="form-control" readonly="true">
+                                                <br>
+                                                <label>Emas Lokal (gr)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="e2" readonly onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Berat Alloy (gr)</label>
+                                        <input type="text" name= "beratAlloy" id="result3" class="form-control" readonly="true">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Berat Tembaga (gr)</label>
+                                        <input type="text" name= "beratTembaga" id="result4" class="form-control" readonly="true">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Berat Perak (gr)</label>
+                                        <input type="text" name= "beratPerak" id="result5" class="form-control" readonly="true">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Total Tambahan (gr)</label>
+                                        <input type="text" name= "beratTotalTanpaEmas" id="result22" class="form-control" readonly="true">
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <br>
+                                        <label>Berat Total Campuran (gr)</label>
+                                        <input type="text" name= "beratTotalCampuran" required id="result1" class="form-control" readonly="true">
+                                        <input type="hidden"  value="<?php echo $idSubSPK ?>" name="idSubSPK">
+                                    </div>
+                                    
+                                </div>
+                                
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
                                         <button id='myBtn1' class="btn btn-primary" type="submit" disabled>Tambahkan</button>
                                     </div>
                                 </div>
@@ -271,70 +293,126 @@
                             <h5><div><input type="checkbox" onchange="document.getElementById('myBtn2').disabled = !this.checked; document.getElementById('aa').disabled = !this.checked;"> Menaikkan Kadar <small>Centang untuk memilih menaikkan kadar</small></div></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                <?php echo form_open('user/createBOMMassalNaik/' .$idSubSPK)?>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Material Yang Ingin Dicampur</label>
-                                                <select id = "aa" disabled class="form-control" id="kode" onchange="calc();" name="kodeMaterial">
-                                                <?php
-                                                foreach($materials as $m)
-                                                {
-                                                    echo "<option value='".$m->idMaterial."'";
-                                                    echo ">".$m->namaMaterial."</option>";
+                                <?php echo form_open('user/createBOMMassalNaik')?>
+                                
+                                    
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Material Kadar Rendah</label>
+                                        <select class="form-control" id="kode3" onchange="calc2();"  name="kodeMaterial">
+                                            <?php
+                                            foreach($materials as $m)
+                                            {
+                                                echo "<option value='".$m->idMaterial.",".$m->kadar."'";
+                                                echo ">".$m->namaMaterial."</option>";
 
-                                                }
+                                            }
 
-                                                ?>
-                                                </select>
-                                            </div>
-                                        </div>
+                                            ?>
+                                        </select>
+                                        
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label>Berat (gr)</label>
+                                        <input type="number" step="any" name= "beratBahanAda" step=any id="brt" onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    
+                                </div>
+                                    
+                                
+
+                                <div class="row">
+                                     <div class="col-md-2">
+                                        <br>
+                                        <label>Kadar Murni (%)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="kd1" readonly onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br>
+                                        <label>Emas Murni (gr)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="brt1" readonly onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br>
+                                        <label>Kadar Lokal (%)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="kd2" readonly onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br>
+                                        <label>Emas Lokal (gr)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="brt2" readonly onchange="calc2();" class="form-control" value='0' required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label>Kadar (Rendah) (%)</label>
-                                                <input type="number" step="any" name= "kadarBahanAda" min="1" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Berat (Rendah) (gr)</label>
-                                                <input type="number" step="any" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Kadar (Tinggi) (%)</label>
-                                                <input type="number" step="any" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Kadar Target (%)</label>
-                                                <input type="number" step="any" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
-                                            </div>
-                                        </div>
+                                <hr>
+                                <div class="row">
+                                    
+                                    <div class="col-md-4">
+                                        <label>Material Kadar Tinggi</label>
+                                        <select class="form-control" id="kode4" onchange="calc2();"  name="kodeMaterial2">
+                                            <?php
+                                            foreach($materials as $m)
+                                            {
+                                                echo "<option value='".$m->idMaterial.",".$m->kadar."'";
+                                                echo ">".$m->namaMaterial."</option>";
+
+                                            }
+
+                                            ?>
+                                        </select>
+                                        
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <label>Kadar Target (%)</label>
+                                        <input type="number" step="any" name= "kadarTarget" step=any id="o4" onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <br>
+                                        <label>Kadar Murni (%)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="xkd1" readonly onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <br>
+                                        <label>Kadar Lokal (%)</label>
+                                        <input type="number" step="any" name= "kadar" step=any id="xkd2" readonly onchange="calc2();" class="form-control" value='0' required>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <Br>
+                                        <label> Emas Murni (gr)</label>
+                                        <input type="text" required name= "beratBahanTarget" id="result13"  onchange="calc2();" class="form-control" readonly="true">
+                                    </div>
+
+                                    
+                                     
+                                    
+                                
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <Br>
+                                        <label> Berat Total Campuran (gr)</label>
+                                        <input type="text" required name= "beratAll" id="beratAll" class="form-control" readonly="true">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12 row">
-                                            <div class="col-md-4">
-                                                <label> Berat Emas Murni (gr)</label>
-                                                <input type="text" name= "beratKadarAda" id="result11" class="form-control" readonly="true">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label> Hitung Berat yang ada dan Kadar Target (gr)</label>
-                                                <input type="text" name= "beratKadarTarget" id="result12" class="form-control" readonly="true">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label> Berat Bahan Target (gr)</label>
-                                                <input type="text" required name= "beratBahanTarget" id="result13" class="form-control" readonly="true">
-                                            </div>
-                                        </div>
-                                </div>
+                                    
+                                    
+                                
+                      
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/produk"><button type="button" name="submit" class="btn btn-danger" value="batal">Batalkan</button></a>
+       
                                         <button id='myBtn2' class="btn btn-primary" type="submit" disabled>Tambahkan</button>
+                                        <input type="hidden"  value="<?php echo $idSubSPK ?>" name="idSubSPK">
                                     </div>
                                 </div>
                              <?php echo form_close()?>  
@@ -416,19 +494,34 @@
 
                     document.getElementById('k3').value = t[1];
 
+                    var lk = parseFloat(<?php echo $lk[0]->nilai?>);
+                    var w = (parseFloat(t[1])*100)/lk;
+                    
+
                     var m1 = parseFloat(document.getElementById('k3').value);
                     var m2 = parseFloat(document.getElementById('m2').value);
                     var m3 = parseFloat(document.getElementById('m3').value);
 
                     var beratTotalCampuran = m1*m2/m3;
+
+                    //console.log(beratTotalCampuran-m2);
+
+                    var e1 = parseFloat((m2*m1)/100);
+                    var e2 = parseFloat((m2*w)/100);
+
                     var beratTotalTanpaEmas = beratTotalCampuran-m2; 
                     var beratAlloy = beratTotalTanpaEmas*0.6;
                     var beratTembaga = beratTotalTanpaEmas*0.2;
                     var beratPerak = beratTotalTanpaEmas*0.2;
                     var beratPaladium = 0;
 
+                    document.getElementById('k4').value =parseFloat(w).toFixed(2);
+
+                    document.getElementById('e1').value = e1.toFixed(2);
+                    document.getElementById('e2').value = e2.toFixed(2);
+
                     document.getElementById('result1').value = beratTotalCampuran.toFixed(2);
-                    document.getElementById('result2').value = beratTotalTanpaEmas.toFixed(2);
+                    document.getElementById('result22').value = beratTotalTanpaEmas.toFixed(2);
                     document.getElementById('result3').value = beratAlloy.toFixed(2);
                     document.getElementById('result4').value = beratTembaga.toFixed(2);
                     document.getElementById('result5').value = beratPerak.toFixed(2);
@@ -437,18 +530,59 @@
         </script>
         <script type="text/javascript">
             function calc2(){
-                    var o1 = parseFloat(document.getElementById('o1').value);
-                    var o2 = parseFloat(document.getElementById('o2').value)/100;
-                    var o3 = parseFloat(document.getElementById('o3').value)/100;
+
+                    var c = document.getElementById('kode3').value;
+                    var t = c.split(",");
+                    //console.log(t[1]);
+
+                    document.getElementById('kd1').value = t[1];
+
+                    var lk = parseFloat(<?php echo $lk[0]->nilai?>);
+                    var w = (parseFloat(t[1])*100)/lk;
+
+                    var kd1 = parseFloat(document.getElementById('kd1').value);
+                    var brt = parseFloat(document.getElementById('brt').value);
+
+                    var brt1 = parseFloat((kd1*brt)/100);
+                    var brt2 = parseFloat((w*brt)/100);
+
+
+                    document.getElementById('brt1').value = brt1.toFixed(2);
+                    document.getElementById('kd2').value = w.toFixed(2);
+                    document.getElementById('brt2').value = brt2.toFixed(2);
+
+
+                    //
+
+
+                    var c = document.getElementById('kode4').value;
+                    var t = c.split(",");
+                    //console.log(t[1]);
+
+                    document.getElementById('xkd1').value = t[1];
+
+                    var lk = parseFloat(<?php echo $lk[0]->nilai?>);
+                    var w = (parseFloat(t[1])*100)/lk;
+
+                    var kd1 = parseFloat(document.getElementById('xkd1').value);
+            
+                    document.getElementById('xkd2').value = w.toFixed(2);
+                    
+
+                    var o1 = parseFloat(document.getElementById('brt').value);
+                    var o2 = parseFloat(document.getElementById('kd1').value)/100;
+                    var o3 = parseFloat(document.getElementById('xkd1').value)/100;
                     var o4 = parseFloat(document.getElementById('o4').value)/100;
 
                     var beratKadarAda = o1*o2;
                     var beratKadarTarget = o4*o1;
                     var beratBahanTarget = (beratKadarTarget-beratKadarAda)/(o3-o4);
 
-                    document.getElementById('result11').value = beratKadarAda.toFixed(2);
-                    document.getElementById('result12').value = beratKadarTarget.toFixed(2);
+                    var beratAll = beratBahanTarget+brt;
+                    console.log(beratAll);
+
                     document.getElementById('result13').value = beratBahanTarget.toFixed(2);
+                    document.getElementById('beratAll').value = beratAll.toFixed(2);
 
                 }
         </script>

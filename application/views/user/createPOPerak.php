@@ -246,7 +246,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Harga Pasaran</label>
-                                            <input id="hargaBahan" type="text" name="hargaBahan" onchange="calc1();" class="form-control good" placeholder="Rp" value="<?php echo set_value('hargaBahan'); ?>">
+                                            <input id="hargaBahan" type="text" name="hargaBahan" class="form-control good" value="<?php echo $this->session->userdata['logged_in']['currentCurrency']; ?>" readonly">
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Harga</label>
