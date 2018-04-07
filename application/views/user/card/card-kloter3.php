@@ -1,4 +1,6 @@
-<?php $idakt = 1006 ?>
+<?php $idakt = 1006;
+    $namakt = "Cor";
+?>
 <li class="element" id="task1">
 
     <div class="row">
@@ -244,7 +246,9 @@
             ?>
             
             <?php if ($co[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $co[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+                <button data-toggle="modal" data-target="#pic<?php echo $co[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block" onclick="tambahpic<?php echo $k3[$i]->idProProd ?>();">Tambah PIC</button>
+            <?php } else if($co[$i]->statusWork == 'On Progress' AND $co[$i]->berat == 0 ) {  ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $co[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
             <?php } else if($co[$i]->statusWork == 'On Progress' AND $asd == 0 ) {  ?>
                 <a href="<?php echo base_url('user/createBOMTempahan/'.$k3[$i]->idKloter)?>" class="btn btn-xs btn-success btn-block">Tambah BOM</a>
             <?php } else  { ?>                          
@@ -268,12 +272,13 @@
                                 
                                 <?php 
 
-                                $js = array( 'class' => 'form-control' );
+                                $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$k3[$i]->idProProd.'()', 'id' =>  $k3[$i]->idProProd."-pic");
                                 echo form_dropdown('staf', $staf, $k3[$i]->idPIC,$js);
 
                                 ?>
                                 
                             </div>
+                            
                             <div class="col-sm-2">
                       
                                 <div class="form-group">
@@ -284,13 +289,42 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-3 control-label">Berat Awal</label>
+
+                                    <div class="col-sm-7"><input type="number" step="any" name="beratAwal" value="<?php echo $k3[$i]->beratAwal?>" required class="form-control"></div>
+                                    
+                                </div>
+                            </div>
+                    <div class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
+
+                                <div class="col-sm-4">
+                                    <input type="password" id="<?php echo $k3[$i]->idProProd?>-k3?>-password-2" required  value="0" name="password2" class="form-control">
+                                    <input type="hidden" id="<?php echo $k3[$i]->idProProd?>-k3?>-password-1" required value="0" name="password">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" onclick="cekk3<?php echo $k3[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-horizontal" >
+                            <div class="form-group">
+                            <div class="col-lg-12 text-center" id='<?php echo $k3[$i]->idProProd?>-k3?>-cek' style="display: none;">
+                                Password tidak cocok. Silahkan coba lagi.
+                            </div>
+                            <div class="col-lg-12 text-center" id='<?php echo $k3[$i]->idProProd?>-k3?>-cek1' style="display: none;">
+                                Password valid.
+                            </div>
+                             </div>
+                        </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <button data-toggle="modal" data-dismiss="modal" class="btn btn-danger btn-block">Kembali</button>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                            <button type="submit" class="btn btn-block btn-success" id="<?php echo $k3[$i]->idProProd?>-k3" disabled="true">Simpan</button>
                         </div>
                     </div>
                     <?php echo form_close() ?>
@@ -299,10 +333,92 @@
         </div>
     </div>
 
+     <div class="modal inmodal fade" id="berat<?php echo $co[$i]->idKloter ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <?php echo form_open('User/setBerat10')?>
+                    
+                    <div class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
+
+                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $k3[$i]->beratAwal?>" class="form-control"></div>
+                            <input type="hidden" class="form-control" value="<?php echo $k3[$i]->idKloter?>" name="idKloter">
+                            <input type="hidden" class="form-control" value="<?php echo $idakt ?>" name="idAktivitas">
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
+
+                            <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
+                            <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $co[$i]->idProProd ?>"></div>
+                        </div>
+                    </div>
+                    
+                   <div class="row">
+                        <div class="col-lg-6">
+                            <button data-toggle="modal" data-dismiss="modal" class="btn btn-danger btn-block">Kembali</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </li>
-    
+<script type="text/javascript">
+        function tambahpic<?php echo $k3[$i]->idProProd ?>() {
+            passing<?php echo $k3[$i]->idProProd ?>();
+        };
+
+        function passing<?php echo $k3[$i]->idProProd ?>() {
+            var pic = document.getElementById('<?php echo $k3[$i]->idProProd ?>-pic');
+            var idpic = pic.options[pic.selectedIndex].value;
+            console.log(idpic);
+            $.ajax({
+                    // Change the link to the file you are using
+                    url: '<?php echo base_url();?>user/cariPegawai',
+                    type: 'post',
+                    // This just sends the value of the dropdown
+                    data: { idpic },
+                    success: function(response) {
+                        
+                        var Vals = $.parseJSON(response);
+                        /*console.log(Vals);*/
+                        var Vals    =   JSON.parse(response);
+                        $("input[id='<?php echo $k3[$i]->idProProd?>-k3?>-password-1']").val(Vals[0].password);
+                    }
+            });
+        }
+</script>
+<script type="text/javascript">
+        function cekk3<?php echo $k3[$i]->idProProd?>() {
+            var password = document.getElementById('<?php echo $k3[$i]->idProProd ?>-k3?>-password-1').value;
+            var password2 = document.getElementById('<?php echo $k3[$i]->idProProd ?>-k3?>-password-2').value;
+            console.log(password);
+            console.log(password2);
+            var x = document.getElementById("<?php echo $k3[$i]->idProProd ?>-k3?>-cek");
+            var y = document.getElementById("<?php echo $k3[$i]->idProProd ?>-k3?>-cek1");
+
+            if(password==password2) {
+                $('#<?php echo $k3[$i]->idProProd ?>-k3').prop('disabled', false);
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+            else {
+                $('#<?php echo $k3[$i]->idProProd ?>-k3').prop('disabled', true);
+                x.style.display = "block";
+                y.style.display = "none";
+            }
+        }
+    </script>    
   
 
 

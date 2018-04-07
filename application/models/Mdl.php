@@ -1760,6 +1760,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findSPKMassalbySPK($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE idSPK=$idSPK LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+    public function findBeratProd($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idSPK=$idSPK AND idAktivitas=1014 LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
     public function findSPKMasal($nomorFaktur){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
@@ -2372,6 +2392,25 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         SELECT (a.idAktivitas-1000) as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, max(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(beratAwal)-max(berat)) as susut, sum(jumlah) as jumlah, count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1014 and a.idAktivitas = b.idAktivitas 
 
         order by idAktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getRekapTempahan($idSPK) {
+        $sql   = "
+
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        
+        UNION 
+
+        SELECT (a.idAktivitas-1000), b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-(sum(berat)-sum(beratTambahan)))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas > 1006 and a.idAktivitas < 1014 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas 
+
+        UNION 
+        
+        SELECT (a.idAktivitas-1000) as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, max(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(beratAwal)-max(berat)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1014 and a.idAktivitas = b.idAktivitas 
+
+                order by idAktivitas";
         $query = $this->db->query($sql);
         
         return $query->result();

@@ -168,7 +168,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="9">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

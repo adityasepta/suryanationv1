@@ -388,7 +388,7 @@
                         <div class="col-lg-12">
                            <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <h5>Track Proses Produksi</h5>
+                                    <h5>Rekap Berat Per Aktivitas</h5>
                                 </div>
                                 <div class="ibox-content">
 
@@ -411,8 +411,9 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    <?php for($p = 0; $p < count($rkp); ++$p) {
+                                                    <?php $totalSusut=0; for($p = 0; $p < count($rkp); ++$p) {
                                                             if($rkp[$p]->idAktivitas > 0 and count($rkp) > 4){
+                                                                $totalSusut=$totalSusut+$rkp[$p]->susut;
                                                         ?>
 
                                                         <tr>
@@ -428,6 +429,11 @@
                                                         </tr>
 
                                                     <?php }} ?>
+                                                        <tr>
+                                                            <td colspan="5" class="text-center"><b>Total Susut</b></td>
+                                                            <td colspan="1" class="text-center"><b><?php echo round($totalSusut,2);?> gr</b></td>
+                                                            <td colspan="3" class="text-center"></td>
+                                                        </tr>
                                                     
                                                 </tbody>
                                                 <tfoot>
@@ -439,7 +445,7 @@
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                     <div class="row">
                         <div class="col-lg-6">
                            <div class="ibox float-e-margins">

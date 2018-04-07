@@ -48,7 +48,7 @@
             <a href="<?php echo base_url('user/createInvoiceAkhirPO')?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
         </div>
         <div class="col-lg-6">
-            <a href="<?php echo base_url('user/ambil/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin ?')"  class="btn btn-xs btn-block btn-warning">Sudah Diambil</a>
+            <a href="<?php echo base_url('user/ambil/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin akan memindah produk ini kepada customer ?')"  class="btn btn-xs btn-block btn-warning">Ambil</a>
         </div>
         
     </div>

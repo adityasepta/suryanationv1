@@ -398,7 +398,60 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                        <div class="col-lg-12">
+                           <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Rekap Berat Per Aktivitas</h5>
+                                </div>
+                                <div class="ibox-content">
 
+                                    <div class="row" >
+                                        <div class="col-sm-12 table-responsive">
+                                            <table data-page-size="20" class=" footable table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Aktivitas</th>
+                                                        <th class="text-center">Berat Awal</th>
+                                                        <th class="text-center">Berat Akhir</th>
+                                                        <th class="text-center">Kembali</th>
+                                                        <th class="text-center">Berat Tambahan</th>
+                                                        <th class="text-center">Susut Awal</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php $totalSusut=0; for($p = 0; $p < count($rkp); ++$p) {
+                                                            if($rkp[$p]->idAktivitas != NULL){
+                                                                $totalSusut=$totalSusut+$rkp[$p]->susut;
+                                                        ?>
+
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $rkp[$p]->namaAktivitas?></td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->beratAwal,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->berat,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->kembali,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->beratTambahan,2);?> gr</td>
+                                                            <td class="text-center"><?php echo round($rkp[$p]->susut,2);?> gr</td>
+                                                        </tr>
+                                                    <?php }} ?>
+                                                        <tr>
+                                                            <td colspan="5" class="text-center"><b>Total Susut</b></td>
+                                                            <td colspan="1" class="text-center"><b><?php echo round($totalSusut,2);?> gr</b></td>
+                                                        </tr>
+                                                    
+                                                </tbody>
+                                                <tfoot>
+                                                    
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             <div class="row">
                 <div class="col-lg-6">
                    <div class="ibox float-e-margins">

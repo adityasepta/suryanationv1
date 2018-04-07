@@ -168,6 +168,7 @@ class User extends CI_Controller {
 
             $data = array(
                 'idPIC' => $this->input->post('staf'),
+                'beratAwal' => $this->input->post('beratAwal'),
                 'statusWork' => 'On Progress',
                 'RealisasiStartDate' => date("Y-m-d H:i:s")
             );
@@ -200,6 +201,35 @@ class User extends CI_Controller {
         );
         $this->mdl->updateData('idProProd',$idp, 'factproduction', $data);
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan Berat</div>');
+        redirect('User/kanban');
+
+    }
+
+    public function setBerat10() {
+        $idk = $this->input->post('idKloter');
+        $kloter = $this->mdl->getIsiKloter($idk);
+
+        for ($i=0; $i <count($kloter) ; $i++) { 
+
+            $data = array(
+                'berat' => $this->input->post('berat'),
+                'beratAwal' => $this->input->post('beratAwal'),
+                'kembali' => $this->input->post('kembali'),
+            );
+
+            $where = array(
+
+                'idSPK' => $kloter[$i]->idSPK,
+                'idAktivitas' => $this->input->post('idAktivitas')
+
+            );
+
+            $this->mdl->updateData2($where, 'factproduction', $data);
+            
+        }
+
+        
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menambahkan Berat.</div>');
         redirect('User/kanban');
 
     }
@@ -686,6 +716,8 @@ class User extends CI_Controller {
 
     public function invoice($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        $idSPK = $data['dataSPK'][0]->idSPK;
+        $data['rkp'] = $this->mdl->getRekapTempahan($idSPK);
         $data['cekbom'] = $this->mdl->cekbom();
         $data['cekjadwal'] = $this->mdl->cekjadwal();
         $data['jadwal'] = $this->mdl->getjadwal($nomorFaktur);
@@ -6055,6 +6087,34 @@ class User extends CI_Controller {
         /*print_r($dataAkun);exit();*/
         $this->mdl->insertData('currency', $dataCurrency);
         redirect('currency');
+    }
+
+
+    public function ambil($idSPK) {
+        $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
+        $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
+        $dataInventory = array(
+                'idPIC'         => $this->session->userdata['logged_in']['iduser'],
+                'tipeBarang'    => 'Produk Jadi',
+                'tipePergerakan'=> 'Diambil Customer',
+                'kodeBarang'    => $data['SPK']->idProduk,
+                'jumlah'        => $data['beratAkhir']->berat,
+                'satuan'        => 'gr',
+                'jenisPergerakanBarang'  => 'OUT',
+                'hargaBeli'     => 0,
+                'tanggal' => date("Y-m-d H:i:s"),
+                
+            );
+        $this->mdl->insertData('stokbarang',$dataInventory);
+
+        $dataStatus = array(
+                'statusPengambilan' => 'Sudah'
+        );
+        $this->mdl->updateData('idSPK',$idSPK,'factproduction2', $dataStatus);
+
+        $message = "Produk sudah diambil customer";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/stokBarang")."';</script>";
     }
 
 
