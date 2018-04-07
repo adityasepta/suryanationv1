@@ -25,6 +25,15 @@ class mdl extends CI_Model {
         }
     }
 
+    public function checkCurrency() {
+        $hasil = $this->db->query("SELECT * FROM currency ORDER BY idCurrency DESC LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function insertData($table, $data) {
         $this->db->insert($table, $data);
     }

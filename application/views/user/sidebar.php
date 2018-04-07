@@ -124,3 +124,9 @@
                 <li >
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
                 </li>
+                <li >
+                    <a href="<?php echo base_url();?>#"> 
+                        <span class="nav-label">Harga Emas Hari Ini</span>
+                        <h2>Rp. 550.000,00</h2>
+                    </a>
+                </li>

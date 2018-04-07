@@ -32,7 +32,7 @@ class Login extends CI_Controller {
         $password = $this->input->post('password');
         
         $status = $this->mdl->checkAccount($username,$password);
-        
+        $currency = $this->mdl->checkCurrency();
         if ($status != FALSE AND $status[0]->username!=NULL AND $status[0]->password!=NULL) {
             $session_data = array(
                 'username' => $status[0]->username,
@@ -41,6 +41,8 @@ class Login extends CI_Controller {
                 'level' => $status[0]->level,
                 'iduser' => $status[0]->idUser,
                 'jabatan' => $status[0]->jabatan,
+                'currentCurrency' => $currency[0]->hargaEmas,
+                'tanggal' => $currency[0]->tanggal, 
             );
 
             $this->session->set_userdata('logged_in', $session_data);
