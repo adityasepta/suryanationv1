@@ -20,6 +20,8 @@ class User extends CI_Controller {
             redirect('Login');
 
         }
+
+        // print_r($data['currentCurrency']);exit();
     }
 
     public function index() {
@@ -6022,14 +6024,137 @@ class User extends CI_Controller {
     } 
 
     public function tambahCurrency() {
+        $hargaEmas = $this->input->post('hargaEmas');
+
         $dataCurrency = array(
-            'hargaEmas'     => $this->input->post('hargaEmas'),
+            'hargaEmas'     => $hargaEmas,
             'tanggal'       => date("Y-m-d H:i:s"),
         );
-        /*print_r($dataAkun);exit();*/
         $this->mdl->insertData('currency', $dataCurrency);
-        redirect('currency');
+
+        $session_data = array(
+            'username'  => $this->session->userdata['logged_in']['username'],
+            'nama'      => $this->session->userdata['logged_in']['nama'],
+            'password'  => $this->session->userdata['logged_in']['password'],
+            'level'     => $this->session->userdata['logged_in']['level'],
+            'iduser'    => $this->session->userdata['logged_in']['iduser'],
+            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
+            'currentCurrency'   => $hargaEmas,
+            'tanggal'   => date("Y-m-d H:i:s"),
+        );
+        $this->session->set_userdata('logged_in', $session_data);
+        
+        redirect('user/currency');
     }
 
+    public function editCurrency($idCurrency) {
+        $hargaEmas = $this->input->post('hargaEmas');
+
+        $dataCurrency = array(
+            'hargaEmas'     => $hargaEmas,
+            'tanggal'       => date("Y-m-d H:i:s"),
+        );
+        $this->mdl->updateData('idCurrency',$idCurrency,'currency', $dataCurrency);
+
+        $session_data = array(
+            'username'  => $this->session->userdata['logged_in']['username'],
+            'nama'      => $this->session->userdata['logged_in']['nama'],
+            'password'  => $this->session->userdata['logged_in']['password'],
+            'level'     => $this->session->userdata['logged_in']['level'],
+            'iduser'    => $this->session->userdata['logged_in']['iduser'],
+            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
+            'currentCurrency'   => $hargaEmas,
+            'tanggal'   => date("Y-m-d H:i:s"),
+        );
+        $this->session->set_userdata('logged_in', $session_data);
+        
+        redirect('user/currency');
+    }
+
+    //CashFlow
+    public function cashflow() {
+        $data['cashflow'] = $this->mdl->listCashflow();
+        $this->load->view('user/cashflow',$data);
+    } 
+
+    public function tambahCashflow() {
+        $dataCashflow = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'          => $this->input->post('tanggal'),
+            'jumlah'          => $this->input->post('jumlah'),
+            'kategori'      => $this->input->post('kategori'),
+            'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('cashflow', $dataCashflow);
+        $message = "Cashflow berhasil ditambah";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    public function editCashflow($idCashflow) {
+        $dataCashflow = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'          => $this->input->post('tanggal'),
+            'jumlah'          => $this->input->post('jumlah'),
+            'kategori'      => $this->input->post('kategori'),
+            'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+        );
+        /*print_r($dataAkun);exit();*/
+        $this->mdl->updateData('idCashflow',$idCashflow,'cashflow', $dataCashflow);
+        $message = "Transaksi berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    public function deleteCashflow($idCashflow) {
+        $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
+        $message = "Akun berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/cashflow")."';</script>";
+    }
+
+    //CashFlow
+    public function jurnal() {
+        $data['jurnal'] = $this->mdl->listJurnal();
+        $this->load->view('user/jurnal',$data);
+    } 
+
+    // public function tambahCashflow() {
+    //     $dataCashflow = array(
+    //         'keterangan'      => $this->input->post('keterangan'),
+    //         'tanggal'          => $this->input->post('tanggal'),
+    //         'jumlah'          => $this->input->post('jumlah'),
+    //         'kategori'      => $this->input->post('kategori'),
+    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+    //     );
+    //     //print_r($dataPegawai);exit();
+    //     $this->mdl->insertData('cashflow', $dataCashflow);
+    //     $message = "Cashflow berhasil ditambah";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
+
+    // public function editCashflow($idCashflow) {
+    //     $dataCashflow = array(
+    //         'keterangan'      => $this->input->post('keterangan'),
+    //         'tanggal'          => $this->input->post('tanggal'),
+    //         'jumlah'          => $this->input->post('jumlah'),
+    //         'kategori'      => $this->input->post('kategori'),
+    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
+    //     );
+    //     /*print_r($dataAkun);exit();*/
+    //     $this->mdl->updateData('idCashflow',$idCashflow,'cashflow', $dataCashflow);
+    //     $message = "Transaksi berhasil diperbaharui";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
+
+    // public function deleteCashflow($idCashflow) {
+    //     $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
+    //     $message = "Akun berhasil dihapus";
+    //     echo "<script type='text/javascript'>alert('$message');
+    //     window.location.href='".base_url("user/cashflow")."';</script>";
+    // }
 
 }

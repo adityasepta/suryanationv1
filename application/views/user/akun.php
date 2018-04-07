@@ -44,7 +44,7 @@
             </div>
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">
-                        <h2>Inventory</h2>
+                        <h2>Finance</h2>
                         <ol class="breadcrumb">
                             <li>
                                 <a href="<?php echo base_url();?>user/inventory">Beranda</a>
@@ -63,9 +63,9 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Material Dasar</h5>
+                                <h5>Daftar Akun</h5>
                                 <div class="ibox-tools">
-                                    <a class="btn btn-xs btn-primary" href="href="#" data-toggle="modal" data-target="#tambahAkun">
+                                    <a class="btn btn-xs btn-primary" href="#" data-toggle="modal" data-target="#tambahAkun">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH AKUN</strong></span></i>
                                     </a>
                                 </div>
