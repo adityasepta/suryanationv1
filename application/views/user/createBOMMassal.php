@@ -296,15 +296,15 @@
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <label>Kadar Bahan Ada (%)</label>
+                                                <label>Kadar (Rendah) (%)</label>
                                                 <input type="number" step="any" name= "kadarBahanAda" min="1" step=any id="o2" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
-                                                <label>Berat Bahan Ada (gr)</label>
+                                                <label>Berat (Rendah) (gr)</label>
                                                 <input type="number" step="any" name= "beratBahanAda" step=any id="o1" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-3">
-                                                <label>Kadar Emas Dimiliki (%)</label>
+                                                <label>Kadar (Tinggi) (%)</label>
                                                 <input type="number" step="any" name= "kadarEmasDimiliki" step=any id="o3" onchange="calc2();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
@@ -317,7 +317,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12 row">
                                             <div class="col-md-4">
-                                                <label> Hitung Berat+Kadar Bahan Ada (gr)</label>
+                                                <label> Berat Emas Murni (gr)</label>
                                                 <input type="text" name= "beratKadarAda" id="result11" class="form-control" readonly="true">
                                             </div>
                                             <div class="col-md-4">
