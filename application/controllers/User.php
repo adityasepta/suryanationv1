@@ -3175,7 +3175,8 @@ class User extends CI_Controller {
                 $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
             }
 
-            $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadarDatangEmas').'%';
+            $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadar').'%';
+           // print_r($namaMaterial);exit();
             $t = $this->mdl->cekMaterial($namaMaterial);
             $d = count($t);
 
