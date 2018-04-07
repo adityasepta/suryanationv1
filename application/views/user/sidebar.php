@@ -125,7 +125,7 @@
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
                 </li>
                 <li >
-                    <a href="<?php echo base_url();?>#"> 
+                    <a href="<?php echo base_url();?>user/currency"> 
                         <span class="nav-label">Harga Emas Hari Ini</span>
                         <h2 style="margin-top: -0.5%;"><strong>Rp. <?php if($this->session->userdata['logged_in']['currentCurrency']!=NULL){ echo number_format($this->session->userdata['logged_in']['currentCurrency'],2);} else echo 0 ?></strong></h2>
                         <?php 
