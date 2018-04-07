@@ -104,9 +104,42 @@
                                         <td><?php echo $tglsk ?></td>
                                         <td>Rp <?php echo number_format($p->hargaEmas,2)?></td>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-default">Edit</a>
+                                            <a href="#" data-toggle="modal" data-target="#curr<?php echo $p->idCurrency;?>" class="btn btn-xs btn-default">Edit</a>
                                         </td>
-                                     </tr>
+                                    </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="curr<?php echo $p->idCurrency;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                      <div class="modal-dialog modal-md" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Edit Harga Emas</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                            <?php echo form_open_multipart('user/editCurrency/'.$p->idCurrency)?>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Harga Emas</label>
+                                                        <input type="text" name= "hargaEmas"  class="form-control" required value="<?php echo $p->hargaEmas; ?>">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Tanggal</label>
+                                                        <input type="text" class="form-control" readonly="" value="<?php echo $tglsk?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button class="btn btn-primary" type="submit">Save changes</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                        <?php echo form_close()?> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- End of Modal -->
                                     <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>

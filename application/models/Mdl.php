@@ -1760,6 +1760,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findSPKMassalbySPK($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE idSPK=$idSPK LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+    public function findBeratProd($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idSPK=$idSPK AND idAktivitas=1014 LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
     public function findSPKMasal($nomorFaktur){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
@@ -2377,6 +2397,25 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function getRekapTempahan($idSPK) {
+        $sql   = "
+
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        
+        UNION 
+
+        SELECT (a.idAktivitas-1000), b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-(sum(berat)-sum(beratTambahan)))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas > 1006 and a.idAktivitas < 1014 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas 
+
+        UNION 
+        
+        SELECT (a.idAktivitas-1000) as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, max(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(beratAwal)-max(berat)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1014 and a.idAktivitas = b.idAktivitas 
+
+                order by idAktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getRadar() {
         $sql   = "SELECT AVG(rataHarapan) as 'rataHarapan',AVG(rataRealisasi) as 'rataRealisasi',AVG(rataHarapanT) as 'rataHarapanT',AVG(rataHarapanR) as 'rataHarapanR',AVG(rataHarapanRE) as 'rataHarapanRE',AVG(rataHarapanA) as 'rataHarapanA',AVG(rataHarapanE) as 'rataHarapanE',AVG(rataRealisasiT) as 'rataRealisasiT',AVG(rataRealisasiR) as 'rataRealisasiR',AVG(rataRealisasiRE) as 'rataRealisasiRE',AVG(rataRealisasiA) as 'rataRealisasiA',AVG(rataRealisasiE) as 'rataRealisasiE' FROM `penilaian`";
         $query = $this->db->query($sql);
@@ -2457,7 +2496,29 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     //Currency
     public function listCurrency(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM currency");
+        $hasil = $this->db->query("SELECT * FROM currency ORDER BY idCurrency DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    //Cashflow
+    public function listCashflow(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*, DATE_FORMAT(tanggal, '%Y-%m-%d') AS tgl FROM cashflow a ORDER BY a.idCashflow DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    //Jurnal
+    public function listJurnal(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.idJurnal,b.keterangan AS keteranganJurnal, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tanggalCashflow FROM cashflow a LEFT JOIN jurnal b ON a.idCashflow=b.idCashflow ORDER BY a.idCashflow DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
