@@ -1187,6 +1187,7 @@ class User extends CI_Controller {
 
     public function material() {
         $data['material']=$this->mdl->getMaterial();
+        $data['pergerakan']=$this->mdl->getPergerakan();
         $this->load->view('user/material',$data);
     }
 
