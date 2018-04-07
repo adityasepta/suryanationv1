@@ -66,7 +66,94 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Daftar Bahan Sementara</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-responsive table-hover table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Nama Material</th>
+                                        <th class="text-center">Kadar</th>
+                                        <th class="text-center">Jumlah</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0; $i < count($bom4); $i++) { ?>
+                             
+                                        <tr>
+                                            <td class="text-center"><?php echo $i+1?></td>
+                                            <td class="text-center"><?php echo $bom4[$i]->namaMaterial?></td>
+                                            <td class="text-center"><?php echo $bom4[$i]->kadar?> %</td>
+                                            <td class="text-center"><?php echo $bom4[$i]->jumlah?> gr</td>
+                                            <td class="text-center">
+
+                                                <?php  if($bom4[$i]->status == 'Belum Disetujui') {?>
+                                                    <a class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ?')"  href="<?php echo base_url('user/hapusmaterial/'.$bom4[$i]->idBOM.'/massal/'.$idSubSPK)?>">Hapus</a>
+                                                <?php } else { ?>
+                                                <a class="btn btn-xs btn-danger" disabled href="">Hapus</a>
+                                                <?php } ?>
+                                                
+                                            </td>
+                                        </tr>
+                             
+                                    <?php }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Kebutuhan Produksi</h5>
+                        </div>
+                        <div class="ibox-content text-right">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="text-muted">Kadar yang dimau</span><br>
+                                    <h1 class="text-right" ><b id="a1"></b></h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-muted">Kadar dalam lokal</span><br>
+                                    <h1 class="text-right" ><b id="a2"></b></h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <br>
+                                    <span class="text-muted">Berat yang dimau</span><br>
+                                    <h1 class="text-right" ><b id="a3"></b></h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <br>
+                                    <span class="text-muted">Berat dalam lokal</span><br>
+                                    <h1 class="text-right" ><b id="a4"></b></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            
+                            var t = <?php echo $subSPK[0]->kadarBahan ?>;
+                            var c = <?php echo $subSPK[0]->beratAkhir ?>;
+
+                            document.getElementById('a1').innerHTML  = t+" %";
+                            document.getElementById('a3').innerHTML  = c+" gr";
+                            
+                            var lk = parseFloat(<?php echo $lk[0]->nilai?>);
+                            var w = (parseFloat(t)*100)/lk;
+                            var b = parseFloat((c*w)/100);
+
+                            document.getElementById('a2').innerHTML  = w.toFixed(2)+" %";
+                            document.getElementById('a4').innerHTML  = b.toFixed(2)+" gr";
+
+
+                        </script>
+                    </div>
+                </div>
+                <div  class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Buat BOM Untuk Produk Massal <small>Isi semua data yang dibutuhkan.</small></h5>
@@ -315,7 +402,7 @@
 
                                     <div class="col-md-2">
                                         <label>Berat (gr)</label>
-                                        <input type="number" step="any" name= "beratBahanAda" step=any id="brt" onchange="calc2();" class="form-control" value='0' required>
+                                        <input type="number" step="any" name= "brt" step=any id="brt" onchange="calc2();" class="form-control" value='0' required>
                                     </div>
                                     
                                 </div>
@@ -387,7 +474,7 @@
                                     <div class="col-md-2">
                                         <Br>
                                         <label> Emas Murni (gr)</label>
-                                        <input type="text" required name= "beratBahanTarget" id="result13"  onchange="calc2();" class="form-control" readonly="true">
+                                        <input type="text" required name= "brt2" id="result13"  onchange="calc2();" class="form-control" readonly="true">
                                     </div>
 
                                     

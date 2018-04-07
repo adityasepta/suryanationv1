@@ -1628,29 +1628,26 @@ class User extends CI_Controller {
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
             $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
             $data['materials']=$this->mdl->getMaterial();
+            $data['bom4'] = $this->mdl->getbom4($idSubSPK);
             $this->load->view('user/createBOMMassal',$data);
         }
         else {
             $idMaterial = $this->input->post('kodeMaterial');
             $idUser=$this->session->userdata['logged_in']['iduser'];
-            // $stok = $this->mdl->getStokMaterial($idUser, $idMaterial);
-            // $jml = $stok[0]->TOT;
             $jmlbutuh = $this->input->post('bahanButuh');
 
             $idm = explode(",",$idMaterial);
-
-            //print_r($idMaterial);exit();
-            
             $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $idm[0][0],
+                'idMaterial' => $idm[0],
                 'jumlah'     => $jmlbutuh
                 );
-            
-            
+        
 
             $this->mdl->insertData('bommassal',$dataBOM);
-            echo '<b>Data BOM berhasil disimpan.</b><br />';
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
             
         }
     }
@@ -1704,7 +1701,7 @@ class User extends CI_Controller {
         $jmlbutuh = $this->input->post('beratEmasMurni');
         $data = array(
             'idSubSPK'   => $idSubSPK,
-            'idMaterial' => $idm[0][0],
+            'idMaterial' => $idm[0],
             'jumlah'     => $jmlbutuh
         );
 
@@ -1721,35 +1718,45 @@ class User extends CI_Controller {
     }
 
     public function createBOMMassalNaik() {
-        $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
-        if ($this->form_validation->run() == FALSE){
-            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
-            $data['materials']=$this->mdl->getMaterial();
-            $this->load->view('user/createBOMMassal',$data);
-        }
-        else {
-            $idMaterial = $this->input->post('kodeMaterial');
-            $idUser=$this->session->userdata['logged_in']['iduser'];
-            
-            
-            $jmltarget = $this->input->post('beratBahanTarget');
-            
-                
-                $dataBOM= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmltarget
-                );
-                
-                $this->mdl->insertData('bommassal',$dataBOM);
-                $message = "BOM berhasil dibuat";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanbanMassal")."';</script>";
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idMaterial2 = $this->input->post('kodeMaterial2');
 
-            
-                
-        }
+
+
+        $idSubSPK = $this->input->post('idSubSPK');
+
+        $idm = explode(",",$idMaterial);
+        $idm2 = explode(",",$idMaterial2);
+
+
+        $brt = $this->input->post('brt');
+        $brt2 = $this->input->post('brt2');
+
+        //$idUser=$this->session->userdata['logged_in']['iduser'];
+        
+        $dataBOM= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $brt
+        );
+        
+        //print_r($dataBOM);
+
+        $this->mdl->insertData('bommassal',$dataBOM);
+
+        $dataBOM2= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm2[0],
+            'jumlah'     => $brt2
+        );
+
+        //print_r($dataBOM2);exit();
+        
+        $this->mdl->insertData('bommassal',$dataBOM2);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
     }
 
     
@@ -5644,10 +5651,10 @@ class User extends CI_Controller {
         $this->load->view('user/invoiceMassal', $data);
     }
 
-    public function hapusmaterial($idBOM,$tipe,$nomorFaktur) {
+    public function hapusmaterial($idBOM,$tipe,$id) {
         if($tipe == 'massal') {
             $this->mdl->deleteData('idBOM',$idBOM,'bommassal');
-            redirect('user/invoiceSPKMassal/'.$nomorFaktur);
+            redirect('user/createbommassal/'.$id);
         }
     }
 

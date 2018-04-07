@@ -439,9 +439,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                            <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                     <h5>Rencana Produksi</h5>
@@ -511,78 +512,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="col-lg-6">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <div class="col-lg-12">
-                                        <h5>Daftar Sub SPK dan Wadah Terkait</h5>
-                                    </div>
-                                   
-                                </div>
-                                <div class="ibox-content">
-                                    <table class="table table-responsive table-hover">
-                                        <thead>
-                                            
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Bahan</th>
-                                                    <th class="text-center">Stock Awal</th>
-                                                    <th class="text-center">Jumlah</th>
-                                                    <th class="text-center">Stock Akhir</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Action</th>
-                                                </tr>
-                                            
-                                        </thead>
-                                        <tbody>
-                                            <?php $cbr=0; for ($j=0; $j < count($stokbom) ; $j++) { 
-                                                 ?>
-
-                                                <tr>
-                                                    <td><?php echo $stokbom[$j]->idSubSPK?></td>
-                                                    <td><?php echo $stokbom[$j]->namaMaterial?></td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->stok?> gr</td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->jml?> gr</td>
-                                                    <td class="text-center"><?php echo $stokbom[$j]->stokakhir?> gr</td>
-                                                    <td class="text-center">
-                                                        <?php 
-                                                            
-                                                             if((float)$stokbom[$j]->stokakhir < (float)$stokbom[$j]->ss) { ?>
-                                                                <span class="fa fa-warning text-warning"></span>
-                                                            <?php $cbr++; }
-                                                            else { ?> 
-                                                                <span class="fa fa-check text-success"></span>
-                                                            <?php } 
-                                                                
-                                                        ?>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <?php if ($stokbom[$j]->status !== 'Disetujui') { ?>
-                                                            <a class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ?')"  href="<?php echo base_url('user/hapusmaterial/'.$stokbom[$j]->idBOM.'/massal/'.$nomorFaktur)?>">Hapus</a>
-                                                        <?php } else {?>
-                                                            <a class="btn btn-xs btn-danger" disabled href="">Hapus</a>
-                                                        <?php } ?>
-                                                        
-                                                    </td>
-                                                </tr>
-
-                                            <?php }?>
-                                        </tbody>
-                                    </table>
-
-                                    <?php if($cbr > 0) {?>
-
-                                        <div class="alert alert-danger">
-                                            Terdapat material yang dibawah safety stock.
-                                        </div>
-
-                                    <?php } ?>
-                                   
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="footer">
