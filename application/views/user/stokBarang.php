@@ -255,7 +255,6 @@
                                                     <select id="tipePergerakan" class="form-control"  name="tipePergerakan">
                                                         <option value="Beli Material">Beli Material</option>
                                                         <option value="Transfer Material">Transfer Material</option>
-                                                        <option value="Balik Bahan">Balik Bahan</option>
                                                         <option value="Balik Abu">Balik Abu</option>
                                                         <option value="Stok Opname">Stok Opname</option>
                                                     </select>

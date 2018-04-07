@@ -1187,6 +1187,7 @@ class User extends CI_Controller {
 
     public function material() {
         $data['material']=$this->mdl->getMaterial();
+        $data['pergerakan']=$this->mdl->getPergerakan();
         $this->load->view('user/material',$data);
     }
 
@@ -1810,6 +1811,7 @@ class User extends CI_Controller {
         $idUser=$this->session->userdata['logged_in']['iduser'];
         $data['stok'] = $this->mdl->getStokPerId($idUser);
         $data['pegawai'] = $this->mdl->listPegawai();
+        $data['user'] = $this->mdl->findPegawai($idUser);
         $data['pergerakan'] = array(
             'tipePergerakan'    => $tipePergerakan,
             'jenisProduksi'          => $jenisProduksi
@@ -6012,6 +6014,12 @@ class User extends CI_Controller {
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akun")."';</script>";
     }
+
+    //Currency
+    public function currency() {
+        $data['currency'] = $this->mdl->listCurrency();
+        $this->load->view('user/akun',$data);
+    } 
 
 
 }

@@ -215,115 +215,6 @@
                 </div>
             </div>
 
-            <!-- Balik Bahan -->
-            <div class="row" id="balikBahan" style="display: none;">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Pergerakan Barang | <?php echo $pergerakan['tipePergerakan']?></h5>
-                        </div>
-                        <div class="ibox-content form-horizontal">
-                            <?php echo form_open_multipart('user/createInventory')?>
-                                <div class="form-group">
-                                    <input type="hidden" name="tipePergerakan" value="<?php echo $pergerakan['tipePergerakan']?>" class="form-control">
-                                    <input type="hidden" name="tipeBarang" value="Produk Jadi" class="form-control">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Nama Barang</label>
-                                                <select class="form-control" id="slct2" name="kodeBarang">
-                                                    <?php for ($i=0; $i < count($produkJadi) ; $i++) { ?> 
-                                                        <option value="<?php echo $produkJadi[$i]->kodeProduk ?>"><?php echo $produkJadi[$i]->namaProduk ?></option>
-                                                    <?php } ?> 
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Jumlah</label>
-                                                <input type="number" name="jumlah" step="any" onchange="handleChange(this);" placeholder="Jumlah Barang Masuk" class="form-control">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label>Satuan</label>
-                                                <select class="form-control" name="satuan">
-                                                    <option value="gr">Gram</option>
-                                                    <option value="cr">Carat</option>
-                                                </select>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Pilih PIC</label>
-                                                <div id="idUser" class="selectpicker" data-live="true">
-                                                    <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
-                                                        <span class="placeholder">Pilih Pegawai</span>
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
-                                                            <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
-                                                            <div class="search-box">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="search-icon3">
-                                                                        <span class="fa fa-search"></span>
-                                                                        <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
-                                                                    </span>
-                                                                    <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="list-to-filter">
-                                                                <ul class="list-unstyled">
-                                                                    <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
-                                                                        <?php if ($pegawai[$i]->idUser!=0) {?>
-                                                                        <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                </ul>
-                                                                <div class="no-search-results">
-                                                                    <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <input type="hidden" name="idUser" value="0" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Jenis Pergerakan Barang</label>
-                                                <select class="form-control" name="jenisPergerakanBarang">
-                                                    <option value="IN">BARANG MASUK</option>
-                                                    <option value="OUT">BARANG KELUAR</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Harga Beli</label>
-                                                <input type="text" placeholder="Rp" name="hargaBeli" class="form-control good" value="<?php echo set_value('hargaBeli'); ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/stokBarang"><button type="button" name="submit" class="btn btn-white" value="batal">Cancel</button></a>
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                    </div>
-                                </div>
-                             <?php echo form_close()?>  
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Balik Abu -->
             <div class="row" id="balik" style="display: none;">
                 <div class="col-lg-12">
@@ -612,12 +503,6 @@
                 document.getElementById('balik').style.display = 'none';
                 document.getElementById('balikBahan').style.display = 'none';
                 document.getElementById('transfer').style.display = 'block';
-                document.getElementById('beli').style.display = 'none';
-            } else if (tipePergerakan=='Balik Bahan') {
-                document.getElementById('opname').style.display = 'none';
-                document.getElementById('balik').style.display = 'none';
-                document.getElementById('balikBahan').style.display = 'block';
-                document.getElementById('transfer').style.display = 'none';
                 document.getElementById('beli').style.display = 'none';
             } else if (tipePergerakan=='Balik Abu') {
                 document.getElementById('opname').style.display = 'none';
