@@ -91,8 +91,9 @@
                                         <th>Kode Material</th>
                                         <th>Nama Material</th>
                                         <th>Kadar</th>
-                                        <th data-hide="phone,tablet">Stok Material</th>
+                                        <th>Stok Material</th>
                                         <th data-hide="phone,tablet">Safety Stock</th>
+                                        <th data-hide="phone,tablet">Asal</th>
                                         <th data-hide="phone,tablet">Status</th>
                                         <th data-hide="phone,tablet">Aksi</th>
                                     </tr>
@@ -105,6 +106,7 @@
                                             <td><?php echo $p->kadar?></td>
                                             <td><?php echo $p->stokMaterial.'&nbsp'.$p->satuan?></td>
                                             <td><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
+                                            <td><?php echo $p->asal?></td>
                                             <td><?php if ($p->stokMaterial>$p->safetyStock) { ?>
                                                         <small class="label label-primary">Aman</small>
                                                 <?php } else { ?>

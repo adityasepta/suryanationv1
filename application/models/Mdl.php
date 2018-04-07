@@ -690,7 +690,7 @@ class mdl extends CI_Model {
     }
 
     public function getMaterial() {
-        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where asal = 'Datang Emas' and stokMaterial > 0";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where stokMaterial > 0 AND (asal = 'Datang Emas' OR asal ='Balik Abu')";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2447,6 +2447,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
     
+    //Currency
+    public function listCurrency(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM currency");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 
 
 }
