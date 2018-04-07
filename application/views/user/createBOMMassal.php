@@ -246,18 +246,13 @@
                                     <div class="col-md-4">
                                         
                                         <label>Jumlah Bahan Butuh (gr) </label>
-                                        <input type="text" name= "bahanButuh" id="result" class="form-control" readonly="true">
+                                        <input type="text" required name= "bahanButuh" id="result" class="form-control" readonly="true">
                                     </div>
 
 
                                     
                                 </div>
 
-                        
-                                    
-                                    
-                                
-                                    
                              
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
@@ -360,7 +355,7 @@
                                     <div class="col-md-3">
                                         <br>
                                         <label>Berat Total Campuran (gr)</label>
-                                        <input type="text" name= "beratTotalCampuran" required id="result1" class="form-control" readonly="true">
+                                        <input type="text" required name= "beratTotalCampuran" required id="result1" class="form-control" readonly="true">
                                         <input type="hidden"  value="<?php echo $idSubSPK ?>" name="idSubSPK">
                                     </div>
                                     
