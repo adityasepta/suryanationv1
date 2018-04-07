@@ -4505,6 +4505,7 @@ class User extends CI_Controller {
         $jumlah    = $proses[0]->jumlah;
         $beratAwal    = $proses[0]->berat;
         $beratKecap    = $proses[0]->beratKecap;
+        $kembali    = $proses[0]->kembali;
 
         $data = array(
                 'idSPK' => $idSPK,
@@ -4569,6 +4570,8 @@ class User extends CI_Controller {
             $userx = $this->mdl->getUserByJabatan('Admin Produksi');
             $idg = $userx[0]->idUser;
 
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+
             $data = array(
                 'idPIC' => $idg,
                 'tipeBarang' => "Produk Semi Jadi",
@@ -4577,6 +4580,19 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+            $this->mdl->insertData('stokbarang', $data);
+
+            $data = array(
+                'idPIC' => $idUser,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $proses[0]->kembali,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
                 'tanggal' => date("Y-m-d H:i:s")
             );
 
