@@ -125,8 +125,14 @@
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
                 </li>
                 <li >
-                    <a href="<?php echo base_url();?>#"> 
+                    <a href="<?php echo base_url();?>user/currency"> 
                         <span class="nav-label">Harga Emas Hari Ini</span>
-                        <h2>Rp. 550.000,00</h2>
+                        <h2 style="margin-top: -0.5%;"><strong>Rp. <?php if($this->session->userdata['logged_in']['currentCurrency']!=NULL){ echo number_format($this->session->userdata['logged_in']['currentCurrency'],2);} else echo 0 ?></strong></h2>
+                        <?php 
+                          $tgl = new DateTime($this->session->userdata['logged_in']['tanggal']);
+                          $tglsk = $tgl->format("d F Y");
+                        ?>
+                        <p style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
+                        <p style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($this->session->userdata['logged_in']['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
                     </a>
                 </li>

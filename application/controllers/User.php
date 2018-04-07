@@ -1738,6 +1738,10 @@ class User extends CI_Controller {
             $this->mdl->insertData('bommassal',$dataBOM3);
             $this->mdl->insertData('bommassal',$dataBOM4);
 
+            $data = array(
+
+            );
+
             $message = "BOM berhasil dibuat";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/kanbanMassal")."';</script>";
@@ -1783,7 +1787,7 @@ class User extends CI_Controller {
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
         $jenisProduksi=$this->input->post('jenisProduksi');
-
+        
         if ($tipePergerakan=='Beli Material' || $tipePergerakan=='Transfer Material') {
             $data['materialDasar']=$this->mdl->getMaterial();
             $data['produk']=$this->mdl->getMovement();
@@ -1807,6 +1811,7 @@ class User extends CI_Controller {
         $idUser=$this->session->userdata['logged_in']['iduser'];
         $data['stok'] = $this->mdl->getStokPerId($idUser);
         $data['pegawai'] = $this->mdl->listPegawai();
+        $data['user'] = $this->mdl->findPegawai($idUser);
         $data['pergerakan'] = array(
             'tipePergerakan'    => $tipePergerakan,
             'jenisProduksi'          => $jenisProduksi
@@ -4510,6 +4515,7 @@ class User extends CI_Controller {
         $jumlah    = $proses[0]->jumlah;
         $beratAwal    = $proses[0]->berat;
         $beratKecap    = $proses[0]->beratKecap;
+        $kembali    = $proses[0]->kembali;
 
         $data = array(
                 'idSPK' => $idSPK,
@@ -4574,6 +4580,8 @@ class User extends CI_Controller {
             $userx = $this->mdl->getUserByJabatan('Admin Produksi');
             $idg = $userx[0]->idUser;
 
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+
             $data = array(
                 'idPIC' => $idg,
                 'tipeBarang' => "Produk Semi Jadi",
@@ -4582,6 +4590,19 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+            $this->mdl->insertData('stokbarang', $data);
+
+            $data = array(
+                'idPIC' => $idUser,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $proses[0]->kembali,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
                 'tanggal' => date("Y-m-d H:i:s")
             );
 
@@ -6018,6 +6039,22 @@ class User extends CI_Controller {
         $message = "Akun berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akun")."';</script>";
+    }
+
+    //Currency
+    public function currency() {
+        $data['currency'] = $this->mdl->listCurrency();
+        $this->load->view('user/currency',$data);
+    } 
+
+    public function tambahCurrency() {
+        $dataCurrency = array(
+            'hargaEmas'     => $this->input->post('hargaEmas'),
+            'tanggal'       => date("Y-m-d H:i:s"),
+        );
+        /*print_r($dataAkun);exit();*/
+        $this->mdl->insertData('currency', $dataCurrency);
+        redirect('currency');
     }
 
 

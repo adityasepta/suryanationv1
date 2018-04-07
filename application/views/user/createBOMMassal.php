@@ -198,9 +198,28 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Material</label>
+                                                <select class="form-control" id="kode2" onchange="calc1();"  name="kodeMaterial">
+                                                <?php
+                                                foreach($materials as $m)
+                                                {
+                                                    echo "<option value='".$m->idMaterial.",".$m->kadar."'";
+                                                    echo ">".$m->namaMaterial."</option>";
+
+                                                }
+
+                                                ?>
+                                                </select>
+                                            </div>
+                                            
+                                             <div class="col-md-2">
+                                                <label>Kadar Murni (%)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="k3" readonly onchange="calc1();" class="form-control" value='0' required>
+                                            </div>
                                             <div class="col-md-2">
-                                                <label>kadar Awal (%)</label>
-                                                <input type="number" step="any" name= "kadarAwal" min="1" step=any id="m1" onchange="calc1();" class="form-control" value='0' required>
+                                                <label>Kadar Lokal (%)</label>
+                                                <input type="number" step="any" name= "kadar" step=any id="k4" readonly onchange="calc1();" class="form-control" value='0' required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Berat Emas Murni (gr)</label>
@@ -389,7 +408,15 @@
         </script>
         <script type="text/javascript">
             function calc1(){
-                    var m1 = parseFloat(document.getElementById('m1').value);
+                    //var m1 = parseFloat(document.getElementById('m1').value);
+                    
+                    var c = document.getElementById('kode2').value;
+                    var t = c.split(",");
+                    //console.log(t[1]);
+
+                    document.getElementById('k3').value = t[1];
+
+                    var m1 = parseFloat(document.getElementById('k3').value);
                     var m2 = parseFloat(document.getElementById('m2').value);
                     var m3 = parseFloat(document.getElementById('m3').value);
 
