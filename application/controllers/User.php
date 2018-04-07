@@ -1638,14 +1638,16 @@ class User extends CI_Controller {
             $jmlbutuh = $this->input->post('bahanButuh');
 
             $idm = explode(",",$idMaterial);
+
+            //print_r($idMaterial);exit();
             
             $dataBOM= array(
                 'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $idMaterial,
+                'idMaterial' => $idm[0][0],
                 'jumlah'     => $jmlbutuh
                 );
             
-            //print_r($idm[0][0]);exit();
+            
 
             $this->mdl->insertData('bommassal',$dataBOM);
             echo '<b>Data BOM berhasil disimpan.</b><br />';
@@ -1653,102 +1655,72 @@ class User extends CI_Controller {
         }
     }
 
-    public function createBOMMassalTurun($idSubSPK) {
-        $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
-        $idUser=$this->session->userdata['logged_in']['iduser'];
-        if ($this->form_validation->run() == FALSE){
+    public function createBOMMassalTurun() {
 
-            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
+        $idSubSPK = $this->input->post('idSubSPK');
 
-            $this->load->view('user/createBOMMassal',$data);
-        }
-        else {
-            if ($this->input->post('beratAlloy') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Alloy');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratAlloy');
-                
-                
-                
-                 
-                
+        $data['material'] = $this->mdl->findNamaMaterial('Alloy');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratAlloy');
 
-                $dataBOM1= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh,
-                );
-                
-            }
-            if ($this->input->post('beratTembaga') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratTembaga');
-                
-                
-                
-                
-                
+        $dataBOM1= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratTembaga');
+        
 
-                $dataBOM2= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh,
-                );
-                
-            }
-            if ($this->input->post('beratPerak') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Perak');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $jmlbutuh = $this->input->post('beratPerak');
-                
-                
-                
-                
-                
-                $dataBOM3= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh
-                );
-                
-            }
-            if ($this->input->post('beratPaladium') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Paladium');
-                $idMaterial = $data['material'][0]->idMaterial;
+        $dataBOM2= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Perak');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratPerak');
+        
 
-                $jmlbutuh = $this->input->post('beratPaladium');
-                
-                
-                
-                
-                
-                $dataBOM4= array(
-                    'idSubSPK'   => $idSubSPK,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $jmlbutuh
-                );
-                
-            }
-
-            $this->mdl->insertData('bommassal',$dataBOM1);
-            $this->mdl->insertData('bommassal',$dataBOM2);
-            $this->mdl->insertData('bommassal',$dataBOM3);
-            $this->mdl->insertData('bommassal',$dataBOM4);
-
-            $data = array(
-
+        $dataBOM3= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh
             );
+            
 
-            $message = "BOM berhasil dibuat";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/kanbanMassal")."';</script>";
-        }
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idm = explode(",",$idMaterial);
+
+        
+        $jmlbutuh = $this->input->post('beratEmasMurni');
+        $data = array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm[0][0],
+            'jumlah'     => $jmlbutuh
+        );
+
+
+        $this->mdl->insertData('bommassal',$dataBOM1);
+        $this->mdl->insertData('bommassal',$dataBOM2);
+        $this->mdl->insertData('bommassal',$dataBOM3);
+        $this->mdl->insertData('bommassal',$data);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
     }
 
-    public function createBOMMassalNaik($idSubSPK) {
+    public function createBOMMassalNaik() {
         $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
         if ($this->form_validation->run() == FALSE){
             $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
@@ -1764,8 +1736,6 @@ class User extends CI_Controller {
             $jmltarget = $this->input->post('beratBahanTarget');
             
                 
-            
-
                 $dataBOM= array(
                     'idSubSPK'   => $idSubSPK,
                     'idMaterial' => $idMaterial,
