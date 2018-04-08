@@ -402,7 +402,7 @@
                                                         <th class="text-center">Berat Akhir</th>
                                                         <th class="text-center">Kembali</th>
                                                         <th class="text-center">Berat Tambahan</th>
-                                                        <th class="text-center">Susut Awal</th>
+                                                        <th class="text-center">Kurang Bahan</th>
                                                         <th class="text-center">Jumlah Barang</th>
                                                         <th class="text-center">Jumlah Sub SPK</th>
                                                         <th class="text-center">Jumlah Wadah</th>
