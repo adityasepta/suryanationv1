@@ -2379,11 +2379,11 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getRekapMassal($idSPK) {
         $sql   = "
 
-        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut, sum(jumlah) as jumlah , count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))) as susut, sum(jumlah) as jumlah , count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
         
         UNION 
         
-        SELECT 2 as idAktivitas, 'Kecap' as namaAktivitas, sum(berat) as beratAwal, sum(beratKecap) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(berat)-sum(beratKecap)) as susut, sum(jumlah) as jumlah,count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        SELECT 2 as idAktivitas, 'Kecap' as namaAktivitas, (sum(berat)-sum(kembali)) as beratAwal, sum(beratKecap) as berat, 0 as kembali, sum(beratTambahan) as beratTambahan , (sum(berat)-sum(beratKecap)) as susut, sum(jumlah) as jumlah,count(distinct idSubSPK) as jmlsub, sum(case when idWadah > 0 then 1 else 0 end) as jmlwadah FROM factproduction2 a, aktivitas b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
 
         UNION 
 

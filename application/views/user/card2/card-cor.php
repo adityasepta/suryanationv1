@@ -282,7 +282,7 @@
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
                                                     <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->berat?>"  name="berat" class="form-control"></div>
-                                                    <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $co[$i]->idProProd ?>"></div>
+                                                    <div class="col-sm-2"><input type="hidden" required name="idProProd" readonly class="form-control" value="<?php echo $co[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>
                                             <div class="form-horizontal">
@@ -295,7 +295,7 @@
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Balik Bahan</label>
 
-                                                    <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->kembali?>" name="kembali" class="form-control"></div>
+                                                    <div class="col-sm-5"><input type="number" step="any" required="" value="<?php echo $co[$i]->kembali?>" name="kembali" class="form-control"></div>
                                                    
                                                 </div>
                                             </div>

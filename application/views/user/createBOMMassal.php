@@ -83,7 +83,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i=0; $i < count($bom4); $i++) { ?>
+                                    <?php $jh = 0; for ($i=0; $i < count($bom4); $i++) { $jh += $bom4[$i]->jumlah;?>
                              
                                         <tr>
                                             <td class="text-center"><?php echo $i+1?></td>
@@ -102,6 +102,11 @@
                                         </tr>
                              
                                     <?php }?>
+                                    <tr>
+                                        <td colspan="3" class="text-center"><b>Total Susut</b></td>
+                                        <td colspan="1" class="text-center"><b><?php echo round($jh,2);?> gr</b></td>
+                                        <td colspan="1" class="text-center"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

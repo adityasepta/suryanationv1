@@ -412,7 +412,7 @@
                                                 <tbody>
 
                                                     <?php $totalSusut=0; for($p = 0; $p < count($rkp); ++$p) {
-                                                            if($rkp[$p]->idAktivitas > 0 and count($rkp) > 4){
+                                                            if($rkp[$p]->idAktivitas > 0 and count($rkp) > 2){
                                                                 $totalSusut=$totalSusut+$rkp[$p]->susut;
                                                         ?>
 

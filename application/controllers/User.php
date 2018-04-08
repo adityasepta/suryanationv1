@@ -4647,6 +4647,8 @@ class User extends CI_Controller {
         
         $idp = $this->input->post('idProProd');
 
+        
+
         $data = array(
             'berat' => $this->input->post('berat'),
             'beratAwal' => $this->input->post('beratAwal'),
