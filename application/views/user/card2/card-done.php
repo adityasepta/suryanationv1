@@ -80,6 +80,56 @@
         </div>
         <br>
         <div class="row">
+            <div class="col-lg-4">
+                Customer<br>
+                Sales Person
+            </div>
+            <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $do[$i]->namaCustomer ?></b><br>
+                :&nbsp&nbsp<b><?php echo $do[$i]->namasales ?></b>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Produk<br>
+                Jenis
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $do[$i]->namap ?></b><br>
+                :&nbsp&nbsp<b><?php echo $do[$i]->jenisProduk?></b>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Kadar
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $do[$i]->kadarBahan ?> %</b>
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                Tgl Masuk<br>
+                <b><?php echo $do[$i]->tanggal ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tgl Estimasi Selesai<br>
+                <b><?php echo $do[$i]->tanggalSelesai ?></b>
+            </div>
+        </div>
+        <br>
+        <div class="row">
             <div class="col-lg-12">
                 <div class="progress progress-striped active">
 

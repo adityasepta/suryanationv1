@@ -4306,7 +4306,7 @@ class User extends CI_Controller {
 
         $sub = $this->mdl->getSubSPK($idSPK);
 
-        for ($i=0; $i < count($sub) ; $i++) { 
+        for ($i=0; $i < $jumlah ; $i++) { 
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -4323,16 +4323,33 @@ class User extends CI_Controller {
         $data = array(
             'tanggalApprovalBOM' => date("Y-m-d H:i:s"),
 
+            /*'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),*/
+            
+            'statusBOM' => 'Disetujui',/*
+            'statusJadwal' => 'Disetujui',
+            'statusPersetujuan' => 'Disetujui'*/
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
+
+        $message = "Berhasil membuat Sub SPK";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
+    }
+
+
+    public function selesaiSeparasi($idSPK) {
+    $data = array(
+            
             'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),
             
-            'statusBOM' => 'Disetujui',
             'statusJadwal' => 'Disetujui',
             'statusPersetujuan' => 'Disetujui'
         );
         
         $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
 
-        $message = "Berhasil membuat Sub SPK";
+        $message = "Separasi SPK ".$idSPK." selesai dilakukan.";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
     }

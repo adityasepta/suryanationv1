@@ -71,6 +71,19 @@
     <?php } else {?>
 
     <div class="row">
+            <div class="col-lg-6 text-center">
+                No Faktur<br>
+                <b><?php echo $bo[$i]->nomorFaktur ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tipe Order<br>
+                <b><?php echo $bo[$i]->tipeOrder ?></b>
+            </div>
+        </div>
+        
+        
+    <div class="row">
         <div class="col-lg-4 text-center ">
             ID Sub SPK<br>
             <b><?php echo $bo[$i]->idSubSPK ?></b>
@@ -84,12 +97,6 @@
             Sisa Barang<br>
             <b><?php echo $bo[$i]->jumlahNow ?> / <?php echo $bo[$i]->jumlah ?></b>
         </div>
-    
-    </div>
-    
-    <div class="row">
-        <br>
-
         <div class="col-lg-12">
             <div class="progress progress-striped active">
                 <?php 
@@ -102,7 +109,63 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+    </div>
+    <br>
+        <div class="row">
+            <div class="col-lg-4">
+                Customer<br>
+                Sales Person
+            </div>
+            <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $bo[$i]->namaCustomer ?></b><br>
+                :&nbsp&nbsp<b><?php echo $bo[$i]->namasales ?></b>
+            </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Produk<br>
+                Jenis
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $bo[$i]->namap ?></b><br>
+                :&nbsp&nbsp<b><?php echo $bo[$i]->jenisProduk?></b>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Kadar
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $bo[$i]->kadarBahan ?> %</b>
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                Tgl Masuk<br>
+                <b><?php echo $bo[$i]->tanggal ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tgl Estimasi Selesai<br>
+                <b><?php echo $bo[$i]->tanggalSelesai ?></b>
+            </div>
+        </div>
+        <br>
+    
+    <div class="row">
+        <br>
         <div class="col-lg-3">
             
             <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>

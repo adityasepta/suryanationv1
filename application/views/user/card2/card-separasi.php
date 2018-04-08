@@ -71,16 +71,32 @@
         </div>
         
     </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            Kadar
+            
+        </div>
+        <div class="col-lg-4">
+            :&nbsp&nbsp<b><?php echo $sp[$i]->kadarBahan ?> %</b>
+            
+        </div>
+        
+    </div>
     
     <div class="row">
         <br>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <br>    
             <button data-toggle="modal" data-target="#detail2x<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <br>    
             <button data-toggle="modal" data-target="#subspk<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-sitemap"></span></button>
+        </div>
+        <div class="col-lg-4">
+            <br>    
+            <a href="<?php echo base_url();?>user/selesaiSeparasi/<?php echo $sp[$i]->nomorFaktur ?>" onclick="return confirm('Apakah anda yakin untuk menyelesaikan separasi pada produksi nomor faktur <?php echo $sp[$i]->nomorFaktur ?>')"><button type="submit" class="btn btn-xs btn-warning btn-block">Selesai</button></a>
         </div>
 
 

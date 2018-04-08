@@ -1809,7 +1809,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getProsesMassal1($idAktivitas) {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalJadwal, '%d %M %Y' ) AS tanggaljadwal, k.nama AS namapic, u.nama AS namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u, user k, factproduction2 f, rencanaproduksi2 r WHERE po.idSalesPerson = u.idUser AND k.idUser = f.idPIC AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idAktivitas = $idAktivitas AND s.idSPK = f.idSPK AND f.statusWork != 'Done' and f.idSPK = r.idSPK and r.idAktivitas = $idAktivitas ORDER BY f.idproprod";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai, DATE_FORMAT( tanggalApprovalJadwal, '%d %M %Y' ) AS tanggaljadwal, k.nama AS namapic, u.nama AS namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u, user k, factproduction2 f, rencanaproduksi2 r WHERE po.idSalesPerson = u.idUser AND k.idUser = f.idPIC AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idAktivitas = $idAktivitas AND s.idSPK = f.idSPK AND f.statusWork != 'Done' and f.idSPK = r.idSPK and r.idAktivitas = $idAktivitas ORDER BY f.idSPK,f.idSubSPK";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1818,7 +1818,8 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getDone() {
 
-        $sql   = "SELECT * from (SELECT idSPK, sum(jumlah) as max FROM `factproduction2`where idAktivitas = 1006 group by idspk) a, (SELECT idSPK, sum(jumlah) as jumlah FROM `factproduction2` where idAktivitas = 1014 and statusWork='On Progress' group by idspk) b, (SELECT idSPK, count( DISTINCT idSubSPK) as jml1,count( DISTINCT idWadah) as jml2 FROM `factproduction2` group by idspk) d, spkmasal c where a.idSPK = b.idSPK and c.idSPK = a.idSPK and a.idSPK = d.idSPK order by (max-jumlah)";
+        /*$sql   = "SELECT * from (SELECT idSPK, sum(jumlah) as max FROM `factproduction2`where idAktivitas = 1006 group by idspk) a, (SELECT idSPK, sum(jumlah) as jumlah FROM `factproduction2` where idAktivitas = 1014 and statusWork='On Progress' group by idspk) b, (SELECT idSPK, count( DISTINCT idSubSPK) as jml1,count( DISTINCT idWadah) as jml2 FROM `factproduction2` group by idspk) d, spkmasal c where a.idSPK = b.idSPK and c.idSPK = a.idSPK and a.idSPK = d.idSPK order by (max-jumlah)";*/
+        $sql = "SELECT e.*,f.namaProduk as namap,f.jenisProduk,e.kadarBahan,h.namaCustomer as namaCustomer,g.nama as namasales,tanggal,tanggalSelesai FROM (SELECT a.*,b.*,c.*,po.idSalesPerson,po.kadarBahan,d.*,DATE_FORMAT(po.tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(po.tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai from (SELECT idSPK as id1, sum(jumlah) as max FROM `factproduction2`where idAktivitas = 1006 group by idspk) a, (SELECT idSPK as id2, sum(jumlah) as jumlah FROM `factproduction2` where idAktivitas = 1014 and statusWork='On Progress' group by idspk) b, (SELECT idSPK as id3, count( DISTINCT idSubSPK) as jml1,count( DISTINCT idWadah) as jml2 FROM `factproduction2` group by idspk) d, spkmasal c, pomasal po where a.id1 = b.id2 and c.idSPK = a.id1 and a.id1 = d.id3 and po.nomorPO=c.nomorPO  order by (max-jumlah))e, produk f, user g,customer h WHERE e.idProduk=f.idProduk and e.idCustomer = h.idCustomer and e.idSalesPerson=g.idUser";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1837,7 +1838,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getSeparasi() {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalApprovalJadwal, '%d %M %Y') AS tanggaljadwal, u.nama as namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal = 'Sudah Ada' AND s.statusPersetujuan != 'Disetujui' and s.idSPK not in (SELECT idSPK from subspk)";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalApprovalJadwal, '%d %M %Y') AS tanggaljadwal, u.nama as namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal = 'Sudah Ada' AND s.statusPersetujuan != 'Disetujui'";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1851,7 +1852,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getSubSPK($idSPK) {
-        $sql   = "SELECT * from subspk where idSPK = $idSPK ";
+        $sql   = "SELECT * from subspk where idSPK = $idSPK ORDER BY idSubSPK DESC";
         $query = $this->db->query($sql);
         
         return $query->result();
