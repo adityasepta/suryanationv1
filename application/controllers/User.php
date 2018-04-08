@@ -2162,7 +2162,7 @@ class User extends CI_Controller {
                 $jumlah=$data['bom'][$i]->jumlah;
                 $stokBarang=$data['bom'][$i]->stokMaterial;
                 $stokBarangTerbaru = $stokBarang-$jumlah;
-                //print_r($dataInventory);
+                
                 $this->mdl->insertInventory($dataInventory);
                 $this->mdl->updateStokProduk2($data['bom'][$i]->kodeMaterial,$stokBarangTerbaru);
             }
