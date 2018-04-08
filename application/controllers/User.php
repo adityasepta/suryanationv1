@@ -21,20 +21,18 @@ class User extends CI_Controller {
 
         }
 
-        // print_r($data['currentCurrency']);exit();
+        $currency = $this->mdl->checkCurrency();
+        $currentPrice['gold'] = array(
+            'currentCurrency' => $currency[0]->hargaEmas,
+            'tanggal' => $currency[0]->tanggal, 
+        );
+        $this->load->vars($currentPrice);
+
     }
 
     public function index() {
 
-        // if (isset($this->session->userdata['logged_in'])) {
-
             $this->load->view('user/dashboardutama_view');
-
-        // } else {
-        //     redirect('user/login');
-        // }
-
-        
     }
 
     public function kanban() {
@@ -6066,18 +6064,6 @@ class User extends CI_Controller {
             'tanggal'       => date("Y-m-d H:i:s"),
         );
         $this->mdl->insertData('currency', $dataCurrency);
-
-        $session_data = array(
-            'username'  => $this->session->userdata['logged_in']['username'],
-            'nama'      => $this->session->userdata['logged_in']['nama'],
-            'password'  => $this->session->userdata['logged_in']['password'],
-            'level'     => $this->session->userdata['logged_in']['level'],
-            'iduser'    => $this->session->userdata['logged_in']['iduser'],
-            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
-            'currentCurrency'   => $hargaEmas,
-            'tanggal'   => date("Y-m-d H:i:s"),
-        );
-        $this->session->set_userdata('logged_in', $session_data);
         
         redirect('user/currency');
     }
@@ -6087,21 +6073,8 @@ class User extends CI_Controller {
 
         $dataCurrency = array(
             'hargaEmas'     => $hargaEmas,
-            'tanggal'       => date("Y-m-d H:i:s"),
         );
         $this->mdl->updateData('idCurrency',$idCurrency,'currency', $dataCurrency);
-
-        $session_data = array(
-            'username'  => $this->session->userdata['logged_in']['username'],
-            'nama'      => $this->session->userdata['logged_in']['nama'],
-            'password'  => $this->session->userdata['logged_in']['password'],
-            'level'     => $this->session->userdata['logged_in']['level'],
-            'iduser'    => $this->session->userdata['logged_in']['iduser'],
-            'jabatan'   => $this->session->userdata['logged_in']['jabatan'],
-            'currentCurrency'   => $hargaEmas,
-            'tanggal'   => date("Y-m-d H:i:s"),
-        );
-        $this->session->set_userdata('logged_in', $session_data);
         
         redirect('user/currency');
     }

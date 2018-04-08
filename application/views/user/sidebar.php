@@ -130,12 +130,12 @@
                 <li style="background-color: rgb(1, 177, 209, 0.1); ">
                     <a href="<?php echo base_url();?>user/currency"> 
                         <span class="nav-label" style="color:rgb(209, 156, 0);">Harga Emas Hari Ini</span>
-                        <h2 class="nav-label" style="margin-top: -0.5%;"><strong>Rp. <?php if($this->session->userdata['logged_in']['currentCurrency']!=NULL){ echo number_format($this->session->userdata['logged_in']['currentCurrency'],2);} else echo 0 ?></strong></h2>
+                        <h2 class="nav-label" style="margin-top: -0.5%;"><strong>Rp. <?php if($gold['currentCurrency']!=NULL){ echo number_format($gold['currentCurrency'],2);} else echo 0 ?></strong></h2>
                         <?php 
-                          $tgl = new DateTime($this->session->userdata['logged_in']['tanggal']);
+                          $tgl = new DateTime($gold['tanggal']);
                           $tglsk = $tgl->format("d F Y");
                         ?>
                         <p class="nav-label" style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
-                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($this->session->userdata['logged_in']['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
+                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($gold['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
                     </a>
                 </li>
