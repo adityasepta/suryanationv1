@@ -1195,6 +1195,7 @@ class User extends CI_Controller {
         $data['stokBarang']=$this->mdl->getStokProduk();
         $data['pegawai'] = $this->mdl->listPegawai();
         $idUser=$this->session->userdata['logged_in']['iduser'];
+        $data['stok']=$this->mdl->stockPerMaterial($idUser);
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
@@ -1653,35 +1654,35 @@ class User extends CI_Controller {
     }
 
     public function createBOMMassal($idSubSPK) {
-        $this->form_validation->set_rules('idSubSPK','idSubSPK', 'required');
         $data['lk'] = $this->mdl->getSetting();
-        
-        if ($this->form_validation->run() == FALSE){
-            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['bom4'] = $this->mdl->getbom4($idSubSPK);
-            $this->load->view('user/createBOMMassal',$data);
-        }
-        else {
-            $idMaterial = $this->input->post('kodeMaterial');
-            $idUser=$this->session->userdata['logged_in']['iduser'];
-            $jmlbutuh = $this->input->post('bahanButuh');
+        $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
+        $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
+        $data['materials']=$this->mdl->getMaterial();
+        $data['bom4'] = $this->mdl->getbom4($idSubSPK);
+        $this->load->view('user/createBOMMassal',$data);
+    }
 
-            $idm = explode(",",$idMaterial);
-            $dataBOM= array(
-                'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $idm[0],
-                'jumlah'     => $jmlbutuh
-                );
-        
+    public function tambahBOMMassal() {
 
-            $this->mdl->insertData('bommassal',$dataBOM);
-            $message = "BOM berhasil dibuat";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
-            
-        }
+        $idSubSPK = $this->input->post('idSubSPK');
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $jmlbutuh = $this->input->post('berat');
+
+        $idm = explode(",",$idMaterial);
+        $dataBOM= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $jmlbutuh
+            );
+    
+        
+        $this->mdl->insertData('bommassal',$dataBOM);
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
     }
 
     public function createBOMMassalTurun() {
@@ -1796,6 +1797,8 @@ class User extends CI_Controller {
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
         $jenisProduksi=$this->input->post('jenisProduksi');
+        $idUser=$this->input->post('idUser');
+        // print_r($idUser);exit();
         
         if ($tipePergerakan=='Beli Material' || $tipePergerakan=='Transfer Material') {
             $data['materialDasar']=$this->mdl->getMaterial();
@@ -1803,7 +1806,7 @@ class User extends CI_Controller {
             $data['produkJadi']=$this->mdl->getProduk();
 
         } else if ($tipePergerakan=='Balik Abu') {
-            $idUser=$this->input->post('idUser');
+            
 
             if ($jenisProduksi=="tempahan") {
                 $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
@@ -1817,7 +1820,7 @@ class User extends CI_Controller {
             $data['produk']=$this->mdl->getMovement();
             $data['produkJadi']=$this->mdl->getProduk();
         }
-        $idUser=$this->session->userdata['logged_in']['iduser'];
+        // $idUser=$this->session->userdata['logged_in']['iduser'];
         $data['stok'] = $this->mdl->getStokPerId($idUser);
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['user'] = $this->mdl->findPegawai($idUser);
@@ -1922,8 +1925,7 @@ class User extends CI_Controller {
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
-                
-                redirect('user/stokBarang');   
+            redirect('user/stokBarang');   
         }
     }
 
@@ -2162,7 +2164,7 @@ class User extends CI_Controller {
                 $jumlah=$data['bom'][$i]->jumlah;
                 $stokBarang=$data['bom'][$i]->stokMaterial;
                 $stokBarangTerbaru = $stokBarang-$jumlah;
-                //print_r($dataInventory);
+                
                 $this->mdl->insertInventory($dataInventory);
                 $this->mdl->updateStokProduk2($data['bom'][$i]->kodeMaterial,$stokBarangTerbaru);
             }
@@ -3145,6 +3147,7 @@ class User extends CI_Controller {
 
     public function tambahRekapProduksi() {
         $idUser=$this->input->post('idUser');
+
         $jenisProduksi=$this->input->post('jenisProduksi');
 
         if ($jenisProduksi=="tempahan") {
