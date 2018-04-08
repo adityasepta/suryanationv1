@@ -71,6 +71,19 @@
     <?php } else {?>
 
     <div class="row">
+            <div class="col-lg-6 text-center">
+                No Faktur<br>
+                <b><?php echo $kr[$i]->nomorFaktur ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tipe Order<br>
+                <b><?php echo $kr[$i]->tipeOrder ?></b>
+            </div>
+        </div>
+        
+        
+    <div class="row">
         <div class="col-lg-4 text-center ">
             ID Sub SPK<br>
             <b><?php echo $kr[$i]->idSubSPK ?></b>
@@ -84,12 +97,6 @@
             Sisa Barang<br>
             <b><?php echo $kr[$i]->jumlahNow ?> / <?php echo $kr[$i]->jumlah ?></b>
         </div>
-    
-    </div>
-    
-    <div class="row">
-        <br>
-
         <div class="col-lg-12">
             <div class="progress progress-striped active">
                 <?php 
@@ -102,7 +109,61 @@
                 </div>
             </div>
         </div>
+    </div>
+    <br>
+        <div class="row">
+            <div class="col-lg-4">
+                Customer<br>
+                Sales Person
+            </div>
+            <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $kr[$i]->namaCustomer ?></b><br>
+                :&nbsp&nbsp<b><?php echo $kr[$i]->namasales ?></b>
+            </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Produk<br>
+                Jenis
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $kr[$i]->namap ?></b><br>
+                :&nbsp&nbsp<b><?php echo $kr[$i]->jenisProduk?></b>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Kadar
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $kr[$i]->kadarBahan ?> %</b>
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                Tgl Masuk<br>
+                <b><?php echo $kr[$i]->tanggal ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tgl Estimasi Selesai<br>
+                <b><?php echo $kr[$i]->tanggalSelesai ?></b>
+            </div>
+        </div>
+        <br>
+    
+    <div class="row">
+        <br>
         <div class="col-lg-3">
             
             <button data-toggle="modal" data-target="#detail<?php echo $kr[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>

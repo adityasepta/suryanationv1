@@ -141,6 +141,119 @@
 
                                         <thead>
                                             <tr>
+                                                <th class="text-center">Kode Barang</th>
+                                                <th class="text-center">Nama Barang</th>
+                                                <th class="text-center">Stok (Berat)</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php for ($i=0; $i < count($stok); ++$i) { 
+                                                $stokSekarang=$stok[$i]->masuk-$stok[$i]->keluar;
+                                                if($stokSekarang>0){
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $stok[$i]->kodeBarang?></td>
+                                                    <td><?php echo $stok[$i]->namaBarang?></td>
+                                                    <td><?php echo $stokSekarang?> gr</td>
+                                                    <td><a class="btn btn-xs btn-info" data-toggle="modal" data-target="#transfer<?php echo $stok[$i]->kodeBarang ?>">Transfer</a></td>
+                                                </tr>
+                                            <?php }?>
+                                                <div class="modal inmodal fade" id="transfer<?php echo $stok[$i]->kodeBarang ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                <h3 class="modal-title">Transfer Material</h3><br>
+
+                                                            </div>
+                                                            <?php echo form_open('user/createInventoryTransfer')?>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+
+                                                                    <div class="col-lg-4 text-center">
+                                                                        Nama Barang
+                                                                        <h2 class="text-success"><?php echo $stok[$i]->namaBarang ?></h2>
+                                                                        <input type="hidden" value="<?php echo $stok[$i]->kodeBarang ?>" name="kodeBarang">
+                                                                        <input type="hidden" value="gr" name="satuan">
+                                                                        <input type="hidden" value="Transfer" name="tipePergerakan">
+                                                                    </div>
+                                                                    <div class="col-lg-8">
+                                                                        <label>Berat</label>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" required value="<?php echo $stokSekarang ?>" name="jumlah">
+                                                                        </div>
+                                                                        
+                                                                        <label class="m-t-none m-b">Pilih Pegawai Yang Dituju</label>
+                                                                        <div id="idPIC" class="selectpicker" data-live="true">
+                                                                            <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
+                                                                                <span class="placeholder">Pilih Pegawai</span>
+                                                                                <span class="caret"></span>
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
+                                                                                    <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
+                                                                                    <div class="search-box">
+                                                                                        <div class="input-group">
+                                                                                            <span class="input-group-addon" id="search-icon3">
+                                                                                                <span class="fa fa-search"></span>
+                                                                                                <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
+                                                                                            </span>
+                                                                                            <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="list-to-filter">
+                                                                                        <ul class="list-unstyled">
+                                                                                            <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
+                                                                                                <?php if ($pegawai[$i]->idUser!=0) {?>
+                                                                                                <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
+                                                                                                <?php } ?>
+                                                                                            <?php } ?>
+                                                                                        </ul>
+                                                                                        <div class="no-search-results">
+                                                                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <input type="hidden" name="idPIC" value="0" required="">
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <br><br>
+                                                                        <button type="submit" onclick="return confirm('Apakah anda yakin untuk mentransfer material ini?')"  class="btn btn-lg btn-primary btn-block">Transfer</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <?php echo form_close();?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php }?>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <ul class="pagination pull-right"></ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                        
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 table-responsive text-center">
+                                    <table data-page-size="4" class=" footable table  table-stripped">
+
+                                        <thead>
+                                            <tr>
                                                 <th class="text-center">Arah</th>
                                                 <th class="text-center">Barang</th>
                                                 <th class="text-center">Kadar</th>

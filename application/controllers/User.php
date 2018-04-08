@@ -1195,6 +1195,7 @@ class User extends CI_Controller {
         $data['stokBarang']=$this->mdl->getStokProduk();
         $data['pegawai'] = $this->mdl->listPegawai();
         $idUser=$this->session->userdata['logged_in']['iduser'];
+        $data['stok']=$this->mdl->stockPerMaterial($idUser);
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
@@ -1796,6 +1797,8 @@ class User extends CI_Controller {
     public function tambahPergerakan() {
         $tipePergerakan=$this->input->post('tipePergerakan');
         $jenisProduksi=$this->input->post('jenisProduksi');
+        $idUser=$this->input->post('idUser');
+        // print_r($idUser);exit();
         
         if ($tipePergerakan=='Beli Material' || $tipePergerakan=='Transfer Material') {
             $data['materialDasar']=$this->mdl->getMaterial();
@@ -1803,7 +1806,7 @@ class User extends CI_Controller {
             $data['produkJadi']=$this->mdl->getProduk();
 
         } else if ($tipePergerakan=='Balik Abu') {
-            $idUser=$this->input->post('idUser');
+            
 
             if ($jenisProduksi=="tempahan") {
                 $data['listSPK'] = $this->mdl->getSPKTempahan($idUser);
@@ -1817,7 +1820,7 @@ class User extends CI_Controller {
             $data['produk']=$this->mdl->getMovement();
             $data['produkJadi']=$this->mdl->getProduk();
         }
-        $idUser=$this->session->userdata['logged_in']['iduser'];
+        // $idUser=$this->session->userdata['logged_in']['iduser'];
         $data['stok'] = $this->mdl->getStokPerId($idUser);
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['user'] = $this->mdl->findPegawai($idUser);
@@ -1922,8 +1925,7 @@ class User extends CI_Controller {
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
-                
-                redirect('user/stokBarang');   
+            redirect('user/stokBarang');   
         }
     }
 
@@ -3145,6 +3147,7 @@ class User extends CI_Controller {
 
     public function tambahRekapProduksi() {
         $idUser=$this->input->post('idUser');
+
         $jenisProduksi=$this->input->post('jenisProduksi');
 
         if ($jenisProduksi=="tempahan") {
@@ -4306,7 +4309,7 @@ class User extends CI_Controller {
 
         $sub = $this->mdl->getSubSPK($idSPK);
 
-        for ($i=0; $i < count($sub) ; $i++) { 
+        for ($i=0; $i < $jumlah ; $i++) { 
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -4323,16 +4326,33 @@ class User extends CI_Controller {
         $data = array(
             'tanggalApprovalBOM' => date("Y-m-d H:i:s"),
 
+            /*'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),*/
+            
+            'statusBOM' => 'Disetujui',/*
+            'statusJadwal' => 'Disetujui',
+            'statusPersetujuan' => 'Disetujui'*/
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
+
+        $message = "Berhasil membuat Sub SPK";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
+    }
+
+
+    public function selesaiSeparasi($idSPK) {
+    $data = array(
+            
             'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),
             
-            'statusBOM' => 'Disetujui',
             'statusJadwal' => 'Disetujui',
             'statusPersetujuan' => 'Disetujui'
         );
         
         $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
 
-        $message = "Berhasil membuat Sub SPK";
+        $message = "Separasi SPK ".$idSPK." selesai dilakukan.";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='" . base_url("user/kanbanmassal") . "';</script>";
     }

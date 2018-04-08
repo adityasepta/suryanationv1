@@ -60,13 +60,63 @@
                 No Faktur<br>
                 <b><?php echo $co[$i]->nomorFaktur ?></b>
             </div>
+
             <div class="col-lg-6 text-center ">
-                ID Sub SPK<br>
-                <b><?php echo $co[$i]->idSubSPK ?></b>
+                Tipe Order<br>
+                <b><?php echo $co[$i]->tipeOrder ?></b>
             </div>
         </div>
-
         
+        <br>
+        <div class="row">
+            <div class="col-lg-4">
+                Customer<br>
+                Sales Person
+            </div>
+            <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $co[$i]->namaCustomer ?></b><br>
+                :&nbsp&nbsp<b><?php echo $co[$i]->namasales ?></b>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Produk<br>
+                Jenis
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $co[$i]->namap ?></b><br>
+                :&nbsp&nbsp<b><?php echo $co[$i]->jenisProduk?></b>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Kadar
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $co[$i]->kadarBahan ?> %</b>
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                Tgl Masuk<br>
+                <b><?php echo $co[$i]->tanggal ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tgl Estimasi Selesai<br>
+                <b><?php echo $co[$i]->tanggalSelesai ?></b>
+            </div>
+        </div>
         <br>
         <div class="row">
             <div class="col-lg-3">

@@ -69,7 +69,19 @@
 
 
     <?php } else {?>
+    <div class="row">
+            <div class="col-lg-6 text-center">
+                No Faktur<br>
+                <b><?php echo $gp[$i]->nomorFaktur ?></b>
+            </div>
 
+            <div class="col-lg-6 text-center ">
+                Tipe Order<br>
+                <b><?php echo $gp[$i]->tipeOrder ?></b>
+            </div>
+        </div>
+        
+        
     <div class="row">
         <div class="col-lg-4 text-center ">
             ID Sub SPK<br>
@@ -84,12 +96,6 @@
             Sisa Barang<br>
             <b><?php echo $gp[$i]->jumlahNow ?> / <?php echo $gp[$i]->jumlah ?></b>
         </div>
-    
-    </div>
-    
-    <div class="row">
-        <br>
-
         <div class="col-lg-12">
             <div class="progress progress-striped active">
                 <?php 
@@ -102,6 +108,62 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+    </div>
+    <br>
+        <div class="row">
+            <div class="col-lg-4">
+                Customer<br>
+                Sales Person
+            </div>
+            <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $gp[$i]->namaCustomer ?></b><br>
+                :&nbsp&nbsp<b><?php echo $gp[$i]->namasales ?></b>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Produk<br>
+                Jenis
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $gp[$i]->namap ?></b><br>
+                :&nbsp&nbsp<b><?php echo $gp[$i]->jenisProduk?></b>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                Kadar
+                
+            </div>
+            <div class="col-lg-4">
+                :&nbsp&nbsp<b><?php echo $gp[$i]->kadarBahan ?> %</b>
+                
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                Tgl Masuk<br>
+                <b><?php echo $gp[$i]->tanggal ?></b>
+            </div>
+
+            <div class="col-lg-6 text-center ">
+                Tgl Estimasi Selesai<br>
+                <b><?php echo $gp[$i]->tanggalSelesai ?></b>
+            </div>
+        </div>
+        <br>
+    <div class="row">
+        <br>
 
         <div class="col-lg-3">
             
