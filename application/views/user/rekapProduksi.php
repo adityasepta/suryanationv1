@@ -88,9 +88,9 @@
                                 <?php foreach($dataRekap as $hasil) : ?>
                                 <tr>
                                     <?php $tglmsk = new DateTime($hasil->waktuPengembalian);
-                                    $tglmsk = $tglmsk->format("Y-m-d"); ?>
+                                    $tglmsk = $tglmsk->format("d F Y"); ?>
                                     <td><?php echo $hasil->nama?></td>
-                                    <td><?php echo $hasil->beratKembali?></td>
+                                    <td><?php echo $hasil->beratKembali?> gr</td>
                                     <td><?php echo $tglmsk?></td>
                                     <td><?php echo $hasil->jenisProduksi?></td>
                                     <td class="text-center">

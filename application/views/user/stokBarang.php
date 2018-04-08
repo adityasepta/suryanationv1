@@ -141,6 +141,41 @@
 
                                         <thead>
                                             <tr>
+                                                <th class="text-center">Kode Barang</th>
+                                                <th class="text-center">Nama Barang</th>
+                                                <th class="text-center">Stok (Berat)</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php for ($i=0; $i < count($stok); ++$i) { ?>
+                                                <tr>
+                                                    <td><?php echo $stok[$i]->kodeBarang?></td>
+                                                    <td><?php echo $stok[$i]->namaBarang?></td>
+                                                    <td><?php echo $stok[$i]->masuk-$stok[$i]->keluar?> gr</td>
+                                                    <td> %</td>
+                                                </tr>
+                                            <?php }?>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <ul class="pagination pull-right"></ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                        
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 table-responsive text-center">
+                                    <table data-page-size="4" class=" footable table  table-stripped">
+
+                                        <thead>
+                                            <tr>
                                                 <th class="text-center">Arah</th>
                                                 <th class="text-center">Barang</th>
                                                 <th class="text-center">Kadar</th>

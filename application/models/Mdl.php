@@ -1327,7 +1327,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listRekapProduksi(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM rekapproduksi a LEFT JOIN user b ON a.idPIC = b.idUser");
+        $hasil = $this->db->query("SELECT * FROM rekapproduksi a LEFT JOIN user b ON a.idPIC = b.idUser ORDER By a.idRekapProduksi DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1347,7 +1347,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getListSPKMassal($idUser){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur FROM factproduction2 a LEFT JOIN aktivitas2 c ON a.idAktivitas=c.idAktivitas LEFT JOIN spkmasal d ON a.idSPK=d.idSPK WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
+        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur,e.kadarBahan FROM factproduction2 a LEFT JOIN aktivitas2 c ON a.idAktivitas=c.idAktivitas LEFT JOIN spkmasal d ON a.idSPK=d.idSPK LEFT JOIN pomasal e ON d.nomorPO=e.nomorPO WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2526,5 +2526,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function stockPerMaterial($idUser){
 
+        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser group by kodeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser group by kodeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang WHERE a.tipeBarang = 'Material Dasar' 
+        UNION
+        SELECT a.kodeBarang, a.tipeBarang, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser group by kodeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser group by kodeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN produk c ON c.kodeProduk=a.kodeBarang WHERE a.tipeBarang = 'Produk Jadi' OR a.tipeBarang ='Produk Semi Jadi'");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 }

@@ -245,31 +245,47 @@
                                         <input type="text" name="namaMaterial" value="Emas Kuning" readonly placeholder="Nama Material" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Berat Kembalian:</label>
-                                    <div class="col-sm-4"><input type="text" placeholder="gr" name="beratKembali" class="form-control" required="">
-                                    </div>
-                                    <label class="col-sm-2 control-label">Kadar:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="kadar" placeholder="%" class="form-control">
-                                    </div>
-                                    
-                                </div>
+                                
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Pilih SPK:</label>  
                                     <div class="col-lg-10">
-                                        <?php $b=count($listSPK); for ($i=0; $i < $b ; $i++) { ?> 
+                                        <?php $b=count($listSPK); $jumlahKekurangan=0; $jumlahKadarSatuan=0;
+                                            for ($i=0; $i < $b ; $i++) { ?> 
                                             <?php 
 
                                               $tglmsk = new DateTime($listSPK[$i]->RealisasiEndDate);
                                               $tglmsk->modify('+'.$i.' day');
                                               $tglmsk1 = $tglmsk->format("d F Y");
 
+                                              //Perhitungan Kadar
+                                              $kekurangan=$listSPK[$i]->beratAwal-($listSPK[$i]->berat+$listSPK[$i]->kembali);
+                                              $kadarSatuan=($kekurangan*$listSPK[$i]->kadarBahan)/100;
+                                              $jumlahKekurangan+=$kekurangan;
+                                              $jumlahKadarSatuan+=$kadarSatuan;
+
                                             ?>
+                                            
                                             <div class="col-md-4">
                                                 <div class="i-checks"><label><input type="checkbox" value="<?php echo $listSPK[$i]->idProProd?>" checked name="idProProd[]"><i></i> Nomor Faktur <?php echo $listSPK[$i]->nomorFaktur; echo ' ('.$tglmsk1.')';?></label></div>
                                             </div>
-                                        <?php } ?>
+                                        <?php 
+                                        } 
+                                            $kadarAkhir=($jumlahKadarSatuan/$jumlahKekurangan)*100;
+                                        ?>
+                                        
                                     </div>                         
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="hr-line-dashed"></div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Berat Kembalian:</label>
+                                    <div class="col-sm-4"><input type="text" placeholder="gr" name="beratKembali" class="form-control" required="">
+                                    </div>
+                                    <label class="col-sm-2 control-label">Kadar:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="kadar" value="<?php echo $kadarAkhir;?>" class="form-control" readonly>
+                                    </div>
                                 </div>
                                 
                                 <div class="hr-line-dashed"></div>
