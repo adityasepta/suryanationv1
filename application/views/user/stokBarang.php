@@ -81,9 +81,9 @@
 
                                          for ($i=0; $i < count($st); ++$i) { 
                                              if($st[$i]->jenis == 'IN') {
-                                                $g += (float)$st[$i]->beratlokal;
+                                                $g += (float)$st[$i]->jmlmasuk;
                                              } else {
-                                                $g -= (float)$st[$i]->beratlokal;
+                                                $g -= (float)$st[$i]->jmlmasuk;
                                              }
                                         } echo $g." gr <br><br>" ?>
 
@@ -180,8 +180,7 @@
                                                 <th class="text-center">Barang</th>
                                                 <th class="text-center">Kadar</th>
                                                 <th class="text-center">Berat</th>
-                                                <th class="text-center">Kadar Lokal</th>
-                                                <th class="text-center">Berat Lokal</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -191,8 +190,7 @@
                                                     <td><?php echo $st[$i]->nama?></td>
                                                     <td><?php echo $st[$i]->kadar?> %</td>
                                                     <td><?php echo $st[$i]->jmlmasuk?> gr</td>
-                                                    <td><?php echo $st[$i]->lokal?> %</td>
-                                                    <td><?php echo $st[$i]->beratlokal?> gr</td>
+
                                                 </tr>
                                             <?php }?>
                                         </tbody>
@@ -256,7 +254,7 @@
                                     <tr>
                                         <?php $tglmsk = new DateTime($p->tanggal);
                                         $tglmsk = $tglmsk->format("d M Y h:i:s"); ?>
-                                        <td><?php echo $p->tgl?></td>
+                                        <td><?php echo $tglmsk?></td>
                                         <td><?php echo $p->namapic?></td>
                                         <td><?php echo $p->namaMaterial?></td>
                                         <td><?php echo $p->tipeBarang?></td>

@@ -1654,35 +1654,35 @@ class User extends CI_Controller {
     }
 
     public function createBOMMassal($idSubSPK) {
-        $this->form_validation->set_rules('idSubSPK','idSubSPK', 'required');
         $data['lk'] = $this->mdl->getSetting();
-        
-        if ($this->form_validation->run() == FALSE){
-            $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-            $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['bom4'] = $this->mdl->getbom4($idSubSPK);
-            $this->load->view('user/createBOMMassal',$data);
-        }
-        else {
-            $idMaterial = $this->input->post('kodeMaterial');
-            $idUser=$this->session->userdata['logged_in']['iduser'];
-            $jmlbutuh = $this->input->post('bahanButuh');
+        $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
+        $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
+        $data['materials']=$this->mdl->getMaterial();
+        $data['bom4'] = $this->mdl->getbom4($idSubSPK);
+        $this->load->view('user/createBOMMassal',$data);
+    }
 
-            $idm = explode(",",$idMaterial);
-            $dataBOM= array(
-                'idSubSPK'   => $idSubSPK,
-                'idMaterial' => $idm[0],
-                'jumlah'     => $jmlbutuh
-                );
-        
+    public function tambahBOMMassal() {
 
-            $this->mdl->insertData('bommassal',$dataBOM);
-            $message = "BOM berhasil dibuat";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
-            
-        }
+        $idSubSPK = $this->input->post('idSubSPK');
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $jmlbutuh = $this->input->post('berat');
+
+        $idm = explode(",",$idMaterial);
+        $dataBOM= array(
+            'idSubSPK'   => $idSubSPK,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $jmlbutuh
+            );
+    
+        
+        $this->mdl->insertData('bommassal',$dataBOM);
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
     }
 
     public function createBOMMassalTurun() {
@@ -2165,7 +2165,7 @@ class User extends CI_Controller {
                 $jumlah=$data['bom'][$i]->jumlah;
                 $stokBarang=$data['bom'][$i]->stokMaterial;
                 $stokBarangTerbaru = $stokBarang-$jumlah;
-                //print_r($dataInventory);
+                
                 $this->mdl->insertInventory($dataInventory);
                 $this->mdl->updateStokProduk2($data['bom'][$i]->kodeMaterial,$stokBarangTerbaru);
             }
