@@ -1925,8 +1925,7 @@ class User extends CI_Controller {
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
-                
-                redirect('user/stokBarang');   
+            redirect('user/stokBarang');   
         }
     }
 
