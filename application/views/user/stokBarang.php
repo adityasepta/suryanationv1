@@ -150,7 +150,7 @@
                                         <tbody>
                                             <?php for ($i=0; $i < count($stok); ++$i) { 
                                                 $stokSekarang=$stok[$i]->masuk-$stok[$i]->keluar;
-                                                if($stokSekarang>0){
+                                                if($stokSekarang>0 && $stok[$i]->statusTransfer=='Valid'){
                                             ?>
                                                 <tr>
                                                     <td><?php echo $stok[$i]->kodeBarang?></td>
