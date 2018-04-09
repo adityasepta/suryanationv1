@@ -2557,4 +2557,40 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
+
+    function getRekapAkvititas(){
+        $hasil = $this->db->query("SELECT 1 as idAktivitas, a.idSPK,b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))) as susut FROM factproduction2 a, aktivitas b where a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas,a.idSPK
+        
+        UNION 
+        
+        SELECT 2 as idAktivitas, a.idSPK,'Kecap' as namaAktivitas, (sum(berat)-sum(kembali)) as beratAwal, sum(beratKecap) as berat, 0 as kembali, sum(beratTambahan) as beratTambahan , ((sum(berat)-sum(kembali))-sum(beratKecap)) as susut FROM factproduction2 a, aktivitas b where a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas,a.idSPK
+
+        UNION 
+
+        SELECT (a.idAktivitas-1000), a.idSPK,b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-(sum(berat)-sum(beratTambahan)))-sum(kembali)) as susut FROM factproduction2 a, aktivitas b where a.idAktivitas > 1006 and a.idAktivitas < 1014 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas,a.idSPK
+
+        UNION 
+
+        SELECT (a.idAktivitas-1000) as idAktivitas, a.idSPK,b.namaAktivitas, sum(beratAwal) as beratAwal, max(berat) as berat, sum(kembali) as kembali, sum(beratTambahan) as beratTambahan , (sum(beratAwal)-max(berat)) as susut FROM factproduction2 a, aktivitas b where a.idAktivitas = 1014 and a.idAktivitas = b.idAktivitas group by b.namaAktivitas,a.idSPK
+
+        order by idAktivitas,idSPK");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+        
+    }
+
+     function getRekapSPKMassal(){
+        $hasil = $this->db->query("SELECT max(idSPK) as idSPK,max(tanggalMasuk) as tanggalMasuk,max(namaCustomer) as namaCustomer,max(namaProduk) as namaProduk,max(kadarBahan) as kadarBahan,max(jumlah) as jumlah FROM (SELECT a.idSPK,DATE_FORMAT(b.tanggalMasuk, '%d %M %Y') AS tanggalMasuk,c.namaCustomer,d.namaProduk,b.kadarBahan,NULL as jumlah FROM `spkmasal` a JOIN pomasal b on a.nomorPO=b.nomorPO JOIN customer c on a.idCustomer=c.idCustomer JOIN produk d on a.idProduk=d.idProduk WHERE a.statusSPK='Done'
+UNION
+SELECT a.idSPK,'0' as tanggalMasuk, '0' as namaCustomer, '0' as namaProduk, '0' as kadarBahan, sum(jumlah) as jumlah FROM factproduction2 a WHERE idAktivitas=1014 and statusSPK='Done' GROUP BY idSPK)a GROUP BY idSPK");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+}
 }

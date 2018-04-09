@@ -5747,12 +5747,16 @@ class User extends CI_Controller {
 
     //Inventory
     public function rekapBeratMassal() {
-        $data['b'] = $this->mdl->getBeratMassal();
+       /* $data['b'] = $this->mdl->getBeratMassal();
         $data['c'] = $this->mdl->getBeratMassal2();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPKMassal();    
         $data['rekapBerat']=$this->mdl->rekapBeratMassal();
-        $this->load->view('user/beratMassal',$data);
+        $this->load->view('user/beratMassal',$data);*/
+        $data['spk']=$this->mdl->getRekapSPKMassal();
+        $data['rekapBerat']=$this->mdl->getRekapAkvititas();
+        $this->load->view('user/beratMassalPerAktivitas',$data);
+
     }
 
     public function invoiceSPKMassal($nomorFaktur) {
