@@ -99,7 +99,7 @@ else {
                                     <div class="col-sm-12">
                                         <div class="col-md-2">
                                             <label>Kode Material</label>
-                                            <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" value="<?php echo $kodeMaterial ?>">
+                                            <input type="text" readonly name= "kodeMaterial" placeholder="Kode Material" class="form-control" value="<?php echo $kodeMaterial ?>">
                                         </div>
                                         <div class="col-md-2">
                                             <label>Kategori</label>
@@ -145,7 +145,7 @@ else {
                                     <div class="col-sm-12">
                                         <div class="col-md-4">
                                             <label>Stok Terkini</label>
-                                            <input type="number" name= "stokMaterial" placeholder="Jumlah" class="form-control" value="<?php echo $stokMaterial ?>">
+                                            <input type="number" readonly name= "stokMaterial" placeholder="Jumlah" class="form-control" value="<?php echo $stokMaterial ?>">
                                         </div>
                                         <div class="col-md-4">
                                             <label>Safety Stok</label>

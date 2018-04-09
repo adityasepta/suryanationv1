@@ -2030,6 +2030,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
+    public function getLastKodeMaterial() {
+        $sql = "SELECT * from materialdasar order by kodematerial desc";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function getProsesDetail4($idProProd) {
         $sql   = "SELECT * from factproduction3 where idProProd = $idProProd";
         $query = $this->db->query($sql);

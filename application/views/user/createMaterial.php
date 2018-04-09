@@ -73,7 +73,7 @@
                                     <div class="col-sm-12">
                                         <div class="col-md-2">
                                             <label>Kode Material</label>
-                                            <input type="text" name= "kodeMaterial" placeholder="Kode Material" class="form-control" required>
+                                            <input type="text" value="<?php echo $kd ?>" readonly    name= "kodeMaterial" placeholder="Kode Material" class="form-control" required>
                                         </div>
                                         <div class="col-md-2">
                                             <label>Kategori</label>
@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <label>Nama Material</label>
-                                            <input type="text" name= "namaMaterial"  placeholder="Nama Material" class="form-control" required>
+                                            <input type="text" name= "namaMaterial"  placeholder="contoh : Emas Kuning 59.5 %" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                         <div class="col-md-8">
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Kadar</label>
+                                            <label>Kadar Lokal</label>
                                             <input type="number" step="any" name= "kadar" placeholder="%" class="form-control">
                                         </div>
                                     </div>
@@ -118,16 +118,17 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="col-md-4">
-                                            <label>Stok Terkini</label>
-                                            <input type="number" name= "stokMaterial" placeholder="Jumlah" class="form-control" required>
+                                            <label>Stok Terkini  </label><small class="text-muted pull-right">tambah stok melalui pergerakan barang</small>
+                                            <input type="number" name= "stokMaterial" value="0" readonly="" placeholder="Jumlah" class="form-control" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Safety Stok</label>
-                                            <input type="number" name= "safetyStock"  placeholder="Jumlah" class="form-control" required>
+                                            <label>Safety Stok (gr)</label><small class="text-muted pull-right">jumlah batas aman material</small>
+                                            
+                                            <input type="number" name= "safetyStock"  placeholder="contoh : 100 gr" class="form-control" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Satuan</label>
-                                            <input type="text" name= "satuan"  placeholder="Satuan" class="form-control" required>
+                                            <input type="text" name= "satuan" value="gr" placeholder="Satuan" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
