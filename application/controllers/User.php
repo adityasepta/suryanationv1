@@ -1462,9 +1462,11 @@ class User extends CI_Controller {
 
     public function createMaterial() {
         $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
-        
+        $f = $this->mdl->getLastKodeMaterial();
+        $data['kd'] = $f[0]->kodeMaterial+1;
+
         if ($this->form_validation->run() == FALSE){
-            $this->load->view('user/createMaterial');
+            $this->load->view('user/createMaterial',$data);
         }
         else {
 
@@ -3208,9 +3210,12 @@ class User extends CI_Controller {
             $t = $this->mdl->cekMaterial($namaMaterial);
             $d = count($t);
 
+            $f = $this->mdl->getLastKodeMaterial();
+            $ww = $f[0]->kodeMaterial+1;
+
             if($d == 0) {
                 $dataMaterial = array(
-                    'kodeMaterial'    => $kode,
+                    'kodeMaterial'    => $ww,
                     'namaMaterial'    => $namaMaterial,
                     'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('beratKembali'),
@@ -3226,7 +3231,7 @@ class User extends CI_Controller {
                     'idPIC'         => $iduser,
                     'tipeBarang'    => 'Material Dasar',
                     'tipePergerakan'=> 'Balik Abu',
-                    'kodeBarang'    => $kode,
+                    'kodeBarang'    => $ww,
                     'satuan'          => 'gr',
                     'jumlah'        => $this->input->post('beratKembali'),
                     'jenisPergerakanBarang'  => 'IN',
@@ -3703,8 +3708,10 @@ class User extends CI_Controller {
             $datangEmas=$this->input->post('datangEmas');
             $idStokBarang = '';
             if ($datangEmas>0) {
+                $f = $this->mdl->getLastKodeMaterial();
+                $ww = $f[0]->kodeMaterial+1;
                 $dataMaterial = array(
-                    'kodeMaterial'    => $kode,
+                    'kodeMaterial'    => $ww,
                     'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
                     'satuan'          => 'gr',
                     'stokMaterial'    => $this->input->post('datangEmas'),
@@ -3722,7 +3729,7 @@ class User extends CI_Controller {
                     'tipeBarang'    => 'Material Dasar',
                     'tipePergerakan'=> 'Bahan Datang',
                     'satuan'          => 'gr',
-                    'kodeBarang'    => $kode,
+                    'kodeBarang'    => $ww,
                     'jumlah'        => $this->input->post('datangEmas'),
                     'jenisPergerakanBarang'  => 'IN',
                     'hargaBeli'     => 0,

@@ -74,16 +74,16 @@
                             <div class="row">
                                 <div class="col-lg-3 text-center">
 
-                                    <span class="">Total Berat Emas Lokal Anda</span>
+                                    <span class="">Total Berat Emas Anda (lokal)</span>
                                     <h1 class="text-success">
                                         <br>
                                          <?php $g = 0; 
 
                                          for ($i=0; $i < count($st); ++$i) { 
                                              if($st[$i]->jenis == 'IN') {
-                                                $g += (float)$st[$i]->jmlmasuk;
+                                                $g += ((float)$st[$i]->jmlmasuk*$st[$i]->kadar)/100;
                                              } else {
-                                                $g -= (float)$st[$i]->jmlmasuk;
+                                                $g -= ((float)$st[$i]->jmlmasuk*$st[$i]->kadar)/100;
                                              }
                                         } echo $g." gr <br><br>" ?>
 
@@ -159,7 +159,7 @@
                                                     <td><a class="btn btn-xs btn-info" data-toggle="modal" data-target="#transfer<?php echo $stok[$i]->kodeBarang ?>">Transfer</a></td>
                                                 </tr>
                                                 <div class="modal inmodal fade" id="transfer<?php echo $stok[$i]->kodeBarang ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                    <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -170,14 +170,14 @@
                                                             <div class="modal-body">
                                                                 <div class="row">
 
-                                                                    <div class="col-lg-4 text-center">
-                                                                        Nama Barang
+                                                                    <div class="col-lg-5 text-center">
+                                                                        <label>Nama Barang</label>
                                                                         <h2 class="text-success"><?php echo $stok[$i]->namaBarang ?></h2>
                                                                         <input type="hidden" value="<?php echo $stok[$i]->kodeBarang ?>" name="kodeBarang">
                                                                         <input type="hidden" value="gr" name="satuan">
                                                                         <input type="hidden" value="Transfer" name="tipePergerakan">
                                                                     </div>
-                                                                    <div class="col-lg-8">
+                                                                    <div class="col-lg-7">
                                                                         <label>Berat</label>
                                                                         <div class="form-group">
                                                                             <input type="text" class="form-control" required value="<?php echo $stokSekarang ?>" name="jumlah">
@@ -248,7 +248,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12 table-responsive text-center">
+                                <div class="col-lg-3">
+                                    
+                                </div>
+                                <div class="col-lg-9 table-responsive text-center">
                                     <table data-page-size="4" class=" footable table  table-stripped">
 
                                         <thead>

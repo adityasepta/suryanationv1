@@ -38,17 +38,7 @@
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                </div>
-                    <!-- <ul class="nav navbar-top-links navbar-right">
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">Selamat Datang Victoriavici.</span>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-sign-out"></i> Log out
-                            </a>
-                        </li>
-                    </ul> -->
+                </div>-->
 
                 </nav>
             </div>
@@ -88,14 +78,14 @@
                                 <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                     <thead>
                                     <tr>
-                                        <th>Kode Material</th>
-                                        <th>Nama Material</th>
-                                        <th>Kadar</th>
-                                        <th>Stok Material</th>
-                                        <th data-hide="phone,tablet">Safety Stock</th>
-                                        <th data-hide="phone,tablet">Asal</th>
-                                        <th data-hide="phone,tablet">Status</th>
-                                        <th data-hide="phone,tablet">Aksi</th>
+                                        <th class="text-center">Kode</th>
+                                        <th>Nama</th>
+                                        <th class="text-center">Kadar</th>
+                                        <th class="text-center">Stock</th>
+                                        <th  class="text-center">Safety Stock</th>
+                                        <th  class="text-center">Asal</th>
+                                        <th class="text-center">Status</th>
+                                        <th  class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -114,19 +104,19 @@
 
                                         ?>
                                         <tr>
-                                            <td><?php echo $p->kodeMaterial?></td>
+                                            <td class="text-center"><?php echo $p->kodeMaterial?></td>
                                             <td><?php echo $p->namaMaterial?></td>
-                                            <td><?php echo $p->kadar?></td>
-                                            <td><?php echo $stokk.'&nbsp'.$p->satuan?></td>
-                                            <td><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
-                                            <td><?php echo $p->asal?></td>
-                                            <td><?php if ($p->stokMaterial>$p->safetyStock) { ?>
+                                            <td class="text-center"><?php echo $p->kadar?> %</td>
+                                            <td class="text-center"><?php echo $stokk.'&nbsp'.$p->satuan?></td>
+                                            <td class="text-center"><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
+                                            <td class="text-center"><?php echo $p->asal?></td>
+                                            <td class="text-center"><?php if ($p->stokMaterial>$p->safetyStock) { ?>
                                                         <small class="label label-primary">Aman</small>
                                                 <?php } else { ?>
-                                                        <small class="label label-danger">Segera Tambah Stok</small>
+                                                        <small class="label label-warning">Segera Tambah Stok</small>
                                                 <?php } ?>
                                             </td>
-                                            <td><!-- Button trigger modal -->
+                                            <td class="text-center"><!-- Button trigger modal -->
                                                             <a href="<?php echo base_url()?>user/editMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-default">Edit</a>
                                                             <a href="<?php echo base_url()?>user/deleteMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus material ini?')">Hapus</a></td>
                                          </tr>
@@ -134,7 +124,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             <ul class="pagination pull-right"></ul>
                                         </td>
                                     </tr>
