@@ -69,17 +69,7 @@
 
 
     <?php } else {?>
-    <div class="row">
-            <div class="col-lg-6 text-center">
-                No Faktur<br>
-                <b><?php echo $gp[$i]->nomorFaktur ?></b>
-            </div>
 
-            <div class="col-lg-6 text-center ">
-                Tipe Order<br>
-                <b><?php echo $gp[$i]->tipeOrder ?></b>
-            </div>
-        </div>
         
         
     <div class="row">
@@ -97,7 +87,9 @@
             <b><?php echo $gp[$i]->jumlahNow ?> / <?php echo $gp[$i]->jumlah ?></b>
         </div>
         <div class="col-lg-12">
+            <br>
             <div class="progress progress-striped active">
+                
                 <?php 
 
                     $val = round(($gp[$i]->jumlahNow/$gp[$i]->jumlah)*100);
@@ -109,17 +101,15 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    </div>
-    <br>
+
         <div class="row">
             <div class="col-lg-4">
                 Customer<br>
-                Sales Person
+                PIC
             </div>
             <div class="col-lg-8">
                 :&nbsp&nbsp<b><?php echo $gp[$i]->namaCustomer ?></b><br>
-                :&nbsp&nbsp<b><?php echo $gp[$i]->namasales ?></b>
+                :&nbsp&nbsp<b><?php echo $gp[$i]->namapic ?></b>
             </div>
 
         </div>

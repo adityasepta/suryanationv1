@@ -2000,6 +2000,15 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function cekFactProduction($idSPK,$idAktivitas) {
+
+        $sql   = "SELECT * FROM `factproduction2` where idSPK = $idSPK and idAktivitas = $idAktivitas and statusWork = 'On Progress'" ;
+        
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getBerat3() {
 
         $sql   = "SELECT a.*,IFNULL(b.nama,'Belum ada PIC') as nama FROM (SELECT max(idProProd) as idProProd, idSPK, idAktivitas, max(namaAktivitas) as namaAktivitas, max(berat) as berat, max(beratAwal) as beratAwal, max(kembali) as kembali, idPIC, max(statusBerat) as statusBerat FROM ( SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, f.berat, f.beratAwal, f.kembali, f.idPIC, f.statusBerat FROM factproduction3 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 UNION ALL SELECT '0' AS idProProd, r.idSPK, r.idAktivitas, a.namaAktivitas, '0' AS berat, '0' AS beratAwal, '0' AS kembali, '0' as idPIC, '0' as statusBerat FROM aktivitas a, rencanaproduksi3 r WHERE a.idAktivitas = r.idAktivitas AND a.idAktivitas > 1002 ) t group by idAktivitas, idSPK order by idSPK, idAktivitas) a LEFT JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";

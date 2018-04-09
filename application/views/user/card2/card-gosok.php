@@ -70,18 +70,6 @@
 
     <?php } else {?>
 
-    <div class="row">
-            <div class="col-lg-6 text-center">
-                No Faktur<br>
-                <b><?php echo $go[$i]->nomorFaktur ?></b>
-            </div>
-
-            <div class="col-lg-6 text-center ">
-                Tipe Order<br>
-                <b><?php echo $go[$i]->tipeOrder ?></b>
-            </div>
-        </div>
-        
         
     <div class="row">
         <div class="col-lg-4 text-center ">
@@ -98,6 +86,7 @@
             <b><?php echo $go[$i]->jumlahNow ?> / <?php echo $go[$i]->jumlah ?></b>
         </div>
         <div class="col-lg-12">
+            <br>
             <div class="progress progress-striped active">
                 <?php 
 
@@ -112,7 +101,7 @@
     </div>
     <div class="row">
     </div>
-    <br>
+    
         <div class="row">
             <div class="col-lg-4">
                 Customer<br>
