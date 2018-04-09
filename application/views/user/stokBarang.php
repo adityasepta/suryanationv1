@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -148,11 +147,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php for ($i=0; $i < count($stok); ++$i) { 
+                                            <?php for ($i=0; $i < count($stok); $i++) { 
                                                 $stokSekarang=$stok[$i]->masuk-$stok[$i]->keluar;
+
                                                 if($stokSekarang>0 && $stok[$i]->statusTransfer=='Valid'){
                                             ?>
                                                 <tr>
+
                                                     <td><?php echo $stok[$i]->kodeBarang?></td>
                                                     <td><?php echo $stok[$i]->namaBarang?></td>
                                                     <td><?php echo $stokSekarang?> gr</td>
@@ -182,7 +183,6 @@
                                                                         <div class="form-group">
                                                                             <input type="text" class="form-control" required value="<?php echo $stokSekarang ?>" name="jumlah">
                                                                         </div>
-                                                                        
                                                                         <label class="m-t-none m-b">Pilih Pegawai Yang Dituju</label>
                                                                         <div id="idPIC" class="selectpicker" data-live="true">
                                                                             <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
@@ -203,9 +203,9 @@
                                                                                     </div>
                                                                                     <div class="list-to-filter">
                                                                                         <ul class="list-unstyled">
-                                                                                            <?php for ($i=0; $i < count($pegawai) ; $i++) { ?>
-                                                                                                <?php if ($pegawai[$i]->idUser!=0) {?>
-                                                                                                <li class="filter-item items" data-filter="<?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?>" data-value="<?php echo $pegawai[$i]->idUser?>"><?php echo $pegawai[$i]->nama; echo' - '; echo $pegawai[$i]->jabatan?></li>
+                                                                                            <?php for ($j=0; $j < count($pegawai) ; $j++) { ?>
+                                                                                                <?php if ($pegawai[$j]->idUser!=0) {?>
+                                                                                                <li class="filter-item items" data-filter="<?php echo $pegawai[$j]->nama; echo' - '; echo $pegawai[$j]->jabatan?>" data-value="<?php echo $pegawai[$j]->idUser?>"><?php echo $pegawai[$j]->nama; echo' - '; echo $pegawai[$j]->jabatan?></li>
                                                                                                 <?php } ?>
                                                                                             <?php } ?>
                                                                                         </ul>
@@ -217,6 +217,7 @@
                                                                             </div>
                                                                             <input type="hidden" name="idPIC" value="0" required="">
                                                                         </div>
+                                                                        
                                                                     </div>
 
                                                                 </div>

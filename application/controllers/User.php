@@ -1199,6 +1199,7 @@ class User extends CI_Controller {
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
+        // print_r($data['stok']);exit();
         $this->load->view('user/stokBarang',$data);
     }
 
@@ -5037,13 +5038,13 @@ class User extends CI_Controller {
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
                 } else {
-                    $kode = $t[0]->kodeMaterial;
+                    $kodek = $t[0]->kodeMaterial;
                     $iduser = ($this->session->userdata['logged_in']['iduser']);
                     $dataInventory = array(
                         'idPIC'         => $iduser,
                         'tipeBarang'    => 'Material Dasar',
                         'tipePergerakan'=> 'Bahan Datang',
-                        'kodeBarang'    => $kode,
+                        'kodeBarang'    => $kodek,
                         'satuan'          => 'gr',
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
