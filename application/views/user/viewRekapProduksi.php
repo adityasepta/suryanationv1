@@ -94,6 +94,7 @@
                                         <thead>
                                         <tr>
                                             <th>Nomor Faktur</th>
+                                            <th>Aktivitas</th>
                                             <th class="text-center">Berat Awal</th>
                                             <th class="text-center">Berat Akhir</th>
                                             <th class="text-center">Berat Kembali</th>
@@ -104,31 +105,72 @@
                                         <?php 
                                             $jumlahBeratAwal=0;
                                             $jumlahBerat=0;
-                                            $jumlahKembali=0;
-                                            $jumlahSusut=0; 
+                                            $beratAwal=0;
+                                            $beratAkhir=0; 
+                                            $beratAwalTotal=0;
+                                            $beratAkhirTotal=0;
                                             for ($i=0; $i < count($rekap) ; $i++) { 
                                         ?>
+                                            <?php if($rekap[$i]->idAktivitas=='1006') {?>
                                             <tr>
                                                 <td>
                                                    <?php echo $rekap[$i]->nomorFaktur ?>
                                                 </td>
-                                                <td class="text-center">
-                                                    <?php echo $rekap[$i]->beratAwal-$rekap[$i]->kembali ?>
+                                                <td>
+                                                    <?php echo $rekap[$i]->namaAktivitas ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo $rekap[$i]->berat ?>
+                                                    <?php echo $beratAwalC=$rekap[$i]->beratAwal?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $beratAkhirC=$rekap[$i]->berat ?>
                                                 </td>
                                                 <td class="text-center">-</td>
                                                 <td class="text-center">-</td>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                   <?php echo $rekap[$i]->nomorFaktur ?>
+                                                </td>
+                                                <td>Kecap</td>
+                                                <td class="text-center">
+                                                    <?php echo $beratAwalK=$rekap[$i]->berat?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $beratAkhirK=$rekap[$i]->beratKecap+$rekap[$i]->kembali ?>
+                                                </td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                            </tr>
+                                            <?php $beratAwalTotal= $beratAwalC+$beratAwalK; $beratAkhirTotal=$beratAkhirC+$beratAkhirK;?>
+                                            <?php } else { ?>
+                                            <tr>
+                                                
+                                                <td>
+                                                   <?php echo $rekap[$i]->nomorFaktur ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rekap[$i]->namaAktivitas ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $beratAwal=$rekap[$i]->beratAwal?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $beratAkhir=$rekap[$i]->berat ?>
+                                                </td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                            </tr>
+                                            <?php $beratAwalTotal= $beratAwal; $beratAkhirTotal=$beratAkhir;?>
+                                            <?php } ?>
                                         <?php 
-                                                $jumlahBeratAwal+=$rekap[$i]->beratAwal-$rekap[$i]->kembali;
-                                                $jumlahBerat+=$rekap[$i]->berat;
+                                                $jumlahBeratAwal+=$beratAwalTotal;
+                                                $jumlahBerat+=$beratAkhirTotal;
                                             } 
                                         ?>
                                         
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                            <td class="text-left" colspan="1"><strong>Total Berat</strong></td>
+                                            <td class="text-left" colspan="2"><strong>Total Berat</strong></td>
                                             <td class="text-center" ><strong><?php echo $jumlahBeratAwal; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $jumlahBerat; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $rekap[0]->beratKembali; ?> Gram</strong></td>

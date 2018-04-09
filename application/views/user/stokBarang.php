@@ -158,7 +158,6 @@
                                                     <td><?php echo $stokSekarang?> gr</td>
                                                     <td><a class="btn btn-xs btn-info" data-toggle="modal" data-target="#transfer<?php echo $stok[$i]->kodeBarang ?>">Transfer</a></td>
                                                 </tr>
-                                            <?php }?>
                                                 <div class="modal inmodal fade" id="transfer<?php echo $stok[$i]->kodeBarang ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -233,7 +232,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php }?>
+                                            <?php } }?>
                                         </tbody>
 
                                         <tfoot>

@@ -1387,7 +1387,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findRekapMassal($kodeRekapProduksi){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*, c.*, e.nama, e.jabatan, f.nomorFaktur FROM rekapproduksi a RIGHT JOIN rekapproduksiline b ON a.kodeRekapProduksi=b.kodeRekapProduksi LEFT JOIN factproduction2 c ON b.idProProd = c.idProProd LEFT JOIN user e ON a.idPIC = e.idUser LEFT JOIN spkmasal f ON c.idSPK=f.idSPK WHERE a.kodeRekapProduksi = '$kodeRekapProduksi'");
+        $hasil = $this->db->query("SELECT a.*, c.*, e.nama, e.jabatan, f.nomorFaktur, g.namaAktivitas FROM rekapproduksi a RIGHT JOIN rekapproduksiline b ON a.kodeRekapProduksi=b.kodeRekapProduksi LEFT JOIN factproduction2 c ON b.idProProd = c.idProProd LEFT JOIN user e ON a.idPIC = e.idUser LEFT JOIN spkmasal f ON c.idSPK=f.idSPK LEFT JOIN aktivitas2 g ON c.idAktivitas=g.idAktivitas WHERE a.kodeRekapProduksi = '$kodeRekapProduksi'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
