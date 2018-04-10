@@ -72,11 +72,13 @@
     <div class="row">
         <div class="col-lg-4">
             Nomor Faktur<br>
+            ID Sub SPK<br>
             Customer<br>
             Sales Person
         </div>
         <div class="col-lg-8">
             :&nbsp&nbsp<b><?php echo $gi[$i]->nomorFaktur ?></b><br>
+            :&nbsp&nbsp<b><?php echo $gi[$i]->idSubSPK ?></b><br>
             :&nbsp&nbsp<b><?php echo $gi[$i]->namaCustomer ?></b><br>
             :&nbsp&nbsp<b><?php echo $gi[$i]->namasales ?></b>
         </div>

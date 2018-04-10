@@ -739,9 +739,16 @@ class mdl extends CI_Model {
 
     public function findKadar($idSPK) {
         $sql    = "SELECT * from spkmasal a, pomasal b where a.nomorPO = b.nomorPO and a.idSPK = $idSPK ";
-        $query  = $this->db->query($sql);
-        $result = $query->row();
-        return $result;
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getNewJumlah($idSPK,$idSubSPK) {
+        $sql    = "SELECT jumlah FROM `factproduction2` where idSubSPK != $idSubSPK and idAktivitas = 1006 and idSPK = $idSPK";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
     }
 
     public function findProduk6($id) {

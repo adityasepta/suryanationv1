@@ -4701,8 +4701,10 @@ class User extends CI_Controller {
 
             $this->mdl->insertData('stokbarang', $data); //semi jadi for real
 
-            $tx = $this->mdl->findKadar($idSPK);
-            $kadarLokal = $prod[0]->kadarBahan;
+            $cx = $this->mdl->findKadar($idSPK);
+            
+            $kadarLokal = $cx[0]->kadarBahan;
+            
             $lk = $this->mdl->getSetting();
             $tol = $lk[2]->nilai;
             $kadarWenny = $kadarLokal-$tol;
@@ -4745,9 +4747,27 @@ class User extends CI_Controller {
                 'tanggal' => date("Y-m-d H:i:s")
                 );
 
-                $this->mdl->insertData('stokbarang', $data);
+            $this->mdl->insertData('stokbarang', $data);
+            
+            $jml = $this->mdl->getNewJumlah($idSPK,$idSubSPK);
+            $newjml = $jml[0]->jumlah+$jumlah;
+
+            $data = array(
+                'jumlah' => $newjml,
+            );
+
+            $where = array(
+                'idSPK' => $idSPK,
+            );
+
+            $this->mdl->updateData2($where, 'factproduction2', $data);
 
         }
+
+
+
+        
+
 
        
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');

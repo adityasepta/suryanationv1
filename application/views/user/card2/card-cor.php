@@ -70,12 +70,15 @@
         <br>
         <div class="row">
             <div class="col-lg-4">
+                ID Sub SPK<br>
                 Customer<br>
-                Sales Person
+                Nama PIC
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $co[$i]->idSubSPK ?></b><br>
                 :&nbsp&nbsp<b><?php echo $co[$i]->namaCustomer ?></b><br>
-                :&nbsp&nbsp<b><?php echo $co[$i]->namasales ?></b>
+                :&nbsp&nbsp<b><?php echo $co[$i]->namapic ?></b>
+                    
             </div>
 
         </div>
