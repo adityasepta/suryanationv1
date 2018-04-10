@@ -805,7 +805,7 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT * from (SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama as namapic FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk) a order by tanggal desc";
+        $sql    = "SELECT * from ( SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama as namapic FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') ) a order by tanggal desc";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2031,10 +2031,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getLastKodeMaterial() {
-        $sql = "SELECT * from materialdasar order by kodematerial desc";
-        $query = $this->db->query($sql);
-        $result = $query->result();
-        return $result;
+        $hasil = $this->db->query("SELECT * from materialdasar order by kodematerial desc LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            $array = array(
+            'kodeMaterial'=>0,
+            );
+             
+            $books = (object) $array;
+            return array($books);
+        }
     }
 
     public function getProsesDetail4($idProProd) {
@@ -2155,23 +2162,18 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getYourStock($idPIC) {
-        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
-
-        union
-
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama
-        ";
+        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
+        UNION
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama";
         $query = $this->db->query($sql);
         
         return $query->result();
     }
 
     public function getPending($idPIC) {
-        $sql   = "
-
-        SELECT a.*,b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial
+        $sql   = "SELECT a.*,b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial AND a.tipeBarang='Material Dasar'
         UNION
-        SELECT a.*,(b.namaProduk) as namaMaterial, c.kadarBahan as kadar FROM stokbarang a, produk b, pomasal c where b.idProduk = c.idProduk and a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.idProduk
+        SELECT a.*,(b.namaProduk) as namaMaterial, c.kadarBahan as kadar FROM stokbarang a, produk b, pomasal c where b.idProduk = c.idProduk and a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi')
         ";
         $query = $this->db->query($sql);
         
@@ -2538,9 +2540,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function stockPerMaterial($idUser){
 
-        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser group by kodeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser group by kodeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang WHERE a.tipeBarang = 'Material Dasar' 
+        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
         UNION
-        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser group by kodeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser group by kodeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN produk c ON c.idProduk=a.kodeBarang WHERE a.tipeBarang = 'Produk Jadi' OR a.tipeBarang ='Produk Semi Jadi'");
+        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where jenisPergerakanBarang = 'IN' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN produk c ON c.idProduk=a.kodeBarang");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();

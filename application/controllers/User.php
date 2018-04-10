@@ -1465,6 +1465,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
         $f = $this->mdl->getLastKodeMaterial();
         $data['kd'] = $f[0]->kodeMaterial+1;
+        // print_r($f);exit();
 
         if ($this->form_validation->run() == FALSE){
             $this->load->view('user/createMaterial',$data);
@@ -3168,7 +3169,7 @@ class User extends CI_Controller {
 
     public function tambahRekap() {
         $this->form_validation->set_rules('beratKembali', 'Berat Kembalian','required');
-
+        // print_r($this->input->post());exit();
         $jenisProduksi=$this->input->post('jenisProduksi');
         $idUser=$this->input->post('idPIC');
 
@@ -3195,7 +3196,7 @@ class User extends CI_Controller {
                 'kadar'             => $this->input->post('kadar'),
                 'jenisProduksi'     => $jenisProduksi,
             );
-            $this->mdl->insertData("rekapproduksi",$dataRekap);  
+            // $this->mdl->insertData("rekapproduksi",$dataRekap);  
 
             $idProd=$this->input->post('idProProd[]');
             for ($i=0; $i < count($idProd) ; $i++) { 
@@ -3203,11 +3204,11 @@ class User extends CI_Controller {
                     'kodeRekapProduksi' => $kode,
                     'idProProd'         => $idProd[$i],
                 );
-                $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
+                // $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
             }
 
             $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadar').'%';
-           // print_r($namaMaterial);exit();
+           
             $t = $this->mdl->cekMaterial($namaMaterial);
             $d = count($t);
 
@@ -3224,8 +3225,8 @@ class User extends CI_Controller {
                     'kadar'           => $this->input->post('kadar'),
                     'asal'            => 'Balik Abu',
                 );
-                
-                $this->mdl->insertData('materialdasar',$dataMaterial);
+                print_r($dataMaterial);exit();
+                // $this->mdl->insertData('materialdasar',$dataMaterial);
 
                 $iduser = ($this->session->userdata['logged_in']['iduser']);
                 $dataInventory = array(
@@ -5010,10 +5011,13 @@ class User extends CI_Controller {
                 $namaMaterial = 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%';
                 $t = $this->mdl->cekMaterial($namaMaterial);
                 $d = count($t);
+                
+                $f = $this->mdl->getLastKodeMaterial();
+                $ww = $f[0]->kodeMaterial+1;
 
                 if($d == 0) {
                     $dataMaterial = array(
-                        'kodeMaterial'    => $kode,
+                        'kodeMaterial'    => $ww,
                         'namaMaterial'    => $namaMaterial,
                         'satuan'          => 'gr',
                         'stokMaterial'    => $this->input->post('datangEmas'),
@@ -5029,7 +5033,7 @@ class User extends CI_Controller {
                         'idPIC'         => $iduser,
                         'tipeBarang'    => 'Material Dasar',
                         'tipePergerakan'=> 'Bahan Datang',
-                        'kodeBarang'    => $kode,
+                        'kodeBarang'    => $ww,
                         'satuan'          => 'gr',
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
