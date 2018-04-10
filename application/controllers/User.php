@@ -32,6 +32,8 @@ class User extends CI_Controller {
 
     public function index() {
 
+        redirect('user/kanbanmassal');
+
             $this->load->view('user/dashboardutama_view');
     }
 
@@ -4510,7 +4512,18 @@ class User extends CI_Controller {
 
             };
 
+            
+
+            $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+
+            if($jmlakhir > 0) {
+                $statusWork = 'On Progress';
+            } else {
+                $statusWork = 'Done';
+            }
+
             $data = array(
+                'statusWork' => $statusWork,
                 'berat' => $bx,
                 'jumlahNow' => $jmlc,
             );
