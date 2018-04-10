@@ -72,6 +72,18 @@
         </div>
         
     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 text-center">
+            Tgl Masuk<br>
+            <b><?php echo $j[$i]->tanggal ?></b>
+        </div>
+
+        <div class="col-lg-6 text-center ">
+            Tgl Estimasi Selesai<br>
+            <b><?php echo $j[$i]->tanggalSelesai ?></b>
+        </div>
+    </div>
 
      <div class="row">
         <br>

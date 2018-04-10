@@ -4534,31 +4534,6 @@ class User extends CI_Controller {
 
         }
 
-              
-
-        
-        
-       
-
-        // $rw = $this->mdl->cekRework($idSubSPK,$idAktivitas);
-
-        // if(count($rw) > 1) {
-
-        //     $data = array(
-
-        //         'statusRework' => 'Yes'
-        //     );
-
-            
-
-        // } else {
-        //     $data = array(
-
-        //         'statusRework' => 'No'
-        //     );
-        // }
-
-        //$this->mdl->updateData('idProProd',$b,'factproduction2',$data);
 
         $idUser=$this->session->userdata['logged_in']['iduser'];
 
@@ -4580,21 +4555,21 @@ class User extends CI_Controller {
             
             $this->mdl->insertData('stokbarang', $data);
 
-            $data = array(
-                'idPIC' => $idUser,
-                'tipeBarang' => 'Produk Jadi',
-                'kodeBarang' => $idProduk,
-                'jumlah' => $beratAwal,
-                'satuan' => 'gr',
-                'tanggal' => date("Y-m-d H:i:s"),
-                'jenisPergerakanBarang' => 'IN',
-                'tipePergerakan' => 'Produksi'
+           //  $data = array(
+           //      'idPIC' => $idUser,
+           //      'tipeBarang' => 'Produk Jadi',
+           //      'kodeBarang' => $idProduk,
+           //      'jumlah' => $beratAwal,
+           //      'satuan' => 'gr',
+           //      'tanggal' => date("Y-m-d H:i:s"),
+           //      'jenisPergerakanBarang' => 'IN',
+           //      'tipePergerakan' => 'Produksi'
                 
-            );
+           //  );
 
-           // print_r($data);
+           // // print_r($data);
             
-            $this->mdl->insertData('stokbarang', $data);
+           //  $this->mdl->insertData('stokbarang', $data);
 
         }
 
@@ -4603,6 +4578,81 @@ class User extends CI_Controller {
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanbanmassal');
 
+
+
+    }
+
+    public function isiBerat($nomorPO,$idProProd) {
+        $data['pro'] = $this->mdl->getAnak($nomorPO);
+        $data['idProProd'] = $idProProd;
+        $this->load->view('user/isiBerat',$data);
+    }
+
+    public function setBeratAnak() {
+
+        $idProProd = $this->input->post('idProProd');
+
+        $berat = $this->input->post('berat[]');
+        
+        $idProduk = $this->input->post('idProduk[]');
+
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+
+        for ($i=0; $i <count($berat) ; $i++) { 
+
+            $data = array(  //menambahkan detil berat anak
+                'idPIC' => $idUser,
+                'tipeBarang' => "Produk Jadi",
+                'kodeBarang' => $idProduk[$i],
+                'jumlah' => $berat[$i],
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+            
+            $this->mdl->insertData('stokbarang', $data);
+
+            $data = array( // produk jadi out
+                'idPIC' => $idUser,
+                'tipeBarang' => 'Produk Jadi',
+                'kodeBarang' => $idProduk[$i],
+                'jumlah' => $berat[$i],
+                'satuan' => 'gr',
+                'tanggal' => date("Y-m-d H:i:s"),
+                'jenisPergerakanBarang' => 'OUT',
+                'tipePergerakan' => 'Transfer'
+                
+            );
+
+            $this->mdl->insertData('stokbarang', $data); 
+
+            $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+            $idg = $userx[0]->idUser;
+
+            $data = array(
+                'idPIC' => $idg,
+                'tipeBarang' => 'Produk Jadi',
+                'kodeBarang' => $idProduk[$i],
+                'jumlah' => $berat[$i],
+                'satuan' => 'gr',
+                'tanggal' => date("Y-m-d H:i:s"),
+                'jenisPergerakanBarang' => 'IN',
+                'tipePergerakan' => 'Transfer',
+                'statusTransfer' => 'Pending',
+                
+            );
+
+            $this->mdl->insertData('stokbarang', $data); 
+        }
+
+        $data = array(
+            'statusBerat' => 'Disetujui'
+        );
+
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+
+        redirect('kanbanmassal');
 
 
     }
@@ -4939,6 +4989,7 @@ class User extends CI_Controller {
         
         $idSPK = $this->input->post('idSPK');
         $idProduk = $this->input->post('idProduk');
+        $nomorPO = $this->input->post('nomorPO');
         $beratAkhir = $this->input->post('beratakhir');
         $jumlah = $this->input->post('jumlah');
 
@@ -4979,43 +5030,9 @@ class User extends CI_Controller {
         
         $idUser=$this->session->userdata['logged_in']['iduser'];
 
-        
-
-        $data = array(
-            'idPIC' => $idUser,
-            'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $idProduk,
-            'jumlah' => $beratAkhir,
-            'satuan' => 'gr',
-            'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'OUT',
-            'tipePergerakan' => 'Transfer'
-            
-        );
 
        // print_r($data);
-        
-        $this->mdl->insertData('stokbarang', $data);
 
-        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
-        $idg = $userx[0]->idUser;
-
-        $data = array(
-            'idPIC' => $idg,
-            'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $idProduk,
-            'jumlah' => $beratAkhir,
-            'satuan' => 'gr',
-            'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN',
-            'tipePergerakan' => 'Transfer',
-            'statusTransfer' => 'Pending',
-            
-        );
-
-       // print_r($data);
-        
-        $this->mdl->insertData('stokbarang', $data);
 
         $data = array(
             'stok' => $newstok
@@ -5025,7 +5042,7 @@ class User extends CI_Controller {
         //print_r($data);
         //exit();
         
-        $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
+       $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi </div>');
         redirect('user/kanbanmassal');

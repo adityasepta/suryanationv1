@@ -1814,7 +1814,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getPenjadwalan2() {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal != 'Sudah Ada' and s.statusPersetujuan != 'Disetujui'";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal != 'Sudah Ada' and s.statusPersetujuan != 'Disetujui'";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1832,7 +1832,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getDone() {
 
-        $sql = "SELECT e.*, f.namaProduk AS namap, f.jenisProduk, e.kadarBahan, h.namaCustomer AS namaCustomer, g.nama AS namasales, tanggal, tanggalSelesai FROM ( SELECT a.*, b.*, c.*, po.idSalesPerson, po.kadarBahan, d.*, DATE_FORMAT(po.tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( po.tanggalEstimasiPenyelesaian, '%d %M %Y' ) AS tanggalSelesai FROM ( SELECT idSPK AS id1, MAX(jumlah) AS max FROM `factproduction2` WHERE idAktivitas = 1006 GROUP BY idspk ) a, ( SELECT idSPK AS id2, SUM(jumlahNow) AS jumlah FROM `factproduction2` WHERE idAktivitas = 1014 AND statusWork = 'On Progress' GROUP BY idspk ) b, ( SELECT idSPK AS id3, COUNT(DISTINCT idSubSPK) AS jml1, COUNT(DISTINCT idWadah) AS jml2 FROM `factproduction2` GROUP BY idspk ) d, spkmasal c, pomasal po WHERE a.id1 = b.id2 AND c.idSPK = a.id1 AND a.id1 = d.id3 AND po.nomorPO = c.nomorPO ORDER BY (MAX - jumlah) ) e, produk f, USER g, customer h WHERE e.idProduk = f.idProduk AND e.idCustomer = h.idCustomer AND e.idSalesPerson = g.idUser";
+        $sql = "SELECT e.*, f.namaProduk AS namap, f.jenisProduk, e.kadarBahan, h.namaCustomer AS namaCustomer, g.nama AS namasales, tanggal, tanggalSelesai FROM ( SELECT a.*, b.*, c.*, po.idSalesPerson, po.kadarBahan, d.*, DATE_FORMAT(po.tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( po.tanggalEstimasiPenyelesaian, '%d %M %Y' ) AS tanggalSelesai FROM ( SELECT idSPK AS id1, MAX(jumlah) AS max FROM `factproduction2` WHERE idAktivitas = 1006 GROUP BY idspk ) a, ( SELECT idSPK AS id2, SUM(jumlahNow) AS jumlah,max(statusBerat) as statusBerat, max(idProProd) as idProProd FROM `factproduction2` WHERE idAktivitas = 1014 AND statusWork = 'On Progress' GROUP BY idspk ) b, ( SELECT idSPK AS id3, COUNT(DISTINCT idSubSPK) AS jml1, COUNT(DISTINCT idWadah) AS jml2 FROM `factproduction2` GROUP BY idspk ) d, spkmasal c, pomasal po WHERE a.id1 = b.id2 AND c.idSPK = a.id1 AND a.id1 = d.id3 AND po.nomorPO = c.nomorPO ORDER BY (MAX - jumlah) ) e, produk f, USER g, customer h WHERE e.idProduk = f.idProduk AND e.idCustomer = h.idCustomer AND e.idSalesPerson = g.idUser";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1851,7 +1851,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getSeparasi() {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalApprovalJadwal, '%d %M %Y') AS tanggaljadwal, u.nama as namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal = 'Sudah Ada' AND s.statusPersetujuan != 'Disetujui'";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalApprovalJadwal, '%d %M %Y') AS tanggaljadwal, u.nama as namasales FROM pomasal po, produk pr, customer c, spkmasal s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal = 'Sudah Ada' AND s.statusPersetujuan != 'Disetujui'";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1873,6 +1873,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getWadah($idSubSPK) {
         $sql   = "SELECT * from wadah where idSubSPK = $idSubSPK ";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getAnak($nomorPO) {
+        $sql   = "SELECT *,DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal from produkPO a, produk b, pomasal c, customer e where c.idCustomer = e.idCustomer and a.idProdukChild = b.idProduk and a.nomorPO = $nomorPO and a.nomorPO = c.nomorPO ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2200,16 +2207,25 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getYourStock($idPIC) {
         $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
         UNION
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama";
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
+        UNION
+        select a.jenis, a.nama, a.jmlmasuk, c.kadarBahan from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
+
+        ORDER BY nama
+        ";
         $query = $this->db->query($sql);
         
         return $query->result();
     }
 
     public function getPending($idPIC) {
-        $sql   = "SELECT a.*,b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b where a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.kodeMaterial AND a.tipeBarang='Material Dasar'
-        UNION
-        SELECT a.*,(b.namaProduk) as namaMaterial, c.kadarBahan as kadar FROM stokbarang a, produk b, pomasal c where b.idProduk = c.idProduk and a.idPIC = $idPIC and a.statusTransfer = 'Pending' and a.kodeBarang = b.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi')
+        $sql   = "SELECT a.*, b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b WHERE a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.kodeMaterial AND a.tipeBarang = 'Material Dasar' 
+
+        UNION 
+        SELECT a.*, (b.namaProduk) AS namaMaterial, c.kadarBahan AS kadar FROM stokbarang a, produk b, pomasal c WHERE b.idProduk = c.idProduk AND a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.idProduk AND( a.tipeBarang = 'Produk Jadi' OR a.tipeBarang = 'Produk Semi Jadi') 
+
+        UNION 
+        SELECT a.*, (b.namaProduk) AS namaMaterial, d.kadarBahan as kadar FROM stokbarang a, produk b, produkpo c, pomasal d WHERE a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.idProduk AND a.tipeBarang = 'Produk Jadi' and a.kodeBarang = c.idProdukChild and d.nomorPO = c.nomorPO
         ";
         $query = $this->db->query($sql);
         
