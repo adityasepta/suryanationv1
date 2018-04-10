@@ -133,11 +133,14 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <h3>Pilih Produk <small>Klik tombol <strong>Tambah Produk</strong> untuk memilih produk yang akan di produksi</small></h3>
+                                            <div style="padding: 2px 0 1px 5px; background-color: #f7f7f7;">
+                                                <p><small>Jika tidak ada produk dalam daftar, silahkan membuat Produk Baru <a href="<?php echo base_url();?>user/createProduk"> Disini!</a></small></p>
+                                            </div>
+                                            <br>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="input_fields_wrap" >
                                                         <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Produk</button>
-                                                        
                                                     </div>
                                                 </div>
                                             </div>
