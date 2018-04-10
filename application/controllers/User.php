@@ -5027,7 +5027,7 @@ class User extends CI_Controller {
         $this->mdl->updateData('idProduk', $idProduk, 'produk', $data);
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi </div>');
-        redirect('user/produk');
+        redirect('user/kanbanmassal');
 
     }
 

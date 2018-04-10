@@ -104,10 +104,12 @@
 
         <div class="row">
             <div class="col-lg-4">
+                Nomor Faktur<br>
                 Customer<br>
                 PIC
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $gp[$i]->nomorFaktur?></b><br>
                 :&nbsp&nbsp<b><?php echo $gp[$i]->namaCustomer ?></b><br>
                 :&nbsp&nbsp<b><?php echo $gp[$i]->namapic ?></b>
             </div>
@@ -270,7 +272,7 @@
 
                                         <div class="col-sm-9">
                                             <input type="number" step="any" required name="beratAwal" value="" class="form-control">
-                                            <small>berat maksimal adalah <b><?php echo (float)$gp[$i]->berat?></b> gr</small>  
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -469,7 +471,7 @@
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
-                                                    <div class="col-sm-5"><input type="text" name="berat" class="form-control"></div>
+                                                    <div class="col-sm-5"><input type="number" step="any"  name="berat" class="form-control"></div>
                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $gp[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>

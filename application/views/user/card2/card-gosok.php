@@ -104,10 +104,12 @@
     
         <div class="row">
             <div class="col-lg-4">
+                Nomor Faktur<br>
                 Customer<br>
                 Sales Person
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $go[$i]->nomorFaktur ?></b><br>
                 :&nbsp&nbsp<b><?php echo $go[$i]->namaCustomer ?></b><br>
                 :&nbsp&nbsp<b><?php echo $go[$i]->namasales ?></b>
             </div>

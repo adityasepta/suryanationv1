@@ -70,18 +70,7 @@
 
     <?php } else {?>
 
-    <div class="row">
-            <div class="col-lg-6 text-center">
-                No Faktur<br>
-                <b><?php echo $cz[$i]->nomorFaktur ?></b>
-            </div>
 
-            <div class="col-lg-6 text-center ">
-                Tipe Order<br>
-                <b><?php echo $cz[$i]->tipeOrder ?></b>
-            </div>
-        </div>
-        
         
     <div class="row">
         <div class="col-lg-4 text-center ">
@@ -98,6 +87,7 @@
             <b><?php echo $cz[$i]->jumlahNow ?> / <?php echo $cz[$i]->jumlah ?></b>
         </div>
         <div class="col-lg-12">
+            <br>
             <div class="progress progress-striped active">
                 <?php 
 
@@ -112,13 +102,15 @@
     </div>
     <div class="row">
     </div>
-    <br>
+    
         <div class="row">
             <div class="col-lg-4">
+                Nomor Faktur<br>
                 Customer<br>
                 Sales Person
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $cz[$i]->nomorFaktur ?></b><br>
                 :&nbsp&nbsp<b><?php echo $cz[$i]->namaCustomer ?></b><br>
                 :&nbsp&nbsp<b><?php echo $cz[$i]->namasales ?></b>
             </div>

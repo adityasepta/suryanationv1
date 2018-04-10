@@ -70,18 +70,7 @@
 
     <?php } else {?>
 
-    <div class="row">
-            <div class="col-lg-6 text-center">
-                No Faktur<br>
-                <b><?php echo $sl[$i]->nomorFaktur ?></b>
-            </div>
 
-            <div class="col-lg-6 text-center ">
-                Tipe Order<br>
-                <b><?php echo $sl[$i]->tipeOrder ?></b>
-            </div>
-        </div>
-        
         
     <div class="row">
         <div class="col-lg-4 text-center ">
@@ -98,6 +87,7 @@
             <b><?php echo $sl[$i]->jumlahNow ?> / <?php echo $sl[$i]->jumlah ?></b>
         </div>
         <div class="col-lg-12">
+            <br>
             <div class="progress progress-striped active">
                 <?php 
 
@@ -112,13 +102,15 @@
     </div>
     <div class="row">
     </div>
-    <br>
+    
         <div class="row">
             <div class="col-lg-4">
+                Nomor Faktur<br>
                 Customer<br>
                 Sales Person
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $sl[$i]->nomorFaktur ?></b><br>
                 :&nbsp&nbsp<b><?php echo $sl[$i]->namaCustomer ?></b><br>
                 :&nbsp&nbsp<b><?php echo $sl[$i]->namasales ?></b>
             </div>
@@ -166,7 +158,6 @@
     
     <div class="row">
         <br>
-
         <div class="col-lg-3">
             
             <button data-toggle="modal" data-target="#detail<?php echo $sl[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
@@ -353,10 +344,10 @@
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-cz?>-cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-cz?>-cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -425,8 +416,8 @@
             var password2 = document.getElementById('password-pic-2<?php echo $sl[$i]->idProProd ?>').value;
             // console.log(password);
             // console.log(password2);
-            var x = document.getElementById("<?php echo $sl[$i]->idProProd?>-sleb?>-cek");
-            var y = document.getElementById("<?php echo $sl[$i]->idProProd?>-sleb?>-cek1");
+            var x = document.getElementById("<?php echo $sl[$i]->idProProd?>-cz?>-cek");
+            var y = document.getElementById("<?php echo $sl[$i]->idProProd?>-cz?>-cek1");
 
             if(password==password2) {
                 $('#tombolvalidasi<?php echo $sl[$i]->idProProd ?>').prop('disabled', false);

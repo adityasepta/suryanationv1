@@ -11,7 +11,20 @@
     } 
 ?>
 
-<li class="<?php echo $statr ?>-element" id="task1">
+<?php 
+    
+    $idakt = 1012;
+    $namakt = "Sleb";
+    $var = $kr[$i]->endDate;
+    $statr = "";
+    if((time()-(60*60*24)) < strtotime($var)) {
+        $statr = "success";
+    } else {
+        $statr = "danger";
+    } 
+?>
+
+<li class="<?php echo $statr ?>-element" id="taskx">
 
     <?php if(isset($display)) {?>
 
@@ -70,18 +83,7 @@
 
     <?php } else {?>
 
-    <div class="row">
-            <div class="col-lg-6 text-center">
-                No Faktur<br>
-                <b><?php echo $kr[$i]->nomorFaktur ?></b>
-            </div>
 
-            <div class="col-lg-6 text-center ">
-                Tipe Order<br>
-                <b><?php echo $kr[$i]->tipeOrder ?></b>
-            </div>
-        </div>
-        
         
     <div class="row">
         <div class="col-lg-4 text-center ">
@@ -98,6 +100,7 @@
             <b><?php echo $kr[$i]->jumlahNow ?> / <?php echo $kr[$i]->jumlah ?></b>
         </div>
         <div class="col-lg-12">
+            <br>
             <div class="progress progress-striped active">
                 <?php 
 
@@ -110,13 +113,17 @@
             </div>
         </div>
     </div>
-    <br>
+    <div class="row">
+    </div>
+    
         <div class="row">
             <div class="col-lg-4">
+                Nomor Faktur<br>
                 Customer<br>
                 Sales Person
             </div>
             <div class="col-lg-8">
+                :&nbsp&nbsp<b><?php echo $kr[$i]->nomorFaktur ?></b><br>
                 :&nbsp&nbsp<b><?php echo $kr[$i]->namaCustomer ?></b><br>
                 :&nbsp&nbsp<b><?php echo $kr[$i]->namasales ?></b>
             </div>
@@ -350,10 +357,10 @@
                     </div>
                     <br>
                     <div class="row" >
-                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd?>-krum?>-cek' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd?>-cz?>-cek' style="display: none;">
                             Password tidak cocok. Silahkan coba lagi.
                         </div>
-                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd?>-krum?>-cek1' style="display: none;">
+                        <div class="col-lg-12 text-center" id='<?php echo $kr[$i]->idProProd?>-cz?>-cek1' style="display: none;">
                             Password valid.
                         </div>
                     </div>
@@ -422,8 +429,8 @@
             var password2 = document.getElementById('password-pic-2<?php echo $kr[$i]->idProProd ?>').value;
             // console.log(password);
             // console.log(password2);
-            var x = document.getElementById("<?php echo $kr[$i]->idProProd?>-krum?>-cek");
-            var y = document.getElementById("<?php echo $kr[$i]->idProProd?>-krum?>-cek1");
+            var x = document.getElementById("<?php echo $kr[$i]->idProProd?>-cz?>-cek");
+            var y = document.getElementById("<?php echo $kr[$i]->idProProd?>-cz?>-cek1");
 
             if(password==password2) {
                 $('#tombolvalidasi<?php echo $kr[$i]->idProProd ?>').prop('disabled', false);
@@ -624,3 +631,10 @@
     
     
 </li>
+
+
+
+
+
+
+

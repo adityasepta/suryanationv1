@@ -220,15 +220,15 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">IDS</th>
-                                                        <th class="text-center">IDW</th>
-                                                        <th class="text-center">IDA</th>
+                                                        <th class="text-center">Waktu</th>
+                                                        
                                                         <th class="text-center">Aktivitas</th>
                                                         <th class="text-center">PIC</th>
                                                         <th class="text-center">Berat Awal</th>
                                                         <th class="text-center">Berat Akhir</th>
                                                         <th class="text-center">Berat Tambahan</th>                                  
                                                         <th class="text-center">Jumlah Awal</th>
-                                                        <th class="text-center">Jumlah Akhir</th>
+                                                        <th class="text-center">Jumlah Terkini</th>
                                                         <th class="text-center">Status</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
@@ -237,8 +237,8 @@
                                                     <?php for($i = 0; $i < count($tr); ++$i) {?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $tr[$i]->idSubSPK?></td>
-                                                            <td class="text-center"><?php echo $tr[$i]->idWadah?></td>
-                                                            <td class="text-center"><?php echo $tr[$i]->idWadahAsal?></td>
+                                                            
+                                                            <td class="text-center"><?php echo $tr[$i]->tglmsk ?></td>
                                                             <td class="text-center"><?php echo $tr[$i]->namaAktivitas?></td>
                                                             <td class="text-center"><?php echo $tr[$i]->nama ?></td>
                                                             <td class="text-center"><?php echo $tr[$i]->beratAwal?> gr</td>
@@ -261,7 +261,7 @@
                                                                     <div class="modal-body">
                                                                         <?php echo form_open('user/editProduksi')?>
                                                                         <div class="row">
-                                                                            <div class="col-lg-6 text-left">
+                                                                            <div class="col-lg-6 form-horizontal text-left">
                                                                                 <div class="form-group">
                                                                                     <label class="col-sm-3 control-label">Pilih PIC</label>
 
@@ -275,24 +275,27 @@
                                                                                     </div>
                                                                                     
                                                                                 </div>
+                                                                                
                                                                                 <div class="form-group">
 
-                                                                                    <label class="col-sm-6 control-label">Jumlah Barang Awal ( pcs )</label>
+                                                                                    <label class="col-sm-8 control-label">Jumlah Barang Awal ( pcs )</label>
 
-                                                                                    <div class="col-sm-6">
+                                                                                    <div class="col-sm-4">
                                                                                         <input value="<?php echo $tr[$i]->jumlah ?>" type="number" step="any" name="jumlah" required min="0"  max=""  class="form-control">
                                                                                         
                                                                                     </div>
                                                                                 </div>
+                                                                                
                                                                                 <div class="form-group">
 
-                                                                                    <label class="col-sm-6 control-label">Jumlah Barang Terkini ( pcs )</label>
+                                                                                    <label class="col-sm-8 control-label">Jumlah Barang Terkini ( pcs )</label>
 
-                                                                                    <div class="col-sm-6">
+                                                                                    <div class="col-sm-4">
                                                                                         <input value="<?php echo $tr[$i]->jumlahNow ?>" type="number" step="any" name="jumlahNow" required min="0"  max=""  class="form-control">
                                                                                         
                                                                                     </div>
                                                                                 </div>
+                                                                                
                                                                                 <div class="form-group">
 
                                                                                     <label class="col-sm-6 control-label">Tanggal Dimulai</label>
@@ -347,6 +350,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
+                                                                            <hr>
                                                                             <div class="col-lg-10">
                                                                                 &nbsp
                                                                             </div>
@@ -474,10 +478,10 @@
                                                             <td><?php echo $jadwal[$i]->namaAktivitas?></td>
                                                             <td class="text-center"><?php echo $jadwal[$i]->sd?></td>
                                                             <td class="text-center"><?php echo $jadwal[$i]->ed?></td>
-                                                            <td class="text-center"><button data-toggle="modal" data-target="#edit<?php echo $jadwal[$i]->idRencana ?>" class="btn btn-xs btn-info">Edit</button></td>
+                                                            <td class="text-center"><button data-toggle="modal" data-target="#edits<?php echo $jadwal[$i]->idRencana ?>" class="btn btn-xs btn-info">Edit</button></td>
                                                         </tr>
 
-                                                        <div class="modal inmodal fade" id="edit<?php echo $jadwal[$i]->idRencana ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                        <div class="modal inmodal fade" id="edits<?php echo $jadwal[$i]->idRencana ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">

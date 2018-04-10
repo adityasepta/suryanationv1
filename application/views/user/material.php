@@ -81,10 +81,10 @@
                                         <th class="text-center">Kode</th>
                                         <th>Nama</th>
                                         <th class="text-center">Kadar</th>
-                                        <th class="text-center">Stock</th>
+                                        
                                         <th  class="text-center">Safety Stock</th>
                                         <th  class="text-center">Asal</th>
-                                        <th class="text-center">Status</th>
+
                                         <th  class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
@@ -107,15 +107,10 @@
                                             <td class="text-center"><?php echo $p->kodeMaterial?></td>
                                             <td><?php echo $p->namaMaterial?></td>
                                             <td class="text-center"><?php echo $p->kadar?> %</td>
-                                            <td class="text-center"><?php echo $stokk.'&nbsp'.$p->satuan?></td>
+                                            
                                             <td class="text-center"><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
                                             <td class="text-center"><?php echo $p->asal?></td>
-                                            <td class="text-center"><?php if ($p->stokMaterial>$p->safetyStock) { ?>
-                                                        <small class="label label-primary">Aman</small>
-                                                <?php } else { ?>
-                                                        <small class="label label-warning">Segera Tambah Stok</small>
-                                                <?php } ?>
-                                            </td>
+                                            
                                             <td class="text-center"><!-- Button trigger modal -->
                                                             <a href="<?php echo base_url()?>user/editMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-default">Edit</a>
                                                             <a href="<?php echo base_url()?>user/deleteMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus material ini?')">Hapus</a></td>
