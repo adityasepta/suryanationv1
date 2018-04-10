@@ -2066,6 +2066,20 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function getLastProdukPO() {
+        $hasil = $this->db->query("SELECT * from produkpo order by idProdukPO desc LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            $array = array(
+            'idProdukPO'=> 5000,
+            );
+             
+            $books = (object) $array;
+            return array($books);
+        }
+    }
+
     public function getProsesDetail4($idProProd) {
         $sql   = "SELECT * from factproduction3 where idProProd = $idProProd";
         $query = $this->db->query($sql);
