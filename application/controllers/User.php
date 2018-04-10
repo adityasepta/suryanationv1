@@ -4413,15 +4413,19 @@ class User extends CI_Controller {
         $proses = $this->mdl->getProsesDetail2($idProProd);
         $idSPK = $proses[0]->idSPK;
         $idSubSPK = $proses[0]->idSubSPK;
-
-        
+        $idAkt = $proses[0]->idAktivitas;
 
         $wadah = $this->mdl->getWadahTerakhir();
-        $idWadah = (int)($wadah[0]->idWadah) + 1;
+        $idWadah = (int)($wadah[0]->idWadah) + 1;  
 
-        $next      = $idAktivitas;
+        $gh = $this->mdl->cekFactProduction($idSPK, $idAktivitas);
 
-        $data = array(
+
+        //$b = 0;
+
+        if(count($gh) == 0) { //NO REWORK
+
+            $data = array(
                 
                 'idProProdAsal' => $idProProd,
                 'idSPK' => $idSPK,
@@ -4430,66 +4434,117 @@ class User extends CI_Controller {
                 'idPIC' => $staf,
                 'statusSPK' => 'Active',
                 'statusWork' => 'On Progress',
-                'idAktivitas' => $next,
+                'idAktivitas' => $idAktivitas,
                 'statusBerat' => 'Belum Disetujui',
-                'jumlah'    => $jumlah,
+                'jumlah'    => $proses[0]->jumlah,
                 'jumlahNow'    => $jumlah,
                 'beratAwal' => $beratAwal,
                 'beratTambahan' => $beratTambahan,
                 'RealisasiStartDate' => date("Y-m-d H:i:s")
-        );
 
-        $b = $this->mdl->insertDataGetLast('factproduction2', $data);
+            );
 
-        $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah;
+            $b = $this->mdl->insertDataGetLast('factproduction2', $data); //idproprod anyar
 
-        $tr = $this->input->post('idAktivitasAwal');
+            $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+            $tr = $this->input->post('idAktivitasAwal');   //untuk gp
 
-        if($tr > 0) {
-            $beratAkhir = (float)$proses[0]->berat;    
-        } else {
-            $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal;
+            if($tr > 0) {
+                $beratAkhir = (float)$proses[0]->berat;    //kalo gp gak diupdate
+            } else {
+                $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal; //update jml
 
-        }
-        
+            }
+            
 
-        if($jmlakhir > 0) {
-            $statusWork = 'On Progress';
-        } else {
-            $statusWork = 'Done';
-        }
-
-        $data = array(
-                
-                'statusBerat' => 'Disetujui',
-                'berat' => $beratAkhir,
-                'jumlahNow' => $jmlakhir,
-                'statusWork' => $statusWork,
-                'RealisasiEndDate' => date("Y-m-d H:i:s")
-                
-        );
-
-        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
-
-        $rw = $this->mdl->cekRework($idSubSPK,$idAktivitas);
-
-        if(count($rw) > 1) {
+            if($jmlakhir > 0) {
+                $statusWork = 'On Progress';
+            } else {
+                $statusWork = 'Done';
+            }
 
             $data = array(
-
-                'statusRework' => 'Yes'
+                    
+                    'statusBerat' => 'Disetujui',
+                    'berat' => $beratAkhir,
+                    'jumlahNow' => $jmlakhir,
+                    'statusWork' => $statusWork,
+                    'RealisasiEndDate' => date("Y-m-d H:i:s")
+                    
             );
+
+            $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+
+        } else {
+
+            $proses2 = $this->mdl->getProsesDetail2($gh[0]->idProProd);
+
+            $xx = $gh[0]->idProProd;
+            $ba = $proses2[0]->beratAwal; //60
+            $jm = $proses2[0]->jumlahNow; //5
+            $newBerat = $beratAwal + $ba; //100 + 60
+            $newJumlah = $jumlah + $jm; //10 + 5
+
+            $data = array(
+                'beratAwal' => $newBerat,
+                'jumlahNow' => $newJumlah,
+            );
+
+
+           $this->mdl->updateData('idProProd',$xx,'factproduction2',$data);
+
+            $jmlx = $proses[0]->jumlahNow;
+            $jmlc = $jmlx-$jumlah;
+
+            $tr = $this->input->post('idAktivitasAwal');   //untuk gp
+
+            if($tr > 0) {
+                $bx = (float)$proses[0]->berat;    //kalo gp gak diupdate
+            } else {
+                if ($idAkt > $idAktivitas) {
+                    $bx = (float)$proses[0]->berat; //update jml    
+                } else {
+                    $bx = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                }
+                
+
+            };
+
+            $data = array(
+                'berat' => $bx,
+                'jumlahNow' => $jmlc,
+            );
+
+            $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+
+
+        }
+
+              
+
+        
+        
+       
+
+        // $rw = $this->mdl->cekRework($idSubSPK,$idAktivitas);
+
+        // if(count($rw) > 1) {
+
+        //     $data = array(
+
+        //         'statusRework' => 'Yes'
+        //     );
 
             
 
-        } else {
-            $data = array(
+        // } else {
+        //     $data = array(
 
-                'statusRework' => 'No'
-            );
-        }
+        //         'statusRework' => 'No'
+        //     );
+        // }
 
-        $this->mdl->updateData('idProProd',$b,'factproduction2',$data);
+        //$this->mdl->updateData('idProProd',$b,'factproduction2',$data);
 
         $idUser=$this->session->userdata['logged_in']['iduser'];
 
@@ -5696,12 +5751,16 @@ class User extends CI_Controller {
 
     //Inventory
     public function rekapBeratMassal() {
-        $data['b'] = $this->mdl->getBeratMassal();
+       /* $data['b'] = $this->mdl->getBeratMassal();
         $data['c'] = $this->mdl->getBeratMassal2();
         $data['produk']=$this->mdl->getProd();  
         $data['spk']=$this->mdl->getSPKMassal();    
         $data['rekapBerat']=$this->mdl->rekapBeratMassal();
-        $this->load->view('user/beratMassal',$data);
+        $this->load->view('user/beratMassal',$data);*/
+        $data['spk']=$this->mdl->getRekapSPKMassal();
+        $data['rekapBerat']=$this->mdl->getRekapAkvititas();
+        $this->load->view('user/beratMassalPerAktivitas',$data);
+
     }
 
     public function invoiceSPKMassal($nomorFaktur) {
