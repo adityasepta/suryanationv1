@@ -690,7 +690,7 @@ class mdl extends CI_Model {
     }
 
     public function getMaterial() {
-        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where stokMaterial > 0 AND (asal = 'Datang Emas' OR asal ='Balik Abu')";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where stokMaterial > 0 AND (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan')";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
