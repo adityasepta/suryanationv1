@@ -6158,9 +6158,19 @@ class User extends CI_Controller {
 
     //Currency
     public function currency() {
+        $data['job'] = $this->session->userdata['logged_in']['jabatan'];
+        $data['lk'] = $this->mdl->getSetting();
         $data['currency'] = $this->mdl->listCurrency();
         $this->load->view('user/currency',$data);
     } 
+
+    public function setTol() {
+        $data = array ( 'nilai' => $this->input->post('tol') );
+        $this->mdl->updateData('id',3,'setting', $data);
+        $message = "Berhasil mengupdate toleransi";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/currency")."';</script>";
+    }
 
     public function tambahCurrency() {
         $hargaEmas = $this->input->post('hargaEmas');

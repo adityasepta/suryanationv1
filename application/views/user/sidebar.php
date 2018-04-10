@@ -124,25 +124,7 @@
                         <li><a href="<?php echo base_url()?>user/survey">Survey</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a data-toggle="modal" data-target="#setting>"<i class="fa fa-cog"></i> <span class="nav-label">Pengaturan</span></a>
 
-                    <div class="modal inmodal fade" id="detail" tabindex="-1" role="dialog"  aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title">Detail Proses Produksi</h3><br>
-
-
-                                </div>
-                                <div class="modal-body">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
                 <li >
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
                 </li>
