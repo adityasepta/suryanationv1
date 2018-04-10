@@ -71,10 +71,14 @@
     <br>
     <div class="row">
         <div class="col-lg-4">
+            Nomor Faktur<br>
+            ID Sub SPK<br>
             Customer<br>
             Sales Person
         </div>
         <div class="col-lg-8">
+            :&nbsp&nbsp<b><?php echo $li[$i]->nomorFaktur ?></b><br>
+            :&nbsp&nbsp<b><?php echo $li[$i]->idSubSPK ?></b><br>
             :&nbsp&nbsp<b><?php echo $li[$i]->namaCustomer ?></b><br>
             :&nbsp&nbsp<b><?php echo $li[$i]->namasales ?></b>
         </div>

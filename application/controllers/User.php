@@ -4699,20 +4699,53 @@ class User extends CI_Controller {
                 'tanggal' => date("Y-m-d H:i:s")
             );
 
-            $this->mdl->insertData('stokbarang', $data);
+            $this->mdl->insertData('stokbarang', $data); //semi jadi for real
+
+            $tx = $this->mdl->findKadar($idSPK);
+            $kadarLokal = $prod[0]->kadarBahan;
+            $lk = $this->mdl->getSetting();
+            $tol = $lk[2]->nilai;
+            $kadarWenny = $kadarLokal-$tol;
+            $namaBahan = "Balik Bahan ".$kadarWenny."%";
+
+            $t = $this->mdl->cekMaterial($namaBahan);
+            $d = count($t);
+
+            if($d == 0) {
+
+                $f = $this->mdl->getLastKodeMaterial();
+                $km = $f[0]->kodeMaterial+1;
+
+                $dataMaterial = array(
+                    'kodeMaterial'    => $km,
+                    'namaMaterial'    => $namaBahan,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => 0,
+                    'safetyStock'     => 0,
+                    'kadar'           => $kadarWenny,
+                    'asal'            => 'Balik Bahan',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+            } else {
+
+                $km = $t[0]->kodeMaterial;
+
+            }
 
             $data = array(
                 'idPIC' => $idUser,
-                'tipeBarang' => "Produk Semi Jadi",
-                'kodeBarang' => $idProduk,
+                'tipeBarang' => "Material Dasar",
+                'kodeBarang' => $km,
                 'jumlah' => $proses[0]->kembali,
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Balik Bahan',
                 'tanggal' => date("Y-m-d H:i:s")
-            );
+                );
 
-            $this->mdl->insertData('stokbarang', $data);
+                $this->mdl->insertData('stokbarang', $data);
 
         }
 
