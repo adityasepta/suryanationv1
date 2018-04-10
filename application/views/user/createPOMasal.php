@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -127,28 +128,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="custom" style="padding: 20px; margin: 0 -20px 0 -20px;">
+                                <div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group"><label class="col-sm-2 control-label">Kode Produk</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="kodeProduk" name="kodeProduk" placeholder="Misal: CLS 00010" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required="">
-                                            <small>Jika sudah ada master dari produk yang akan diproduksi,<strong> TEKAN TOMBOL CARI PRODUK</strong></small>
-                                        </div>
-                                        <div class="col-sm-2"><a class="btn btn-default btn-md" data-toggle="modal" data-target="#tambahProduk">Cari Produk</a></div>
-                                        <small class="text-danger"><?php echo form_error('kodeProduk'); ?></small>
-                                    </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Jenis Produk <br/><small class="text-navy">Pilih salah satu</small></label>
-
-                                        <div class="col-sm-2">
-                                            <div class="i-checks"><label> <input id="Cincin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin"){?> checked="" <?php } ?> value="Cincin" name="jenisProduk" required> <i></i> Cincin </label></div>
-                                            <div class="i-checks"><label> <input id="Liontin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Liontin"){?> checked="" <?php } ?> value="Liontin" name="jenisProduk"> <i></i> Liontin </label></div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="i-checks"><label> <input id="Gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk"> <i></i> Gelang </label></div>
-                                            <div class="i-checks"><label> <input id="Anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk"> <i></i> Anting </label></div>
+                                        <div class="col-md-12">
+                                            <h3>Pilih Produk <small>Klik tombol <strong>Tambah Produk</strong> untuk memilih produk yang akan di produksi</small></h3>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="input_fields_wrap" >
+                                                        <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Produk</button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Bahan <br/><small class="text-navy">Pilih salah satu</small></label>
@@ -166,13 +161,20 @@
                                             <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Ukuran Jari / Tangan <br/><small class="text-navy">Pilih salah satu</small></label>
-                                        <div class="col-md-10">
+                                        <label class="col-sm-2 control-label">Tipe Customer <br/><small class="text-navy">Pilih salah satu</small></label>
+                                        <div class="col-md-2" style="padding-top:8px;">
+                                            <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeCustomer'); if($a=="Teliti"){?> checked="" <?php } ?> value="Teliti" name="tipeCustomer" > <i></i> Teliti </label></div>
+                                            <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeCustomer'); if($a=="Standard"){?> checked="" <?php } ?> value="Standard" name="tipeCustomer"> <i></i> Standard </label></div>
+                                        </div>
+                                        
+                                        <div class="col-md-8">
+                                            <label class="ontrol-label">Ukuran Jari / Tangan </label>
                                             <input id="ukuranJari" type="text" placeholder="Ukuran Jari / Tangan / Leher" name="ukuranJari" class="form-control" value="<?php echo set_value('ukuranJari'); ?>" required="">
                                         </div>
                                     </div>
+
+
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group"><label class="col-sm-2 control-label">Model</label>
                                         <div class="col-sm-10"><input id="model" type="text" name="model" class="form-control" value="<?php echo set_value('model'); ?>"></div>
@@ -203,7 +205,6 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -237,16 +238,7 @@
                                     <label class="col-sm-2 control-label">Keterangan Tambahan</label>
                                     <div class="col-sm-10"><input type="text" name="keteranganTambahan" class="form-control" value="<?php echo set_value('keteranganTambahan'); ?>"></div>
                                 </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Tipe Customer <br/><small class="text-navy">Pilih salah satu</small></label>
-                                    <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeCustomer'); if($a=="Teliti"){?> checked="" <?php } ?> value="Teliti" name="tipeCustomer" > <i></i> Teliti </label></div>
-                                    </div>
-                                    <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeCustomer'); if($a=="Standard"){?> checked="" <?php } ?> value="Standard" name="tipeCustomer"> <i></i> Standard </label></div>
-                                    </div>
-                                </div>
+                                
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Berat Akhir</label>
                                     <div class="col-sm-10"><input type="text" name="beratAkhir" class="form-control" value="<?php echo set_value('beratAkhir'); ?>" placeholder="500gr" required=""></div>
@@ -258,6 +250,9 @@
                                     <div class="col-sm-10"><input type="text" name="panjar" class="form-control good" value="<?php echo set_value('panjar'); ?>"></div>
                                 </div>
                                 
+                                
+
+
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
@@ -366,7 +361,7 @@
                 });
             });
         </script>
-    <script>
+   <!--  <script>
     $(document).ready(function() {
         // On change of the dropdown do the ajax
         $("#pilih").on('click', function () {
@@ -409,7 +404,7 @@
             });
         });
     });
-    </script>
+    </script> -->
     <script type="text/javascript">
         $('.good').inputmask("numeric", {
             radixPoint: ".",
@@ -420,6 +415,49 @@
             rightAlign: false,
             oncleared: function () { self.Value(''); }
         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var max_fields      = 10; //maximum input boxes allowed
+            var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+
+            var x = 1; //initlal text box count
+            <?php $jawab=0; ?>
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    <?php $jawab++;?>
+                    $(wrapper).append('<div></div>'); //add input box
+                }
+            });
+            
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+        }); 
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+    var max_fields      = 20; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
     </script>
 </body>
 </html>

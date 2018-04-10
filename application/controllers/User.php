@@ -323,9 +323,10 @@ class User extends CI_Controller {
                 'idC' => 1,
             );
         }
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir2();
         $data['listProduk'] = $this->mdl->listProduk();
+
         $this->load->view('user/createPOMasal',$data);
     }
 
@@ -343,28 +344,28 @@ class User extends CI_Controller {
 
     public function editPO($nomorPO) {
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
         $this->load->view('user/editPurchaseOrder',$data);
     }
 
     public function editPOMassal($nomorPO) {
         $data['dataPO'] = $this->mdl->poMassal($nomorPO);
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
         $this->load->view('user/editPOMassal',$data);
     }
 
     public function editPOPerak($nomorPO) {
         $data['dataPO'] = $this->mdl->poPerak($nomorPO);
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
         $this->load->view('user/editPOPerak',$data);
     }
 
     public function editPOService($nomorPO) {
         $data['dataPO'] = $this->mdl->findPOService($nomorPO);
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['ds'] = $this->mdl->getDetailSalesService2($nomorPO);
         if ($data['dataPO'][0]->jenisOrder=='Satuan') {
             $this->load->view('user/editPOServiceSatuan',$data);
@@ -2931,7 +2932,7 @@ class User extends CI_Controller {
                 'idC' => 1,
             );
         }
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         //$data['poTerakhir'] = $this->mdl->poTerakhir();
         $data['listProduk'] = $this->mdl->listProduk();
         $data['poTerakhir'] = $this->mdl->poTerakhir3();
@@ -5067,177 +5068,178 @@ class User extends CI_Controller {
     }
 
     public function tambahPOMasal(){
-        $this->form_validation->set_message('is_unique','The %s is already taken');
-        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[pomasal.nomorPO]');
+        $namaProduk=$this->input->post('namaCustomer').'-'.'Agregat';
+        $getProdukPO=$this->mdl->getLastProdukPO();
+        $kodeProduk=$getProdukPO[0]->idProdukPO+1;
+
+        $idC=$this->input->post('idCustomer');
+        if($idC==0){
+            //eksekusi query tabel Customer
+            $dataCustomer = array(
+                'namaCustomer'        => $this->input->post('namaCustomer'),
+                'nomorTelepon'        => $this->input->post('nomorTelepon'),
+            );
+            $idCustomer=$this->mdl->insertDataGetLast('customer',$dataCustomer);
+        } else {
+            $idCustomer=$idC;
+        }
+        
+        if(!$this->input->post('pekerjaanTambahan[]')) {
+            $pekerjaanTambahan = "Tidak Ada";
+        } else {
+            $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
+        }
 
         
-        if ($this->form_validation->run() == FALSE){
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
-            $data['poTerakhir'] = $this->mdl->poTerakhir2();
-            $this->load->view('user/createPOMasal',$data);
+
+        $kode = $this->generateRandomString();
+        
+        $hargaBahan = $this->clean($this->input->post('hargaBahan'));
+        $upah = $this->clean($this->input->post('upah'));
+        $panjar = $this->clean($this->input->post('panjar'));
+
+
+
+        $harga=$this->input->post('harga');
+        $totalHarga=0;
+
+        $datangEmas=$this->input->post('datangEmas');
+        $idStokBarang = '';
+        if ($datangEmas>0) {
+
+            $namaMaterial = 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%';
+            $t = $this->mdl->cekMaterial($namaMaterial);
+            $d = count($t);
+            
+            $f = $this->mdl->getLastKodeMaterial();
+            $ww = $f[0]->kodeMaterial+1;
+
+            if($d == 0) {
+                $dataMaterial = array(
+                    'kodeMaterial'    => $ww,
+                    'namaMaterial'    => $namaMaterial,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => $this->input->post('datangEmas'),
+                    'safetyStock'     => 0,
+                    'kadar'           =>$this->input->post('kadarDatangEmas'),
+                    'asal'            => 'Datang Emas',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataInventory = array(
+                    'idPIC'         => $iduser,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Bahan Datang',
+                    'kodeBarang'    => $ww,
+                    'satuan'          => 'gr',
+                    'jumlah'        => $this->input->post('datangEmas'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                    'tanggal'   => date("Y-m-d H:i:s"),
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            } else {
+                $kodek = $t[0]->kodeMaterial;
+                $iduser = ($this->session->userdata['logged_in']['iduser']);
+                $dataInventory = array(
+                    'idPIC'         => $iduser,
+                    'tipeBarang'    => 'Material Dasar',
+                    'tipePergerakan'=> 'Bahan Datang',
+                    'kodeBarang'    => $kodek,
+                    'satuan'          => 'gr',
+                    'jumlah'        => $this->input->post('datangEmas'),
+                    'jenisPergerakanBarang'  => 'IN',
+                    'hargaBeli'     => 0,
+                    'tanggal'   => date("Y-m-d H:i:s"),
+                );
+                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+            }
+
+            
         }
-        else {
-            
-            $idC=$this->input->post('idCustomer');
-            if($idC==0){
-                //eksekusi query tabel Customer
-                $dataCustomer = array(
-                    'namaCustomer'        => $this->input->post('namaCustomer'),
-                    'nomorTelepon'        => $this->input->post('nomorTelepon'),
-                );
-                $idCustomer=$this->mdl->insertDataGetLast('customer',$dataCustomer);
-            } else {
-                $idCustomer=$idC;
-            }
-            
-            if(!$this->input->post('pekerjaanTambahan[]')) {
-                $pekerjaanTambahan = "Tidak Ada";
-            } else {
-                $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
-            }
 
-            $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO');
-            $kodeProduk=$this->input->post('kodeProduk');
-            $cekProduk=$this->mdl->findProduk($kodeProduk);
+        
 
-            $kode = $this->generateRandomString();
-            
-            $hargaBahan = $this->clean($this->input->post('hargaBahan'));
-            $upah = $this->clean($this->input->post('upah'));
-            $panjar = $this->clean($this->input->post('panjar'));
+        $dataProduk = array(
+            'kodeProduk'        => $kodeProduk,
+            'namaProduk'        => $namaProduk,
+            'jenisProduk'       => 'Agregat',
+            'kategori'          => 'Massal',
+            'statusKatalog'     => 'Tidak Tampil',
+            'kodeGambar'        => $kode,
+        );
+        $idProduk=$this->mdl->insertDataGetLast('produk',$dataProduk);
+        
+        //eksekusi query insert
+        $dataPO = array(
+            'nomorPO'           => $this->input->post('nomorPO'),
+            'idProduk'          => $idProduk,
+            'idCustomer'        => $idCustomer,
+            'idSalesPerson'     => $this->input->post('idSalesPerson'),
+            'idStokBarang'      => $idStokBarang,
+            'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
+            'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
+            'hargaBahan'        => $hargaBahan,
+            'upah'              => $upah,
+            'datangEmas'        => $this->input->post('datangEmas'),
+            'panjar'            => $panjar,
+            'beratAkhir'        => $this->input->post('beratAkhir'),
+            'totalHarga'        => $totalHarga,
+            'tipeOrder'         => 'massal',
+            'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
+            'tipeCustomer'      => $this->input->post('tipeCustomer'),
+            'pekerjaanTambahan' => $pekerjaanTambahan,
+            'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
+            'bahan'             => $this->input->post('bahan'),
+            'kadarBahan'        => $this->input->post('kadarBahan'),
+            'ukuranJari'        => $this->input->post('ukuranJari'),
+            'krumWarna'         => $this->input->post('krumWarna'),
+            'model'             => $this->input->post('model'),
+            'keteranganKrum'    => $this->input->post('keteranganKrum'),
+        );
+        $this->mdl->insertDataGetLast('pomasal',$dataPO);
 
-            if(count($cekProduk)==0){
-                $dataProduk = array(
-                    'kodeProduk'        => $this->input->post('kodeProduk'),
-                    'namaProduk'        => $namaProduk,
-                    'jenisProduk'       => $this->input->post('jenisProduk'),
-                    'kategori'        => 'Massal',
-                    'statusKatalog'        => 'Tidak Tampil',
-                    'kodeGambar'        => $kode,
-                );
-                $idProduk=$this->mdl->insertDataGetLast('produk',$dataProduk);
-
-            } else {
-                $produk=$this->mdl->findProduk($kodeProduk);
-                $idProduk=$produk[0]->idProduk;
-            } 
-
-            $harga=$this->input->post('harga');
-            $totalHarga=0;
-
-            $datangEmas=$this->input->post('datangEmas');
-            $idStokBarang = '';
-            if ($datangEmas>0) {
-
-                $namaMaterial = 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%';
-                $t = $this->mdl->cekMaterial($namaMaterial);
-                $d = count($t);
-                
-                $f = $this->mdl->getLastKodeMaterial();
-                $ww = $f[0]->kodeMaterial+1;
-
-                if($d == 0) {
-                    $dataMaterial = array(
-                        'kodeMaterial'    => $ww,
-                        'namaMaterial'    => $namaMaterial,
-                        'satuan'          => 'gr',
-                        'stokMaterial'    => $this->input->post('datangEmas'),
-                        'safetyStock'     => 0,
-                        'kadar'           =>$this->input->post('kadarDatangEmas'),
-                        'asal'            => 'Datang Emas',
-                    );
-                    
-                    $this->mdl->insertData('materialdasar',$dataMaterial);
-
-                    $iduser = ($this->session->userdata['logged_in']['iduser']);
-                    $dataInventory = array(
-                        'idPIC'         => $iduser,
-                        'tipeBarang'    => 'Material Dasar',
-                        'tipePergerakan'=> 'Bahan Datang',
-                        'kodeBarang'    => $ww,
-                        'satuan'          => 'gr',
-                        'jumlah'        => $this->input->post('datangEmas'),
-                        'jenisPergerakanBarang'  => 'IN',
-                        'hargaBeli'     => 0,
-                        'tanggal'   => date("Y-m-d H:i:s"),
-                    );
-                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
-                } else {
-                    $kodek = $t[0]->kodeMaterial;
-                    $iduser = ($this->session->userdata['logged_in']['iduser']);
-                    $dataInventory = array(
-                        'idPIC'         => $iduser,
-                        'tipeBarang'    => 'Material Dasar',
-                        'tipePergerakan'=> 'Bahan Datang',
-                        'kodeBarang'    => $kodek,
-                        'satuan'          => 'gr',
-                        'jumlah'        => $this->input->post('datangEmas'),
-                        'jenisPergerakanBarang'  => 'IN',
-                        'hargaBeli'     => 0,
-                        'tanggal'   => date("Y-m-d H:i:s"),
-                    );
-                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
-                }
-
-                
-            }
-            
-            //eksekusi query insert
-            $dataPO = array(
+        $idProdukChild=$this->input->post('idProdukChild[]');
+        $keteranganChild=$this->input->post('keteranganChild[]');
+        for ($i=0; $i < count($idProdukChild); $i++) { 
+            $dataProdukPO = array(
                 'nomorPO'           => $this->input->post('nomorPO'),
-                'idProduk'          => $idProduk,
-                'idCustomer'        => $idCustomer,
-                'idSalesPerson'     => $this->input->post('idSalesPerson'),
-                'idStokBarang'      => $idStokBarang,
-                'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
-                'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
-                'hargaBahan'        => $hargaBahan,
-                'upah'              => $upah,
-                'datangEmas'        => $this->input->post('datangEmas'),
-                'panjar'            => $panjar,
-                'beratAkhir'        => $this->input->post('beratAkhir'),
-                'totalHarga'        => $totalHarga,
-                'tipeOrder'         => 'massal',
-                'kadarDatangEmas'   => $this->input->post('kadarDatangEmas'),
-                'tipeCustomer'      => $this->input->post('tipeCustomer'),
-                'pekerjaanTambahan' => $pekerjaanTambahan,
-                'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-                'bahan'             => $this->input->post('bahan'),
-                'kadarBahan'        => $this->input->post('kadarBahan'),
-                'ukuranJari'        => $this->input->post('ukuranJari'),
-                'krumWarna'         => $this->input->post('krumWarna'),
-                'model'             => $this->input->post('model'),
-                'keteranganKrum'    => $this->input->post('keteranganKrum'),
+                'idProdukAG'        => $kodeProduk,
+                'idProdukChild'     => $idProdukChild[$i],
+                'keterangan'        => $keteranganChild[$i],
             );
-            $this->mdl->insertData('pomasal',$dataPO);
-
-            //Query Tambah SPK Massal
-            $sd      = 'Proses Desain';
-            $sb      = 'Belum Ada';
-            $sj      = 'Belum Ada';
-            $sp      = 'Belum Disetujui';
-            $iduser  = ($this->session->userdata['logged_in']['iduser']);
-            $dataSPK = array(
-                'nomorFaktur' => $this->input->post('nomorPO'),
-                'nomorPO' => $this->input->post('nomorPO'),
-                'idProduk' => $idProduk,
-                'idCustomer' => $idCustomer,
-                'statusBOM' => $sb,
-                'PICBOM' => $iduser,
-                'statusJadwal' => $sj,
-                'PICJadwal' => $iduser,
-                'statusPersetujuan' => $sp,
-                'PICPersetujuan' => $iduser,
-            );
-            $this->mdl->insertData("spkmasal", $dataSPK);      
-                    
-            
-            $data['pegawai'] = $this->mdl->listPegawai();
-            $nomorPO=$this->input->post('nomorPO');
-            $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
-            // print_r($data);exit();
-            $this->load->view('user/invoicePOMassal',$data);
+            $this->mdl->insertData('produkpo',$dataProdukPO);
         }
+
+        //Query Tambah SPK Massal
+        $sd      = 'Proses Desain';
+        $sb      = 'Belum Ada';
+        $sj      = 'Belum Ada';
+        $sp      = 'Belum Disetujui';
+        $iduser  = ($this->session->userdata['logged_in']['iduser']);
+        $dataSPK = array(
+            'nomorFaktur' => $this->input->post('nomorPO'),
+            'nomorPO' => $this->input->post('nomorPO'),
+            'idProduk' => $idProduk,
+            'idCustomer' => $idCustomer,
+            'statusBOM' => $sb,
+            'PICBOM' => $iduser,
+            'statusJadwal' => $sj,
+            'PICJadwal' => $iduser,
+            'statusPersetujuan' => $sp,
+            'PICPersetujuan' => $iduser,
+        );
+        $this->mdl->insertData("spkmasal", $dataSPK);      
+                
+        
+        $data['pegawai'] = $this->mdl->listPegawai();
+        $nomorPO=$this->input->post('nomorPO');
+        $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
+        // print_r($data);exit();
+        $this->load->view('user/invoicePOMassal',$data);
+
         
     }
 
