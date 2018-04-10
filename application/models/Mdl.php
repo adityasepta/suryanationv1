@@ -737,6 +737,13 @@ class mdl extends CI_Model {
         return $result;
     }
 
+    public function findKadar($idSPK) {
+        $sql    = "SELECT * from spkmasal a, pomasal b where a.nomorPO = b.nomorPO and a.idSPK = $idSPK ";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+        return $result;
+    }
+
     public function findProduk6($id) {
         $sql    = "SELECT * from produk where idProduk=$id";
         $query = $this->db->query($sql);

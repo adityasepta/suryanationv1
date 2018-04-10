@@ -59,7 +59,7 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-3">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Daftar Harga Emas Per Hari</h5>
@@ -154,6 +154,37 @@
                         </div>
                     </div>
                 </div>
+
+                <?php if($job == 'Owner') {
+                    echo form_open('user/setTol');
+                    ?>
+
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Toleransi Kadar Produksi</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h4>Toleransi (%)</h4>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="number" class="form-control input-sm" step="any" value="<?php echo $lk[2]->nilai?>" name="tol">
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-primary btn-block btn-sm" type="submit">Update</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <?php echo form_close(); } ?>
             </div>
         </div>
         <div class="footer">

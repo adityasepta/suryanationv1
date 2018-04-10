@@ -103,7 +103,7 @@
                              
                                     <?php }?>
                                     <tr>
-                                        <td colspan="3" class="text-center"><b>Total Susut</b></td>
+                                        <td colspan="3" class="text-center"><b>Total Berat Bahan Sementara</b></td>
                                         <td colspan="1" class="text-center"><b><?php echo round($jh,2);?> gr</b></td>
                                         <td colspan="1" class="text-center"></td>
                                     </tr>

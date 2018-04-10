@@ -48,10 +48,12 @@
     <br>
     <div class="row">
         <div class="col-lg-4">
+            Nomor Faktur<br>
             Customer<br>
             Sales Person
         </div>
         <div class="col-lg-8">
+            :&nbsp&nbsp<b><?php echo $sp[$i]->nomorFaktur ?></b><br>
             :&nbsp&nbsp<b><?php echo $sp[$i]->namaCustomer ?></b><br>
             :&nbsp&nbsp<b><?php echo $sp[$i]->namasales ?></b>
         </div>
@@ -109,7 +111,7 @@
     
 
     <div class="modal inmodal fade" id="subspk<?php echo $sp[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -123,11 +125,10 @@
                     <?php echo form_open('user/setSubSPK2')?>
 
                     <div class="row">
-                        <div class="col-lg-4">
-                            &nbsp
-                        </div>
-                        <div class="col-lg-4">
-                            <input type="number" min="1" required="" value="1" name="jmlsub" class="form-control input-lg" readonly="">
+                   
+                        <div class="col-lg-12 text-center">
+                            <h2>Apakah Anda Ingin Menambahkan 1 Pohon ? ( Sub SPK )</h2>
+                            <input type="hidden" min="1" required="" value="1" name="jmlsub" class="form-control input-lg" readonly="">
                         </div>
                     </div>
 
@@ -135,7 +136,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Tambahkan</button>
 
                     <?php echo form_close()?>
                 </div>
