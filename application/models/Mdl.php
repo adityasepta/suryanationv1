@@ -292,6 +292,26 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listRole(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM role");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listAkses(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.idRole=c.idRole");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listDesain(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM user WHERE jabatan = 'Staff Desain Tempahan'");
