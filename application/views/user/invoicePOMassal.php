@@ -153,6 +153,21 @@
                                                 <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
                                                 <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
                                                 <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <dl class="dl-horizontal">
+                                                <dt id="pekerjaanTambahan">Pekerjaan Tambahan:</dt> <dd id="pekerjaanTambahan1">  <?php echo $pekerjaanTambahan?></dd>
+                                                <dt id="keteranganTambahan">Keterangan Tambahan:</dt> <dd id="keteranganTambahan1">  <?php echo $keteranganTambahan?></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-lg-6" id="cluster_info">
+                                            <dl class="dl-horizontal" >
+                                                <dt><a href="#" class="text-navy">Produk Yang dibuat :</a></dt><dd></dd>
+                                                <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                                                    <dt><?php echo $produkPO[$a]->namaProduk.' '.$produkPO[$a]->kodeProduk; ?></dt> <dd> <?php echo $produkPO[$a]->keterangan?> </dd>
+                                                <?php } ?>
                                             </dl>
                                         </div>
                                     </div>
@@ -258,6 +273,16 @@
                     radioClass: 'iradio_square-green',
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+            var a = <?php if($pekerjaanTambahan!=null){echo $pekerjaanTambahan;} else echo 0;?>;
+                if(a==null||a==0){
+                    document.getElementById('pekerjaanTambahan').style.display = 'none';
+                    document.getElementById('pekerjaanTambahan1').style.display = 'none';
+                    document.getElementById('keteranganTambahan').style.display = 'none';
+                    document.getElementById('keteranganTambahan1').style.display = 'none';
+                };
         </script>
 </body>
 

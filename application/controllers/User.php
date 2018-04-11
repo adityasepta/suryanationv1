@@ -2288,6 +2288,7 @@ class User extends CI_Controller {
 
     public function printSPKMassal($nomorFaktur){
         $data['dataSPK'] = $this->mdl->findSPKMassal($nomorFaktur);
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
         $this->load->view('user/printSPKMassal',$data);
     }
 
@@ -3124,6 +3125,7 @@ class User extends CI_Controller {
 
     public function invoicePOMassal($nomorPO){
         $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorPO);
         // print_r($data);exit();
         $this->load->view('user/invoicePOMassal',$data);
     }
@@ -4007,8 +4009,7 @@ class User extends CI_Controller {
     }
 
     public function invoiceMassal(){
-        // $je=$this->input->post();
-        // print_r($je);exit();
+
         $jenisMassal        = $this->input->post('jenisMassal');
         $po = implode(',',$this->input->post('nomorPO[]'));
         $tipeInvoice = 'pertokoan';
@@ -4200,6 +4201,7 @@ class User extends CI_Controller {
     {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
         $data['aktivitas'] = $this->mdl->listAktivitasMassal();
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
         $this->load->view('user/spkJadwalMassal', $data);
     }
     
@@ -5070,7 +5072,7 @@ class User extends CI_Controller {
     public function tambahPOMasal(){
         $namaProduk=$this->input->post('namaCustomer').'-'.'Agregat';
         $getProdukPO=$this->mdl->getLastProdukPO();
-        $kodeProduk=$getProdukPO[0]->idProdukPO+1;
+        $kodeProduk=$getProdukPO[0]->idProdukAG+1;
 
         $idC=$this->input->post('idCustomer');
         if($idC==0){
@@ -5160,7 +5162,6 @@ class User extends CI_Controller {
             
         }
 
-        
 
         $dataProduk = array(
             'kodeProduk'        => $kodeProduk,
@@ -5237,7 +5238,7 @@ class User extends CI_Controller {
         $data['pegawai'] = $this->mdl->listPegawai();
         $nomorPO=$this->input->post('nomorPO');
         $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
-        // print_r($data);exit();
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorPO);
         $this->load->view('user/invoicePOMassal',$data);
 
         
@@ -5245,6 +5246,7 @@ class User extends CI_Controller {
 
     public function printRFQMassal($nomorPO){
         $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
+         $data['produkPO'] = $this->mdl->getProdukPO($nomorPO);
         // print_r($data);exit();
         $this->load->view('user/printInvoiceMassal',$data);
     }
@@ -5841,6 +5843,7 @@ class User extends CI_Controller {
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $data['staf'] = $this->mdl->getStaf();
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
         $this->load->view('user/invoiceMassal', $data);
     }
 
