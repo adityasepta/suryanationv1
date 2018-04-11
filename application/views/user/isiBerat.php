@@ -28,6 +28,7 @@
                     <tr>
                         <th>No</th>
                         <th>Produk</th>
+                        <th>Keterangan</th>
                         <th class="set-width">Berat (gr) </th>
                         
                     </tr>
@@ -39,6 +40,7 @@
                         <tr>
                             <td><h4><?php echo $i+1; ?></h4></td>
                             <td><h4><?php echo $pro[$i]->namaProduk; ?></h4></td>
+                            <td><h4><?php echo $pro[$i]->keterangan; ?></h4></td>
                             <td><input type="number" required="" step="any" class="form-control set-width input-sm" name="berat[]"></td>
                             
                         </tr>

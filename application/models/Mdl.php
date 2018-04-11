@@ -244,7 +244,7 @@ class mdl extends CI_Model {
 
     public function listProduk(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produk");
+        $hasil = $this->db->query("SELECT * FROM produk  WHERE jenisProduk != 'Agregat'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -700,7 +700,7 @@ class mdl extends CI_Model {
     }
 
     public function getMaterial() {
-        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where stokMaterial > 0 AND (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan')";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan'";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1889,7 +1889,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getAnak($nomorPO) {
-        $sql   = "SELECT *,DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal from produkPO a, produk b, pomasal c, customer e where c.idCustomer = e.idCustomer and a.idProdukChild = b.idProduk and a.nomorPO = $nomorPO and a.nomorPO = c.nomorPO ";
+        $sql   = "SELECT *,DATE_FORMAT(tanggalEstimasiPenyelesaian, '%d %M %Y') AS tanggalSelesai, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal from produkpo a, produk b, pomasal c, customer e where c.idCustomer = e.idCustomer and a.idProdukChild = b.idProduk and a.nomorPO = $nomorPO and a.nomorPO = c.nomorPO ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2089,7 +2089,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return $hasil->result();
         } else{
             $array = array(
-            'idProdukPO'=> 5000,
+            'idProdukAG'=> 5000,
             );
              
             $books = (object) $array;
