@@ -84,7 +84,7 @@
                                              } else {
                                                 $g -= ((float)$st[$i]->jmlmasuk*$st[$i]->kadar)/100;
                                              }
-                                        } echo $g." gr <br><br>" ?>
+                                        } echo number_format($g,3,",",".")." gr <br><br>" ?>
 
                                         <?php if(count($pd) > 0) {?>
                                             <br><br>
