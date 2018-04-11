@@ -215,6 +215,21 @@
                                                 <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
                                                 <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
                                                 <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <dl class="dl-horizontal">
+                                                <dt id="pekerjaanTambahan">Pekerjaan Tambahan:</dt> <dd id="pekerjaanTambahan1">  <?php echo $pekerjaanTambahan?></dd>
+                                                <dt id="keteranganTambahan">Keterangan Tambahan:</dt> <dd id="keteranganTambahan1">  <?php echo $keteranganTambahan?></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-lg-6" id="cluster_info">
+                                            <dl class="dl-horizontal" >
+                                                <dt><a href="#" class="text-navy">Produk Yang dibuat :</a></dt><dd></dd>
+                                                <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                                                    <dt><?php echo $produkPO[$a]->namaProduk.' '.$produkPO[$a]->kodeProduk; ?></dt> <dd> <?php echo $produkPO[$a]->keterangan?> </dd>
+                                                <?php } ?>
                                             </dl>
                                         </div>
                                     </div>

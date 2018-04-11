@@ -110,21 +110,27 @@
                                         <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
                                     </tr>
                                     <tr>
-                                        <td>Kode Produk: <?php echo $kodeProduk ?><br>
+                                         <td>Kode Produk: <?php echo $kodeProduk ?><br>
                                         Jenis Produk: <?php echo $jenisProduk ?><br>
-                                        Ukuran Jari: <?php echo $ukuranJari ?> mm</td>
+                                        Ukuran Jari: <?php echo $ukuranJari ?> <br>
+                                        Model: <?php echo $model ?></td>
 
                                         <td>Bahan: <?php echo $bahan ?><br>
                                         Kadar Bahan: <?php echo $kadarBahan ?>%<br>
-                                        Model: <?php echo $model ?></td>
-
-                                        <td>
-                                        Krum Warna: <?php echo $krumWarna ?><br>
-                                        Keterangan Krum: <?php echo $keteranganKrum ?></td>
-
-                                        <td>
                                         Datang Emas: <?php echo $datangEmas ?><br>
-                                        Kadar Datang Emas: <?php echo $kadarDatangEmas ?></td>
+                                        Kadar Datang Emas: <?php echo $kadarDatangEmas?>
+                                        </td>
+
+                                        <td>Krum Warna: <?php echo $krumWarna ?><br>
+                                        Keterangan Krum: <?php echo $keteranganKrum ?><br>
+                                        Pekerjaan Tambahan: <?php echo $pekerjaanTambahan ?><br>
+                                        Keterangan Tambahan: <?php echo $keteranganTambahan ?></td>
+
+                                        <td>Model yang diproduksi:<br>
+                                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                                            <?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> <?php echo '| '.$produkPO[$a]->keterangan?><br>
+                                        <?php } ?>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
