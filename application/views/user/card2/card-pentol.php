@@ -11,7 +11,7 @@
     } 
 ?>
 
-<li class="<?php echo $statr ?>-element" id="task1">
+<li class="<?php echo $statr ?>-element" id="<?php echo $idakt ?>-<?php echo $gp[$i]->idProProd ?>">
 
     <?php if(isset($display)) {?>
 
