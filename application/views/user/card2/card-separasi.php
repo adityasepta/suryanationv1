@@ -85,16 +85,28 @@
         </div>
         
     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 text-center">
+            Tgl Masuk<br>
+            <b><?php echo $sp[$i]->tanggal ?></b>
+        </div>
+
+        <div class="col-lg-6 text-center ">
+            Tgl Estimasi Selesai<br>
+            <b><?php echo $sp[$i]->tanggalSelesai ?></b>
+        </div>
+    </div>
     
     <div class="row">
-        <br>
+        
         <div class="col-lg-4">
             <br>    
             <button data-toggle="modal" data-target="#detail2x<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
         <div class="col-lg-4">
             <br>    
-            <button data-toggle="modal" data-target="#subspk<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-info btn-block"><span class="fa fa-sitemap"></span></button>
+            <button data-toggle="modal" data-target="#subspk<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-info btn-block">Tambah</button>
         </div>
         <div class="col-lg-4">
             <br>    

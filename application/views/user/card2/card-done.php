@@ -140,14 +140,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <a href="<?php echo base_url('user/invoiceSPKMassal/'.$do[$i]->nomorFaktur) ?>" class="btn btn-xs btn-default btn-block">Detail</a>
             </div>
-            <div class="col-lg-3">
-                <?php if($prs == 100) {?>
-                    <a data-toggle="modal" data-target="#beratakhir<?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
+            <div class="col-lg-6">
+                <?php if($prs == 100 and $do[$i]->statusBerat == 'Belum Disetujui') {?>
+                    <a href="<?php echo base_url('user/isiBerat/'.$do[$i]->nomorPO.'/'.$do[$i]->idProProd)?>" class="btn btn-xs btn-info btn-block">Isi Berat</a>
+                <?php } else if($prs == 100 and $do[$i]->statusBerat == 'Disetujui') {?>
+                    <a data-toggle="modal" data-target="#beratakhir<?php echo $do[$i]->idSPK ?>" class="btn btn-xs btn-warning btn-block">Transfer</a>
                 <?php } else {?>
-                    <a disabled class="btn btn-xs btn-warning btn-block"><span class="fa fa-check-square"></span></a>
+                    <a disabled class="btn btn-xs btn-warning btn-block">Transfer</a>
                 <?php } ?>
                 
             </div>
@@ -171,7 +173,7 @@
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang</label>
 
-                                        <div class="col-sm-9"><input type="number" readonly="" step="any" name="jumlah" required min="1"  value="<?php echo $do[$i]->jumlah?>"  class="form-control"></div>
+                                        <div class="col-sm-9"><input type="number" step="any" name="jumlah" required min="1"  value="<?php echo $do[$i]->jumlah?>"  class="form-control"></div>
                                     </div>
                                 </div>
                                 <div class="form-horizontal">
@@ -182,11 +184,12 @@
                                 </div>
                                 <input type="hidden" value="<?php echo $do[$i]->idSPK?>" name="idSPK">
                                 <input type="hidden" value="<?php echo $do[$i]->idProduk?>" name="idProduk">
+                                <input type="hidden" value="<?php echo $do[$i]->nomorPO?>" name="nomorPO">
                                 <div class="form-horizontal">
                                     <div class="form-group">
 
                                         <div class="col-sm-1 pull-left"><input type="checkbox" class="form-control " name="val" required></div>
-                                        <div class="col-sm-11"><em>Berat yang dimasukkan adalah berat sebenar-benarnya dan berat ini tidak dapat diedit kembali.</em></div>
+                                        <div class="col-sm-11"><em>Berat yang dimasukkan adalah <b>TOTAL</b> berat sebenar-benarnya dan berat ini tidak dapat diedit kembali.</em></div>
                                     </div>
                                 </div>
                                 
@@ -196,7 +199,7 @@
                     <div class="row">
                        
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-block btn-success">Validasi</button>
+                            <button type="submit" class="btn btn-block btn-success">Transfer</button>
                         </div>
                     </div>
                     <?php echo form_close()?>
