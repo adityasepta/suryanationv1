@@ -6383,5 +6383,73 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/stokBarang")."';</script>";
     }
 
+    //Role
+    public function role() {
+        $data['role']=$this->mdl->listRole();  
+        $this->load->view('user/role',$data);
+    }
+
+    public function createRole() {
+        $dataRole = array(
+            'kodeRole'          => $this->input->post('kodeRole'),
+            'deskripsi'          => $this->input->post('deskripsi'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('role', $dataRole);
+        redirect('user/role');
+    }
+
+    public function editRole($idRole) {
+        $dataRole = array(
+            'kodeRole'          => $this->input->post('kodeRole'),
+            'deskripsi'          => $this->input->post('deskripsi'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->updateData('idRole', $idRole, 'role', $dataRole);
+        redirect('user/role');
+    }
+
+    public function deleteRole($idRole) {
+        $this->mdl->deleteData('idRole', $idRole, 'role');
+        $message = "Data Role berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/role")."';</script>";
+    }
+
+    //Akses
+    public function akses() {
+        $data['akses']=$this->mdl->listAkses();  
+        $data['pegawai']=$this->mdl->listPegawai(); 
+        $data['role']=$this->mdl->listRole();  
+        $this->load->view('user/akses',$data);
+    }
+
+    public function createAkses() {
+        $dataAkses = array(
+            'idRole'          => $this->input->post('idRole'),
+            'idUser'          => $this->input->post('idUser'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->insertData('akses', $dataAkses);
+        redirect('user/akses');
+    }
+
+    public function editAkses($idAkses) {
+        $dataAkses = array(
+            'kodeAkses'          => $this->input->post('kodeAkses'),
+            'deskripsi'          => $this->input->post('deskripsi'),
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->updateData('idAkses', $idAkses, 'akses', $dataAkses);
+        redirect('user/akses');
+    }
+
+    public function deleteAkses($idAkses) {
+        $this->mdl->deleteData('idAkses', $idAkses, 'akses');
+        $message = "Data Akses berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/akses")."';</script>";
+    }
+
 
 }
