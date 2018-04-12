@@ -1826,6 +1826,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findProdukPO($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produkpo where nomorPO='$nomorPO'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function findPergerakan($nomorPO,$kodeBarang){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM stokbarang where nomorPO='$nomorPO' and kodeBarang='$kodeBarang' and jenisPergerakanBarang='IN' and tipeBarang='Produk Jadi' AND tipePergerakan='Transfer'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findBeratProd($idSPK){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idSPK=$idSPK AND idAktivitas=1014 LIMIT 1");

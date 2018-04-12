@@ -4654,7 +4654,7 @@ class User extends CI_Controller {
 
         $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
 
-        redirect('kanbanmassal');
+        redirect('user/kanbanmassal');
 
 
     }
@@ -6359,20 +6359,25 @@ class User extends CI_Controller {
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
         $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
-        $dataInventory = array(
+        $nomorPO = $data['SPK']->nomorPO;
+        $data['produkpo']=$this->mdl->findProdukPO($nomorPO);
+        for ($i=0; $i < count($data['produkpo']) ; $i++) { 
+            $data['pergerakan']=$this->mdl->findPergerakan($data['produkpo'][$i]->nomorPO,$data['produkpo'][$i]->idProdukChild);
+            $dataInventory = array(
                 'idPIC'         => $this->session->userdata['logged_in']['iduser'],
                 'tipeBarang'    => 'Produk Jadi',
                 'tipePergerakan'=> 'Diambil Customer',
-                'kodeBarang'    => $data['SPK']->idProduk,
-                'jumlah'        => $data['beratAkhir']->berat,
+                'nomorPO'       => $data['pergerakan'][0]->nomorPO,
+                'kodeBarang'    => $data['pergerakan'][0]->kodeBarang,
+                'jumlah'        => $data['pergerakan'][0]->jumlah,
                 'satuan'        => 'gr',
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
                 
             );
-        $this->mdl->insertData('stokbarang',$dataInventory);
-
+            $this->mdl->insertData('stokbarang',$dataInventory);
+        }
         $dataStatus = array(
                 'statusPengambilan' => 'Sudah'
         );
