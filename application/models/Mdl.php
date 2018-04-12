@@ -302,9 +302,19 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listAkses1(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.kodeRole=c.kodeRole");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listAkses(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.idRole=c.idRole");
+        $hasil = $this->db->query("SELECT a.idUser,nama FROM akses a, user b WHERE a.idUser = b.idUser GROUP BY a.idUser,nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

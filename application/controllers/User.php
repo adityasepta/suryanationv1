@@ -6418,19 +6418,28 @@ class User extends CI_Controller {
 
     //Akses
     public function akses() {
-        $data['akses']=$this->mdl->listAkses();  
+        $data['akses']=$this->mdl->listAkses();
+        $data['akses2']=$this->mdl->listAkses1();  
         $data['pegawai']=$this->mdl->listPegawai(); 
         $data['role']=$this->mdl->listRole();  
         $this->load->view('user/akses',$data);
     }
 
     public function createAkses() {
-        $dataAkses = array(
-            'idRole'          => $this->input->post('idRole'),
-            'idUser'          => $this->input->post('idUser'),
-        );
+        /*print_r($this->input->post());exit();*/
+        $idUser = $this->input->post('idUser');
+        $role=$this->input->post('kodeRole[]');
+        $jumlahRole = count($role);
+        
+        for($i=0;$i<$jumlahRole;$i++){
+            $dataAkses = array(
+                'idUser'          => $idUser,
+                'kodeRole'          => $role[$i]
+            );
+            $this->mdl->insertData('akses', $dataAkses);
+        }
         //print_r($dataPegawai);exit();
-        $this->mdl->insertData('akses', $dataAkses);
+        
         redirect('user/akses');
     }
 
