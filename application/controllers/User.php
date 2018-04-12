@@ -4667,7 +4667,7 @@ class User extends CI_Controller {
 
         $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
 
-        redirect('kanbanmassal');
+        redirect('user/kanbanmassal');
 
 
     }
@@ -6372,20 +6372,25 @@ class User extends CI_Controller {
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
         $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
-        $dataInventory = array(
+        $nomorPO = $data['SPK']->nomorPO;
+        $data['produkpo']=$this->mdl->findProdukPO($nomorPO);
+        for ($i=0; $i < count($data['produkpo']) ; $i++) { 
+            $data['pergerakan']=$this->mdl->findPergerakan($data['produkpo'][$i]->nomorPO,$data['produkpo'][$i]->idProdukChild);
+            $dataInventory = array(
                 'idPIC'         => $this->session->userdata['logged_in']['iduser'],
                 'tipeBarang'    => 'Produk Jadi',
                 'tipePergerakan'=> 'Diambil Customer',
-                'kodeBarang'    => $data['SPK']->idProduk,
-                'jumlah'        => $data['beratAkhir']->berat,
+                'nomorPO'       => $data['pergerakan'][0]->nomorPO,
+                'kodeBarang'    => $data['pergerakan'][0]->kodeBarang,
+                'jumlah'        => $data['pergerakan'][0]->jumlah,
                 'satuan'        => 'gr',
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
                 
             );
-        $this->mdl->insertData('stokbarang',$dataInventory);
-
+            $this->mdl->insertData('stokbarang',$dataInventory);
+        }
         $dataStatus = array(
                 'statusPengambilan' => 'Sudah'
         );
@@ -6431,19 +6436,28 @@ class User extends CI_Controller {
 
     //Akses
     public function akses() {
-        $data['akses']=$this->mdl->listAkses();  
+        $data['akses']=$this->mdl->listAkses();
+        $data['akses2']=$this->mdl->listAkses1();  
         $data['pegawai']=$this->mdl->listPegawai(); 
         $data['role']=$this->mdl->listRole();  
         $this->load->view('user/akses',$data);
     }
 
     public function createAkses() {
-        $dataAkses = array(
-            'idRole'          => $this->input->post('idRole'),
-            'idUser'          => $this->input->post('idUser'),
-        );
+        /*print_r($this->input->post());exit();*/
+        $idUser = $this->input->post('idUser');
+        $role=$this->input->post('kodeRole[]');
+        $jumlahRole = count($role);
+        
+        for($i=0;$i<$jumlahRole;$i++){
+            $dataAkses = array(
+                'idUser'          => $idUser,
+                'kodeRole'          => $role[$i]
+            );
+            $this->mdl->insertData('akses', $dataAkses);
+        }
         //print_r($dataPegawai);exit();
-        $this->mdl->insertData('akses', $dataAkses);
+        
         redirect('user/akses');
     }
 

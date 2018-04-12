@@ -302,9 +302,19 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listAkses1(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.kodeRole=c.kodeRole");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listAkses(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.idRole=c.idRole");
+        $hasil = $this->db->query("SELECT a.idUser,nama FROM akses a, user b WHERE a.idUser = b.idUser GROUP BY a.idUser,nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1811,6 +1821,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE idSPK=$idSPK LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+    public function findProdukPO($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produkpo where nomorPO='$nomorPO'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function findPergerakan($nomorPO,$kodeBarang){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM stokbarang where nomorPO='$nomorPO' and kodeBarang='$kodeBarang' and jenisPergerakanBarang='IN' and tipeBarang='Produk Jadi' AND tipePergerakan='Transfer'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
         } else{
             return array();
         }
