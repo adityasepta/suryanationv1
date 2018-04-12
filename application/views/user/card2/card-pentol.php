@@ -526,17 +526,7 @@
                                                 
                                             </div>
 
-                                            <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
-
-                                                    <div class="col-sm-7">
-                                                        <input type="number" step="any" name="beratTambahan" value="<?php echo $gp[$i]->beratTambahan?>" required class="form-control">
-                                                        <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            
+                                        
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
 

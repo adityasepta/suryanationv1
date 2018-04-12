@@ -49,6 +49,7 @@
                     <?php } ?>
                     
                     <input type="hidden" value="<?php echo $idProProd; ?>" name="idProProd">
+                    <input type="hidden" value="<?php echo $nomorPO; ?>" name="nomorPO">
                      
                 </tbody>
             </table>

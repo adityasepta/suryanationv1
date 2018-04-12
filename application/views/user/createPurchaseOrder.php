@@ -130,7 +130,7 @@
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Kode Produk</label>
-                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CLS 00010" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CNC - <?php echo $poNow; ?>" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required=""></div>
                                     <small class="text-danger"><?php echo form_error('kodeProduk'); ?></small>
                                 </div>
                                 <div class="form-group">

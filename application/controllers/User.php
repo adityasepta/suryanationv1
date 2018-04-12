@@ -301,6 +301,7 @@ class User extends CI_Controller {
                 'idC' => 1,
             );
         }
+
         $data['pegawai'] = $this->mdl->listPegawaiSales();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
         $this->load->view('user/createPurchaseOrder',$data);
@@ -3594,16 +3595,16 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE){
             $idCustomer = $this->input->post('idCustomer');
                         // print_r($idCustomer);exit();
-                        if ($idCustomer==0){
-                            $data['id'] = array(
-                                'idC' => 0,
-                            );
-                        } else {
-                            $data['customer'] = $this->mdl->cariCustomer($idCustomer);
-                            $data['id']= array(
-                                'idC' => 1,
-                            );
-                        }
+            if ($idCustomer==0){
+                $data['id'] = array(
+                    'idC' => 0,
+                );
+            } else {
+                $data['customer'] = $this->mdl->cariCustomer($idCustomer);
+                $data['id']= array(
+                    'idC' => 1,
+                );
+            }
             $data['pegawai'] = $this->mdl->listPegawaiSales();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
             $this->load->view('user/createPurchaseOrder',$data);
@@ -3727,34 +3728,124 @@ class User extends CI_Controller {
 
             $datangEmas=$this->input->post('datangEmas');
             $idStokBarang = '';
-            if ($datangEmas>0) {
-                $f = $this->mdl->getLastKodeMaterial();
-                $ww = $f[0]->kodeMaterial+1;
-                $dataMaterial = array(
-                    'kodeMaterial'    => $ww,
-                    'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
-                    'satuan'          => 'gr',
-                    'stokMaterial'    => $this->input->post('datangEmas'),
-                    'safetyStock'     => 0,
-                    'kadar'     => $this->input->post('kadarDatangEmas'),
-                    'asal'            => 'Datang Emas',
-                );
-                //print_r($dataMaterial);exit();
-                $this->mdl->insertData('materialdasar',$dataMaterial);
 
-                $iduser = ($this->session->userdata['logged_in']['iduser']);
+            if ($datangEmas>0) {
+
+                $kadarx = $this->input->post('kadarDatangEmas');
+                $kat = 'Emas';
+
+                $t = $this->mdl->cekMaterial('Emas',$kadarx);
+                $d = count($t);
+
+                if($d == 0) {
+
+                    $f = $this->mdl->getLastKodeMaterial();
+                    $ww = $f[0]->kodeMaterial+1;
+
+                    $dataMaterial = array(
+                        'kodeMaterial'    => $ww,
+                        'namaMaterial'    => 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%',
+                        'satuan'          => 'gr',
+                        
+                        'safetyStock'     => 0,
+                        'kadar'     => $this->input->post('kadarDatangEmas'),
+                        'asal'            => 'Datang Emas',
+                    );
+                    //print_r($dataMaterial);exit();
+                    $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
+                    //Stok Datang Emas
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'satuan'          => 'gr',
+                        'kodeBarang'    => $ww,
+                        'jumlah'        => $this->input->post('datangEmas'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+
+                } else {
+
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
+                    //Stok Datang Emas
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'satuan'          => 'gr',
+                        'kodeBarang'    => $t[0]->kodeMaterial,
+                        'jumlah'        => $this->input->post('datangEmas'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+
+                } 
+
+                
+            }
+
+            $beratBerlian =$this->input->post('datangBerlian');
+            $karat =$this->input->post('jumlahDatangBerlian');
+
+            if ($beratBerlian>0) {
+
+
+                $t = $this->mdl->cekMaterial('Berlian',$karat);
+                $d = count($t);
+
+                if($d == 0) {
+
+                    $f = $this->mdl->getLastKodeMaterial();
+                    $ww = $f[0]->kodeMaterial+1;
+
+                    $dataMaterial = array(
+                        'kodeMaterial'    => $ww,
+                        'namaMaterial'    => 'Berlian '.$this->input->post('jumlahDatangBerlian').' Karat',
+                        'satuan'          => 'Karat',
+                        'safetyStock'     => 0,
+                        'kadar'     => $karat,
+                        'asal'            => 'Datang Berlian',
+                        'kategori' => 'Berlian'
+                    );
+                    //print_r($dataMaterial);exit();
+                    $this->mdl->insertData('materialdasar',$dataMaterial);
+
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
+                    //Stok Datang Emas
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'satuan'          => 'cr',
+                        'kodeBarang'    => $ww,
+                        'jumlah'        => $this->input->post('datangBerlian'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+
+                } else {
+                    $iduser = ($this->session->userdata['logged_in']['iduser']);
                 //Stok Datang Emas
-                $dataInventory = array(
-                    'idPIC'         => $iduser,
-                    'tipeBarang'    => 'Material Dasar',
-                    'tipePergerakan'=> 'Bahan Datang',
-                    'satuan'          => 'gr',
-                    'kodeBarang'    => $ww,
-                    'jumlah'        => $this->input->post('datangEmas'),
-                    'jenisPergerakanBarang'  => 'IN',
-                    'hargaBeli'     => 0,
-                );
-                $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+                    $dataInventory = array(
+                        'idPIC'         => $iduser,
+                        'tipeBarang'    => 'Material Dasar',
+                        'tipePergerakan'=> 'Bahan Datang',
+                        'satuan'          => 'cr',
+                        'kodeBarang'    => $t[0]->kodeMaterial,
+                        'jumlah'        => $this->input->post('datangBerlian'),
+                        'jenisPergerakanBarang'  => 'IN',
+                        'hargaBeli'     => 0,
+                    );
+                    $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
+                } 
+
+                
             }
             
             
@@ -4600,12 +4691,14 @@ class User extends CI_Controller {
     public function isiBerat($nomorPO,$idProProd) {
         $data['pro'] = $this->mdl->getAnak($nomorPO);
         $data['idProProd'] = $idProProd;
+        $data['nomorPO'] = $nomorPO;
         $this->load->view('user/isiBerat',$data);
     }
 
     public function setBeratAnak() {
 
         $idProProd = $this->input->post('idProProd');
+        $nomorPO = $this->input->post('nomorPO');
 
         $berat = $this->input->post('berat[]');
         
@@ -4623,7 +4716,8 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Produksi',
-                'tanggal' => date("Y-m-d H:i:s")
+                'tanggal' => date("Y-m-d H:i:s"),
+                'nomorPO' => $nomorPO,
             );
             
             $this->mdl->insertData('stokbarang', $data);
@@ -4636,7 +4730,8 @@ class User extends CI_Controller {
                 'satuan' => 'gr',
                 'tanggal' => date("Y-m-d H:i:s"),
                 'jenisPergerakanBarang' => 'OUT',
-                'tipePergerakan' => 'Transfer'
+                'tipePergerakan' => 'Transfer',
+                'nomorPO' => $nomorPO,
                 
             );
 
@@ -4655,6 +4750,7 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang' => 'IN',
                 'tipePergerakan' => 'Transfer',
                 'statusTransfer' => 'Pending',
+                'nomorPO' => $nomorPO,
                 
             );
 
