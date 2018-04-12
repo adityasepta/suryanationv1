@@ -98,23 +98,20 @@
                                         <?php $no=0; foreach($akses as $p) : 
                                             $no++;
                                             $idUser    = $p->idUser;
-                                            /*if($this->input->post('is_submitted')){
-                                                $kodeRole    = $set_value('kodeRole');
-                                                $deskripsi    = $set_value('deskripsi');
-                                            }
-                                            else {
-                                                $kodeRole    = $p->kodeRole;
-                                                $deskripsi    = $p->deskripsi;
-                                            }*/
                                         ?>
+
                                         <tr>
                                             <td style="width: 10%"><?php echo $no?></td>
                                             <td style="width: 30%"><?php echo $p->nama?></td>
-                                           <td style="width: 50%"><?php for ($i=0; $i < count($akses2) ; $i++) {
-                                                                    if ($akses2[$i]->idUser==$idUser) {
-                                                                         echo $akses2[$i]->kodeRole.',';
-                                                                     } 
-                                                                    }?> 
+                                            <td style="width: 50%">
+                                                <?php $kode = array(); for ($l=0; $l < count($akses2) ; $l++) { ?>
+                                                    <?php if($idUser==$akses2[$l]->idUser) {
+                                                        array_push($kode,$akses2[$l]->kodeRole); 
+                                                    }
+                                                        $string = rtrim(implode(',', $kode), ',');
+                                                    ?> 
+                                                <?php }?>
+                                                <?php echo $string;?>
                                             </td>
                                             <td style="width: 10%"><!-- Button trigger modal -->
                                                 <a href="href="#" data-toggle="modal" data-target="#role<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
@@ -131,7 +128,7 @@
                                                     <h4 class="modal-title" id="myModalLabel">Edit Role</h4>
                                                   </div>
                                                   <div class="modal-body">
-                                                    <?php echo form_open_multipart('user/editAkses'.$idUser)?>
+                                                    <?php echo form_open_multipart('user/editAkses/'.$idUser)?>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -150,19 +147,20 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <label>Akses</label>
-                                                                    <?php $aa=0; for ($i=0; $i < count($role); $i++) { ?>
-                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" <?php for ($j=0; $j < count($akses2) ; $j++) {
-                                                                            if ($akses2[$i]->idUser==$idUser) {
-                                                                            if ($akses2[$j]->kodeRole==$role[$i]->kodeRole) {
-                                                                                 echo "checked";
-                                                                             }
-                                                                             else {
-                                                                                break;
-                                                                             } 
-                                                                             
-                                                                            }
-                                                                            }?> > <i></i> <?php echo $role[$i]->kodeRole?></label></div>
-                                                                    <?php } ?>
+                                                               
+                                                                <?php $kode = array(); for ($j=0; $j < count($akses2) ; $j++) { ?>
+                                                                    <?php if($idUser==$akses2[$j]->idUser) {
+                                                                        array_push($kode,$akses2[$j]->kodeRole);
+                                                                    }?>
+                                                                <?php }?>
+
+                                                                <?php for ($i=0; $i < count($role) ; $i++) { ?>
+                                                                    <?php if(in_array($role[$i]->kodeRole, $kode)) {?>
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" checked> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                    <?php } else {?>
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]"> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                    <?php }?>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -216,7 +214,7 @@
                                                 <div class="col-md-12">
                                                     <label>Akses</label>
                                                         <?php for ($i=0; $i < count($role); $i++) { ?>
-                                                            <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" > <i></i> <?php echo $role[$i]->kodeRole?></label></div>
+                                                            <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" > <i></i> <?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div>
                                                         <?php } ?>
                                                 </div>
                                             </div>

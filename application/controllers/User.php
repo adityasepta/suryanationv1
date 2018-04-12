@@ -6461,13 +6461,19 @@ class User extends CI_Controller {
         redirect('user/akses');
     }
 
-    public function editAkses($idAkses) {
-        $dataAkses = array(
-            'kodeAkses'          => $this->input->post('kodeAkses'),
-            'deskripsi'          => $this->input->post('deskripsi'),
-        );
-        //print_r($dataPegawai);exit();
-        $this->mdl->updateData('idAkses', $idAkses, 'akses', $dataAkses);
+    public function editAkses($idUser) {
+        $this->mdl->deleteData('idUser', $idUser, 'akses');
+
+        $role=$this->input->post('kodeRole[]');
+        $jumlahRole = count($role);
+        
+        for($i=0;$i<$jumlahRole;$i++){
+            $dataAkses = array(
+                'idUser'          => $idUser,
+                'kodeRole'          => $role[$i]
+            );
+            $this->mdl->insertData('akses', $dataAkses);
+        }
         redirect('user/akses');
     }
 
