@@ -80,7 +80,7 @@
                                     <tr>
                                         <th class="text-center">Kode</th>
                                         <th>Nama</th>
-                                        <th class="text-center">Kadar</th>
+                                        <th class="text-center">Kadar Lokal</th>
                                         
                                         <th  class="text-center">Safety Stock</th>
                                         <th  class="text-center">Asal</th>

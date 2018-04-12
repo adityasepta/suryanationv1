@@ -175,7 +175,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Kadar Bahan</label>
+                                                <label>Kadar Bahan (lokal)</label>
                                                 <input type="text" name="kadarBahan" placeholder="%" value="<?php echo set_value('kadarBahan'); ?>"  class="form-control" required="">
                                             </div>
                                             <div class="col-md-4">
@@ -400,7 +400,7 @@
                                                         <input type="text" placeholder="gr" name="datangEmas" value="<?php echo set_value('datangEmas'); ?>" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Kadar Datang Emas</label>
+                                                        <label>Kadar Datang Emas (lokal)</label>
                                                         <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">

@@ -2222,8 +2222,8 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    public function cekMaterial($namaMaterial) {
-        $sql   = "SELECT * from materialdasar where namaMaterial = '$namaMaterial'";
+    public function cekMaterial($kategori,$kadar) {
+        $sql   = "SELECT * from materialdasar where kategori = '$kategori' and kadar = $kadar ";
         $query = $this->db->query($sql);
         
         return $query->result();

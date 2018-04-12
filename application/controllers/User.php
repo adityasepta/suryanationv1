@@ -1500,11 +1500,23 @@ class User extends CI_Controller {
                 'clarity'         => $clarity,
                 'color'           => $color,
             );
-            
-            $this->mdl->insertMaterial($dataMaterial);
-            $message = "Material dasar berhasil dibuat";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/material")."';</script>";   
+
+            $kat = $this->input->post('kategori');
+            $t = $this->mdl->cekMaterial($kat, $kadar);
+            $d = count($t);
+
+            if($d == 0) {
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+                $message = "Material dasar berhasil dibuat";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href='".base_url("user/material")."';</script>"; 
+            } else {
+                $message = "Gagal menambahkan, material telah terdaftar";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href='".base_url("user/createMaterial")."';</script>";
+            }
+
+              
         }
     }
 
@@ -3213,8 +3225,9 @@ class User extends CI_Controller {
             }
 
             $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadar').'%';
-           
-            $t = $this->mdl->cekMaterial($namaMaterial);
+            
+
+            $t = $this->mdl->cekMaterial('Emas',$this->input->post('kadar'));
             $d = count($t);
 
             $f = $this->mdl->getLastKodeMaterial();
@@ -4763,7 +4776,7 @@ class User extends CI_Controller {
             $kadarWenny = $kadarLokal-$tol;
             $namaBahan = "Balik Bahan ".$kadarWenny."%";
 
-            $t = $this->mdl->cekMaterial($namaBahan);
+            $t = $this->mdl->cekMaterial('Emas',$kadarWenny);
             $d = count($t);
 
             if($d == 0) {
@@ -5127,7 +5140,7 @@ class User extends CI_Controller {
         if ($datangEmas>0) {
 
             $namaMaterial = 'Emas Kuning '.$this->input->post('kadarDatangEmas').'%';
-            $t = $this->mdl->cekMaterial($namaMaterial);
+            $t = $this->mdl->cekMaterial('Emas',$this->input->post('kadarDatangEmas'));
             $d = count($t);
             
             $f = $this->mdl->getLastKodeMaterial();
