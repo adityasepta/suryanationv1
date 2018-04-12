@@ -49,7 +49,6 @@
                                 </li> 
                             </ul> 
                         </li> 
-                        <li><a href="<?php echo base_url();?>user/trackPO">Track PO</a></li> 
                         <li> 
                             <a href="#">Surat Perintah Kerja <span class="fa arrow"></span></a> 
                             <ul class="nav nav-third-level"> 
@@ -78,6 +77,7 @@
                                 </li> 
                             </ul> 
                         </li>
+                        <li><a href="<?php echo base_url();?>user/trackPO">Track PO</a></li> 
                     </ul> 
                 </li>
                 <li>
