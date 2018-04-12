@@ -3765,6 +3765,7 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
+                        'nomorPO'   => $this->input->post('nomorPO')
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3781,6 +3782,7 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
+                        'nomorPO'   => $this->input->post('nomorPO')
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3826,6 +3828,7 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangBerlian'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
+                        'nomorPO'   => $this->input->post('nomorPO')
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3841,6 +3844,7 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangBerlian'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
+                        'nomorPO'   => $this->input->post('nomorPO')
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
                 } 
