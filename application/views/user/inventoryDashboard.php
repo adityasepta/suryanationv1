@@ -189,7 +189,7 @@
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                                 <thead>
                                 <tr>
                                     <th>Tanggal</th>
@@ -270,7 +270,7 @@
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                                 <thead>
                                 <tr>
                                     <th>Tanggal</th>
