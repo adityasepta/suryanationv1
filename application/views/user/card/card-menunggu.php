@@ -52,6 +52,20 @@
         </div>
         
     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="<?php echo base_url('uploads/gambarDesain/'.$m[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
+        </div>
+        <div class="col-lg-4 text-center">
+            Tanggal Masuk<br>
+            <b><?php echo $m[$i]->tanggal ?></b>
+        </div>
+        <div class="col-lg-5 text-center ">
+            Tanggal Selesai<br>
+            <b><?php echo $m[$i]->tanggalSelesai ?></b>
+        </div>
+    </div>
 
     <div class="row">
         <br>
@@ -120,10 +134,10 @@
                                             <img src="<?php echo base_url('uploads/gambarProduk/'.$m[$i]->kodeGambar.'-cust.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
                                         </div>
                                         <div class="col-lg-4 text-center">
-                                            <b>Foto 3D Model</b><br><br>
-                                            <?php if($m[$i]->statusDesain !== 'Proses Desain') {?>
+                                            <b>Desain Produk</b><br><br>
+                                            
                                             <img src="<?php echo base_url('uploads/gambarDesain/'.$m[$i]->kodeGambar.'-d1.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
-                                            <?php } ?>
+                                            
                                         </div>
                                         <div class="col-lg-4 text-center">
                                             <b>Foto PIC</b><br><br>

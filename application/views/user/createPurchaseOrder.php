@@ -405,7 +405,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Harga Datang Emas</label>
-                                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" class="form-control good" value="<?php echo set_value('hargaDatangEmas'); ?>">
+                                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>" readonly>
                                                     </div>
                                                 </div>
                                             </div>

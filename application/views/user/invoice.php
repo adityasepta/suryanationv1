@@ -120,7 +120,7 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
@@ -228,15 +228,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="ibox">
-                        <div class="ibox-content text-right">
-                            
-                            <h4>Tipe Konsumen</h4>
-                            <h2><?php echo $tipeCustomer ?></h2>
-                        </div>
-                    </div>
-                </div>
+         
             </div>
             
             <div class="row">
@@ -453,7 +445,7 @@
                         </div>
                     </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                    <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Rencana Produksi</h5>
@@ -532,70 +524,11 @@
 
                     </div> 
                 </div>
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <div class="col-lg-6">
-                                <h5>Bill of Material</h5>
-                            </div>
-                            <div class="col-lg-6 text-right">
-                                
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <table class="table table-responsive table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th>Bahan</th>
-                                        <th class="text-center">Stock Awal</th>
-                                        <th class="text-center">Jumlah</th>
-                                        <th class="text-center">Stock Akhir</th>
-                                        <th class="text-center">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $cbr=0; if (isset($stokbom)) {?>
-                                    <?php $cb = 0;  for($i = 0; $i < count($stokbom); ++$i) { ?>
-
-                                        <tr>
-                                            <td class="text-center"><?php echo ($i+1);?></td>
-                                            <td><?php echo $stokbom[$i]->namaMaterial?></td>
-                                            <td class="text-center"><?php echo number_format($stokbom[$i]->stok,2)?> gram</td>
-                                            <td class="text-center"><?php echo number_format($stokbom[$i]->jml,2)?> gram</td>
-                                            <td class="text-center"><?php echo number_format($stokbom[$i]->stokakhir,2)?> gram</td>
-                                            <td class="text-center">
-                                                <?php 
-                                                    
-                                                     if((float)$stokbom[$i]->stokakhir < (float)$stokbom[$i]->ss) { ?>
-                                                        <span class="fa fa-warning text-warning"></span>
-                                                    <?php $cbr++; }
-                                                    else { ?> 
-                                                        <span class="fa fa-check text-success"></span>
-                                                    <?php } 
-                                                        
-                                                ?>
-                                            </td>
-                                        </tr>
-
-                                    <?php } ?>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                            <?php if($cbr > 0) {?>
-
-                                <div class="alert alert-danger">
-                                    Terdapat material yang dibawah safety stock.
-                                </div>
-
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
+             
             </div>
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Desain Produk</h5>
@@ -604,13 +537,24 @@
 
                             <div class="row" >
                                 <div class="col-sm-12">
-                                    
-                                    <?php if($dataSPK[0]->statusDesain !== 'Proses Desain'    ) { ?>
-                                    
                                         <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                    <?php } ?>        
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Thumbnail Produk</h5>
+                        </div>
+                        <div class="ibox-content">
 
-                                         
+                            <div class="row" >
+                                <div class="col-sm-12">
+                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-thumb.jpg')?>"><br><br>
                                     
                                 </div>
                                 
