@@ -1744,6 +1744,29 @@ class User extends CI_Controller {
 
     }
 
+    public function tambahBOMTempahan() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $jmlbutuh = $this->input->post('berat');
+
+        $idm = explode(",",$idMaterial);
+        $dataBOM= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $jmlbutuh
+            );
+    
+        
+        $this->mdl->insertData('bommassal',$dataBOM);
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
+    }
+
     public function createBOMMassalTurun() {
 
         $idSubSPK = $this->input->post('idSubSPK');

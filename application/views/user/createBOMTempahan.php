@@ -217,11 +217,8 @@
                             </div>
 
                             <br>
-                            <div class="row">
-                                
-
+                            <div class="row">                                
                                 <div class="col-md-4">
-                                    
                                     <label>Jumlah Bahan Butuh (gr) </label>
                                     <input type="text" required name= "bahanButuh" id="result" class="form-control" readonly="true">
                                 </div>
@@ -286,7 +283,7 @@
                         </div>
                         <div class="ibox-content form-horizontal">
 
-                            <?php echo form_open('user/tambahBOMMassal')?>
+                            <?php echo form_open('user/tambahBOMTempahan')?>
 
                             <div class="row">
                                 <div class="col-md-4">
