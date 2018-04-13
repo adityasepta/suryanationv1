@@ -180,6 +180,54 @@
                     </div>
                 </div>
             </div>
+            <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Stok Barang Per Orang</h5>
+                        </div>
+
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
+                                <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama</th>
+                                    <th>Berat Emas Lokal</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0; $i < count($pic); $i++) { ?>    
+                                        <tr>
+                                            <td><?php echo $pic[$i]->tanggal?></td>
+                                            <td><?php echo $pic[$i]->nama?></td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if(($pic[$i]->tanggal==$st[$j]->tanggal) AND ($pic[$i]->idPIC==$st[$j]->idPIC)) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2)?> gr</td>
+                                        </tr>
+                                    <?php } ?>
+                                    
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -191,7 +239,7 @@
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
                                 <thead>
                                 <tr>
                                     <th>Kode Material</th>

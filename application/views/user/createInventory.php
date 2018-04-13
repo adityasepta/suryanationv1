@@ -195,10 +195,10 @@
                                                     <input type="hidden" name="idUser" value="0" required="">
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-md-6">
-                                                <label>Harga Beli</label>
-                                                <input type="text" placeholder="Rp" name="hargaBeli" class="form-control good" value="<?php echo set_value('hargaBeli'); ?>">
-                                            </div> -->
+                                            <div class="col-md-6">
+                                                <label>Keterangan</label>
+                                                <input type="text" name="keterangan" placeholder="Penjelasan aktivitas stock opname" class="form-control" value="<?php echo set_value('keterangan'); ?>" style="height: 47px;">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -384,6 +384,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label>Keterangan</label>
+                                        <input type="text" name="keterangan" placeholder="Penjelasan aktivitas stock opname" class="form-control" value="<?php echo set_value('keterangan'); ?>" style="height: 47px;">
+                                    </div>
+                                </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
@@ -440,7 +446,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-md-6">
+                                        <label>Keterangan</label>
+                                        <input type="text" name="keterangan" placeholder="Penjelasan aktivitas stock opname" class="form-control" value="<?php echo set_value('keterangan'); ?>" style="height: 47px;">
+                                    </div>
+                                    <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>PIC</label>

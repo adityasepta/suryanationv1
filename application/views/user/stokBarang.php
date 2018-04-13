@@ -317,7 +317,7 @@
                                     <th>Jenis Pergerakan</th>
                                     <th>Arah</th>
                                     <th>Jumlah</th>
-                                    
+                                    <th data-hide="all">Keterangan</th>
                                     <th>Action</th>
 
                                 </tr>
@@ -342,8 +342,8 @@
                                         
                                         <td><?php echo $p->tipePergerakan?></td>
                                         <td><?php echo $p->jenisPergerakanBarang?></td>
-                                        <td><?php echo $p->jumlah?> <?php echo $p->satuan?> </td>
-                                        
+                                        <td><?php echo $p->jumlah.' '.$p->satuan?> </td>
+                                        <td><?php echo $p->keterangan?></td>
                                         <td>
                                             <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#editPergerakan<?php echo $p->idStok?>">
                                                 Edit
