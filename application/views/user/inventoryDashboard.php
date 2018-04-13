@@ -309,56 +309,7 @@
                             </div>
                         </div>
                     </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Stok Material Dasar</h5>
-                        </div>
-
-                        <div class="ibox-content">
-                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                                   placeholder="Search in table">
-                            <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
-                                <thead>
-                                <tr>
-                                    <th>Kode Material</th>
-                                    <th>Nama Material</th>
-                                    <th>Stok Material</th>
-                                    <th>Safety Stock</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach($material as $p) : ?>
-                                    <tr>
-                                        <td><?php echo $p->kodeMaterial?></td>
-                                        <td><?php echo $p->namaMaterial?></td>
-                                        <td><?php echo $p->stokMaterial.'&nbsp'.$p->satuan?></td>
-                                        <td><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
-                                        <td><?php if ($p->stokMaterial>$p->safetyStock) { ?>
-                                                    <small class="label label-primary">Aman</small>
-                                            <?php } else { ?>
-                                                    <small class="label label-danger">Segera Tambah Stok</small>
-                                            <?php } ?>
-                                        </td>
-                                     </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+   
         </div>
         <!-- Modal -->
         <div class="modal inmodal fade" id="detailBeratHilangMassal" tabindex="-1" role="dialog"  aria-hidden="true">

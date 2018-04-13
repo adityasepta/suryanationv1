@@ -136,7 +136,45 @@ class User extends CI_Controller {
                 'beratTambahan' => $beratTambahan,
                 'statusBerat' => 'Belum Disetujui'
             );
+
             $this->mdl->insertData('factproduction', $data);
+
+            if ($idaktivitas == 1014) {
+
+                $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+                $idg = $userx[0]->idUser;
+
+                $idUser=$this->session->userdata['logged_in']['iduser'];
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Produk Semi Jadi",
+                    'kodeBarang' => $idProduk,
+                    'jumlah' => $proses[0]->berat,
+                    'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                $this->mdl->insertData('stokbarang',$data);
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Produk Jadi",
+                    'kodeBarang' => $idProduk,
+                    'jumlah' => $proses[0]->berat,
+                    'jenisPergerakanBarang' => "IN",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                $this->mdl->insertData('stokbarang',$data);
+                
+            }
+
+            
             $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil memperbarui proses produksi</div>');
             redirect('User/kanban');    
         }
@@ -1706,26 +1744,46 @@ class User extends CI_Controller {
                 
     }
 
-    public function createBOMTempahanNaik($kloter) {
-        $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
-        if ($this->form_validation->run() == FALSE){
-            $data['kloter']=$this->mdl->findKloter($kloter);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['spk'] = $this->mdl->getIsiKloter($kloter);
-            $this->load->view('user/createBOMTempahan',$data);
-        }
-        else {
-                $dataBOM= array(
-                            'idKloter'   => $kloter,
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('beratBahanTarget')
-                        );
-                
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-                $message = "BOM berhasil dibuat, untuk melihat bom dapat melalui tombol 'Lihat BOM'";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanban")."';</script>";
-        }
+    public function createBOMTempahanNaik() {
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idMaterial2 = $this->input->post('kodeMaterial2');
+
+
+
+        $idKloter = $this->input->post('idKloter');
+
+        $idm = explode(",",$idMaterial);
+        $idm2 = explode(",",$idMaterial2);
+
+
+        $brt = $this->input->post('brt');
+        $brt2 = $this->input->post('brt2');
+
+        //$idUser=$this->session->userdata['logged_in']['iduser'];
+        
+        $dataBOM= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $brt
+        );
+        
+        //print_r($dataBOM);
+
+        $this->mdl->insertData('bomtempahan',$dataBOM);
+
+        $dataBOM2= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm2[0],
+            'jumlah'     => $brt2
+        );
+
+        //print_r($dataBOM2);exit();
+        
+        $this->mdl->insertData('bomtempahan',$dataBOM2);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
     }
 
     
@@ -1749,6 +1807,188 @@ class User extends CI_Controller {
         $message = "BOM berhasil dibuat";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
+    }
+
+    public function createEmasPutih() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        if(strlen($idKloter) > 0) {
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Putih');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $data['material'] = $this->mdl->findNamaMaterial('Paladium');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratPaladium');
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+        } else {
+
+            $idSubSPK = $this->input->post('idSubSPK');
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Putih');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $data['material'] = $this->mdl->findNamaMaterial('Paladium');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratPaladium');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>";
+
+        }
+
+        
+
+    }
+
+    public function createEmasRosegold() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        if(strlen($idKloter) > 0) {
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Merah');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+            
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+        } else {
+
+            $idSubSPK = $this->input->post('idSubSPK');
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Merah');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+        
+
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>";
+
+        }
+
+        
 
     }
 
@@ -2924,6 +3164,56 @@ class User extends CI_Controller {
             $this->mdl->insertData('factproduction', $data);
         
         
+         }
+
+         if ($idAktivitas == 1006) {
+
+             $isi = $this->mdl->getBOMTempahan($idKloter);
+
+             for ($i=0; $i < count($isi) ; $i++) { 
+
+                $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+                $idg = $userx[0]->idUser;
+
+                $idUser=$this->session->userdata['logged_in']['iduser'];
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Material Dasar",
+                    'kodeBarang' => $isi[$i]->kodeMaterial,
+                    'jumlah' => $isi[$i]->jumlah,
+                    'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+
+
+                $this->mdl->insertData('stokbarang', $data);
+                 
+             }
+
+             for ($i=0; $i < count($kloter) ; $i++) { 
+
+                $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+                $idg = $userx[0]->idUser;
+                 
+                 $data = array(
+                    'idPIC' => $idg,
+                    'tipeBarang' => "Produk Semi Jadi",
+                    'kodeBarang' => $kloter[$i]->idProduk,
+                    'jumlah' => $kloter[$i]->beratAkhir,
+                    'jenisPergerakanBarang' => "IN",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                 $this->mdl->insertData('stokbarang', $data);
+             }
+
+             
          }
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
@@ -6085,6 +6375,9 @@ class User extends CI_Controller {
         if($tipe == 'massal') {
             $this->mdl->deleteData('idBOM',$idBOM,'bommassal');
             redirect('user/createbommassal/'.$id);
+        } else {
+            $this->mdl->deleteData('idBOM',$idBOM,'bomtempahan');
+            redirect('user/createBOMTempahan/'.$id);
         }
     }
 

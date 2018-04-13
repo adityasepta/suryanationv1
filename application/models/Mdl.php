@@ -1387,7 +1387,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getIsiKloter($idKloter) {
 
-        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c where s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
+        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c, potempahan pp where s.nomorPO = pp.nomorPO and s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1482,7 +1482,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function cekbom2() {
-        $sql = "SELECT * from bomtempahan b, kloter k where b.idKloter = k.idKloter";
+        $sql = "SELECT * from bomtempahan b, kloter k, materialdasar m where b.idKloter = k.idKloter and b.idMaterial = m.idMaterial";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getBOMTempahan($idKloter) {
+        $sql = "SELECT DISTINCT * from bomtempahan b, materialdasar m where b.idKloter = '$idKloter' and b.idMaterial = m.idMaterial";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2595,7 +2602,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getRekapTempahan($idSPK) {
         $sql   = "
 
-        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
         
         UNION 
 

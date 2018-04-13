@@ -428,7 +428,7 @@
                             <h5><div><input type="checkbox" onchange="document.getElementById('myBtn2').disabled = !this.checked;"> Menaikkan Kadar <small>Centang untuk memilih menaikkan kadar</small></div></h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                <?php echo form_open('user/createBOMMassalNaik')?>
+                                <?php echo form_open('user/createBOMTempahanNaik')?>
                                 
                                     
                                 <div class="row">
@@ -538,7 +538,7 @@
                             <h5><input type="checkbox" onchange="document.getElementById('myBtn3').disabled = !this.checked;"> Membuat / Menurunkan Emas Putih</h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                <?php echo form_open('user/createBOMTempahanturun')?>
+                                <?php echo form_open('user/createEmasPutih')?>
                                 
                                     
                                 <div class="row">
@@ -593,7 +593,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Berat Paladium (gr)</label>
-                                        <input type="text" name= "beratTembaga" id="pl" class="form-control" readonly="true">
+                                        <input type="text" name= "beratPaladium" id="pl" class="form-control" readonly="true">
                                     </div>
 
                                     
@@ -610,6 +610,7 @@
                                         <label>Berat Campuran (gr)</label>
                                         <input type="text" required name= "beratTotalCampuran" required id="res2" class="form-control" readonly="true">
                                         <input type="hidden"  value="<?php echo $Kloter ?>" name="idKloter">
+
                                     </div>
                                     
                                 </div>
@@ -629,10 +630,10 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5><input type="checkbox" onchange="document.getElementById('myBtn4').disabled = !this.checked;"> Membuat / Menurunkan Emas Rosegold <small>Centang untuk Membuat Emas Rosegold</small></h5>
+                            <h5><input type="checkbox" onchange="document.getElementById('myBtn4').disabled = !this.checked;"> Membuat / Menurunkan Emas Rosegold</h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                <?php echo form_open('user/createBOMTempahanturun')?>
+                                <?php echo form_open('user/createEmasRosegold')?>
                                 
                                     
                                 <div class="row">

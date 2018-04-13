@@ -120,7 +120,7 @@
                                                 <select class="form-control" id="slct1" name="tipeBarang" onchange="populate(this.id,'slct2')">
                                                     <option value='NULL'>-Pilih salah satu-</option>
                                                     <option value="Material Dasar">Material Dasar</option>
-                                                    <option value="Produk Jadi">Produk Jadi</option>
+                                                    
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
