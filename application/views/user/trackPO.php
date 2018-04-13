@@ -86,7 +86,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a type="button" data-toggle="modal" data-target="#masal">
+                                        <a type="button" data-toggle="modal" data-target="#massal">
                                             <div class="ibox">
                                                 <div class="ibox-content product-box">
 
@@ -113,15 +113,15 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h3 class="modal-title">Tipe Pelanggan</h3>
+                                <h3 class="modal-title">TRACK PO</h3>
                                 <span>PRODUKSI : <b class="text-success">TEMPAHAN</b></span>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-sm-6 b-r">
                                         <?php echo form_open_multipart('user/detailTracking','class="form-horizontal"')?>
-                                        <h3 class="m-t-none m-b">Pelanggan Lama</h3>
-                                        <p>Purchase Order dari pelanggan yang sudah pernah melakukan pembelian.</p>
+                                        <p>Track PO berdasarkan</p>
+                                        <h3 class="m-t-none m-b">Customer</h3>
                                         <div id="idCustomer" class="selectpicker" data-live="true">
                                             <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
                                                 <span class="placeholder">Pilih Customer</span>
@@ -155,20 +155,48 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="hr-line-dashed"></div>
-                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
+                                            <button disabled="" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
                                         </div>
                                         <?php echo form_close()?>
                                     </div>
                                     <div class="col-sm-6">
-                                        <?php echo form_open_multipart('user/convertTempahan','class="form-horizontal"')?>
-                                        <div class="col-md-12" style="height: 123px;">
-                                            <h3 class="m-t-none m-b">Pelanggan Baru</h3>
-                                            <p>Purchase Order dari pelanggan yang baru pertama kali melakukan pembelian.</p>
-                                            <input type="hidden" name="idCustomer" value="0">
+                                        <?php echo form_open_multipart('user/detailTracking','class="form-horizontal"')?>
+                                        <p>Track PO berdasarkan</p>
+                                        <h3 class="m-t-none m-b">Nomor PO</h3>
+                                        <div id="nomorPO" class="selectpicker" data-live="true">
+                                            <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
+                                                <span class="placeholder">Pilih Nomor PO</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
+                                                    <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
+                                                    <div class="search-box">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="search-icon3">
+                                                                <span class="fa fa-search"></span>
+                                                                <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
+                                                            </span>
+                                                            <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-to-filter">
+                                                        <ul class="list-unstyled">
+                                                            <?php for ($i=0; $i < count($listPOMassal) ; $i++) { ?>
+                                                                <li class="filter-item items" data-filter="<?php echo $listPOMassal[$i]->namaCustomer?>" data-value="<?php echo $listCustomer[$i]->idCustomer?>"><?php echo $listCustomer[$i]->namaCustomer?></li>
+                                                            <?php } ?>
+                                                        </ul>
+                                                        <div class="no-search-results">
+                                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="idCustomer" value="0" required="">
                                         </div>
                                         <div class="col-md-12">
                                             <div class="hr-line-dashed"></div>
-                                            <button class="btn btn-sm btn-warning pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
+                                            <button disabled="" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
                                         </div>
                                         <?php echo form_close()?>
                                     </div>
@@ -179,21 +207,22 @@
                 </div>
                 <!-- End -->
 
-                <!-- Modal Masal -->
-                <div class="modal inmodal fade" id="masal" tabindex="-1" role="dialog"  aria-hidden="true">
+                <!-- Modal Massal -->
+                <div class="modal inmodal fade" id="massal" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h3 class="modal-title">Tipe Pelanggan</h3>
-                                <span >PRODUKSI : <b class="text-success">MASAL</b></span>
+                                <h3 class="modal-title">TRACK PO</h3>
+                                <span>PRODUKSI : <b class="text-success">MASSAL</b></span>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-sm-6 b-r">
-                                        <?php echo form_open_multipart('user/convertMassal','class="form-horizontal"')?>
-                                        <h3 class="m-t-none m-b">Pelanggan Lama</h3>
-                                        <p>Purchase Order dari pelanggan yang sudah pernah melakukan pembelian.</p>
+                                        <?php echo form_open_multipart('user/detailTracking','class="form-horizontal"')?>
+                                        <p>Track PO berdasarkan</p>
+                                        <h3 class="m-t-none m-b">Customer</h3>
+                                        <input type="hidden" name="jenisProduksi" value="massal" required="">
                                         <div id="idCustomer" class="selectpicker" data-live="true">
                                             <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
                                                 <span class="placeholder">Pilih Customer</span>
@@ -232,11 +261,40 @@
                                         <?php echo form_close()?>
                                     </div>
                                     <div class="col-sm-6">
-                                        <?php echo form_open_multipart('user/convertMassal','class="form-horizontal"')?>
-                                        <div class="col-md-12" style="height: 123px;">
-                                            <h3 class="m-t-none m-b">Pelanggan Baru</h3>
-                                            <p>Purchase Order dari pelanggan yang baru pertama kali melakukan pembelian.</p>
-                                            <input type="hidden" name="idCustomer" value="0">
+                                        <?php echo form_open_multipart('user/detailTracking','class="form-horizontal"')?>
+                                        <p>Track PO berdasarkan</p>
+                                        <h3 class="m-t-none m-b">Nomor PO</h3>
+                                        <input type="hidden" name="jenisProduksi" value="Massal" required="">
+                                        <div id="nomorPO" class="selectpicker" data-live="true">
+                                            <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
+                                                <span class="placeholder">Pilih Nomor PO</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <div class="live-filtering" data-clear="true" data-autocomplete="true" data-keys="true">
+                                                    <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
+                                                    <div class="search-box">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="search-icon3">
+                                                                <span class="fa fa-search"></span>
+                                                                <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
+                                                            </span>
+                                                            <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" aria-describedby="search-icon3" tabindex="1" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-to-filter">
+                                                        <ul class="list-unstyled">
+                                                            <?php for ($i=0; $i < count($listPOMassal) ; $i++) { ?>
+                                                                <li class="filter-item items" data-filter="<?php echo 'Nomor PO'.$listPOMassal[$i]->nomorPO.' - '.$listPOMassal[$i]->namaCustomer?>" data-value="<?php echo $listPOMassal[$i]->nomorPO?>"><?php echo 'Nomor PO '.$listPOMassal[$i]->nomorPO.' - '.$listPOMassal[$i]->namaCustomer?></li>
+                                                            <?php } ?>
+                                                        </ul>
+                                                        <div class="no-search-results">
+                                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="nomorPO" value="0" required="">
                                         </div>
                                         <div class="col-md-12">
                                             <div class="hr-line-dashed"></div>
@@ -270,6 +328,10 @@
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="<?php echo base_url();?>assets/js/tabcomplete.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/livefilter.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap-select.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>

@@ -135,6 +135,9 @@
                                 </div>
                             </div>
                             <?php echo form_open_multipart('user/updatePOMassal/'.$idPO,'class="form-horizontal"')?>
+                                <input type="hidden" name="nomorPO" value="<?php echo $nomorPO;?>">
+                                <input type="hidden" name="kodeProduk" value="<?php echo $dataPO[0]->kodeProduk ?>">
+                                
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -167,8 +170,33 @@
                                             <div class="col-lg-12">
                                                 <h4>Kode Produk <strong><?php echo $dataPO[0]->kodeProduk ?></strong> | <small>Jenis Produk <?php echo $dataPO[0]->jenisProduk ?></small></h4>
                                                 <hr>
+                                                <?php for ($y=0; $y < count($produkPO) ; $y++) { ?>
+                                                <div class="form-group" id="del<?php echo $y ?>">
+                                                    <div class="col-md-4 ">
+                                                        <label>Nama Produk</label>
+                                                        <select class="form-control m-b" name="idProdukChild[]">
+                                                            <?php for ($i = 0; $i < count($listProduk); $i++) { ?>
+                                                                <option value="<?php echo $listProduk[$i]->idProduk?>" <?php if($listProduk[$i]->idProduk == $produkPO[$y]->idProdukChild){?> selected <?php } ?> ><?php echo $produkPO[$y]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Keterangan</label>
+                                                        <input type="text" name="keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" value="<?php echo $produkPO[$y]->keterangan ?>">
+                                                    </div>
+                                                    <button type="button" class="btn remove_field" style="margin-top:22px;" onclick="removeDummy<?php echo $y ?>()">Remove</button>
+                                                </div>
+                                                <?php } ?>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="input_fields_wrap" >
+                                                            <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Produk</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <div class="col-md-4">
                                                 <div class="row">
@@ -311,14 +339,43 @@
 
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
-        </script>
+        });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var max_fields      = 30; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        
+        var x = <?php echo count($produkPO)?>; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+            }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    });
+    </script>
+    <script type="text/javascript">
+        <?php for ($y=0; $y < count($produkPO) ; $y++) { ?>
+        function removeDummy<?php echo $y ?>() {
+            var elem = document.getElementById('del<?php echo $y ?>');
+            elem.parentNode.removeChild(elem);
+            return false;
+        }
+        <?php } ?>
+    </script>
 </body>
 
 </html>

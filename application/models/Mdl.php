@@ -274,7 +274,7 @@ class mdl extends CI_Model {
 
     public function listPegawai(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user WHERE idUser != 0");
+        $hasil = $this->db->query("SELECT * FROM user WHERE idUser != 0 ORDER BY nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -519,6 +519,16 @@ class mdl extends CI_Model {
     public function findPOMassal($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE a.nomorPO=$nomorPO LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getPOMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.*,d.nama FROM pomasal a LEFT JOIN produkpo b ON a.nomorPO = b.nomorPO LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE a.nomorPO=$nomorPO");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -992,6 +1002,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function trackPO($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT b.idSPK, b.idAktivitas, b.idPIC, b.RealisasiStartDate, b.RealisasiEndDate, b.statusWork, a.*, c.* FROM spk a RIGHT JOIN factproduction b ON a.idSPK = b.idSPK LEFT JOIN aktivitas c ON b.idAktivitas = c.idAktivitas WHERE a.nomorPO = '$nomorPO'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function trackPOMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT c.namaAktivitas, b.* FROM spkmasal a RIGHT JOIN factproduction2 b ON a.idSPK = b.idSPK LEFT JOIN aktivitas c ON b.idAktivitas = c.idAktivitas WHERE a.nomorPO = $nomorPO ORDER BY b.idSubSPK");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function jumlahSubSPK($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM subspk WHERE idSPK=$nomorPO");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

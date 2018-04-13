@@ -137,7 +137,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" step="any" onchange="handleChange(this);" name="jumlah" placeholder="Jumlah Barang Masuk" class="form-control">
+                                                <input type="number" step="any" onchange="handleChange(this);" name="jumlah" placeholder="Jumlah" class="form-control">
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Tipe Barang</label>

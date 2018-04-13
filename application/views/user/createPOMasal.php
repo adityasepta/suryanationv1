@@ -443,24 +443,24 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-    var max_fields      = 20; //maximum input boxes allowed
-    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
-    
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
-        }
+    $(document).ready(function() {
+        var max_fields      = 30; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        
+        var x = 1; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+            }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
     });
-    
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
-});
     </script>
 </body>
 </html>

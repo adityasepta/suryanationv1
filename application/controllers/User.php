@@ -351,8 +351,10 @@ class User extends CI_Controller {
 
     public function editPOMassal($nomorPO) {
         $data['dataPO'] = $this->mdl->poMassal($nomorPO);
+        $data['produkPO'] = $this->mdl->getProdukPO($nomorPO);
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
+        $data['listProduk'] = $this->mdl->listProduk();
         $this->load->view('user/editPOMassal',$data);
     }
 
@@ -624,7 +626,23 @@ class User extends CI_Controller {
             'model'             => $this->input->post('model'),
             'keteranganKrum'    => $this->input->post('keteranganKrum'),
         );
-        $this->mdl->updateData('idPO',$idPO,'pomasal',$dataPO);    
+        $this->mdl->updateData('idPO',$idPO,'pomasal',$dataPO); 
+
+        $idProdukChild=$this->input->post('idProdukChild[]');
+        $keteranganChild=$this->input->post('keteranganChild[]');
+        $nomorPO=$this->input->post('nomorPO');
+
+        $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
+
+        for ($i=0; $i < count($idProdukChild); $i++) { 
+            $dataProdukPO = array(
+                'nomorPO'           => $nomorPO,
+                'idProdukAG'        => $this->input->post('kodeProduk'),
+                'idProdukChild'     => $idProdukChild[$i],
+                'keterangan'        => $keteranganChild[$i],
+            );
+            $this->mdl->insertData('produkpo',$dataProdukPO);
+        }   
 
         $message = "PO berhasil diperbaharui";
         echo "<script type='text/javascript'>alert('$message');
@@ -2217,6 +2235,11 @@ class User extends CI_Controller {
         redirect('user/purchaseOrder');
     }
 
+    public function hapusPOMassal($nomorPO){
+        $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
+        redirect('user/listPOMasal');
+    }
+
     public function hapusSPK($idSPK){
         $this->mdl->deleteData('idSPK',$idSPK,'spk');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
@@ -2244,22 +2267,43 @@ class User extends CI_Controller {
 
     public function trackPO() {
         $data['listPO'] = $this->mdl->listPO();
+        $data['listCustomer'] = $this->mdl->listCustomer();
+        $data['listPOMassal'] = $this->mdl->listPOMasal();
         $this->load->view('user/trackPO',$data);
     }
 
     public function detailTracking() {
+        // print_r($this->input->post());exit();
         $nomorPO = $this->input->post('nomorPO');
-        $data['dataUmum']  = $this->mdl->dataUmum($nomorPO);
-        $jmlData=count($data['dataUmum']);
-        if($jmlData>0){
-            $data['dataAdministrasi']  = $this->mdl->trackAdministrasi($nomorPO);
-            $data['dataPO']  = $this->mdl->trackPO($nomorPO);
-            $this->load->view('user/detailTracking', $data);
-        } else {
-            $message = "Tidak ada nomor Purchase Order yang sesuai";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/trackPO")."';</script>";
+        $idCustomer = $this->input->post('idCustomer');
+        $jenisProduksi = $this->input->post('jenisProduksi');
+
+        if ($jenisProduksi=='Tempahan') {
+
+        } elseif ($jenisProduksi=='Massal') {
+            $data['dataPO']=$this->mdl->getPOMassal($nomorPO);
+            if(count($data['dataPO']>0)){
+                $data['aktivitas']  = $this->mdl->trackPOMassal($nomorPO);
+                $data['subSPK']  = $this->mdl->jumlahSubSPK($nomorPO);
+                $this->load->view('user/detailTrackPOMassal', $data);
+            } else {
+                $message = "Tidak ada nomor Purchase Order yang sesuai";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location.href='".base_url("user/trackPO")."';</script>";
+            }
         }
+
+            // $data['dataUmum']  = $this->mdl->dataUmum($nomorPO);
+            // $jmlData=count($data['dataUmum']);
+            // if($jmlData>0){
+            //     $data['dataAdministrasi']  = $this->mdl->trackAdministrasi($nomorPO);
+            //     $data['dataPO']  = $this->mdl->trackPO($nomorPO);
+            //     $this->load->view('user/detailTracking', $data);
+            // } else {
+            //     $message = "Tidak ada nomor Purchase Order yang sesuai";
+            //     echo "<script type='text/javascript'>alert('$message');
+            //     window.location.href='".base_url("user/trackPO")."';</script>";
+            // }
     }
 
     public function approve($idProProd) {
