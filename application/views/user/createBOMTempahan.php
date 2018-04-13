@@ -91,7 +91,7 @@
                                             <td class="text-center">
 
                                                 <?php  if($bom4[$i]->status == 'Belum Disetujui') {?>
-                                                    <a class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ?')"  href="<?php echo base_url('user/hapusmaterial/'.$bom4[$i]->idBOM.'/tempahan/'.$idSubSPK)?>">Hapus</a>
+                                                    <a class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ?')"  href="<?php echo base_url('user/hapusmaterial/'.$bom4[$i]->idBOM.'/tempahan/'.$Kloter)?>">Hapus</a>
                                                 <?php } else { ?>
                                                 <a class="btn btn-xs btn-danger" disabled href="">Hapus</a>
                                                 <?php } ?>
