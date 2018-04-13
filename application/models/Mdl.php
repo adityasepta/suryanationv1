@@ -2328,7 +2328,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getPIC() {
-        $sql   = "SELECT DATE(tanggal) as tanggal,b.nama,idPIC from stokbarang a, user b where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) and a.idPIC=b.idUser GROUP BY DATE(a.tanggal),idPIC";
+        $sql   = "SELECT DATE(tanggal) as tanggal,b.nama,idPIC from stokbarang a, user b where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) and a.idPIC=b.idUser GROUP BY DATE(a.tanggal),idPIC order by DATE(tanggal) DESC";
         $query = $this->db->query($sql);
         
         return $query->result();
