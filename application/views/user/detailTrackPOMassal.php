@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="background-color: white; padding: 10px 2px 2px 2px;">
+                            <div class="row" style="background-color: white; padding: 10px 2px 2px 2px; ">
                                 <div class="col-lg-6">
                                     <dl class="dl-horizontal">
                                         <dt>Nomor PO:</dt> <dd> <?php echo $dataPO[0]->nomorPO ?></dd>
@@ -95,7 +95,7 @@
                                     </dl>
                                 </div>
                             </div>
-                            <div class="row m-t-sm">
+                            <div class="row m-t-sm" style="background-color: white; padding: 10px 2px 2px 2px; ">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
                                 <div class="panel-heading">
@@ -113,93 +113,33 @@
                                         <thead>
                                         <tr>
                                             <th class="text-center">Pohon Ke-</th>
-                                            <th>Aktivitas</th>
-                                            <th class="text-right">Status</th>
-                                            <th class="text-right">Tanggal Pengerjaan</th>
+                                            <th class="text-center">Aktivitas</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Tanggal Pengerjaan</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                               
-                                            </td>
-                                            <td class="text-center">
-                                                <label><?php echo $kuantitas ?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBahan,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Berlian
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $beratBerlian ?> Gram</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBerlian,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Batu Zirkon
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $jumlahBatuZirkon ?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBatuZirkon*$jumlahBatuZirkon,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Krum Warna
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Upah Pasang Berlian
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $datangBerlian ?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Biaya Pekerjaan Tambahan
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Upah
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upah,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                            <td class="text-left" colspan="2"><strong>Estimasi Total Biaya</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$hargaBerlian+($hargaBatuZirkon*$jumlahBatuZirkon)+$hargaKrumWarna+$upahPasangBerlian+$biayaTambahan+$upah,2,".","."); ?></strong></td>
-                                        </tr>
+                                            <?php for ($i=0; $i < count($aktivitas) ; $i++) { ?>
+                                            <tr>
+                                                <td  class="text-center">
+                                                    <?php echo $aktivitas[$i]->idSubSPK ?>
+                                                </td  class="text-center">
+                                                <td class="text-center">
+                                                    <?php echo $aktivitas[$i]->namaAktivitas ?>
+                                                </td>
+                                                <td class="text-center">
+                                                   <?php echo $aktivitas[$i]->statusWork ?>
+                                                </td>
+                                                <td  class="text-center">
+                                                    <?php 
+                                                        $rle     = new DateTime($aktivitas[$i]->RealisasiEndDate);
+                                                        $rls     = $rle->format("d F Y");
+                                                    ?>
+                                                   <?php if($aktivitas[$i]->RealisasiEndDate==0) { echo '-';} else { echo $rls; }?>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -222,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
                 <div class="wrapper wrapper-content project-manager text-right">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -236,7 +176,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         </div>
         <div class="footer">
