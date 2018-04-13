@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>Kadar Lokal</label>
-                                            <input type="number" step="any" name= "kadar" placeholder="%" class="form-control">
+                                            <input type="number" step="any" name= "kadar" placeholder="tanpa %" class="form-control">
                                         </div>
                                     </div>
                                 </div>

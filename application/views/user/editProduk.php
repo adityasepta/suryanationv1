@@ -149,10 +149,7 @@ else {
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Stok</label>
-                                                <div class="col-md-4">
-                                                    <input type="number" step="any" name="stok" class="form-control" value="<?= $stok ?>">
-                                                </div>
+                                                    
                                                 <label class="col-sm-2 control-label">Satuan</label>
                                                 <div class="col-md-4">
                                                     <select name="satuan" required="" class="form-control">

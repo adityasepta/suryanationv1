@@ -79,7 +79,7 @@
                         <div class="ibox-content">
                             <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" data-page-size="15" data-filter="#filter">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                 <thead>
                                 <tr>
 
@@ -87,7 +87,7 @@
                                     <th data-hide="phone">Nama</th>
                                     <th data-hide="all">Deskripsi</th>
                                     <th> Harga Jual</th>
-                                    <th> Stok</th>
+                                    
                                     <th data-hide="phone,tablet" >Kategori</th>
                                     <th data-hide="phone"> Status Katalog</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
@@ -105,9 +105,7 @@
                                     <td>
                                         Rp. <?php echo number_format($produk[$j]->hargaJual,2,".","."); ?>
                                     </td>
-                                     <td>
-                                        <?php echo $produk[$j]->stok." ".$produk[$j]->satuan; ?>
-                                    </td>
+                                     
                                     <td>
                                         <?php echo $produk[$j]->kategori?>
                                     </td>
@@ -162,6 +160,13 @@
                                 </div>
                                 <?php } ?>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                             </div>
                         </div>

@@ -302,9 +302,19 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listAkses1(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.kodeRole=c.kodeRole");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listAkses(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM akses a, user b,role c WHERE a.idUser = b.idUser and a.idRole=c.idRole");
+        $hasil = $this->db->query("SELECT a.idUser,nama FROM akses a, user b WHERE a.idUser = b.idUser GROUP BY a.idUser,nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1846,6 +1856,26 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findProdukPO($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produkpo where nomorPO='$nomorPO'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function findPergerakan($nomorPO,$kodeBarang){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM stokbarang where nomorPO='$nomorPO' and kodeBarang='$kodeBarang' and jenisPergerakanBarang='IN' and tipeBarang='Produk Jadi' AND tipePergerakan='Transfer'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findBeratProd($idSPK){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idSPK=$idSPK AND idAktivitas=1014 LIMIT 1");
@@ -2252,8 +2282,8 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    public function cekMaterial($namaMaterial) {
-        $sql   = "SELECT * from materialdasar where namaMaterial = '$namaMaterial'";
+    public function cekMaterial($kategori,$kadar) {
+        $sql   = "SELECT * from materialdasar where kategori = '$kategori' and kadar = $kadar ";
         $query = $this->db->query($sql);
         
         return $query->result();

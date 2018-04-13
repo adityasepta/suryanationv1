@@ -97,61 +97,84 @@
                                     <tbody>
                                         <?php $no=0; foreach($akses as $p) : 
                                             $no++;
-                                            $idRole    = $p->idRole;
-                                            if($this->input->post('is_submitted')){
-                                                $kodeRole    = $set_value('kodeRole');
-                                                $deskripsi    = $set_value('deskripsi');
-                                            }
-                                            else {
-                                                $kodeRole    = $p->kodeRole;
-                                                $deskripsi    = $p->deskripsi;
-                                            }
+                                            $idUser    = $p->idUser;
                                         ?>
+
                                         <tr>
                                             <td style="width: 10%"><?php echo $no?></td>
-                                            <td style="width: 30%"><?php echo $p->kodeRole?></td>
-                                            <td style="width: 50%"><?php echo $p->deskripsi?></td>
+                                            <td style="width: 30%"><?php echo $p->nama?></td>
+                                            <td style="width: 50%">
+                                                <?php $kode = array(); for ($l=0; $l < count($akses2) ; $l++) { ?>
+                                                    <?php if($idUser==$akses2[$l]->idUser) {
+                                                        array_push($kode,$akses2[$l]->kodeRole); 
+                                                    }
+                                                        $string = rtrim(implode(',', $kode), ',');
+                                                    ?> 
+                                                <?php }?>
+                                                <?php echo $string;?>
+                                            </td>
                                             <td style="width: 10%"><!-- Button trigger modal -->
-                                                <a href="href="#" data-toggle="modal" data-target="#role<?php echo $p->idRole;?>" class="btn btn-xs btn-warning" >Edit</a>
-                                                <a href="<?php echo base_url('user/deleteRole/' . $idRole) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Delete</a>
+                                                <a href="href="#" data-toggle="modal" data-target="#role<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                <a href="<?php echo base_url('user/deleteRole/' . $idUser) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Delete</a>
                                             </td>
                                          </tr>
                                          <?php if($akses) {?>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="role<?php echo $idRole;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                          <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">Edit Hak Akases</h4>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="role<?php echo $idUser;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                              <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Edit Role</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <?php echo form_open_multipart('user/editAkses/'.$idUser)?>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label>Nama</label>
+                                                                <select class="form-control"  name="idUser">
+                                                                <?php $ky=count($pegawai); for ($i=0; $i < $ky ; $i++) { ?> 
+                                                                    <option value="<?php echo $pegawai[$i]->idUser ?>" <?php $a= $idUser; if($a==$pegawai[$i]->idUser){?> selected="" <?php } ?>> 
+                                                                        <?php echo $pegawai[$i]->nama.' - '.$pegawai[$i]->jabatan;?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label>Akses</label>
+                                                               
+                                                                <?php $kode = array(); for ($j=0; $j < count($akses2) ; $j++) { ?>
+                                                                    <?php if($idUser==$akses2[$j]->idUser) {
+                                                                        array_push($kode,$akses2[$j]->kodeRole);
+                                                                    }?>
+                                                                <?php }?>
+
+                                                                <?php for ($i=0; $i < count($role) ; $i++) { ?>
+                                                                    <?php if(in_array($role[$i]->kodeRole, $kode)) {?>
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" checked> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                    <?php } else {?>
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]"> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                    <?php }?>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button class="btn btn-primary" type="submit">Simpan</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                                <?php echo form_close()?> 
+                                                </div>
                                               </div>
-                                              <div class="modal-body">
-                                                <?php echo form_open_multipart('user/editAkses/'.$idAkses)?>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>Nama</label>
-                                                    <input type="text" name= "kodeRole"  class="form-control" required value="<?= $nama?>">
-                                                    <input type="hidden" name= "idUser"  class="form-control" required value="<?= $idUser?>">
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <label>Akses</label>
-                                                    <textarea type="text" name= "kodeRole"  class="form-control" required value="<?= $kodeRole?>" ><?= $deskripsi?></textarea>
-                                                </div>
                                             </div>
-                                                </div>
-                                                
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button class="btn btn-primary" type="submit">Simpan</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                            </div>
-                                            <?php echo form_close()?> 
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <!-- End of Modal -->
-                                        <?php } ?>
+                                            <!-- End of Modal -->
+                                         <?php } ?>
                                         <?php endforeach;?>
                                     </tbody>
                                     <tfoot>
@@ -174,28 +197,25 @@
                                         <?php echo form_open_multipart('user/createAkses')?>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-12">
                                                     <label>Nama</label>
-                                                    <input type="text" name= "kodeRole"  class="form-control" required >
+                                                    <select class="form-control"  name="idUser">
+                                                    <?php $ky=count($pegawai); for ($i=0; $i < $ky ; $i++) { ?> 
+                                                        <option value="<?php echo $pegawai[$i]->idUser ?>"> 
+                                                            <?php echo $pegawai[$i]->nama.' - '.$pegawai[$i]->jabatan;?>
+                                                        </option>
+                                                    <?php } ?>
+                                                    </select>
                                                 </div>
-                                                <div class="col-md-9">
-                                                    <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/>
-                                                    <!-- <input type="checkbox" checked="" value="" name="pekerjaanTambahan"><small> Tidak Ada</small> --></label>
-                                                    <div class="col-sm-2" style="padding-top: 10px;">
-                                                        <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                            if ($pekerjaan[$i]=="Slap") { $a++; }
-                                                        } if($a>0){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
-                                                    </div>
-                                                    <div class="col-sm-2" style="padding-top: 10px;">
-                                                        <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                            if ($pekerjaan[$i]=="Kombinasi") { $a++; }
-                                                        } if($a>0){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
-                                                    </div>
-                                                    <div class="col-sm-2" style="padding-top: 10px;">
-                                                        <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                            if ($pekerjaan[$i]=="Kode Cap") { $a++; }
-                                                        } if($a>0){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Akses</label>
+                                                        <?php for ($i=0; $i < count($role); $i++) { ?>
+                                                            <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" > <i></i> <?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div>
+                                                        <?php } ?>
                                                 </div>
                                             </div>
                                         </div>

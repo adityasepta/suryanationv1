@@ -130,7 +130,7 @@
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Kode Produk</label>
-                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CLS 00010" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CNC - <?php echo $poNow; ?>" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required=""></div>
                                     <small class="text-danger"><?php echo form_error('kodeProduk'); ?></small>
                                 </div>
                                 <div class="form-group">
@@ -175,7 +175,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Kadar Bahan</label>
+                                                <label>Kadar Bahan (lokal)</label>
                                                 <input type="text" name="kadarBahan" placeholder="%" value="<?php echo set_value('kadarBahan'); ?>"  class="form-control" required="">
                                             </div>
                                             <div class="col-md-4">
@@ -400,7 +400,7 @@
                                                         <input type="text" placeholder="gr" name="datangEmas" value="<?php echo set_value('datangEmas'); ?>" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Kadar Datang Emas</label>
+                                                        <label>Kadar Datang Emas (lokal)</label>
                                                         <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
