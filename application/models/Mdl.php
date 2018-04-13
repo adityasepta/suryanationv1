@@ -1098,7 +1098,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findKloter($kloter){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM kloter WHERE idKloter = '$kloter' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM kloter a, spk b, potempahan c WHERE a.idKloter = '$kloter' and a.idSPK = b.idSPK and b.nomorPO = c.nomorPO");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1332,7 +1332,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getMenunggu() {
 
-        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap,DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
+        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap,DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal,DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
             WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and (s.statusDesain = 'Menunggu Persetujuan') and r.idAktivitas = 1002";
         $query = $this->db->query($sql);
         
@@ -1349,7 +1349,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getGroup() {
 
-        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap, DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
+        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap, DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
             WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and (s.statusDesain = 'Disetujui') and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter)";
         $query = $this->db->query($sql);
         
@@ -2326,6 +2326,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getbom4($idSubSPK) {
         $sql = "SELECT * from bommassal a, materialdasar b where a.idSubSPK = $idSubSPK and a.idMaterial = b.idMaterial";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getbom5($idKloter) {
+        $sql = "SELECT * from bomtempahan a, materialdasar b where a.idKloter = '$idKloter' and a.idMaterial = b.idMaterial";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;

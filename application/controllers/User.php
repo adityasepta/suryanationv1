@@ -842,7 +842,34 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/spk")."';</script>";
     }
 
- 
+    public function uploadThumbnail() {
+        $kodeProduk=$this->input->post('kodeProduk');
+        $nomorFaktur=$this->input->post('nomorFaktur');
+
+        $produk = $this->mdl->findProduk($kodeProduk);
+        $kode=$produk[0]->kodeGambar;
+
+        $this->load->library('upload');
+
+        $config['upload_path']     = './uploads/gambarDesain/'; 
+        $config['allowed_types']   = 'jpg|jpeg'; 
+        $config['max_size']        = '6000';
+        $config['file_name']       = $kode.'-thumb.jpg';
+        $config['overwrite']        = TRUE;
+
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('thumb')) {
+            $message = "Berhasil Mengupload Thumbnail Produk";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/spk")."';</script>";
+            
+        } else {
+            $message = "Format Thumbnail tidak sesuai";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
+        }
+    }
 
     public function uploadDesain()
     {       
@@ -856,7 +883,6 @@ class User extends CI_Controller {
         $files = $_FILES;
         $cpt = count($_FILES['userfile']['name']);
 
-        
 
         $b=0;
         for ($i=0; $i < $cpt; $i++) { 
@@ -888,6 +914,7 @@ class User extends CI_Controller {
                 $a++;
             };
         }
+
         if($a==$b) {
             $this->mdl->prosesDesain($nomorFaktur);
             $data = array(
@@ -895,13 +922,13 @@ class User extends CI_Controller {
             );
             $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
 
-            $message = "Foto produk telah berhasil disimpan";
+            $message = "Foto produk telah berhasil disimpan, Silahkan Tambahkan Thumbnail";
             echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/spk")."';</script>";
+            window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
         } else {
             $message = "Foto produk tidak sesuai";
             echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/spk")."';</script>";
+            window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
         } 
     }
 
@@ -1589,24 +1616,26 @@ class User extends CI_Controller {
 
     }
 
-    public function createBOMTempahan($kloter) {
-        $this->form_validation->set_rules('kloter','kloter', 'required');
-        if ($this->form_validation->run() == FALSE){
-            $data['kloter']=$this->mdl->findKloter($kloter);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['spk'] = $this->mdl->getIsiKloter($kloter);
-            $this->load->view('user/createBOMTempahan',$data);
-        }
-        else {
-                $dataBOM= array(
-                            'idKloter'   => $this->input->post('idKloter'),
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('bahanButuh')
-                        );
+    public function createBOMMassal($idSubSPK) {
+        $data['lk'] = $this->mdl->getSetting();
+        $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
+        $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
+        $data['materials']=$this->mdl->getMaterial();
+        $data['bom4'] = $this->mdl->getbom4($idSubSPK);
+        $this->load->view('user/createBOMMassal',$data);
+    }
 
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-                echo '<b>Data BOM berhasil disimpan.</b><br />';
-        }
+
+    public function createBOMTempahan($kloter) {
+        
+
+        $data['kloter']=$this->mdl->findKloter($kloter);
+        $data['bom4'] = $this->mdl->getbom5($kloter);
+        $data['materials']=$this->mdl->getMaterial();
+        $data['spk'] = $this->mdl->getIsiKloter($kloter);
+        $data['lk'] = $this->mdl->getSetting();
+
+        $this->load->view('user/createBOMTempahan',$data);
     }
 
     public function createBOMTempahanTurun($kloter) {
@@ -1691,15 +1720,7 @@ class User extends CI_Controller {
         }
     }
 
-    public function createBOMMassal($idSubSPK) {
-        $data['lk'] = $this->mdl->getSetting();
-        $data['subSPK']=$this->mdl->findSubSPK($idSubSPK);
-        $data['emas']=$this->mdl->cekDatangEmas($idSubSPK);
-        $data['materials']=$this->mdl->getMaterial();
-        $data['bom4'] = $this->mdl->getbom4($idSubSPK);
-        $this->load->view('user/createBOMMassal',$data);
-    }
-
+    
     public function tambahBOMMassal() {
 
         $idSubSPK = $this->input->post('idSubSPK');
@@ -3809,7 +3830,8 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
-                        'nomorPO'   => $this->input->post('nomorPO')
+                        'nomorPO'   => $this->input->post('nomorPO'),
+                        'tanggal'   => date("Y-m-d H:i:s"),
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3826,7 +3848,8 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangEmas'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
-                        'nomorPO'   => $this->input->post('nomorPO')
+                        'nomorPO'   => $this->input->post('nomorPO'),
+                        'tanggal'   => date("Y-m-d H:i:s"),
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3872,7 +3895,8 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangBerlian'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
-                        'nomorPO'   => $this->input->post('nomorPO')
+                        'nomorPO'   => $this->input->post('nomorPO'),
+                        'tanggal'   => date("Y-m-d H:i:s"),
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
 
@@ -3888,7 +3912,8 @@ class User extends CI_Controller {
                         'jumlah'        => $this->input->post('datangBerlian'),
                         'jenisPergerakanBarang'  => 'IN',
                         'hargaBeli'     => 0,
-                        'nomorPO'   => $this->input->post('nomorPO')
+                        'nomorPO'   => $this->input->post('nomorPO'),
+                        'tanggal'   => date("Y-m-d H:i:s"),
                     );
                     $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
                 } 

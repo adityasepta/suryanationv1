@@ -154,160 +154,77 @@
             <div class="row">
                 <div class="col-lg-12">
                     
-                    <div class="ibox float-e-margins collapsed">
-                        <div class="ibox-title">
-                            <h5>Detil SPK</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                               
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
-                                        <a href="<?php echo base_url()?>user/printSPKTempahan/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
-                                        <h2><?php echo $namaProduk ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 125px;">
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal">
-                                        <dt>Nama Konsumen:</dt> <dd> <?php echo $namaCustomer ?></dd>
-                                        <dt>Nomor Telepon:</dt> <dd> <?php echo $nomorTelepon ?></dd>
-                                        <dt>Nomor PO:</dt> <dd><a href="#" class="text-navy"> <?php echo $nomorPO ?></a> </dd>
-                                        <dt>Sales Person:</dt> <dd> <?php echo $dataSPK[0]->nama?> </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal" >
-                                        <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
-                                        <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="row m-t-sm">
-                                <div class="col-lg-12">
-                                <div class="panel blank-panel">
-                                <div class="panel-heading">
-                                    <div class="panel-options">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab-1" data-toggle="tab">Detail Produk</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                <div class="tab-content">
-                                <div class="tab-pane active" id="tab-1">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal">
-                                                <dt>Kode Produk:</dt>  <dd><a href="#" class="text-navy"> <?php echo $kodeProduk ?> </a></dd>
-                                                <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
-                                                <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
-                                                <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
-                                                <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
-                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal">
-                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
-                                                <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
-                                                <dt>Model:</dt> <dd> <?php echo $model ?></dd>
-                                                <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
-                                                <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
-                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" >
-                                                <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
-                                                <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
-                                                <dt id="berlian">Berlian:</dt> <dd id="berlian1">  <?php echo $berlian?></dd>
-                                                <dt id="beratBerlian">Berat Berlian:</dt> <dd id="beratBerlian1">  <?php echo $beratBerlian?></dd>
-                                                <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>
-                                                <dt id="jumlahBatuZirkon">Jumlah Batu Zirkon:</dt> <dd id="jumlahBatuZirkon1">  <?php echo $jumlahBatuZirkon?></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" >
-                                                <dt id="datangEmas">Datang Emas:</dt> <dd id="datangEmas1">  <?php echo $datangEmas?></dd>
-                                                <dt id="kadarDatangEmas">Kadar Datang Emas:</dt> <dd id="kadarDatangEmas1">  <?php echo $kadarDatangEmas?></dd>
-                                                <dt id="datangBerlian">Datang Berlian:</dt> <dd id="datangBerlian1">  <?php echo $datangBerlian?></dd>
-                                                <dt id="jumlahDatangBerlian">Jumlah Datang Berlian:</dt> <dd id="jumlahDatangBerlian1">  <?php echo $jumlahDatangBerlian?></dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal" id="namaBatu2">
-                                                <dt>Batu Terhadap Kruman:</dt>  <dd> <?php echo $batuTerhadapKruman ?> </dd>
-                                                <dt>Batu Terhadap Pukulan:</dt> <dd> <?php echo $batuTerhadapPukulan ?></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" id="namaBatu3">
-                                                <dt>Batu Terhadap Goresan:</dt> <dd> <?php echo $batuTerhadapGoresan?> </dd>
-                                                <dt>Keadaan Batu Tengah:</dt> <dd>  <?php echo $keadaanBatuTengah?></dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-
-                                </div>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Tambah Desain <small>Isi semua data yang dibutuhkan.</small></h5>
                         </div>
                         <div class="ibox-content">
                             
-                            <?php echo form_open_multipart('user/uploadDesain','class="form-horizontal"')?>
-                                <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
-                                <input type="hidden"  name="idProduk" value="<?= $idProduk ?>" class="form-control">
-                                <input type="hidden"  name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
-                                <input type="hidden"  name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
+                            
+                                
 
                                 <div class="row">
                                     <div class="col-sm-6 ">
 
-                                        <?php if($dataSPK[0]->statusDesain == 'Proses Desain'    ) { ?>
+                                        
                                         
                                             <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                        <?php } ?> 
+                                        
                                         
                                         
                                     </div>
                                     <div class="col-sm-6">
+
+                                        <?php echo form_open_multipart('user/uploadDesain','class="form-horizontal"')?>
+
+                                        <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
+                                        <input type="hidden"  name="idProduk" value="<?= $idProduk ?>" class="form-control">
+                                        <input type="hidden"  name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
+                                        <input type="hidden"  name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
 
                                         <label>Upload Gambar Desain</label>        
                                         <br>
                                         <small class="text-danger">Upload maksimal 6 MB, tipe file jpg</small>
                                         <br><br>
                                         <input type="file" required name="userfile[]">
+                                        
+                                        
+                                        <br><br>
+                                        <button class="btn btn-sm btn-default" type="submit">Upload Gambar Desain</button>
+                                        <a class="btn btn-sm btn-info" href="<?php echo base_url('user/invoice/'.$nomorFaktur)?>" >Detil SPK</a>
                                         <hr>
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                         
+                                        <?php echo form_close()?>
+
+                                        <?php echo form_open_multipart('user/uploadThumbnail','class="form-horizontal"')?>
+
+                                        <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
+                                        <input type="hidden"  name="idProduk" value="<?= $idProduk ?>" class="form-control">
+                                        <input type="hidden"  name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
+                                        <input type="hidden"  name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
+
+                                        
+                                        <label>Upload Thumbnail</label>        
+                                        <br>
+                                        <small class="text-danger">Upload maksimal 2 MB, tipe file jpg - Rasio Gambar 1:1 ( Square )</small>
+                                        <br><br>
+                                        <div class="row ">
+                                            <div class="col-lg-4">
+                                                <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-thumb.jpg')?>"><br><br>
+                                            </div>
+                                        </div>
+
+                                        <input type="file" required name="thumb"><br>
+                                        <button <?php if($dataSPK[0]->PICDesain == 0) { echo 'disabled'; } ?> class="btn btn-sm btn-default" type="submit">Upload Thumbnail</button>
+                                        <?php echo form_close()?>
                                     </div>
+
 
                                 </div>
                            
                                 
 
-                            <?php echo form_close()?>
+                            
                         </div>
                     </div>
                 </div>
