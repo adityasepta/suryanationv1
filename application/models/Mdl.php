@@ -2321,7 +2321,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
             SELECT DATE(a.tanggal) as tanggal,a.idPIC,a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar, SUM(a.jumlah)*max(c.kadarBahan)/100 as lokal FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') AND (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) GROUP BY a.jenisPergerakanBarang, b.idProduk,a.idPIC,DATE(a.tanggal)) a, user b where a.idPIC=b.idUser GROUP BY tanggal,idPIC,jenis
 
-        ORDER BY nama";
+        ORDER BY tanggal desc";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2329,6 +2329,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getPIC() {
         $sql   = "SELECT DATE(tanggal) as tanggal,b.nama,idPIC from stokbarang a, user b where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) and a.idPIC=b.idUser GROUP BY DATE(a.tanggal),idPIC order by DATE(tanggal) DESC";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getTanggal() {
+        $sql   = "SELECT DATE(tanggal) as tanggal, idPIC from stokbarang a where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19)GROUP BY DATE(a.tanggal) order by DATE(tanggal) DESC";
         $query = $this->db->query($sql);
         
         return $query->result();

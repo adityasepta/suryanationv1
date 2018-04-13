@@ -193,6 +193,87 @@
                                 <thead>
                                 <tr>
                                     <th>Tanggal</th>
+                                    <th>Weny</th>
+                                    <th>Mutia</th>
+                                    <th>Ertin</th>
+                                    <th>Susanti</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0; $i < count($tanggal2); $i++) { ?>
+                                        <?php $tanggal = new DateTime($tanggal2[$i]->tanggal);
+                                        $tanggal = $tanggal->format("d M Y"); ?>    
+                                        <tr>
+                                            <td><?php echo $tanggal?></td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==9) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==1) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==2) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==19) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                        </tr>
+                                    <?php } ?>
+                                    
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Stok Barang Per Orang</h5>
+                        </div>
+
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="5" data-filter=#filter>
+                                <thead>
+                                <tr>
+                                    <th>Tanggal</th>
                                     <th>Nama</th>
                                     <th>Berat Emas Lokal</th>
 

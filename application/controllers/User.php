@@ -1039,6 +1039,8 @@ class User extends CI_Controller {
         $data['material2']=$this->mdl->getMaterialDasar2();
         $data['st'] = $this->mdl->getStockPIC(); 
         $data['pic'] = $this->mdl->getPIC(); 
+        $data['tanggal2'] = $this->mdl->getTanggal(); 
+        print_r(count($data['tanggal2']));
         $spk=$this->mdl->getSPK();
         $b = $this->mdl->getBeratRekap();
         $bb = $this->mdl->getBeratMassal();
