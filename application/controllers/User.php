@@ -1641,63 +1641,67 @@ class User extends CI_Controller {
         $this->load->view('user/createBOMTempahan',$data);
     }
 
-    public function createBOMTempahanTurun($kloter) {
-        $this->form_validation->set_rules('kadarAwal','Kadar Awal', 'required');
-        if ($this->form_validation->run() == FALSE){
+    public function createBOMTempahanTurun() {
+        $idKloter = $this->input->post('idKloter');
 
-            $data['kloter']=$this->mdl->findKloter($idKloter);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['spk'] = $this->mdl->getIsiKloter($kloter);
+        $data['material'] = $this->mdl->findNamaMaterial('Alloy Kuning');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratAlloy');
 
-            $this->load->view('user/createBOMTempahan',$data);
-        }
-        else {
+        $dataBOM1= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratTembaga');
+        
 
-            if ($this->input->post('beratAlloy') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Alloy');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
-                    'idKloter'   => $kloter,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratAlloy')
-                ); 
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-            }
-            if ($this->input->post('beratTembaga') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Tembaga');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
-                    'idKloter'   => $kloter,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratTembaga')
-                ); 
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-            }
-            if ($this->input->post('beratPerak') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Perak');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
-                    'idKloter'   => $kloter,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPerak')
-                ); 
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-            }
-            if ($this->input->post('beratPaladium') != 0) {
-                $data['material'] = $this->mdl->findNamaMaterial('Paladium');
-                $idMaterial = $data['material'][0]->idMaterial;
-                $dataBOM= array(
-                    'idKloter'   => $kloter,
-                    'idMaterial' => $idMaterial,
-                    'jumlah'     => $this->input->post('beratPaladium')
-                ); 
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-            }
-                $message = "BOM berhasil dibuat, untuk melihat bom dapat melalui tombol Lihat BOM";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanban")."';</script>";
-                
-        }
+        $dataBOM2= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh,
+        );
+        
+    
+    
+        $data['material'] = $this->mdl->findNamaMaterial('Perak');
+        $idMaterial = $data['material'][0]->idMaterial;
+        $jmlbutuh = $this->input->post('beratPerak');
+        
+
+        $dataBOM3= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idMaterial,
+            'jumlah'     => $jmlbutuh
+            );
+            
+
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idm = explode(",",$idMaterial);
+
+        
+        $jmlbutuh = $this->input->post('beratEmasMurni');
+        $data = array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $jmlbutuh
+        );
+
+
+        $this->mdl->insertData('bomtempahan',$dataBOM1);
+        $this->mdl->insertData('bomtempahan',$dataBOM2);
+        $this->mdl->insertData('bomtempahan',$dataBOM3);
+        $this->mdl->insertData('bomtempahan',$data);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
                 
     }
 
@@ -1747,11 +1751,34 @@ class User extends CI_Controller {
 
     }
 
+    public function tambahBOMTempahan() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idUser=$this->session->userdata['logged_in']['iduser'];
+        $jmlbutuh = $this->input->post('berat');
+
+        $idm = explode(",",$idMaterial);
+        $dataBOM= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $jmlbutuh
+            );
+    
+        
+        $this->mdl->insertData('bomtempahan',$dataBOM);
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+    }
+
     public function createBOMMassalTurun() {
 
         $idSubSPK = $this->input->post('idSubSPK');
 
-        $data['material'] = $this->mdl->findNamaMaterial('Alloy');
+        $data['material'] = $this->mdl->findNamaMaterial('Alloy Kuning');
         $idMaterial = $data['material'][0]->idMaterial;
         $jmlbutuh = $this->input->post('beratAlloy');
 
