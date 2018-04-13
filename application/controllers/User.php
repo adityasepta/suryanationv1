@@ -1892,6 +1892,7 @@ class User extends CI_Controller {
                     'jenisPergerakanBarang'  => $this->input->post('jenisPergerakanBarang'),
                     'hargaBeli'     => $hargaBeli,
                     'tanggal' => date("Y-m-d H:i:s"),
+                    'keterangan'        => $this->input->post('keterangan'),
                 );
                //print_r($dataInventory);exit();
                if ($this->input->post('tipeBarang')=='Produk Jadi') {
@@ -1945,6 +1946,7 @@ class User extends CI_Controller {
                 'jenisPergerakanBarang'  => 'OUT',
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
+                'keterangan'        => $this->input->post('keterangan'),
                 
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
@@ -1960,6 +1962,7 @@ class User extends CI_Controller {
                 'hargaBeli'     => 0,
                 'tanggal' => date("Y-m-d H:i:s"),
                 'statusTransfer' => 'Pending',
+                'keterangan'        => $this->input->post('keterangan'),
             );
             $this->mdl->insertData('stokbarang',$dataInventory);
 
@@ -2297,6 +2300,7 @@ class User extends CI_Controller {
             $data['dataPO']=$this->mdl->getPOMassal($nomorPO);
             if(count($data['dataPO']>0)){
                 $data['aktivitas']  = $this->mdl->trackPOMassal($nomorPO);
+                $data['dataSPK'] = $this->mdl->findSPKMassalbyPO($nomorPO);
                 $data['subSPK']  = $this->mdl->jumlahSubSPK($nomorPO);
                 $this->load->view('user/detailTrackPOMassal', $data);
             } else {
@@ -6470,26 +6474,50 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/cashflow")."';</script>";
     }
 
-    //CashFlow
+    //Jurnal
     public function jurnal() {
         $data['jurnal'] = $this->mdl->listJurnal();
+        $data['listAkun'] = $this->mdl->listAkun();
         $this->load->view('user/jurnal',$data);
     } 
 
-    // public function tambahCashflow() {
-    //     $dataCashflow = array(
-    //         'keterangan'      => $this->input->post('keterangan'),
-    //         'tanggal'          => $this->input->post('tanggal'),
-    //         'jumlah'          => $this->input->post('jumlah'),
-    //         'kategori'      => $this->input->post('kategori'),
-    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
-    //     );
-    //     //print_r($dataPegawai);exit();
-    //     $this->mdl->insertData('cashflow', $dataCashflow);
-    //     $message = "Cashflow berhasil ditambah";
-    //     echo "<script type='text/javascript'>alert('$message');
-    //     window.location.href='".base_url("user/cashflow")."';</script>";
-    // }
+    public function detailJurnal($idCashflow) {
+        $data['jurnal'] = $this->mdl->detailJurnal($idCashflow);
+        $this->load->view('user/detailJurnal',$data);
+    } 
+
+    public function createJurnal($idCashflow) {
+        $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
+        $data['listAkun'] = $this->mdl->listAkun();
+        $this->load->view('user/createJurnal',$data);
+    } 
+
+    public function tambahJurnal() {
+        // print_r($this->input->post());exit();
+        $dataAkun = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'         => $this->input->post('tanggal'),
+            'idCashflow'      => $this->input->post('idCashflow'),
+        );
+        $idJurnal=$this->mdl->insertDataGetLast('jurnal', $dataAkun);
+
+        $akun=$this->input->post('akun[]');
+        $jumlah=$this->input->post('jumlah[]');
+        $kategori=$this->input->post('kategori[]');
+        
+        for ($i=0; $i < count($akun); $i++) { 
+            $dataDetail = array(
+                'idJurnal'      => $idJurnal,
+                'kodeAkun'         => $akun[$i],
+                'jumlah'      => $jumlah[$i],
+                'kategori'      => $kategori[$i],
+            );
+            $this->mdl->insertData('detailjurnal', $dataDetail);
+        }
+        $message = "Jurnal berhasil ditambah";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/jurnal")."';</script>";
+    }
 
     // public function editCashflow($idCashflow) {
     //     $dataCashflow = array(

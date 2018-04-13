@@ -93,6 +93,9 @@
                                         <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
                                         <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
                                     </dl>
+                                    <dl class="dl-horizontal" >
+                                        <dt>Status:</dt> <dd><label class="label <?php if($dataSPK[0]->statusSPK=="Done"){echo "label-primary";} else {echo "label-warning";} ?>"> <?php  echo $dataSPK[0]->statusSPK; ?></label></dd>
+                                    </dl>
                                 </div>
                             </div>
                             <div class="row m-t-sm" style="background-color: white; padding: 10px 2px 2px 2px; ">
@@ -102,7 +105,6 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#tab-1" data-toggle="tab">Detail Aktivitas</a></li>
-                                            <li class=""><a href="#tab-2" data-toggle="tab">Detail Estimasi Biaya</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -143,11 +145,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane" id="tab-2">
-
-                                    
-
-                                </div>
                                 <div>
                                     <a href="<?php echo base_url()?>user/purchaseOrder"><button type="button" class="btn btn-primary"> < Kembali</button></a>
                                 </div>
@@ -162,7 +159,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-lg-3">
+           <!--  <div class="col-lg-3">
                 <div class="wrapper wrapper-content project-manager text-right">
                     <div class="ibox">
                         <div class="ibox-content">

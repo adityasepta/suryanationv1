@@ -1840,7 +1840,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkmasal where nomorPO = '$nomorPO' LIMIT 1");
         if($hasil->num_rows() > 0){
-            return $hasil->row();
+            return $hasil->result();
         } else{
             return array();
         }
@@ -1850,7 +1850,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE idSPK=$idSPK LIMIT 1");
         if($hasil->num_rows() > 0){
-            return $hasil->row();
+            return $hasil->result();
         } else{
             return array();
         }
@@ -2624,7 +2624,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listAkun(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT b.*,a.namaTipeAkun,a.kodeTipeAkun FROM tipeakun a, akun b WHERE a.kodeTipeAkun = b.kodeTipeAkun order by b.kodeAkun ASC");
+        $hasil = $this->db->query("SELECT b.*,a.namaTipeAkun FROM tipeakun a, akun b WHERE a.kodeTipeAkun = b.kodeTipeAkun order by b.kodeAkun ASC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2671,10 +2671,30 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+    public function findCashflow($idCashflow){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM cashflow a WHERE a.idCashflow=$idCashflow LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     //Jurnal
     public function listJurnal(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT a.*,b.idJurnal,b.keterangan AS keteranganJurnal, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tanggalCashflow FROM cashflow a LEFT JOIN jurnal b ON a.idCashflow=b.idCashflow ORDER BY a.idCashflow DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function detailJurnal($idCashflow){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.idCashflow=$idCashflow");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
