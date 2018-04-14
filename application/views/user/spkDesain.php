@@ -167,15 +167,17 @@
                                 <div class="row">
                                     <div class="col-sm-6 ">
 
-                                        
-                                        
-                                            <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
-                                        
+                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
                                         
                                         
                                     </div>
                                     <div class="col-sm-6">
-
+                                        <h4>Status Desain <label class="label <?php if($dataSPK[0]->statusDesain=='Ditolak'){echo 'label-danger';} else if ($dataSPK[0]->statusDesain=='Menunggu Persetujuan'){echo 'label-warning';} else { echo 'label-primary';}?>"><?php echo $dataSPK[0]->statusDesain?></label></h4>
+                                        <?php if($dataSPK[0]->keteranganPending!=NULL) {?>
+                                            <label>Alasan Persetujuan</label>
+                                            <p><?php echo $dataSPK[0]->keteranganPending ?></p>
+                                        <?php } ?>
+                                        <hr>
                                         <?php echo form_open_multipart('user/uploadDesain','class="form-horizontal"')?>
 
                                         <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
@@ -216,10 +218,11 @@
                                             </div>
                                         </div>
 
-                                        <input type="file" required name="thumb"><br>
+                                        <input type="file" required name="thumb" /><br>
                                         <button <?php if($dataSPK[0]->PICDesain == 0) { echo 'disabled'; } ?> class="btn btn-sm btn-default" type="submit">Upload Thumbnail</button>
                                         <a class="btn btn-sm btn-info" href="<?php echo base_url('user/spk')?>" >Kembali</a>
                                         <?php echo form_close()?>
+
                                     </div>
 
 

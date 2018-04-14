@@ -737,13 +737,46 @@ class User extends CI_Controller {
         $this->load->view('user/spkDesain',$data);
     }
 
-    public function pendingDesain() {
-        $nomorFaktur = $this->input->post('nomorFaktur');
-        $data = array(
-            'keteranganPending' => $this->input->post('keterangan'),
-            'statusDesain' => 'Menunggu Persetujuan'
-        );
+    public function persetujuanDesain() {
 
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $status = $this->input->post('status');
+
+        $spk = $this->mdl->findSPK($nomorFaktur);
+        $idSPK = $spk[0]->idSPK;
+
+        if($status=='Disetujui'){
+            $data = array(
+                'keteranganPending'     => $this->input->post('keterangan'),
+                'tanggalApprovalDesain' => date("Y-m-d H:i:s"),
+                'statusDesain'          => $status,
+            );
+
+            $dataFact = array(
+                'idSPK'         => $idSPK,
+                'idAktivitas'   => 1004,
+                'statusWork'    => 'Belum ada PIC',
+                'statusSPK'     => 'Active',
+            );
+            $this->mdl->insertData('factproduction',$dataFact);
+
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Desain untuk nomor Faktur <b>'.$nomorFaktur.'</b> telah disetujui</div>');
+        } else if($status=='Menunggu Persetujuan') {
+            $data = array(
+                'keteranganPending'     => $this->input->post('keterangan'),
+                'statusDesain'          => $status,
+            );
+
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-warning">Desain untuk nomor Faktur <b>'.$nomorFaktur.'</b> ditunda untuk sementara</div>');
+        } else {
+            $data = array(
+                'keteranganPending'     => $this->input->post('keterangan'),
+                'statusDesain'          => $status,
+            );
+
+            $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-danger">Desain untuk nomor Faktur <b>'.$nomorFaktur.'</b> ditolak oleh pelanggan</div>');
+        }
+        
         $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
         redirect('user/spk');
     }
@@ -2451,6 +2484,18 @@ class User extends CI_Controller {
         
     }
 
+    public function batalDesain($nomorFaktur){
+        $this->mdl->deleteData('nomorPO',$nomorFaktur,'potempahan');
+        $this->mdl->deleteData('nomorFaktur',$nomorFaktur,'spk');
+        
+        $produk=$this->mdl->findprodukByPO($nomorFaktur);
+        $idProduk=$produk[0]->idProduk;
+        $this->mdl->deleteData('idProduk',$idproduk,'produk');
+
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-danger">Purchase Order dan SPK dengan nomor <b>'.$nomorFaktur.'</b> telah dihapus</div>');
+        redirect('user/spk');
+    }
+
     public function setujuDesain($nomorFaktur){
         
         $data = array(
@@ -2472,7 +2517,6 @@ class User extends CI_Controller {
 
         $this->mdl->insertData('factproduction',$data);
 
-       
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
         redirect('user/spk');
     }
@@ -2583,6 +2627,11 @@ class User extends CI_Controller {
 
     public function hapusPO($nomorPO){
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
+
+        $produk=$this->mdl->findprodukByPO($nomorPO);
+        $idProduk=$produk[0]->idProduk;
+        $this->mdl->deleteData('idProduk',$idproduk,'produk');
+
         redirect('user/purchaseOrder');
     }
 
@@ -6979,27 +7028,6 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
 
-    // public function editCashflow($idCashflow) {
-    //     $dataCashflow = array(
-    //         'keterangan'      => $this->input->post('keterangan'),
-    //         'tanggal'          => $this->input->post('tanggal'),
-    //         'jumlah'          => $this->input->post('jumlah'),
-    //         'kategori'      => $this->input->post('kategori'),
-    //         'tipeTransaksi'          => $this->input->post('tipeTransaksi'),
-    //     );
-    //     /*print_r($dataAkun);exit();*/
-    //     $this->mdl->updateData('idCashflow',$idCashflow,'cashflow', $dataCashflow);
-    //     $message = "Transaksi berhasil diperbaharui";
-    //     echo "<script type='text/javascript'>alert('$message');
-    //     window.location.href='".base_url("user/cashflow")."';</script>";
-    // }
-
-    // public function deleteCashflow($idCashflow) {
-    //     $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
-    //     $message = "Akun berhasil dihapus";
-    //     echo "<script type='text/javascript'>alert('$message');
-    //     window.location.href='".base_url("user/cashflow")."';</script>";
-    // }
 
     public function ambil2($idSPK) {
         
@@ -7118,6 +7146,33 @@ class User extends CI_Controller {
         $message = "Data Akses berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akses")."';</script>";
+    }
+
+    //Estimasi Biaya
+    public function estimasiBiaya($nomorPO) {
+        $data['dataPO']=$this->mdl->findPO($nomorPO);  
+        $this->load->view('user/estimasiBiaya',$data);
+    }
+
+    public function updateBiaya($nomorPO){
+        
+        //Query Tambah PO
+        $dataPO = array(
+            'beratAkhir'        => $this->input->post('beratAkhir'),
+            'beratBatu'         => $this->input->post('beratBatu'),
+            'susut'             => $this->input->post('susut'),
+            'upah'              => $this->input->post('upah'),
+            'jumlahDatangBerlian' => $this->input->post('jumlahDatangBerlian'),
+            'upahPasangBerlian' => $this->input->post('upahPasangBerlian'),
+            'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
+            'hargaBatuZirkon'   => $this->input->post('hargaBatuZirkon'),
+            'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
+        );
+        $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);    
+
+        $message = "Estimasi biaya berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/purchaseOrder")."';</script>";
     }
 
 

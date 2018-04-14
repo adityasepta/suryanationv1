@@ -286,47 +286,40 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Persetujuan Desain - No. Faktur #<?php echo $hasil->nomorFaktur ?></h4>
                                       </div>
+                                      <?php echo form_open('user/persetujuanDesain')?>
                                       <div class="modal-body">
                                         
                                         <div class="row">
                                            <div class="col-lg-8">
                                                <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d1.jpg')?>" class="img img-responsive">
                                            </div>
-                                           
                                            <div class="col-lg-4">
-                                                
-                                               <?php echo form_open('user/pendingDesain')?>
-                                               <label>Alasan Pending</label>
-                                               <textarea required="" name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>
-                                               <input type="hidden" name="nomorFaktur" value="<?php echo $hasil->nomorFaktur ?>" >
-                                               <Br>
-                                               <button type="submit" class="btn btn-warning" >Pending</button>
+                                                <div class="form-group">
+                                                    <label>Alasan</label>
+                                                    <textarea name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>
+                                                    <input type="hidden" name="nomorFaktur" value="<?php echo $hasil->nomorFaktur ?>" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> <input type="radio" value="Disetujui" name="status" required> <i class="fa fa-circle" style="color:#07b77c;"></i> SETUJU  </label><br>
+                                                    <label> <input type="radio" value="Menunggu Persetujuan" name="status" > <i class="fa fa-circle text-warning"></i> PENDING </label><br>
+                                                    <label> <input type="radio" value="Ditolak" name="status" > <i class="fa fa-circle text-danger"></i> TIDAK SETUJU </label>
+                                                </div>
                                            </div>
                                           
                                         </div>
                                         
-
-                                        
-                                       
                                       </div>
                                       <div class="modal-footer">
+                                        <a href="<?php base_url();?>batalDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-danger pull-left" type="button"><i class="fa fa-remove"></i> Batal</a>
+                                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                                        <!-- <a href="<?php base_url();?>setujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-primary" type="button">Setuju</a> -->
                                         
-                                        <a href="<?php base_url();?>setujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-primary" type="button">Setuju</a>
-                                        
-                                        <a href="<?php base_url();?>tidakSetujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-danger" type="button">Tidak Setuju</a>
-
-                                        
-                                        
-                                    </div>
+                                      </div>
+                                    <?php echo form_close() ?>
                                     </div>
                                   </div>
                                 </div>
-                                <!-- End of Modal -->
 
-                                <!-- End of Modal -->
-                                <!-- Modal -->
-                                
-                                <!-- End of Modal -->
                                 <?php endforeach;?>
                                 </tbody>
                                 <tfoot>
