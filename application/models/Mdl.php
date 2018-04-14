@@ -481,10 +481,6 @@ class mdl extends CI_Model {
         $this->db->insert('rencanaproduksi2', $dataRencana);
     }
 
-    public function prosesDesain($nomorFaktur) {
-        //Query update from ... where id = ...
-        $this->db->query("update spk set statusDesain='Menunggu Persetujuan' where nomorFaktur=$nomorFaktur");
-    }
 
     public function findPO($nomorPO){
         //Query mencari record berdasarkan ID
@@ -643,10 +639,7 @@ class mdl extends CI_Model {
         $this->db->query("update spk set statusDesain='Disetujui' where nomorFaktur=$nomorFaktur");
     }
 
-    public function tidakSetujuDesain($nomorFaktur) {
-        //Query update from ... where id = ...
-        $this->db->query("update spk set statusDesain='Proses Desain' where nomorFaktur=$nomorFaktur");
-    }
+
 
     public function setujuBOM($nomorFaktur) {
         //Query update from ... where id = ...
@@ -1350,7 +1343,18 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getGroup() {
 
         $sql   = "SELECT *,left(pr.namaProduk, 20) as namap, DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
-            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and (s.statusDesain = 'Disetujui') and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter)";
+
+            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter) and s.idSPK in (select idSPK from factproduction where statusWork = 'Done')";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getLilin($idAktivitas) {
+
+        $sql   = "
+
+            SELECT *, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, $idAktivitas as idAktivitas, DATE_FORMAT(r.endDate, '%m/%d/%Y') AS tgs, DATE_FORMAT(r.startDate, '%d %M %Y') AS tglmulai, DATE_FORMAT(r.endDate, '%d %M %Y') AS tglselesai, k.nama AS namaSales, LEFT(pr.namaProduk, 20) AS namaProduk, u.nama AS namaPIC, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalDesain, '%d %M %Y' ) AS tanggaldes, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT( tanggalApprovalPersetujuan, '%d %M %Y' ) AS tanggalsetuju FROM potempahan po, produk pr, customer c, spk s, factproduction f, rencanaproduksi r, user u, user k WHERE  po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork != 'Done' ";
         $query = $this->db->query($sql);
         
         return $query->result();

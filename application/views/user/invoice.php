@@ -559,9 +559,13 @@
                                 </div>
                                 
                             </div>
+                            <hr>
+                            <label>Keterangan Desain</label>
+                            <span><?php echo $dataSPK[0]->keteranganDesain?></span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="footer">
