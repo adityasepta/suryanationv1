@@ -605,8 +605,12 @@ class User extends CI_Controller {
             'upahPasangBerlian' => $upahPasangBerlian,
             'tipeCustomer'      => $this->input->post('tipeCustomer'),
             'pekerjaanTambahan' => $pekerjaanTambahan,
-            'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-            'biayaTambahan'     => $this->input->post('biayaTambahan'),
+            'keteranganEnamel'  => $this->input->post('keteranganEnamel'),
+            'keteranganSlap'  => $this->input->post('keteranganSlap'),
+            'keteranganKombinasi'  => $this->input->post('keteranganKombinasi'),
+            'keteranganLaserHuruf'  => $this->input->post('keteranganLaserHuruf'),
+            'keteranganKodeCap'  => $this->input->post('keteranganKodeCap'),
+            // 'biayaTambahan'     => $this->input->post('biayaTambahan'),
             'beratAkhir'        => $this->input->post('beratAkhir'),
             'susut'             => $this->input->post('susut'),
             'bahan'             => $this->input->post('bahan'),
@@ -4028,6 +4032,8 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
         $this->form_validation->set_rules('kodeProduk', 'Kode Produk' ,'is_unique[produk.kodeProduk]');
 
+
+
         if ($this->form_validation->run() == FALSE){
             $idCustomer = $this->input->post('idCustomer');
                         // print_r($idCustomer);exit();
@@ -4318,8 +4324,12 @@ class User extends CI_Controller {
                 'upahPasangBerlian' => $upahPasangBerlian,
                 'tipeCustomer'      => $this->input->post('tipeCustomer'),
                 'pekerjaanTambahan' => $pekerjaanTambahan,
-                'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
-                'biayaTambahan'     => $this->input->post('biayaTambahan'),
+                'keteranganEnamel'  => $this->input->post('keteranganEnamel'),
+                'keteranganSlap'  => $this->input->post('keteranganSlap'),
+                'keteranganKombinasi'  => $this->input->post('keteranganKombinasi'),
+                'keteranganLaserHuruf'  => $this->input->post('keteranganLaserHuruf'),
+                'keteranganKodeCap'  => $this->input->post('keteranganKodeCap'),
+                // 'biayaTambahan'     => $this->input->post('biayaTambahan'),
                 'beratAkhir'        => $this->input->post('beratAkhir'),
                 'susut'             => $this->input->post('susut'),
                 'bahan'             => $this->input->post('bahan'),

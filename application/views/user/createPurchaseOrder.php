@@ -75,7 +75,7 @@
                                                 <?php if(count($poTerakhir)>0) { ?>
                                                 <small>Nomor Purchase Order terakhir yang digunakan adalah <strong> <?php echo $poTerakhir[0]->nomorPO; ?></strong></small>
                                                 <?php $poNow =  $poTerakhir[0]->nomorPO+1; } else { $poNow = 1; } ?>
-                                                <input type="text" placeholder="Nomor PO" name="nomorPO" class="form-control" value="<?php echo $poNow; ?>" readonly>
+                                                <input type="text" placeholder="Nomor PO" name="nomorPO" id="nomorPO" class="form-control" value="<?php echo $poNow; ?>" readonly>
                                                 <small class="text-danger"><?php echo form_error('nomorPO'); ?></small>
                                             </div>
                                         </div>
@@ -130,7 +130,7 @@
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Kode Produk</label>
-                                    <div class="col-sm-10"><input type="text" name="kodeProduk" placeholder="Misal: CNC - <?php echo $poNow; ?>" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" required=""></div>
+                                    <div class="col-sm-10"><input type="text" name="kodeProduk" id="kodeProduk" placeholder="Misal: CNC - <?php echo $poNow; ?>" class="form-control" value="<?php echo set_value('kodeProduk'); ?>" readonly></div>
                                     <small class="text-danger"><?php echo form_error('kodeProduk'); ?></small>
                                 </div>
                                 <div class="form-group">
@@ -432,34 +432,59 @@
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/></label>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Enamel"){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Laser Huruf"){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
-                                                <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan"> -->
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Enamel"){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganEnamel" placeholder="Keterangan Enamel" class="form-control" value="<?php echo set_value('keteranganEnamel'); ?>">
+                                                </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Slap"){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganSlap" placeholder="Keterangan Slap" class="form-control" value="<?php echo set_value('keteranganSlap'); ?>">
+                                                </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Kombinasi"){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganKombinasi" placeholder="Keterangan Kombinasi" class="form-control" value="<?php echo set_value('keteranganKombinasi'); ?>">
+                                                </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Laser Huruf"){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganLaserHuruf" placeholder="Keterangan Laser Huruf" class="form-control" value="<?php echo set_value('keteranganLaserHuruf'); ?>">
+                                                </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a= set_value('pekerjaanTambahan[]'); if($a=="Kode Cap"){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganKodeCap" placeholder="Keterangan Kode Cap" class="form-control" value="<?php echo set_value('keteranganKodeCap'); ?>">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Keterangan Tambahan</label>
-                                            <div class="col-sm-4"><input type="text" name="keteranganTambahan" class="form-control" value="<?php echo set_value('keteranganTambahan'); ?>"></div>
+                                        <!-- <div class="form-group">
                                             <label class="col-sm-2 control-label">Biaya Tambahan</label>
                                             <div class="col-sm-4"><input type="text" placeholder="Rp" name="biayaTambahan" class="form-control good" value="<?php echo set_value('biayaTambahan'); ?>"></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
-                                
+                                </div>
                                                               
-                                <div class="form-group"><label class="col-sm-2 control-label">Model</label>
+                                <div class="form-group">
+                                    <br>
+                                    <label class="col-sm-2 control-label">Model</label>
                                     <div class="col-sm-10"><input type="text" name="model" class="form-control" value="<?php echo set_value('model'); ?>"></div>
                                 </div>
                                 <div class="form-group">
@@ -585,19 +610,22 @@
             document.getElementById('produkDetail').style.display = 'block';
             document.getElementById('ukuranLiontin').style.display = 'none';
             document.getElementById('ukuranGelang').style.display = 'none';
-     
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'CNC-'+nomorPO;
         } else if ($('#liontin').iCheck('update')[0].checked || $('#anting').iCheck('update')[0].checked || $('#mainanNama').iCheck('update')[0].checked){
             document.getElementById('ukuranLiontin').style.display = 'block';
             document.getElementById('produkDetail').style.display = 'block';
             document.getElementById('ukuranCincin').style.display = 'none';
             document.getElementById('ukuranGelang').style.display = 'none';
-           
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'LTN-'+nomorPO;
         } else if ($('#gelang').iCheck('update')[0].checked){
             document.getElementById('ukuranGelang').style.display = 'block';
             document.getElementById('produkDetail').style.display = 'block';
             document.getElementById('ukuranLiontin').style.display = 'none';
             document.getElementById('ukuranCincin').style.display = 'none';
-            
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'GLG-'+nomorPO;
         }
         else {
             document.getElementById('produkDetail').style.display = 'none';
