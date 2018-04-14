@@ -67,7 +67,13 @@
 
         <div class="col-lg-6">
 
-            <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $do[$i]->idProProd ?>"  class="btn btn-xs btn-info btn-block ">Berat Akhir</button>
+            <?php if ($do[$i]->berat == 0) { ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $do[$i]->idProProd ?>"  class="btn btn-xs btn-info btn-block ">Berat Akhir</button>
+            <?php } else {?>
+                <button disabled="" class="btn btn-xs btn-info btn-block ">Berat Akhir</button>
+            <?php } ?>
+
+            
 
             <div class="modal inmodal fade" id="berat<?php echo $do[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog">

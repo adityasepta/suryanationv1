@@ -60,6 +60,20 @@
                 </div>
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
+                    <div class="col-md-3">
+                        <a href="<?php echo base_url();?>user/jurnalHariIni">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <span><?php echo date("d F Y") ?></span>
+                                    <h3 class="font-bold">Jurnal Hari Ini</h3>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
@@ -121,8 +135,8 @@
                                             <?php } else { ?>
                                             <td><!-- Button trigger modal -->
                                                 <div class="btn-group">
-                                                    <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idCashflow;?>" data-toggle="modal" class="btn btn-xs btn-info" >lihat</a>
-                                                    <a href="<?php echo base_url()?>user/deleteCashflow/<?php echo $p->idCashflow?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus transaksi ini?')">Hapus</a>
+                                                    <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idCashflow;?>" class="btn btn-xs btn-info" >Lihat</a>
+                                                    <a href="<?php echo base_url()?>user/editJurnal/<?php echo $p->idCashflow;?>" class="btn btn-xs btn-warning" >Edit</a>
                                                 </div>
                                             </td>
                                             <?php } ?>

@@ -60,26 +60,13 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="modal-header">
-                                <h2 class="text-center">Detail Jurnal</h2>
+                                <h2 class="text-center"><b>Jurnal</b></h2>
+                                <?php 
+                                    $tgl = new DateTime($jurnal[0]->tanggal);
+                                    $tglmsk = $tgl->format("d F Y");
+                                ?>
+                                <p class="text-center text-navy"><b><?php echo $tglmsk ?></b></p>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <?php 
-                                            $tgl = new DateTime($jurnal[0]->tanggal);
-                                            $tglmsk = $tgl->format("d F Y");
-                                        ?>
-                                        <dl class="dl-horizontal">
-                                            <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
-                                            <dt>Keterangan :</dt><dd> <b class="text-success"><?php echo $jurnal[0]->keterangan; ?></b></dd>
-                                        </dl>
-                                    </div>
-                                    <div class="col-md-6 text-left">
-                                        <dl class="dl-horizontal">
-                                            <dt>Jumlah :</dt><dd> <b class="text-success">Rp <?php echo number_format($jurnal[0]->jumlah,2);?></b></dd>
-                                            <dt>Kategori :</dt><dd> <b class="text-success"><?php echo $jurnal[0]->kategori?></b></dd>
-                                        </dl>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-body">
                                 <table class="table table-striped">
@@ -89,8 +76,8 @@
                                         <th>Uraian</th>
                                         <th class="text-center">Nomor Akun</th>
                                         <th>Nama Akun</th>
-                                        <th class="text-right">Debit</th>
-                                        <th class="text-right">Kredit</th>
+                                        <th class="text-center">Debit</th>
+                                        <th class="text-center">Kredit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -116,7 +103,7 @@
                                                 <?php if($jurnal[$i]->kategori=="Debit"){
                                                     $debit+=$jurnal[$i]->jumlah;
                                                 ?>
-                                                <label class="text-muted"> Rp. <?php echo number_format($jurnal[$i]->jumlah,2,".","."); ?></label>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($jurnal[$i]->jumlah,2,".","."); ?></label>
                                                 <?php } else {?><label class="text-muted">-</label> <?php } ?>
                                             </td>
                                             <td class="text-center">

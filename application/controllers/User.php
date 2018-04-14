@@ -136,7 +136,45 @@ class User extends CI_Controller {
                 'beratTambahan' => $beratTambahan,
                 'statusBerat' => 'Belum Disetujui'
             );
+
             $this->mdl->insertData('factproduction', $data);
+
+            if ($idaktivitas == 1014) {
+
+                $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+                $idg = $userx[0]->idUser;
+
+                $idUser=$this->session->userdata['logged_in']['iduser'];
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Produk Semi Jadi",
+                    'kodeBarang' => $idProduk,
+                    'jumlah' => $proses[0]->berat,
+                    'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                $this->mdl->insertData('stokbarang',$data);
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Produk Jadi",
+                    'kodeBarang' => $idProduk,
+                    'jumlah' => $proses[0]->berat,
+                    'jenisPergerakanBarang' => "IN",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                $this->mdl->insertData('stokbarang',$data);
+                
+            }
+
+            
             $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil memperbarui proses produksi</div>');
             redirect('User/kanban');    
         }
@@ -302,7 +340,7 @@ class User extends CI_Controller {
             );
         }
 
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
         $this->load->view('user/createPurchaseOrder',$data);
     }
@@ -1705,26 +1743,46 @@ class User extends CI_Controller {
                 
     }
 
-    public function createBOMTempahanNaik($kloter) {
-        $this->form_validation->set_rules('kodeMaterial','Kode Material', 'required');
-        if ($this->form_validation->run() == FALSE){
-            $data['kloter']=$this->mdl->findKloter($kloter);
-            $data['materials']=$this->mdl->getMaterial();
-            $data['spk'] = $this->mdl->getIsiKloter($kloter);
-            $this->load->view('user/createBOMTempahan',$data);
-        }
-        else {
-                $dataBOM= array(
-                            'idKloter'   => $kloter,
-                            'idMaterial' => $this->input->post('kodeMaterial'),
-                            'jumlah'     => $this->input->post('beratBahanTarget')
-                        );
-                
-                $this->mdl->insertData('bomtempahan',$dataBOM);
-                $message = "BOM berhasil dibuat, untuk melihat bom dapat melalui tombol 'Lihat BOM'";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/kanban")."';</script>";
-        }
+    public function createBOMTempahanNaik() {
+        $idMaterial = $this->input->post('kodeMaterial');
+        $idMaterial2 = $this->input->post('kodeMaterial2');
+
+
+
+        $idKloter = $this->input->post('idKloter');
+
+        $idm = explode(",",$idMaterial);
+        $idm2 = explode(",",$idMaterial2);
+
+
+        $brt = $this->input->post('brt');
+        $brt2 = $this->input->post('brt2');
+
+        //$idUser=$this->session->userdata['logged_in']['iduser'];
+        
+        $dataBOM= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm[0],
+            'jumlah'     => $brt
+        );
+        
+        //print_r($dataBOM);
+
+        $this->mdl->insertData('bomtempahan',$dataBOM);
+
+        $dataBOM2= array(
+            'idKloter'   => $idKloter,
+            'idMaterial' => $idm2[0],
+            'jumlah'     => $brt2
+        );
+
+        //print_r($dataBOM2);exit();
+        
+        $this->mdl->insertData('bomtempahan',$dataBOM2);
+
+        $message = "BOM berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
     }
 
     
@@ -1748,6 +1806,188 @@ class User extends CI_Controller {
         $message = "BOM berhasil dibuat";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
+    }
+
+    public function createEmasPutih() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        if(strlen($idKloter) > 0) {
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Putih');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $data['material'] = $this->mdl->findNamaMaterial('Paladium');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratPaladium');
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+        } else {
+
+            $idSubSPK = $this->input->post('idSubSPK');
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Putih');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $data['material'] = $this->mdl->findNamaMaterial('Paladium');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratPaladium');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>";
+
+        }
+
+        
+
+    }
+
+    public function createEmasRosegold() {
+
+        $idKloter = $this->input->post('idKloter');
+
+        if(strlen($idKloter) > 0) {
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Merah');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+
+
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+            
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idKloter'   => $idKloter,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            
+            $this->mdl->insertData('bomtempahan',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+        } else {
+
+            $idSubSPK = $this->input->post('idSubSPK');
+
+            $data['material'] = $this->mdl->findNamaMaterial('Alloy Merah');
+            $idMaterial = $data['material'][0]->idMaterial;
+            $jmlbutuh = $this->input->post('beratAlloy');
+
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idMaterial,
+                'jumlah'     => $jmlbutuh
+            );
+
+        
+
+
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+             $idMaterial = $this->input->post('kodeMaterial');
+            $idUser=$this->session->userdata['logged_in']['iduser'];
+            $jmlbutuh = $this->input->post('beratEmasMurni');
+
+            $idm = explode(",",$idMaterial);
+            $dataBOM= array(
+                'idSubSPK'   => $idSubSPK,
+                'idMaterial' => $idm[0],
+                'jumlah'     => $jmlbutuh
+                );
+        
+            $this->mdl->insertData('bommassal',$dataBOM);
+
+            $message = "BOM berhasil dibuat";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>";
+
+        }
+
+        
 
     }
 
@@ -2422,7 +2662,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOService',$data);
         }
@@ -2925,6 +3165,56 @@ class User extends CI_Controller {
         
          }
 
+         if ($idAktivitas == 1006) {
+
+             $isi = $this->mdl->getBOMTempahan($idKloter);
+
+             for ($i=0; $i < count($isi) ; $i++) { 
+
+                $userx = $this->mdl->getUserByJabatan('Admin Produksi');
+                $idg = $userx[0]->idUser;
+
+                $idUser=$this->session->userdata['logged_in']['iduser'];
+
+                $data = array(
+                    'idPIC' => $idUser,
+                    'tipeBarang' => "Material Dasar",
+                    'kodeBarang' => $isi[$i]->kodeMaterial,
+                    'jumlah' => $isi[$i]->jumlah,
+                    'jenisPergerakanBarang' => "OUT",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+
+
+                $this->mdl->insertData('stokbarang', $data);
+                 
+             }
+
+             for ($i=0; $i < count($kloter) ; $i++) { 
+
+                $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+                $idg = $userx[0]->idUser;
+                 
+                 $data = array(
+                    'idPIC' => $idg,
+                    'tipeBarang' => "Produk Semi Jadi",
+                    'kodeBarang' => $kloter[$i]->idProduk,
+                    'jumlah' => $kloter[$i]->beratAkhir,
+                    'jenisPergerakanBarang' => "IN",
+                    'satuan' => 'gr',
+                    'tipePergerakan' => 'Produksi',
+                    'tanggal' => date("Y-m-d H:i:s")
+                );
+
+                 $this->mdl->insertData('stokbarang', $data);
+             }
+
+             
+         }
+
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
         redirect('User/kanban');
 
@@ -3057,7 +3347,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[poperak.nomorPO]');
 
         if ($this->form_validation->run() == FALSE){
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir3();
             $this->load->view('user/createPOPerak',$data);
         }
@@ -3125,7 +3415,7 @@ class User extends CI_Controller {
                         $message = "Gambar tidak mendukung";
                         echo "<script type='text/javascript'>alert('$message');
                         </script>";
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir3();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -3414,7 +3704,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTrading',$data);
@@ -3457,7 +3747,7 @@ class User extends CI_Controller {
             $data['idPO'] = $idPO;
             $data['PO'] = $this->mdl->findPOTradingbyID($idPO);
             $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTradingDetail',$data);
@@ -3704,7 +3994,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
             $this->load->view('user/createPurchaseOrder',$data);
         }
@@ -3764,8 +4054,8 @@ class User extends CI_Controller {
                 //form sumbit dengan gambar diisi
                 //load uploading file library
                  $config['upload_path']     = './uploads/gambarProduk/'; 
-                 $config['allowed_types']   = 'jpg'; 
-                 $config['max_size']        = '2048';
+                 $config['allowed_types']   = 'jpg|jpeg|png'; 
+                 $config['max_size']        = '3048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;
                 
@@ -3790,7 +4080,7 @@ class User extends CI_Controller {
                                 'idC' => 1,
                             );
                         }
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -4276,23 +4566,46 @@ class User extends CI_Controller {
         $stok = (int)$prod[0]->stok;
         $newstok = $stok + (int)$kuantitas;
 
+        $proses = $this->mdl->getProsesDetail($idProProd);
+
+        $iduser = ($this->session->userdata['logged_in']['iduser']);
+        $berat = $proses[0]->berat;
+
         $data = array(
+            'idPIC' => $iduser,
             'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $kodeProduk,
-            'jumlah' => $kuantitas,
+            'kodeBarang' => $idProduk,
+            'jumlah' => $berat,
+            'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN'
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Transfer'
+                
+        );
 
-            );
+        
+        $this->mdl->insertData('stokbarang', $data);
 
-        $this->mdl->insertData('stokbarang',$data);
+        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+        $idg = $userx[0]->idUser;
 
         $data = array(
-            'stok' => $newstok,
+            'idPIC' => $idg,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $berat,
+            'satuan' => 'gr',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Transfer',
+            'statusTransfer' => 'Pending'
+                
+        );
 
-            );
+        
+        $this->mdl->insertData('stokbarang', $data);
 
-        $this->mdl->updateData('idProduk',$idProduk,'produk',$data);
+      
 
         $data = array(
             'statusSPK' => 'Done'
@@ -4313,7 +4626,7 @@ class User extends CI_Controller {
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi dengan nomor faktur <b>'.$nomorFaktur.'</b> dan kode produk <b>'.$kodeProduk.'</b></div>');
 
-        redirect('User/listProdukJadi');
+        redirect('User/kanban');
 
     }
 
@@ -6083,6 +6396,9 @@ class User extends CI_Controller {
         if($tipe == 'massal') {
             $this->mdl->deleteData('idBOM',$idBOM,'bommassal');
             redirect('user/createbommassal/'.$id);
+        } else {
+            $this->mdl->deleteData('idBOM',$idBOM,'bomtempahan');
+            redirect('user/createBOMTempahan/'.$id);
         }
     }
 
@@ -6272,7 +6588,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOServicePartai',$data);
         }
@@ -6540,6 +6856,18 @@ class User extends CI_Controller {
         $this->load->view('user/detailJurnal',$data);
     } 
 
+    public function jurnalHariIni() {
+        $data['jurnal'] = $this->mdl->jurnalHariIni();
+        $this->load->view('user/jurnalPeriode',$data);
+    } 
+
+    public function editJurnal($idCashflow) {
+        $data['jurnal'] = $this->mdl->detailJurnal($idCashflow);
+        $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
+        $data['listAkun'] = $this->mdl->listAkun();
+        $this->load->view('user/editJurnal',$data);
+    } 
+
     public function createJurnal($idCashflow) {
         $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
         $data['listAkun'] = $this->mdl->listAkun();
@@ -6569,6 +6897,34 @@ class User extends CI_Controller {
             $this->mdl->insertData('detailjurnal', $dataDetail);
         }
         $message = "Jurnal berhasil ditambah";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/jurnal")."';</script>";
+    }
+
+    public function updateJurnal($idJurnal) {
+        // print_r($this->input->post());exit();
+        $dataAkun = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'         => $this->input->post('tanggal'),
+        );
+        $this->mdl->updateData('idJurnal',$idJurnal,'jurnal',$dataAkun);
+
+        $this->mdl->deleteData('idJurnal',$idJurnal,'detailjurnal');
+
+        $akun=$this->input->post('akun[]');
+        $jumlah=$this->input->post('jumlah[]');
+        $kategori=$this->input->post('kategori[]');
+        
+        for ($i=0; $i < count($akun); $i++) { 
+            $dataDetail = array(
+                'idJurnal'      => $idJurnal,
+                'kodeAkun'         => $akun[$i],
+                'jumlah'      => $jumlah[$i],
+                'kategori'      => $kategori[$i],
+            );
+            $this->mdl->insertData('detailjurnal', $dataDetail);
+        }
+        $message = "Jurnal berhasil diperbaharui";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
