@@ -6912,6 +6912,10 @@ class User extends CI_Controller {
     //     window.location.href='".base_url("user/cashflow")."';</script>";
     // }
 
+    public function ambil2($idSPK) {
+        
+    }
+
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
         $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
