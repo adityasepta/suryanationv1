@@ -481,7 +481,6 @@
                                                     <tr>
                                                         <th class="text-center">No</th>
                                                         <th class="text-center">Aktivitas</th>
-                                                        <th class="text-center">Tanggal Mulai</th>
                                                         <th class="text-center">Tanggal Selesai</th>
                                                         <th class="text-center">Action</th>    
                                                     </tr>
@@ -492,7 +491,6 @@
                                                         <tr>
                                                             <td class="text-center"><?php echo ($i+1)?></td>
                                                             <td><?php echo $jadwal[$i]->namaAktivitas?></td>
-                                                            <td class="text-center"><?php echo $jadwal[$i]->sd?></td>
                                                             <td class="text-center"><?php echo $jadwal[$i]->ed?></td>
                                                             <td class="text-center"><button data-toggle="modal" data-target="#edits<?php echo $jadwal[$i]->idRencana ?>" class="btn btn-xs btn-info">Edit</button></td>
                                                         </tr>
@@ -508,11 +506,11 @@
                                                                     <div class="modal-body">
                                                                     <div class="row">
                                                                         <?php echo form_open('User/editJadwal')?>
-                                                                        <div class="col-lg-6">
+                                                                        <!-- <div class="col-lg-6">
                                                                             <b>Tanggal Mulai</b><br><br>
                                                                             <input type="date" name="tglmsk" value="<?php echo $jadwal[$i]->tglmsk?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="col-lg-6">
+                                                                        </div> -->
+                                                                        <div class="col-lg-12">
                                                                             <b>Tanggal Selesai</b><br><br>
                                                                             <input type="date" name="tglend" value="<?php echo $jadwal[$i]->tglend?>" class="form-control">
                                                                         </div>

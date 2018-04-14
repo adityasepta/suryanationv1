@@ -70,59 +70,11 @@
                                 </div>
                                 <div class="col-lg-6 text-right">
                                     
-                                    <!-- <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createSPK">
-                                        <span class="fa fa-pencil"></span><strong> TAMBAH SPK</strong>
-                                    </a> -->
-                                    <button data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-white"><i class="fa fa-qrcode"></i><strong> TAMBAH KLOTER</strong></button>
-
+         
                                 </div>
                             </div>
 
-                            <div class="modal inmodal fade" id="kloter" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h3 class="modal-title">Tambah Kloter SPK</h3><br>
-
-
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <?php echo form_open('user/setKloter')?>
-
-                                            <div class="row">
-                                            <div class="col-lg-9">
-                                                <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter" required="">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <input type="number" min="0" name="kadar" class=" form-control" placeholder="kadar" required="">
-                                            </div>
-                                            <br><br><hr>
-                                            <?php $b=count($klot); for ($i=0; $i < $b ; $i++) { ?> 
-                                                
-                                                    <div class="col-sm-10 col-sm-offset-2">
-                                                        <div class="i-checks">
-                                                            <label>
-                                                                <input class="form-control" type="checkbox" value="<?php echo $klot[$i]->idSPK?>" name="idSPK[]">
-                                                                &nbsp&nbsp&nbspNo Faktur : <b><?php echo $klot[$i]->nomorFaktur?></b> - Kadar : <b><?php echo $klot[$i]->kadarBahan?></b> %
-                                                            </label>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                
-                                            <?php } ?>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Tambahkan</button>
-
-                                            <?php echo form_close()?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             
                             
                         </div>
@@ -196,20 +148,24 @@
                                         <?php if($jadwal == 0) { ?>
                                             <a href="<?php base_url();?>tambahJadwal/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Jadwal</a>
 
-                                        <?php } else if($hasil->statusDesain == 'Proses Desain') { ?>
+                                        <?php } else if($hasil->statusDesain == 'Proses Desain' OR $hasil->statusDesain == 'Ditolak') { ?>
                                             <a href="<?php base_url();?>tambahDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Desain</a>
+                                            <?php if ($hasil->statusDesain == 'Ditolak') {
+                                                echo '<button class="btn btn-xs btn-danger">Ditolak</button>';
+                                            } ?>
+                                            
 
                                         <?php } else if($hasil->statusDesain == 'Menunggu Persetujuan') { ?>
                                             <a href="#" data-toggle="modal" data-target="#desain<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Persetujuan Desain</a>
+                                            <button class="btn btn-xs btn-warning">Pending</button>
 
-                                        <?php } else if($klot==0) { ?>
-                                            <a href="#" data-toggle="modal" data-target="#kloter" class="btn btn-xs btn-info">Tambahkan Kloter</a>
-
+                                        
                                         <?php } else if($hasil->statusSPK=='Done') { ?>
                                             <a class="btn btn-xs btn-primary">Done</a>
 
                                         <?php } else {?>
                                             <a href="<?php base_url();?>kanban" class="btn btn-xs btn-default">Masuk Ke Kanban</a>
+                                            <button class="btn btn-xs btn-success">Disetujui</button>
 
                                         <?php } ?>
 
@@ -331,29 +287,36 @@
                                         <h4 class="modal-title" id="myModalLabel">Persetujuan Desain - No. Faktur #<?php echo $hasil->nomorFaktur ?></h4>
                                       </div>
                                       <div class="modal-body">
-                                        <?php if($hasil->statusDesain !== 'Proses Desain') {?>
-                                            <div class="row">
-                                               <div class="col-lg-12">
-                                                   <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d1.jpg')?>" class="img img-responsive">
-                                               </div>
-                                              
+                                        
+                                        <div class="row">
+                                           <div class="col-lg-8">
+                                               <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d1.jpg')?>" class="img img-responsive">
                                            </div>
-                                        <?php } else { ?>
+                                           
+                                           <div class="col-lg-4">
+                                                
+                                               <?php echo form_open('user/pendingDesain')?>
+                                               <label>Alasan Pending</label>
+                                               <textarea required="" name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>
+                                               <input type="hidden" name="nomorFaktur" value="<?php echo $hasil->nomorFaktur ?>" >
+                                               <Br>
+                                               <button type="submit" class="btn btn-warning" >Pending</button>
+                                           </div>
+                                          
+                                        </div>
+                                        
 
-                                        <?php } ?>
+                                        
                                        
                                       </div>
                                       <div class="modal-footer">
-                                        <?php if($hasil->statusDesain == 'Disetujui' ) { ?>
-
-                                            <a disabled class="btn btn-primary" type="button">Telah Disetuju</a>
-                                            
-                                        <?php } else {?>
-                                            <a href="<?php base_url();?>setujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-primary" type="button">Setuju</a>
-                                        <?php } ?>
+                                        
+                                        <a href="<?php base_url();?>setujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-primary" type="button">Setuju</a>
                                         
                                         <a href="<?php base_url();?>tidakSetujuDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-danger" type="button">Tidak Setuju</a>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                        
+                                        
                                     </div>
                                     </div>
                                   </div>

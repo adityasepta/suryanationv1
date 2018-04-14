@@ -467,10 +467,28 @@
                                                             <input type="hidden" name="idUser" value="0" required="">
                                                         </div>
                                                     </div>
+
+                                                    <div id="passwordSwandi" style="display: none;">
+                                                        <hr>
+                                                        <h3 class="m-t-none m-b">Password</h3>
+                                                        <div class="col-md-8">
+                                                            <input type="password" class="form-control"  id="password-input" required  value="0" name="passwordSwandi">
+                                                            <input type="hidden" id="password-swandi" required  value="<?php echo $swandi[0]->password?>" name="passwordSwandi">    
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <button type="button" onclick="cekPassword();" class="btn btn-sm btn-primary btn-block">Cek</button>    
+                                                        </div>
+                                                        <div class="col-lg-12 text-center" id='statusTidakValid' style="display: none;">
+                                                                Password tidak cocok. Silahkan coba lagi.
+                                                        </div>
+                                                        <div class="col-lg-12 text-center" id='statusValid' style="display: none;">
+                                                            Password valid.
+                                                        </div>
+                                                    </div>
                                                     
                                                     <div class="col-md-12">
                                                         <div class="hr-line-dashed"></div>
-                                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
+                                                        <button id='tombolSimpan' class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Lanjutkan</strong></button>
                                                     </div>
                                                     <?php echo form_close()?>
                                                 </div>
@@ -534,7 +552,13 @@
 
             if ($(this).val() == "Balik Bahan" || $(this).val() == "Balik Abu"){
                 document.getElementById('jenisProduksi').style.display = 'block';
+                document.getElementById('passwordSwandi').style.display = 'none';
+            } else if ($(this).val() == "Stok Opname") {
+                document.getElementById('passwordSwandi').style.display = 'block';
+                document.getElementById('jenisProduksi').style.display = 'none';
+                $('#tombolSimpan').prop('disabled', true);
             } else {
+                document.getElementById('passwordSwandi').style.display = 'none';
                 document.getElementById('jenisProduksi').style.display = 'none';
             }
         });
@@ -551,6 +575,27 @@
             }
         });
 
+    </script>
+    <script type="text/javascript">
+        function cekPassword() {
+            var password = document.getElementById('password-input').value;
+            var password2 = document.getElementById('password-swandi').value;
+            // console.log(password);
+            // console.log(password2);
+            var x = document.getElementById("statusTidakValid");
+            var y = document.getElementById("statusValid");
+
+            if(password==password2) {
+                $('#tombolSimpan').prop('disabled', false);
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+            else {
+                $('#tombolSimpan').prop('disabled', true);
+                x.style.display = "block";
+                y.style.display = "none";
+            }
+        }
     </script>
 </body>
 

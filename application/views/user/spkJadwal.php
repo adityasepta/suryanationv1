@@ -241,10 +241,7 @@
                                         <label class="control-label">Pilih Aktivitas</label>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label class="control-label">Tanggal Mulai</label>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="control-label">Tanggal Berakhir</label>
+                                        <label class="control-label">Tanggal Selesai</label>
                                     </div>
                                 </div>
                                 <?php 
@@ -256,16 +253,10 @@
                                             <div class="i-checks"><label><input type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]"><i></i>  <?php echo $aktivitas[$i]->namaAktivitas?></label></div>
                                             <input class="form-control" type="hidden" value="<?php echo $aktivitas[$i]->idAktivitas?>" name="idAktivitas[]">   
                                         </div>
-                                        <div class="col-sm-4">
                                             <?php 
-
                                               $tglmsk = new DateTime($tanggalMasuk);
-                                              $tglmsk->modify('+'.$i.' day');
                                               $tglmsk1 = $tglmsk->format("Y-m-d");
-
                                               ?>
-                                            <input class="form-control" type="date" value="<?php echo $tglmsk1 ?>" name="startDate[]">
-                                        </div>
                                         <div class="col-sm-4">
                                             <input class="form-control" type="date" value="<?php echo $tglmsk1 ?>" name="endDate[]">
                                         </div>

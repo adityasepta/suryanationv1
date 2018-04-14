@@ -49,6 +49,8 @@ class User extends CI_Controller {
             $data['m'] = $this->mdl->getMenunggu();
             $data['g'] = $this->mdl->getGroup();
 
+            $data['li'] = $this->mdl->getLilin(1004);
+
             $data['k1'] = $this->mdl->getKloter(1004);
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
@@ -60,9 +62,10 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
             $data['cb'] = $this->mdl->cekbom2();
+            $data['klot']      = $this->mdl->getKloterSPK();
             //$data['k'] = $this->mdl->getIsiKloter();
 
-            $data['li'] = $this->mdl->getProses(1004);  
+              
             $data['gi'] = $this->mdl->getProses(1005);
             $data['co'] = $this->mdl->getProses(1006);
 
@@ -734,6 +737,19 @@ class User extends CI_Controller {
         $this->load->view('user/spkDesain',$data);
     }
 
+    public function pendingDesain() {
+        $nomorFaktur = $this->input->post('nomorFaktur');
+        $data = array(
+            'keteranganPending' => $this->input->post('keterangan'),
+            'statusDesain' => 'Menunggu Persetujuan'
+        );
+
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+        redirect('user/spk');
+    }
+
+
+
     public function tambahJadwal($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
         $data['aktivitas'] = $this->mdl->listAktivitas2();
@@ -846,7 +862,6 @@ class User extends CI_Controller {
             //eksekusi query insert tanpa gambar
         $idAktivitas    =$this->input->post('idAktivitas');
         $nomorAktivitas =$this->input->post('nomorAktivitas');
-        $startDate      =$this->input->post('startDate');
         $endDate        =$this->input->post('endDate');
         $nomorFaktur    =$this->input->post('nomorFaktur');
         // print_r($idAktivitas);exit();
@@ -861,7 +876,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK'                 => $this->input->post('idSPK'),
                 'idAktivitas'           => $idAktivitas[$b],
-                'startDate'           => $startDate[$b],
+                'startDate'           => $endDate[$b],
                 'endDate'           => $endDate[$b],
             );
             $this->mdl->tambahRencana($dataJadwal);
@@ -958,9 +973,11 @@ class User extends CI_Controller {
         }
 
         if($a==$b) {
-            $this->mdl->prosesDesain($nomorFaktur);
+
             $data = array(
-                'PICDesain' => $iduser
+                'PICDesain' => $iduser,
+                'statusDesain' => 'Menunggu Persetujuan',
+                'keteranganDesain' => $this->input->post('keterangan')
             );
             $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
 
@@ -1293,6 +1310,7 @@ class User extends CI_Controller {
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
+        $data['swandi'] = $this->mdl->findPegawai(12);
         // print_r($data['stok']);exit();
         $this->load->view('user/stokBarang',$data);
     }
@@ -2434,18 +2452,40 @@ class User extends CI_Controller {
     }
 
     public function setujuDesain($nomorFaktur){
-        //$this->mdl->setujuDesain($nomorFaktur);
+        
         $data = array(
             'tanggalApprovalDesain'    => date("Y-m-d H:i:s"),
             'statusDesain' => 'Disetujui',
         );
-        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
-        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b>, anda saat ini dapat menambahkan Kloter !</div>');
+
+         $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+
+        $spk = $this->mdl->findSPK($nomorFaktur);
+        $idSPK = $spk[0]->idSPK;
+
+        $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1004,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+        );
+
+        $this->mdl->insertData('factproduction',$data);
+
+       
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
         redirect('user/spk');
     }
 
     public function tidakSetujuDesain($nomorFaktur){
-        $this->mdl->tidakSetujuDesain($nomorFaktur);
+        
+        $data = array(
+
+            'statusDesain' => 'Ditolak',
+        );
+
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+
         redirect('user/spk');
     }
 
@@ -4744,10 +4784,9 @@ class User extends CI_Controller {
         //eksekusi query insert tanpa gambar
         $idAktivitas    = $this->input->post('idAktivitas');
         $nomorAktivitas = $this->input->post('nomorAktivitas');
-        $startDate      = $this->input->post('startDate');
         $endDate        = $this->input->post('endDate');
         $nomorFaktur    = $this->input->post('nomorFaktur');
-        // print_r($idAktivitas);exit();
+        //print_r($endDate);exit();
         for ($i = 0; $i < count($nomorAktivitas); $i++) {
             $b             = $nomorAktivitas[$i];
             $dataAktivitas = array(
@@ -4759,7 +4798,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK' => $this->input->post('idSPK'),
                 'idAktivitas' => $idAktivitas[$b],
-                'startDate' => $startDate[$b],
+                'startDate' => $endDate[$b],
                 'endDate' => $endDate[$b]
             );
             $this->mdl->tambahRencana2($dataJadwal);
@@ -6418,7 +6457,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
@@ -6438,7 +6477,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
@@ -6961,6 +7000,10 @@ class User extends CI_Controller {
     //     echo "<script type='text/javascript'>alert('$message');
     //     window.location.href='".base_url("user/cashflow")."';</script>";
     // }
+
+    public function ambil2($idSPK) {
+        
+    }
 
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);

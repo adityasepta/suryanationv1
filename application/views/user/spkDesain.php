@@ -188,7 +188,9 @@
                                         <small class="text-danger">Upload maksimal 6 MB, tipe file jpg</small>
                                         <br><br>
                                         <input type="file" required name="userfile[]">
-                                        
+                                        <br><br>
+                                        <label>Keterangan Tambahan Desain</label>
+                                        <input name="keterangan" placeholder="ex : Jumlah Batu Zikron = 30 pcs, Ukuran Batu = 3 mm" required="" class="form-control input-lg" value="<?php echo $dataSPK[0]->keteranganDesain?>"></input>
                                         
                                         <br><br>
                                         <button class="btn btn-sm btn-default" type="submit">Upload Gambar Desain</button>
@@ -216,6 +218,7 @@
 
                                         <input type="file" required name="thumb"><br>
                                         <button <?php if($dataSPK[0]->PICDesain == 0) { echo 'disabled'; } ?> class="btn btn-sm btn-default" type="submit">Upload Thumbnail</button>
+                                        <a class="btn btn-sm btn-info" href="<?php echo base_url('user/spk')?>" >Kembali</a>
                                         <?php echo form_close()?>
                                     </div>
 
