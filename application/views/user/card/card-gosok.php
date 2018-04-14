@@ -14,49 +14,18 @@
 
 <li class="<?php echo $statr?>-element" id="task1">
     <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $go[$i]->nomorPO ?></b>
+        <div class="col-lg-5 text-center">
+            <img src="<?php echo base_url('uploads/gambarDesain/'.$go[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $go[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $go[$i]->tipeOrder ?></b>
+        <div class="col-lg-7">
+            <b><?php echo $go[$i]->namaCustomer ?> / <?php echo $go[$i]->nomorFaktur ?></b><br>
+            <b><?php echo $go[$i]->jenisProduk?></b><br>
+            <b><?php echo $go[$i]->tanggal?> -</b><br>
+            <b><?php echo $go[$i]->tanggalSelesai?> </b><br>
         </div>
     </div>
     
-    <br>
-    <div class="row">
-        <div class="col-lg-4">
-            Customer<br>
-            PIC Proses
-        </div>
-        <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $go[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $go[$i]->namaPIC ?></b>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis
-            
-        </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $go[$i]->namaProduk ?></b><br>
-            :&nbsp&nbsp<b><?php echo $go[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
-    <br>
-
-    
+    <hr>
     
     <div class="row">
 
@@ -143,6 +112,7 @@
                             <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
                                     <input type="hidden" class="form-control" value="<?php echo $go[$i]->idProduk?>" name="idProduk">
                                     <input type="hidden" class="form-control" value="<?php echo $go[$i]->idSPK?>" name="idSPK">
+                                    <input type="hidden" class="form-control" value="<?php echo $idakt?>" name="idakt">
                             <div class="col-sm-2">
                       
                                 <button type="submit" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-block btn-success"><b>OK</b></button>
@@ -455,16 +425,7 @@
                                 
                             </div>
                         </div>
-                        <div class="form-horizontal">
-                            <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
-
-                                <div class="col-sm-7">
-                                    <input type="number" step="any" name="beratTambahan" value="<?php echo $go[$i]->beratTambahan?>" required class="form-control">
-                                    <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
-                                </div>
-                                
-                            </div>
-                        </div>
+                
 
                         <div class="form-horizontal">
                             <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>

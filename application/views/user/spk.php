@@ -294,7 +294,10 @@
                                            </div>
                                            
                                            <div class="col-lg-4">
-                                                
+                                                <label>Keterangan Desain</label>
+                                                <br><Br>
+                                                <span><?php echo $hasil->keteranganDesain?></span>
+                                                <hr>
                                                <?php echo form_open('user/pendingDesain')?>
                                                <label>Alasan Pending</label>
                                                <textarea required="" name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>

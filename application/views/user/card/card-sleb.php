@@ -13,48 +13,19 @@
 
 
 <li class="<?php echo $statr?>-element" id="task1">
-    <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $sl[$i]->nomorPO ?></b>
-        </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $sl[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $sl[$i]->tipeOrder ?></b>
-        </div>
-    </div>
     
-    <br>
     <div class="row">
-        <div class="col-lg-4">
-            Customer<br>
-            PIC Proses
+        <div class="col-lg-5 text-center">
+            <img src="<?php echo base_url('uploads/gambarDesain/'.$sl[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $sl[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $sl[$i]->namaPIC ?></b>
+        <div class="col-lg-7">
+            <b><?php echo $sl[$i]->namaCustomer ?> / <?php echo $sl[$i]->nomorFaktur ?></b><br>
+            <b><?php echo $sl[$i]->jenisProduk?></b><br>
+            <b><?php echo $sl[$i]->tanggal?> -</b><br>
+            <b><?php echo $sl[$i]->tanggalSelesai?> </b><br>
         </div>
-
     </div>
-
-    <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis
-            
-        </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $sl[$i]->namaProduk ?></b><br>
-            :&nbsp&nbsp<b><?php echo $sl[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
-    <br>
+    <hr>
 
     
     

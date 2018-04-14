@@ -16,30 +16,23 @@
     
     <br>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             Customer<br>
-            Sales Person
+            Sales<br>
+            Jenis<br>
+            Tanggal Masuk<br>
+            Tanggal Selesai<br>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-7">
             :&nbsp&nbsp<b><?php echo $j[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $j[$i]->nama ?></b>
+            :&nbsp&nbsp<b><?php echo $j[$i]->nama ?></b><br>
+            :&nbsp&nbsp<b><?php echo $j[$i]->jenisProduk?></b><br>
+            :&nbsp&nbsp<b><?php echo $j[$i]->tanggal?></b><br>
+            :&nbsp&nbsp<b><?php echo $j[$i]->tanggalSelesai?></b><br>
         </div>
 
     </div>
 
-    <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis
-            
-        </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $j[$i]->namap ?></b><br>
-            :&nbsp&nbsp<b><?php echo $j[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
     <br>
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -73,7 +66,7 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1x2<?php echo $j[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2x2<?php echo $j[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            
 
                         </ul>
                         <div class="tab-content">
@@ -83,16 +76,16 @@
                                         <div class="col-lg-4 text-right ">
                                             Customer<br>
                                             Sales Person<br>
-                                            PIC Proses<br>
-                                            Produk<br>
+                                            
+                                            
                                             Bahan<br>
                                             jenis
                                         </div>
                                         <div class="col-lg-8">
                                             :&nbsp&nbsp<b><?php echo $j[$i]->namaCustomer ?></b><br>
                                             :&nbsp&nbsp<b><?php echo $j[$i]->nama ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $j[$i]->PICDesain ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $j[$i]->namaProduk ?></b><br>
+                                            
+                                            
                                             :&nbsp&nbsp<b><?php echo $j[$i]->kadarBahan ?> %</b><br>
                                             :&nbsp&nbsp<b><?php echo $j[$i]->jenisProduk ?></b>
                                         </div>
@@ -116,9 +109,9 @@
                                         </div>
                                         <div class="col-lg-4 text-center">
                                             <b>Foto 3D Model</b><br><br>
-                                            <?php if($j[$i]->statusDesain !== 'Proses Desain') {?>
+                                            
                                             <img src="<?php echo base_url('uploads/gambarDesain/'.$j[$i]->kodeGambar.'-d1.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
-                                            <?php } ?>
+                                            
                                         </div>
                                         <div class="col-lg-4 text-center">
                                             <b>Foto PIC</b><br><br>

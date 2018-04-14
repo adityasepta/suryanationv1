@@ -99,7 +99,29 @@ class User extends CI_Controller {
         $idProProd = $this->input->post('idProProd');
         $idAktivitas = $this->input->post('idAktivitas');
 
-        //var_dump(get_defined_vars());exit();
+        $idakt = $this->input->post('idakt');
+        if (strlen($idakt) > 0) {
+
+            $proses = $this->mdl->getProsesDetail($idProProd);
+            $beratAwal = (float)$proses[0]->beratAwal;
+
+            $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+            $idg = $userx[0]->idUser;
+             
+             $data = array(
+                'idPIC' => $idg,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $beratAwal,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+             $this->mdl->insertData('stokbarang', $data);
+            
+        }
 
         $this->next($idProduk,$idAktivitas,$idProProd,$idSPK);
 
@@ -139,7 +161,7 @@ class User extends CI_Controller {
                     'statusSPK' => 'Active',
                     'idAktivitas' => $next,
                     'beratAwal' => $beratAwal,
-                    'beratTambahan' => $beratTambahan,
+                    'beratTambahan' => 0,
                     'statusBerat' => 'Belum Disetujui'
                 );
 
@@ -3160,6 +3182,8 @@ class User extends CI_Controller {
                 'kadar' => $this->input->post('kadar'),
                 'idKloter' => $kode,
                 'idSPK' => $idspk[$i],
+                'beratKotor' => $this->input->post('beratKotor'),
+                'beratKaret' => $this->input->post('beratKaret'),
                 'tgl_kloter' => date("Y-m-d H:i:s"),
             );
 
@@ -3169,7 +3193,7 @@ class User extends CI_Controller {
 
             $data = array(
                 'idSPK' => $idSPK,
-                'idAktivitas' => 1004,
+                'idAktivitas' => 1005,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
             );
@@ -3244,24 +3268,24 @@ class User extends CI_Controller {
                  
              }
 
-             for ($i=0; $i < count($kloter) ; $i++) { 
+             // for ($i=0; $i < count($kloter) ; $i++) { 
 
-                $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
-                $idg = $userx[0]->idUser;
+             //    $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+             //    $idg = $userx[0]->idUser;
                  
-                 $data = array(
-                    'idPIC' => $idg,
-                    'tipeBarang' => "Produk Semi Jadi",
-                    'kodeBarang' => $kloter[$i]->idProduk,
-                    'jumlah' => $kloter[$i]->beratAkhir,
-                    'jenisPergerakanBarang' => "IN",
-                    'satuan' => 'gr',
-                    'tipePergerakan' => 'Produksi',
-                    'tanggal' => date("Y-m-d H:i:s")
-                );
+             //     $data = array(
+             //        'idPIC' => $idg,
+             //        'tipeBarang' => "Produk Semi Jadi",
+             //        'kodeBarang' => $kloter[$i]->idProduk,
+             //        'jumlah' => $kloter[$i]->beratAkhir,
+             //        'jenisPergerakanBarang' => "IN",
+             //        'satuan' => 'gr',
+             //        'tipePergerakan' => 'Produksi',
+             //        'tanggal' => date("Y-m-d H:i:s")
+             //    );
 
-                 $this->mdl->insertData('stokbarang', $data);
-             }
+             //     $this->mdl->insertData('stokbarang', $data);
+             // }
 
              
          }
@@ -3452,7 +3476,7 @@ class User extends CI_Controller {
                 //load uploading file library
                  
                  $config['upload_path']     = './uploads/gambarProduk/'; 
-                 $config['allowed_types']   = 'jpg'; 
+                 $config['allowed_types']   = 'jpg|png|jpeg|gif'; 
                  $config['max_size']        = '2048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;

@@ -19,7 +19,6 @@
         </div>
         <div class="col-lg-7">
             <b><?php echo $li[$i]->namaCustomer ?> / <?php echo $li[$i]->nomorFaktur ?></b><br>
-            
             <b><?php echo $li[$i]->jenisProduk?></b><br>
             <b><?php echo $li[$i]->tanggal?> -</b><br>
             <b><?php echo $li[$i]->tanggalSelesai?> </b><br>
