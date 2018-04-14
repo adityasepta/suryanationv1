@@ -6857,6 +6857,18 @@ class User extends CI_Controller {
         $this->load->view('user/detailJurnal',$data);
     } 
 
+    public function jurnalHariIni() {
+        $data['jurnal'] = $this->mdl->jurnalHariIni();
+        $this->load->view('user/jurnalPeriode',$data);
+    } 
+
+    public function editJurnal($idCashflow) {
+        $data['jurnal'] = $this->mdl->detailJurnal($idCashflow);
+        $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
+        $data['listAkun'] = $this->mdl->listAkun();
+        $this->load->view('user/editJurnal',$data);
+    } 
+
     public function createJurnal($idCashflow) {
         $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
         $data['listAkun'] = $this->mdl->listAkun();
@@ -6886,6 +6898,34 @@ class User extends CI_Controller {
             $this->mdl->insertData('detailjurnal', $dataDetail);
         }
         $message = "Jurnal berhasil ditambah";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/jurnal")."';</script>";
+    }
+
+    public function updateJurnal($idJurnal) {
+        // print_r($this->input->post());exit();
+        $dataAkun = array(
+            'keterangan'      => $this->input->post('keterangan'),
+            'tanggal'         => $this->input->post('tanggal'),
+        );
+        $this->mdl->updateData('idJurnal',$idJurnal,'jurnal',$dataAkun);
+
+        $this->mdl->deleteData('idJurnal',$idJurnal,'detailjurnal');
+
+        $akun=$this->input->post('akun[]');
+        $jumlah=$this->input->post('jumlah[]');
+        $kategori=$this->input->post('kategori[]');
+        
+        for ($i=0; $i < count($akun); $i++) { 
+            $dataDetail = array(
+                'idJurnal'      => $idJurnal,
+                'kodeAkun'         => $akun[$i],
+                'jumlah'      => $jumlah[$i],
+                'kategori'      => $kategori[$i],
+            );
+            $this->mdl->insertData('detailjurnal', $dataDetail);
+        }
+        $message = "Jurnal berhasil diperbaharui";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
