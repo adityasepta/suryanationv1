@@ -4566,23 +4566,46 @@ class User extends CI_Controller {
         $stok = (int)$prod[0]->stok;
         $newstok = $stok + (int)$kuantitas;
 
+        $proses = $this->mdl->getProsesDetail($idProProd);
+
+        $iduser = ($this->session->userdata['logged_in']['iduser']);
+        $berat = $proses[0]->berat;
+
         $data = array(
+            'idPIC' => $iduser,
             'tipeBarang' => 'Produk Jadi',
-            'kodeBarang' => $kodeProduk,
-            'jumlah' => $kuantitas,
+            'kodeBarang' => $idProduk,
+            'jumlah' => $berat,
+            'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
-            'jenisPergerakanBarang' => 'IN'
+            'jenisPergerakanBarang' => 'OUT',
+            'tipePergerakan' => 'Transfer'
+                
+        );
 
-            );
+        
+        $this->mdl->insertData('stokbarang', $data);
 
-        $this->mdl->insertData('stokbarang',$data);
+        $userx = $this->mdl->getUserByJabatan('Staff Keuangan');
+        $idg = $userx[0]->idUser;
 
         $data = array(
-            'stok' => $newstok,
+            'idPIC' => $idg,
+            'tipeBarang' => 'Produk Jadi',
+            'kodeBarang' => $idProduk,
+            'jumlah' => $berat,
+            'satuan' => 'gr',
+            'tanggal' => date("Y-m-d H:i:s"),
+            'jenisPergerakanBarang' => 'IN',
+            'tipePergerakan' => 'Transfer',
+            'statusTransfer' => 'Pending'
+                
+        );
 
-            );
+        
+        $this->mdl->insertData('stokbarang', $data);
 
-        $this->mdl->updateData('idProduk',$idProduk,'produk',$data);
+      
 
         $data = array(
             'statusSPK' => 'Done'
@@ -4603,7 +4626,7 @@ class User extends CI_Controller {
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil menyelesaikan aktivitas produksi dengan nomor faktur <b>'.$nomorFaktur.'</b> dan kode produk <b>'.$kodeProduk.'</b></div>');
 
-        redirect('User/listProdukJadi');
+        redirect('User/kanban');
 
     }
 
