@@ -36,6 +36,11 @@
     $tipeCustomer           = $dataPO[0]->tipeCustomer;      
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
+    $keteranganEnamel     = $dataPO[0]->keteranganEnamel;
+    $keteranganSlap     = $dataPO[0]->keteranganSlap;
+    $keteranganKombinasi     = $dataPO[0]->keteranganKombinasi;
+    $keteranganLaserHuruf     = $dataPO[0]->keteranganLaserHuruf;
+    $keteranganKodeCap     = $dataPO[0]->keteranganKodeCap;
     $biayaTambahan          = $dataPO[0]->biayaTambahan;
     $beratBerlian           = $dataPO[0]->beratBerlian;
     $hargaBerlian           = $dataPO[0]->hargaBerlian;
@@ -46,6 +51,10 @@
     $keteranganKrum         = $dataPO[0]->keteranganKrum;
     $budget                 = $dataPO[0]->budget;
     $kodeGambar             = $dataPO[0]->kodeGambar;
+    $batuTerhadapKruman     = $dataPO[0]->batuTerhadapKruman;
+    $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
+    $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
+    $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -151,51 +160,7 @@
                                 <div class="panel-body">
                                 <div class="tab-content">
                                 <div class="tab-pane active" id="tab-1">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal">
-                                                <dt>Kode Produk:</dt>  <dd><a href="#" class="text-navy"> <?php echo $kodeProduk ?> </a></dd>
-                                                <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
-                                                <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
-                                                <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
-                                                <dt>Harga Pasaran Bahan:</dt> <dd> Rp. <?php echo number_format($hargaBahan,2,".",".");?> </dd>
-                                                <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
-                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <dl class="dl-horizontal">
-                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
-                                                <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
-                                                <dt>Model:</dt> <dd> <?php echo $model ?></dd>
-                                                <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
-                                                <dt>Harga Krum Warna:</dt> <dd> Rp. <?php echo number_format($hargaKrumWarna,2,".",".");?> </dd>
-                                                <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
-                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
-                                            </dl>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" >
-                                                <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
-                                                <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
-                                                <dt id="berlian">Berlian:</dt> <dd id="berlian1">  <?php echo $berlian?></dd>
-                                                <dt id="beratBerlian">Berat Berlian:</dt> <dd id="beratBerlian1">  <?php echo $beratBerlian?></dd>
-                                                <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>
-                                                <dt id="jumlahBatuZirkon">Jumlah Batu Zirkon:</dt> <dd id="jumlahBatuZirkon1">  <?php echo $jumlahBatuZirkon?></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-lg-6" id="cluster_info">
-                                            <dl class="dl-horizontal" >
-                                                <dt id="datangEmas">Datang Emas:</dt> <dd id="datangEmas1">  <?php echo $datangEmas?></dd>
-                                                <dt id="kadarDatangEmas">Kadar Datang Emas:</dt> <dd id="kadarDatangEmas1">  <?php echo $kadarDatangEmas?></dd>
-                                                <dt id="datangBerlian">Datang Berlian:</dt> <dd id="datangBerlian1">  <?php echo $datangBerlian?></dd>
-                                                <dt id="jumlahDatangBerlian">Jumlah Datang Berlian:</dt> <dd id="jumlahDatangBerlian1">  <?php echo $jumlahDatangBerlian?></dd>
-                                            </dl>
-                                        </div>
-                                    </div>
+                                    <?php include('templateInvoiceTempahan.php') ?>
                                 </div>
                                 <div class="tab-pane" id="tab-2">
 
@@ -346,74 +311,76 @@
 
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
-
-                var a = <?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>;
-                if(a==null||a==0){
-                    document.getElementById('namaBatu').style.display = 'none';
-                    document.getElementById('namaBatu1').style.display = 'none';
-                };
-
-                var b = <?php echo $beratBatu?>;
-                if(b==null||b==0){
-                    document.getElementById('beratBatu').style.display = 'none';
-                    document.getElementById('beratBatu1').style.display = 'none';
-                };
-
-                var c = <?php if($berlian!=null){echo $berlian;} else echo 0;?>;
-                if(c==null||c==0){
-                    document.getElementById('berlian').style.display = 'none';
-                    document.getElementById('berlian1').style.display = 'none';
-                };
-
-                var d = <?php echo $beratBerlian?>;
-                if(d==null||d==0){
-                    document.getElementById('beratBerlian').style.display = 'none';
-                    document.getElementById('beratBerlian1').style.display = 'none';
-                };
-
-                var e = <?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>;
-                if(e==null||e==0){
-                    document.getElementById('batuZirkon').style.display = 'none';
-                    document.getElementById('batuZirkon1').style.display = 'none';
-                };
-
-                var f = <?php echo $jumlahBatuZirkon?>;
-                if(f==null||f==0){
-                    document.getElementById('jumlahBatuZirkon').style.display = 'none';
-                    document.getElementById('jumlahBatuZirkon1').style.display = 'none';
-                };
-
-                var g = <?php echo $datangEmas?>;
-                if(g==null||g==0){
-                    document.getElementById('datangEmas').style.display = 'none';
-                    document.getElementById('datangEmas1').style.display = 'none';
-                };
-
-                var h = <?php echo $kadarDatangEmas?>;
-                if(h==null||h==0){
-                    document.getElementById('kadarDatangEmas').style.display = 'none';
-                    document.getElementById('kadarDatangEmas1').style.display = 'none';
-                };
-
-                var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
-                if(i==null||i==0){
-                    document.getElementById('datangBerlian').style.display = 'none';
-                    document.getElementById('datangBerlian1').style.display = 'none';
-                };
-
-                var j = <?php echo $jumlahDatangBerlian?>;
-                if(j==null||j==0){
-                    document.getElementById('jumlahDatangBerlian').style.display = 'none';
-                    document.getElementById('jumlahDatangBerlian1').style.display = 'none';
-                };
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
-        </script>
+
+            var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
+            if(a==null||a==0){
+                document.getElementById('namaBatu').style.display = 'none';
+                document.getElementById('namaBatu1').style.display = 'none';
+                document.getElementById('namaBatu2').style.display = 'none';
+                document.getElementById('namaBatu3').style.display = 'none';
+            };
+
+            var b = <?php echo $beratBatu?>;
+            if(b==null||b==0){
+                document.getElementById('beratBatu').style.display = 'none';
+                document.getElementById('beratBatu1').style.display = 'none';
+            };
+
+            var c = '<?php if($berlian!=null){echo $berlian;} else echo 0;?>';
+            if(c==null||c==0){
+                document.getElementById('berlian').style.display = 'none';
+                document.getElementById('berlian1').style.display = 'none';
+            };
+
+            var d = <?php echo $beratBerlian?>;
+            if(d==null||d==0){
+                document.getElementById('beratBerlian').style.display = 'none';
+                document.getElementById('beratBerlian1').style.display = 'none';
+            };
+
+            var e = '<?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>';
+            if(e==null||e==0){
+                document.getElementById('batuZirkon').style.display = 'none';
+                document.getElementById('batuZirkon1').style.display = 'none';
+            };
+
+            var f = <?php echo $jumlahBatuZirkon?>;
+            if(f==null||f==0){
+                document.getElementById('jumlahBatuZirkon').style.display = 'none';
+                document.getElementById('jumlahBatuZirkon1').style.display = 'none';
+            };
+
+            var g = <?php echo $datangEmas?>;
+            if(g==null||g==0){
+                document.getElementById('datangEmas').style.display = 'none';
+                document.getElementById('datangEmas1').style.display = 'none';
+            };
+
+            var h = <?php echo $kadarDatangEmas?>;
+            if(h==null||h==0){
+                document.getElementById('kadarDatangEmas').style.display = 'none';
+                document.getElementById('kadarDatangEmas1').style.display = 'none';
+            };
+
+            var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+            if(i==null||i==0){
+                document.getElementById('datangBerlian').style.display = 'none';
+                document.getElementById('datangBerlian1').style.display = 'none';
+            };
+
+            var j = <?php echo $jumlahDatangBerlian?>;
+            if(j==null||j==0){
+                document.getElementById('jumlahDatangBerlian').style.display = 'none';
+                document.getElementById('jumlahDatangBerlian1').style.display = 'none';
+            };
+        });
+    </script>
 </body>
 
 </html>

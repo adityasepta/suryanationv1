@@ -72,6 +72,11 @@
         $tipeCustomer      = $dataPO[0]->tipeCustomer;
         $pekerjaanTambahan = $dataPO[0]->pekerjaanTambahan;
         $keteranganTambahan= $dataPO[0]->keteranganTambahan;
+        $keteranganEnamel     = $dataPO[0]->keteranganEnamel;
+        $keteranganSlap     = $dataPO[0]->keteranganSlap;
+        $keteranganKombinasi     = $dataPO[0]->keteranganKombinasi;
+        $keteranganLaserHuruf     = $dataPO[0]->keteranganLaserHuruf;
+        $keteranganKodeCap     = $dataPO[0]->keteranganKodeCap;
         $biayaTambahan     = $dataPO[0]->biayaTambahan;
         $beratAkhir        = $dataPO[0]->beratAkhir;
         $susut             = $dataPO[0]->susut;
@@ -481,39 +486,65 @@
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Pekerjaan Tambahan <br/></label>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                    if ($pekerjaan[$i]=="Enamel") { $a++; }
-                                                } if($a>0){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                    if ($pekerjaan[$i]=="Slap") { $a++; }
-                                                } if($a>0){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                    if ($pekerjaan[$i]=="Kombinasi") { $a++; }
-                                                } if($a>0){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                    if ($pekerjaan[$i]=="Laser Huruf") { $a++; }
-                                                } if($a>0){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding-top: 10px;">
-                                                <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
-                                                    if ($pekerjaan[$i]=="Kode Cap") { $a++; }
-                                                } if($a>0){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
-                                                <!-- <input type="checkbox" checked="" hidden="" value="" name="pekerjaanTambahan"> -->
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                        if ($pekerjaan[$i]=="Enamel") { $a++; }
+                                                    } if($a>0){?> checked="" <?php } ?> value="Enamel" name="pekerjaanTambahan[]"> <i></i> Enamel </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganEnamel" placeholder="Keterangan Enamel" class="form-control" value="<?php echo $keteranganEnamel; ?>">
+                                                </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                        if ($pekerjaan[$i]=="Slap") { $a++; }
+                                                    } if($a>0){?> checked="" <?php } ?> value="Slap" name="pekerjaanTambahan[]" > <i></i> Slap </label></div>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganSlap" placeholder="Keterangan Slap" class="form-control" value="<?php echo $keteranganSlap; ?>">
+                                                </div>    
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                        if ($pekerjaan[$i]=="Kombinasi") { $a++; }
+                                                    } if($a>0){?> checked="" <?php } ?> value="Kombinasi" name="pekerjaanTambahan[]"> <i></i> Kombinasi </label></div>
+                                                </div>   
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganKombinasi" placeholder="Keterangan Kombinasi" class="form-control" value="<?php echo $keteranganKombinasi; ?>">
+                                                </div> 
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                        if ($pekerjaan[$i]=="Laser Huruf") { $a++; }
+                                                    } if($a>0){?> checked="" <?php } ?> value="Laser Huruf" name="pekerjaanTambahan[]"> <i></i> Laser Huruf </label></div>
+                                                </div>   
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganLaserHuruf" placeholder="Keterangan Laser Huruf" class="form-control" value="<?php echo $keteranganLaserHuruf; ?>">
+                                                </div> 
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-sm-2" style="padding-top: 10px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" <?php $a=0; for ($i=0; $i < count($pekerjaan) ; $i++) { 
+                                                        if ($pekerjaan[$i]=="Kode Cap") { $a++; }
+                                                    } if($a>0){?> checked="" <?php } ?> value="Kode Cap" name="pekerjaanTambahan[]"> <i></i> Kode Cap </label></div>
+                                                </div>   
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="keteranganKodeCap" placeholder="Keterangan Kode Cap" class="form-control" value="<?php echo $keteranganKodeCap; ?>">
+                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="col-sm-2 control-label">Keterangan Tambahan</label>
                                             <div class="col-sm-4"><input type="text" name="keteranganTambahan" class="form-control" value="<?php echo $keteranganTambahan; ?>"></div>
                                             <label class="col-sm-2 control-label">Biaya Tambahan</label>
                                             <div class="col-sm-4"><input type="text" placeholder="Rp" name="biayaTambahan" class="form-control good" value="<?php echo $biayaTambahan; ?>"></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 
