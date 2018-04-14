@@ -351,8 +351,15 @@
                     <div class="form-horizontal">
                         <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
-                            <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
+                            <div class="col-sm-5"><input type="number" step="any" min="0" value="<?php echo $k3[$i]->berat?>" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
                             <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $co[$i]->idProProd ?>"></div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-5 control-label">Balik Bahan</label>
+
+                            <div class="col-sm-5"><input type="number" step="any" min="0" value="<?php echo $k3[$i]->kembali?>" class="form-control" type="number" step="any" name="kembali" class="form-control"></div>
+                            
                         </div>
                     </div>
                     

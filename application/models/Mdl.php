@@ -1387,7 +1387,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getIsiKloter($idKloter) {
 
-        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c where s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
+        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c, potempahan pp where s.nomorPO = pp.nomorPO and s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1482,7 +1482,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function cekbom2() {
-        $sql = "SELECT * from bomtempahan b, kloter k where b.idKloter = k.idKloter";
+        $sql = "SELECT * from bomtempahan b, kloter k, materialdasar m where b.idKloter = k.idKloter and b.idMaterial = m.idMaterial";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getBOMTempahan($idKloter) {
+        $sql = "SELECT DISTINCT * from bomtempahan b, materialdasar m where b.idKloter = '$idKloter' and b.idMaterial = m.idMaterial";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2302,6 +2309,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
         UNION
         select a.jenis, a.nama, a.jmlmasuk, c.kadarBahan from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
+        UNION
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, potempahan c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi' or a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
+        
 
         ORDER BY nama
         ";
@@ -2309,6 +2319,38 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         
         return $query->result();
     }
+
+    public function getStockPIC() {
+        $sql   = "SELECT tanggal,idPIC,b.nama,jenis,SUM(lokal) as lokal FROM (select DATE(a.tanggal) as tanggal,a.idPIC,a.jenis, a.nama, a.jmlmasuk, c.kadarBahan, a.jmlmasuk*c.kadarBahan/100 as lokal from (SELECT a.tanggal,a.idPIC as idPIC,a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and (a.idPIC='1' OR a.idPIC='2' OR a.idPIC='9' OR a.idPIC='19') GROUP BY a.jenisPergerakanBarang, b.idProduk,a.idPIC,DATE(a.tanggal) ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
+
+            UNION 
+
+            SELECT DATE(a.tanggal) as tanggal,a.idPIC,a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama ,SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar, SUM(a.jumlah)*max(b.kadar)/100 as lokal FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' AND (a.idPIC='1' OR a.idPIC='2' OR a.idPIC='9' OR a.idPIC='19')  GROUP BY a.jenisPergerakanBarang, b.idMaterial,a.idPIC,DATE(a.tanggal)
+
+            UNION
+
+            SELECT DATE(a.tanggal) as tanggal,a.idPIC,a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar, SUM(a.jumlah)*max(c.kadarBahan)/100 as lokal FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') AND (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) GROUP BY a.jenisPergerakanBarang, b.idProduk,a.idPIC,DATE(a.tanggal)) a, user b where a.idPIC=b.idUser GROUP BY tanggal,idPIC,jenis
+
+        ORDER BY tanggal desc";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getPIC() {
+        $sql   = "SELECT DATE(tanggal) as tanggal,b.nama,idPIC from stokbarang a, user b where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19) and a.idPIC=b.idUser GROUP BY DATE(a.tanggal),idPIC order by DATE(tanggal) DESC";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getTanggal() {
+        $sql   = "SELECT DATE(tanggal) as tanggal, idPIC from stokbarang a where (a.idPIC=1 OR a.idPIC=2 OR a.idPIC=9 OR a.idPIC=19)GROUP BY DATE(a.tanggal) order by DATE(tanggal) DESC";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
 
     public function getPending($idPIC) {
         $sql   = "SELECT a.*, b.namaMaterial, b.kadar FROM stokbarang a, materialdasar b WHERE a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.kodeMaterial AND a.tipeBarang = 'Material Dasar' 
@@ -2563,7 +2605,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getRekapTempahan($idSPK) {
         $sql   = "
 
-        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))-sum(kembali)) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
+        SELECT 1 as idAktivitas, b.namaAktivitas, sum(beratAwal) as beratAwal, sum(berat) as berat, sum(kembali) as kembali , sum(beratTambahan) as beratTambahan , ((sum(beratAwal)-sum(berat))) as susut FROM factproduction a, aktivitas2 b where a.idSPK = $idSPK and a.idAktivitas = 1006 and a.idAktivitas = b.idAktivitas 
         
         UNION 
 

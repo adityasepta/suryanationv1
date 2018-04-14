@@ -180,56 +180,136 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Stok Material Dasar</h5>
+                            <h5>Stok Barang Per Orang</h5>
                         </div>
 
                         <div class="ibox-content">
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                                 <thead>
                                 <tr>
-                                    <th>Kode Material</th>
-                                    <th>Nama Material</th>
-                                    <th>Stok Material</th>
-                                    <th>Safety Stock</th>
-                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                    <th>Weny</th>
+                                    <th>Mutia</th>
+                                    <th>Ertin</th>
+                                    <th>Susanti</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($material as $p) : ?>
-                                    <tr>
-                                        <td><?php echo $p->kodeMaterial?></td>
-                                        <td><?php echo $p->namaMaterial?></td>
-                                        <td><?php echo $p->stokMaterial.'&nbsp'.$p->satuan?></td>
-                                        <td><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
-                                        <td><?php if ($p->stokMaterial>$p->safetyStock) { ?>
-                                                    <small class="label label-primary">Aman</small>
-                                            <?php } else { ?>
-                                                    <small class="label label-danger">Segera Tambah Stok</small>
-                                            <?php } ?>
-                                        </td>
-                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php for ($i=0; $i < count($tanggal2); $i++) { ?>
+                                        <?php $tanggal = new DateTime($tanggal2[$i]->tanggal);
+                                        $tanggal = $tanggal->format("d M Y"); ?>    
+                                        <tr>
+                                            <td><?php echo $tanggal?></td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==9) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==1) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==2) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if ($st[$j]->tanggal==$tanggal2[$i]->tanggal AND $st[$j]->idPIC==19) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2);?> gr</td>
+                                        </tr>
+                                    <?php } ?>
+                                    
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Stok Barang Per Orang</h5>
+                        </div>
+
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
+                                <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama</th>
+                                    <th>Berat Emas Lokal</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0; $i < count($pic); $i++) { ?>    
+                                        <tr>
+                                            <td><?php echo $pic[$i]->tanggal?></td>
+                                            <td><?php echo $pic[$i]->nama?></td>
+                                            <?php $g=0; for ($j=0; $j < count($st); $j++) { 
+                                                if(($pic[$i]->tanggal==$st[$j]->tanggal) AND ($pic[$i]->idPIC==$st[$j]->idPIC)) {
+                                                    if($st[$j]->jenis == 'IN') {
+                                                        $g += (float)$st[$j]->lokal;
+                                                     } else {
+                                                        $g -= (float)$st[$j]->lokal;
+                                                     }
+                                                }
+                                            }?>
+                                            <td><?php echo round($g,2)?> gr</td>
+                                        </tr>
+                                    <?php } ?>
+                                    
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+   
         </div>
         <!-- Modal -->
         <div class="modal inmodal fade" id="detailBeratHilangMassal" tabindex="-1" role="dialog"  aria-hidden="true">
