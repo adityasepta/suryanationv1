@@ -340,7 +340,7 @@ class User extends CI_Controller {
             );
         }
 
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
         $this->load->view('user/createPurchaseOrder',$data);
     }
@@ -2662,7 +2662,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOService',$data);
         }
@@ -3347,7 +3347,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[poperak.nomorPO]');
 
         if ($this->form_validation->run() == FALSE){
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir3();
             $this->load->view('user/createPOPerak',$data);
         }
@@ -3415,7 +3415,7 @@ class User extends CI_Controller {
                         $message = "Gambar tidak mendukung";
                         echo "<script type='text/javascript'>alert('$message');
                         </script>";
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir3();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -3704,7 +3704,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTrading',$data);
@@ -3747,7 +3747,7 @@ class User extends CI_Controller {
             $data['idPO'] = $idPO;
             $data['PO'] = $this->mdl->findPOTradingbyID($idPO);
             $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTradingDetail',$data);
@@ -3994,7 +3994,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
             $this->load->view('user/createPurchaseOrder',$data);
         }
@@ -4054,8 +4054,8 @@ class User extends CI_Controller {
                 //form sumbit dengan gambar diisi
                 //load uploading file library
                  $config['upload_path']     = './uploads/gambarProduk/'; 
-                 $config['allowed_types']   = 'jpg'; 
-                 $config['max_size']        = '2048';
+                 $config['allowed_types']   = 'jpg|jpeg|png'; 
+                 $config['max_size']        = '3048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;
                 
@@ -4080,7 +4080,7 @@ class User extends CI_Controller {
                                 'idC' => 1,
                             );
                         }
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -6589,7 +6589,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOServicePartai',$data);
         }

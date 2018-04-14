@@ -217,7 +217,9 @@
                                                                             </div>
                                                                             <input type="hidden" name="idPIC" value="0" required="">
                                                                         </div>
-                                                                        
+                                                                        <br>
+                                                                        <label>Keterangan</label>
+                                                                        <input type="text" name="keterangan" placeholder="Penjelasan aktivitas transfer" class="form-control" value="<?php echo set_value('keterangan'); ?>" style="height: 47px;">
                                                                     </div>
 
                                                                 </div>
