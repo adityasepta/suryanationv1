@@ -804,7 +804,6 @@ class User extends CI_Controller {
             //eksekusi query insert tanpa gambar
         $idAktivitas    =$this->input->post('idAktivitas');
         $nomorAktivitas =$this->input->post('nomorAktivitas');
-        $startDate      =$this->input->post('startDate');
         $endDate        =$this->input->post('endDate');
         $nomorFaktur    =$this->input->post('nomorFaktur');
         // print_r($idAktivitas);exit();
@@ -819,7 +818,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK'                 => $this->input->post('idSPK'),
                 'idAktivitas'           => $idAktivitas[$b],
-                'startDate'           => $startDate[$b],
+                'startDate'           => $endDate[$b],
                 'endDate'           => $endDate[$b],
             );
             $this->mdl->tambahRencana($dataJadwal);
@@ -1251,6 +1250,7 @@ class User extends CI_Controller {
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
+        $data['swandi'] = $this->mdl->findPegawai(12);
         // print_r($data['stok']);exit();
         $this->load->view('user/stokBarang',$data);
     }
@@ -4421,10 +4421,9 @@ class User extends CI_Controller {
         //eksekusi query insert tanpa gambar
         $idAktivitas    = $this->input->post('idAktivitas');
         $nomorAktivitas = $this->input->post('nomorAktivitas');
-        $startDate      = $this->input->post('startDate');
         $endDate        = $this->input->post('endDate');
         $nomorFaktur    = $this->input->post('nomorFaktur');
-        // print_r($idAktivitas);exit();
+        //print_r($endDate);exit();
         for ($i = 0; $i < count($nomorAktivitas); $i++) {
             $b             = $nomorAktivitas[$i];
             $dataAktivitas = array(
@@ -4436,7 +4435,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK' => $this->input->post('idSPK'),
                 'idAktivitas' => $idAktivitas[$b],
-                'startDate' => $startDate[$b],
+                'startDate' => $endDate[$b],
                 'endDate' => $endDate[$b]
             );
             $this->mdl->tambahRencana2($dataJadwal);
@@ -6092,7 +6091,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
@@ -6112,7 +6111,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
