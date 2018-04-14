@@ -343,7 +343,7 @@ class User extends CI_Controller {
             );
         }
 
-        $data['pegawai'] = $this->mdl->listPegawaiSales();
+        $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
         $this->load->view('user/createPurchaseOrder',$data);
     }
@@ -858,7 +858,6 @@ class User extends CI_Controller {
             //eksekusi query insert tanpa gambar
         $idAktivitas    =$this->input->post('idAktivitas');
         $nomorAktivitas =$this->input->post('nomorAktivitas');
-        $startDate      =$this->input->post('startDate');
         $endDate        =$this->input->post('endDate');
         $nomorFaktur    =$this->input->post('nomorFaktur');
         // print_r($idAktivitas);exit();
@@ -873,7 +872,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK'                 => $this->input->post('idSPK'),
                 'idAktivitas'           => $idAktivitas[$b],
-                'startDate'           => $startDate[$b],
+                'startDate'           => $endDate[$b],
                 'endDate'           => $endDate[$b],
             );
             $this->mdl->tambahRencana($dataJadwal);
@@ -1307,6 +1306,7 @@ class User extends CI_Controller {
         $data['st'] = $this->mdl->getYourStock($idUser);
         $data['pd'] = $this->mdl->getPending($idUser);
         $data['pass'] = $this->session->userdata['logged_in']['password'];
+        $data['swandi'] = $this->mdl->findPegawai(12);
         // print_r($data['stok']);exit();
         $this->load->view('user/stokBarang',$data);
     }
@@ -2702,7 +2702,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOService',$data);
         }
@@ -3387,7 +3387,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[poperak.nomorPO]');
 
         if ($this->form_validation->run() == FALSE){
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir3();
             $this->load->view('user/createPOPerak',$data);
         }
@@ -3455,7 +3455,7 @@ class User extends CI_Controller {
                         $message = "Gambar tidak mendukung";
                         echo "<script type='text/javascript'>alert('$message');
                         </script>";
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir3();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -3744,7 +3744,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTrading',$data);
@@ -3787,7 +3787,7 @@ class User extends CI_Controller {
             $data['idPO'] = $idPO;
             $data['PO'] = $this->mdl->findPOTradingbyID($idPO);
             $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTradingDetail',$data);
@@ -4034,7 +4034,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
             $this->load->view('user/createPurchaseOrder',$data);
         }
@@ -4094,8 +4094,8 @@ class User extends CI_Controller {
                 //form sumbit dengan gambar diisi
                 //load uploading file library
                  $config['upload_path']     = './uploads/gambarProduk/'; 
-                 $config['allowed_types']   = 'jpg'; 
-                 $config['max_size']        = '2048';
+                 $config['allowed_types']   = 'jpg|jpeg|png'; 
+                 $config['max_size']        = '3048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;
                 
@@ -4120,7 +4120,7 @@ class User extends CI_Controller {
                                 'idC' => 1,
                             );
                         }
-                        $data['pegawai'] = $this->mdl->listPegawaiSales();
+                        $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir();
                         $this->load->view('user/createPurchaseOrder',$data);
                     }
@@ -4774,10 +4774,9 @@ class User extends CI_Controller {
         //eksekusi query insert tanpa gambar
         $idAktivitas    = $this->input->post('idAktivitas');
         $nomorAktivitas = $this->input->post('nomorAktivitas');
-        $startDate      = $this->input->post('startDate');
         $endDate        = $this->input->post('endDate');
         $nomorFaktur    = $this->input->post('nomorFaktur');
-        // print_r($idAktivitas);exit();
+        //print_r($endDate);exit();
         for ($i = 0; $i < count($nomorAktivitas); $i++) {
             $b             = $nomorAktivitas[$i];
             $dataAktivitas = array(
@@ -4789,7 +4788,7 @@ class User extends CI_Controller {
             $dataJadwal = array(
                 'idSPK' => $this->input->post('idSPK'),
                 'idAktivitas' => $idAktivitas[$b],
-                'startDate' => $startDate[$b],
+                'startDate' => $endDate[$b],
                 'endDate' => $endDate[$b]
             );
             $this->mdl->tambahRencana2($dataJadwal);
@@ -6448,7 +6447,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
@@ -6468,7 +6467,7 @@ class User extends CI_Controller {
         $tglmsk = @date('Y-m-d', @strtotime($this->input->post('tglmsk')));
         $tglend = @date('Y-m-d', @strtotime($this->input->post('tglend')));
         $data = array(
-            'startDate' => $tglmsk,
+            'startDate' => $tglend,
             'endDate' => $tglend,
         );
         $idRencana = $this->input->post('idRencana');
@@ -6629,7 +6628,7 @@ class User extends CI_Controller {
                     'idC' => 1,
                 );
             }
-            $data['pegawai'] = $this->mdl->listPegawaiSales();
+            $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhirService();
             $this->load->view('user/createPOServicePartai',$data);
         }
