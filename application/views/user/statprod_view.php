@@ -247,7 +247,7 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>LILIN<span class="label label-success pull-right"><?php  echo count($k1)?></span></h3>
+                                    <h3>LILIN / WAXING<span class="label label-success pull-right"><?php  echo count($k1)?></span></h3>
                                     <p>Kumpulan dari SPK yang sedang proses <br> Lilin <b>1003</b></p>
                                     <ul class="sortable-list connectList agile-list" id="gips">
                                         <?php for ($i=0; $i < count($li) ; ++$i) { ?>

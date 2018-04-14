@@ -29,15 +29,82 @@
     
     <div class="row">
         <br>
-        <div class="col-lg-12">
-            <button data-toggle="modal" data-target="#detail<?php echo $li[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
+        <div class="col-lg-3">
+            <button data-toggle="modal" data-target="#detail<?php echo $li[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></button>
+        </div>
+        <div class="col-lg-3">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+        <div class="col-lg-6">
+
+            <?php if($li[$i]->idPIC == 0) {?>
+                <button data-toggle="modal" data-target="#pic<?php echo $li[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Tambah PIC</button>
+            <?php } else { ?>
+                <a href="<?php echo base_url('user/next/0/0/'.$li[$i]->idProProd.'/0') ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+            <?php } ?>
+
+            
         </div>
         
     </div>
 
+    <div class="modal inmodal fade" id="pic<?php echo $li[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <?php echo form_open('User/setPIC')?>
+                    <?php echo form_close(); ?>
+                    <?php echo form_open('User/setPIC')?>
+                    <div class="form-horizontal">
+                        
+                        <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
+
+                            <div class="col-sm-7">
+
+                                
+                                <?php 
+
+                                $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$li[$i]->idProProd.'()', 'id' =>  $li[$i]->idProProd."-pic");
+                                echo form_dropdown('staf', $staf, $li[$i]->idPIC,$js);
+
+                                ?>
+                                
+                            </div>
+                            <div class="col-sm-2">
+                      
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" value="<?php echo $li[$i]->idProProd?>" name="idProProd">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $li[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-success" >Simpan</button>
+                        </div>
+                    </div>
+                    <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $li[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $li[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -62,7 +129,7 @@
                                         <div class="col-lg-4 text-right ">
                                             Customer<br>
                                             Sales Person<br>
-                                            PIC Proses<br>
+                                            
                                             Produk<br>
                                             Bahan<br>
                                             jenis
@@ -70,7 +137,7 @@
                                         <div class="col-lg-8">
                                             :&nbsp&nbsp<b><?php echo $li[$i]->namaCustomer ?></b><br>
                                             :&nbsp&nbsp<b><?php echo $li[$i]->nama ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $li[$i]->PICDesain ?></b><br>
+                                            
                                             :&nbsp&nbsp<b><?php echo $li[$i]->namaProduk ?></b><br>
                                             :&nbsp&nbsp<b><?php echo $li[$i]->kadarBahan ?> %</b><br>
                                             :&nbsp&nbsp<b><?php echo $li[$i]->jenisProduk ?></b>
@@ -156,6 +223,7 @@
                 </div>
 
                 <div class="modal-footer">
+                    <button data-dismiss="modal"  data-toggle="modal" data-target="#pic<?php echo $li[$i]->idProProd ?>" class="btn btn-info btn-outline pull-left">Tambah PIC</button>
                     <a href="<?php echo base_url('user/invoicePO/'.$li[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                     <a href="<?php echo base_url('user/invoice/'.$li[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                     <button type="button" class="btn btn-danger btn-outline">Reject</button>

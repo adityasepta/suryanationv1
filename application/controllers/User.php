@@ -118,29 +118,36 @@ class User extends CI_Controller {
             redirect('User/kanban');
 
         } else {
+
             $data = array(
             'statusWork' => 'Done',
             'RealisasiEndDate' => date("Y-m-d H:i:s")
             );
+
             $this->mdl->updateData('idProProd',$idProProd, 'factproduction', $data);
             
+            if ($idaktivitas !== 1004) {
+
+                $next = $idaktivitas;
+
+                $beratAwal = $proses[0]->berat;
+                $beratTambahan = $proses[0]->beratTambahan;
+
+                $data = array(
+                    'idSPK' => $idSPK,
+                    'statusWork' => 'Belum ada PIC',
+                    'statusSPK' => 'Active',
+                    'idAktivitas' => $next,
+                    'beratAwal' => $beratAwal,
+                    'beratTambahan' => $beratTambahan,
+                    'statusBerat' => 'Belum Disetujui'
+                );
+
+                $this->mdl->insertData('factproduction', $data);
+
+            }
             
-            $next = $idaktivitas;
-
-            $beratAwal = $proses[0]->berat;
-            $beratTambahan = $proses[0]->beratTambahan;
-
-            $data = array(
-                'idSPK' => $idSPK,
-                'statusWork' => 'Belum ada PIC',
-                'statusSPK' => 'Active',
-                'idAktivitas' => $next,
-                'beratAwal' => $beratAwal,
-                'beratTambahan' => $beratTambahan,
-                'statusBerat' => 'Belum Disetujui'
-            );
-
-            $this->mdl->insertData('factproduction', $data);
+            
 
             if ($idaktivitas == 1014) {
 
@@ -4241,7 +4248,7 @@ class User extends CI_Controller {
                         'namaMaterial'    => 'Berlian '.$this->input->post('jumlahDatangBerlian').' Karat',
                         'satuan'          => 'Karat',
                         'safetyStock'     => 0,
-                        'kadar'     => $karat,
+                        'karat'     => $karat,
                         'asal'            => 'Datang Berlian',
                         'kategori' => 'Berlian'
                     );
