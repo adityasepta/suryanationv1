@@ -1650,14 +1650,17 @@ class User extends CI_Controller {
                 $kadar=$this->input->post('kadar');
                 $clarity="";
                 $color="";
+                $karat="";
             } else if($this->input->post('kategori')=="Berlian") {
-                $kadar=$this->input->post('carat');
+                $karat=$this->input->post('carat');
                 $clarity=$this->input->post('clarity');
                 $color=$this->input->post('color');
+                $kadar=0;
             } else {
                 $kadar="";
                 $clarity="";
                 $color="";
+                $karat="";
             }
 
             $dataMaterial = array(
@@ -1667,6 +1670,7 @@ class User extends CI_Controller {
                 'stokMaterial'    => $this->input->post('stokMaterial'),
                 'safetyStock'     => $this->input->post('safetyStock'),
                 'kategori'        => $this->input->post('kategori'),
+                'karat'           => $karat,
                 'kadar'           => $kadar,
                 'clarity'         => $clarity,
                 'color'           => $color,
@@ -1675,18 +1679,23 @@ class User extends CI_Controller {
             $kat = $this->input->post('kategori');
             $t = $this->mdl->cekMaterial($kat, $kadar);
             $d = count($t);
-
-            if($d == 0) {
+            if($kat!="Berlian"){
+                if($d == 0) {
+                    $this->mdl->insertData('materialdasar',$dataMaterial);
+                    $message = "Material dasar berhasil dibuat";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/material")."';</script>"; 
+                } else {
+                    $message = "Gagal menambahkan, material telah terdaftar";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location.href='".base_url("user/createMaterial")."';</script>";
+                }
+            } else {
                 $this->mdl->insertData('materialdasar',$dataMaterial);
                 $message = "Material dasar berhasil dibuat";
                 echo "<script type='text/javascript'>alert('$message');
                 window.location.href='".base_url("user/material")."';</script>"; 
-            } else {
-                $message = "Gagal menambahkan, material telah terdaftar";
-                echo "<script type='text/javascript'>alert('$message');
-                window.location.href='".base_url("user/createMaterial")."';</script>";
-            }
-
+            } 
               
         }
     }
@@ -4105,8 +4114,6 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[potempahan.nomorPO]');
         $this->form_validation->set_rules('kodeProduk', 'Kode Produk' ,'is_unique[produk.kodeProduk]');
 
-
-
         if ($this->form_validation->run() == FALSE){
             $idCustomer = $this->input->post('idCustomer');
                         // print_r($idCustomer);exit();
@@ -4170,6 +4177,12 @@ class User extends CI_Controller {
             $upah = $this->clean($this->input->post('upah'));
             $budget = $this->clean($this->input->post('budget'));
             $panjar = $this->clean($this->input->post('panjar'));
+
+            $hargaEnamel = $this->clean($this->input->post('hargaEnamel'));
+            $hargaSlap = $this->clean($this->input->post('hargaSlap'));
+            $hargaKombinasi = $this->clean($this->input->post('hargaKombinasi'));
+            $hargaLaserHuruf = $this->clean($this->input->post('hargaLaserHuruf'));
+            $hargaKodeCap = $this->clean($this->input->post('hargaKodeCap'));
             
 
             $kodeProduk=$this->input->post('kodeProduk');
@@ -4402,7 +4415,13 @@ class User extends CI_Controller {
                 'keteranganKombinasi'  => $this->input->post('keteranganKombinasi'),
                 'keteranganLaserHuruf'  => $this->input->post('keteranganLaserHuruf'),
                 'keteranganKodeCap'  => $this->input->post('keteranganKodeCap'),
-                // 'biayaTambahan'     => $this->input->post('biayaTambahan'),
+                
+                'hargaEnamel'       => $hargaEnamel,
+                'hargaSlap'         => $hargaSlap,
+                'hargaKombinasi'    => $hargaKombinasi,
+                'hargaLaserHuruf'   => $hargaLaserHuruf,
+                'hargaKodeCap'      => $hargaKodeCap,
+
                 'beratAkhir'        => $this->input->post('beratAkhir'),
                 'susut'             => $this->input->post('susut'),
                 'bahan'             => $this->input->post('bahan'),
@@ -7181,12 +7200,41 @@ class User extends CI_Controller {
 
     //Estimasi Biaya
     public function estimasiBiaya($nomorPO) {
-        $data['dataPO']=$this->mdl->findPO($nomorPO);  
+        $data['dataPO']=$this->mdl->findPO($nomorPO); 
+        $data['berlian']=$this->mdl->getBerlian($nomorPO);  
         $this->load->view('user/estimasiBiaya',$data);
     }
 
+    public function tambahBerlian($nomorPO) {
+        $data['dataPO']=$this->mdl->findPO($nomorPO); 
+        $data['berlian']=$this->mdl->getBerlian($nomorPO); 
+        $data['material']=$this->mdl->getMaterialBerlian();  
+        $this->load->view('user/tambahBerlian',$data);
+    }
+
+    public function updateBerlian($nomorPO){
+        //Query Tambah PO
+        $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
+
+        $kodeMaterial=$this->input->post('kodeMaterial[]');
+        $jumlah=$this->input->post('jumlah[]');
+        $harga=$this->input->post('harga[]');
+        for ($i=0; $i < count($kodeMaterial) ; $i++) { 
+            $dataPO = array(
+                'nomorPO'       => $nomorPO,
+                'kodeMaterial'  => $kodeMaterial[$i],
+                'jumlah'        => $jumlah[$i],
+                'harga'         => $harga[$i],
+            );
+            $this->mdl->insertData('poberlian',$dataPO);  
+        }
+
+        $message = "Berlian berhasil diperbaharui";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/estimasiBiaya/".$nomorPO)."';</script>";
+    }
+
     public function updateBiaya($nomorPO){
-        
         //Query Tambah PO
         $dataPO = array(
             'beratAkhir'        => $this->input->post('beratAkhir'),

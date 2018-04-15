@@ -751,6 +751,15 @@ class mdl extends CI_Model {
         return $result;
     }
 
+    public function getMaterialBerlian() {
+
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' AND kategori='Berlian'";
+
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function getMaterialDropdown() {
         
         $sql   = "SELECT * FROM `materialdasar`";
@@ -2737,6 +2746,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function findCashflow($idCashflow){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM cashflow a WHERE a.idCashflow=$idCashflow LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getBerlian($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM poberlian a LEFT JOIN materialdasar b ON a.kodeMaterial=b.kodeMaterial WHERE a.nomorPO=$nomorPO");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

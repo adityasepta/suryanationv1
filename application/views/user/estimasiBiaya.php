@@ -152,7 +152,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="sisaBerat" id="sisaBerat" value="<?php echo $sisaBerat=$dataPO[0]->beratAkhir-($dataPO[0]->beratBatu+$dataPO[0]->susut) ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="text" name="sisaBerat" id="sisaBerat" value="<?php echo $sisaBerat=$dataPO[0]->beratAkhir-$dataPO[0]->beratBatu+$dataPO[0]->susut ?>" class="form-control" required readonly>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $gold['currentCurrency'] ?>" class="form-control" required readonly>
@@ -185,7 +185,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Upah Pasang Berlian (pcs x Harga)</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="jumlahDatangBerlian" id="jumlahDatangBerlian" onchange="calc3();" value="<?php echo $dataPO[0]->jumlahDatangBerlian;?>" class="form-control" required>
+                                    <div class="col-sm-1"><input type="text" name="datangBerlian" id="jumlahDatangBerlian" onchange="calc3();" value="<?php echo $dataPO[0]->datangBerlian;?>" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
@@ -193,7 +193,7 @@
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="upahBerlian" id="upahBerlian" onchange="calc();" value="<?php echo $upahBerlian=$dataPO[0]->jumlahDatangBerlian*$dataPO[0]->upahPasangBerlian; ?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="upahBerlian" id="upahBerlian" onchange="calc();" value="<?php echo $upahBerlian=$dataPO[0]->datangBerlian*$dataPO[0]->upahPasangBerlian; ?>" class="form-control" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -216,10 +216,52 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12">
+                                    <div class="col-sm-2">
+                                        <label>Berlian</label>
+                                        <a href="<?php echo base_url();?>user/tambahBerlian/<?php echo $nomorPO ?>" type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Update Berlian</a>
+                                    </div>
+                                    <div class="col-sm-1" style="width:0;"></div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                            <?php $hargaPerBerlian=0; $hargaBerlian=0; for ($i=0; $i < count($berlian) ; $i++) { ?>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label class="col-sm-2"><?php echo $berlian[$i]->namaMaterial ?></label>
+                                    <div class="col-sm-1" style="width:0;">:</div>
+                                    <div class="col-sm-1">
+                                        <input type="text" value="<?php echo $berlian[$i]->jumlah?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-sm-1" style="width:0;">X</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" value="<?php echo $berlian[$i]->harga?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-sm-1" style="width:0;">=</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" value="<?php echo $hargaPerBerlian=$berlian[$i]->jumlah*$berlian[$i]->harga;?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php 
+                                    $hargaBerlian+=$hargaPerBerlian; 
+                                } 
+                            ?>
+                            <input type="hidden" id="hargaBerlian" value="<?php echo $hargaBerlian; ?>">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
                                     <label class="col-sm-2">Krum</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
                                     <div class="col-sm-2">
                                         <input type="text" placeholder="Rp" name="hargaKrumWarna" id="hargaKrumWarna" onchange="calc();" value="<?php echo $dataPO[0]->hargaKrumWarna;?>" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label class="col-sm-2">Biaya Pekerjaan Tambahan</label>
+                                    <div class="col-sm-1" style="width:0;">:</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Rp" name="biayaTambahan" id="biayaTambahan" onchange="calc();" value="<?php echo $biayaTambahan=$dataPO[0]->hargaEnamel+$dataPO[0]->hargaSlap+$dataPO[0]->hargaKombinasi+$dataPO[0]->hargaLaserHuruf+$dataPO[0]->hargaKodeCap;?>" class="form-control" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +295,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Biaya Total</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$upahCZ+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$biayaTambahan+$hargaBerlian+$upahCZ+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
                                     <input type="text" id="totals" value="<?php echo number_format($totalBiaya,2,",",".");?>" class="form-control" required readonly>
                                     </div>
                                 </div>
@@ -300,8 +342,10 @@
                     var hargaKrumWarna = parseFloat(document.getElementById('hargaKrumWarna').value);
                     var totalDatangEmas = parseFloat(document.getElementById('totalDatangEmas').value);
                     var panjar = parseFloat(document.getElementById('panjar').value);
-
-                    var total = hargaAwal+upah+upahBerlian+upahCZ+hargaKrumWarna-(totalDatangEmas+panjar);
+                    var biayaTambahan = parseFloat(document.getElementById('biayaTambahan').value);
+                    var hargaBerlian = parseFloat(document.getElementById('hargaBerlian').value);
+                    console.log(biayaTambahan);
+                    var total = hargaAwal+upah+upahBerlian+upahCZ+hargaKrumWarna+biayaTambahan+hargaBerlian-(totalDatangEmas+panjar);
                     var totals = formatNumber(total);
                     document.getElementById('total').value = total;
                     document.getElementById('totals').value = totals;
@@ -351,7 +395,6 @@
                 return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
             }
         </script>
-
 </body>
 
 </html>
