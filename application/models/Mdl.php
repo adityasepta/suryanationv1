@@ -1360,6 +1360,16 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
+    public function getGroup2() {
+
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT(tanggalApprovalJadwal, '%d %M %Y') AS tanggaljadwal, DATE_FORMAT( tanggalEstimasiPenyelesaian, '%d %M %Y' ) AS tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain, '%d %M %Y') AS tanggaldes FROM potempahan po, produk pr, customer c, spk s, USER u, rencanaproduksi r, kloter kl
+
+            WHERE s.idSPK = kl.idSPK and r.idSPK = s.idSPK AND po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusDesain = 'Disetujui' AND r.idAktivitas = 1003 AND s.idSPK IN( SELECT idSPK FROM kloter ) AND s.idSPK NOT IN( SELECT idSPK FROM factproduction WHERE idAktivitas = 1005 )";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getLilin($idAktivitas) {
 
         $sql   = "
@@ -1394,6 +1404,14 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function getKloter($idAktivitas) {
 
         $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = $idAktivitas and statusWork != 'Done' ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = $idAktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
+    public function getKloter2() {
+
+        $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1004 and statusWork = 'Done' ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = 1004";
         $query = $this->db->query($sql);
         
         return $query->result();

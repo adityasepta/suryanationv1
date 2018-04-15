@@ -288,6 +288,9 @@
                                     <p>Kumpulan dari SPK yang sedang proses <br> penentuan kloter produksi </p><button  data-toggle="modal" data-target="#kloter"  class="btn btn-xs btn-info">Tambah Kloter</button>
                                     <ul class="sortable-list connectList agile-list" id="lilin">
 
+                                        <?php for ($i=0; $i < count($qw) ; ++$i) { ?>
+                                           <?php include('card/card-kloter.php') ?>
+                                        <?php } ?>
                                         <?php for ($i=0; $i < count($g) ; ++$i) { ?>
                                            <?php include('card/card-group.php') ?>
                                         <?php } ?>
