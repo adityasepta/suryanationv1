@@ -47,11 +47,17 @@ class User extends CI_Controller {
             $data['j'] = $this->mdl->getPenjadwalan();
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
-            $data['g'] = $this->mdl->getGroup();
+            
 
             $data['li'] = $this->mdl->getLilin(1004);
 
+            
+            $data['qw'] = $this->mdl->getKloter2();
+            $data['g'] = $this->mdl->getGroup();
+            //$data['g2'] = $this->mdl->getGroup2();
+
             $data['k1'] = $this->mdl->getKloter(1004);
+
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
             //$data['pp'] = $this->mdl->getPPIC();
