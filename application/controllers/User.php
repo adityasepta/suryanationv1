@@ -3240,14 +3240,14 @@ class User extends CI_Controller {
 
             $idSPK = $idspk[$i];
 
-            // $data = array(
-            //     'idSPK' => $idSPK,
-            //     'idAktivitas' => 1005,
-            //     'statusWork' => 'Belum ada PIC',
-            //     'statusSPK' => 'Active',
-            // );
+            $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1005,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+            );
 
-            // $this->mdl->insertData('factproduction',$data);
+            $this->mdl->insertData('factproduction',$data);
 
         }
 
@@ -7204,6 +7204,10 @@ class User extends CI_Controller {
         $message = "Estimasi biaya berhasil diperbaharui";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/purchaseOrder")."';</script>";
+    }
+
+    public function editKloter($idKloter){
+        $this->load->view('user/editKloter');
     }
 
 
