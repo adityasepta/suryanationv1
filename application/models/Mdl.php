@@ -1354,7 +1354,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
         $sql   = "SELECT *,left(pr.namaProduk, 20) as namap, DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
 
-            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter) and s.idSPK in (select idSPK from factproduction where statusWork = 'Done')";
+            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter) and s.idSPK in (select idSPK from factproduction where statusWork = 'Done' )";
         $query = $this->db->query($sql);
         
         return $query->result();

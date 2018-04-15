@@ -3240,14 +3240,14 @@ class User extends CI_Controller {
 
             $idSPK = $idspk[$i];
 
-            $data = array(
-                'idSPK' => $idSPK,
-                'idAktivitas' => 1005,
-                'statusWork' => 'Belum ada PIC',
-                'statusSPK' => 'Active',
-            );
+            // $data = array(
+            //     'idSPK' => $idSPK,
+            //     'idAktivitas' => 1005,
+            //     'statusWork' => 'Belum ada PIC',
+            //     'statusSPK' => 'Active',
+            // );
 
-            $this->mdl->insertData('factproduction',$data);
+            // $this->mdl->insertData('factproduction',$data);
 
         }
 
