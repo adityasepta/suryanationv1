@@ -47,11 +47,18 @@ class User extends CI_Controller {
             $data['j'] = $this->mdl->getPenjadwalan();
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
-            $data['g'] = $this->mdl->getGroup();
+            $data['p'] = $this->mdl->getPrint();
+            
 
             $data['li'] = $this->mdl->getLilin(1004);
 
+            
+            $data['qw'] = $this->mdl->getKloter2();
+            $data['g'] = $this->mdl->getGroup();
+            //$data['g2'] = $this->mdl->getGroup2();
+
             $data['k1'] = $this->mdl->getKloter(1004);
+
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
             //$data['pp'] = $this->mdl->getPPIC();
@@ -775,19 +782,8 @@ class User extends CI_Controller {
         $idSPK = $spk[0]->idSPK;
 
         if($status=='Disetujui'){
-            $data = array(
-                'keteranganPending'     => $this->input->post('keterangan'),
-                'tanggalApprovalDesain' => date("Y-m-d H:i:s"),
-                'statusDesain'          => $status,
-            );
-
-            $dataFact = array(
-                'idSPK'         => $idSPK,
-                'idAktivitas'   => 1004,
-                'statusWork'    => 'Belum ada PIC',
-                'statusSPK'     => 'Active',
-            );
-            $this->mdl->insertData('factproduction',$dataFact);
+            
+            $this->setujuDesain($nomorFaktur);
 
             $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Desain untuk nomor Faktur <b>'.$nomorFaktur.'</b> telah disetujui</div>');
         } else if($status=='Menunggu Persetujuan') {
@@ -2539,15 +2535,40 @@ class User extends CI_Controller {
         $data = array(
             'tanggalApprovalDesain'    => date("Y-m-d H:i:s"),
             'statusDesain' => 'Disetujui',
+            'statusPrint' => 'Proses Print',
         );
 
-         $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
 
         $spk = $this->mdl->findSPK($nomorFaktur);
         $idSPK = $spk[0]->idSPK;
 
+        // $data = array(
+        //         'idSPK' => $idSPK,
+        //         'idAktivitas' => 1004,
+        //         'statusWork' => 'Belum ada PIC',
+        //         'statusSPK' => 'Active',
+        // );
+
+        // $this->mdl->insertData('factproduction',$data);
+
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
+        redirect('user/spk');
+    }
+
+    public function selesaiPrint($nomorFaktur){
+
+        $spk = $this->mdl->findSPK($nomorFaktur);
+        
         $data = array(
-                'idSPK' => $idSPK,
+
+            'statusPrint' => 'Sudah',
+        );
+
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+
+        $data = array(
+                'idSPK' => $spk[0]->idSPK,
                 'idAktivitas' => 1004,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
@@ -2555,8 +2576,8 @@ class User extends CI_Controller {
 
         $this->mdl->insertData('factproduction',$data);
 
-        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
-        redirect('user/spk');
+        redirect('user/kanban');
+
     }
 
     public function tidakSetujuDesain($nomorFaktur){
@@ -3247,7 +3268,7 @@ class User extends CI_Controller {
 
             $this->mdl->insertData('kloter',$data);
 
-            $idSPK = $idspk[$i];
+            /*$idSPK = $idspk[$i];
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -3256,7 +3277,7 @@ class User extends CI_Controller {
                 'statusSPK' => 'Active',
             );
 
-            $this->mdl->insertData('factproduction',$data);
+            $this->mdl->insertData('factproduction',$data);*/
 
         }
 
@@ -4815,6 +4836,57 @@ class User extends CI_Controller {
             $data['jd'] = $this->mdl->getJadi2();  
             
             $this->load->view('user/display_massal', $data);
+
+        } else {
+
+            $data['s'] = $this->mdl->getSales();
+            $data['j'] = $this->mdl->getPenjadwalan();
+            $data['d'] = $this->mdl->getDesain();
+            $data['m'] = $this->mdl->getMenunggu();
+            $data['p'] = $this->mdl->getPrint();
+            
+
+            $data['li'] = $this->mdl->getLilin(1004);
+
+            
+            $data['qw'] = $this->mdl->getKloter2();
+            $data['g'] = $this->mdl->getGroup();
+            //$data['g2'] = $this->mdl->getGroup2();
+
+            $data['k1'] = $this->mdl->getKloter(1004);
+
+            $data['k2'] = $this->mdl->getKloter(1005);
+            $data['k3'] = $this->mdl->getKloter(1006);
+            //$data['pp'] = $this->mdl->getPPIC();
+
+             $data['staf'] = $this->mdl->getStaf();
+             $data['akt'] = $this->mdl->getAktivitasLanjut();
+
+            $data['r'] = $this->mdl->getRecord();
+            $data['b'] = $this->mdl->getBerat();
+            $data['cb'] = $this->mdl->cekbom2();
+            $data['klot']      = $this->mdl->getKloterSPK();
+            //$data['k'] = $this->mdl->getIsiKloter();
+
+              
+            $data['gi'] = $this->mdl->getProses(1005);
+            $data['co'] = $this->mdl->getProses(1006);
+
+            //$data['gp'] = $this->mdl->getProses(1007);  
+            $data['go'] = $this->mdl->getProses(1007);  
+            $data['bo'] = $this->mdl->getProses(1008);  
+
+            $data['cz'] = $this->mdl->getProses(1009);  
+            $data['po'] = $this->mdl->getProses(1010);  
+            $data['sl'] = $this->mdl->getProses(1011);
+
+            $data['kr'] = $this->mdl->getProses(1012);
+            $data['bt'] = $this->mdl->getProses(1013);
+             $data['do'] = $this->mdl->getProses(1014);
+
+             $data['jd'] = $this->mdl->getJadi();  
+
+            $this->load->view('user/display_tempahan',$data);
 
         }
             
@@ -7253,6 +7325,59 @@ class User extends CI_Controller {
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/purchaseOrder")."';</script>";
     }
+
+    public function reviewKloter($idKloter){
+        $this->form_validation->set_rules('namakloter', 'Nama Kloter' ,'required');
+        $this->form_validation->set_rules('kadar', 'Kadar' ,'required');
+        $this->form_validation->set_rules('beratKotor', 'Berat Kotoe' ,'required');
+        $this->form_validation->set_rules('beratKaret', 'Berat Karet' ,'required');
+        
+        if ($this->form_validation->run() == FALSE){
+            $data['kloter'] = $this->mdl->findKloter($idKloter);
+            $data['klot']   = $this->mdl->getKloterSPK();
+            $this->load->view('user/editKloter',$data);
+        }
+        else {
+            $idspk = $this->input->post('idSPK');
+            $idKloter = $this->input->post('idKloter');
+            $this->mdl->deleteData('idKloter', $idKloter, 'kloter');
+            for ($i=0; $i < count($idspk); $i++) { 
+                $data = array (
+                    'nama' => $this->input->post('namakloter'),
+                    'kadar' => $this->input->post('kadar'),
+                    'idKloter' => $idKloter,
+                    'idSPK' => $idspk[$i],
+                    'beratKotor' => $this->input->post('beratKotor'),
+                    'beratKaret' => $this->input->post('beratKaret'),
+                    'tgl_kloter' => date("Y-m-d H:i:s"),
+                );
+                $this->mdl->insertData('kloter',$data);
+            }
+            $message = "Data berhasil disimpan";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/reviewKloter/".$idKloter)."';</script>";
+        }
+        
+    }
+
+    public function validasiKloter($idKloter) {
+        $kloter = $this->mdl->findKloter($idKloter);
+        $jumlahKloter = count($kloter);
+        // print_r(count($data['kloter']));exit();
+        for ($i=0; $i < $jumlahKloter; $i++) { 
+            $idSPK = $kloter[$i]->idSPK;
+            $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1005,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+            );
+            $this->mdl->insertData('factproduction',$data);
+        }
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil membuat kloter SPK</div>');
+        redirect('user/kanban');
+    }
+
 
 
 }

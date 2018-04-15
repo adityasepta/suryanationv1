@@ -13,13 +13,12 @@
 
 
 <li class="<?php echo $statr?>-element" id="task1">
-    
     <div class="row">
         <div class="col-lg-5 text-center">
             <img src="<?php echo base_url('uploads/gambarDesain/'.$sl[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
         <div class="col-lg-7">
-            <b><?php echo $sl[$i]->namaCustomer ?> / <?php echo $sl[$i]->nomorFaktur ?></b><br>
+            <b><?php echo substr($sl[$i]->namaCustomer,0,10) ?> / <?php echo $sl[$i]->nomorFaktur ?></b><br>
             <b><?php echo $sl[$i]->jenisProduk?></b><br>
             <b><?php echo $sl[$i]->tanggal?> -</b><br>
             <b><?php echo $sl[$i]->tanggalSelesai?> </b><br>
@@ -29,6 +28,29 @@
 
     
     
+    <?php if(isset($display)) { ?>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            
+            <button data-toggle="modal" data-target="#detail<?php echo $sl[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+    </div>
+
+    <?php } else { ?>
+
+
     <div class="row">
 
         <div class="col-lg-3">
@@ -59,6 +81,8 @@
         </div>
 
     </div>
+
+    <?php } ?>
 
     <div class="modal inmodal fade" id="akt<?php echo $sl[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
@@ -433,26 +457,25 @@
                                 
                             </div>
                         </div>
-                    
                     <div class="form-horizontal">
                             <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
 
                                 <div class="col-sm-4">
-                                    <input type="password" id="<?php echo $sl[$i]->idProProd?>-sleb?>-password-2" required  value="0" name="password2" class="form-control">
-                                    <input type="hidden" id="<?php echo $sl[$i]->idProProd?>-sleb?>-password-1" required value="0" name="password">
+                                    <input type="password" id="<?php echo $sl[$i]->idProProd?>-boom?>-password-2" required  value="0" name="password2" class="form-control">
+                                    <input type="hidden" id="<?php echo $sl[$i]->idProProd?>-boom?>-password-1" required value="0" name="password">
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" onclick="ceksleb<?php echo $sl[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
+                                    <button type="button" onclick="cekboom<?php echo $sl[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
                                 </div>
                                 
                             </div>
                         </div>
                         <div class="form-horizontal" >
                             <div class="form-group">
-                            <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek' style="display: none;">
+                            <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-boom?>-cek' style="display: none;">
                                 Password tidak cocok. Silahkan coba lagi.
                             </div>
-                            <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-sleb?>-cek1' style="display: none;">
+                            <div class="col-lg-12 text-center" id='<?php echo $sl[$i]->idProProd?>-boom?>-cek1' style="display: none;">
                                 Password valid.
                             </div>
                              </div>
@@ -463,7 +486,7 @@
                             <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $sl[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" class="btn btn-block btn-success" id="<?php echo $sl[$i]->idProProd?>-sleb" disabled="true">Simpan</button>
+                            <button type="submit" class="btn btn-block btn-success" id="<?php echo $sl[$i]->idProProd?>-boom" disabled="true">Simpan</button>
                         </div>
                     </div>
                     <?php echo form_close() ?>
@@ -494,30 +517,29 @@
                         var Vals = $.parseJSON(response);
                         /*console.log(Vals);*/
                         var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $sl[$i]->idProProd?>-sleb?>-password-1']").val(Vals[0].password);
+                        $("input[id='<?php echo $sl[$i]->idProProd?>-boom?>-password-1']").val(Vals[0].password);
                     }
             });
         }
 </script>
 <script type="text/javascript">
-        function ceksleb<?php echo $sl[$i]->idProProd?>() {
-            var password = document.getElementById('<?php echo $sl[$i]->idProProd ?>-sleb?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $sl[$i]->idProProd ?>-sleb?>-password-2').value;
+        function cekboom<?php echo $sl[$i]->idProProd?>() {
+            var password = document.getElementById('<?php echo $sl[$i]->idProProd ?>-boom?>-password-1').value;
+            var password2 = document.getElementById('<?php echo $sl[$i]->idProProd ?>-boom?>-password-2').value;
             console.log(password);
             console.log(password2);
-            var x = document.getElementById("<?php echo $sl[$i]->idProProd ?>-sleb?>-cek");
-            var y = document.getElementById("<?php echo $sl[$i]->idProProd ?>-sleb?>-cek1");
+            var x = document.getElementById("<?php echo $sl[$i]->idProProd ?>-boom?>-cek");
+            var y = document.getElementById("<?php echo $sl[$i]->idProProd ?>-boom?>-cek1");
 
             if(password==password2) {
-                $('#<?php echo $sl[$i]->idProProd ?>-sleb').prop('disabled', false);
+                $('#<?php echo $sl[$i]->idProProd ?>-boom').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#<?php echo $sl[$i]->idProProd ?>-sleb').prop('disabled', true);
+                $('#<?php echo $sl[$i]->idProProd ?>-boom').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }
         }
     </script>
-

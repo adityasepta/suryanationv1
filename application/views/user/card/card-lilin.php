@@ -14,18 +14,38 @@
 
 
     <div class="row">
-        <div class="col-lg-5 text-center">
+        <div class="col-lg-4 text-center">
             <img src="<?php echo base_url('uploads/gambarDesain/'.$li[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-7">
-            <b><?php echo $li[$i]->namaCustomer ?> / <?php echo $li[$i]->nomorFaktur ?></b><br>
+        <div class="col-lg-8">
+            <b><?php echo substr($li[$i]->namaCustomer,0,10) ?> / <?php echo $li[$i]->nomorFaktur ?></b><br>
             <b><?php echo $li[$i]->jenisProduk?></b><br>
             <b><?php echo $li[$i]->tanggal?> -</b><br>
             <b><?php echo $li[$i]->tanggalSelesai?> </b><br>
         </div>
     </div>
-    
-    
+
+    <?php if(isset($display)) { ?>
+
+    <div class="row">
+        <br>
+        <div class="col-lg-6">
+            <button data-toggle="modal" data-target="#detail<?php echo $li[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></button>
+        </div>
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+
+    </div>
+
+    <?php } else { ?>
+
     <div class="row">
         <br>
         <div class="col-lg-3">
@@ -52,6 +72,11 @@
         </div>
         
     </div>
+
+    <?php } ?>
+    
+    
+    
 
     <div class="modal inmodal fade" id="pic<?php echo $li[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
@@ -118,7 +143,7 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1x2<?php echo $li[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2x2<?php echo $li[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            
 
                         </ul>
                         <div class="tab-content">
@@ -127,17 +152,17 @@
                                     <div class="row">
                                         <div class="col-lg-4 text-right ">
                                             Customer<br>
-                                            Sales Person<br>
                                             
-                                            Produk<br>
+                                            
+                                            
                                             Bahan<br>
                                             jenis
                                         </div>
                                         <div class="col-lg-8">
                                             :&nbsp&nbsp<b><?php echo $li[$i]->namaCustomer ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $li[$i]->nama ?></b><br>
                                             
-                                            :&nbsp&nbsp<b><?php echo $li[$i]->namaProduk ?></b><br>
+                                            
+                                            
                                             :&nbsp&nbsp<b><?php echo $li[$i]->kadarBahan ?> %</b><br>
                                             :&nbsp&nbsp<b><?php echo $li[$i]->jenisProduk ?></b>
                                         </div>

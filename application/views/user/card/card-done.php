@@ -12,56 +12,42 @@
 
 <li class="<?php echo $statr ?>-element" id="task1">
     <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $do[$i]->nomorPO ?></b>
+        <div class="col-lg-5 text-center">
+            <img src="<?php echo base_url('uploads/gambarDesain/'.$do[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $do[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $do[$i]->tipeOrder ?></b>
+        <div class="col-lg-7">
+            <b><?php echo substr($do[$i]->namaCustomer,0,10) ?> / <?php echo $do[$i]->nomorFaktur ?></b><br>
+            <b><?php echo $do[$i]->jenisProduk?></b><br>
+            <b><?php echo $do[$i]->tanggal?> -</b><br>
+            <b><?php echo $do[$i]->tanggalSelesai?> </b><br>
         </div>
     </div>
+    <hr>
     
-    <br>
-    <div class="row">
-        <div class="col-lg-4">
-            Customer<br>
-            PIC Proses
-        </div>
-        <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $do[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $do[$i]->namaPIC ?></b>
-        </div>
-
-    </div>
+    <?php if(isset($display)) { ?>
 
     <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis
+        <div class="col-lg-6">
             
+            <button data-toggle="modal" data-target="#detail<?php echo $do[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $do[$i]->namaProduk ?></b><br>
-            :&nbsp&nbsp<b><?php echo $do[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            
-            <!-- <span class="fa fa-warning text-muted"></span> -->
 
+        <div class="col-lg-6">
+
+                <?php if($statr == 'success') {?>
+                    <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+                <?php } else { ?>
+                    <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+                <?php } ?>
+                
+                
+                
         </div>
     </div>
-    
-    
+
+
+    <?php } else { ?>
+
     <div class="row">
         <br>
 
@@ -146,6 +132,7 @@
         <?php } ?>
         </div>
     </div>
+    <?php } ?>
 
     
 
@@ -155,14 +142,10 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Detail Proses Produksi</h3><br>
-                    <!-- <span >NO FAKTUR : <b class="text-success">1423342</b> | NO BARANG : <b class="text-success">001</b> | TIPE : <b class="text-success">Custom</b></span><br> -->
 
-                    <!-- <span >NO PO : <b class="text-success"><?php echo $do[$i]->nomorPO ?></b> | TIPE : <b class="text-success"><?php echo $do[$i]->tipeOrder ?></b></span><br> -->
 
                     <span >NO PO : <b class="text-success"><?php echo $do[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $do[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $do[$i]->tipeOrder ?></b></span><br>
-   <!--                  <h2><span class="fa fa-warning text-danger"></span>
-                    <span class="fa fa-warning text-danger"></span>
-                    <span class="fa fa-warning text-danger"></span></h2> -->
+
                 </div>
                 <div class="modal-body">
 

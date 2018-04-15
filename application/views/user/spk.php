@@ -294,7 +294,7 @@
                                                <img src="<?php echo base_url('uploads/gambarDesain/'.$hasil->kodeGambar.'-d1.jpg')?>" class="img img-responsive">
                                            </div>
                                            <div class="col-lg-4">
-<<<<<<< HEAD
+
                                                 <div class="form-group">
                                                     <label>Alasan</label>
                                                     <textarea name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>
@@ -305,18 +305,9 @@
                                                     <label> <input type="radio" value="Menunggu Persetujuan" name="status" > <i class="fa fa-circle text-warning"></i> PENDING </label><br>
                                                     <label> <input type="radio" value="Ditolak" name="status" > <i class="fa fa-circle text-danger"></i> TIDAK SETUJU </label>
                                                 </div>
-=======
-                                                <label>Keterangan Desain</label>
-                                                <br><Br>
-                                                <span><?php echo $hasil->keteranganDesain?></span>
-                                                <hr>
-                                               <?php echo form_open('user/pendingDesain')?>
-                                               <label>Alasan Pending</label>
-                                               <textarea required="" name="keterangan" class="form-control" rows="6"><?php echo $hasil->keteranganPending?></textarea>
-                                               <input type="hidden" name="nomorFaktur" value="<?php echo $hasil->nomorFaktur ?>" >
-                                               <Br>
-                                               <button type="submit" class="btn btn-warning" >Pending</button>
->>>>>>> d400d4fbbaa33a0090a38671cbe924af04a0b5a1
+
+                                               
+
                                            </div>
                                           
                                         </div>

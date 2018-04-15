@@ -62,10 +62,13 @@
                             <div class="modal-header">
                                 <h2 class="text-center"><b>Jurnal</b></h2>
                                 <?php 
+                                    if ($jurnal) {
                                     $tgl = new DateTime($jurnal[0]->tanggal);
                                     $tglmsk = $tgl->format("d F Y");
+                                    
                                 ?>
                                 <p class="text-center text-navy"><b><?php echo $tglmsk ?></b></p>
+                                <?php } ?>
                                 <hr>
                             </div>
                             <div class="modal-body">

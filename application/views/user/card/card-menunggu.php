@@ -12,58 +12,14 @@
 
 <li class="<?php echo $statr ?>-element" id="task1">
     <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $m[$i]->nomorPO ?></b>
-        </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $m[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $m[$i]->tipeOrder ?></b>
-        </div>
-    </div>
-    
-    <br>
-    <div class="row">
-        <div class="col-lg-4">
-            Customer<br>
-            Sales Person
-        </div>
-        <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $m[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $m[$i]->nama ?></b>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis
-            
-        </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $m[$i]->namap ?></b><br>
-            :&nbsp&nbsp<b><?php echo $m[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-5 text-center">
             <img src="<?php echo base_url('uploads/gambarDesain/'.$m[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-4 text-center">
-            Tanggal Masuk<br>
-            <b><?php echo $m[$i]->tanggal ?></b>
-        </div>
-        <div class="col-lg-5 text-center ">
-            Tanggal Selesai<br>
-            <b><?php echo $m[$i]->tanggalSelesai ?></b>
+        <div class="col-lg-7">
+            <b><?php echo substr($m[$i]->namaCustomer,0,10) ?> / <?php echo $m[$i]->nomorFaktur ?></b><br>
+            <b><?php echo $m[$i]->jenisProduk?></b><br>
+            <b><?php echo $m[$i]->tanggal?> -</b><br>
+            <b><?php echo $m[$i]->tanggalSelesai?> </b><br>
         </div>
     </div>
 
