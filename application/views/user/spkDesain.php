@@ -172,7 +172,7 @@
                                         
                                     </div>
                                     <div class="col-sm-6">
-                                        <h4>Status Desain <label class="label <?php if($dataSPK[0]->statusDesain=='Ditolak'){echo 'label-danger';} else if ($dataSPK[0]->statusDesain=='Menunggu Persetujuan'){echo 'label-warning';} else { echo 'label-primary';}?>"><?php echo $dataSPK[0]->statusDesain?></label></h4>
+                                        <h4>Status Desain <label class="pull-right label <?php if($dataSPK[0]->statusDesain=='Ditolak'){echo 'label-danger';} else if ($dataSPK[0]->statusDesain=='Menunggu Persetujuan'){echo 'label-warning';} else { echo 'label-primary';}?>"><?php echo $dataSPK[0]->statusDesain?></label></h4>
                                         <?php if($dataSPK[0]->keteranganPending!=NULL) {?>
                                             <label>Alasan Persetujuan</label>
                                             <p><?php echo $dataSPK[0]->keteranganPending ?></p>

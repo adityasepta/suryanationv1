@@ -47,6 +47,7 @@ class User extends CI_Controller {
             $data['j'] = $this->mdl->getPenjadwalan();
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
+            $data['p'] = $this->mdl->getPrint();
             
 
             $data['li'] = $this->mdl->getLilin(1004);
@@ -781,19 +782,8 @@ class User extends CI_Controller {
         $idSPK = $spk[0]->idSPK;
 
         if($status=='Disetujui'){
-            $data = array(
-                'keteranganPending'     => $this->input->post('keterangan'),
-                'tanggalApprovalDesain' => date("Y-m-d H:i:s"),
-                'statusDesain'          => $status,
-            );
-
-            $dataFact = array(
-                'idSPK'         => $idSPK,
-                'idAktivitas'   => 1004,
-                'statusWork'    => 'Belum ada PIC',
-                'statusSPK'     => 'Active',
-            );
-            $this->mdl->insertData('factproduction',$dataFact);
+            
+            $this->setujuDesain($nomorFaktur);
 
             $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Desain untuk nomor Faktur <b>'.$nomorFaktur.'</b> telah disetujui</div>');
         } else if($status=='Menunggu Persetujuan') {
@@ -2536,15 +2526,40 @@ class User extends CI_Controller {
         $data = array(
             'tanggalApprovalDesain'    => date("Y-m-d H:i:s"),
             'statusDesain' => 'Disetujui',
+            'statusPrint' => 'Proses Print',
         );
 
-         $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
 
         $spk = $this->mdl->findSPK($nomorFaktur);
         $idSPK = $spk[0]->idSPK;
 
+        // $data = array(
+        //         'idSPK' => $idSPK,
+        //         'idAktivitas' => 1004,
+        //         'statusWork' => 'Belum ada PIC',
+        //         'statusSPK' => 'Active',
+        // );
+
+        // $this->mdl->insertData('factproduction',$data);
+
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
+        redirect('user/spk');
+    }
+
+    public function selesaiPrint($nomorFaktur){
+
+        $spk = $this->mdl->findSPK($nomorFaktur);
+        
         $data = array(
-                'idSPK' => $idSPK,
+
+            'statusPrint' => 'Sudah',
+        );
+
+        $this->mdl->updateData('nomorFaktur',$nomorFaktur,'spk',$data);
+
+        $data = array(
+                'idSPK' => $spk[0]->idSPK,
                 'idAktivitas' => 1004,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
@@ -2552,8 +2567,8 @@ class User extends CI_Controller {
 
         $this->mdl->insertData('factproduction',$data);
 
-        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil mensetujui design SPK no Faktur <b>'.$nomorFaktur.'</b></div>');
-        redirect('user/spk');
+        redirect('user/kanban');
+
     }
 
     public function tidakSetujuDesain($nomorFaktur){
