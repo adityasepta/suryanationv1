@@ -194,11 +194,11 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>Berat Lilin + Karet (gr)</label>
-                                    <input type="number" step="any" name= "beratKotor" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
+                                    <input type="number" step="any" name= "beratKotor" value="<?php echo $kloter[0]->beratKotor ?>" step=any id="n1" onchange="calc();" class="form-control" value='0' required>
                                 </div>
                                 <div class="col-md-2">
                                     <label>Berat Karet (gr)</label>
-                                    <input type="number" step="any" name= "beratKaret" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
+                                    <input type="number" step="any" name= "beratKaret" value="<?php echo $kloter[0]->beratKaret ?>" step=any id="n2" onchange="calc();" class="form-control" value='0' required>
                                 </div>
                                 <div class="col-md-2">
                                     <label>Berat Batu (gr)</label>

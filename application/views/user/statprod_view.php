@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
     <title>Surya Sumatera | Status Produksi</title>
 
     <?php include('header.php'); ?>
@@ -53,6 +55,16 @@
         return i;
     }
     </script>
+
+    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+        </script>
 
     <script type="text/javascript">
         (function($){   
@@ -171,6 +183,8 @@
 
             <div class="wrapper wrapper-content">
 
+               
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins animated fadeInRight">
@@ -181,7 +195,7 @@
                                         <span class="pull-left"><b><?php echo date('d F Y - ')?></b><b><span id="txt"></span></b></span>
                                     </div>
                                     <div class="col-lg-4 text-right form-group">
-                                        <a class="btn btn-primary" href="<?php echo base_url('user/display/tempahan')?>">Display Kanban</a>
+                                        <a class="btn btn-xs btn-danger" href="<?php echo base_url('user/display/tempahan')?>">Display Kanban</a>
                                     </div>
                                     
                                 </div>
@@ -195,6 +209,8 @@
                 </div>
 
                 <?php echo $this->session->flashdata('msg'); ?>
+
+                
 
                 <div  class="wrapper testimonial-group wrapper-content animated fadeInRight " >
                     <div id="kanban" class="row pre-scrollable">
@@ -247,7 +263,7 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>LILIN<span class="label label-success pull-right"><?php  echo count($k1)?></span></h3>
+                                    <h3>LILIN / WAXING<span class="label label-success pull-right"><?php  echo count($k1)?></span></h3>
                                     <p>Kumpulan dari SPK yang sedang proses <br> Lilin <b>1003</b></p>
                                     <ul class="sortable-list connectList agile-list" id="gips">
                                         <?php for ($i=0; $i < count($li) ; ++$i) { ?>
@@ -263,8 +279,13 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%"> 
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>GROUP<span class="label label-success pull-right"><?php  echo count($g)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> penentuan kloter produksi </p>
+                                    <h3>
+                                        GROUP  
+                                        <span class="label label-success pull-right"><?php  echo count($g)?></span>
+                                        
+                                        
+                                    </h3>
+                                    <p>Kumpulan dari SPK yang sedang proses <br> penentuan kloter produksi </p><button  data-toggle="modal" data-target="#kloter"  class="btn btn-xs btn-info">Tambah Kloter</button>
                                     <ul class="sortable-list connectList agile-list" id="lilin">
 
                                         <?php for ($i=0; $i < count($g) ; ++$i) { ?>
@@ -456,6 +477,67 @@
     </div>
 
     <?php include('footer.php') ?>
+
+     <div class="modal inmodal fade" id="kloter" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Tambah Kloter SPK</h3><br>
+
+
+                </div>
+                <div class="modal-body">
+
+                    <?php echo form_open('user/setKloter')?>
+
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter" required="">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="number" step="any" min="0" name="kadar" class=" form-control" placeholder="kadar" required="">
+                        </div>
+                        <div class="col-lg-6">
+                            <br>
+                            <input type="number" step="any" name="beratKotor" min="0" class=" form-control" placeholder="Berat Lilin + Karet (gr)" required="">
+                        </div>
+                        <div class="col-lg-6">
+                            <br>
+                            <input type="number" step="any" min="0" name="beratKaret" class=" form-control" placeholder="Berat Karet (gr)" required="">
+                        </div>
+                    </div>
+                    <hr>
+                    <?php $b=count($klot); for ($i=0; $i < $b ; $i++) { ?> 
+
+                        <div class="row">
+                            <div class="col-lg-1">
+                                
+                            </div>
+                            <div class="col-lg-1">
+                                <input class="form-control input-sm" type="checkbox" value="<?php echo $klot[$i]->idSPK?>" name="idSPK[]">
+                            </div>
+                            <div class="col-lg-6">
+                                
+                                <label style="margin-top: 8px">
+                                &nbsp&nbsp&nbspNo Faktur : <b><?php echo $klot[$i]->nomorFaktur?></b> - Kadar : <b><?php echo $klot[$i]->kadarBahan?></b> %
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                    <?php } ?>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Tambahkan</button>
+
+                    <?php echo form_close()?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- <script>

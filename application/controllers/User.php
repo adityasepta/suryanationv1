@@ -99,7 +99,29 @@ class User extends CI_Controller {
         $idProProd = $this->input->post('idProProd');
         $idAktivitas = $this->input->post('idAktivitas');
 
-        //var_dump(get_defined_vars());exit();
+        $idakt = $this->input->post('idakt');
+        if (strlen($idakt) > 0) {
+
+            $proses = $this->mdl->getProsesDetail($idProProd);
+            $beratAwal = (float)$proses[0]->beratAwal;
+
+            $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+            $idg = $userx[0]->idUser;
+             
+             $data = array(
+                'idPIC' => $idg,
+                'tipeBarang' => "Produk Semi Jadi",
+                'kodeBarang' => $idProduk,
+                'jumlah' => $beratAwal,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Produksi',
+                'tanggal' => date("Y-m-d H:i:s")
+            );
+
+             $this->mdl->insertData('stokbarang', $data);
+            
+        }
 
         $this->next($idProduk,$idAktivitas,$idProProd,$idSPK);
 
@@ -118,29 +140,36 @@ class User extends CI_Controller {
             redirect('User/kanban');
 
         } else {
+
             $data = array(
             'statusWork' => 'Done',
             'RealisasiEndDate' => date("Y-m-d H:i:s")
             );
+
             $this->mdl->updateData('idProProd',$idProProd, 'factproduction', $data);
             
+            if ($idaktivitas !== 1004) {
+
+                $next = $idaktivitas;
+
+                $beratAwal = $proses[0]->berat;
+                $beratTambahan = $proses[0]->beratTambahan;
+
+                $data = array(
+                    'idSPK' => $idSPK,
+                    'statusWork' => 'Belum ada PIC',
+                    'statusSPK' => 'Active',
+                    'idAktivitas' => $next,
+                    'beratAwal' => $beratAwal,
+                    'beratTambahan' => 0,
+                    'statusBerat' => 'Belum Disetujui'
+                );
+
+                $this->mdl->insertData('factproduction', $data);
+
+            }
             
-            $next = $idaktivitas;
-
-            $beratAwal = $proses[0]->berat;
-            $beratTambahan = $proses[0]->beratTambahan;
-
-            $data = array(
-                'idSPK' => $idSPK,
-                'statusWork' => 'Belum ada PIC',
-                'statusSPK' => 'Active',
-                'idAktivitas' => $next,
-                'beratAwal' => $beratAwal,
-                'beratTambahan' => $beratTambahan,
-                'statusBerat' => 'Belum Disetujui'
-            );
-
-            $this->mdl->insertData('factproduction', $data);
+            
 
             if ($idaktivitas == 1014) {
 
@@ -3202,6 +3231,8 @@ class User extends CI_Controller {
                 'kadar' => $this->input->post('kadar'),
                 'idKloter' => $kode,
                 'idSPK' => $idspk[$i],
+                'beratKotor' => $this->input->post('beratKotor'),
+                'beratKaret' => $this->input->post('beratKaret'),
                 'tgl_kloter' => date("Y-m-d H:i:s"),
             );
 
@@ -3211,7 +3242,7 @@ class User extends CI_Controller {
 
             $data = array(
                 'idSPK' => $idSPK,
-                'idAktivitas' => 1004,
+                'idAktivitas' => 1005,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
             );
@@ -3286,24 +3317,24 @@ class User extends CI_Controller {
                  
              }
 
-             for ($i=0; $i < count($kloter) ; $i++) { 
+             // for ($i=0; $i < count($kloter) ; $i++) { 
 
-                $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
-                $idg = $userx[0]->idUser;
+             //    $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
+             //    $idg = $userx[0]->idUser;
                  
-                 $data = array(
-                    'idPIC' => $idg,
-                    'tipeBarang' => "Produk Semi Jadi",
-                    'kodeBarang' => $kloter[$i]->idProduk,
-                    'jumlah' => $kloter[$i]->beratAkhir,
-                    'jenisPergerakanBarang' => "IN",
-                    'satuan' => 'gr',
-                    'tipePergerakan' => 'Produksi',
-                    'tanggal' => date("Y-m-d H:i:s")
-                );
+             //     $data = array(
+             //        'idPIC' => $idg,
+             //        'tipeBarang' => "Produk Semi Jadi",
+             //        'kodeBarang' => $kloter[$i]->idProduk,
+             //        'jumlah' => $kloter[$i]->beratAkhir,
+             //        'jenisPergerakanBarang' => "IN",
+             //        'satuan' => 'gr',
+             //        'tipePergerakan' => 'Produksi',
+             //        'tanggal' => date("Y-m-d H:i:s")
+             //    );
 
-                 $this->mdl->insertData('stokbarang', $data);
-             }
+             //     $this->mdl->insertData('stokbarang', $data);
+             // }
 
              
          }
@@ -3494,7 +3525,7 @@ class User extends CI_Controller {
                 //load uploading file library
                  
                  $config['upload_path']     = './uploads/gambarProduk/'; 
-                 $config['allowed_types']   = 'jpg'; 
+                 $config['allowed_types']   = 'jpg|png|jpeg|gif'; 
                  $config['max_size']        = '2048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;
@@ -4296,7 +4327,7 @@ class User extends CI_Controller {
                         'namaMaterial'    => 'Berlian '.$this->input->post('jumlahDatangBerlian').' Karat',
                         'satuan'          => 'Karat',
                         'safetyStock'     => 0,
-                        'kadar'     => $karat,
+                        'karat'     => $karat,
                         'asal'            => 'Datang Berlian',
                         'kategori' => 'Berlian'
                     );

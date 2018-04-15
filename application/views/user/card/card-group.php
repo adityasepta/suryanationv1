@@ -19,7 +19,7 @@
         </div>
         <div class="col-lg-7">
             <b><?php echo $g[$i]->namaCustomer ?> / <?php echo $g[$i]->nomorFaktur ?></b><br>
-            <b><?php echo $g[$i]->namap ?></b><br>
+            
             <b><?php echo $g[$i]->jenisProduk?></b><br>
             <b><?php echo $g[$i]->tanggal?> -</b><br>
             <b><?php echo $g[$i]->tanggalSelesai?> </b><br>
@@ -62,16 +62,16 @@
                                         <div class="col-lg-4 text-right ">
                                             Customer<br>
                                             Sales Person<br>
-                                            PIC Proses<br>
-                                            Produk<br>
+                                            
+                                            
                                             Bahan<br>
                                             jenis
                                         </div>
                                         <div class="col-lg-8">
                                             :&nbsp&nbsp<b><?php echo $g[$i]->namaCustomer ?></b><br>
                                             :&nbsp&nbsp<b><?php echo $g[$i]->nama ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $g[$i]->PICDesain ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $g[$i]->namaProduk ?></b><br>
+                                            
+                                            
                                             :&nbsp&nbsp<b><?php echo $g[$i]->kadarBahan ?> %</b><br>
                                             :&nbsp&nbsp<b><?php echo $g[$i]->jenisProduk ?></b>
                                         </div>

@@ -1326,8 +1326,8 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
      public function getDesain() {
 
-        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap,DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
-            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and (s.statusDesain = 'Proses Desain' or s.statusDesain = 'Proses Desain Ulang') and s.statusJadwal = 'Sudah Ada' and r.idAktivitas = 1001";
+        $sql   = "SELECT *,left(pr.namaProduk, 20) as namap,DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal,DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
+            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and (s.statusDesain = 'Proses Desain' or s.statusDesain = 'Ditolak') and s.statusJadwal = 'Sudah Ada' and r.idAktivitas = 1001";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1344,7 +1344,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getPenjadwalan() {
 
-        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT(tanggalApprovalDesain, '%d %M %Y') AS tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal != 'Sudah Ada' and s.statusPersetujuan != 'Disetujui'";
+        $sql   = "SELECT *, LEFT(pr.namaProduk, 20) AS namap, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal,DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain, '%d %M %Y') AS tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u WHERE po.idSalesPerson = u.idUser AND po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND s.statusJadwal != 'Sudah Ada' and s.statusPersetujuan != 'Disetujui'";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1374,7 +1374,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
         $sql   = "
 
-            SELECT *, $idAktivitas as idAktivitas, DATE_FORMAT(r.endDate, '%m/%d/%Y') AS tgs, DATE_FORMAT(r.startDate, '%d %M %Y') AS tglmulai, DATE_FORMAT(r.endDate, '%d %M %Y') AS tglselesai, k.nama AS namaSales, LEFT(pr.namaProduk, 20) AS namaProduk, u.nama AS namaPIC, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalDesain, '%d %M %Y' ) AS tanggaldes, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT( tanggalApprovalPersetujuan, '%d %M %Y' ) AS tanggalsetuju FROM potempahan po, produk pr, customer c, spk s, factproduction f, rencanaproduksi r, user u, user k, kloter kl WHERE s.idSPK = kl.idSPK and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork != 'Done' ";
+            SELECT *, $idAktivitas as idAktivitas, DATE_FORMAT(r.endDate, '%m/%d/%Y') AS tgs, DATE_FORMAT(r.startDate, '%d %M %Y') AS tglmulai, DATE_FORMAT(r.endDate, '%d %M %Y') AS tglselesai, k.nama AS namaSales, LEFT(pr.namaProduk, 20) AS namaProduk, u.nama AS namaPIC, DATE_FORMAT(tanggalMasuk, '%d %M %Y') AS tanggal, DATE_FORMAT( tanggalApprovalDesain, '%d %M %Y' ) AS tanggaldes, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT( tanggalApprovalPersetujuan, '%d %M %Y' ) AS tanggalsetuju, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai FROM potempahan po, produk pr, customer c, spk s, factproduction f, rencanaproduksi r, user u, user k, kloter kl WHERE s.idSPK = kl.idSPK and po.idProduk = pr.idProduk AND po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork != 'Done' ";
         $query = $this->db->query($sql);
         
         return $query->result();
