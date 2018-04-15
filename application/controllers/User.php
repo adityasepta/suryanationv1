@@ -3244,7 +3244,7 @@ class User extends CI_Controller {
 
             $this->mdl->insertData('kloter',$data);
 
-            $idSPK = $idspk[$i];
+            /*$idSPK = $idspk[$i];
 
             $data = array(
                 'idSPK' => $idSPK,
@@ -3253,7 +3253,7 @@ class User extends CI_Controller {
                 'statusSPK' => 'Active',
             );
 
-            $this->mdl->insertData('factproduction',$data);
+            $this->mdl->insertData('factproduction',$data);*/
 
         }
 
@@ -7212,9 +7212,58 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/purchaseOrder")."';</script>";
     }
 
-    public function editKloter($idKloter){
-        $this->load->view('user/editKloter');
+    public function reviewKloter($idKloter){
+        $this->form_validation->set_rules('namakloter', 'Nama Kloter' ,'required');
+        $this->form_validation->set_rules('kadar', 'Kadar' ,'required');
+        $this->form_validation->set_rules('beratKotor', 'Berat Kotoe' ,'required');
+        $this->form_validation->set_rules('beratKaret', 'Berat Karet' ,'required');
+        
+        if ($this->form_validation->run() == FALSE){
+            $data['kloter'] = $this->mdl->findKloter($idKloter);
+            $data['klot']   = $this->mdl->getKloterSPK();
+            $this->load->view('user/editKloter',$data);
+        }
+        else {
+            $idspk = $this->input->post('idSPK');
+            $idKloter = $this->input->post('idKloter');
+            $this->mdl->deleteData('idKloter', $idKloter, 'kloter');
+            for ($i=0; $i < count($idspk); $i++) { 
+                $data = array (
+                    'nama' => $this->input->post('namakloter'),
+                    'kadar' => $this->input->post('kadar'),
+                    'idKloter' => $idKloter,
+                    'idSPK' => $idspk[$i],
+                    'beratKotor' => $this->input->post('beratKotor'),
+                    'beratKaret' => $this->input->post('beratKaret'),
+                    'tgl_kloter' => date("Y-m-d H:i:s"),
+                );
+                $this->mdl->insertData('kloter',$data);
+            }
+            $message = "Data berhasil disimpan";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/kanban")."';</script>";
+        }
+        
     }
+
+    public function validasiKloter($idKloter) {
+        $kloter = $this->mdl->findKloter($idKloter);
+        $jumlahKloter = count($kloter);
+        // print_r(count($data['kloter']));exit();
+        for ($i=0; $i < $jumlahKloter; $i++) { 
+            $idSPK = $kloter[$i]->idSPK;
+            $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1005,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+            );
+            $this->mdl->insertData('factproduction',$data);
+        }
+        $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil membuat kloter SPK</div>');
+        redirect('user/kanban');
+    }
+
 
 
 }
