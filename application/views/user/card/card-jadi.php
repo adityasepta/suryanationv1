@@ -1,57 +1,34 @@
 
 <li class="element" id="task1">
     <div class="row">
-       
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $jd[$i]->nomorFaktur ?></b>
+        <div class="col-lg-5 text-center">
+            <img src="<?php echo base_url('uploads/gambarDesain/'.$jd[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-4 text-center ">
-            Tanggal Jadi<br>
-            <b><?php echo $jd[$i]->tgljadi ?></b>
+        <div class="col-lg-7">
+            <b><?php echo substr($jd[$i]->namaCustomer,0,10) ?> / <?php echo $jd[$i]->nomorFaktur ?></b><br>
+            <b><?php echo $jd[$i]->jenisProduk?></b><br>
+            <b><?php echo $jd[$i]->tgljadi?> </b><br>
+            
         </div>
     </div>
     
-    <br>
-    <div class="row">
-        <div class="col-lg-4">
-            Customer<br>
-            Nomor HP
-            
-        </div>
-        <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $jd[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $jd[$i]->nomorTelepon ?></b><br>
-            
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4">
-            Produk<br>
-            Jenis<br>
-            
-        </div>
-        <div class="col-lg-4">
-            :&nbsp&nbsp<b><?php echo $jd[$i]->namaProduk ?></b><br>
-            :&nbsp&nbsp<b><?php echo $jd[$i]->jenisProduk?></b>
-            
-        </div>
-        
-    </div>
     
-    <br>
+    
 
-    <div class="row">
-        <div class="col-lg-6">
-            <a href="<?php echo base_url('user/createInvoiceAkhirPO')?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
+    <?php if(!isset($display)) { ?>
+    <hr>
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="<?php echo base_url('user/createInvoiceAkhirPO')?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
+            </div>
+            <div class="col-lg-6">
+                <a href="<?php echo base_url('user/ambil2/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin ?')"  class="btn btn-xs btn-block btn-warning">Sudah Diambil</a>
+            </div>
+            
         </div>
-        <div class="col-lg-6">
-            <a href="<?php echo base_url('user/ambil2/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin ?')"  class="btn btn-xs btn-block btn-warning">Sudah Diambil</a>
-        </div>
-        
-    </div>
+    <?php } ?>
+
+    
 
 
     

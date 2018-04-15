@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-8">
                 <b><a data-toggle="modal" data-target="#detail<?php echo $co[$x]->idProProd ?>" >
-                    <?php echo $co[$x]->namaCustomer ?> / <?php echo $co[$x]->nomorFaktur ?>
+                    <?php echo substr($co[$x]->namaCustomer,0,10) ?> / <?php echo $co[$x]->nomorFaktur ?>
                         
                     </a></b><br>
                 

@@ -1,30 +1,17 @@
-<li class="success-element" id="task1">
-    <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $j[$i]->nomorPO ?></b>
-        </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $j[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $j[$i]->tipeOrder ?></b>
-        </div>
-    </div>
+<li class="element" id="task1">
+
     
-    <br>
+    
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             Customer<br>
             Sales<br>
             Jenis<br>
-            Tanggal Masuk<br>
-            Tanggal Selesai<br>
+            Tgl Masuk<br>
+            Tgl Selesai<br>
         </div>
-        <div class="col-lg-7">
-            :&nbsp&nbsp<b><?php echo $j[$i]->namaCustomer ?></b><br>
+        <div class="col-lg-8">
+            :&nbsp&nbsp<b><?php echo substr($j[$i]->namaCustomer,0,10) ?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->nama ?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->jenisProduk?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->tanggal?></b><br>
@@ -33,14 +20,8 @@
 
     </div>
 
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
+    
 
-        </div>
-    </div>
-    
-    
     <div class="row">
         <br>
         <div class="col-lg-12">

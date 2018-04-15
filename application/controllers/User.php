@@ -4818,6 +4818,57 @@ class User extends CI_Controller {
             
             $this->load->view('user/display_massal', $data);
 
+        } else {
+
+            $data['s'] = $this->mdl->getSales();
+            $data['j'] = $this->mdl->getPenjadwalan();
+            $data['d'] = $this->mdl->getDesain();
+            $data['m'] = $this->mdl->getMenunggu();
+            $data['p'] = $this->mdl->getPrint();
+            
+
+            $data['li'] = $this->mdl->getLilin(1004);
+
+            
+            $data['qw'] = $this->mdl->getKloter2();
+            $data['g'] = $this->mdl->getGroup();
+            //$data['g2'] = $this->mdl->getGroup2();
+
+            $data['k1'] = $this->mdl->getKloter(1004);
+
+            $data['k2'] = $this->mdl->getKloter(1005);
+            $data['k3'] = $this->mdl->getKloter(1006);
+            //$data['pp'] = $this->mdl->getPPIC();
+
+             $data['staf'] = $this->mdl->getStaf();
+             $data['akt'] = $this->mdl->getAktivitasLanjut();
+
+            $data['r'] = $this->mdl->getRecord();
+            $data['b'] = $this->mdl->getBerat();
+            $data['cb'] = $this->mdl->cekbom2();
+            $data['klot']      = $this->mdl->getKloterSPK();
+            //$data['k'] = $this->mdl->getIsiKloter();
+
+              
+            $data['gi'] = $this->mdl->getProses(1005);
+            $data['co'] = $this->mdl->getProses(1006);
+
+            //$data['gp'] = $this->mdl->getProses(1007);  
+            $data['go'] = $this->mdl->getProses(1007);  
+            $data['bo'] = $this->mdl->getProses(1008);  
+
+            $data['cz'] = $this->mdl->getProses(1009);  
+            $data['po'] = $this->mdl->getProses(1010);  
+            $data['sl'] = $this->mdl->getProses(1011);
+
+            $data['kr'] = $this->mdl->getProses(1012);
+            $data['bt'] = $this->mdl->getProses(1013);
+             $data['do'] = $this->mdl->getProses(1014);
+
+             $data['jd'] = $this->mdl->getJadi();  
+
+            $this->load->view('user/display_tempahan',$data);
+
         }
             
             
@@ -7256,7 +7307,7 @@ class User extends CI_Controller {
             }
             $message = "Data berhasil disimpan";
             echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/kanban")."';</script>";
+            window.location.href='".base_url("user/reviewKloter/".$idKloter)."';</script>";
         }
         
     }

@@ -14,11 +14,11 @@
 
 
     <div class="row">
-        <div class="col-lg-5 text-center">
+        <div class="col-lg-4 text-center">
             <img src="<?php echo base_url('uploads/gambarDesain/'.$g[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
-        <div class="col-lg-7">
-            <b><?php echo $g[$i]->namaCustomer ?> / <?php echo $g[$i]->nomorFaktur ?></b><br>
+        <div class="col-lg-8">
+            <b><?php echo substr($g[$i]->namaCustomer,0,10) ?> / <?php echo $g[$i]->nomorFaktur ?></b><br>
             
             <b><?php echo $g[$i]->jenisProduk?></b><br>
             <b><?php echo $g[$i]->tanggal?> -</b><br>
@@ -52,7 +52,7 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1x2<?php echo $g[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2x2<?php echo $g[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            
 
                         </ul>
                         <div class="tab-content">

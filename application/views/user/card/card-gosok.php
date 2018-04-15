@@ -18,7 +18,7 @@
             <img src="<?php echo base_url('uploads/gambarDesain/'.$go[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
         <div class="col-lg-7">
-            <b><?php echo $go[$i]->namaCustomer ?> / <?php echo $go[$i]->nomorFaktur ?></b><br>
+            <b><?php echo substr($go[$i]->namaCustomer,0,10) ?> / <?php echo $go[$i]->nomorFaktur ?></b><br>
             <b><?php echo $go[$i]->jenisProduk?></b><br>
             <b><?php echo $go[$i]->tanggal?> -</b><br>
             <b><?php echo $go[$i]->tanggalSelesai?> </b><br>
@@ -26,7 +26,30 @@
     </div>
     
     <hr>
-    
+
+    <?php if(isset($display)) { ?>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            
+            <button data-toggle="modal" data-target="#detail<?php echo $go[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        </div>
+
+        <div class="col-lg-6">
+
+            <?php if($statr == 'success') {?>
+                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
+            <?php } else { ?>
+                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
+            <?php } ?>
+
+        </div>
+    </div>
+
+    <?php } else { ?>
+
+
     <div class="row">
 
         <div class="col-lg-3">
@@ -57,6 +80,10 @@
         </div>
 
     </div>
+
+    <?php } ?>
+    
+    
 
     <div class="modal inmodal fade" id="akt<?php echo $go[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">

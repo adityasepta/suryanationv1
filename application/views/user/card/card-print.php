@@ -16,7 +16,7 @@
             <img src="<?php echo base_url('uploads/gambarDesain/'.$p[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
         <div class="col-lg-7">
-            <b><?php echo $p[$i]->namaCustomer ?> / <?php echo $p[$i]->nomorFaktur ?></b><br>
+            <b><?php echo substr($p[$i]->namaCustomer,0,10) ?> / <?php echo $p[$i]->nomorFaktur ?></b><br>
             <b><?php echo $p[$i]->jenisProduk?></b><br>
             <b><?php echo $p[$i]->tanggal?> -</b><br>
             <b><?php echo $p[$i]->tanggalSelesai?> </b><br>
@@ -29,7 +29,7 @@
             <button data-toggle="modal" data-target="#detailx2<?php echo $p[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
         <div class="col-lg-6">
-            <a href="<?php echo base_url('user/selesaiPrint/'.$p[$i]->nomorFaktur) ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+            <a href="<?php echo base_url('user/selesaiPrint/'.$p[$i]->nomorFaktur) ?>" class="btn btn-xs btn-success btn-block">Lanjut</a>
         </div>
 
     </div>

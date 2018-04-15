@@ -16,7 +16,7 @@
             <img src="<?php echo base_url('uploads/gambarDesain/'.$m[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
         </div>
         <div class="col-lg-7">
-            <b><?php echo $m[$i]->namaCustomer ?> / <?php echo $m[$i]->nomorFaktur ?></b><br>
+            <b><?php echo substr($m[$i]->namaCustomer,0,10) ?> / <?php echo $m[$i]->nomorFaktur ?></b><br>
             <b><?php echo $m[$i]->jenisProduk?></b><br>
             <b><?php echo $m[$i]->tanggal?> -</b><br>
             <b><?php echo $m[$i]->tanggalSelesai?> </b><br>

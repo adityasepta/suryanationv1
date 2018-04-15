@@ -11,48 +11,25 @@
 
 
 <li class="<?php echo $statr?>-element" id="task1">
+
     <div class="row">
-        <div class="col-lg-4 text-center">
-            No PO<br>
-            <b><?php echo $d[$i]->nomorPO ?></b>
-        </div>
-        <div class="col-lg-4 text-center">
-            No Faktur<br>
-            <b><?php echo $d[$i]->nomorFaktur ?></b>
-        </div>
-        <div class="col-lg-4 text-center ">
-            Tipe Order<br>
-            <b><?php echo $d[$i]->tipeOrder ?></b>
-        </div>
-    </div>
-    
-    <br>
-    <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             Customer<br>
             Sales<br>
             Jenis<br>
-            Tanggal Masuk<br>
-            Tanggal Selesai<br>
+            Tgl Masuk<br>
+            Tgl Selesai<br>
         </div>
-        <div class="col-lg-7">
-            :&nbsp&nbsp<b><?php echo $d[$i]->namaCustomer ?></b><br>
+        <div class="col-lg-8">
+            :&nbsp&nbsp<b><?php echo substr($d[$i]->namaCustomer,0,10) ?></b><br>
             :&nbsp&nbsp<b><?php echo $d[$i]->nama ?></b><br>
             :&nbsp&nbsp<b><?php echo $d[$i]->jenisProduk?></b><br>
             :&nbsp&nbsp<b><?php echo $d[$i]->tanggal?></b><br>
             :&nbsp&nbsp<b><?php echo $d[$i]->tanggalSelesai?></b><br>
         </div>
 
-    </div>
+    </div>  
 
-    <br>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-
-        </div>
-    </div>
-    
-    
     <div class="row">
         <br>
         <div class="col-lg-12">
