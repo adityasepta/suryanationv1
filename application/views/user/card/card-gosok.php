@@ -452,6 +452,14 @@
                                 
                             </div>
                         </div>
+                        
+                        <div class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
+
+                                <div class="col-sm-7"><input type="number" step="any" name="beratTambahan" value="<?php echo $go[$i]->beratTambahan?>" required class="form-control"></div>
+                                
+                            </div>
+                        </div>
                 
 
                         <div class="form-horizontal">

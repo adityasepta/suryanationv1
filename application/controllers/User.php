@@ -1046,7 +1046,7 @@ class User extends CI_Controller {
             $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
 
             $config['upload_path']     = './uploads/gambarDesain/'; 
-            $config['allowed_types']   = 'jpg|jpeg'; 
+            $config['allowed_types']   = 'jpg|jpeg|png'; 
             $config['max_size']        = '6000';
             $config['file_name']       = $kode.'-d'.($i+1).'.jpg';
             $config['overwrite']        = TRUE;
