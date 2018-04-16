@@ -347,9 +347,9 @@
                                         <td><?php echo $p->jumlah.' '.$p->satuan?> </td>
                                         <td><?php echo $p->keterangan?></td>
                                         <td>
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#editPergerakan<?php echo $p->idStok?>">
+                                            <!-- <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#editPergerakan<?php echo $p->idStok?>">
                                                 Edit
-                                            </a>
+                                            </a> -->
                                             <a href="<?php echo base_url()?>user/deleteInventory/<?php echo $p->idStok?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus stok barang ini?')">Hapus</a>
                                             <?php if($p->statusTransfer == 'Pending') { ?>
                                                 &nbsp<button class="btn btn-warning btn-xs" disabled>Pending</button>
