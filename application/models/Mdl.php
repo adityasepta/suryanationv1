@@ -1552,6 +1552,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
+    public function getLastMovement($nomorPO, $idProduk, $idPIC) {
+        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and kodeBarang = $idProduk and tipeBarang = 'Produk Jadi' and idPIC = $idPIC ";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function cekkloter() {
         $sql   = "SELECT * from kloter";
         $query = $this->db->query($sql);
@@ -2417,6 +2424,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
         UNION 
         SELECT a.*, (b.namaProduk) AS namaMaterial, d.kadarBahan as kadar FROM stokbarang a, produk b, produkpo c, pomasal d WHERE a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.idProduk AND a.tipeBarang = 'Produk Jadi' and a.kodeBarang = c.idProdukChild and d.nomorPO = c.nomorPO
+
+        UNION 
+        SELECT a.*, (b.namaProduk) AS namaMaterial, c.kadarBahan AS kadar FROM stokbarang a, produk b, potempahan c WHERE b.idProduk = c.idProduk AND a.idPIC = $idPIC AND a.statusTransfer = 'Pending' AND a.kodeBarang = b.idProduk AND( a.tipeBarang = 'Produk Jadi' OR a.tipeBarang = 'Produk Semi Jadi') 
         ";
         $query = $this->db->query($sql);
         
