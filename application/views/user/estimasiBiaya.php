@@ -120,8 +120,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
                                     <div class="col-md-10">
-                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Jenis Customer"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
-                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
+                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= $dataPO[0]->jenisCustomer; if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
+                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a=$dataPO[0]->jenisCustomer; if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
                                     </div>
                                 </div>
                             </div>
@@ -348,6 +348,14 @@
                 radioClass: 'iradio_square-green',
             });
 
+            var jenisCustomer= '<?php echo $dataPO[0]->jenisCustomer?>';
+            if (jenisCustomer=='Toko') {
+                document.getElementById('showPersen').style.display = 'block';
+            } else {
+                document.getElementById('showPersen').style.display = 'none';
+                document.getElementById('persenBiaya').value=100;
+            }
+
         });
     </script>
     <script type="text/javascript">
@@ -356,8 +364,10 @@
         function produkCheck() {
             if ($('#toko').iCheck('update')[0].checked) {
                 document.getElementById('showPersen').style.display = 'block';
-            } else if($('#toko').iCheck('update')[0].checked) {
+            } else if($('#perseorangan').iCheck('update')[0].checked) {
                 document.getElementById('showPersen').style.display = 'none';
+                document.getElementById('persenBiaya').value=100;
+                calc2()
             }
         }
     </script>
@@ -399,7 +409,7 @@
                 var f = parseFloat(document.getElementById('susut').value);
                 var g = parseFloat(document.getElementById('hargaBahan').value);
                 var m = parseFloat(document.getElementById('persenBiaya').value);
-
+                console.log(m);
                 var h = d+f-e;
                 var i = h*g*(m/100);
                 var hargaAwals=formatNumber(i);

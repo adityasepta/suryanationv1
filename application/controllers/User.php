@@ -7332,7 +7332,7 @@ class User extends CI_Controller {
         if ($jenisCustomer=='Toko') {
             $persenBiaya=$this->input->post('persenBiaya');
         } else {
-            $persenBiaya=0;
+            $persenBiaya=100;
         }
 
         $dataPO = array(
