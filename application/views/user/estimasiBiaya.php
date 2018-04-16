@@ -65,9 +65,7 @@
                     </ol>
                 </div>
                 <div class="col-lg-4">
-                    <!-- <div class="title-action">
-                        <a href="<?php echo base_url()?>user/printInvoicePerseorangan/<?php echo $nomorPO?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a>
-                    </div> -->
+
                 </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -117,6 +115,13 @@
                                                 <p><b>Tanggal Terima: </b> <?php echo $tglmsk;?></p>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
+                                    <div class="col-md-10">
+                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Jenis Customer"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
+                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +308,7 @@
                             <div class="hr-line-dashed"></div>
                                 <div class="form-group row">
                                     <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/createInvoiceAkhirPO"><button type="button" name="submit" class="btn btn-white" value="batal">Kembali</button></a>
+                                        <a href="<?php echo base_url()?>user/invoicePO/<?php echo $nomorPO?>"><button type="button" name="submit" class="btn btn-white" value="batal">Kembali</button></a>
                                         <button class="btn btn-primary" type="submit">Simpan</button>
                                     </div>
                                 </div>
@@ -331,7 +336,18 @@
 
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
+    <!-- iCheck -->
+    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
 
+            
+        });
+    </script>
     
     <script type="text/javascript">
             function calc(){

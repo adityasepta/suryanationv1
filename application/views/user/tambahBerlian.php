@@ -126,10 +126,10 @@
                                     </div>
                                     <div class="col-sm-1" style="width:0;"></div>
                                     <div class="col-md-2">
-                                        <label>Jumlah</label>
+                                        <label>Jumlah / Berat</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <label>Harga</label>
+                                        <label>Harga Satuan</label>
                                     </div>
                                 </div>
                             </div>
