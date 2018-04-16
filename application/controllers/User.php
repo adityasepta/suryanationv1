@@ -107,7 +107,8 @@ class User extends CI_Controller {
         $idAktivitas = $this->input->post('idAktivitas');
 
         $idakt = $this->input->post('idakt');
-        if (strlen($idakt) > 0) {
+        $cek = $this->mdl->cekPolishDalam($idSPK);
+        if (strlen($idakt) > 0 and count($cek) == 0) {
 
             $proses = $this->mdl->getProsesDetail($idProProd);
             $beratAwal = (float)$proses[0]->beratAwal;

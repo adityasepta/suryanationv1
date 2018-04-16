@@ -1545,6 +1545,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
+    public function cekPolishDalam($idSPK) {
+        $sql = "SELECT * from factproduction where idSPK = $idSPK and idAktivitas = 1010 ";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function cekkloter() {
         $sql   = "SELECT * from kloter";
         $query = $this->db->query($sql);
