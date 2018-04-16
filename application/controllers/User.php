@@ -7308,6 +7308,13 @@ class User extends CI_Controller {
 
     public function updateBiaya($nomorPO){
         //Query Tambah PO
+        $jenisCustomer=$this->input->post('jenisCustomer');
+        if ($jenisCustomer=='Toko') {
+            $persenBiaya=$this->input->post('persenBiaya');
+        } else {
+            $persenBiaya=0;
+        }
+
         $dataPO = array(
             'beratAkhir'        => $this->input->post('beratAkhir'),
             'beratBatu'         => $this->input->post('beratBatu'),
@@ -7318,6 +7325,8 @@ class User extends CI_Controller {
             'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
             'hargaBatuZirkon'   => $this->input->post('hargaBatuZirkon'),
             'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
+            'jenisCustomer'     => $jenisCustomer,
+            'persenBiaya'       => $persenBiaya,
         );
         $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);    
 
