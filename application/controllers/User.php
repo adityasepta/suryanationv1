@@ -107,7 +107,8 @@ class User extends CI_Controller {
         $idAktivitas = $this->input->post('idAktivitas');
 
         $idakt = $this->input->post('idakt');
-        if (strlen($idakt) > 0) {
+        $cek = $this->mdl->cekPolishDalam($idSPK);
+        if (strlen($idakt) > 0 and count($cek) == 0) {
 
             $proses = $this->mdl->getProsesDetail($idProProd);
             $beratAwal = (float)$proses[0]->beratAwal;
@@ -7151,9 +7152,28 @@ class User extends CI_Controller {
     }
 
 
-    public function ambil2($idSPK) {
+    // public function ambil2($idSPK) {
+
+    //     $spk = $this->mdl->findSPK2($idSPK);
+    //     $nomorPO = $spk[0]->nomorPO;
+    //     $idProduk = $spk[0]->idProduk;
+
+    //     $dataInventory = array(
+    //             'idPIC'         => $this->session->userdata['logged_in']['iduser'],
+    //             'tipeBarang'    => 'Produk Jadi',
+    //             'tipePergerakan'=> 'Diambil Customer',
+    //             'nomorPO'       => $nomorPO,
+    //             'kodeBarang'    => $idProduk,
+    //             'jumlah'        => $data['pergerakan'][0]->jumlah,
+    //             'satuan'        => 'gr',
+    //             'jenisPergerakanBarang'  => 'OUT',
+    //             'hargaBeli'     => 0,
+    //             'tanggal' => date("Y-m-d H:i:s"),
+                
+    //         );
+    //         $this->mdl->insertData('stokbarang',$dataInventory);
         
-    }
+    // }
 
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
