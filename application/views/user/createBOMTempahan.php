@@ -710,6 +710,17 @@
                     
                 </div>
 
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Foto Lilin</h5>
+                        </div>
+                        <div class="ibox-content form-horizontal">
+                            <img src="<?php echo base_url('uploads/gambarDesain/'.$Kloter.'-lilin.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
+                        </div>
+                    </div>
+                </div>
+
                 
                    
                     

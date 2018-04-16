@@ -73,7 +73,7 @@ else {
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <?php echo form_open('user/reviewKloter/'.$idKloter)?>
                     <?php echo $this->session->flashdata('msg'); ?>
                     <div class="ibox float-e-margins">
@@ -158,6 +158,40 @@ else {
                     </div>
                     
                     <?php echo form_close()?>
+                </div>
+
+                <div class="col-lg-6">
+                    <?php echo form_open_multipart('user/uploadFotoLilin/')?>
+                    
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                                <h5>Foto Lilin</h5>
+                            
+                        </div>
+
+                        <div class="ibox-content">
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    
+                                    
+                                     <img src="<?php echo base_url('uploads/gambarDesain/'.$idKloter.'-lilin.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
+                                </div>
+                                <div class="col-lg-6">
+                                    
+                                    <small class="text-danger">Upload maksimal 2 MB, tipe file jpg - Rasio Gambar 1:1 ( Square )</small>
+                                    <br><br>    
+                                    <input type="file" class="form-control" name="foto" required="">
+                                    <br><br>
+                                    <input type="hidden" name="kloter" value="<?php echo $idKloter?>">
+                                    <button class="btn btn-info" type="submit">Upload</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <?php echo form_close(); ?>
                 </div>
             </div>
         </div>

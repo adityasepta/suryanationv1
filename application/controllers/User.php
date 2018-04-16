@@ -989,6 +989,31 @@ class User extends CI_Controller {
         }
     }
 
+    public function uploadFotoLilin() {
+        $kloter=$this->input->post('kloter');
+
+        $this->load->library('upload');
+
+        $config['upload_path']     = './uploads/gambarDesain/'; 
+        $config['allowed_types']   = 'jpg|jpeg'; 
+        $config['max_size']        = '6000';
+        $config['file_name']       = $kloter.'-lilin.jpg';
+        $config['overwrite']        = TRUE;
+
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('foto')) {
+            $message = "Berhasil Mengupload Foto Lilin";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/reviewKloter".$kloter)."';</script>";
+            
+        } else {
+            $message = "Format Thumbnail tidak sesuai";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/reviewKloter/".$kloter)."';</script>";
+        }
+    }
+
     public function uploadDesain()
     {       
         $kodeProduk=$this->input->post('kodeProduk');
