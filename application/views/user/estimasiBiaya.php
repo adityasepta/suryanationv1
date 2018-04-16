@@ -120,8 +120,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
                                     <div class="col-md-10">
-                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Jenis Customer"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
-                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
+                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= $dataPO[0]->jenisCustomer; if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
+                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a=$dataPO[0]->jenisCustomer; if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Susut </label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="susut" onchange="calc2();" value="<?php echo $dataPO[0]->susut;?>" id="susut" onchange="calc();"  class="form-control" required><div class="hr-line-dashed"></div>
+                                    <div class="col-sm-2"><input type="text" name="susut" onchange="calc2();" value="<?php echo $dataPO[0]->susut;?>" id="susut" class="form-control" required><div class="hr-line-dashed"></div>
                                     </div>
                                     <div class="col-sm-1" style="width:0;">gram</div>
                                 </div>
@@ -159,11 +159,14 @@
                                     <div class="col-sm-1" style="width:0;">:</div>
                                     <div class="col-sm-2"><input type="text" name="sisaBerat" id="sisaBerat" value="<?php echo $sisaBerat=$dataPO[0]->beratAkhir-$dataPO[0]->beratBatu+$dataPO[0]->susut ?>" class="form-control" required readonly>
                                     </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $gold['currentCurrency'] ?>" class="form-control" required readonly>
+                                    <div class="col-sm-3" id="showPersen" style="display: none;">
+                                        <div class="col-sm-6 text-center" style="width:0;">X</div>
+                                        <div class="col-sm-6 text-center">
+                                            <input type="number" name="persenBiaya" step="any" onchange="calc2();" placeholder="%" id="persenBiaya" value="<?php echo $dataPO[0]->persenBiaya ?>" class="form-control">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-1 text-center" style="width:0;"></div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
+                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $dataPO[0]->hargaBahan ?>" class="form-control" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +174,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php echo $hargaAwal=$sisaBerat*$gold['currentCurrency'];?>" placeholder="Rp"  class="form-control" readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php echo $hargaAwal=$sisaBerat*($dataPO[0]->persenBiaya/100)*$dataPO[0]->hargaBahan;?>" placeholder="Rp"  class="form-control" readonly>
                                         <input type="text" id="hargaAwals" value="<?php echo number_format($hargaAwal,2,",",".");?>" class="form-control" readonly>
                                     </div>
                                     <div class="col-sm-6" style="width:0;"></div>
@@ -278,7 +281,7 @@
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $gold['currentCurrency'] ?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $dataPO[0]->hargaDatangEmas ?>" class="form-control" required readonly>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
@@ -345,8 +348,28 @@
                 radioClass: 'iradio_square-green',
             });
 
-            
+            var jenisCustomer= '<?php echo $dataPO[0]->jenisCustomer?>';
+            if (jenisCustomer=='Toko') {
+                document.getElementById('showPersen').style.display = 'block';
+            } else {
+                document.getElementById('showPersen').style.display = 'none';
+                document.getElementById('persenBiaya').value=100;
+            }
+
         });
+    </script>
+    <script type="text/javascript">
+        $("#toko").on("ifChanged", produkCheck);
+        $("#perseorangan").on("ifChanged", produkCheck);
+        function produkCheck() {
+            if ($('#toko').iCheck('update')[0].checked) {
+                document.getElementById('showPersen').style.display = 'block';
+            } else if($('#perseorangan').iCheck('update')[0].checked) {
+                document.getElementById('showPersen').style.display = 'none';
+                document.getElementById('persenBiaya').value=100;
+                calc2()
+            }
+        }
     </script>
     
     <script type="text/javascript">
@@ -385,9 +408,10 @@
                 var e = parseFloat(document.getElementById('beratBatu').value);
                 var f = parseFloat(document.getElementById('susut').value);
                 var g = parseFloat(document.getElementById('hargaBahan').value);
-
+                var m = parseFloat(document.getElementById('persenBiaya').value);
+                console.log(m);
                 var h = d+f-e;
-                var i = h*g;
+                var i = h*g*(m/100);
                 var hargaAwals=formatNumber(i);
                 document.getElementById('sisaBerat').value = h;
                 document.getElementById('hargaAwal').value = i;
