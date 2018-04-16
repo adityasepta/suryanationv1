@@ -444,7 +444,7 @@ class mdl extends CI_Model {
 
     public function findSPK2($idSPK){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM spk where idSPK = $idSPK LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM spk a, potempahan b where a.idSPK = $idSPK and a.nomorPO = b.nomorPO LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
