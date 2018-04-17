@@ -113,12 +113,14 @@
                                          <td>Kode Produk: <?php echo $kodeProduk ?><br>
                                         Jenis Produk: <?php echo $jenisProduk ?><br>
                                         Ukuran Jari: <?php echo $ukuranJari ?> <br>
-                                        Model: <?php echo $model ?></td>
+                                        Model: <?php echo $model ?><br>
+                                        Estimasi Berat: <?php echo $dataPO[0]->beratAkhir ?></td>
 
                                         <td>Bahan: <?php echo $bahan ?><br>
                                         Kadar Bahan: <?php echo $kadarBahan ?>%<br>
                                         Datang Emas: <?php echo $datangEmas ?><br>
-                                        Kadar Datang Emas: <?php echo $kadarDatangEmas?>
+                                        Kadar Datang Emas: <?php echo $kadarDatangEmas?><br>
+                                        Susut: <?php echo $dataPO[0]->susut ?>
                                         </td>
 
                                         <td>Krum Warna: <?php echo $krumWarna ?><br>

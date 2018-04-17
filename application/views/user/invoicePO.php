@@ -84,7 +84,6 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -186,7 +185,7 @@
                                                (Berat Akhir - Berat Batu + Susut)
                                             </td>
                                             <td class="text-center">
-                                                <label><?php echo $beratSisa=$beratAkhir-$beratBatu+$susut?> Pcs</label>
+                                                <label><?php echo $beratSisa=$beratAkhir-$beratBatu+$susut?> gr</label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right">Rp. <?php echo number_format($hargaBahan,2,",","."); ?></label>
@@ -214,13 +213,13 @@
                                                Upah Pasang Berlian
                                             </td>
                                             <td class="text-center">
-                                                <label> <?php if($jumlahDatangBerlian==NULL){echo 0;} else { echo $jumlahDatangBerlian;}?> Pcs</label>
+                                                <label> <?php if($jumlahDatangBerlian==NULL){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
                                             </td>
                                             <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahBerlian=$jumlahDatangBerlian*$upahPasangBerlian,2,".","."); ?></label>
+                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahBerlian=$datangBerlian*$upahPasangBerlian,2,".","."); ?></label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -237,6 +236,25 @@
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upahCZ=$hargaBatuZirkon*$jumlahBatuZirkon,2,".","."); ?></label>
                                             </td>
                                         </tr>
+                                        <?php $hargaPerBerlian=0; $hargaBerlian=0; for ($y=0; $y < count($poberlian) ; $y++) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $poberlian[$y]->namaMaterial ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $poberlian[$y]->jumlah?></label>
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $poberlian[$y]->harga?></label>
+                                            </td>
+                                            <td>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$poberlian[$y]->harga,2,".","."); ?></label>
+                                            </td>
+                                        </tr>
+                                        <?php 
+                                                $hargaBerlian+=$hargaPerBerlian; 
+                                            } 
+                                        ?>
                                         <tr>
                                             <td>
                                                Harga Krum Warna
@@ -251,9 +269,38 @@
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></label>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                               Pekerjaan Tambahan <br>
+                                               (<?php echo $pekerjaanTambahan ?>)
+                                            </td>
+                                            <td class="text-center">
+                                                <label>-</label>
+                                            </td>
+                                            <td class="text-center">
+                                                <label>-</label>
+                                            </td>
+                                            <td>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan=$dataPO[0]->hargaEnamel+$dataPO[0]->hargaSlap+$dataPO[0]->hargaKombinasi+$dataPO[0]->hargaLaserHuruf+$dataPO[0]->hargaKodeCap,2,".","."); ?></label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               Datang Emas
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $dataPO[0]->datangEmas;?> gr</label>
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $dataPO[0]->hargaDatangEmas ?></label>
+                                            </td>
+                                            <td>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas,2,".","."); ?></label>
+                                            </td>
+                                        </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="3"><strong>Total Harga</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaAwal+$upah+$upahBerlian+$upahCZ+$hargaKrumWarna,2,",",".");?></strong></td>
+                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaAwal+$upah+$upahBerlian+$upahCZ+$biayaTambahan+$hargaKrumWarna-$totalDatangEmas,2,",",".");?></strong></td>
                                         </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="3"><strong>Panjar</strong></td>

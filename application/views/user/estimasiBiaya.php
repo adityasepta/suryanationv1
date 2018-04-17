@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $dataPO[0]->hargaBahan ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $dataPO[0]->hargaBahan ?>" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -281,11 +281,11 @@
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $dataPO[0]->hargaDatangEmas ?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $dataPO[0]->hargaDatangEmas ?>" class="form-control" readonly required>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$gold['currentCurrency'];?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas;?>" class="form-control" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -298,13 +298,41 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label class="col-sm-2">Selisih Harga</label>
+                                    <div class="col-sm-1" style="width:0;">:</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Rp" name="selisihHarga" id="selisihHarga" onchange="calc();" value="<?php echo $dataPO[0]->selisihHarga ?>" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Biaya Total</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$biayaTambahan+$hargaBerlian+$upahCZ+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$biayaTambahan+$hargaBerlian+$upahCZ+$dataPO[0]->selisihHarga+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
                                     <input type="text" id="totals" value="<?php echo number_format($totalBiaya,2,",",".");?>" class="form-control" required readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label class="col-sm-2">Diskon</label>
+                                    <div class="col-sm-1" style="width:0;">:</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Rp" name="diskon" id="diskon" onchange="calc();" value="<?php echo $dataPO[0]->diskon ?>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label class="col-sm-2">Harga Terakhir</label>
+                                    <div class="col-sm-1" style="width:0;">:</div>
+                                    <div class="col-sm-2"><input type="hidden" name="hargaTerakhir" id="hargaTerakhir" value="<?php echo $hargaTerakhir=$totalBiaya-$dataPO[0]->diskon?>" class="form-control" required readonly>
+                                    <input type="text" id="hargaTerakhirs" value="<?php echo number_format($hargaTerakhir,2,",",".");?>" class="form-control" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -383,12 +411,18 @@
                     var panjar = parseFloat(document.getElementById('panjar').value);
                     var biayaTambahan = parseFloat(document.getElementById('biayaTambahan').value);
                     var hargaBerlian = parseFloat(document.getElementById('hargaBerlian').value);
-                    console.log(biayaTambahan);
-                    var total = hargaAwal+upah+upahBerlian+upahCZ+hargaKrumWarna+biayaTambahan+hargaBerlian-(totalDatangEmas+panjar);
+                    var selisihHarga = parseFloat(document.getElementById('selisihHarga').value);
+                    var diskon = parseFloat(document.getElementById('diskon').value);
+
+                    var total = hargaAwal+upah+upahBerlian+upahCZ+hargaKrumWarna+biayaTambahan+hargaBerlian+selisihHarga-(totalDatangEmas+panjar);
                     var totals = formatNumber(total);
                     document.getElementById('total').value = total;
                     document.getElementById('totals').value = totals;
 
+                    var hargaTerakhir = total-diskon;
+                    var hargaTerakhirs = formatNumber(hargaTerakhir);
+                    document.getElementById('hargaTerakhir').value = hargaTerakhir;
+                    document.getElementById('hargaTerakhirs').value = hargaTerakhirs;
                 }
   
 
