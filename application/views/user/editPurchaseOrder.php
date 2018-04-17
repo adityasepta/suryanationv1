@@ -589,7 +589,6 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="submit">Cancel</button>
                                         <button id="submit" class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

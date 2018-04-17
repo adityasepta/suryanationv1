@@ -2748,7 +2748,7 @@ class User extends CI_Controller {
 
     public function invoicePO($nomorPO){
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        // print_r($data);exit();
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
         $this->load->view('user/invoicePO',$data);
     }
 
@@ -2811,7 +2811,7 @@ class User extends CI_Controller {
     
     public function printInvoice($nomorPO){
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        // print_r($data);exit();
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
         $this->load->view('user/printInvoice',$data);
     }
 
@@ -4248,8 +4248,7 @@ class User extends CI_Controller {
             $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
             $this->load->view('user/createPurchaseOrder',$data);
-        }
-        else {
+        } else {
 
             if(!$this->input->post('pekerjaanTambahan[]')) {
                 $pekerjaanTambahan = "Tidak Ada";
@@ -4340,6 +4339,7 @@ class User extends CI_Controller {
                         $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir();
                         $this->load->view('user/createPurchaseOrder',$data);
+
                     }
                     else {
                         $gambar = $this->upload->data();
@@ -7448,6 +7448,10 @@ class User extends CI_Controller {
             'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
             'jenisCustomer'     => $jenisCustomer,
             'persenBiaya'       => $persenBiaya,
+            'hargaBahan'        => $this->input->post('hargaBahan'),
+            'hargaDatangEmas'   => $this->input->post('hargaDatangEmas'),
+            'diskon'        => $this->input->post('diskon'),
+            'selisihHarga'   => $this->input->post('selisihHarga'),
         );
         $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);    
 
