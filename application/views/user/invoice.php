@@ -132,9 +132,7 @@
                                     <div class="m-b-md">
                                         <a href="<?php echo base_url()?>user/printSPKTempahan/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
                                         <h2><?php echo $namaProduk ?></h2>
-                                        <?php if(count($kl)>0) {  ?>
-                                            <a class="btn btn-xs pull-right btn-info" href="<?php echo base_url('user/createBOMTempahan/'.$kl[0]->idKloter)?>"><i class="fa fa-cubes"></i> BOM SPK</a>
-                                        <?php }?>
+                                        
                                         
                                     </div>
                                 </div>

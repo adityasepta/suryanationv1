@@ -6709,6 +6709,7 @@ class User extends CI_Controller {
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $data['staf'] = $this->mdl->getStaf();
         $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
+        $data['sub'] = $this->mdl->getSubSPK($idSPK);
         $this->load->view('user/invoiceMassal', $data);
     }
 
