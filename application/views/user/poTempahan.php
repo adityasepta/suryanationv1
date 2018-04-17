@@ -85,6 +85,7 @@
                                     <th>Nama Konsumen</th>
                                     <th data-hide="phone,tablet">Jenis Produk</th>
                                     <th data-hide="phone,tablet">Nama Produk</th>
+                                    <th class="text-center" data-hide="phone,tablet">Invoice</th>
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
                                 </tr>
                                 </thead>
@@ -98,7 +99,12 @@
                                     <td><?php echo $hasil->namaCustomer?></td>
                                     <td><?php echo $hasil->jenisProduk?></td>
                                     <td><?php echo $hasil->namaProduk?></td>
-                                    
+                                    <td class="text-center">
+                                        <?=anchor('user/estimasiBiaya/' . $hasil->nomorPO, 'Invoice', [
+                                          'class' => 'btn btn-info btn-xs',
+                                          'role'  => 'button'
+                                         ])?>
+                                    </td>
                                     <td class="text-center">
                                         <?=anchor('user/invoicePO/' . $hasil->nomorPO, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',

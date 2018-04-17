@@ -60,7 +60,7 @@
                             <a href="<?php echo base_url();?>user/administration">Beranda</a>
                         </li>
                         <li class="active">
-                            <strong>Estimasi Biaya</strong>
+                            <strong>Biaya</strong>
                         </li>
                     </ol>
                 </div>
@@ -76,7 +76,8 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h2 class="text-navy">Estimasi Biaya</h2>
+                                    <a href="<?php echo base_url()?>user/printInvoice/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print Invoice</a>
+                                    <h2 class="text-navy">Biaya</h2>
                                 </div>
                             </div>
                             <?php echo form_open_multipart('user/updateBiaya/'.$nomorPO)?>

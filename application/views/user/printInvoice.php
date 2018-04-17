@@ -302,43 +302,12 @@
                                         <td class="text-right" ><strong>Rp. <?php echo number_format($panjar,2,",",".");?></strong></td>
                                     </tr>
                                     <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="3"><strong class="text-navy">Estimasi Biaya Yang Harus Dibayar</strong></td>
+                                        <td class="text-left" colspan="3"><strong class="text-navy">Harga Yang Harus Dibayar</strong></td>
                                         <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($sisaBayar=$total-$panjar,2,",",".");?></strong></td>
                                     </tr>
                                     </tbody>
                             </table>
-                            <!-- <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: 600; text-align: left;" colspan="3">Panjar</td>
-                                        <td class="text-right" >Rp. <?php echo number_format($panjar,2,".","."); ?></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding: 0 0 20px;">
-                                <tbody>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                <tr bgcolor="#F1F1F1" style="font-size: 15px; color: #42B549; background-color: rgba(0,0,0,0.1);">
-                                                    <td style="padding: 15px 0 15px 15px; font-weight: 600;">Harus Dibayar</td>
-                                                    <td class="text-right" style="padding: 15px 15px 15px 0; font-weight: 600; text-align: right; ">Rp. <?php echo number_format($total-$panjar,2,".","."); ?></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                
-                                            </table>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
+                            <!--  -->
                         </div>
 
                     </div>
