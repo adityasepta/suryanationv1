@@ -56,6 +56,8 @@
     $batuTerhadapPukulan    = $dataSPK[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataSPK[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataSPK[0]->keadaanBatuTengah;
+    $beratAkhir                 = $dataSPK[0]->beratAkhir;
+    $susut                 = $dataSPK[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -150,6 +152,7 @@
                                     </dl>
                                     <dl class="dl-horizontal" >
                                         <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
+                                        <dt>Tgl Setuju Desain:</dt> <dd><?php echo $tglmsk;?></dd>
                                         <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
                                     </dl>
                                 </div>

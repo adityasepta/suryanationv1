@@ -108,10 +108,10 @@
             <br>    
             <button data-toggle="modal" data-target="#subspk<?php echo $sp[$i]->nomorFaktur ?>" class="btn btn-xs btn-info btn-block">Tambah</button>
         </div>
-        <div class="col-lg-4">
-            <br>    
-            <a href="<?php echo base_url();?>user/selesaiSeparasi/<?php echo $sp[$i]->nomorFaktur ?>" onclick="return confirm('Apakah anda yakin untuk menyelesaikan separasi pada produksi nomor faktur <?php echo $sp[$i]->nomorFaktur ?>')"><button type="submit" class="btn btn-xs btn-warning btn-block">Selesai</button></a>
-        </div>
+        <!--<div class="col-lg-4">-->
+        <!--    <br>    -->
+        <!--    <a href="<?php echo base_url();?>user/selesaiSeparasi/<?php echo $sp[$i]->nomorFaktur ?>" onclick="return confirm('Apakah anda yakin untuk menyelesaikan separasi pada produksi nomor faktur <?php echo $sp[$i]->nomorFaktur ?>')"><button type="submit" class="btn btn-xs btn-warning btn-block">Selesai</button></a>-->
+        <!--</div>-->
 
 
         

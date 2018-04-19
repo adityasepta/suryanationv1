@@ -977,7 +977,7 @@ class User extends CI_Controller {
         $this->load->library('upload');
 
         $config['upload_path']     = './uploads/gambarDesain/'; 
-        $config['allowed_types']   = 'jpg|jpeg'; 
+        $config['allowed_types']   = 'jpg|jpeg|png'; 
         $config['max_size']        = '6000';
         $config['file_name']       = $kode.'-thumb.jpg';
         $config['overwrite']        = TRUE;
@@ -1688,7 +1688,7 @@ class User extends CI_Controller {
                 $color=$this->input->post('color');
                 $kadar=0;
             } else {
-                $kadar="";
+                $kadar="0";
                 $clarity="";
                 $color="";
                 $karat="";
@@ -1710,7 +1710,7 @@ class User extends CI_Controller {
             $kat = $this->input->post('kategori');
             $t = $this->mdl->cekMaterial($kat, $kadar);
             $d = count($t);
-            if($kat!="Berlian"){
+            if($kat!="Berlian" && $kat != 'Non Emas'){
                 if($d == 0) {
                     $this->mdl->insertData('materialdasar',$dataMaterial);
                     $message = "Material dasar berhasil dibuat";
@@ -5842,6 +5842,16 @@ class User extends CI_Controller {
         $nomorPO = $this->input->post('nomorPO');
         $beratAkhir = $this->input->post('beratakhir');
         $jumlah = $this->input->post('jumlah');
+        
+        $data = array(
+            
+            'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),
+            
+            'statusJadwal' => 'Disetujui',
+            'statusPersetujuan' => 'Disetujui'
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
 
         $data = array(
             'statusSPK' => 'Done',

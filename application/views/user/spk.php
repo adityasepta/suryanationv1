@@ -89,14 +89,14 @@
                                     <th class="text-center">Faktur</th>
                                     <th class="text-center">Kloter</th>
                                     <th>Konsumen</th>
-                                    <th data-hide="phone,tablet">Produk</th>
+                                    <th >Produk</th>
                                     <th class="text-center">Kadar</th>
                                     
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Status</th>
+                                    <th class="text-center" >Status</th>
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Action</th>
-                                    <th class="text-center" data-hide="phone,tablet">Keterangan </th>
+                                    <th class="text-center">Action</th>
+                                    <th class="text-center" >Keterangan </th>
                                 </tr>
                                 </thead>
                                 <tbody>

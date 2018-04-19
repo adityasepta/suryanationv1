@@ -33,6 +33,10 @@
     <div class="row">
         <br>
         <div class="col-lg-12">
+            <span class="text-danger"><?php echo substr($d[$i]->keteranganDesain,0,30) ?> ...</span>
+        </div>
+        <br>
+        <div class="col-lg-12">
             <button data-toggle="modal" data-target="#detailx2<?php echo $d[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
         
