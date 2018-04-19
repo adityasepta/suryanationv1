@@ -223,7 +223,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PENJADWALAN <span class="label label-success pull-right"><?php  echo count($j)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> penjadwalan </p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="acc">   
 
                                         <?php for ($i=0; $i < count($j) ; ++$i) { ?>
@@ -239,7 +239,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>DESAIN <span class="label label-success pull-right"><?php  echo count($d)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> desain</p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="desain">
                                      <?php for ($i=0; $i < count($d) ; ++$i) { ?>
                                            <?php include('card/card-desain.php') ?>
@@ -253,7 +253,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>MENUNGGU ACC <span class="label label-success pull-right"><?php  echo count($m)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> menunggu persetujuan desain</p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="desain">
                                      <?php for ($i=0; $i < count($m) ; ++$i) { ?>
                                            <?php include('card/card-menunggu.php') ?>
@@ -267,7 +267,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PRINTING <span class="label label-success pull-right"><?php  echo count($p)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> printing</p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="desain">
                                      <?php for ($i=0; $i < count($p) ; ++$i) { ?>
                                            <?php include('card/card-print.php') ?>
@@ -281,7 +281,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>LILIN / WAXING<span class="label label-success pull-right"><?php  echo count($k1)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Lilin <b>1003</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="gips">
                                         <?php for ($i=0; $i < count($li) ; ++$i) { ?>
                                            <?php include('card/card-lilin.php') ?>
@@ -302,7 +302,7 @@
                                         
                                         
                                     </h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> penentuan kloter produksi </p><button  data-toggle="modal" data-target="#kloter"  class="btn btn-xs btn-info">Tambah Kloter</button>
+                                    <button  data-toggle="modal" data-target="#kloter"  class="btn btn-xs btn-info">Tambah Kloter</button>
                                     <ul class="sortable-list connectList agile-list" id="lilin">
 
                                         <?php for ($i=0; $i < count($qw) ; ++$i) { ?>
@@ -323,7 +323,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GIPS<span class="label label-success pull-right"><?php  echo count($k2)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Gips <b>1004</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="gips">
                                         <?php for ($i=0; $i < count($k2) ; ++$i) { ?>
                                            <?php include('card/card-kloter2.php') ?>
@@ -337,7 +337,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>COR<span class="label label-success pull-right"><?php  echo count($k3)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Cor <b>1006</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="cor">
 
                                         <?php for ($i=0; $i < count($k3) ; ++$i) { ?>
@@ -356,7 +356,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GOSOK<span class="label label-success pull-right"><?php  echo count($go)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Gosok <b>1007</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="gosok">
                                          <?php for ($i=0; $i < count($go) ; ++$i) { ?>
                                            <?php include('card/card-gosok.php') ?>
@@ -370,7 +370,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>BOOM<span class="label label-success pull-right"><?php echo count($bo)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Boom <b>1008</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="boom">
                                        <?php for ($i=0; $i < count($bo) ; ++$i) { ?>
                                            <?php include('card/card-boom.php') ?>
@@ -386,7 +386,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PASANG CZ<span class="label label-success pull-right"><?php  echo count($cz)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Pasang CZ <b>1009</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="cz">
                                         <?php for ($i=0; $i < count($cz) ; ++$i) { ?>
                                            <?php include('card/card-cz.php') ?>
@@ -400,7 +400,7 @@
                             <div class="ibox">
                                 <div class="ibox-content"> 
                                     <h3>POLISH<span class="label label-success pull-right"><?php  echo count($po)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Polish <b>1010</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="poles">
                                         <?php for ($i=0; $i < count($po) ; ++$i) { ?>
                                            <?php include('card/card-polish.php') ?>
@@ -414,7 +414,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>SLEB<span class="label label-success pull-right"><?php echo count($sl)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Sleb <b>1011</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="chrome">
                                       <?php for ($i=0; $i < count($sl) ; ++$i) { ?>
                                            <?php include('card/card-sleb.php') ?>
@@ -427,7 +427,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>KRUM<span class="label label-success pull-right"><?php echo count($kr)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Krum <b>1012</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="chrome">
                                       <?php for ($i=0; $i < count($kr) ; ++$i) { ?>
                                            <?php include('card/card-krum.php') ?>
@@ -440,7 +440,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PASANG BATU TENGAH<span class="label label-success pull-right"><?php echo count($bt)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Batu Tengah <b>1013</b></p>
+                                    
                                     <ul class="sortable-list connectList agile-list" id="chrome">
                                       <?php for ($i=0; $i < count($bt) ; ++$i) { ?>
                                            <?php include('card/card-batu.php') ?>
@@ -453,8 +453,8 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>DONE<span class="label label-success pull-right"><?php echo count($do)?></span></h3>
-                                    <p>Kumpulan dari SPK yang selesai <br>
-                                    proses produksi dan menunggu<br> dipindah ke gudang</p>
+                                    
+                                    
                                     <ul class="sortable-list connectList agile-list" id="done">
                                       <?php for ($i=0; $i < count($do) ; ++$i) { ?>
                                            <?php include('card/card-done.php') ?>
@@ -468,7 +468,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>FINANCE / SALES<span class="label label-success pull-right"><?php echo count($jd)?></span></h3>
-                                    <p>Kumpulan dari PO Produk yang<br>
+                                    
                                     menunggu diambil customer</p>
                                     <ul class="sortable-list connectList agile-list" id="done">
                                       <?php for ($i=0; $i < count($jd) ; ++$i) { ?>
