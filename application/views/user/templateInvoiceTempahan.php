@@ -5,20 +5,20 @@
                                                 <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
                                                 <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
                                                 <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
-                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
+                                                <dt><?php if($jenisProduk=="Gelang"){ echo "Diameter";} else { echo "Ukuran";} ?>:</dt> <dd><?php echo $ukuranJari?></dd>
                                                 <dt>Estimasi Berat Akhir:</dt> <dd><?php echo $beratAkhir?></dd>
                                                 <dt>Susut:</dt> <dd><?php echo $susut?></dd>
                                             </dl>
                                         </div>
                                         <div class="col-lg-6">
                                             <dl class="dl-horizontal">
-                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
-                                                <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
+                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
                                                 <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
                                                 <dt>Model:</dt> <dd> <?php echo $model ?></dd>
+                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
                                                 <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
                                                 <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
-                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
+                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
                                             </dl>
                                         </div>
                                         
