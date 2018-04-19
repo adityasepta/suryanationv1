@@ -926,6 +926,20 @@ class User extends CI_Controller {
         }
     }
 
+    public function setKeterangan() {
+        $idSPK = $this->input->post('idSPK');
+
+        $data = array(
+            'keteranganDesain' => $this->input->post('ket')
+            );
+
+        $this->mdl->updateData('idSPK',$idSPK,'spk',$data);
+
+        $message = "Berhasil menambahkan keterangan";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/spk")."';</script>";
+    }
+
     public function uploadJadwal(){
             //eksekusi query insert tanpa gambar
         $idAktivitas    =$this->input->post('idAktivitas');
