@@ -55,9 +55,10 @@
     $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
-
+    $estimasi               = $dataPO[0]->estimasi;
+    $keteranganBatu         = $dataPO[0]->keteranganBatu;
     $beratAkhir             = $dataPO[0]->beratAkhir;
-    $susut             = $dataPO[0]->susut;
+    $susut                  = $dataPO[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -155,6 +156,7 @@
                                         Keterangan Krum: <?php echo $keteranganKrum ?></td>
 
                                         <td>Metode: <?php echo $metode ?><br>
+                                        Model: <?php echo $model ?><br>
                                         Model: <?php echo $model ?>
                                         </td>
                                     </tr>
@@ -174,9 +176,12 @@
                                     </tr>
                                     <tr>
                                         <td><p id="batuA">Batu Terhadap Pukulan: <?php echo $batuTerhadapPukulan ?><br>
-                                        Batu Terhadap Goresan: <?php echo $batuTerhadapGoresan ?></p></td>
+                                        Batu Terhadap Goresan: <?php echo $batuTerhadapGoresan ?><br>
+                                        Keterangan Batu: <?php echo $keteranganBatu ?></p></td>
                                         <td><p id="batuB">Batu Terhadap Kruman: <?php echo $batuTerhadapKruman ?><br>
                                         Keadaan Batu Tengah: <?php echo $keadaanBatuTengah ?></p></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -6,6 +6,7 @@
                                                 <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
                                                 <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
                                                 <dt><?php if($jenisProduk=="Gelang"){ echo "Diameter";} else { echo "Ukuran";} ?>:</dt> <dd><?php echo $ukuranJari?></dd>
+                                                <dt>Range Berat Estimasi:</dt> <dd><?php echo $estimasi?></dd>
                                                 <dt>Estimasi Berat Akhir:</dt> <dd><?php echo $beratAkhir?></dd>
                                                 <dt>Susut:</dt> <dd><?php echo $susut?></dd>
                                             </dl>
@@ -66,6 +67,7 @@
                                             <dl class="dl-horizontal" id="namaBatu2">
                                                 <dt>Batu Terhadap Kruman:</dt>  <dd> <?php echo $batuTerhadapKruman ?> </dd>
                                                 <dt>Batu Terhadap Pukulan:</dt> <dd> <?php echo $batuTerhadapPukulan ?></dd>
+                                                <dt>Keterangan Batu:</dt> <dd><?php echo $keteranganBatu?></dd>
                                             </dl>
                                         </div>
                                         <div class="col-lg-6" id="cluster_info">

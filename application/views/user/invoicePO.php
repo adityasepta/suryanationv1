@@ -55,9 +55,10 @@
     $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
-
+    $estimasi               = $dataPO[0]->estimasi;
+    $keteranganBatu         = $dataPO[0]->keteranganBatu;
     $beratAkhir             = $dataPO[0]->beratAkhir;
-    $susut             = $dataPO[0]->susut;
+    $susut                  = $dataPO[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
