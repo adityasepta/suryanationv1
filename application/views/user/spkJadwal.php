@@ -245,15 +245,16 @@
                                         <label class="control-label">Tanggal Selesai</label>
                                     </div>
                                 </div>
-                                <?php 
+                                <?php echo count($aktivitas);
 
                                 ?>
-                                <?php $b=count($aktivitas); for ($i=0; $i < $b ; $i++) { ?> 
+                                <?php $b = count($aktivitas); for ($i=0; $i < 2 ; $i++) { ?> 
+
                                     <div class="form-group">
                                         <div class="col-sm-3 col-sm-offset-1">
                                             <div class="i-checks">
                                                 <label>
-                                                    <input <?php if ($i<4) {echo "required";} ?> type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]"><i></i>  
+                                                    <input <?php if ($i<4) {echo "required";} ?> type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]">
                                                     <?php echo $aktivitas[$i]->namaAktivitas?>
 
                                                 </label>
@@ -268,7 +269,59 @@
                                             <input class="form-control" type="date" value="<?php echo $tglmsk1 ?>" name="endDate[]">
                                         </div>
                                     </div>
+
                                 <?php } ?>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3 col-sm-offset-1">
+                                        <div class="i-checks">
+                                            <label>
+                                                <input required type="checkbox" value="<?php echo $i?>" checked >
+                                                Printing
+
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                        <?php 
+                                          $tglmsk = new DateTime($tanggalMasuk);
+                                          $tglmsk1 = $tglmsk->format("Y-m-d");
+                                          ?>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="date" value="<?php echo $tglmsk1 ?>" name="tglPrint">
+                                    </div>
+                                </div>
+
+                                <?php $b = count($aktivitas); for ($i=2; $i < $b ; $i++) { ?> 
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3 col-sm-offset-1">
+                                            <div class="i-checks">
+                                                <label>
+                                                    <input <?php if ($i<4) {echo "required";} ?> type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]">
+                                                    <?php echo $aktivitas[$i]->namaAktivitas?>
+
+                                                </label>
+                                            </div>
+                                            <input class="form-control" type="hidden" value="<?php echo $aktivitas[$i]->idAktivitas?>" name="idAktivitas[]">   
+                                        </div>
+                                            <?php 
+                                              $tglmsk = new DateTime($tanggalMasuk);
+                                              $tglmsk1 = $tglmsk->format("Y-m-d");
+                                              ?>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" type="date" value="<?php echo $tglmsk1 ?>" name="endDate[]">
+                                        </div>
+                                    </div>
+
+                                <?php } ?>
+
+                                
+
+                       
+
+                                
+
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">

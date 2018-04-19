@@ -933,7 +933,8 @@ class User extends CI_Controller {
         $endDate        =$this->input->post('endDate');
         $nomorFaktur    =$this->input->post('nomorFaktur');
         // print_r($idAktivitas);exit();
-        for ($i=0; $i <count($nomorAktivitas); $i++) {
+        for ($i=0; $i < count($nomorAktivitas); $i++) {
+
             $b=$nomorAktivitas[$i]; 
             $dataAktivitas = array(
                 'idProduk'              => $this->input->post('idProduk'),
@@ -947,15 +948,18 @@ class User extends CI_Controller {
                 'startDate'           => $endDate[$b],
                 'endDate'           => $endDate[$b],
             );
-            $this->mdl->tambahRencana($dataJadwal);
+            
+           $this->mdl->tambahRencana($dataJadwal);
             
         } 
+
 
         $idSPK = $this->input->post('idSPK');
 
         $data = array(
             'statusJadwal' => 'Sudah Ada',
             'tanggalApprovalJadwal' => date("Y-m-d H:i:s"),
+            'tglPrint'           => $this->input->post('tglPrint'),
             );
 
         $this->mdl->updateData('idSPK',$idSPK,'spk',$data);

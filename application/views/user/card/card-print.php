@@ -1,6 +1,6 @@
 <?php 
 
-    $var = $p[$i]->endDate;
+    $var = $p[$i]->tglPrint;
     $statr = "";
     if((time()-(60*60*24)) < strtotime($var)) {
         $statr = "success";
