@@ -367,6 +367,7 @@ class User extends CI_Controller {
 
     public function convertTempahan() {
         $idCustomer=$this->input->post('idCustomer');
+
         redirect('user/createDetailPO/'.$idCustomer);
     }
 
@@ -384,6 +385,7 @@ class User extends CI_Controller {
 
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
+        $data['material']=$this->mdl->getMaterialBerlian(); 
         $this->load->view('user/createPurchaseOrder',$data);
     }
 
@@ -4273,6 +4275,7 @@ class User extends CI_Controller {
             }
             $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
+            $data['material']=$this->mdl->getMaterialBerlian(); 
             $this->load->view('user/createPurchaseOrder',$data);
         } else {
 
@@ -4314,7 +4317,7 @@ class User extends CI_Controller {
             $hargaBahan = $this->clean($this->input->post('hargaBahan'));
             $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
             $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
-            $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
+            // $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
             $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
             $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
             $upah = $this->clean($this->input->post('upah'));
@@ -4396,7 +4399,7 @@ class User extends CI_Controller {
 
             $harga=$this->input->post('harga');
             $qty=$this->input->post('kuantitas');
-            $totalHarga=($qty*$harga)+$upah;
+            $totalHarga=0;
 
             $datangEmas=$this->input->post('datangEmas');
             $idStokBarang = '';
@@ -4581,19 +4584,32 @@ class User extends CI_Controller {
                 'estimasi'   => $this->input->post('estimasi'),
 
                 'ukuranJari'        => $ukuranJari,
-                'berlian'           => $this->input->post('berlian'),
+                // 'berlian'           => $this->input->post('berlian'),
                 'krumWarna'         => $this->input->post('krumWarna'),
                 'tipeIkatan'        => $this->input->post('tipeIkatan'),
                 'model'             => $this->input->post('model'),
-                'beratBerlian'      => $this->input->post('beratBerlian'),
-                'hargaBerlian'      => $hargaBerlian,
+                // 'beratBerlian'      => $this->input->post('beratBerlian'),
+                // 'hargaBerlian'      => $hargaBerlian,
                 'batuZirkon'        => $this->input->post('batuZirkon'),
                 'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
                 'hargaBatuZirkon'   => $hargaBatuZirkon,
                 'hargaKrumWarna'    => $hargaKrumWarna,
                 'keteranganKrum'    => $this->input->post('keteranganKrum'),
             );
-            $this->mdl->tambahPO($dataPO);    
+            $this->mdl->tambahPO($dataPO); 
+
+            $kodeMaterial=$this->input->post('kodeMaterial[]');
+            $jumlah=$this->input->post('jumlah[]');
+            $harga=$this->input->post('harga[]');
+            for ($i=0; $i < count($kodeMaterial) ; $i++) { 
+                $dataPO = array(
+                    'nomorPO'       => $this->input->post('nomorPO'),
+                    'kodeMaterial'  => $kodeMaterial[$i],
+                    'jumlah'        => $jumlah[$i],
+                    'harga'         => $harga[$i],
+                );
+                $this->mdl->insertData('poberlian',$dataPO);  
+            }   
              
 
             //Query Tambah SPK
@@ -4621,6 +4637,7 @@ class User extends CI_Controller {
             $data['pegawai'] = $this->mdl->listPegawai();
             $nomorPO=$this->input->post('nomorPO');
             $data['dataPO'] = $this->mdl->findPO($nomorPO);
+            $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
             $this->load->view('user/invoicePO',$data);
 
         }

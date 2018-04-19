@@ -55,9 +55,10 @@
     $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
-
+    $estimasi               = $dataPO[0]->estimasi;
+    $keteranganBatu         = $dataPO[0]->keteranganBatu;
     $beratAkhir             = $dataPO[0]->beratAkhir;
-    $susut             = $dataPO[0]->susut;
+    $susut                  = $dataPO[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -201,8 +202,8 @@
                                             <td class="text-center">
                                                 <label>-</label>
                                             </td>
-                                            <td class="text-center">
-                                                <label>-</label>
+                                            <td class="text-right">
+                                                <label class="text-muted pull-right">-</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upah,2,",","."); ?></label>
@@ -213,7 +214,7 @@
                                                Upah Pasang Berlian
                                             </td>
                                             <td class="text-center">
-                                                <label> <?php if($jumlahDatangBerlian==NULL){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
+                                                <label> <?php if($jumlahDatangBerlian==NULL || $jumlahDatangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
@@ -245,7 +246,7 @@
                                                 <label><?php echo $poberlian[$y]->jumlah?></label>
                                             </td>
                                             <td class="text-center">
-                                                <label><?php echo $poberlian[$y]->harga?></label>
+                                                <label class="text-muted pull-right"><?php echo $poberlian[$y]->harga?></label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$poberlian[$y]->harga,2,".","."); ?></label>
@@ -262,8 +263,8 @@
                                             <td class="text-center">
                                                 <label>-</label>
                                             </td>
-                                            <td class="text-center">
-                                                <label>-</label>
+                                            <td class="text-right">
+                                                <label class="text-muted pull-right">-</label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></label>
@@ -277,8 +278,8 @@
                                             <td class="text-center">
                                                 <label>-</label>
                                             </td>
-                                            <td class="text-center">
-                                                <label>-</label>
+                                            <td>
+                                                <label class="text-muted pull-right">-</label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan=$dataPO[0]->hargaEnamel+$dataPO[0]->hargaSlap+$dataPO[0]->hargaKombinasi+$dataPO[0]->hargaLaserHuruf+$dataPO[0]->hargaKodeCap,2,".","."); ?></label>
@@ -291,11 +292,11 @@
                                             <td class="text-center">
                                                 <label><?php echo $dataPO[0]->datangEmas;?> gr</label>
                                             </td>
-                                            <td class="text-center">
-                                                <label><?php echo $dataPO[0]->hargaDatangEmas ?></label>
+                                            <td>
+                                                <label class="text-muted pull-right">Rp. <?php echo number_format($dataPO[0]->hargaDatangEmas,2,",",".");?></label>
                                             </td>
                                             <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas,2,".","."); ?></label>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas,2,",","."); ?></label>
                                             </td>
                                         </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
@@ -312,7 +313,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
                                 <div>
                                     <a href="<?php echo base_url()?>user/purchaseOrder"><button type="button" class="btn btn-primary"> < Kembali</button></a>

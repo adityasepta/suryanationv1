@@ -211,7 +211,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -226,6 +226,14 @@
                                                         <label>Harga Berlian</label>
                                                         <input type="text" placeholder="Rp" name="hargaBerlian" class="form-control good" value="<?php echo set_value('hargaBerlian'); ?>">
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Berlian</button>
+                                                <div class="input_fields_wrap">
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -711,6 +719,26 @@
         function detailBatu(){
             document.getElementById('detailBatuPermata').style.display = 'block';
         }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var max_fields      = 30; //maximum input boxes allowed
+            var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+            
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Berlian</label><select class="form-control m-b" name="kodeMaterial[]"><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->kodeMaterial?>"><?php echo $material[$i]->kodeMaterial." - ".$material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-2"><label>Jumlah / Berat</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div><div class="col-md-3"><label>Harga Berlian</label><input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                }
+            });
+            
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+        });
     </script>
 </body>
 

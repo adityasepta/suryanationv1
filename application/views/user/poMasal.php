@@ -65,7 +65,7 @@
                             <h5>Daftar PO Masal</h5>
                             <div class="ibox-tools">
                                 <a class="btn btn-xs btn-info" href="<?php echo base_url();?>user/listInvoiceMassal" style="color:white;">
-                                    <i class="fa fa-search"><span style="font-family: 'open sans'"><strong> INVOICE</strong></span></i>
+                                    <i class="fa fa-dedent"><span style="font-family: 'open sans'"><strong> INVOICE</strong></span></i>
                                 </a>
                                 <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createPurchaseOrder">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PO</strong></span></i>
