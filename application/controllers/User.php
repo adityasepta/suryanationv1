@@ -2738,17 +2738,20 @@ class User extends CI_Controller {
     }
 
     public function hapusPO($nomorPO){
-        $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
+        
 
         $produk=$this->mdl->findprodukByPO($nomorPO);
         $idProduk=$produk[0]->idProduk;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
 
         redirect('user/purchaseOrder');
     }
 
     public function hapusPOMassal($nomorPO){
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         redirect('user/listPOMasal');
     }
 
@@ -4573,6 +4576,10 @@ class User extends CI_Controller {
                 'batuTerhadapPukulan' => $this->input->post('batuTerhadapPukulan'),
                 'batuTerhadapKruman'  => $this->input->post('batuTerhadapKruman'),
                 'keadaanBatuTengah'   => $this->input->post('keadaanBatuTengah'),
+
+                'keteranganBatu'   => $this->input->post('ketBatu'),
+                'estimasi'   => $this->input->post('estimasi'),
+
                 'ukuranJari'        => $ukuranJari,
                 'berlian'           => $this->input->post('berlian'),
                 'krumWarna'         => $this->input->post('krumWarna'),

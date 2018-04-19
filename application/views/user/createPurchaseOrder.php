@@ -377,6 +377,16 @@
                                                 <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a==""){?> checked="" <?php } ?> value="" name="keadaanBatuTengah"> <i></i> Tidak Ada </label></div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Range Berat Estimasi</label>
+                                            <div class="col-sm-3">
+                                                 <input type="text" class="form-control" name="estimasi" >
+                                            </div>
+                                            <label class="col-sm-2 control-label">Keterangan Batu</label>
+                                            <div class="col-sm-5">
+                                                 <textarea type="text" class="form-control" name="ketBatu" ></textarea>
+                                            </div>
+                                        </div>
                                     </div>
 
 
