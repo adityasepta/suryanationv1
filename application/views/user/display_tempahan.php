@@ -24,7 +24,7 @@
         }
 
         .pre-scrollable {
-            max-height: 500px;
+            max-height: 1900px;
             overflow-y: scroll;
         }
 
@@ -190,9 +190,12 @@
                         <div class="ibox float-e-margins animated fadeInRight">
                             <div class="ibox-title">
                                 <div class="row">
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-4">
                                         <h2>Status Produksi</h2>
                                         <span class="pull-left"><b><?php echo date('d F Y - ')?></b><b><span id="txt"></span></b></span>
+                                    </div>
+                                    <div class="text-center col-lg-4">
+                                        <h2>Kanban Tempahan / Custom</h2>
                                     </div>
                                     <div class="col-lg-4 text-right form-group">
                                         <a class="btn btn-xs btn-danger" href="<?php echo base_url('user/display/tempahan/3360')?>">Stop Auto Refresh</a>

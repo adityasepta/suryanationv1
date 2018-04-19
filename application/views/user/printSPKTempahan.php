@@ -98,7 +98,7 @@
                                             </a>&nbsp
                                             <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
                                                 <span style="vertical-align: middle">Cetak</span>
-                                                <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                                                <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
                                             </a>
                                         </td>
                                     </tr>
