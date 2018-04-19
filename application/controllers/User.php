@@ -2752,6 +2752,9 @@ class User extends CI_Controller {
     }
 
     public function hapusPOMassal($nomorPO){
+        $produk=$this->mdl->findprodukMassal($nomorPO);
+        $idProduk=$produk[0]->idProduk;
+        $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         redirect('user/listPOMasal');
