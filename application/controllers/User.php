@@ -50,14 +50,14 @@ class User extends CI_Controller {
             $data['p'] = $this->mdl->getPrint();
             
 
-            $data['li'] = $this->mdl->getLilin(1004);
+            $data['li'] = $this->mdl->getLilin(1003);
 
             
             $data['qw'] = $this->mdl->getKloter2();
             $data['g'] = $this->mdl->getGroup();
             //$data['g2'] = $this->mdl->getGroup2();
 
-            $data['k1'] = $this->mdl->getKloter(1004);
+            $data['k1'] = $this->mdl->getKloter(1003);
 
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
@@ -157,7 +157,7 @@ class User extends CI_Controller {
 
             $this->mdl->updateData('idProProd',$idProProd, 'factproduction', $data);
             
-            if ($idaktivitas !== 1004) {
+            if ($idaktivitas != 1003) {
 
                 $next = $idaktivitas;
 
@@ -2624,7 +2624,7 @@ class User extends CI_Controller {
 
         $data = array(
                 'idSPK' => $spk[0]->idSPK,
-                'idAktivitas' => 1004,
+                'idAktivitas' => 1003,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
         );

@@ -65,7 +65,7 @@
             <?php if($li[$i]->idPIC == 0) {?>
                 <button data-toggle="modal" data-target="#pic<?php echo $li[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Tambah PIC</button>
             <?php } else { ?>
-                <a href="<?php echo base_url('user/next/0/0/'.$li[$i]->idProProd.'/0') ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+                <a href="<?php echo base_url('user/next/0/1003/'.$li[$i]->idProProd.'/0') ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
             <?php } ?>
 
             
