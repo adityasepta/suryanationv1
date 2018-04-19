@@ -2845,6 +2845,8 @@ class User extends CI_Controller {
 
     public function printSPKTempahan($nomorFaktur){
         $data['dataPO'] = $this->mdl->findSPKTempahan($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
+        // print_r($data);exit();
         $this->load->view('user/printSPKTempahan',$data);
     }
 
