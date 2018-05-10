@@ -144,9 +144,22 @@
                                         <div class="i-checks"><label> <input id="gelang" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Gelang"){?> checked="" <?php } ?> value="Gelang" name="jenisProduk" onclick="produkCheck();"> <i></i> Gelang </label></div>
                                         <div class="i-checks"><label> <input id="anting" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Anting"){?> checked="" <?php } ?> value="Anting" name="jenisProduk" onclick="produkCheck();"> <i></i> Anting </label></div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-2">
                                         <div class="i-checks"><label> <input id="mainanNama" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Mainan Nama"){?> checked="" <?php } ?> value="Mainan Nama" name="jenisProduk" onclick="produkCheck();"> <i></i> Mainan Nama </label></div>
                                         <div class="i-checks"><label> <input id="cincinKawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk" onclick="produkCheck();"><i></i> Cincin Kawin </label></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="i-checks"><label> <input id="lainlain" type="radio" <?php $a= set_value('jenisProduk'); if($a!="Cincin" || $a!="Liontin" || $a!="Gelang" || $a!="Anting" || $a!="Mainan Nama" || $a!="Cincin Kawin"){?> checked="" <?php } ?> value="Lain Lain" name="jenisProduk" onclick="produkCheck();"> <i></i> Lain - Lain </label></div>
+                                        <div><input type="text" placeholder="Jenis produk yang lain" name="jenisProdukDetail" class="form-control" value="<?php echo set_value('jenisProdukDetail'); ?>"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
+                                    <div class="col-lg-4">
+                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer"> <i></i> Toko </label></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer"> <i></i> Perseorangan </label></div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -174,12 +187,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label>Kadar Bahan (lokal)</label>
+                                            <div class="col-md-2">
+                                                <label>Kadar (lokal)</label>
                                                 <input type="text" name="kadarBahan" placeholder="%" value="<?php echo set_value('kadarBahan'); ?>"  class="form-control" required="">
                                             </div>
+                                            <div class="col-md-2">
+                                                <label>Penambahan Persen</label>
+                                                <input type="text" name="persenBiaya" placeholder="%" value="<?php echo set_value('persenBiaya'); ?>"  class="form-control" required="">
+                                            </div>
                                             <div class="col-md-4">
-                                                <label>Harga Pasaran</label>
+                                                <label>Harga Emas Per Gram</label>
                                                 <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>">
                                             </div>
                                         </div>
@@ -751,7 +768,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Berlian</label><select class="form-control m-b" name="kodeMaterial[]"><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->kodeMaterial?>"><?php echo $material[$i]->kodeMaterial." - ".$material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-2"><label>Jumlah / Berat</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div><div class="col-md-3"><label>Harga Berlian</label><input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Keterangan Kualitas Berlian</label><select class="form-control m-b" name="kodeMaterial[]"><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->kodeMaterial?>"><?php echo $material[$i]->kodeMaterial." - ".$material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-2"><label>Berat Karat (Poin)</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div><div class="col-md-3"><label>Harga Berlian Per Karat</label><input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
                 }
             });
             

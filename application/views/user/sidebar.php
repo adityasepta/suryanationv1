@@ -140,7 +140,7 @@
                           $tglsk = $tgl->format("d F Y");
                         ?>
                         <p class="nav-label" style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
-                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('Y-m-d',strtotime('now'))-date('Y-m-d',strtotime($gold['tanggal']))>0){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
-                        <p><?php echo date('Y-m-d',strtotime('now'))-date('Y-m-d',strtotime($gold['tanggal']))?></p>
+                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('Y-m-d',strtotime('now'))>date('Y-m-d',strtotime($gold['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
+                        <!-- <p><?php if(date("y-m-d", strtotime("today"))>date("y-m-d", strtotime($gold['tanggal']))){ echo "A";}else{ echo "B";}?></p> -->
                     </a>
                 </li>

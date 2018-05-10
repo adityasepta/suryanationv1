@@ -65,7 +65,7 @@
                             <h5>Daftar Harga Emas Per Hari</h5>
                         </div>
                         <div class="ibox-content">
-                            <?php if (date('Y-m-d',strtotime('now'))-date('Y-m-d',strtotime($gold['tanggal']))>0){ ?> 
+                            <?php if (date('Y-m-d',strtotime('now'))>date('Y-m-d',strtotime($gold['tanggal']))){ ?> 
                                 <?php echo form_open('user/tambahCurrency')?>
                                 <div class="row">
                                     <div class="col-lg-12">
