@@ -1206,7 +1206,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
-
+    
+     public function findSPKTempahanbyPO($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk where nomorPO = '$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+    
     public function getAktivitasService($nomorFaktur) {
         $sql   = "SELECT * FROM rencanaproduksiservice r, spkservice s where s.idSPK = r.idSPK and s.nomorFaktur = $nomorFaktur order by r.idAktivitas asc";
         $query = $this->db->query($sql);
@@ -1711,15 +1721,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    public function findSPKTempahanbyPO($nomorPO){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM spk where nomorPO = '$nomorPO' LIMIT 1");
-        if($hasil->num_rows() > 0){
-            return $hasil->row();
-        } else{
-            return array();
-        }
-    }
 
     public function findInvoice($nomorPO){
         //Query mencari record berdasarkan ID

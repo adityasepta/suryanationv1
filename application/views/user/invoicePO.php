@@ -214,7 +214,7 @@
                                                Upah Pasang Berlian
                                             </td>
                                             <td class="text-center">
-                                                <label> <?php if($jumlahDatangBerlian==NULL || $jumlahDatangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
+                                                <label> <?php if($datangBerlian==NULL || $datangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
@@ -246,7 +246,7 @@
                                                 <label><?php echo $poberlian[$y]->jumlah?></label>
                                             </td>
                                             <td class="text-center">
-                                                <label class="text-muted pull-right"><?php echo $poberlian[$y]->harga?></label>
+                                                <label class="text-muted pull-right">Rp. <?php echo number_format( $poberlian[$y]->harga,2,".",".");?></label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$poberlian[$y]->harga,2,".","."); ?></label>
@@ -388,17 +388,11 @@
                 document.getElementById('beratBatu1').style.display = 'none';
             };
 
-            var c = '<?php if($berlian!=null){echo $berlian;} else echo 0;?>';
+            var c = <?php echo count($poberlian) ?>;
             if(c==null||c==0){
                 document.getElementById('berlian').style.display = 'none';
-                document.getElementById('berlian1').style.display = 'none';
             };
 
-            var d = <?php echo $beratBerlian?>;
-            if(d==null||d==0){
-                document.getElementById('beratBerlian').style.display = 'none';
-                document.getElementById('beratBerlian1').style.display = 'none';
-            };
 
             var e = '<?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>';
             if(e==null||e==0){

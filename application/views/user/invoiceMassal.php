@@ -63,7 +63,7 @@
         $kodeGambar             = $dataSPK[0]->kodeGambar;
         $namaProduk             = $dataSPK[0]->namaProduk;
         $beratAkhir             = $dataSPK[0]->beratAkhir;
-        $susut             = $dataSPK[0]->susut;
+       // $susut             = $dataSPK[0]->susut;
         $kadarDatangEmas        = $dataSPK[0]->kadarDatangEmas; 
   }
 

@@ -780,6 +780,7 @@ class User extends CI_Controller {
 
     public function tambahDesain($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $this->load->view('user/spkDesain',$data);
     }
 
@@ -821,6 +822,7 @@ class User extends CI_Controller {
     public function tambahJadwal($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
         $data['aktivitas'] = $this->mdl->listAktivitas2();
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $this->load->view('user/spkJadwal',$data);
     }
 
@@ -865,6 +867,7 @@ class User extends CI_Controller {
     public function invoice($nomorFaktur) {
 
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $idSPK = $data['dataSPK'][0]->idSPK;
         $data['kl'] = $this->mdl->getKloterBySPK($idSPK);
         $data['rkp'] = $this->mdl->getRekapTempahan($idSPK);
@@ -2741,12 +2744,14 @@ class User extends CI_Controller {
 
     public function hapusPO($nomorPO){
         
-
+        $spk=$this->mdl->findSPKTempahanbyPO($nomorPO);
         $produk=$this->mdl->findprodukByPO($nomorPO);
         $idProduk=$produk[0]->idProduk;
+        $idSPK=$produk[0]->idSPK;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
 
         redirect('user/purchaseOrder');
     }
@@ -6758,6 +6763,7 @@ class User extends CI_Controller {
     public function invoiceSPKMassal($nomorFaktur) {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
         $idSPK = $data['dataSPK'][0]->idSPK;
+        //print_r($data['dataSPK'][0]->nomorPO);exit();
         $data['rkp'] = $this->mdl->getRekapMassal($idSPK);
         $data['jadwal']    = $this->mdl->getjadwal7($nomorFaktur);
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
@@ -6765,7 +6771,7 @@ class User extends CI_Controller {
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $data['staf'] = $this->mdl->getStaf();
-        $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
+        $data['produkPO'] = $this->mdl->getProdukPO($data['dataSPK'][0]->nomorPO);
         $data['sub'] = $this->mdl->getSubSPK($idSPK);
         $this->load->view('user/invoiceMassal', $data);
     }

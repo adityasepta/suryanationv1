@@ -81,6 +81,10 @@
         $batuTerhadapPukulan    = $dataSPK[0]->batuTerhadapPukulan;
         $batuTerhadapGoresan    = $dataSPK[0]->batuTerhadapGoresan;
         $keadaanBatuTengah      = $dataSPK[0]->keadaanBatuTengah;
+        $beratAkhir                 = $dataSPK[0]->beratAkhir;
+        $estimasi                 = $dataSPK[0]->estimasi;
+        $keteranganBatu                 = $dataSPK[0]->keteranganBatu;
+        $susut                 = $dataSPK[0]->susut;
   }
 
   $tglmsk = new DateTime($tanggalMasuk);

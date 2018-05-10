@@ -231,7 +231,7 @@
                                                Upah Pasang Berlian
                                             </td>
                                             <td class="text-center">
-                                                <label> <?php if($jumlahDatangBerlian==NULL || $jumlahDatangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
+                                                <label> <?php if($datangBerlian==NULL || $datangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
                                             </td>
                                             <td>
                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
@@ -346,8 +346,6 @@
                 var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
                 if(a==null||a==0){
                     document.getElementById('namaBatu').style.display = 'none';
-                    document.getElementById('namaBatu2').style.display = 'none';
-                    document.getElementById('namaBatu3').style.display = 'none';
                 };
 
                 var b = '<?php if($batuTerhadapKruman!=null){echo $batuTerhadapKruman;} else echo 0;?>';

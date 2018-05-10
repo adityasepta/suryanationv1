@@ -99,7 +99,7 @@
                                 <tbody>
                                     <tr style="margin-top: 8px; margin-bottom: 8px;">
                                         <td>
-                                            <span style="font-size: 20px; font-weight: 600px">RFQ</span>
+                                            <span style="font-size: 20px; font-weight: 600px">SPK</span>
                                         </td>
                                         <td style="text-align: right; padding-right: 15px;">
                                             <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/spk">

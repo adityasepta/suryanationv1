@@ -21,8 +21,8 @@
                     <ul class="nav nav-second-level"> 
                         <li><a href="<?php echo base_url();?>user/kanban">Kanban Tempahan</a></li>
                         <li><a href="<?php echo base_url();?>user/kanbanMassal">Kanban Massal</a></li> 
-                        <li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> 
-                        <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> 
+                        <!--<li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> 
+                        <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> -->
                     </ul> 
                 </li> 
                 <li> 
@@ -38,7 +38,7 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOMasal">PO Massal</a> 
                                 </li> 
-                                <li> 
+                               <!-- <li> 
                                     <a href="<?php echo base_url();?>user/listPOPerak">PO Perak</a> 
                                 </li> 
                                 <li> 
@@ -46,7 +46,7 @@
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOTrading">PO Trading</a> 
-                                </li> 
+                                </li> -->
                             </ul> 
                         </li> 
                         <li> 
@@ -58,12 +58,12 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKMasal">SPK Massal</a> 
                                 </li> 
-                                <li> 
+                                <!--<li> 
                                     <a href="<?php echo base_url();?>user/listSPKPerak">SPK Perak</a> 
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKService">SPK Service</a> 
-                                </li> 
+                                </li> -->
                             </ul> 
                         </li> 
                         <!-- <li>
@@ -140,6 +140,7 @@
                           $tglsk = $tgl->format("d F Y");
                         ?>
                         <p class="nav-label" style="margin-top: -5%;"><small><?php echo $tglsk ?></small></p>
-                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('d F Y', strtotime('now')) > date('d F Y', strtotime($gold['tanggal']))){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
+                        <p class="nav-label" style="margin-top: -2%;"><?php if (date('Y-m-d',strtotime('now'))-date('Y-m-d',strtotime($gold['tanggal']))>0){ ?> <span class="label label-warning">Perlu Update Harga Emas</span> <?php } ?></p>
+                        <p><?php echo date('Y-m-d',strtotime('now'))-date('Y-m-d',strtotime($gold['tanggal']))?></p>
                     </a>
                 </li>

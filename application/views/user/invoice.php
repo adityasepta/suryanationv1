@@ -565,16 +565,9 @@
                 document.getElementById('beratBatu1').style.display = 'none';
             };
 
-            var c = '<?php if($berlian!=null){echo $berlian;} else echo 0;?>';
+            var c = <?php echo count($poberlian) ?>;
             if(c==null||c==0){
                 document.getElementById('berlian').style.display = 'none';
-                document.getElementById('berlian1').style.display = 'none';
-            };
-
-            var d = <?php echo $beratBerlian?>;
-            if(d==null||d==0){
-                document.getElementById('beratBerlian').style.display = 'none';
-                document.getElementById('beratBerlian1').style.display = 'none';
             };
 
             var e = '<?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>';

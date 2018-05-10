@@ -438,7 +438,7 @@
                                                         <input type="text" placeholder="Pcs" name="datangBerlian" value="<?php echo set_value('datangBerlian'); ?>" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Kadar Datang Berlian</label>
+                                                        <label>Berat Datang Berlian</label>
                                                         <input type="text" name="jumlahDatangBerlian" placeholder="Carat" value="<?php echo set_value('jumlahDatangBerlian'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
@@ -639,14 +639,14 @@
 
     function produkCheck() {
 
-        if ($('#cincin').iCheck('update')[0].checked || $('#cincinKawin').iCheck('update')[0].checked) {
+        if ($('#cincin').iCheck('update')[0].checked) {
             document.getElementById('ukuranCincin').style.display = 'block';
             document.getElementById('produkDetail').style.display = 'block';
             document.getElementById('ukuranLiontin').style.display = 'none';
             document.getElementById('ukuranGelang').style.display = 'none';
             var nomorPO=document.getElementById('nomorPO').value;
             document.getElementById('kodeProduk').value = 'CNC-'+nomorPO;
-        } else if ($('#liontin').iCheck('update')[0].checked || $('#anting').iCheck('update')[0].checked || $('#mainanNama').iCheck('update')[0].checked){
+        } else if ($('#liontin').iCheck('update')[0].checked){
             document.getElementById('ukuranLiontin').style.display = 'block';
             document.getElementById('produkDetail').style.display = 'block';
             document.getElementById('ukuranCincin').style.display = 'none';
@@ -660,8 +660,28 @@
             document.getElementById('ukuranCincin').style.display = 'none';
             var nomorPO=document.getElementById('nomorPO').value;
             document.getElementById('kodeProduk').value = 'GLG-'+nomorPO;
-        }
-        else {
+        } else if ($('#cincinKawin').iCheck('update')[0].checked){
+            document.getElementById('ukuranCincin').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranLiontin').style.display = 'none';
+            document.getElementById('ukuranGelang').style.display = 'none';
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'CCK-'+nomorPO;
+        } else if ($('#anting').iCheck('update')[0].checked){
+            document.getElementById('ukuranLiontin').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranCincin').style.display = 'none';
+            document.getElementById('ukuranGelang').style.display = 'none';
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'ATG-'+nomorPO;
+        } else if ($('#mainanNama').iCheck('update')[0].checked){
+            document.getElementById('ukuranLiontin').style.display = 'block';
+            document.getElementById('produkDetail').style.display = 'block';
+            document.getElementById('ukuranCincin').style.display = 'none';
+            document.getElementById('ukuranGelang').style.display = 'none';
+            var nomorPO=document.getElementById('nomorPO').value;
+            document.getElementById('kodeProduk').value = 'MNA-'+nomorPO;
+        } else {
             document.getElementById('produkDetail').style.display = 'none';
             
         }

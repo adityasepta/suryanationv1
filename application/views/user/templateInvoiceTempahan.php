@@ -29,8 +29,12 @@
                                             <dl class="dl-horizontal" >
                                                 <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
                                                 <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
-                                                <dt id="berlian">Berlian:</dt> <dd id="berlian1">  <?php echo $berlian?></dd>
-                                                <dt id="beratBerlian">Berat Berlian:</dt> <dd id="beratBerlian1">  <?php echo $beratBerlian?></dd>
+                                        <div id="berlian">
+                                        <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
+                                        <dt>Berlian:</dt> <dd><?php echo $poberlian[$i]->namaMaterial ?></dd>
+                                        <dt>Berat / Jumlah:</dt> <dd><?php echo $poberlian[$i]->jumlah ?></dd>
+                                        <?php } ?>
+                                        </div>
                                                 <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>
                                                 <dt id="jumlahBatuZirkon">Jumlah Batu Zirkon:</dt> <dd id="jumlahBatuZirkon1">  <?php echo $jumlahBatuZirkon?></dd>
                                             </dl>

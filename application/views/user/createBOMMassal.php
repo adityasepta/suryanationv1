@@ -295,7 +295,7 @@
                         </div>
                         <div class="ibox-content form-horizontal">
 
-                            <?php echo form_open('user/tambahBOM')?>
+                            <?php echo form_open('user/tambahBOMMassal')?>
 
                             <div class="row">
                                 <div class="col-md-4">
