@@ -7,6 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+
+    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
     <title>Surya Sumatera | Status Produksi</title>
 
@@ -573,7 +580,10 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <table class="table table-responsive">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                 <thead>
                                     <tr>
                                         <th>Nama Kloter</th>
@@ -590,7 +600,15 @@
                                         </tr>
                                     <?php } ?>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
                             </table>
+
                         </div>
                     </div>
 
@@ -598,6 +616,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+
+    </script>
+    <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
 
 
     <!-- <script>
