@@ -48,6 +48,9 @@ class User extends CI_Controller {
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
             $data['p'] = $this->mdl->getPrint();
+
+            $data['klt'] = $this->mdl->getListKloter2();
+            // print_r($data['klt']); exit();
             
 
             $data['li'] = $this->mdl->getLilin(1003);
@@ -1105,6 +1108,15 @@ class User extends CI_Controller {
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
         } 
+    }
+
+    public function hapusKloter($idKloter){
+
+        $this->mdl->deleteData('idKloter',$idKloter,'kloter');
+        $message = "Berhasil Menghapus Kloter";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/kanban/")."';</script>";
+
     }
 
     public function editAktivitas(){
@@ -2752,6 +2764,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
 
         redirect('user/purchaseOrder');
     }
@@ -2759,9 +2772,11 @@ class User extends CI_Controller {
     public function hapusPOMassal($nomorPO){
         $produk=$this->mdl->findprodukMassal($nomorPO);
         $idProduk=$produk[0]->idProduk;
+        $idSPK=$produk[0]->idSPK;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction2');
         redirect('user/listPOMasal');
     }
 

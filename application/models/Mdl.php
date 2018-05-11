@@ -1521,7 +1521,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getListKloter(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM kloter");
+        $hasil = $this->db->query("SELECT * FROM kloter a");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getListKloter2(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM kloter a group by idKloter");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
