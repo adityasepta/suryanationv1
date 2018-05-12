@@ -89,14 +89,14 @@
                                     <th class="text-center">Faktur</th>
                                     <th class="text-center">Kloter</th>
                                     <th>Konsumen</th>
-                                    <th data-hide="phone,tablet">Produk</th>
+                                    <th >Produk</th>
                                     <th class="text-center">Kadar</th>
                                     
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Status</th>
+                                    <th class="text-center" >Status</th>
                                     
-                                    <th class="text-center" data-hide="phone,tablet">Action</th>
-                                    <th class="text-center" data-hide="phone,tablet">Keterangan </th>
+                                    <th class="text-center">Action</th>
+                                    <th class="text-center" >Keterangan </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -150,6 +150,7 @@
 
                                         <?php } else if($hasil->statusDesain == 'Proses Desain' OR $hasil->statusDesain == 'Ditolak') { ?>
                                             <a href="<?php base_url();?>tambahDesain/<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-info">Tambahkan Desain</a>
+                                            <a href="#" data-toggle="modal" data-target="#qwe<?php echo $hasil->nomorFaktur;?>" class="btn btn-xs btn-danger">Tambah Keterangan</a>
                                             <?php if ($hasil->statusDesain == 'Ditolak') {
                                                 echo '<button class="btn btn-xs btn-danger">Ditolak</button>';
                                             } ?>
@@ -323,6 +324,33 @@
                                     </div>
                                   </div>
                                 </div>
+
+                                <div class="modal fade" id="qwe<?php echo $hasil->nomorFaktur;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Tambah Keterangan Desain #<?php echo $hasil->nomorFaktur ?></h4>
+                                            </div>
+                                            <?php echo form_open('user/setKeterangan')?>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <textarea required class="form-control" placeholder="Tambahkan Keterangan Desain" name="ket"><?php echo $hasil->keteranganDesain ?></textarea>
+                                                    </div>
+                                                    <div class="col-lg-12 text-right">
+                                                        <br>
+                                                        <input type="hidden" name="idSPK" value="<?php echo $hasil->idSPK ?>">
+                                                        <button class="btn btn-primary" type="submit">Simpan</button>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <?php echo form_close(); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                              
 
                                 <?php endforeach;?>
                                 </tbody>

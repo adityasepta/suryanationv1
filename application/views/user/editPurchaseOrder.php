@@ -472,7 +472,7 @@
                                                         <input type="text" placeholder="Pcs" name="datangBerlian" value="<?php echo $datangBerlian; ?>" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Kadar Datang Berlian</label>
+                                                        <label>Berat Datang Berlian</label>
                                                         <input type="text" name="jumlahDatangBerlian" placeholder="Carat" value="<?php echo $jumlahDatangBerlian; ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">

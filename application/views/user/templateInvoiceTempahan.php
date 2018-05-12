@@ -5,18 +5,21 @@
                                                 <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
                                                 <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
                                                 <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
-                                                <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
-                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
+                                                <dt><?php if($jenisProduk=="Gelang"){ echo "Diameter";} else { echo "Ukuran";} ?>:</dt> <dd><?php echo $ukuranJari?></dd>
+                                                <dt>Range Berat Estimasi:</dt> <dd><?php echo $estimasi?></dd>
+                                                <dt>Estimasi Berat Akhir:</dt> <dd><?php echo $beratAkhir?></dd>
+                                                <dt>Susut:</dt> <dd><?php echo $susut?></dd>
                                             </dl>
                                         </div>
                                         <div class="col-lg-6">
                                             <dl class="dl-horizontal">
-                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
+                                                <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
                                                 <dt>Metode:</dt> <dd> <?php echo $metode?> </dd>
                                                 <dt>Model:</dt> <dd> <?php echo $model ?></dd>
+                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
                                                 <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
                                                 <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
-                                                <dt>Kuantitas:</dt> <dd><a href="#" class="text-navy"><?php echo $kuantitas?></a></dd>
+                                                <dt>Tipe Ikatan:</dt>  <dd> <?php echo $tipeIkatan ?> </dd>
                                             </dl>
                                         </div>
                                         
@@ -26,8 +29,12 @@
                                             <dl class="dl-horizontal" >
                                                 <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
                                                 <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
-                                                <dt id="berlian">Berlian:</dt> <dd id="berlian1">  <?php echo $berlian?></dd>
-                                                <dt id="beratBerlian">Berat Berlian:</dt> <dd id="beratBerlian1">  <?php echo $beratBerlian?></dd>
+                                        <div id="berlian">
+                                        <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
+                                        <dt>Berlian:</dt> <dd><?php echo $poberlian[$i]->namaMaterial ?></dd>
+                                        <dt>Berat / Jumlah:</dt> <dd><?php echo $poberlian[$i]->jumlah ?></dd>
+                                        <?php } ?>
+                                        </div>
                                                 <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>
                                                 <dt id="jumlahBatuZirkon">Jumlah Batu Zirkon:</dt> <dd id="jumlahBatuZirkon1">  <?php echo $jumlahBatuZirkon?></dd>
                                             </dl>
@@ -64,6 +71,7 @@
                                             <dl class="dl-horizontal" id="namaBatu2">
                                                 <dt>Batu Terhadap Kruman:</dt>  <dd> <?php echo $batuTerhadapKruman ?> </dd>
                                                 <dt>Batu Terhadap Pukulan:</dt> <dd> <?php echo $batuTerhadapPukulan ?></dd>
+                                                <dt>Keterangan Batu:</dt> <dd><?php echo $keteranganBatu?></dd>
                                             </dl>
                                         </div>
                                         <div class="col-lg-6" id="cluster_info">

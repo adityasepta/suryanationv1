@@ -77,7 +77,7 @@
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="20" data-filter=#filter>
                                 <thead>
                                 <tr>
                                     <th data-hide="phone,tablet">Tanggal Masuk</th>
@@ -118,7 +118,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

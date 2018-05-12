@@ -7,6 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+
+    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
     <title>Surya Sumatera | Status Produksi</title>
 
@@ -190,12 +197,16 @@
                         <div class="ibox float-e-margins animated fadeInRight">
                             <div class="ibox-title">
                                 <div class="row">
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-4">
                                         <h2>Status Produksi</h2>
                                         <span class="pull-left"><b><?php echo date('d F Y - ')?></b><b><span id="txt"></span></b></span>
                                     </div>
+                                    <div class="text-center col-lg-4">
+                                        <h2>Kanban Tempahan / Custom</h2>
+                                    </div>
                                     <div class="col-lg-4 text-right form-group">
                                         <a class="btn btn-xs btn-danger" href="<?php echo base_url('user/display/tempahan/60')?>">Display Kanban</a>
+                                        <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#daftar">Daftar Kloter</a>
                                     </div>
                                     
                                 </div>
@@ -495,7 +506,7 @@
 
     <?php include('footer.php') ?>
 
-     <div class="modal inmodal fade" id="kloter" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="kloter" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -555,6 +566,67 @@
             </div>
         </div>
     </div>
+
+    <div class="modal inmodal fade" id="daftar" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Daftar Kloter SPK</h3><br>
+
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                            <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kloter</th>
+                                        <th>Kadar</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0; $i < count($klt); $i++) {  ?>
+                                        <tr>
+                                            <td><?php echo $klt[$i]->nama?></td>
+                                            <td><?php echo $klt[$i]->kadar?> %</td>
+                                            <td><a href="<?php echo base_url('user/hapusKloter/'.$klt[$i]->idKloter) ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger">Hapus</a></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+
+    </script>
+    <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
 
 
     <!-- <script>

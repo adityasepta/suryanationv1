@@ -572,6 +572,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function findProdukMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk=b.idProduk WHERE a.nomorPO = '$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findProdukId($idProduk){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM produk WHERE idProduk = '$idProduk' LIMIT 1");
@@ -1196,7 +1206,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
             return array();
         }
     }
-
+    
+     public function findSPKTempahanbyPO($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk where nomorPO = '$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+    
     public function getAktivitasService($nomorFaktur) {
         $sql   = "SELECT * FROM rencanaproduksiservice r, spkservice s where s.idSPK = r.idSPK and s.nomorFaktur = $nomorFaktur order by r.idAktivitas asc";
         $query = $this->db->query($sql);
@@ -1372,7 +1392,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
         $sql   = "SELECT *,left(pr.namaProduk, 20) as namap, DATE_FORMAT(tanggalMasuk,'%d %M %Y') as tanggal, DATE_FORMAT(tanggalApprovalJadwal,'%d %M %Y') as tanggaljadwal, DATE_FORMAT(tanggalEstimasiPenyelesaian,'%d %M %Y') as tanggalSelesai, DATE_FORMAT(tanggalApprovalDesain,'%d %M %Y') as tanggaldes FROM potempahan po, produk pr, customer c, spk s, user u, rencanaproduksi r
 
-            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and r.idAktivitas = 1003 and s.idSPK not in (select idSPK from kloter) and s.idSPK in (select idSPK from factproduction where statusWork = 'Done' )";
+            WHERE r.idSPK = s.idSPK and po.idSalesPerson = u.idUser and po.idProduk = pr.idProduk and po.idCustomer = c.idCustomer and s.nomorPO = po.nomorPO and s.statusDesain = 'Disetujui' and r.idAktivitas = 1004 and s.idSPK not in (select idSPK from kloter) and s.idSPK in (select idSPK from factproduction where statusWork = 'Done' )";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1429,7 +1449,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getKloter2() {
 
-        $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1004 and statusWork = 'Done' ) and idSPK NOT IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1005 ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = 1004";
+        $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1003 and statusWork = 'Done' ) and idSPK NOT IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1005 ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = 1003";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1493,7 +1513,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getListKloter(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM kloter");
+        $hasil = $this->db->query("SELECT * FROM kloter a");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getListKloter2(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM kloter a group by idKloter order by idGroup desc");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1691,15 +1721,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    public function findSPKTempahanbyPO($nomorPO){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM spk where nomorPO = '$nomorPO' LIMIT 1");
-        if($hasil->num_rows() > 0){
-            return $hasil->row();
-        } else{
-            return array();
-        }
-    }
 
     public function findInvoice($nomorPO){
         //Query mencari record berdasarkan ID
@@ -2840,9 +2861,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function stockPerMaterial($idUser){
 
-        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
+        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = 9 AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = 9 AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
         UNION
-        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang LEFT JOIN produk c ON c.idProduk=a.kodeBarang");
+        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = 9 AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = 9 AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();

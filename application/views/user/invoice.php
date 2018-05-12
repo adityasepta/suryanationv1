@@ -56,6 +56,10 @@
     $batuTerhadapPukulan    = $dataSPK[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataSPK[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataSPK[0]->keadaanBatuTengah;
+    $beratAkhir                 = $dataSPK[0]->beratAkhir;
+    $estimasi                 = $dataSPK[0]->estimasi;
+    $keteranganBatu                 = $dataSPK[0]->keteranganBatu;
+    $susut                 = $dataSPK[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -148,6 +152,7 @@
                                     </dl>
                                     <dl class="dl-horizontal" >
                                         <dt>Tanggal Terima:</dt> <dd><?php echo $tglmsk;?></dd>
+                                        <dt>Tgl Setuju Desain:</dt> <dd><?php echo $tglmsk;?></dd>
                                         <dt>Estimasi Penyelesaian:</dt> <dd>  <?php echo $tglpyl?></dd>
                                     </dl>
                                 </div>
@@ -558,16 +563,9 @@
                 document.getElementById('beratBatu1').style.display = 'none';
             };
 
-            var c = '<?php if($berlian!=null){echo $berlian;} else echo 0;?>';
+            var c = <?php echo count($poberlian) ?>;
             if(c==null||c==0){
                 document.getElementById('berlian').style.display = 'none';
-                document.getElementById('berlian1').style.display = 'none';
-            };
-
-            var d = <?php echo $beratBerlian?>;
-            if(d==null||d==0){
-                document.getElementById('beratBerlian').style.display = 'none';
-                document.getElementById('beratBerlian1').style.display = 'none';
             };
 
             var e = '<?php if($batuZirkon!=null){echo $batuZirkon;} else echo 0;?>';

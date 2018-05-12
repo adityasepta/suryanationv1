@@ -48,16 +48,19 @@ class User extends CI_Controller {
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
             $data['p'] = $this->mdl->getPrint();
+
+            $data['klt'] = $this->mdl->getListKloter2();
+            // print_r($data['klt']); exit();
             
 
-            $data['li'] = $this->mdl->getLilin(1004);
+            $data['li'] = $this->mdl->getLilin(1003);
 
             
             $data['qw'] = $this->mdl->getKloter2();
             $data['g'] = $this->mdl->getGroup();
             //$data['g2'] = $this->mdl->getGroup2();
 
-            $data['k1'] = $this->mdl->getKloter(1004);
+            $data['k1'] = $this->mdl->getKloter(1003);
 
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
@@ -107,7 +110,7 @@ class User extends CI_Controller {
         $idAktivitas = $this->input->post('idAktivitas');
 
         $idakt = $this->input->post('idakt');
-        $cek = $this->mdl->cekPolishDalam($idSPK);
+        $cek = $this->mdl->cekPolishDalam($idSPK,1010);
         if (strlen($idakt) > 0 and count($cek) == 0) {
 
             $proses = $this->mdl->getProsesDetail($idProProd);
@@ -157,7 +160,7 @@ class User extends CI_Controller {
 
             $this->mdl->updateData('idProProd',$idProProd, 'factproduction', $data);
             
-            if ($idaktivitas !== 1004) {
+            if ($idaktivitas != 1003) {
 
                 $next = $idaktivitas;
 
@@ -367,6 +370,7 @@ class User extends CI_Controller {
 
     public function convertTempahan() {
         $idCustomer=$this->input->post('idCustomer');
+
         redirect('user/createDetailPO/'.$idCustomer);
     }
 
@@ -384,6 +388,7 @@ class User extends CI_Controller {
 
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir();
+        $data['material']=$this->mdl->getMaterialBerlian(); 
         $this->load->view('user/createPurchaseOrder',$data);
     }
 
@@ -642,6 +647,11 @@ class User extends CI_Controller {
             'keteranganKombinasi'  => $this->input->post('keteranganKombinasi'),
             'keteranganLaserHuruf'  => $this->input->post('keteranganLaserHuruf'),
             'keteranganKodeCap'  => $this->input->post('keteranganKodeCap'),
+            'hargaEnamel'  => $this->input->post('hargaEnamel'),
+            'hargaSlap'  => $this->input->post('hargaSlap'),
+            'hargaKombinasi'  => $this->input->post('hargaKombinasi'),
+            'hargaLaserHuruf'  => $this->input->post('hargaLaserHuruf'),
+            'hargaKodeCap'  => $this->input->post('hargaKodeCap'),
             // 'biayaTambahan'     => $this->input->post('biayaTambahan'),
             'beratAkhir'        => $this->input->post('beratAkhir'),
             'susut'             => $this->input->post('susut'),
@@ -773,6 +783,7 @@ class User extends CI_Controller {
 
     public function tambahDesain($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $this->load->view('user/spkDesain',$data);
     }
 
@@ -814,6 +825,7 @@ class User extends CI_Controller {
     public function tambahJadwal($nomorFaktur) {
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
         $data['aktivitas'] = $this->mdl->listAktivitas2();
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $this->load->view('user/spkJadwal',$data);
     }
 
@@ -856,8 +868,11 @@ class User extends CI_Controller {
     }
 
     public function invoice($nomorFaktur) {
+
         $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
         $idSPK = $data['dataSPK'][0]->idSPK;
+        $data['kl'] = $this->mdl->getKloterBySPK($idSPK);
         $data['rkp'] = $this->mdl->getRekapTempahan($idSPK);
         $data['cekbom'] = $this->mdl->cekbom();
         $data['cekjadwal'] = $this->mdl->cekjadwal();
@@ -919,6 +934,20 @@ class User extends CI_Controller {
         }
     }
 
+    public function setKeterangan() {
+        $idSPK = $this->input->post('idSPK');
+
+        $data = array(
+            'keteranganDesain' => $this->input->post('ket')
+            );
+
+        $this->mdl->updateData('idSPK',$idSPK,'spk',$data);
+
+        $message = "Berhasil menambahkan keterangan";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/spk")."';</script>";
+    }
+
     public function uploadJadwal(){
             //eksekusi query insert tanpa gambar
         $idAktivitas    =$this->input->post('idAktivitas');
@@ -926,7 +955,8 @@ class User extends CI_Controller {
         $endDate        =$this->input->post('endDate');
         $nomorFaktur    =$this->input->post('nomorFaktur');
         // print_r($idAktivitas);exit();
-        for ($i=0; $i <count($nomorAktivitas); $i++) {
+        for ($i=0; $i < count($nomorAktivitas); $i++) {
+
             $b=$nomorAktivitas[$i]; 
             $dataAktivitas = array(
                 'idProduk'              => $this->input->post('idProduk'),
@@ -940,15 +970,18 @@ class User extends CI_Controller {
                 'startDate'           => $endDate[$b],
                 'endDate'           => $endDate[$b],
             );
-            $this->mdl->tambahRencana($dataJadwal);
+            
+           $this->mdl->tambahRencana($dataJadwal);
             
         } 
+
 
         $idSPK = $this->input->post('idSPK');
 
         $data = array(
             'statusJadwal' => 'Sudah Ada',
             'tanggalApprovalJadwal' => date("Y-m-d H:i:s"),
+            'tglPrint'           => $this->input->post('tglPrint'),
             );
 
         $this->mdl->updateData('idSPK',$idSPK,'spk',$data);
@@ -970,7 +1003,7 @@ class User extends CI_Controller {
         $this->load->library('upload');
 
         $config['upload_path']     = './uploads/gambarDesain/'; 
-        $config['allowed_types']   = 'jpg|jpeg'; 
+        $config['allowed_types']   = 'jpg|jpeg|png'; 
         $config['max_size']        = '6000';
         $config['file_name']       = $kode.'-thumb.jpg';
         $config['overwrite']        = TRUE;
@@ -1005,7 +1038,7 @@ class User extends CI_Controller {
         if($this->upload->do_upload('foto')) {
             $message = "Berhasil Mengupload Foto Lilin";
             echo "<script type='text/javascript'>alert('$message');
-            window.location.href='".base_url("user/reviewKloter".$kloter)."';</script>";
+            window.location.href='".base_url("user/reviewKloter/".$kloter)."';</script>";
             
         } else {
             $message = "Format Thumbnail tidak sesuai";
@@ -1075,6 +1108,15 @@ class User extends CI_Controller {
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
         } 
+    }
+
+    public function hapusKloter($idKloter){
+
+        $this->mdl->deleteData('idKloter',$idKloter,'kloter');
+        $message = "Berhasil Menghapus Kloter";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/kanban/")."';</script>";
+
     }
 
     public function editAktivitas(){
@@ -1681,7 +1723,7 @@ class User extends CI_Controller {
                 $color=$this->input->post('color');
                 $kadar=0;
             } else {
-                $kadar="";
+                $kadar="0";
                 $clarity="";
                 $color="";
                 $karat="";
@@ -1703,7 +1745,7 @@ class User extends CI_Controller {
             $kat = $this->input->post('kategori');
             $t = $this->mdl->cekMaterial($kat, $kadar);
             $d = count($t);
-            if($kat!="Berlian"){
+            if($kat!="Berlian" && $kat != 'Non Emas'){
                 if($d == 0) {
                     $this->mdl->insertData('materialdasar',$dataMaterial);
                     $message = "Material dasar berhasil dibuat";
@@ -2597,7 +2639,7 @@ class User extends CI_Controller {
 
         $data = array(
                 'idSPK' => $spk[0]->idSPK,
-                'idAktivitas' => 1004,
+                'idAktivitas' => 1003,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
         );
@@ -2713,17 +2755,28 @@ class User extends CI_Controller {
     }
 
     public function hapusPO($nomorPO){
-        $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
-
+        
+        $spk=$this->mdl->findSPKTempahanbyPO($nomorPO);
         $produk=$this->mdl->findprodukByPO($nomorPO);
         $idProduk=$produk[0]->idProduk;
+        $idSPK=$produk[0]->idSPK;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
 
         redirect('user/purchaseOrder');
     }
 
     public function hapusPOMassal($nomorPO){
+        $produk=$this->mdl->findprodukMassal($nomorPO);
+        $idProduk=$produk[0]->idProduk;
+        $idSPK=$produk[0]->idSPK;
+        $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction2');
         redirect('user/listPOMasal');
     }
 
@@ -2746,7 +2799,7 @@ class User extends CI_Controller {
 
     public function invoicePO($nomorPO){
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        $data['poBerlian'] = $this->mdl->getBerlian($nomorPO);
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
         $this->load->view('user/invoicePO',$data);
     }
 
@@ -2809,12 +2862,14 @@ class User extends CI_Controller {
     
     public function printInvoice($nomorPO){
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        // print_r($data);exit();
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
         $this->load->view('user/printInvoice',$data);
     }
 
     public function printSPKTempahan($nomorFaktur){
         $data['dataPO'] = $this->mdl->findSPKTempahan($nomorFaktur);
+        $data['poberlian']=$this->mdl->getBerlian($nomorFaktur); 
+        // print_r($data);exit();
         $this->load->view('user/printSPKTempahan',$data);
     }
 
@@ -3315,6 +3370,39 @@ class User extends CI_Controller {
 
     }
 
+    public function setToleransi() {
+        $idKloter = $this->input->post('idKloter');
+        $spk = $this->mdl->getIsiKloter($idKloter);
+
+        for ($i=0; $i <count($spk) ; $i++) { 
+            $data = array(
+                'kadarWenny' => $this->input->post('kadar')
+            );
+            $idSPK = $spk[$i]->idSPK;
+            $this->mdl->updateData('idSPK',$idSPK, 'spk',$data);
+        }
+
+        $message = "Berhasil Konfirmasi Kadar";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
+
+    }
+
+    public function setToleransi2() {
+        $idSPK = $this->input->post('idSPK');
+        $idSubSPK = $this->input->post('idSubSPK');
+        $data = array(
+                'kadarWenny' => $this->input->post('kadar')
+
+            );
+        $this->mdl->updateData('idSPK',$idSPK, 'spkmasal',$data);
+
+        $message = "Berhasil Konfirmasi Kadar";
+            echo "<script type='text/javascript'>alert('$message');
+            window.location.href='".base_url("user/createBOMMassal/".$idSubSPK)."';</script>";
+
+    }
+
     public function next2($idKloter,$idAktivitas) {
 
         $kloter = $this->mdl->getIsiKloter($idKloter);
@@ -3372,29 +3460,63 @@ class User extends CI_Controller {
 
 
                 $this->mdl->insertData('stokbarang', $data);
+
+                $data = array(
+                    'status' => 'Disetujui'
+                );
+
+                $this->mdl->updateData('idBOM',$isi[$i]->idBOM,'bomtempahan',$data);
                  
              }
 
-             // for ($i=0; $i < count($kloter) ; $i++) { 
+             $idSPK = $kloter[0]->idSPK;
+             $spk = $this->mdl->findSPK2($idSPK);
 
-             //    $userx = $this->mdl->getUserByJabatan('Admin Tempahan');
-             //    $idg = $userx[0]->idUser;
-                 
-             //     $data = array(
-             //        'idPIC' => $idg,
-             //        'tipeBarang' => "Produk Semi Jadi",
-             //        'kodeBarang' => $kloter[$i]->idProduk,
-             //        'jumlah' => $kloter[$i]->beratAkhir,
-             //        'jenisPergerakanBarang' => "IN",
-             //        'satuan' => 'gr',
-             //        'tipePergerakan' => 'Produksi',
-             //        'tanggal' => date("Y-m-d H:i:s")
-             //    );
+            $kadarWenny = $spk[0]->kadarWenny;
+            $namaBahan = "Balik Bahan ".$kadarWenny."%";
 
-             //     $this->mdl->insertData('stokbarang', $data);
-             // }
+            $t = $this->mdl->cekMaterial('Emas',$kadarWenny);
+            $d = count($t);
 
-             
+            if($d == 0) {
+
+                $f = $this->mdl->getLastKodeMaterial();
+                $km = $f[0]->kodeMaterial+1;
+
+                $dataMaterial = array(
+                    'kodeMaterial'    => $km,
+                    'namaMaterial'    => $namaBahan,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => 0,
+                    'safetyStock'     => 0,
+                    'kadar'           => $kadarWenny,
+                    'asal'            => 'Balik Bahan',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+            } else {
+
+                $km = $t[0]->kodeMaterial;
+
+            }
+
+            $xe = $this->mdl->cekPolishDalam($idSPK,1006);
+            $kembali = $xe[0]->kembali;
+
+            $data = array(
+                'idPIC' => $idUser,
+                'tipeBarang' => "Material Dasar",
+                'kodeBarang' => $km,
+                'jumlah' => $kembali,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
+                'tanggal' => date("Y-m-d H:i:s")
+                );
+
+            $this->mdl->insertData('stokbarang', $data);
+
          }
 
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
@@ -4165,7 +4287,6 @@ class User extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE){
             $idCustomer = $this->input->post('idCustomer');
-                        // print_r($idCustomer);exit();
             if ($idCustomer==0){
                 $data['id'] = array(
                     'idC' => 0,
@@ -4178,9 +4299,9 @@ class User extends CI_Controller {
             }
             $data['pegawai'] = $this->mdl->listPegawai();
             $data['poTerakhir'] = $this->mdl->poTerakhir();
+            $data['material']=$this->mdl->getMaterialBerlian(); 
             $this->load->view('user/createPurchaseOrder',$data);
-        }
-        else {
+        } else {
 
             if(!$this->input->post('pekerjaanTambahan[]')) {
                 $pekerjaanTambahan = "Tidak Ada";
@@ -4188,6 +4309,7 @@ class User extends CI_Controller {
                 $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
             }
 
+            // Query input new customer
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer
@@ -4210,7 +4332,7 @@ class User extends CI_Controller {
 
             
             if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
-                $ukuranJari=$this->input->post('ukuranJari');
+                $ukurasnJari=$this->input->post('ukuranJari');
             } else if ($this->input->post('jenisProduk')=='Gelang') {
                 $ukuranJari=$this->input->post('diameter');
             } else {
@@ -4220,7 +4342,7 @@ class User extends CI_Controller {
             $hargaBahan = $this->clean($this->input->post('hargaBahan'));
             $hargaDatangEmas = $this->clean($this->input->post('hargaDatangEmas'));
             $upahPasangBerlian = $this->clean($this->input->post('upahPasangBerlian'));
-            $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
+            // $hargaBerlian = $this->clean($this->input->post('hargaBerlian'));
             $hargaBatuZirkon = $this->clean($this->input->post('hargaBatuZirkon'));
             $hargaKrumWarna = $this->clean($this->input->post('hargaKrumWarna'));
             $upah = $this->clean($this->input->post('upah'));
@@ -4271,6 +4393,7 @@ class User extends CI_Controller {
                         $data['pegawai'] = $this->mdl->listPegawai();
                         $data['poTerakhir'] = $this->mdl->poTerakhir();
                         $this->load->view('user/createPurchaseOrder',$data);
+
                     }
                     else {
                         $gambar = $this->upload->data();
@@ -4301,7 +4424,7 @@ class User extends CI_Controller {
 
             $harga=$this->input->post('harga');
             $qty=$this->input->post('kuantitas');
-            $totalHarga=($qty*$harga)+$upah;
+            $totalHarga=0;
 
             $datangEmas=$this->input->post('datangEmas');
             $idStokBarang = '';
@@ -4481,20 +4604,37 @@ class User extends CI_Controller {
                 'batuTerhadapPukulan' => $this->input->post('batuTerhadapPukulan'),
                 'batuTerhadapKruman'  => $this->input->post('batuTerhadapKruman'),
                 'keadaanBatuTengah'   => $this->input->post('keadaanBatuTengah'),
+
+                'keteranganBatu'   => $this->input->post('ketBatu'),
+                'estimasi'   => $this->input->post('estimasi'),
+
                 'ukuranJari'        => $ukuranJari,
-                'berlian'           => $this->input->post('berlian'),
+                // 'berlian'           => $this->input->post('berlian'),
                 'krumWarna'         => $this->input->post('krumWarna'),
                 'tipeIkatan'        => $this->input->post('tipeIkatan'),
                 'model'             => $this->input->post('model'),
-                'beratBerlian'      => $this->input->post('beratBerlian'),
-                'hargaBerlian'      => $hargaBerlian,
+                // 'beratBerlian'      => $this->input->post('beratBerlian'),
+                // 'hargaBerlian'      => $hargaBerlian,
                 'batuZirkon'        => $this->input->post('batuZirkon'),
                 'jumlahBatuZirkon'  => $this->input->post('jumlahBatuZirkon'),
                 'hargaBatuZirkon'   => $hargaBatuZirkon,
                 'hargaKrumWarna'    => $hargaKrumWarna,
                 'keteranganKrum'    => $this->input->post('keteranganKrum'),
             );
-            $this->mdl->tambahPO($dataPO);    
+            $this->mdl->tambahPO($dataPO); 
+
+            $kodeMaterial=$this->input->post('kodeMaterial[]');
+            $jumlah=$this->input->post('jumlah[]');
+            $harga=$this->input->post('harga[]');
+            for ($i=0; $i < count($kodeMaterial) ; $i++) { 
+                $dataPO = array(
+                    'nomorPO'       => $this->input->post('nomorPO'),
+                    'kodeMaterial'  => $kodeMaterial[$i],
+                    'jumlah'        => $jumlah[$i],
+                    'harga'         => $harga[$i],
+                );
+                $this->mdl->insertData('poberlian',$dataPO);  
+            }   
              
 
             //Query Tambah SPK
@@ -4522,6 +4662,7 @@ class User extends CI_Controller {
             $data['pegawai'] = $this->mdl->listPegawai();
             $nomorPO=$this->input->post('nomorPO');
             $data['dataPO'] = $this->mdl->findPO($nomorPO);
+            $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
             $this->load->view('user/invoicePO',$data);
 
         }
@@ -4872,16 +5013,19 @@ class User extends CI_Controller {
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
             $data['p'] = $this->mdl->getPrint();
+
+            $data['klt'] = $this->mdl->getListKloter2();
+            // print_r($data['klt']); exit();
             
 
-            $data['li'] = $this->mdl->getLilin(1004);
+            $data['li'] = $this->mdl->getLilin(1003);
 
             
             $data['qw'] = $this->mdl->getKloter2();
             $data['g'] = $this->mdl->getGroup();
             //$data['g2'] = $this->mdl->getGroup2();
 
-            $data['k1'] = $this->mdl->getKloter(1004);
+            $data['k1'] = $this->mdl->getKloter(1003);
 
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
@@ -4914,7 +5058,7 @@ class User extends CI_Controller {
 
              $data['jd'] = $this->mdl->getJadi();  
 
-            $this->load->view('user/display_tempahan',$data);
+            $this->load->view('user/statprod_view',$data);
 
         }
             
@@ -5533,11 +5677,8 @@ class User extends CI_Controller {
 
             $cx = $this->mdl->findKadar($idSPK);
             
-            $kadarLokal = $cx[0]->kadarBahan;
-            
-            $lk = $this->mdl->getSetting();
-            $tol = $lk[2]->nilai;
-            $kadarWenny = $kadarLokal-$tol;
+
+            $kadarWenny = $cx[0]->kadarWenny;
             $namaBahan = "Balik Bahan ".$kadarWenny."%";
 
             $t = $this->mdl->cekMaterial('Emas',$kadarWenny);
@@ -5771,6 +5912,16 @@ class User extends CI_Controller {
         $nomorPO = $this->input->post('nomorPO');
         $beratAkhir = $this->input->post('beratakhir');
         $jumlah = $this->input->post('jumlah');
+        
+        $data = array(
+            
+            'tanggalApprovalPersetujuan' => date("Y-m-d H:i:s"),
+            
+            'statusJadwal' => 'Disetujui',
+            'statusPersetujuan' => 'Disetujui'
+        );
+        
+        $this->mdl->updateData('idSPK', $idSPK, 'spkmasal', $data);
 
         $data = array(
             'statusSPK' => 'Done',
@@ -6630,6 +6781,7 @@ class User extends CI_Controller {
     public function invoiceSPKMassal($nomorFaktur) {
         $data['dataSPK']   = $this->mdl->findSPKMasal($nomorFaktur);
         $idSPK = $data['dataSPK'][0]->idSPK;
+        //print_r($data['dataSPK'][0]->nomorPO);exit();
         $data['rkp'] = $this->mdl->getRekapMassal($idSPK);
         $data['jadwal']    = $this->mdl->getjadwal7($nomorFaktur);
         $data['stokbom']   = $this->mdl->getBom2($nomorFaktur);
@@ -6637,7 +6789,8 @@ class User extends CI_Controller {
         $data['cf'] = $this->mdl->cekFinishSPK($nomorFaktur);
         $data['tr'] = $this->mdl->getTrackProduksi($nomorFaktur);
         $data['staf'] = $this->mdl->getStaf();
-        $data['produkPO'] = $this->mdl->getProdukPO($nomorFaktur);
+        $data['produkPO'] = $this->mdl->getProdukPO($data['dataSPK'][0]->nomorPO);
+        $data['sub'] = $this->mdl->getSubSPK($idSPK);
         $this->load->view('user/invoiceMassal', $data);
     }
 
@@ -7381,6 +7534,10 @@ class User extends CI_Controller {
             'hargaKrumWarna'    => $this->input->post('hargaKrumWarna'),
             'jenisCustomer'     => $jenisCustomer,
             'persenBiaya'       => $persenBiaya,
+            'hargaBahan'        => $this->input->post('hargaBahan'),
+            'hargaDatangEmas'   => $this->input->post('hargaDatangEmas'),
+            'diskon'        => $this->input->post('diskon'),
+            'selisihHarga'   => $this->input->post('selisihHarga'),
         );
         $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);    
 

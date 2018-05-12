@@ -36,6 +36,11 @@
     $tipeCustomer           = $dataPO[0]->tipeCustomer;      
     $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
     $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
+    $keteranganEnamel     = $dataPO[0]->keteranganEnamel;
+    $keteranganSlap     = $dataPO[0]->keteranganSlap;
+    $keteranganKombinasi     = $dataPO[0]->keteranganKombinasi;
+    $keteranganLaserHuruf     = $dataPO[0]->keteranganLaserHuruf;
+    $keteranganKodeCap     = $dataPO[0]->keteranganKodeCap;
     $biayaTambahan          = $dataPO[0]->biayaTambahan;
     $beratBerlian           = $dataPO[0]->beratBerlian;
     $hargaBerlian           = $dataPO[0]->hargaBerlian;
@@ -50,6 +55,10 @@
     $batuTerhadapPukulan    = $dataPO[0]->batuTerhadapPukulan;
     $batuTerhadapGoresan    = $dataPO[0]->batuTerhadapGoresan;
     $keadaanBatuTengah      = $dataPO[0]->keadaanBatuTengah;
+    $estimasi               = $dataPO[0]->estimasi;
+    $keteranganBatu         = $dataPO[0]->keteranganBatu;
+    $beratAkhir             = $dataPO[0]->beratAkhir;
+    $susut                  = $dataPO[0]->susut;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -90,7 +99,7 @@
                                 <tbody>
                                     <tr style="margin-top: 8px; margin-bottom: 8px;">
                                         <td>
-                                            <span style="font-size: 20px; font-weight: 600px">RFQ</span>
+                                            <span style="font-size: 20px; font-weight: 600px">SPK</span>
                                         </td>
                                         <td style="text-align: right; padding-right: 15px;">
                                             <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/spk">
@@ -98,7 +107,7 @@
                                             </a>&nbsp
                                             <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
                                                 <span style="vertical-align: middle">Cetak</span>
-                                                <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                                                <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
                                             </a>
                                         </td>
                                     </tr>
@@ -132,40 +141,49 @@
                                         <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
                                     </tr>
                                     <tr>
-                                        <td>Kode Produk: <?php echo $kodeProduk ?><br>
-                                        Jenis Produk: <?php echo $jenisProduk ?><br>
-                                        Ukuran Jari: <?php echo $ukuranJari ?> mm</td>
+                                        <td><b>Kode Produk:</b> <?php echo $kodeProduk ?><br>
+                                        <b>Jenis Produk:</b> <?php echo $jenisProduk ?><br>
+                                        <b><?php if($jenisProduk=='Gelang') { echo 'Diameter';} else {echo 'Ukuran';} ?>:</b> <?php echo $ukuranJari ?> <br>
+                                        <b>Estimasi Berat:</b> <?php echo $beratAkhir?></td>
 
-                                        <td>Bahan: <?php echo $bahan ?><br>
-                                        Kadar Bahan: <?php echo $kadarBahan ?>%<br>
-                                        Tipe Ikatan: <?php echo $tipeIkatan ?></td>
+                                        <td><b>Bahan:</b> <?php echo $bahan ?><br>
+                                        <b>Kadar Bahan:</b> <?php echo $kadarBahan ?>%<br>
+                                        <b>Range Estimasi Berat:</b> <?php echo $tipeIkatan ?><br>
+                                        <b>Susut:</b> <?php echo $dataPO[0]->susut?></td>
 
-                                        <td>Kuantitas: <?php echo $kuantitas ?><br>
-                                        Krum Warna: <?php echo $krumWarna ?><br>
-                                        Keterangan Krum: <?php echo $keteranganKrum ?></td>
+                                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?><br>
+                                        <b>Krum Warna:</b> <?php echo $krumWarna ?><br>
+                                        <b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
 
-                                        <td>Metode: <?php echo $metode ?><br>
-                                        Model: <?php echo $model ?>
+                                        <td><b>Metode:</b> <?php echo $metode ?><br>
+                                        <b>Model:</b> <?php echo $model ?><br>
+                                        <b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><p id="namaBatu">Nama Batu Permata: <?php echo $namaBatu ?><br>
-                                        Berat Batu Permata: <?php echo $beratBatu ?><br>
-                                        Batu Terhadap Kruman: <?php echo $batuTerhadapKruman ?><br>
-                                        Batu Terhadap Pukulan: <?php echo $batuTerhadapPukulan ?><br>
-                                        Batu Terhadap Goresan: <?php echo $batuTerhadapGoresan ?><br>
-                                        Keadaan Batu Tengah: <?php echo $keadaanBatuTengah ?>
-                                        </p></td>
+                                        <td><p id="namaBatu"><b>Nama Batu Permata:</b> <?php echo $namaBatu ?><br>
+                                        <b>Berat Batu Permata:</b> <?php echo $beratBatu ?></p></td>
 
-                                        <td><p id="berlian">Berlian: <?php echo $berlian ?><br>
-                                        Berat Berlian: <?php echo $beratBerlian ?> carat</p></td>
+                                        <td><p id="berlian">
+                                        <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
+                                        <b>Berlian:</b> <?php echo $poberlian[$i]->namaMaterial ?><br>
+                                        <b>Berat / Jumlah:</b> <?php echo $poberlian[$i]->jumlah ?></p></td>
+                                        <?php } ?>
+                                        <td><p id="datangEmas"><b>Datang Emas:</b> <?php echo $datangEmas ?><br>
+                                        <b>Kadar Datang Emas:</b> <?php echo $kadarDatangEmas ?></p></td>
 
-                                        <td><p id="datangEmas">Datang Emas: <?php echo $datangEmas ?><br>
-                                        Kadar Datang Emas: <?php echo $kadarDatangEmas ?></p></td>
-
-                                        <td><p id="datangBerlian">Datang Berlian: <?php echo $datangBerlian ?><br>
-                                        Jumlah Datang Berlian: <?php echo $jumlahDatangBerlian ?></p>
+                                        <td><p id="datangBerlian"><b>Datang Berlian:</b> <?php echo $datangBerlian ?><br>
+                                        <b>Jumlah Datang Berlian:</b> <?php echo $jumlahDatangBerlian ?></p>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td><p id="batuA"><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?><br>
+                                        <b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?><br>
+                                        <b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></p></td>
+                                        <td><p id="batuB"><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?><br>
+                                        <b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></p></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -189,12 +207,18 @@
         <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
         <script>
             $(document).ready(function () {
-                var a = <?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>;
+                var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
                 if(a==null||a==0){
                     document.getElementById('namaBatu').style.display = 'none';
                 };
 
-                var c = <?php if($berlian!=null){echo $berlian;} else echo 0;?>;
+                var b = '<?php if($batuTerhadapKruman!=null){echo $batuTerhadapKruman;} else echo 0;?>';
+                if(b==null||b==0){
+                    document.getElementById('batuA').style.display = 'none';
+                    document.getElementById('batuB').style.display = 'none';
+                };
+
+                var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
                 if(c==null||c==0){
                     document.getElementById('berlian').style.display = 'none';
                 };

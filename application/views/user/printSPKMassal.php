@@ -16,7 +16,8 @@
     $krumWarna              = $dataSPK[0]->krumWarna;      
     $model                  = $dataSPK[0]->model;
     $nama                   = $dataSPK[0]->nama;
-    $beratAkhir             = $dataSPK[0]->beratAkhir;     
+    $beratAkhir             = $dataSPK[0]->beratAkhir;    
+    // $susut                  = $dataSPK[0]->susut; 
     $panjar                 = $dataSPK[0]->panjar;
     $idProduk               = $dataSPK[0]->idProduk;
     $idCustomer             = $dataSPK[0]->idCustomer;
@@ -113,8 +114,9 @@
                                     <tr>
                                         <td>Kode Produk: <?php echo $kodeProduk ?><br>
                                         Jenis Produk: <?php echo $jenisProduk ?><br>
-                                        Ukuran Jari: <?php echo $ukuranJari ?> <br>
-                                        Model: <?php echo $model ?></td>
+                                        Ukuran: <?php echo $ukuranJari ?> <br>
+                                        Model: <?php echo $model ?><br>
+                                        Estimasi Berat Akhir: <?php echo $beratAkhir ?>gr</td>
 
                                         <td>Bahan: <?php echo $bahan ?><br>
                                         Kadar Bahan: <?php echo $kadarBahan ?>%<br>
