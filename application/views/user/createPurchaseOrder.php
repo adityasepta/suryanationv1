@@ -784,7 +784,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><input type="text" placeholder="Keterangan" name="namaBerlian[]" class="form-control"></div><div class="col-md-2"><label>Berat Karat (Poin)</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div><div class="col-md-3">'+z+'<input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><input type="text" placeholder="Keterangan" name="namaBerlian[]" class="form-control"></div><div class="col-md-3">'+z+'<input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
                 }
             });
             
@@ -792,6 +792,7 @@
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
         });
+        // <div class="col-md-2"><label>Berat Karat (Poin)</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div>
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -804,7 +805,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><input type="text" placeholder="Keterangan" name="batuZirkon" class="form-control" value="<?php echo set_value("batuZirkon"); ?>"></div><div class="col-md-3"><label>Jumlah Batu Zirkon</label><input type="text" placeholder="Jumlah Batu Zirkon" name="jumlahBatuZirkon" class="form-control" value="<?php echo set_value('jumlahBatuZirkon'); ?>"></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" placeholder="Rp" name="hargaBatuZirkon" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><input type="text" placeholder="Keterangan" name="batuZirkon" class="form-control" value="<?php echo set_value("batuZirkon"); ?>"></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" placeholder="Rp" name="hargaBatuZirkon" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div>'); //add input box
                 }
             });
             
@@ -812,6 +813,7 @@
                 e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
             })
         });
+        // <div class="col-md-3"><label>Jumlah Batu Zirkon</label><input type="text" placeholder="Jumlah Batu Zirkon" name="jumlahBatuZirkon" class="form-control" value="<?php echo set_value('jumlahBatuZirkon'); ?>"></div>
     </script>
     <script type="text/javascript">
         $(".switch").find("input[id=pekTam]").on("change",function() {

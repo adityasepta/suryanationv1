@@ -4287,7 +4287,6 @@ class User extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE){
             $idCustomer = $this->input->post('idCustomer');
-                        // print_r($idCustomer);exit();
             if ($idCustomer==0){
                 $data['id'] = array(
                     'idC' => 0,
@@ -4310,6 +4309,7 @@ class User extends CI_Controller {
                 $pekerjaanTambahan = implode(',',$this->input->post('pekerjaanTambahan[]'));
             }
 
+            // Query input new customer
             $idC=$this->input->post('idCustomer');
             if($idC==0){
                 //eksekusi query tabel Customer
@@ -4332,7 +4332,7 @@ class User extends CI_Controller {
 
             
             if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
-                $ukuranJari=$this->input->post('ukuranJari');
+                $ukurasnJari=$this->input->post('ukuranJari');
             } else if ($this->input->post('jenisProduk')=='Gelang') {
                 $ukuranJari=$this->input->post('diameter');
             } else {
