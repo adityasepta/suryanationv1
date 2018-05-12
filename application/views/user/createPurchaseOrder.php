@@ -232,25 +232,23 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <label>Batu Zirkon</label>
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-6">
                                                                 <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuZirkon'); if($a=="Swarovski"){?> checked="" <?php } ?> value="Swarovski" name="batuZirkon"> <i></i> Swarovski </label></div>
                                                             </div>
-                                                            <div class="col-lg-3">
+                                                            <div class="col-lg-6">
                                                                 <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuZirkon'); if($a=="PRQ"){?> checked="" <?php } ?> value="PRQ" name="batuZirkon"> <i></i> PRQ </label></div>
-                                                            </div>
-                                                            <div class="col-lg-5">
-                                                                <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuZirkon'); if($a==""){?> checked="" <?php } ?> value="" name="batuZirkon"> <i></i> Tidak Ada </label></div>
+                                                                <input type="radio" checked="" value="" name="batuZirkon" hidden="">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <label>Jumlah Batu Zirkon</label>
                                                         <input type="text" placeholder="Jumlah Batu Zirkon" name="jumlahBatuZirkon" class="form-control" value="<?php echo set_value('jumlahBatuZirkon'); ?>">
                                                     </div>
@@ -542,6 +540,7 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="submit">Cancel</button>
                                         <button id="submit" class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

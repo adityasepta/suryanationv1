@@ -163,72 +163,27 @@
                         </script>
                     </div>
                 </div>
-
-                <?php 
-
-                $r = count($bom4);
-
-                if($r == 0) {
-                    $a = true;
-                    $b = true;
-                };
-                
-
-                if($r > 0) {
-                    $x = $bom4[0]->status;
-                    if($x == 'Disetujui') {
-                        $b = false;
-                        $a = false;
-                    } else {
-                        $b = true;
-                        $a = true;
-                    }
-                }
-
-                ?>
-
-                <?php if( $a and $b) {?>
-
                 <div  class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Perhitungan Bahan Produksi</h5>
                         </div>
                         <div class="ibox-content form-horizontal">
-                                
-                                <?php echo form_open('user/setToleransi2')?>                  
+                                                                
                                 <div class="row">
                                     <div class="col-md-2">
                                         <label>Sub SPK</label>
                                         <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $idSubSPK?>" readonly> 
                                         <input type="hidden" name="idSubSPK" value="<?php echo $idSubSPK?>">
-                                        <input type="hidden" name="idSPK" value="<?php echo $subSPK[0]->idSPK?>">
                                     </div>
                                     <div class="col-md-2">
                                         <label>Nomor Faktur</label>
                                         <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $subSPK[0]->nomorFaktur ?>" readonly> 
                                     </div>
-                                    <div class="col-md-3">
-                                    <label>Kadar Yang dibuat Wenny</label>
-                                        <input type="number" step="any" required name="kadar" class="form-control" value="<?php echo $subSPK[0]->kadarWenny ?>" id="Wenny" > 
-                                         <script type="text/javascript">
-                                             
-                                         </script>
-                                        
-                                    </div>
                                     <div class="col-md-2">
-                                    <br>
-                                    <button type="submit" class="btn btn-success">Konfirmasi</button>
+                                        <label>Nomor PO</label>
+                                        <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $subSPK[0]->nomorPO ?>" readonly> 
                                     </div>
-                                    <div class="col-sm-3">
-                                        <br>
-                                        <?php if($subSPK[0]->kadarWenny == 0 ) { ?>
-                                            <b class="text-danger">Belum Konfirmasi Kadar</b>
-                                        <?php } else { ?>
-                                            <b>Kadar telah dikonfirmasi sebesar <?php echo $subSPK[0]->kadarWenny ?></b>
-                                        <?php } ?>
-                                    </div>
-                                    <?php echo form_close()?>
                                 </div>
                                     
                                 <hr>
@@ -393,15 +348,15 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Berat Alloy (gr)</label>
-                                        <input type="text" name= "beratAlloy" id="result3" class="form-control" >
+                                        <input type="text" name= "beratAlloy" id="result3" class="form-control" readonly="true">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Berat Tembaga (gr)</label>
-                                        <input type="text" name= "beratTembaga" id="result4" class="form-control" >
+                                        <input type="text" name= "beratTembaga" id="result4" class="form-control" readonly="true">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Berat Perak (gr)</label>
-                                        <input type="text" name= "beratPerak" id="result5" class="form-control" >
+                                        <input type="text" name= "beratPerak" id="result5" class="form-control" readonly="true">
                                     </div>
                                     
                                 </div>
@@ -423,11 +378,8 @@
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-8">
                                         <button id='myBtn1' class="btn btn-primary" type="submit" disabled>Tambahkan</button>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <span><em>Berat Alloy Kuning, Perak dan Tembaga dapat diganti sesuai kebutuhan. Misal untuk pemesanan dari <b>Ko Adi </b> </em></span>
                                     </div>
                                 </div>
                              <?php echo form_close()?>  
@@ -720,8 +672,6 @@
                     </div>
                     
                 </div>
-
-                <?php } ?>
             </div>
         </div>
         <div class="footer">

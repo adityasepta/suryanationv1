@@ -273,7 +273,7 @@
                                 <?php $b=count($aktivitas); for ($i=0; $i < $b ; $i++) { ?> 
                                     <div class="form-group">
                                         <div class="col-sm-3 col-sm-offset-1">
-                                            <div class="i-checks"><label><input <?php if ($i<4) {echo "required";} ?> type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]"><i></i>  <?php echo $aktivitas[$i]->namaAktivitas?></label></div>
+                                            <div class="i-checks"><label><input type="checkbox" value="<?php echo $i?>" checked name="nomorAktivitas[]"><i></i>  <?php echo $aktivitas[$i]->namaAktivitas?></label></div>
                                             <input class="form-control" type="hidden" value="<?php echo $aktivitas[$i]->idAktivitas?>" name="idAktivitas[]">   
                                         </div>
                                         <?php 

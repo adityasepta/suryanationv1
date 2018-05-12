@@ -1427,14 +1427,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();
     }
 
-    public function getKloterBySPK($idSPK) {
-
-        $sql   = "SELECT * from kloter where idSPK = $idSPK";
-        $query = $this->db->query($sql);
-        
-        return $query->result();
-    }
-
     public function getKloter2() {
 
         $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1004 and statusWork = 'Done' ) and idSPK NOT IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = 1005 ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = 1004";
@@ -1553,14 +1545,12 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
-    public function cekPolishDalam($idSPK,$idAKtivitas) {
-        $sql = "SELECT * from factproduction where idSPK = $idSPK and idAktivitas = $idAKtivitas ";
+    public function cekPolishDalam($idSPK) {
+        $sql = "SELECT * from factproduction where idSPK = $idSPK and idAktivitas = 1010 ";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
     }
-
-
 
     public function getLastMovement($nomorPO, $idProduk, $idPIC) {
         $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and kodeBarang = $idProduk and tipeBarang = 'Produk Jadi' and idPIC = $idPIC ";
