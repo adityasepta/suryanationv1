@@ -5013,16 +5013,19 @@ class User extends CI_Controller {
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
             $data['p'] = $this->mdl->getPrint();
+
+            $data['klt'] = $this->mdl->getListKloter2();
+            // print_r($data['klt']); exit();
             
 
-            $data['li'] = $this->mdl->getLilin(1004);
+            $data['li'] = $this->mdl->getLilin(1003);
 
             
             $data['qw'] = $this->mdl->getKloter2();
             $data['g'] = $this->mdl->getGroup();
             //$data['g2'] = $this->mdl->getGroup2();
 
-            $data['k1'] = $this->mdl->getKloter(1004);
+            $data['k1'] = $this->mdl->getKloter(1003);
 
             $data['k2'] = $this->mdl->getKloter(1005);
             $data['k3'] = $this->mdl->getKloter(1006);
@@ -5055,7 +5058,7 @@ class User extends CI_Controller {
 
              $data['jd'] = $this->mdl->getJadi();  
 
-            $this->load->view('user/display_tempahan',$data);
+            $this->load->view('user/statprod_view',$data);
 
         }
             
