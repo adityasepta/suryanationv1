@@ -107,13 +107,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-8">
-                <h2>RFQ</h2>
+                <h2>FORM ORDER</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="<?php echo base_url();?>user/administration">Beranda</a>
                     </li>
                     <li class="active">
-                        <strong><a href="<?php echo base_url();?>user/Invoice">Request For Quotation</a></strong>
+                        <strong><a href="<?php echo base_url();?>user/Invoice">Form Order</a></strong>
                     </li>
                 </ol>
             </div>
@@ -127,7 +127,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="<?php echo base_url()?>user/printInvoice/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print RFQ</a>
+                                        <a href="<?php echo base_url()?>user/printInvoice/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print Form Order</a>
                                         <h2><?php echo $namaProduk ?></h2>
                                     </div>
                                 </div>

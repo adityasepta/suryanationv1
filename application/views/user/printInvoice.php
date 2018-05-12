@@ -59,6 +59,7 @@
     $keteranganBatu         = $dataPO[0]->keteranganBatu;
     $beratAkhir             = $dataPO[0]->beratAkhir;
     $susut                  = $dataPO[0]->susut;
+    $jenisCustomer          = $dataPO[0]->jenisCustomer;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -75,301 +76,323 @@
     <title>Surya Sumatera | Administration</title>
 
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style type="text/css">
+    html {
+        background: white;
+        color: black;
+        font: 14px 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+        padding: 1em 10em 1em 10em ;
+    }
+    section {
+        clear: both;
+        margin-top: 3em;
+    }
+    li {
+        list-style-type: disc;
+    }
+    section > ul > li,
+    header > ul > li {
+        list-style-type: none;
+        margin-bottom: .5em;
+    }
+    .headline-name {
+        border-bottom: 1px solid black;
+        padding-bottom: .5em;
+    }
+    .contact-column {
+        float: left;
+        padding: 0 1px;
+    }
+    .header-title > p {
+        margin-top: -7px;
+    }
 
+    .header-section h3 {
+        margin-top: -5px;
+    }
+    a,
+    a:link,
+    a:visited {
+        border-bottom: 1px dotted rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+        padding: .2em .1em;
+        text-decoration: none;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+        background-color: rgb(255, 245, 0);
+        border-bottom: 1px solid rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+    }
+    @media (min-width: 992px) {
+        .contact-column {
+            margin-left: 0.1em;
+        }
+        .contact-column.right {
+            float: right;
+        }
+    }
+    @media (max-width: 776px) {
+        ul {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media print {
+        html {
+            color: black;
+            font-size: 12px;
+        }
+        body {
+            margin: 1em auto;
+            padding: 1em  2em 1em 2em;
+            width: 100%;
+        }
+        section {
+            margin-top: 1em;
+        }
+        a,
+        a:link,
+        a:visited {
+            border: none;
+            color: black;
+        }
+
+        .header-section h3 {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .toolbox {
+            display: none;
+        }
+
+        #footer ul {
+            margin:0 5px 0 20px;
+        }
+    }
+
+    </style>
+    <style type="text/css" media="print">
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    </style>
 </head>
 
-<body class="top-navigation">
-
-    <div id="wrapper">
-        <div class="white-bg">
-        <div class="wrapper-content animated fadeInRight">
-            <div class="row" style="color: black">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h1 class="text-center" >Surya Sumatra</h1>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding-bottom: 20px;">
-                                <tbody>
-                                    <tr style="margin-top: 8px; margin-bottom: 8px;">
-                                        <td>
-                                            <span style="font-size: 20px; font-weight: 600px">RFQ</span>
-                                        </td>
-                                        <td style="text-align: right; padding-right: 15px;">
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/purchaseOrder">
-                                                <span style="vertical-align: middle"> < Kembali </span>
-                                            </a>&nbsp
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
-                                                <span style="vertical-align: middle">Cetak</span>
-                                                <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%"><b>Nama Konsumen</b> <?php echo '&nbsp : '.$namaCustomer;?></td>
-                                        <td width="40%"><b>Nama Sales Person</b> <?php echo '&nbsp : '.$dataPO[0]->nama;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor PO</b> <?php echo '&nbsp : '.$nomorPO;?></td>
-                                        <td width="40%"><b>Tanggal Terima</b> <?php echo '&nbsp : '.$tglmsk;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor Telepon</b> <?php echo '&nbsp : '.$nomorTelepon;?></td>
-                                        <td width="40%"><b>Tanggal Estimasi Penyelesaian</b> <?php echo '&nbsp : '.$tglpyl;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Kode Produk:</b> <?php echo $kodeProduk ?><br>
-                                        <b>Jenis Produk:</b> <?php echo $jenisProduk ?><br>
-                                        <b><?php if($jenisProduk=='Gelang') { echo 'Diameter';} else {echo 'Ukuran';} ?>:</b> <?php echo $ukuranJari ?> <br>
-                                        <b>Estimasi Berat:</b> <?php echo $dataPO[0]->beratAkhir?></td>
-
-                                        <td><b>Bahan:</b> <?php echo $bahan ?><br>
-                                        <b>Kadar Bahan:</b> <?php echo $kadarBahan ?>%<br>
-                                        <b>Range Estimasi Berat:</b> <?php echo $tipeIkatan ?><br>
-                                        <b>Susut:</b> <?php echo $dataPO[0]->susut?></td>
-
-                                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?><br>
-                                        <b>Krum Warna:</b> <?php echo $krumWarna ?><br>
-                                        <b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
-
-                                        <td><b>Metode:</b> <?php echo $metode ?><br>
-                                        <b>Model:</b> <?php echo $model ?><br>
-                                        <b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p id="namaBatu"><b>Nama Batu Permata:</b> <?php echo $namaBatu ?><br>
-                                        <b>Berat Batu Permata:</b> <?php echo $beratBatu ?></p></td>
-
-                                        <td><p id="berlian">
-                                        <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
-                                        <b>Berlian:</b> <?php echo $poberlian[$i]->namaMaterial ?><br>
-                                        <b>Berat / Jumlah:</b> <?php echo $poberlian[$i]->jumlah ?></p></td>
-                                        <?php } ?>
-                                        <td><p id="datangEmas"><b>Datang Emas:</b> <?php echo $datangEmas ?><br>
-                                        <b>Kadar Datang Emas:</b> <?php echo $kadarDatangEmas ?></p></td>
-
-                                        <td><p id="datangBerlian"><b>Datang Berlian:</b> <?php echo $datangBerlian ?><br>
-                                        <b>Jumlah Datang Berlian:</b> <?php echo $jumlahDatangBerlian ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p id="batuA"><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?><br>
-                                        <b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?><br>
-                                        <b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></p></td>
-                                        <td><p id="batuB"><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?><br>
-                                        <b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></p></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <thead>
-                                    <tr>
-                                        <th>Keperluan</th>
-                                        <th class="text-center">Jumlah</th>
-                                        <th class="text-right">Harga Satuan</th>
-                                        <th class="text-right">Biaya</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                               Berat Total <br>
-                                               (Berat Akhir - Berat Batu + Susut)
-                                            </td>
-                                            <td class="text-center">
-                                                <label><?php echo $beratSisa=$beratAkhir-$beratBatu+$susut?> gr</label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right">Rp. <?php echo number_format($hargaBahan,2,",","."); ?></label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaAwal=$beratSisa*$hargaBahan,2,",","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Upah
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td class="text-right">
-                                                <label class="text-muted pull-right">-</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upah,2,",","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Upah Pasang Berlian
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php if($datangBerlian==NULL || $datangBerlian==0){echo 0;} else { echo $datangBerlian;}?> Pcs</label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahPasangBerlian,2,".","."); ?></label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahBerlian=$datangBerlian*$upahPasangBerlian,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Harga Batu Zirkon
-                                            </td>
-                                            <td class="text-center">
-                                                <label> <?php echo $jumlahBatuZirkon ?> Pcs</label>
-                                            </td>
-                                            <td class="text-center">
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaBatuZirkon,2,".","."); ?></label>
-                                            </td>
-                                            <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($upahCZ=$hargaBatuZirkon*$jumlahBatuZirkon,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <?php $hargaPerBerlian=0; $hargaBerlian=0; for ($y=0; $y < count($poberlian) ; $y++) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $poberlian[$y]->namaMaterial ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <label><?php echo $poberlian[$y]->jumlah?></label>
-                                            </td>
-                                            <td class="text-center">
-                                                <label class="text-muted pull-right"><?php echo $poberlian[$y]->harga?></label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$poberlian[$y]->harga,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <?php 
-                                                $hargaBerlian+=$hargaPerBerlian; 
-                                            } 
-                                        ?>
-                                        <tr>
-                                            <td>
-                                               Harga Krum Warna
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td class="text-right">
-                                                <label class="text-muted pull-right">-</label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Pekerjaan Tambahan <br>
-                                               (<?php echo $pekerjaanTambahan ?>)
-                                            </td>
-                                            <td class="text-center">
-                                                <label>-</label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right">-</label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan=$dataPO[0]->hargaEnamel+$dataPO[0]->hargaSlap+$dataPO[0]->hargaKombinasi+$dataPO[0]->hargaLaserHuruf+$dataPO[0]->hargaKodeCap,2,".","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Datang Emas
-                                            </td>
-                                            <td class="text-center">
-                                                <label><?php echo $dataPO[0]->datangEmas;?> gr</label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right">Rp. <?php echo number_format($dataPO[0]->hargaDatangEmas,2,",",".");?></label>
-                                            </td>
-                                            <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas,2,",","."); ?></label>
-                                            </td>
-                                        </tr>
-                                        <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                            <td class="text-left" colspan="3"><strong>Total Harga</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaAwal+$upah+$upahBerlian+$upahCZ+$biayaTambahan+$hargaKrumWarna-$totalDatangEmas,2,",",".");?></strong></td>
-                                        </tr>
-                                        <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                            <td class="text-left" colspan="3"><strong>Panjar</strong></td>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($panjar,2,",",".");?></strong></td>
-                                        </tr>
-                                        <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                            <td class="text-left" colspan="3"><strong class="text-navy">Estimasi Biaya Yang Harus Dibayar</strong></td>
-                                            <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($sisaBayar=$total-$panjar,2,",",".");?></strong></td>
-                                        </tr>
-                                        </tbody>
-                            </table>
-                            <!--  -->
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-1"></div>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-title text-center">
+                <h2><b>PT. SURYA SUMATERA</b></h2>
+                <P>Menerima Tempahan Cincin, Gelang, Liontin, Dll.</P>
+                <P>Jalan Sekip Baru No.30 Medan Telp. 061 - 4520404</P>
             </div>
-        </div>
-        </div>
-        </div>
-        <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
-        <script>
-            $(document).ready(function () {
-                var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
-                if(a==null||a==0){
-                    document.getElementById('namaBatu').style.display = 'none';
-                };
 
-                var b = '<?php if($batuTerhadapKruman!=null){echo $batuTerhadapKruman;} else echo 0;?>';
-                if(b==null||b==0){
-                    document.getElementById('batuA').style.display = 'none';
-                    document.getElementById('batuB').style.display = 'none';
-                };
+            <div class="header-section row">
+                <div class="col-lg-4">
+                    <h3>FORM ORDER TEMPAHAN</h3>
+                </div>
+                <div class="toolbox col-lg-8 text-right">
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/purchaseOrder'">
+                        <span style="vertical-align: middle"> < Kembali </span>
+                    </a>&nbsp
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
+                        <span style="vertical-align: middle">Cetak</span>
+                        <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                    </a>
+                </div>
+            </div> 
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
+                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                    </tr>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
+                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
+                     </tr>
+                     <tr>
+                        <td width="5%"></td>
+                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
+                     </tr>
+                     
+                </tbody>
+            </table>
+            <hr style="border-top: 3px solid #282828;">
+        </header>
+        <section id="detailProduk">
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                    </tr>
+                    <tr>
+                        <td><b>Bahan:</b> <?php echo $bahan ?></td>
+                        <td><b>Kadar:</b> <?php echo $kadarBahan; if($jenisCustomer=="Toko"){ echo "% + Pen".$persenBiaya;}?>%</td>
+                        <td><b>Harga Per Gram:</b> <?php if($jenisCustomer=="Toko"){ echo "$ ".number_format($hargaBahan,2,',','.');} else { echo "Rp ".number_format($hargaBahan,2,',','.');}?></td>
+                    </tr>
+                    <tr id="datangEmas">
+                        <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
+                        <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                        <td><b>Harga Per Gram:</b> <?php if($jenisCustomer=="Toko"){ echo "$ ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
+                        <td><b>Range Berat:</b> <?php echo $estimasi ?>gr</td>
+                        <td><b>Susut:</b> <?php echo $susut ?>gr</td>
+                    </tr>
+                    <tr>
+                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?></td>
+                        <td colspan="2"><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                        
+                    </tr>
+                    <tr id="namaBatu">
+                        <td><b>Nama Batu:</b> <?php echo $namaBatu ?></td>
+                        <td><b>Berat Batu:</b> <?php echo $beratBatu ?></td>
+                        <td><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
+                    </tr>
+                    <tr id="namaBatu1">
+                        <td><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
+                        <td><b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
+                    </tr>
+                    <tr id="namaBatu2">
+                        <td><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
+                        <td><b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Metode:</b> <?php echo $metode ?></td>
+                        <td><b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?></td>
+                    </tr>
 
-                var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
-                if(c==null||c==0){
-                    document.getElementById('berlian').style.display = 'none';
-                };
+                    <!-- Pekerjaan Tambahan -->
+                    <?php $pt = explode(',',$pekerjaanTambahan);?>
+                    <?php if(in_array("Enamel", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Enamel</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganEnamel ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaEnamel,2,',','.') ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Slap", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Slap</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganSlap ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaSlap,2,',','.') ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Kombinasi", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Kombinasi</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganKombinasi ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaKombinasi,2,',','.') ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Laser Huruf", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Laser Huruf</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganLaserHuruf ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaLaserHuruf,2,',','.') ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Kode Cap", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Kode Cap</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganKodeCap ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaKodeCap,2,',','.') ?></td>
+                    </tr>
+                    <?php } ?>
+                    <!--  -->
+                    <tr>
+                        <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganKrum ?></td>
+                        <td><b>Biaya:</b> Rp <?php echo number_format($hargaKrumWarna,2,',','.') ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </section>
+        <section id="footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr style="border-top: 3px solid #282828;">
+                    <h4><b>Panjar: Rp <?php echo number_format($panjar,2,',','.') ?></b></h4>
+                </div>
+            </div>
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="60%">
+                            <div style="background-color: #e2e2e2; padding: 10px; border: 1px solid #282828">
+                                <p><b>NB: JIKA BATAL / TUKAR DESAIN DIKENAKAN BIAYA SEBESAR RP 300.000,-</b></p>
+                                <p><b>Perhatian:</b></p>
+                                <ul>
+                                    <li>Perhiasan diambil dengan membawa bukti berupa surat</li>
+                                    <li>Perhiasan tidak dapat diambil jika surat tidak dibawa / hilang</li>
+                                    <li>Surat berlaku dalam waktu 1(satu) bulan, jika perhiasan tidak diambil maka uang panjar dianggap hilang</li>
+                                    <li>Kami tidak bertanggungjawab terhadap kerusakan batu mulia, kecuali batu tersebut diansurasikan</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Hormat Kami</b></p>
+                                <p style="margin-top: 40px;"><?php echo $dataPO[0]->nama ?></p>
+                            </div></td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Konsumen</b></p>
+                                <p style="margin-top: 40px;"><?php echo $namaCustomer ?></p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
 
-                var g = <?php echo $datangEmas?>;
-                if(g==null||g==0){
-                    document.getElementById('datangEmas').style.display = 'none';
-                };
+<script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
+        if(a==null||a==0){
+            document.getElementById('namaBatu').style.display = 'none';
+            document.getElementById('namaBatu1').style.display = 'none';
+            document.getElementById('namaBatu2').style.display = 'none';
+        };
 
-                var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
-                if(i==null||i==0){
-                    document.getElementById('datangBerlian').style.display = 'none';
-                };
-            });
-        </script>
+        // var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
+        // if(c==null||c==0){
+        //     document.getElementById('berlian').style.display = 'none';
+        // };
+
+        var g = <?php echo $datangEmas?>;
+        if(g==null||g==0){
+            document.getElementById('datangEmas').style.display = 'none';
+        };
+
+        // var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+        // if(i==null||i==0){
+        //     document.getElementById('datangBerlian').style.display = 'none';
+        // };
+    });
+</script>
+    
 </body>
 
 
