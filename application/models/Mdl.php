@@ -1575,15 +1575,15 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
-    public function cekPolishDalam($idSPK) {
-        $sql = "SELECT * from factproduction where idSPK = $idSPK and idAktivitas = 1010 ";
+    public function cekPolishDalam($idSPK, $idAktivitas) {
+        $sql = "SELECT * from factproduction where idSPK = $idSPK and idAktivitas = $idAktivitas ";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
     }
 
     public function getLastMovement($nomorPO, $idProduk, $idPIC) {
-        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and kodeBarang = $idProduk and tipeBarang = 'Produk Jadi' and idPIC = $idPIC ";
+        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' ";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
