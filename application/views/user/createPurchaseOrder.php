@@ -657,42 +657,42 @@
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'LTN-';
+                document.getElementById('kodeProduk').value = 'LTN';
             } else if ($('#gelang').iCheck('update')[0].checked){
                 document.getElementById('ukuranGelang').style.display = 'block';
                 document.getElementById('ukuranLiontin').style.display = 'none';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'GLG-';
+                document.getElementById('kodeProduk').value = 'GLG';
             } else if ($('#cincinKawin').iCheck('update')[0].checked){
                 document.getElementById('ukuranCincin').style.display = 'block';
                 document.getElementById('ukuranLiontin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'CCK-';
+                document.getElementById('kodeProduk').value = 'CCK';
             } else if ($('#anting').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'ATG-';
+                document.getElementById('kodeProduk').value = 'ATG';
             } else if ($('#mainanNama').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'MNA-';
+                document.getElementById('kodeProduk').value = 'MNA';
             } else {
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'block';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'LLN-';
+                document.getElementById('kodeProduk').value = 'LLN';
             }
         }
 
@@ -789,7 +789,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            customerCek();
 
             var max_fields      = 30; //maximum input boxes allowed
             var wrapper         = $(".input_fields_wrap"); //Fields wrapper

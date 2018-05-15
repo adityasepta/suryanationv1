@@ -239,14 +239,23 @@
         </header>
         <section id="detailProduk">
             <table class="table no-border">
+                <thead>
+                    <tr>
+                        <th>Keterangan</th>
+                        <th class="text-center">Jumlah</th>
+                        <th class="text-right">Harga Satuan</th>
+                        <th class="text-right">Harga Total</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
                         <td>
                            Berat Total <br>
-                           (Berat Akhir - Berat Batu + Susut)
+                           (Berat Akhir - Berat Batu + Susut)<br>
+                           <?php echo '('.$beratTotal.'gr - '.$beratBatu.'gr + '.$susut.'gr)'?>
                         </td>
                         <td class="text-center">
-                            <label><?php echo $beratSisa=$beratAkhir-$beratBatu+$susut?> gr</label>
+                            <label><?php echo $beratSisa=$beratTotal-$beratBatu+$susut?> gr</label>
                         </td>
                         <td>
                             <label class="text-muted pull-right">Rp. <?php echo number_format($hargaBahan,2,",","."); ?></label>
@@ -284,6 +293,22 @@
                         </td>
                     </tr>
                     <?php $hargaPerBerlian=0; $hargaBerlian=0; for ($y=0; $y < count($poberlian) ; $y++) { ?>
+                    <?php if($dataPO[0]->jenisCustomer=='Toko'){?>
+                    <tr>
+                        <td>
+                            <?php if($poberlian[$y]->jenis=='Berlian'){ echo $poberlian[$y]->namaBerlian.' ('.$poberlian[$y]->karat.')';}else{echo $poberlian[$y]->namaBerlian;}?>
+                        </td>
+                        <td class="text-center">
+                            <label><?php echo $poberlian[$y]->jumlah?></label>
+                        </td>
+                        <td class="text-center">
+                            <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->karat*$poberlian[$y]->harga*$gold['currentRupiah']; echo '$ '.number_format($poberlian[$y]->harga,0,",",".").' (Rp. '.number_format($gold['currentRupiah'],0,",",".").')'; } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,0,",",".");} ?></label>
+                        </td>
+                        <td>
+                            <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,",","."); ?></label>
+                        </td>
+                    </tr>
+                    <?php } else { ?>
                     <tr>
                         <td>
                             <?php echo $poberlian[$y]->namaBerlian ?>
@@ -292,12 +317,14 @@
                             <label><?php echo $poberlian[$y]->jumlah?></label>
                         </td>
                         <td class="text-center">
-                            <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->harga*$gold['currentRupiah']; echo '$ '.number_format($poberlian[$y]->harga,0,",",".").' (Rp. '.number_format($gold['currentRupiah'],0,",",".").')'; } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,0,",",".");} ?></label>
+                            <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->karat*$poberlian[$y]->harga*$gold['currentRupiah']; echo 'Rp '.number_format($satuanBerlian,2,",","."); } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,2,",",".");} ?></label>
+
                         </td>
                         <td>
                             <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,",","."); ?></label>
                         </td>
                     </tr>
+                    <?php } ?>
                     <?php 
                             $hargaBerlian+=$hargaPerBerlian; 
                         } 
@@ -316,7 +343,7 @@
                             <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaKrumWarna,2,",","."); ?></label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="pekerjaanTambahan">
                         <td>
                            Pekerjaan Tambahan <br>
                            (<?php echo $pekerjaanTambahan ?>)
@@ -331,7 +358,7 @@
                             <label class="text-muted pull-right"> Rp. <?php echo number_format($biayaTambahan=$dataPO[0]->hargaEnamel+$dataPO[0]->hargaSlap+$dataPO[0]->hargaKombinasi+$dataPO[0]->hargaLaserHuruf+$dataPO[0]->hargaKodeCap,2,",","."); ?></label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="datangEmas">
                         <td>
                            Datang Emas
                         </td>
@@ -392,6 +419,10 @@
             document.getElementById('datangEmas').style.display = 'none';
         };
 
+        var h = '<?php echo $pekerjaanTambahan?>';
+        if(h=='Tidak Ada'){
+            document.getElementById('pekerjaanTambahan').style.display = 'none';
+        };
         
     });
 </script>

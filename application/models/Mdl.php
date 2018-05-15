@@ -2829,7 +2829,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getBerlian($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM poberlian a LEFT JOIN materialdasar b ON a.kodeMaterial=b.kodeMaterial WHERE a.nomorPO=$nomorPO");
+        $hasil = $this->db->query("SELECT * FROM poberlian a WHERE a.nomorPO=$nomorPO");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2908,12 +2908,20 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     function getRekapSPKMassal(){
         $hasil = $this->db->query("SELECT max(idSPK) as idSPK,max(tanggalMasuk) as tanggalMasuk,max(namaCustomer) as namaCustomer,max(namaProduk) as namaProduk,max(kadarBahan) as kadarBahan,max(jumlah) as jumlah FROM (SELECT a.idSPK,DATE_FORMAT(b.tanggalMasuk, '%d %M %Y') AS tanggalMasuk,c.namaCustomer,d.namaProduk,b.kadarBahan,NULL as jumlah FROM `spkmasal` a JOIN pomasal b on a.nomorPO=b.nomorPO JOIN customer c on a.idCustomer=c.idCustomer JOIN produk d on a.idProduk=d.idProduk WHERE a.statusSPK='Done'
-UNION
-SELECT a.idSPK,'0' as tanggalMasuk, '0' as namaCustomer, '0' as namaProduk, '0' as kadarBahan, sum(jumlah) as jumlah FROM factproduction2 a WHERE idAktivitas=1014 and statusSPK='Done' GROUP BY idSPK)a GROUP BY idSPK");
+        UNION
+        SELECT a.idSPK,'0' as tanggalMasuk, '0' as namaCustomer, '0' as namaProduk, '0' as kadarBahan, sum(jumlah) as jumlah FROM factproduction2 a WHERE idAktivitas=1014 and statusSPK='Done' GROUP BY idSPK)a GROUP BY idSPK");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-}
+    }
+
+    public function getKloterBySPK($idSPK) {
+
+        $sql   = "SELECT * from kloter where idSPK = $idSPK";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
 }

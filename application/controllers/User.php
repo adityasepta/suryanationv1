@@ -4709,7 +4709,13 @@ class User extends CI_Controller {
 
     public function printInvoiceAkhirTempahan($nomorPO){
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
-        $data['poberlian']=$this->mdl->getBerlian($nomorPO); 
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO);
+        $data['SPK']=$this->mdl->findSPKTempahanbyPO($nomorPO); 
+        $idSPK = $data['SPK']->idSPK;
+            $data['berat']=$this->mdl->getBeratAkhir($idSPK);
+            if ($data['berat']){
+            $data['beratTotal'] = $data['berat'][0]->berat;}
+            else {$data['beratTotal']=0;}  
         $this->load->view('user/printInvoiceTempahan',$data);
     }
 

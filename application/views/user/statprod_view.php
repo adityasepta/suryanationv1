@@ -421,7 +421,7 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>SLEB<span class="label label-success pull-right"><?php echo count($sl)?></span></h3>
+                                    <h3>SLEB / ENAMEL<span class="label label-success pull-right"><?php echo count($sl)?></span></h3>
                                     <p>Kumpulan dari SPK yang sedang proses <br> Sleb <b>1011</b></p>
                                     <ul class="sortable-list connectList agile-list" id="chrome">
                                       <?php for ($i=0; $i < count($sl) ; ++$i) { ?>

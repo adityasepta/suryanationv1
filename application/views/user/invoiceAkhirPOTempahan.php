@@ -30,7 +30,6 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -222,14 +221,20 @@
                                         <input type="text" value="<?php echo $berlian[$i]->harga?>" class="form-control" readonly>
                                     </div>
                                     <?php if($berlian[$i]->jenis=='Berlian') {?>
-                                    <div class="col-sm-1" style="width:0;">X</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" value="<?php echo $gold['currentRupiah']?>" class="form-control" readonly>
+                                    <div class="col-sm-4 row">
+                                        <div class="col-sm-2" style="width:0;">X</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" value="<?php echo $berlian[$i]->karat?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-sm-2" style="width:0;">X</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" value="<?php echo $gold['currentRupiah']?>" class="form-control" readonly>
+                                        </div>
                                     </div>
                                     <?php } ?>
                                     <div class="col-sm-1" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" value="<?php if($berlian[$i]->jenis=='Berlian'){ $hargaPerBerlian=$berlian[$i]->harga*$gold['currentRupiah']; echo $hargaPerBerlian; } else { $hargaPerBerlian=$berlian[$i]->harga; echo $hargaPerBerlian;} ?>" class="form-control" readonly>
+                                        <input type="text" value="<?php if($berlian[$i]->jenis=='Berlian'){ $hargaPerBerlian=$berlian[$i]->jumlah*$berlian[$i]->karat*$berlian[$i]->harga*$gold['currentRupiah']; echo $hargaPerBerlian; } else { $hargaPerBerlian=$berlian[$i]->harga*$berlian[$i]->jumlah; echo $hargaPerBerlian;} ?>" class="form-control" readonly>
                                         
                                     </div>
                                 </div>
@@ -270,11 +275,11 @@
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" value="<?php echo $gold['currentRupiah']; ?>" class="form-control" readonly>
+                                        <input type="text" placeholder="Rp" value="<?php echo $gold['currentCurrency']; ?>" class="form-control" readonly>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->kadarDatangEmas*$gold['currentRupiah'];?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->kadarDatangEmas/100*$gold['currentCurrency'];?>" class="form-control" required readonly>
                                     </div>
                                     <?php } else { ?>
                                     <div class="col-sm-2">
