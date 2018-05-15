@@ -155,6 +155,7 @@
     </style>
 </head>
 
+<<<<<<< HEAD
 <body>
     <div class="wrapper">
         <header>

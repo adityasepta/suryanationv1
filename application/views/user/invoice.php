@@ -136,8 +136,6 @@
                                     <div class="m-b-md">
                                         <a href="<?php echo base_url()?>user/printSPKTempahan/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
                                         <h2><?php echo $namaProduk ?></h2>
-                                        
-                                        
                                     </div>
                                 </div>
                             </div>

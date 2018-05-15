@@ -85,7 +85,7 @@
                                     <th>Nama Konsumen</th>
                                     <th data-hide="phone,tablet">Jenis Produk</th>
                                     <th data-hide="phone,tablet">Nama Produk</th>
-                                    <th class="text-center" data-hide="phone,tablet">Invoice</th>
+                                    <th data-hide="phone,tablet">Invoice</th>
                                     <th class="text-center" data-hide="phone,tablet">Action</th>
                                 </tr>
                                 </thead>

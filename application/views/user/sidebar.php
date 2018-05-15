@@ -66,7 +66,7 @@
                                 </li> -->
                             </ul> 
                         </li> 
-                        <!-- <li>
+                        <li>
                             <a href="#">Invoice Customer <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level"> 
                                 <li> 
@@ -76,7 +76,7 @@
                                     <a href="<?php echo base_url();?>user/listInvoiceMassal">PO Massal</a> 
                                 </li> 
                             </ul> 
-                        </li> -->
+                        </li>
                         <li><a href="<?php echo base_url();?>user/trackPO">Track PO</a></li> 
                     </ul> 
                 </li>

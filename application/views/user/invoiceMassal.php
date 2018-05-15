@@ -143,7 +143,6 @@
                                 <div class="m-b-md">
                                     <a href="<?php echo base_url()?>user/printSPKMassal/<?php echo $nomorFaktur?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print SPK</a>
                                     <h2><?php echo $namaProduk ?></h2>
-                                   
                                 </div>
                             </div>
                         </div>
@@ -470,7 +469,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                            <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                     <h5>Rencana Produksi</h5>
@@ -537,33 +536,6 @@
                                     </div>
                                 </div>
                             </div> 
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>Daftar SUB SPK</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <table class="table table-hover table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID Sub SPK</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php for($i = 0; $i < count($sub); ++$i) { ?>
-
-                                                <tr>
-                                                    <td class="text-center"><?php echo $sub[$i]->idSubSPK ?></td>
-                                                    <td class="text-center"><a class="btn btn-xs btn-info" href="<?php echo base_url('user/createBOMMassal/'.$sub[$i]->idSubSPK) ?>">Detil BOM</a></td>
-                                                </tr>
-
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
             </div>
