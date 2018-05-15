@@ -16,6 +16,7 @@
 
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
+    <script src="<?php echo base_url();?>assets/js/editable-dropdown.js"></script>
 </head>
 
 <body>
@@ -67,6 +68,7 @@
                         </div>
                         <div class="ibox-content">
                             <?php echo form_open_multipart('user/tambahPO','class="form-horizontal"')?>
+
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -155,10 +157,10 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Jenis Customer</label>
                                     <div class="col-lg-2">
-                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" required> <i></i> Toko </label></div>
+                                        <div class="i-checks"><label> <input id="toko" type="radio" value="Toko" name="jenisCustomer"> <i></i> Toko </label></div>
                                     </div>
                                     <div class="col-lg-8">
-                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a= set_value('jenisCustomer'); if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer"> <i></i> Perseorangan </label></div>
+                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" checked="" value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -190,15 +192,15 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label>Kadar (lokal)</label>
-                                                        <input type="text" name="kadarBahan" placeholder="%" value="<?php echo set_value('kadarBahan'); ?>"  class="form-control" required="">
+                                                        <input id="kadarBahan" type="text" name="kadarBahan" placeholder="%" value="<?php echo set_value('kadarBahan'); ?>"  class="form-control" required="">
                                                     </div>
-                                                    <div class="col-md-3" id="penambahanPersen">
-                                                        <label>Penambahan Persen</label>
+                                                    <div class="col-md-6" id="penambahanPersen">
+                                                        <label>Pen (Persen)</label>
                                                         <input id="persenBiaya" type="text" name="persenBiaya" placeholder="%" value="<?php echo set_value('persenBiaya'); ?>"  class="form-control" required="">
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6" id="hargaPasaran">
                                                         <label>Harga Per Gram</label>
-                                                        <input type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>">
+                                                        <input id="hargaBahan" type="text" placeholder="Rp" name="hargaBahan" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -253,11 +255,11 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Kadar Datang Emas (lokal)</label>
-                                                        <input type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
+                                                        <input id="kadarDatangEmas" type="text" name="kadarDatangEmas" placeholder="%" value="<?php echo set_value('kadarDatangEmas'); ?>"  class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Harga Datang Emas</label>
-                                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>" >
+                                                        <label>Harga Per Gram</label>
+                                                        <input id="hargaDatangEmas" type="text" placeholder="Rp" name="hargaDatangEmas" class="form-control good" value="<?php echo $gold['currentCurrency']; ?>" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -648,63 +650,88 @@
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'CNC-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'CNC-';
             } else if ($('#liontin').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'LTN-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'LTN-';
             } else if ($('#gelang').iCheck('update')[0].checked){
                 document.getElementById('ukuranGelang').style.display = 'block';
                 document.getElementById('ukuranLiontin').style.display = 'none';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'GLG-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'GLG-';
             } else if ($('#cincinKawin').iCheck('update')[0].checked){
                 document.getElementById('ukuranCincin').style.display = 'block';
                 document.getElementById('ukuranLiontin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'CCK-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'CCK-';
             } else if ($('#anting').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'ATG-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'ATG-';
             } else if ($('#mainanNama').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'MNA-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'MNA-';
             } else {
                 document.getElementById('ukuranCincin').style.display = 'none';
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'block';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'LLN-'+nomorPO;
+                document.getElementById('kodeProduk').value = 'LLN-';
             }
         }
 
         function customerCheck(){
             if ($('#toko').iCheck('update')[0].checked) {
                 document.getElementById('penambahanPersen').style.display = 'block';
+                document.getElementById('hargaPasaran').style.display = 'none';
             } else {
                 document.getElementById('penambahanPersen').style.display = 'none';
+                document.getElementById('hargaPasaran').style.display = 'block';
                 document.getElementById('persenBiaya').value = 0;
             }
         }
 
         produkCheck();
         customerCheck();
+    });
+    
+    $("#kadarBahan").on("change",function() {
+        var kadar = parseFloat(document.getElementById('kadarBahan').value);
+        var jenisCustomer = $("input[name='jenisCustomer']:checked").val();
+        var bahan = $("input[name='bahan']:checked").val();
+        var currentPrice = parseFloat(<?php echo $gold['currentCurrency']; ?>);
+        if(jenisCustomer=='Toko'){
+            document.getElementById('hargaBahan').value = currentPrice;
+        } else {
+            if(bahan=='Emas Kuning'){
+                document.getElementById('hargaBahan').value =(kadar+10)*currentPrice/100;
+            } else if(bahan=='Emas Putih'){
+                document.getElementById('hargaBahan').value = (kadar+15)*currentPrice/100;
+            } else if(bahan=='Swasa'){
+                document.getElementById('hargaBahan').value = (kadar+10)*currentPrice/100;
+            } else if(bahan=='Rose Gold'){
+                document.getElementById('hargaBahan').value = (kadar+15)*currentPrice/100;
+            } else {
+                document.getElementById('hargaBahan').value = 16000;
+            }
+        }
+        
     });
     </script>
     <script type="text/javascript">
@@ -767,24 +794,13 @@
             var max_fields      = 30; //maximum input boxes allowed
             var wrapper         = $(".input_fields_wrap"); //Fields wrapper
             var add_button      = $(".add_field_button"); //Add button ID
-            var z;
-            $("#toko").on("ifChanged", customerCek);
-            $("#perseorangan").on("ifChanged", customerCek);
-            function customerCek(){
-                if ($('#toko').iCheck('update')[0].checked) {
-                    z  = '<label>Harga Berlian Per Karat (Dollar)</label>';
-                } else {
-                    z  = '<label>Harga Berlian Per Buah (Rupiah)</label>';
-                }
-                
-            }
             
             var x = 1; //initlal text box count
             $(add_button).click(function(e){ //on add input button click
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><input type="text" placeholder="Keterangan" name="namaBerlian[]" class="form-control"></div><div class="col-md-3">'+z+'<input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_A" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->namaMaterial?>"><?php echo $material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Berlian Per Karat (Dollar)</label><input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
                 }
             });
             
@@ -793,6 +809,7 @@
             })
         });
         // <div class="col-md-2"><label>Berat Karat (Poin)</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div>
+
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -805,7 +822,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><input type="text" placeholder="Keterangan" name="batuZirkon" class="form-control" value="<?php echo set_value("batuZirkon"); ?>"></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" placeholder="Rp" name="hargaBatuZirkon" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><select class="form-control m-b" name="zirkon[]" id="lstDropDown_A" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($zirkon); $i++) { ?><option value="<?php echo $zirkon[$i]->namaMaterial?>"><?php echo $zirkon[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" placeholder="Rp" name="hargaBatuZirkon[]" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div>'); //add input box
                 }
             });
             
@@ -824,6 +841,29 @@
             } else { 
                 document.getElementById('detailTambahan').style.display = 'none';
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $("#kadarDatangEmas").on("change",function() {
+            var cekKadar = document.getElementById('kadarDatangEmas').value;
+            if (cekKadar==null||cekKadar==0) {
+                document.getElementById('hargaDatangEmas').disabled = false;
+            } else { 
+                document.getElementById('hargaDatangEmas').disabled = true;
+                document.getElementById('hargaDatangEmas').value = 0;
+            }
+            console.log(cekKadar);
+        });
+
+        $("#hargaDatangEmas").on("change",function() {
+            var cekHarga = document.getElementById('hargaDatangEmas').value;
+            if (cekHarga==null||cekHarga==0||cekHarga=='Rp'||cekHarga=='Rp 0') {
+                document.getElementById('kadarDatangEmas').disabled = false;
+            } else { 
+                document.getElementById('kadarDatangEmas').disabled = true;
+                document.getElementById('kadarDatangEmas').value = 0;
+            }
+            console.log(cekHarga);
         });
     </script>
 </body>

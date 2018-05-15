@@ -59,6 +59,8 @@
     $keteranganBatu         = $dataPO[0]->keteranganBatu;
     $beratAkhir             = $dataPO[0]->beratAkhir;
     $susut                  = $dataPO[0]->susut;
+    $jenisCustomer          = $dataPO[0]->jenisCustomer;
+    $persenBiaya            = $dataPO[0]->persenBiaya;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -75,165 +77,298 @@
     <title>Surya Sumatera | Administration</title>
 
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style type="text/css">
+    html {
+        background: white;
+        color: black;
+        font: 14px 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+        padding: 1em 10em 1em 10em ;
+    }
+    section {
+        clear: both;
+        margin-top: 3em;
+    }
+    li {
+        list-style-type: disc;
+    }
+    section > ul > li,
+    header > ul > li {
+        list-style-type: none;
+        margin-bottom: .5em;
+    }
+    .headline-name {
+        border-bottom: 1px solid black;
+        padding-bottom: .5em;
+    }
+    .contact-column {
+        float: left;
+        padding: 0 1px;
+    }
+    .header-title > p {
+        margin-top: -7px;
+    }
 
+    .header-section h3 {
+        margin-top: -5px;
+    }
+    a,
+    a:link,
+    a:visited {
+        border-bottom: 1px dotted rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+        padding: .2em .1em;
+        text-decoration: none;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+        background-color: rgb(255, 245, 0);
+        border-bottom: 1px solid rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+    }
+    @media (min-width: 992px) {
+        .contact-column {
+            margin-left: 0.1em;
+        }
+        .contact-column.right {
+            float: right;
+        }
+    }
+    @media (max-width: 776px) {
+        ul {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media print {
+        html {
+            color: black;
+            font-size: 12px;
+        }
+        body {
+            margin: 1em auto;
+            padding: 1em  2em 1em 2em;
+            width: 100%;
+        }
+        section {
+            margin-top: 1em;
+        }
+        a,
+        a:link,
+        a:visited {
+            border: none;
+            color: black;
+        }
+
+        .header-section h3 {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .toolbox {
+            display: none;
+        }
+
+        #footer ul {
+            margin:0 5px 0 20px;
+        }
+    }
+
+    </style>
+    <style type="text/css" media="print">
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    </style>
 </head>
 
-<body class="top-navigation">
-
-    <div id="wrapper">
-        <div class="white-bg">
-        <div class="wrapper-content animated fadeInRight">
-            <div class="row" style="color: black">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h1 class="text-center" >Surya Sumatra</h1>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding-bottom: 20px;">
-                                <tbody>
-                                    <tr style="margin-top: 8px; margin-bottom: 8px;">
-                                        <td>
-                                            <span style="font-size: 20px; font-weight: 600px">SPK</span>
-                                        </td>
-                                        <td style="text-align: right; padding-right: 15px;">
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/spk">
-                                                <span style="vertical-align: middle"> < Kembali </span>
-                                            </a>&nbsp
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
-                                                <span style="vertical-align: middle">Cetak</span>
-                                                <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%"><b>Nama Konsumen</b> <?php echo '&nbsp : '.$namaCustomer;?></td>
-                                        <td width="40%"><b>Nama Sales Person</b> <?php echo '&nbsp : '.$dataPO[0]->nama;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor PO</b> <?php echo '&nbsp : '.$nomorPO;?></td>
-                                        <td width="40%"><b>Tanggal Terima</b> <?php echo '&nbsp : '.$tglmsk;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor Telepon</b> <?php echo '&nbsp : '.$nomorTelepon;?></td>
-                                        <td width="40%"><b>Tanggal Estimasi Penyelesaian</b> <?php echo '&nbsp : '.$tglpyl;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Kode Produk:</b> <?php echo $kodeProduk ?><br>
-                                        <b>Jenis Produk:</b> <?php echo $jenisProduk ?><br>
-                                        <b><?php if($jenisProduk=='Gelang') { echo 'Diameter';} else {echo 'Ukuran';} ?>:</b> <?php echo $ukuranJari ?> <br>
-                                        <b>Estimasi Berat:</b> <?php echo $beratAkhir?></td>
-
-                                        <td><b>Bahan:</b> <?php echo $bahan ?><br>
-                                        <b>Kadar Bahan:</b> <?php echo $kadarBahan ?>%<br>
-                                        <b>Range Estimasi Berat:</b> <?php echo $tipeIkatan ?><br>
-                                        <b>Susut:</b> <?php echo $dataPO[0]->susut?></td>
-
-                                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?><br>
-                                        <b>Krum Warna:</b> <?php echo $krumWarna ?><br>
-                                        <b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
-
-                                        <td><b>Metode:</b> <?php echo $metode ?><br>
-                                        <b>Model:</b> <?php echo $model ?><br>
-                                        <b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p id="namaBatu"><b>Nama Batu Permata:</b> <?php echo $namaBatu ?><br>
-                                        <b>Berat Batu Permata:</b> <?php echo $beratBatu ?></p></td>
-
-                                        <td><p id="berlian">
-                                        <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
-                                        <b>Berlian:</b> <?php echo $poberlian[$i]->namaMaterial ?><br>
-                                        <b>Berat / Jumlah:</b> <?php echo $poberlian[$i]->jumlah ?></p></td>
-                                        <?php } ?>
-                                        <td><p id="datangEmas"><b>Datang Emas:</b> <?php echo $datangEmas ?><br>
-                                        <b>Kadar Datang Emas:</b> <?php echo $kadarDatangEmas ?></p></td>
-
-                                        <td><p id="datangBerlian"><b>Datang Berlian:</b> <?php echo $datangBerlian ?><br>
-                                        <b>Jumlah Datang Berlian:</b> <?php echo $jumlahDatangBerlian ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p id="batuA"><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?><br>
-                                        <b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?><br>
-                                        <b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></p></td>
-                                        <td><p id="batuB"><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?><br>
-                                        <b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></p></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="col-lg-4">
-                                        <label>Gambar Sampel</label>
-                                        <img src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 200px;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-section row">
+                <div class="col-lg-4">
+                    <h3>SURAT PERINTAH KERJA TEMPAHAN</h3>
                 </div>
-                <div class="col-lg-1"></div>
-            </div>
-        </div>
-        </div>
-        </div>
-        <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
-        <script>
-            $(document).ready(function () {
-                var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
-                if(a==null||a==0){
-                    document.getElementById('namaBatu').style.display = 'none';
-                };
+                <div class="toolbox col-lg-8 text-right">
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/purchaseOrder'">
+                        <span style="vertical-align: middle"> < Kembali </span>
+                    </a>&nbsp
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
+                        <span style="vertical-align: middle">Cetak</span>
+                        <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                    </a>
+                </div>
+            </div> 
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
+                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                    </tr>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
+                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
+                     </tr>
+                     <tr>
+                        <td width="5%"></td>
+                        <td width="45%" ><b>Nomor SPK : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
+                     </tr>
+                     
+                </tbody>
+            </table>
+            <hr style="border-top: 3px solid #282828;">
+        </header>
+        <section id="detailProduk">
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                    </tr>
+                    <tr>
+                        <td><b>Bahan:</b> <?php echo $bahan ?></td>
+                        <td><b>Kadar:</b> <?php echo $kadarBahan?>%</td>
+                    </tr>
+                    <tr id="datangEmas">
+                        <td><b>Datang Emas:</b> <?php echo $datangEmas ?>gr</td>
+                        <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                    </tr>
+                    <tr>
+                        <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
+                        <td><b>Range Berat:</b> <?php echo $estimasi ?>gr</td>
+                    </tr>
+                    <tr>
+                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                    </tr>
+                    <?php for ($b=0; $b < count($poberlian) ; $b++) { ?>
+                    <tr>
+                        <td><?php if(count($poberlian)>0 && $b==0){?><b>Berlian / Swarovski:<?php } ?></b></td>
+                        <td><?php echo $poberlian[$b]->namaBerlian ?></td>
+                    </tr>
+                    <?php } ?>
+                    <tr id="batu1">
+                        <td><b>Nama Batu:</b> <?php echo $namaBatu ?></td>
+                    </tr>
+                    <tr id="batu2">
+                        <td><b>Berat Batu:</b> <?php echo $beratBatu ?></td>
+                    </tr>
+                    <tr id="batu3">
+                        <td><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
+                    </tr>
+                    <tr id="batu4">
+                        <td><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
+                    </tr>
+                    <tr id="batu5">
+                        <td><b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
+                    </tr>
+                    <tr id="batu6">
+                        <td><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
+                    </tr>
+                    <tr id="batu7">
+                        <td><b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Metode:</b> <?php echo $metode ?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?></td>
+                    </tr>
+                    
 
-                var b = '<?php if($batuTerhadapKruman!=null){echo $batuTerhadapKruman;} else echo 0;?>';
-                if(b==null||b==0){
-                    document.getElementById('batuA').style.display = 'none';
-                    document.getElementById('batuB').style.display = 'none';
-                };
+                    <!-- Pekerjaan Tambahan -->
+                    <?php $pt = explode(',',$pekerjaanTambahan);?>
+                    <?php if(in_array("Enamel", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Enamel</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganEnamel ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Slap", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Slap</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganSlap ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Kombinasi", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Kombinasi</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganKombinasi ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Laser Huruf", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Laser Huruf</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganLaserHuruf ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array("Kode Cap", $pt)){ ?>
+                    <tr>
+                        <td><b>(Tambahan) Kode Cap</b></td>
+                        <td><b>Keterangan:</b> <?php echo $keteranganKodeCap ?></td>
+                    </tr>
+                    <?php } ?>
+                    <!--  -->
+                    <tr>
+                        <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </section>
+    </div>
+    
 
-                var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
-                if(c==null||c==0){
-                    document.getElementById('berlian').style.display = 'none';
-                };
+<script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var a = '<?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>';
 
-                var g = <?php echo $datangEmas?>;
-                if(g==null||g==0){
-                    document.getElementById('datangEmas').style.display = 'none';
-                };
+        if(a==null||a==0){
+            console.log('a');
+            document.getElementById('batu1').style.display = 'none';
+            document.getElementById('batu2').style.display = 'none';
+            document.getElementById('batu3').style.display = 'none';
+            document.getElementById('batu4').style.display = 'none';
+            document.getElementById('batu5').style.display = 'none';
+            document.getElementById('batu6').style.display = 'none';
+            document.getElementById('batu7').style.display = 'none';
 
-                var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
-                if(i==null||i==0){
-                    document.getElementById('datangBerlian').style.display = 'none';
-                };
-            });
-        </script>
+        };
+
+        // var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
+        // if(c==null||c==0){
+        //     document.getElementById('berlian').style.display = 'none';
+        // };
+
+        var g = <?php echo $datangEmas?>;
+        if(g==null||g==0){
+            document.getElementById('datangEmas').style.display = 'none';
+        };
+
+        // var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+        // if(i==null||i==0){
+        //     document.getElementById('datangBerlian').style.display = 'none';
+        // };
+    });
+</script>
+    
 </body>
 
 

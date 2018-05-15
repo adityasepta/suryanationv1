@@ -1,35 +1,33 @@
 <?php 
-    $idPO                   = $dataSPK[0]->idPO;
-    $namaCustomer           = $dataSPK[0]->namaCustomer;
-    $nomorTelepon           = $dataSPK[0]->nomorTelepon;
-    $idSalesPerson          = $dataSPK[0]->idSalesPerson;
-    $tanggalMasuk           = $dataSPK[0]->tanggalMasuk;
-    $tanggalEstimasiPenyelesaian = $dataSPK[0]->tanggalEstimasiPenyelesaian;
-    $nomorPO                = $dataSPK[0]->nomorPO;
-    $jenisProduk            = $dataSPK[0]->jenisProduk;
-    $bahan                  = $dataSPK[0]->bahan;
-    $kadarBahan             = $dataSPK[0]->kadarBahan;
-    $hargaBahan             = $dataSPK[0]->hargaBahan;      
-    $datangEmas             = $dataSPK[0]->datangEmas;    
-    $ukuranJari             = $dataSPK[0]->ukuranJari;
-    $upah                   = $dataSPK[0]->upah;
-    $krumWarna              = $dataSPK[0]->krumWarna;      
-    $model                  = $dataSPK[0]->model;
-    $nama                   = $dataSPK[0]->nama;
-    $beratAkhir             = $dataSPK[0]->beratAkhir;    
-    // $susut                  = $dataSPK[0]->susut; 
-    $panjar                 = $dataSPK[0]->panjar;
-    $idProduk               = $dataSPK[0]->idProduk;
-    $idCustomer             = $dataSPK[0]->idCustomer;
-    $kodeProduk             = $dataSPK[0]->kodeProduk;
-    $totalHarga             = $dataSPK[0]->totalHarga;
-    $namaProduk             = $dataSPK[0]->namaProduk;
-    $kadarDatangEmas        = $dataSPK[0]->kadarDatangEmas;
-    $tipeCustomer           = $dataSPK[0]->tipeCustomer;      
-    $pekerjaanTambahan      = $dataSPK[0]->pekerjaanTambahan;
-    $keteranganTambahan     = $dataSPK[0]->keteranganTambahan;
-    $keteranganKrum         = $dataSPK[0]->keteranganKrum;
-    $kodeGambar             = $dataSPK[0]->kodeGambar;
+    $idPO                   = $dataPO[0]->idPO;
+    $namaCustomer           = $dataPO[0]->namaCustomer;
+    $nomorTelepon           = $dataPO[0]->nomorTelepon;
+    $idSalesPerson          = $dataPO[0]->idSalesPerson;
+    $tanggalMasuk           = $dataPO[0]->tanggalMasuk;
+    $tanggalEstimasiPenyelesaian = $dataPO[0]->tanggalEstimasiPenyelesaian;
+    $nomorPO                = $dataPO[0]->nomorPO;
+    $jenisProduk            = $dataPO[0]->jenisProduk;
+    $bahan                  = $dataPO[0]->bahan;
+    $kadarBahan             = $dataPO[0]->kadarBahan;
+    $hargaBahan             = $dataPO[0]->hargaBahan;      
+    $datangEmas             = $dataPO[0]->datangEmas;    
+    $ukuranJari             = $dataPO[0]->ukuranJari;
+    $upah                   = $dataPO[0]->upah;
+    $krumWarna              = $dataPO[0]->krumWarna;      
+    $model                  = $dataPO[0]->model;
+    $beratAkhir             = $dataPO[0]->beratAkhir;     
+    $panjar                 = $dataPO[0]->panjar;
+    $idProduk               = $dataPO[0]->idProduk;
+    $idCustomer             = $dataPO[0]->idCustomer;
+    $kodeProduk             = $dataPO[0]->kodeProduk;
+    $totalHarga             = $dataPO[0]->totalHarga;
+    $namaProduk             = $dataPO[0]->namaProduk;
+    $kadarDatangEmas        = $dataPO[0]->kadarDatangEmas;
+    $tipeCustomer           = $dataPO[0]->tipeCustomer;      
+    $pekerjaanTambahan      = $dataPO[0]->pekerjaanTambahan;
+    $keteranganTambahan     = $dataPO[0]->keteranganTambahan;
+    $keteranganKrum         = $dataPO[0]->keteranganKrum;
+    $kodeGambar             = $dataPO[0]->kodeGambar;
     $tglmsk     = new DateTime($tanggalMasuk);
     $tglmsk     = $tglmsk->format("d F Y");
     $tglpyl     = new DateTime($tanggalEstimasiPenyelesaian);
@@ -46,139 +44,227 @@
     <title>Surya Sumatera | Administration</title>
 
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style type="text/css">
+    html {
+        background: white;
+        color: black;
+        font: 14px 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+        padding: 1em 10em 1em 10em ;
+    }
+    section {
+        clear: both;
+        margin-top: 3em;
+    }
+    li {
+        list-style-type: disc;
+    }
+    section > ul > li,
+    header > ul > li {
+        list-style-type: none;
+        margin-bottom: .5em;
+    }
+    .headline-name {
+        border-bottom: 1px solid black;
+        padding-bottom: .5em;
+    }
+    .contact-column {
+        float: left;
+        padding: 0 1px;
+    }
+    .header-title > p {
+        margin-top: -7px;
+    }
 
+    .header-section h3 {
+        margin-top: -5px;
+    }
+    a,
+    a:link,
+    a:visited {
+        border-bottom: 1px dotted rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+        padding: .2em .1em;
+        text-decoration: none;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+        background-color: rgb(255, 245, 0);
+        border-bottom: 1px solid rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+    }
+    @media (min-width: 992px) {
+        .contact-column {
+            margin-left: 0.1em;
+        }
+        .contact-column.right {
+            float: right;
+        }
+    }
+    @media (max-width: 776px) {
+        ul {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media print {
+        html {
+            color: black;
+            font-size: 12px;
+        }
+        body {
+            margin: 1em auto;
+            padding: 1em  2em 1em 2em;
+            width: 100%;
+        }
+        section {
+            margin-top: 1em;
+        }
+        a,
+        a:link,
+        a:visited {
+            border: none;
+            color: black;
+        }
+
+        .header-section h3 {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .toolbox {
+            display: none;
+        }
+
+        #footer ul {
+            margin:0 5px 0 20px;
+        }
+    }
+
+    </style>
+    <style type="text/css" media="print">
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    </style>
 </head>
 
-<body class="top-navigation">
-
-    <div id="wrapper">
-        <div class="white-bg">
-        <div class="wrapper-content animated fadeInRight">
-            <div class="row" style="color: black">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h1 class="text-center" >Surya Sumatra</h1>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding-bottom: 20px;">
-                                <tbody>
-                                    <tr style="margin-top: 8px; margin-bottom: 8px;">
-                                        <td>
-                                            <span style="font-size: 20px; font-weight: 600px">RFQ</span>
-                                        </td>
-                                        <td style="text-align: right; padding-right: 15px;">
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/listSPKMasal">
-                                                <span style="vertical-align: middle"> < Kembali </span>
-                                            </a>&nbsp
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
-                                                <span style="vertical-align: middle">Cetak</span>
-                                                <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%"><b>Nama Konsumen</b> <?php echo '&nbsp : '.$namaCustomer;?></td>
-                                        <td width="40%"><b>Nama Sales Person</b> <?php echo '&nbsp : '.$nama;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor PO</b> <?php echo '&nbsp : '.$nomorPO;?></td>
-                                        <td width="40%"><b>Tanggal Terima</b> <?php echo '&nbsp : '.$tglmsk;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor Telepon</b> <?php echo '&nbsp : '.$nomorTelepon;?></td>
-                                        <td width="40%"><b>Tanggal Estimasi Penyelesaian</b> <?php echo '&nbsp : '.$tglpyl;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kode Produk: <?php echo $kodeProduk ?><br>
-                                        Jenis Produk: <?php echo $jenisProduk ?><br>
-                                        Ukuran: <?php echo $ukuranJari ?> <br>
-                                        Model: <?php echo $model ?><br>
-                                        Estimasi Berat Akhir: <?php echo $beratAkhir ?>gr</td>
-
-                                        <td>Bahan: <?php echo $bahan ?><br>
-                                        Kadar Bahan: <?php echo $kadarBahan ?>%<br>
-                                        Datang Emas: <?php echo $datangEmas ?><br>
-                                        Kadar Datang Emas: <?php echo $kadarDatangEmas?>
-                                        </td>
-
-                                        <td>Krum Warna: <?php echo $krumWarna ?><br>
-                                        Keterangan Krum: <?php echo $keteranganKrum ?><br>
-                                        Pekerjaan Tambahan: <?php echo $pekerjaanTambahan ?><br>
-                                        Keterangan Tambahan: <?php echo $keteranganTambahan ?></td>
-
-                                        <td>Model yang diproduksi:<br>
-                                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
-                                            <?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> <?php echo '| '.$produkPO[$a]->keterangan?><br>
-                                        <?php } ?>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="col-lg-4">
-                                        <label>Gambar Sampel</label>
-                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive pull-right" style="max-height: 200px;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-section row">
+                <div class="col-lg-4">
+                    <h3>SURAT PERINTAH KERJA MASSAL</h3>
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="toolbox col-lg-8 text-right">
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/purchaseOrder'">
+                        <span style="vertical-align: middle"> < Kembali </span>
+                    </a>&nbsp
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
+                        <span style="vertical-align: middle">Cetak</span>
+                        <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                    </a>
+                </div>
+            </div> 
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
+                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                    </tr>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
+                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
+                     </tr>
+                     <tr>
+                        <td width="5%"></td>
+                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
+                     </tr>
+                     
+                </tbody>
+            </table>
+            <hr style="border-top: 3px solid #282828;">
+        </header>
+        <section id="detailProduk">
+            <div class="col-lg-6">
+                <table class="table no-border">
+                    <tbody>
+                        <tr>
+                            <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bahan:</b> <?php echo $bahan ?></td>
+                            <td><b>Kadar:</b> <?php echo $kadarBahan; ?>%</td>
+                        </tr>
+                        <tr id="datangEmas">
+                            <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
+                            <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                        </tr>
+                        <tr>
+                            <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
+                        </tr>
+                        <tr>
+                            <td><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Pekerjaan Tambahan:</b> <?php echo $pekerjaanTambahan ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Keterangan Tambahan:</b> <?php echo $keteranganTambahan ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        </div>
-        </div>
-        <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
-        <script>
-            $(document).ready(function () {
-                var a = <?php if($namaBatu!=null){echo $namaBatu;} else echo 0;?>;
-                if(a==null||a==0){
-                    document.getElementById('namaBatu').style.display = 'none';
-                };
+            <div class="col-lg-6">
+                <table class="table no-border">
+                    <tbody>
+                        <tr>
+                            <td><b>Model yang diproduksi : </b></td>
+                        </tr>
+                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                        <tr>
+                            <td><b><?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> </b> <?php echo '| '.$produkPO[$a]->keterangan?></td>
+                        </tr>        
+                        <?php } ?>        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    
 
-                var c = <?php if($berlian!=null){echo $berlian;} else echo 0;?>;
-                if(c==null||c==0){
-                    document.getElementById('berlian').style.display = 'none';
-                };
+<script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
 
-                var g = <?php echo $datangEmas?>;
-                if(g==null||g==0){
-                    document.getElementById('datangEmas').style.display = 'none';
-                };
+        var g = <?php echo $datangEmas?>;
+        if(g==null||g==0){
+            document.getElementById('datangEmas').style.display = 'none';
+        };
 
-                var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
-                if(i==null||i==0){
-                    document.getElementById('datangBerlian').style.display = 'none';
-                };
-            });
-        </script>
+    });
+</script>
+    
 </body>
 
 
 </html>
+

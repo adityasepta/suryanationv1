@@ -44,180 +44,273 @@
     <title>Surya Sumatera | Administration</title>
 
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style type="text/css">
+    html {
+        background: white;
+        color: black;
+        font: 14px 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+        padding: 1em 10em 1em 10em ;
+    }
+    section {
+        clear: both;
+        margin-top: 3em;
+    }
+    li {
+        list-style-type: disc;
+    }
+    section > ul > li,
+    header > ul > li {
+        list-style-type: none;
+        margin-bottom: .5em;
+    }
+    .headline-name {
+        border-bottom: 1px solid black;
+        padding-bottom: .5em;
+    }
+    .contact-column {
+        float: left;
+        padding: 0 1px;
+    }
+    .header-title > p {
+        margin-top: -7px;
+    }
 
+    .header-section h3 {
+        margin-top: -5px;
+    }
+    a,
+    a:link,
+    a:visited {
+        border-bottom: 1px dotted rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+        padding: .2em .1em;
+        text-decoration: none;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+        background-color: rgb(255, 245, 0);
+        border-bottom: 1px solid rgb(0, 120, 180);
+        color: rgb(0, 120, 180);
+    }
+    @media (min-width: 992px) {
+        .contact-column {
+            margin-left: 0.1em;
+        }
+        .contact-column.right {
+            float: right;
+        }
+    }
+    @media (max-width: 776px) {
+        ul {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media print {
+        html {
+            color: black;
+            font-size: 12px;
+        }
+        body {
+            margin: 1em auto;
+            padding: 1em  2em 1em 2em;
+            width: 100%;
+        }
+        section {
+            margin-top: 1em;
+        }
+        a,
+        a:link,
+        a:visited {
+            border: none;
+            color: black;
+        }
+
+        .header-section h3 {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .toolbox {
+            display: none;
+        }
+
+        #footer ul {
+            margin:0 5px 0 20px;
+        }
+    }
+
+    </style>
+    <style type="text/css" media="print">
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    </style>
 </head>
 
-<body class="top-navigation">
-
-    <div id="wrapper">
-        <div class="white-bg">
-        <div class="wrapper-content animated fadeInRight">
-            <div class="row" style="color: black">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h1 class="text-center" >Surya Sumatra</h1>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding-bottom: 20px;">
-                                <tbody>
-                                    <tr style="margin-top: 8px; margin-bottom: 8px;">
-                                        <td>
-                                            <span style="font-size: 20px; font-weight: 600px">RFQ</span>
-                                        </td>
-                                        <td style="text-align: right; padding-right: 15px;">
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="<?php echo base_url()?>user/listPOMasal">
-                                                <span style="vertical-align: middle"> < Kembali </span>
-                                            </a>&nbsp
-                                            <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
-                                                <span style="vertical-align: middle">Cetak</span>
-                                                <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%"><b>Nama Konsumen</b> <?php echo '&nbsp : '.$namaCustomer;?></td>
-                                        <td width="40%"><b>Nama Sales Person</b> <?php echo '&nbsp : '.$dataPO[0]->nama;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor PO</b> <?php echo '&nbsp : '.$nomorPO;?></td>
-                                        <td width="40%"><b>Tanggal Terima</b> <?php echo '&nbsp : '.$tglmsk;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                     <tr>
-                                        <td width="5%"></td>
-                                        <td width="55%" ><b>Nomor Telepon</b> <?php echo '&nbsp : '.$nomorTelepon;?></td>
-                                        <td width="40%"><b>Tanggal Estimasi Penyelesaian</b> <?php echo '&nbsp : '.$tglpyl;?></td>
-                                        <td width="5%"></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table no-border" data-page-size="8" data-filter=#filter style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-left" colspan="3"><strong>Detail Produk</strong></td>
-                                    </tr>
-                                    <tr>
-                                         <td>Kode Produk: <?php echo $kodeProduk ?><br>
-                                        Jenis Produk: <?php echo $jenisProduk ?><br>
-                                        Ukuran Jari: <?php echo $ukuranJari ?> <br>
-                                        Model: <?php echo $model ?><br>
-                                        Estimasi Berat: <?php echo $dataPO[0]->beratAkhir ?></td>
-
-                                        <td>Bahan: <?php echo $bahan ?><br>
-                                        Kadar Bahan: <?php echo $kadarBahan ?>%<br>
-                                        Datang Emas: <?php echo $datangEmas ?><br>
-                                        Kadar Datang Emas: <?php echo $kadarDatangEmas?><br>
-                                        Susut: <?php echo $dataPO[0]->susut ?>
-                                        </td>
-
-                                        <td>Krum Warna: <?php echo $krumWarna ?><br>
-                                        Keterangan Krum: <?php echo $keteranganKrum ?><br>
-                                        Pekerjaan Tambahan: <?php echo $pekerjaanTambahan ?><br>
-                                        Keterangan Tambahan: <?php echo $keteranganTambahan ?></td>
-
-                                        <td>Model yang diproduksi:<br>
-                                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
-                                            <?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> <?php echo '| '.$produkPO[$a]->keterangan?><br>
-                                        <?php } ?>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <thead>
-                                <tr>
-                                    <th class="text-left">Keperluan</th>
-                                    <th class="text-center">Jumlah</th>
-                                    <th class="text-right">Biaya</th>
-                                    <th class="text-right">Sub Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                     <tr>
-                                        <td>
-                                           Harga Pasaran Emas
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBahan,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($hargaBahan,2,".","."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Upah
-                                        </td>
-                                        <td class="text-center">-</td>
-                                        <td class="text-right">Rp. <?php echo number_format($upah,2,".","."); ?></td>
-                                        <td class="text-right">Rp. <?php echo number_format($upah,2,".","."); ?></td>
-                                    </tr>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="3"><strong>Estimasi Total Biaya</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($total=$hargaBahan+$upah,2,".","."); ?></strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: 600; text-align: left;" colspan="3">Panjar</td>
-                                        <td class="text-right" >Rp. <?php echo number_format($panjar,2,".","."); ?></td>
-                                     </tr>
-                                </tbody>
-                            </table>
-                            <table class="footable table table-stripped" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; padding: 0 0 20px;">
-                                <tbody>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                <tr bgcolor="#F1F1F1" style="font-size: 15px; color: #42B549; background-color: rgba(0,0,0,0.1);">
-                                                    <td style="padding: 15px 0 15px 15px; font-weight: 600;">Harus Dibayar</td>
-                                                    <td class="text-right" style="padding: 15px 15px 15px 0; font-weight: 600; text-align: right; ">Rp. <?php echo number_format($total-$panjar,2,".","."); ?></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="35%" valign="top" style="width: 35%; vertical-align: top; padding-right: 5px;"></td>
-                                        <td width="65%" valign="top" style="width: 65%; vertical-align: top; padding-left: 5px;">
-                                            <table width="100%" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; border-collapse: collapse;">
-                                                
-
-                                                
-
-                                                
-
-                                                
-                                            </table>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="ibox-content">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-1"></div>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-title text-center">
+                <h2><b>PT. SURYA SUMATERA</b></h2>
+                <P>Menerima Tempahan Cincin, Gelang, Liontin, Dll.</P>
+                <P>Jalan Sekip Baru No.30 Medan Telp. 061 - 4520404</P>
             </div>
-        </div>
-        </div>
-        </div>
 
+            <div class="header-section row">
+                <div class="col-lg-4">
+                    <h3>FORM ORDER MASSAL</h3>
+                </div>
+                <div class="toolbox col-lg-8 text-right">
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/purchaseOrder'">
+                        <span style="vertical-align: middle"> < Kembali </span>
+                    </a>&nbsp
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
+                        <span style="vertical-align: middle">Cetak</span>
+                        <img src="https://ecs7.tokopedia.net/img/print.png" alt="Print" style="vertical-align: middle;">
+                    </a>
+                </div>
+            </div> 
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
+                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                    </tr>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
+                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
+                     </tr>
+                     <tr>
+                        <td width="5%"></td>
+                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
+                     </tr>
+                     
+                </tbody>
+            </table>
+            <hr style="border-top: 3px solid #282828;">
+        </header>
+        <section id="detailProduk">
+            <div class="col-lg-6">
+                <table class="table no-border">
+                    <tbody>
+                        <tr>
+                            <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bahan:</b> <?php echo $bahan ?></td>
+                            <td><b>Kadar:</b> <?php echo $kadarBahan; ?>%</td>
+                        </tr>
+                        <tr id="datangEmas">
+                            <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
+                            <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                        </tr>
+                        <tr>
+                            <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
+                        </tr>
+                        <tr>
+                            <td><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Pekerjaan Tambahan:</b> <?php echo $pekerjaanTambahan ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Keterangan Tambahan:</b> <?php echo $keteranganTambahan ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Upah:</b> <?php echo $upah ?>%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <table class="table no-border">
+                    <tbody>
+                        <tr>
+                            <td><b>Model yang diproduksi : </b></td>
+                        </tr>
+                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                        <tr>
+                            <td><b><?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> </b> <?php echo '| '.$produkPO[$a]->keterangan?></td>
+                        </tr>        
+                        <?php } ?>        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr style="border-top: 3px solid #282828;">
+                    <h4><b>Panjar: Rp <?php echo number_format($panjar,2,',','.') ?></b></h4>
+                </div>
+            </div>
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td width="60%">
+                            <div style="background-color: #e2e2e2; padding: 10px; border: 1px solid #282828">
+                                <p><b>NB: JIKA BATAL DIKENAKAN BIAYA SEBESAR RP 300.000,-</b></p>
+                                <p><b>Perhatian:</b></p>
+                                <ul>
+                                    <li>Perhiasan diambil dengan membawa bukti berupa surat</li>
+                                    <li>Perhiasan tidak dapat diambil jika surat tidak dibawa / hilang</li>
+                                    <li>Surat berlaku dalam waktu 1(satu) bulan, jika perhiasan tidak diambil maka uang panjar dianggap hilang</li>
+                                    <li>Kami tidak bertanggungjawab terhadap kerusakan batu mulia, kecuali batu tersebut diansurasikan</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Hormat Kami</b></p>
+                                <p style="margin-top: 40px;"><?php echo $dataPO[0]->nama ?></p>
+                            </div></td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Konsumen</b></p>
+                                <p style="margin-top: 40px;"><?php echo $namaCustomer ?></p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+
+<script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var g = <?php echo $datangEmas?>;
+        if(g==null||g==0){
+            document.getElementById('datangEmas').style.display = 'none';
+        };
+
+    });
+</script>
+    
 </body>
 
 
 </html>
+

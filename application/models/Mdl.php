@@ -224,7 +224,7 @@ class mdl extends CI_Model {
 
     public function listPO(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");
+        $hasil = $this->db->query("SELECT * FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.nomorPO DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -764,6 +764,15 @@ class mdl extends CI_Model {
     public function getMaterialBerlian() {
 
         $sql    = "SELECT * FROM `materialdasar` where kategori='Berlian'";
+
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getMaterialZirkon() {
+
+        $sql    = "SELECT * FROM `materialdasar` where kategori='Zirkon'";
 
         $query  = $this->db->query($sql);
         $result = $query->result();
@@ -2871,9 +2880,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function stockPerMaterial($idUser){
 
-        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = 9 AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = 9 AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
+        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
         UNION
-        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = 9 AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = 9 AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang");
+        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC =$idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();

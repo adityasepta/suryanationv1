@@ -128,7 +128,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Berat Total </label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratTotal" id="beratTotal" onchange="calc();" value="<?php echo $beratTotal;?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="text" name="beratTotal" id="beratTotal" onchange="calc();" value="<?php echo $beratTotal;?>" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1" style="width:0;">gram</div>
                                 </div>
@@ -137,7 +137,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Berat Batu </label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratBatu" id="beratBatu" value="<?php echo $PO[0]->beratBatu;?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="text" name="beratBatu" id="beratBatu" value="<?php echo $PO[0]->beratBatu;?>" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1" style="width:0;">gram</div>
                                 </div>

@@ -100,7 +100,7 @@
                                     <td><?php echo $hasil->jenisProduk?></td>
                                     <td><?php echo $hasil->namaProduk?></td>
                                     <td class="text-center">
-                                        <?=anchor('user/estimasiBiaya/' . $hasil->nomorPO, 'Invoice', [
+                                        <?=anchor('user/invoiceAkhirPOTempahan/' . $hasil->nomorPO, 'Invoice', [
                                           'class' => 'btn btn-info btn-xs',
                                           'role'  => 'button'
                                          ])?>

@@ -30,9 +30,9 @@
                                                 <dt id="namaBatu">Nama Batu Permata:</dt> <dd id="namaBatu1"> <?php echo $namaBatu?></dd>
                                                 <dt id="beratBatu">Berat Batu Permata:</dt> <dd id="beratBatu1"><?php echo $beratBatu?></dd>
                                         <div id="berlian">
+                                        <dt>Berlian / Swarovski</dt>
                                         <?php for ($i=0; $i < count($poberlian) ; $i++) { ?>
-                                        <dt>Berlian:</dt> <dd><?php echo $poberlian[$i]->namaMaterial ?></dd>
-                                        <dt>Berat / Jumlah:</dt> <dd><?php echo $poberlian[$i]->jumlah ?></dd>
+                                        <dd><?php echo $poberlian[$i]->namaBerlian ?></dd>
                                         <?php } ?>
                                         </div>
                                                 <dt id="batuZirkon">Batu Zirkon:</dt> <dd id="batuZirkon1">  <?php echo $batuZirkon?></dd>

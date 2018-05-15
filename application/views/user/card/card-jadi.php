@@ -19,7 +19,7 @@
     <hr>
         <div class="row">
             <div class="col-lg-6">
-                <a href="<?php echo base_url('user/createInvoiceAkhirPO')?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
+                <a href="<?php echo base_url('user/invoiceAkhirPOTempahan/'.$jd[$i]->nomorFaktur)?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
             </div>
             <div class="col-lg-6">
                 <a href="<?php echo base_url('user/ambil2/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin ?')"  class="btn btn-xs btn-block btn-warning">Sudah Diambil</a>
