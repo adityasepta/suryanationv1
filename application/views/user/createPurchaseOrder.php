@@ -851,18 +851,17 @@
                 document.getElementById('hargaDatangEmas').disabled = true;
                 document.getElementById('hargaDatangEmas').value = 0;
             }
-            console.log(cekKadar);
         });
 
         $("#hargaDatangEmas").on("change",function() {
             var cekHarga = document.getElementById('hargaDatangEmas').value;
+            console.log(cekHarga);
             if (cekHarga==null||cekHarga==0||cekHarga=='Rp'||cekHarga=='Rp 0') {
                 document.getElementById('kadarDatangEmas').disabled = false;
             } else { 
                 document.getElementById('kadarDatangEmas').disabled = true;
                 document.getElementById('kadarDatangEmas').value = 0;
             }
-            console.log(cekHarga);
         });
     </script>
 </body>
