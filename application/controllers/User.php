@@ -7277,7 +7277,7 @@ class User extends CI_Controller {
         $nomorPO = $spk[0]->nomorPO;
         $idProduk = $spk[0]->idProduk;
 
-        $stok = $this->mdl->getLastMovement($nomorPO,$idProduk,19);
+        $stok = $this->mdl->getLastMovement($nomorPO,$idProduk);
 
 
 

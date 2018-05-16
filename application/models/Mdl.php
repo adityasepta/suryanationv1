@@ -1591,7 +1591,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $result;
     }
 
-    public function getLastMovement($nomorPO, $idProduk, $idPIC) {
+    public function getLastMovement($nomorPO, $idProduk) {
         $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' ";
         $query = $this->db->query($sql);
         $result = $query->result();
