@@ -7446,23 +7446,29 @@ class User extends CI_Controller {
     public function tambahBerlian($nomorPO) {
         $data['dataPO']=$this->mdl->findPO($nomorPO); 
         $data['berlian']=$this->mdl->getBerlian($nomorPO); 
-        $data['material']=$this->mdl->getMaterialBerlian();  
+        $data['material']=$this->mdl->getMaterialBerlian(); 
+        $data['zirkon']=$this->mdl->getMaterialZirkon(); 
         $this->load->view('user/tambahBerlian',$data);
     }
 
     public function updateBerlian($nomorPO){
         //Query Tambah PO
+        // print_r($this->input->post());exit();
         $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
 
-        $kodeMaterial=$this->input->post('kodeMaterial[]');
+        $namaBerlian=$this->input->post('namaBerlian[]');
         $jumlah=$this->input->post('jumlah[]');
         $harga=$this->input->post('harga[]');
-        for ($i=0; $i < count($kodeMaterial) ; $i++) { 
+        $karat=$this->input->post('karat[]');
+        $jenis=$this->input->post('jenis[]');
+        for ($i=0; $i < count($namaBerlian) ; $i++) { 
             $dataPO = array(
                 'nomorPO'       => $nomorPO,
-                'kodeMaterial'  => $kodeMaterial[$i],
+                'namaBerlian'  => $namaBerlian[$i],
                 'jumlah'        => $jumlah[$i],
                 'harga'         => $harga[$i],
+                'karat'         => $karat[$i],
+                'jenis'         => $jenis[$i],
             );
             $this->mdl->insertData('poberlian',$dataPO);  
         }
@@ -7489,10 +7495,8 @@ class User extends CI_Controller {
             'persenBiaya'       => $this->input->post('persenBiaya'),
             'hargaBahan'        => $this->input->post('hargaBahan'),
             'hargaDatangEmas'   => $this->input->post('hargaDatangEmas'),
-            'diskon'        => $this->input->post('diskon'),
-            'selisihHarga'   => $this->input->post('selisihHarga'),
         );
-        $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);    
+        $this->mdl->updateData('nomorPO',$nomorPO,'potempahan',$dataPO);  
 
         $message = "Estimasi biaya berhasil diperbaharui";
         echo "<script type='text/javascript'>alert('$message');

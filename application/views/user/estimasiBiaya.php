@@ -152,7 +152,7 @@
                                         <div class="col-sm-4 text-center">
                                             <input type="number" name="kadarBahan" step="any" onchange="calc2();" placeholder="%" id="kadarBahan" value="<?php echo $dataPO[0]->kadarBahan ?>" class="form-control">
                                         </div>
-                                        <div class="col-sm-2 text-center" style="width:0;">X</div>
+                                        <div class="col-sm-2 text-center" style="width:0;">+</div>
                                         <div class="col-sm-4 text-center">
                                             <input type="number" name="persenBiaya" step="any" onchange="calc2();" placeholder="%" id="persenBiaya" value="<?php echo $dataPO[0]->persenBiaya ?>" class="form-control">
                                         </div>
@@ -166,7 +166,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php echo $hargaAwal=$sisaBerat*(($dataPO[0]->kadarBahan+$dataPO[0]->persenBiaya)/100)*$dataPO[0]->hargaBahan;?>" placeholder="Rp"  class="form-control" readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php if($dataPO[0]->jenisCustomer=="Toko"){ $hargaAwal=$sisaBerat*(($dataPO[0]->kadarBahan+$dataPO[0]->persenBiaya)/100)*$dataPO[0]->hargaBahan; }else{$hargaAwal=$sisaBerat*$dataPO[0]->hargaBahan;}; echo $hargaAwal;?>" placeholder="Rp"  class="form-control" readonly>
                                         <input type="text" id="hargaAwals" value="<?php echo number_format($hargaAwal,2,",",".");?>" class="form-control" readonly>
                                     </div>
                                     <div class="col-sm-6" style="width:0;"></div>

@@ -2829,7 +2829,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getBerlian($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM poberlian a WHERE a.nomorPO=$nomorPO");
+        $hasil = $this->db->query("SELECT * FROM poberlian a WHERE a.nomorPO=$nomorPO ORDER BY jenis");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
