@@ -131,7 +131,7 @@ class User extends CI_Controller {
                 'tanggal' => date("Y-m-d H:i:s")
             );
 
-             $this->mdl->insertData('stokbarang', $data);
+            $this->mdl->insertData('stokbarang', $data);
             
         }
 
@@ -140,10 +140,10 @@ class User extends CI_Controller {
     }
 
     public function next($idProduk,$idaktivitas,$idProProd,$idSPK) {
-
+        print_r($idSPK);
         $proses = $this->mdl->getProsesDetail($idProProd);
         $stat = $proses[0]->statusWork;
-        $spk = $this->mdl->findSPK($idSPK);
+        $spk = $this->mdl->findSPK10($idSPK);
 
 
 
@@ -185,7 +185,7 @@ class User extends CI_Controller {
             
 
             if ($idaktivitas == 1014) {
-
+                
                 $userx = $this->mdl->getUserByJabatan('Admin Produksi');
                 $idg = $userx[0]->idUser;
 
