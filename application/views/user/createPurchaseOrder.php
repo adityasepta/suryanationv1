@@ -799,21 +799,39 @@
             var max_fields      = 30; //maximum input boxes allowed
             var wrapper         = $(".input_fields_wrap"); //Fields wrapper
             var add_button      = $(".add_field_button"); //Add button ID
+
             
+            var n;
             var x = 1; //initlal text box count
             $(add_button).click(function(e){ //on add input button click
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_A" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->namaMaterial?>"><?php echo $material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Berlian Per Karat (Dollar)</label><input type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->namaMaterial?>"><?php echo $material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Berlian Per Karat (Dollar)</label><input id="hargaPoin'+x+'" type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div><script>$("#lstDropDown_'+x+'").change(function(){var hg=getHarga(document.getElementById("lstDropDown_'+x+'").value);document.getElementById("hargaPoin'+x+'").value=hg;});</' + 'script>'); //add input box
                 }
             });
-            
+
             $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
         });
-        // <div class="col-md-2"><label>Berat Karat (Poin)</label><input type="text" name= "jumlah[]" placeholder="Jumlah" class="form-control" required></div>
+
+        function getHarga(n){
+            var jenisCustomer = $("input[name='jenisCustomer']:checked").val();
+            <?php for ($i = 0; $i < count($material); $i++) { ?>
+                var namaMaterial = "<?php echo $material[$i]->namaMaterial?>";
+                if(jenisCustomer=="Toko"){
+                    var hargaMaterial = <?php echo $material[$i]->hargaToko?>;
+                } else {
+                    var hargaMaterial = <?php echo $material[$i]->hargaSatuan?>;
+                }
+
+                if(n==namaMaterial) {
+                    return hargaMaterial;
+                }
+            <?php } ?>
+         }
+       
 
     </script>
     <script type="text/javascript">

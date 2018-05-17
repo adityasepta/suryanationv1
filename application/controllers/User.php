@@ -2767,6 +2767,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
         $this->mdl->deleteData('idSPK',$idSPK,'kloter');
+         $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
 
         redirect('user/purchaseOrder');
     }

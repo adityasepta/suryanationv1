@@ -76,61 +76,49 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-sm-12">
+                                    <a href="<?php echo base_url()?>user/printEstimasiBiaya/<?php echo $nomorPO?>" class="btn btn-primary btn-xs pull-right"><i class="fa fa-print"></i> Print Estimasi Biaya</a>
                                     <h2 class="text-navy">Estimasi Biaya</h2>
                                 </div>
                             </div>
                             <?php echo form_open_multipart('user/updateBiaya/'.$nomorPO)?>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <p><b>Nama Konsumen:</b> <?php echo $namaCustomer?></p>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><b>Nomor PO: </b><?php echo $nomorPO?></p>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="row col-lg-12">
+                                <table class="table no-border">
+                                    <tbody>
+                                        <tr>
+                                            <td width="5%"></td>
+                                            <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
+                                            <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"></td>
+                                            <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
+                                            <td width="50%">Nama Sales  : <b><?php echo $nama;?></b></td>
+                                         </tr>
+                                         <tr>
+                                            <td width="5%"></td>
+                                            <td width="45%"><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                                            <td width="50%">Jenis Produk  : <b><?php echo $dataPO[0]->jenisProduk;?></td>
+                                         </tr>
+                                    </tbody>
+                                </table>
+                                <hr style="border-top: 3px solid #282828;">
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
+                                <div class="col-md-2">
+                                    <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= $dataPO[0]->jenisCustomer; if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <p><b>Nomor Telepon: </b><?php echo $nomorTelepon?></p>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><b>Nama Produk: </b><?php echo $namaProduk?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <p><b>Nama Sales Person: </b> <?php echo $nama?></p>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><b>Tanggal Terima: </b> <?php echo $tglmsk;?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Jenis Customer <br/><small class="text-navy">Pilih salah satu</small></label>
-                                    <div class="col-md-10">
-                                        <div class="i-checks"><label> <input id="toko" type="radio" <?php $a= $dataPO[0]->jenisCustomer; if($a=="Toko"){?> checked="" <?php } ?> value="Toko" name="jenisCustomer" requiered> <i></i> Toko </label></div>
-                                        <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a=$dataPO[0]->jenisCustomer; if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <div class="i-checks"><label> <input id="perseorangan" type="radio" <?php $a=$dataPO[0]->jenisCustomer; if($a=="Perseorangan"){?> checked="" <?php } ?> value="Perseorangan" name="jenisCustomer" required> <i></i> Perseorangan </label></div>
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
                             <div class="form-group row">
+                                <br>
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Estimasi Berat Akhir </label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratAkhir" id="beratAkhir" onchange="calc2();" value="<?php echo $dataPO[0]->beratAkhir;?>" class="form-control" required>
+                                    <div class="col-sm-2"><input type="text" name="beratAkhir" id="beratAkhir" onchange="calc2();" value="<?php echo $dataPO[0]->beratAkhir;?>" class="form-control" required readonly>
                                     </div>
                                     <div class="col-sm-1" style="width:0;">gram</div>
                                 </div>
@@ -157,16 +145,20 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="sisaBerat" id="sisaBerat" value="<?php echo $sisaBerat=$dataPO[0]->beratAkhir-$dataPO[0]->beratBatu+$dataPO[0]->susut ?>" class="form-control" required readonly>
+                                    <div class="col-sm-1"><input type="text" name="sisaBerat" id="sisaBerat" value="<?php echo $sisaBerat=$dataPO[0]->beratAkhir-$dataPO[0]->beratBatu+$dataPO[0]->susut ?>" class="form-control" required readonly>
                                     </div>
-                                    <div class="col-sm-3" id="showPersen" style="display: none;">
-                                        <div class="col-sm-6 text-center" style="width:0;">X</div>
-                                        <div class="col-sm-6 text-center">
+                                    <div class="col-sm-4" id="showPersen">
+                                        <div class="col-sm-2 text-center" style="width:0;">X</div>
+                                        <div class="col-sm-4 text-center">
+                                            <input type="number" name="kadarBahan" step="any" onchange="calc2();" placeholder="%" id="kadarBahan" value="<?php echo $dataPO[0]->kadarBahan ?>" class="form-control">
+                                        </div>
+                                        <div class="col-sm-2 text-center" style="width:0;">X</div>
+                                        <div class="col-sm-4 text-center">
                                             <input type="number" name="persenBiaya" step="any" onchange="calc2();" placeholder="%" id="persenBiaya" value="<?php echo $dataPO[0]->persenBiaya ?>" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $dataPO[0]->hargaBahan ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="number" name="hargaBahan" onchange="calc();" placeholder="Rp" id="hargaBahan" value="<?php echo $dataPO[0]->hargaBahan ?>" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +166,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php echo $hargaAwal=$sisaBerat*($dataPO[0]->persenBiaya/100)*$dataPO[0]->hargaBahan;?>" placeholder="Rp"  class="form-control" readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="hargaAwal" id="hargaAwal" onchange="calc();" value="<?php echo $hargaAwal=$sisaBerat*(($dataPO[0]->kadarBahan+$dataPO[0]->persenBiaya)/100)*$dataPO[0]->hargaBahan;?>" placeholder="Rp"  class="form-control" readonly>
                                         <input type="text" id="hargaAwals" value="<?php echo number_format($hargaAwal,2,",",".");?>" class="form-control" readonly>
                                     </div>
                                     <div class="col-sm-6" style="width:0;"></div>
@@ -205,28 +197,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2">CZ (pcs x Harga)</label>
-                                    <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1"><input type="text" name="jumlahBatuZirkon" id="jumlahBatuZirkon" value="<?php echo $dataPO[0]->jumlahBatuZirkon?>" onchange="calc1()" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="hargaBatuZirkon" onchange="calc1()" id="hargaBatuZirkon" value="<?php echo $dataPO[0]->hargaBatuZirkon?>" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-1 text-center" style="width:0;">=</div>
-                                    <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="upahCZ" id="upahCZ" onchange="calc();" value="<?php echo $upahCZ=$dataPO[0]->jumlahBatuZirkon*$dataPO[0]->hargaBatuZirkon; ?>" class="form-control" required readonly>
-
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <div class="col-sm-2">
-                                        <label>Berlian</label>
-                                        <a href="<?php echo base_url();?>user/tambahBerlian/<?php echo $nomorPO ?>" type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Update Berlian</a>
+                                        <label>Berlian / Swarovski</label>
+                                        <!-- <a href="<?php echo base_url();?>user/tambahBerlian/<?php echo $nomorPO ?>" type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Update Berlian</a> -->
                                     </div>
                                     <div class="col-sm-1" style="width:0;"></div>
                                     <div class="col-md-1"></div>
@@ -235,7 +211,7 @@
                             <?php $hargaPerBerlian=0; $hargaBerlian=0; for ($i=0; $i < count($berlian) ; $i++) { ?>
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <label class="col-sm-2"><?php echo $berlian[$i]->namaMaterial ?></label>
+                                    <label class="col-sm-2"><?php echo $berlian[$i]->namaBerlian ?></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
                                     <div class="col-sm-1">
                                         <input type="text" value="<?php echo $berlian[$i]->jumlah?>" class="form-control" readonly>
@@ -244,9 +220,22 @@
                                     <div class="col-sm-2">
                                         <input type="text" value="<?php echo $berlian[$i]->harga?>" class="form-control" readonly>
                                     </div>
+                                    <?php if($berlian[$i]->jenis=='Berlian') {?>
+                                    <div class="col-sm-4 row">
+                                        <div class="col-sm-2" style="width:0;">X</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" value="<?php echo $berlian[$i]->karat?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-sm-2" style="width:0;">X</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" value="<?php echo $gold['currentRupiah']?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
                                     <div class="col-sm-1" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" value="<?php echo $hargaPerBerlian=$berlian[$i]->jumlah*$berlian[$i]->harga;?>" class="form-control" readonly>
+                                        <input type="text" value="<?php if($berlian[$i]->jenis=='Berlian'){ $hargaPerBerlian=$berlian[$i]->jumlah*$berlian[$i]->karat*$berlian[$i]->harga*$gold['currentRupiah']; echo $hargaPerBerlian; } else { $hargaPerBerlian=$berlian[$i]->harga*$berlian[$i]->jumlah; echo $hargaPerBerlian;} ?>" class="form-control" readonly>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -280,13 +269,27 @@
                                     <div class="col-sm-1"><input type="text" name="datangEmas" id="datangEmas" value="<?php echo $dataPO[0]->datangEmas;?>" class="form-control" required readonly>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">X</div>
+                                    <?php if($dataPO[0]->hargaDatangEmas==0) {?>
+                                    <div class="col-sm-1">
+                                        <input type="text" placeholder="Rp" name="kadarDatangEmas" id="kadarDatangEmas" value="<?php echo $dataPO[0]->kadarDatangEmas ?>" class="form-control" readonly required>
+                                    </div>
+                                    <div class="col-sm-1 text-center" style="width:0;">X</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $dataPO[0]->hargaDatangEmas ?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" value="<?php echo $gold['currentCurrency']; ?>" class="form-control" readonly>
                                     </div>
                                     <div class="col-sm-1 text-center" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$gold['currentCurrency'];?>" class="form-control" required readonly>
+                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->kadarDatangEmas/100*$gold['currentCurrency'];?>" class="form-control" required readonly>
                                     </div>
+                                    <?php } else { ?>
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Rp" name="hargaDatangEmas" id="hargaDatangEmas" value="<?php echo $dataPO[0]->hargaDatangEmas ?>" class="form-control" readonly required>
+                                    </div>
+                                    <div class="col-sm-1 text-center" style="width:0;">=</div>
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Rp" name="totalDatangEmas" id="totalDatangEmas" value="<?php echo $totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas;?>" class="form-control" required readonly>
+                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -303,19 +306,18 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Biaya Total</label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$biayaTambahan+$hargaBerlian+$upahCZ+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="hidden" name="total" id="total" value="<?php echo $totalBiaya=$hargaAwal+$dataPO[0]->upah+$upahBerlian+$biayaTambahan+$hargaBerlian+$dataPO[0]->hargaKrumWarna-($totalDatangEmas+$dataPO[0]->panjar) ?>" class="form-control" required readonly>
                                     <input type="text" id="totals" value="<?php echo number_format($totalBiaya,2,",",".");?>" class="form-control" required readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <a href="<?php echo base_url()?>user/invoicePO/<?php echo $nomorPO?>"><button type="button" name="submit" class="btn btn-white" value="batal">Kembali</button></a>
-                                        <button class="btn btn-primary" type="submit">Simpan</button>
-                                    </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <a href="<?php echo base_url()?>user/invoicePO/<?php echo $nomorPO?>"><button type="button" name="submit" class="btn btn-white" value="batal">Kembali</button></a>
+                                    <button class="btn btn-primary" type="submit">Simpan</button>
                                 </div>
-                        </div>
+                            </div>
                         <?php echo form_close();?>
                     </div>
                 </div>
@@ -353,7 +355,6 @@
                 document.getElementById('showPersen').style.display = 'block';
             } else {
                 document.getElementById('showPersen').style.display = 'none';
-                document.getElementById('persenBiaya').value=100;
             }
 
         });
@@ -366,7 +367,7 @@
                 document.getElementById('showPersen').style.display = 'block';
             } else if($('#perseorangan').iCheck('update')[0].checked) {
                 document.getElementById('showPersen').style.display = 'none';
-                document.getElementById('persenBiaya').value=100;
+                
                 calc2()
             }
         }
@@ -374,34 +375,21 @@
     
     <script type="text/javascript">
             function calc(){
-                    var hargaAwal = parseFloat(document.getElementById('hargaAwal').value);
-                    var upah = parseFloat(document.getElementById('upah').value);
-                    var upahBerlian = parseFloat(document.getElementById('upahBerlian').value);
-                    var upahCZ = parseFloat(document.getElementById('upahCZ').value);
-                    var hargaKrumWarna = parseFloat(document.getElementById('hargaKrumWarna').value);
-                    var totalDatangEmas = parseFloat(document.getElementById('totalDatangEmas').value);
-                    var panjar = parseFloat(document.getElementById('panjar').value);
-                    var biayaTambahan = parseFloat(document.getElementById('biayaTambahan').value);
-                    var hargaBerlian = parseFloat(document.getElementById('hargaBerlian').value);
-                    console.log(biayaTambahan);
-                    var total = hargaAwal+upah+upahBerlian+upahCZ+hargaKrumWarna+biayaTambahan+hargaBerlian-(totalDatangEmas+panjar);
-                    var totals = formatNumber(total);
-                    document.getElementById('total').value = total;
-                    document.getElementById('totals').value = totals;
+                var hargaAwal = parseFloat(document.getElementById('hargaAwal').value);
+                var upah = parseFloat(document.getElementById('upah').value);
+                var upahBerlian = parseFloat(document.getElementById('upahBerlian').value);
+                var hargaKrumWarna = parseFloat(document.getElementById('hargaKrumWarna').value);
+                var totalDatangEmas = parseFloat(document.getElementById('totalDatangEmas').value);
+                var panjar = parseFloat(document.getElementById('panjar').value);
+                var biayaTambahan = parseFloat(document.getElementById('biayaTambahan').value);
+                var hargaBerlian = parseFloat(document.getElementById('hargaBerlian').value);
 
-                }
-  
 
-            function calc1(){
-                var a = parseFloat(document.getElementById('jumlahBatuZirkon').value);
-                var b = parseFloat(document.getElementById('hargaBatuZirkon').value);
-
-                var c = a*b;
-
-                document.getElementById('upahCZ').value = c;
-
-                calc();
-            };
+                var total = hargaAwal+upah+upahBerlian+hargaKrumWarna+biayaTambahan+hargaBerlian-(totalDatangEmas+panjar);
+                var totals = formatNumber(total);
+                document.getElementById('total').value = total;
+                document.getElementById('totals').value = totals;
+            }
 
             function calc2(){
                 var d = parseFloat(document.getElementById('beratAkhir').value);

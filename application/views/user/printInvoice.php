@@ -246,8 +246,12 @@
                     </tr>
                     <tr id="datangEmas">
                         <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
+                        <?php if($kadarDatangEmas!=0) {?>
                         <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                        <?php } else { ?>
+                        <td></td>
                         <td><b>Harga Per Gram:</b> <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
+                        <?php } ?>
                     </tr>
                     <tr>
                         <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
