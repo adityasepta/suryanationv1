@@ -249,9 +249,6 @@
                                         <label class="control-label">Tanggal Selesai</label>
                                     </div>
                                 </div>
-                                <?php echo count($aktivitas);
-
-                                ?>
                                 <?php $b = count($aktivitas); for ($i=0; $i < 2 ; $i++) { ?> 
 
                                     <div class="form-group">
