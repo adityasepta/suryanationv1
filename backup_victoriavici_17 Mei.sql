@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 10, 2018 at 03:48 PM
+-- Generation Time: May 17, 2018 at 10:46 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.30
 
@@ -305,7 +305,12 @@ INSERT INTO `bomtempahan` (`idBOM`, `idKloter`, `idMaterial`, `jumlah`, `status`
 (7, 'qMHDxC40sz', 36, 24.88, 'Disetujui'),
 (8, 'APo6QqsSrj', 57, 19.9, 'Disetujui'),
 (9, 'ZGZkTjG73M', 59, 44.26, 'Disetujui'),
-(10, '5YBrK7VsSj', 42, 25.92, 'Disetujui');
+(10, '5YBrK7VsSj', 42, 25.92, 'Disetujui'),
+(11, 'wWxDOu3Z1n', 35, 25, 'Disetujui'),
+(12, '8BP2diSq2H', 69, 0.26, 'Disetujui'),
+(13, '8BP2diSq2H', 66, 0.22, 'Disetujui'),
+(14, '8BP2diSq2H', 59, 0.26, 'Disetujui'),
+(15, '8BP2diSq2H', 35, 10, 'Disetujui');
 
 -- --------------------------------------------------------
 
@@ -331,6 +336,7 @@ CREATE TABLE `cashflow` (
 CREATE TABLE `currency` (
   `idCurrency` int(11) NOT NULL,
   `hargaEmas` int(11) NOT NULL,
+  `hargaRupiah` int(11) NOT NULL,
   `tanggal` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -338,22 +344,22 @@ CREATE TABLE `currency` (
 -- Dumping data for table `currency`
 --
 
-INSERT INTO `currency` (`idCurrency`, `hargaEmas`, `tanggal`) VALUES
-(1, 590280, '2018-04-06 11:18:22'),
-(3, 590300, '2018-04-07 19:46:44'),
-(4, 590280, '2018-04-08 18:13:24'),
-(6, 590550, '2018-04-09 13:57:38'),
-(7, 593500, '2018-04-11 17:38:44'),
-(8, 575000, '2018-04-16 14:43:04'),
-(9, 577000, '2018-04-17 11:27:51'),
-(10, 575000, '2018-04-18 12:46:39'),
-(11, 578000, '2018-04-19 10:34:56'),
-(12, 576000, '2018-04-21 12:09:25'),
-(13, 576000, '2018-04-25 10:20:11'),
-(14, 575000, '2018-04-26 11:09:12'),
-(15, 572500, '2018-04-27 11:52:44'),
-(16, 573000, '2018-04-28 11:02:07'),
-(17, 574000, '2018-05-08 21:47:20');
+INSERT INTO `currency` (`idCurrency`, `hargaEmas`, `hargaRupiah`, `tanggal`) VALUES
+(1, 590280, 0, '2018-04-06 11:18:22'),
+(3, 590300, 0, '2018-04-07 19:46:44'),
+(4, 590280, 0, '2018-04-08 18:13:24'),
+(6, 590550, 0, '2018-04-09 13:57:38'),
+(7, 593500, 0, '2018-04-11 17:38:44'),
+(8, 575000, 0, '2018-04-16 14:43:04'),
+(9, 577000, 0, '2018-04-17 11:27:51'),
+(10, 575000, 0, '2018-04-18 12:46:39'),
+(11, 578000, 0, '2018-04-19 10:34:56'),
+(12, 576000, 0, '2018-04-21 12:09:25'),
+(13, 576000, 0, '2018-04-25 10:20:11'),
+(14, 575000, 0, '2018-04-26 11:09:12'),
+(15, 572500, 0, '2018-04-27 11:52:44'),
+(16, 573000, 0, '2018-04-28 11:02:07'),
+(17, 574000, 0, '2018-05-08 21:47:20');
 
 -- --------------------------------------------------------
 
@@ -432,7 +438,8 @@ INSERT INTO `customer` (`idCustomer`, `namaCustomer`, `nomorTelepon`, `lastModif
 (78, 'TKM Kasandra', '000', '2018-05-09 06:19:40'),
 (79, 'Tkm. Abadi', '061-4529651', '2018-05-09 06:56:11'),
 (80, 'Ko Asan Ansori', '0', '2018-05-09 07:02:19'),
-(81, 'Ko Kaslim', '085276043322', '2018-05-09 07:03:15');
+(81, 'Ko Kaslim', '085276043322', '2018-05-09 07:03:15'),
+(82, 'Tkm. Kurnia', '0811641750', '2018-05-11 06:34:06');
 
 -- --------------------------------------------------------
 
@@ -637,16 +644,71 @@ INSERT INTO `factproduction` (`idProProd`, `idSPK`, `idAktivitas`, `idPIC`, `Rea
 (144, 111, 1003, 16, '2018-05-09 16:08:41', '2018-05-09 17:06:19', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
 (145, 112, 1003, 16, '2018-05-09 16:09:01', '2018-05-09 17:06:25', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
 (146, 117, 1003, 16, '2018-05-09 16:10:01', '2018-05-09 17:06:13', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
-(147, 118, 1003, 16, '2018-05-09 16:57:47', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(147, 118, 1003, 16, '2018-05-09 16:57:47', '2018-05-10 15:51:37', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
 (148, 119, 1003, 16, '2018-05-09 17:13:05', '2018-05-09 17:19:44', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
-(149, 111, 1005, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum'),
+(149, 111, 1005, 9, '2018-05-14 14:17:09', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
 (150, 47, 1005, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum'),
 (151, 101, 1005, 16, '2018-05-10 11:15:26', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
 (152, 112, 1005, 16, '2018-05-10 11:15:26', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
 (153, 119, 1005, 16, '2018-05-10 11:15:26', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
-(154, 106, 1005, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum'),
-(155, 117, 1005, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum'),
-(156, 90, 1003, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum');
+(154, 106, 1005, 9, '2018-05-14 13:10:56', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(155, 117, 1005, 9, '2018-05-14 13:10:56', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(156, 90, 1003, 16, '2018-05-10 15:52:59', '2018-05-10 15:53:40', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(157, 120, 1003, 16, '2018-05-10 15:53:25', '2018-05-10 15:53:57', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(158, 92, 1003, 16, '2018-05-10 15:53:35', '2018-05-10 15:54:03', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(159, 69, 1003, 16, '2018-05-10 15:53:10', '2018-05-10 15:53:51', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(160, 94, 1003, 16, '2018-05-16 13:28:01', '2018-05-16 13:28:07', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(161, 118, 1005, 9, '2018-05-14 13:11:46', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(162, 120, 1005, 9, '2018-05-14 13:12:17', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(163, 69, 1005, 9, '2018-05-14 13:12:41', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(164, 90, 1005, 9, '2018-05-14 13:12:41', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(165, 92, 1005, 9, '2018-05-14 13:13:10', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(166, 96, 1003, 16, '2018-05-11 16:55:49', '2018-05-11 16:56:06', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(167, 133, 1003, 16, '2018-05-11 16:56:01', '2018-05-11 16:56:14', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(168, 96, 1005, 9, '2018-05-14 13:13:41', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(169, 133, 1005, 9, '2018-05-14 13:14:08', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(170, 114, 1003, 16, '2018-05-12 16:56:17', '2018-05-12 16:57:53', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(171, 102, 1003, 16, '2018-05-12 16:57:08', '2018-05-12 16:58:12', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(172, 97, 1003, 16, '2018-05-12 16:56:46', '2018-05-12 16:58:07', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(173, 109, 1003, 16, '2018-05-15 10:39:00', '2018-05-15 10:44:07', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(174, 83, 1003, 16, '2018-05-12 16:56:34', '2018-05-12 16:58:01', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(175, 131, 1003, 16, '2018-05-12 16:57:42', '2018-05-12 16:58:28', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(176, 128, 1003, 16, '2018-05-12 16:57:28', '2018-05-12 16:58:19', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(177, 134, 1003, 16, '2018-05-15 10:39:10', '2018-05-15 10:44:11', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(178, 131, 1005, 9, '2018-05-14 13:15:43', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(179, 83, 1005, 9, '2018-05-14 13:15:12', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(180, 114, 1005, 9, '2018-05-14 13:15:12', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(181, 128, 1005, 9, '2018-05-14 13:15:12', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(182, 97, 1005, 9, '2018-05-14 13:14:52', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(183, 102, 1005, 9, '2018-05-14 13:14:35', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'On Progress', 'Active', 'Belum'),
+(184, 140, 1003, 16, '2018-05-13 11:05:56', '2018-05-13 11:06:33', 0, 0, 0, 0, '', 'Done', 'Done', 'Belum'),
+(185, 139, 1003, 10, '2018-05-13 11:08:31', '2018-05-13 11:08:39', 0, 0, 0, 0, '', 'Done', 'Done', 'Belum'),
+(186, 140, 1005, 10, '2018-05-13 11:10:22', '2018-05-13 11:13:01', 0, 0, 0, 0, '', 'Done', 'Done', 'Belum'),
+(187, 139, 1005, 16, '2018-05-13 11:11:08', '2018-05-13 11:22:01', 0, 0, 0, 0, '', 'Done', 'Done', 'Belum'),
+(188, 140, 1006, 9, '2018-05-13 11:13:45', '2018-05-13 11:15:15', 25, 0, 23, 2, 'Belum Disetujui', 'Done', 'Done', 'Belum'),
+(189, 140, 1007, 38, '2018-05-13 11:16:34', '2018-05-13 11:17:19', 23, 0, 20, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(190, 140, 1007, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 'Belum Disetujui', 'Belum ada PIC', 'Done', 'Belum'),
+(191, 140, 1008, 41, '2018-05-13 11:19:55', '2018-05-13 11:22:37', 20, 0, 19, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(192, 139, 1006, 16, '2018-05-13 11:24:21', '2018-05-13 11:26:00', 14.92, 0, 14.5, 11.94, 'Belum Disetujui', 'Done', 'Done', 'Belum'),
+(193, 140, 1010, 41, '2018-05-13 11:23:52', '2018-05-13 11:25:28', 19, 0, 18, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(194, 140, 1009, 24, '2018-05-13 11:26:17', '2018-05-13 11:27:18', 18, 0.35, 17.85, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(195, 139, 1007, 10, '2018-05-13 11:26:33', '2018-05-13 11:27:33', 11.94, 0, 10.85, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(196, 140, 1012, 43, '2018-05-13 11:28:24', '2018-05-13 11:30:54', 17.85, 0, 17.55, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(197, 139, 1008, 19, '2018-05-13 11:27:53', '2018-05-13 11:28:36', 10.85, 0, 10.5, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(198, 139, 1009, 19, '2018-05-13 11:29:17', '2018-05-13 11:30:09', 10.5, 0, 10.75, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(199, 139, 1010, 19, '2018-05-13 11:30:28', '2018-05-13 11:31:19', 10.75, 0, 9.85, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(200, 140, 1013, 10, '2018-05-13 11:32:22', '2018-05-13 11:34:06', 17.55, 0, 17.35, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(201, 139, 1012, 19, '2018-05-13 11:31:50', '2018-05-13 11:32:39', 9.85, 0, 9.81, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(202, 139, 1013, 19, '2018-05-13 11:32:57', '2018-05-13 11:38:49', 9.81, 0, 10.11, 0, 'Disetujui', 'Done', 'Done', 'Belum'),
+(203, 140, 1014, 2, '2018-05-13 11:36:10', '2018-05-13 11:36:10', 17.35, 0, 17.35, 0, 'Belum Disetujui', 'Done', 'Done', 'Belum'),
+(204, 139, 1014, 9, '2018-05-13 11:39:12', '2018-05-13 11:39:12', 10.11, 0, 10.11, 0, 'Belum Disetujui', 'Done', 'Done', 'Belum'),
+(205, 95, 1003, 16, '2018-05-15 10:39:19', '2018-05-15 10:44:14', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(206, 129, 1003, 16, '2018-05-15 10:39:30', '2018-05-15 10:44:19', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(207, 103, 1003, 16, '2018-05-15 10:39:41', '2018-05-15 10:44:27', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(208, 135, 1003, 16, '2018-05-15 10:39:54', '2018-05-15 10:44:33', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(209, 136, 1003, 16, '2018-05-15 10:43:45', '2018-05-15 10:44:38', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(210, 130, 1003, 16, '2018-05-15 10:43:56', '2018-05-15 10:44:42', 0, 0, 0, 0, '', 'Done', 'Active', 'Belum'),
+(211, 134, 1005, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 'Belum ada PIC', 'Active', 'Belum');
 
 -- --------------------------------------------------------
 
@@ -772,6 +834,14 @@ CREATE TABLE `invoiceheader` (
   `tipeInvoice` varchar(255) DEFAULT NULL,
   `lastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoiceheader`
+--
+
+INSERT INTO `invoiceheader` (`idHeader`, `nomorPO`, `total`, `datangEmas`, `jenisInvoice`, `tipeInvoice`, `lastModified`) VALUES
+(1, '138', 5797430, 0, 'tempahan', 'pertokoan', '2018-05-13 04:47:49'),
+(2, '139', 9458350, 0, 'tempahan', 'pertokoan', '2018-05-13 04:52:09');
 
 -- --------------------------------------------------------
 
@@ -917,6 +987,14 @@ CREATE TABLE `invoicetempahanpertokoan` (
   `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `invoicetempahanpertokoan`
+--
+
+INSERT INTO `invoicetempahanpertokoan` (`idTempahan`, `idHeader`, `nomorPO`, `beratTotal`, `beratBatu`, `susut`, `beratAkhir`, `hargaAkhir`, `prosentase`, `beratHargaAkhir`, `upah`, `jumlahDatangBerlian`, `beratDatangBerlian`, `upahPasangBerlian`, `upahBerlian`, `jumlahBatuZirkon`, `hargaBatuZirkon`, `upahCZ`, `hargaKrumWarna`, `datangEmas`, `hargaDatangEmas`, `totalDatangEmas`, `panjar`, `total`) VALUES
+(1, 1, '138', 10.11, 1.5, 1, 9.61, 574000, 77, 4247430, 1500000, 0, 0, 0, 0, 0, 0, 0, 50000, 0, 574000, 0, 0, 5797430),
+(2, 2, '139', 17.35, 0, 0, 17.35, 574000, 77, 7668350, 1500000, 0, 0, 0, 0, 48, 5000, 240000, 50000, 0, 574000, 0, 0, 9458350);
+
 -- --------------------------------------------------------
 
 --
@@ -1041,7 +1119,23 @@ INSERT INTO `kloter` (`idGroup`, `idKloter`, `idSPK`, `nama`, `kadar`, `beratKot
 (34, 'jlHi8Ih0hb', 106, 'R. Gold', 70, 63.15, 61, '2018-05-09 17:25:24'),
 (35, 'jlHi8Ih0hb', 117, 'R. Gold', 70, 63.15, 61, '2018-05-09 17:25:24'),
 (36, 'TxuDjjrizi', 47, 'M. Putih', 75, 66.78, 62.68, '2018-05-09 17:26:12'),
-(37, 'XlEdAwzrXf', 111, 'M. Putih', 70, 64.5, 61.75, '2018-05-09 17:27:26');
+(37, 'XlEdAwzrXf', 111, 'M. Putih', 70, 64.5, 61.75, '2018-05-09 17:27:26'),
+(38, 'qDMYO5Zkdk', 92, 'M. Putih ', 75, 64.65, 61.75, '2018-05-10 15:58:46'),
+(39, 'AlwE5z12T1', 118, 'M. Putih', 70, 66.86, 65, '2018-05-10 15:59:34'),
+(40, 'ZkZGu7NfYz', 120, 'M. Kuning', 70, 65.33, 62.68, '2018-05-10 16:00:48'),
+(41, 'CiribIwuhy', 69, 'R. Gold', 70, 117.36, 102.15, '2018-05-10 16:02:17'),
+(42, 'CiribIwuhy', 90, 'R. Gold', 70, 117.36, 102.15, '2018-05-10 16:02:17'),
+(43, 'eoz7DmV52E', 133, 'Sisik Naga', 70, 105, 112.62, '2018-05-11 17:02:23'),
+(44, 'QjSRWSNKHy', 96, 'R. Gold', 70, 114.57, 101.67, '2018-05-11 17:03:32'),
+(45, 'YrC1FCdFNB', 102, 'Perak', 925, 65.71, 62.46, '2018-05-12 16:59:16'),
+(46, '7Zeh90HJFR', 131, 'M. Putih', 75, 61.82, 61, '2018-05-12 17:00:37'),
+(47, 'HJOtm9XLC2', 97, 'M. kuning', 70, 63.62, 61.5, '2018-05-12 17:01:39'),
+(48, 'Gi6KABCmlC', 83, 'M. Putih', 70, 108.19, 103.2, '2018-05-12 17:04:18'),
+(49, 'Gi6KABCmlC', 114, 'M. Putih', 70, 108.19, 103.2, '2018-05-12 17:04:18'),
+(50, 'Gi6KABCmlC', 128, 'M. Putih', 70, 108.19, 103.2, '2018-05-12 17:04:18'),
+(51, 'wWxDOu3Z1n', 140, 'a', 70, 120, 50, '2018-05-13 11:08:17'),
+(52, '8BP2diSq2H', 139, 'emas putih', 70, 100.5, 99.4, '2018-05-13 11:10:03'),
+(53, 'RBIDOXVd4D', 134, 'Sisik Naga', 70, 107.78, 99.85, '2018-05-15 11:20:18');
 
 -- --------------------------------------------------------
 
@@ -1084,9 +1178,9 @@ CREATE TABLE `materialdasar` (
 --
 
 INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `kadar`, `karat`, `satuan`, `stokMaterial`, `safetyStock`, `kategori`, `asal`, `color`, `clarity`) VALUES
-(35, 1, 'mas murni 100% ( 103.62)', 103.62, 0, 'gr', -230.8, 0, 'Emas', 'Asli', '', ''),
+(35, 1, 'mas murni 100% ( 103.62)', 103.62, 0, 'gr', 270.42, 0, 'Emas', 'Asli', '', ''),
 (36, 2, 'emas rose gold 75%', 74.61, 0, 'gr', -180.12, 0, 'Emas', 'Asli', '', ''),
-(37, 3, 'emas putih 70% ', 69.43, 0, 'gr', -37.53, 0, 'Emas', 'Asli', '', ''),
+(37, 3, 'emas putih 70% ', 69.43, 0, 'gr', -25.85, 0, 'Emas', 'Asli', '', ''),
 (38, 4, 'emas kuning 59.5%', 58.75, 0, 'gr', -414.74, 0, 'Emas', 'Asli', '', ''),
 (39, 5, 'emas kuning 30%', 29.53, 0, 'gr', -233.01, 0, 'Emas', 'Asli', '', ''),
 (40, 6, 'patri 85% (88.08)', 88.08, 0, 'gr', -3.48, 0, 'Emas', 'Asli', '', ''),
@@ -1100,13 +1194,13 @@ INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `kada
 (48, 14, 'Berlian 0 Karat', 0, 0, 'Karat', 0, 0, 'Berlian', 'Datang Berlian', '', ''),
 (49, 15, 'mas kuning 60% lokal ( 59.50%)', 59.58, 0, 'gr', -382.34, 0, 'Emas', 'Asli', '', ''),
 (50, 16, 'emas kuning 30%', 29.53, 0, 'gr', 0, 0, 'Emas', 'Asli', '', ''),
-(51, 17, 'emas kuning 65%', 64.24, 0, 'gr', -0.01, 0, 'Emas', 'Asli', '', ''),
+(51, 17, 'emas kuning 65%', 64.24, 0, 'gr', 28.25, 0, 'Emas', 'Asli', '', ''),
 (52, 18, 'emas kuning 55%', 54.92, 0, 'gr', 0, 0, 'Emas', 'Asli', '', ''),
 (53, 19, 'Balik Bahan 29.5%', 29.5, 0, 'gr', -113.97, 0, 'Emas', 'Balik Bahan', '', ''),
 (54, 20, 'Balik Bahan 49.5%', 49.5, 0, 'gr', -15.55, 0, 'Emas', 'Balik Bahan', '', ''),
-(55, 21, 'Emas Kuning Masak 99.5% (102.59Lokal)', 102.59, 0, 'gr', -188.99, 0, 'Emas', 'Asli', '', ''),
+(55, 21, 'Emas Kuning Masak 99.5% (102.59Lokal)', 102.59, 0, 'gr', -116.35, 0, 'Emas', 'Asli', '', ''),
 (56, 22, 'Balik Bahan 74.5%', 74.5, 0, 'gr', -15.96, 0, 'Emas', 'Balik Bahan', '', ''),
-(57, 23, 'emas rose gold 70%', 69.43, 0, 'gr', -19.92, 0, 'Emas', 'Asli', '', ''),
+(57, 23, 'emas rose gold 70%', 69.43, 0, 'gr', -4.49, 0, 'Emas', 'Asli', '', ''),
 (58, 24, 'Balik Bahan 69.5%', 69.5, 0, 'gr', -12.27, 0, 'Emas', 'Balik Bahan', '', ''),
 (59, 25, 'perak', 0, 0, 'gr', -25.17, 100, 'Non Emas', 'Asli', '', ''),
 (61, 27, 'EMAS KUNING 54.46% ( LOKAL 56.43523)', 56.43, 0, 'gr', -446.1, 0, 'Emas', 'Asli', '', ''),
@@ -1121,7 +1215,10 @@ INSERT INTO `materialdasar` (`idMaterial`, `kodeMaterial`, `namaMaterial`, `kada
 (70, 36, 'alloy perak', 0, 0, 'gr', 502.79, 300, 'Non Emas', 'Asli', '', ''),
 (71, 37, 'alloy patri emas', 0, 0, 'gr', -7.29, 300, 'Non Emas', 'Asli', '', ''),
 (72, 38, 'alloy patri perak', 0, 0, 'gr', 950.43, 100, 'Non Emas', 'Asli', '', ''),
-(73, 39, 'emas kuning 56% (58.03108)', 58.03, 0, 'gr', 186.57, 0, 'Emas', 'Asli', '', '');
+(73, 39, 'emas kuning 56% (58.03108)', 58.03, 0, 'gr', 186.57, 0, 'Emas', 'Asli', '', ''),
+(74, 40, 'Balik Bahan 0%', 0, 0, 'gr', 0, 0, 'Emas', 'Balik Bahan', '', ''),
+(75, 41, 'Kuning 98% (101.55)', 101.55, 0, 'gr', 215.07, 0, 'Emas', 'Asli', '', ''),
+(76, 42, 'Emas Kuning 37% (36.787%', 36.787, 0, 'gr', 5.97, 0, 'Emas', 'Asli', '', '');
 
 -- --------------------------------------------------------
 
@@ -1208,7 +1305,10 @@ CREATE TABLE `poberlian` (
   `idPOBerlian` int(11) NOT NULL,
   `nomorPO` int(11) NOT NULL,
   `kodeMaterial` int(11) NOT NULL,
+  `namaBerlian` varchar(200) NOT NULL,
+  `jenis` varchar(200) NOT NULL,
   `jumlah` double NOT NULL,
+  `karat` double NOT NULL DEFAULT '0.01',
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1216,28 +1316,33 @@ CREATE TABLE `poberlian` (
 -- Dumping data for table `poberlian`
 --
 
-INSERT INTO `poberlian` (`idPOBerlian`, `nomorPO`, `kodeMaterial`, `jumlah`, `harga`) VALUES
-(2, 1, 109, 0.46, 10803000),
-(3, 50, 14, 0, 10803000),
-(4, 51, 14, 0, 10803000),
-(5, 52, 14, 0, 10803000),
-(6, 53, 14, 0, 10803000),
-(7, 54, 14, 0, 10803000),
-(8, 59, 14, 0, 0),
-(9, 64, 14, 1.43, 11426000),
-(10, 66, 14, 0, 10803000),
-(11, 68, 14, 1, 2020000),
-(12, 70, 14, 0, 0),
-(13, 73, 14, 1, 1670000),
-(14, 76, 14, 0, 10881000),
-(15, 80, 14, 0, 10881000),
-(16, 81, 14, 0, 10881000),
-(17, 82, 14, 0, 10881000),
-(18, 83, 14, 0, 10881000),
-(19, 87, 14, 0, 0),
-(20, 102, 14, 0, 0),
-(21, 103, 14, 0, 780),
-(22, 113, 14, 0, 0);
+INSERT INTO `poberlian` (`idPOBerlian`, `nomorPO`, `kodeMaterial`, `namaBerlian`, `jenis`, `jumlah`, `karat`, `harga`) VALUES
+(2, 1, 109, '', '', 0.46, 0.01, 10803000),
+(3, 50, 14, '', '', 0, 0.01, 10803000),
+(4, 51, 14, '', '', 0, 0.01, 10803000),
+(5, 52, 14, '', '', 0, 0.01, 10803000),
+(6, 53, 14, '', '', 0, 0.01, 10803000),
+(7, 54, 14, '', '', 0, 0.01, 10803000),
+(8, 59, 14, '', '', 0, 0.01, 0),
+(9, 64, 14, '', '', 1.43, 0.01, 11426000),
+(10, 66, 14, '', '', 0, 0.01, 10803000),
+(11, 68, 14, '', '', 1, 0.01, 2020000),
+(12, 70, 14, '', '', 0, 0.01, 0),
+(13, 73, 14, '', '', 1, 0.01, 1670000),
+(14, 76, 14, '', '', 0, 0.01, 10881000),
+(15, 80, 14, '', '', 0, 0.01, 10881000),
+(16, 81, 14, '', '', 0, 0.01, 10881000),
+(17, 82, 14, '', '', 0, 0.01, 10881000),
+(18, 83, 14, '', '', 0, 0.01, 10881000),
+(19, 87, 14, '', '', 0, 0.01, 0),
+(20, 102, 14, '', '', 0, 0.01, 0),
+(21, 103, 14, '', '', 0, 0.01, 780),
+(22, 113, 14, '', '', 0, 0.01, 0),
+(23, 122, 14, '', '', 0, 0.01, 0),
+(24, 126, 14, '', '', 0, 0.01, 0),
+(25, 134, 14, '', '', 0, 0.01, 0),
+(26, 135, 14, '', '', 0, 0.01, 0),
+(27, 138, 14, '', '', 50, 0.01, 0);
 
 -- --------------------------------------------------------
 
@@ -1394,7 +1499,7 @@ CREATE TABLE `potempahan` (
   `hargaKrumWarna` int(11) NOT NULL,
   `keteranganKrum` varchar(255) NOT NULL,
   `tipeIkatan` varchar(255) NOT NULL,
-  `model` varchar(255) NOT NULL,
+  `model` text NOT NULL,
   `metode` varchar(100) NOT NULL,
   `budget` int(11) NOT NULL,
   `panjar` float NOT NULL,
@@ -1469,12 +1574,29 @@ INSERT INTO `potempahan` (`idPO`, `nomorPO`, `idProduk`, `idCustomer`, `idSalesP
 (112, 111, 941, 52, 37, '2018-05-07 00:00:00', '2018-05-11 00:00:00', 574000, 400000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 3.5, 0.6, 'Emas Kuning', 70, 'Biru', 1.27, 'Tahan', 'Bagus', '6,5 Sampai 7,5', 'Mulus', '12.5', '', 0, 0, 'PRQ', 0, 3500, 'Kuning', 30000, 'Kuning', 'Kuku', 'Cincin cewek lady diana', 'Manual', 0, 0, 0, '', 100, 0, 0, '2018-05-09 06:27:11', 'custom', 0, '', ''),
 (113, 112, 942, 79, 19, '2018-05-05 00:00:00', '2018-05-20 00:00:00', 574000, 1500000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 2, 15, 1.2, 'Emas Putih', 75, 'bERLIAN 0.58CT, D, VVS1', 0.2, 'Tahan', 'Sangat Bagus', 'Lebih dari 7', 'Mulus', '17.5 & 11.5', '', 0, 0, '', 0, 0, 'Putih + doff Putih', 50000, 'untuk cewek krum putih polos', 'Kuku', 'cincin Kawin Model berbeda, Cowok uk.17.5 & cewek 11.50, Berlian dari victoria vici, ukir nama T & P', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 06:56:11', 'custom', 0, '0', 'Mau Diamond Tengah 0.58ct, color d vvs1 (5.30mm)'),
 (114, 113, 943, 80, 19, '2018-05-05 00:00:00', '2018-05-25 00:00:00', 574000, 3500000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1.5, 'Emas Putih', 70, 'Saphire', 0, 'Tahan', 'Bagus', 'Lebih dari 7', 'Serat Halus', '16.5', '', 0, 0, '', 0, 0, 'Putih', 50000, '', 'Mangkok Kuku', 'Hati-hati Batu Mahal, ikuti contoh , kuku lembek, perhatikan notes yang dibuat koko, berlian color e/f @ 1.200$', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 07:02:19', 'custom', 0, '0', 'Berlian Wajib non floeranse cari yang heart & orrow'),
-(115, 114, 944, 81, 19, '2018-12-04 00:00:00', '2018-02-05 00:00:00', 574000, 2500000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1.5, 'Emas Kuning', 70, '', 0, '', '', '', '', '', '', 0, 0, '', 0, 0, 'Kuning', 50000, 'Kuning', 'Bungkus', 'model ikuti gambar, bungkus semua semua sesuai contoh gambar', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 07:03:15', 'custom', 0, '', ''),
+(115, 114, 944, 81, 19, '2018-12-04 00:00:00', '2018-02-05 00:00:00', 574000, 2500000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Kode Cap', '', '', '', '', '', 'ss gold 750', 0, 0, 0, 0, 0, 0, 1, 0, 1.5, 'Emas Kuning', 70, '', 0, '', '', '', '', '', '', 0, 0, '', 0, 0, 'Kuning', 50000, 'Kuning', 'Bungkus', 'model ikuti gambar, bungkus semua semua sesuai contoh gambar', 'Design', 0, 0, 2500000, '', 100, 0, 0, '2018-05-13 03:17:21', 'custom', 0, '', ''),
 (117, 116, 946, 64, 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 574000, 550000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1, 'Rose Gold', 70, '', 0, '', '', '', '', '5.5', '', 0, 0, '', 0, 0, 'Rose Gold', 25000, 'Krum Rose Gold', '', 'CIncin Belah Rotan, Diamond poin 2', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 08:13:47', 'custom', 0, '', ''),
 (118, 117, 947, 48, 19, '2018-05-08 00:00:00', '2018-05-18 00:00:00', 574000, 400000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 15, 0.6, 'Emas Putih', 7, 'Black Saphire', 1.13, 'Tahan', 'Bagus', 'Lebih dari 7', 'Serat Kasar', '16', '', 0, 0, 'PRQ', 0, 3500, 'Putih', 40000, '0', 'Kuku', 'Cincin Cowok CLB 51', 'Inject', 0, 0, 0, '', 100, 0, 0, '2018-05-09 09:11:45', 'custom', 0, '0', '0'),
 (119, 118, 948, 52, 19, '2018-05-07 00:00:00', '2018-05-11 00:00:00', 574000, 400000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 3.5, 0.6, 'Emas Kuning', 70, 'Bacan', 0.29, '', '', '6,5 Sampai 7,5', '', '12.5', '', 0, 0, 'PRQ', 0, 3500, 'Kuning', 30000, '0', 'Kuku', 'Model Ccn Cewek MCD 49 ', 'Manual', 0, 0, 0, '', 100, 0, 0, '2018-05-09 09:16:17', 'custom', 0, '0', '0'),
 (120, 119, 949, 33, 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 574000, 0, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 0, 'Emas Kuning', 70, '', 0, '', '', '', '', '17', '', 0, 0, '', 0, 0, 'Kuning', 0, 'Krum Kuning+Enamel Hitam', '', 'Cincin Nama Mandarin', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 09:20:59', 'custom', 0, '', ''),
-(121, 120, 950, 50, 11, '2018-12-04 00:00:00', '2018-03-04 00:00:00', 574000, 850000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1, 'Emas Putih', 75, 'Topas', 0, 'Tahan', 'Kurang', 'Lebih dari 7', 'Mulus', '20', '', 0, 0, '', 0, 0, 'Putih', 0, 'Putih Polos', 'Mangkok Kuku', 'Buka Setengah Mangkok, Permukaan mau tampak segi empat, keliling pakai poin 10, mau tampak mewah', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 10:55:20', 'custom', 0, '', '');
+(121, 120, 950, 50, 11, '2018-12-04 00:00:00', '2018-03-04 00:00:00', 574000, 850000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1, 'Emas Putih', 75, 'Topas', 0, 'Tahan', 'Kurang', 'Lebih dari 7', 'Mulus', '20', '', 0, 0, '', 0, 0, 'Putih', 0, 'Putih Polos', 'Mangkok Kuku', 'Buka Setengah Mangkok, Permukaan mau tampak segi empat, keliling pakai poin 10, mau tampak mewah', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-09 10:55:20', 'custom', 0, '', ''),
+(122, 121, 952, 33, 19, '2018-05-09 00:00:00', '2018-05-18 00:00:00', 574000, 1350000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 20, 1, 'Emas Putih', 70, '0', 0, 'Tahan', 'Sangat Bagus', 'Lebih dari 7', 'Mulus', '5.2 x 4.7', '', 0, 0, '', 0, 0, 'Putih', 80000, '0', '', 'Gelang Cartier Paku, Diameter 5.2 x 4.7, Cap 750 + Berat Berlian ,berat max 20-22gr', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 06:22:38', 'custom', 0, '0', '0'),
+(123, 122, 953, 82, 19, '2018-05-09 00:00:00', '2018-05-28 00:00:00', 574000, 700000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 15, 1, 'Emas Putih', 75, 'Yellow Saphire', 1.01, '', 'Bagus', 'Lebih dari 7', 'Serat Kasar', '20', '', 0, 0, '', 0, 0, 'Putih', 30000, '0', 'Mangkok Kuku', 'Model Ikuti contoh, Mangkok tutup semua (jangan ada lubang ), dat contoh 11.78 gr', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 06:34:06', 'custom', 0, '0', '0'),
+(124, 123, 954, 33, 19, '2018-05-09 00:00:00', '2018-05-18 00:00:00', 574000, 1200000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 20, 0, 'Emas Putih', 70, '0', 0, '', '', '', '', '5.1 x 4.5', '', 0, 0, '', 0, 0, 'Putih  + Enamel Hitam', 100000, '0', '', 'Gelang Cartier, Huruf Cartier kiri kanan pakai enamel hitam, diameter 4.5 x 5.1 , berat 20-22gr', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 06:39:51', 'custom', 0, '0', '0'),
+(125, 124, 955, 56, 19, '2018-05-09 00:00:00', '2018-05-26 00:00:00', 574000, 800000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 12, 1, 'Emas Putih', 75, 'Kecubung ', 1.75, 'Tidak Tahan', 'Kurang', 'Kurang dari 6', 'Sompel', '18', '', 0, 0, 'PRQ', 0, 3500, 'Putih', 30000, '0', 'Kuku', 'Model ikuti contoh,tidak memakai kerawang, dat, contoh 10.92 gr pakai cz', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 06:47:39', 'custom', 0, '0', 'sompel di bagian samping'),
+(126, 125, 956, 33, 19, '2018-05-09 00:00:00', '2018-05-26 00:00:00', 574000, 650000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1, 'Emas Putih', 70, 'Topas Petak Segi', 3.5, 'Tidak Tahan', '', 'Lebih dari 7', 'Mulus', '19', '', 0, 0, 'PRQ', 0, 3500, 'Putih + doff Putih', 35000, '0', 'Kuku', 'Cincin Cowok, mau cz 2 mm, kuku mau bulat, ada lis dikit', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 07:48:33', 'custom', 0, '0', '0'),
+(127, 126, 957, 33, 19, '2018-05-09 00:00:00', '2018-05-26 00:00:00', 574000, 750000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 4, 1, 'Emas Putih', 70, 'berlian 5 pcs', 0, 'Tahan', 'Sangat Bagus', 'Lebih dari 7', 'Mulus', '16', '', 0, 0, '', 0, 0, 'Putih', 30000, '', 'Kuku', 'Cincin Cewek 1 baris, ring tebal bawaH 1 Mili, cap 750 + total berlian', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 07:52:46', 'custom', 0, '0', '0'),
+(128, 127, 958, 33, 19, '2018-05-09 00:00:00', '2018-05-26 00:00:00', 574000, 400000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 30, 0.6, 'Emas Putih', 70, 'Mutiara', 1.06, '', 'Kurang', 'Kurang dari 6', 'Mulus', '19', '', 0, 0, 'PRQ', 0, 3500, 'Putih', 25000, '0', '', 'Ikuti Gambar, cap P.750 + B. Mutiara', 'Inject', 0, 0, 0, '', 100, 0, 0, '2018-05-11 07:56:10', 'custom', 0, '0', '00'),
+(129, 128, 959, 33, 19, '2018-05-09 00:00:00', '2018-05-26 00:00:00', 574000, 1000000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 30, 1, 'Rose Gold', 70, '0', 0, '', '', '', '', '4.5 x 4.9', '', 0, 0, '', 0, 0, 'Polis Saja', 0, '0', '', 'Gelang Cartier Polos, diameter 4.5 x 4.9, cap p.750', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 07:59:21', 'custom', 0, '0', '0'),
+(130, 129, 960, 33, 19, '2018-05-10 00:00:00', '2018-05-24 00:00:00', 574000, 950000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 1, 'Emas Putih', 70, '0', 0, 'Tahan', 'Sangat Bagus', 'Lebih dari 7', 'Mulus', '19', '', 0, 0, '', 0, 0, 'Putih + doff Putih', 35000, '0', 'Tanam', 'cincin cowok 16 pcs, dat berlian 16 pcs', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 08:02:45', 'custom', 0, '0', '0'),
+(131, 130, 961, 56, 19, '2018-05-09 00:00:00', '2018-05-23 00:00:00', 574000, 500000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 4, 0.8, 'Emas Putih', 75, 'Topas Oval', 1.28, '', 'Kurang', 'Lebih dari 7', 'Mulus', '0', '', 0, 0, 'PRQ', 0, 5000, 'Putih', 25000, '', 'Kuku', 'Dat Contoh 3.37 , liontin Lady', 'Inject', 0, 0, 0, '', 100, 0, 0, '2018-05-11 08:26:06', 'custom', 0, '', ''),
+(132, 131, 962, 64, 11, '2018-04-16 00:00:00', '2018-04-30 00:00:00', 576000, 1000000, 0, 574000, 0, 'Berlian kecil 30 pcs + 29 pcs Berlian Besar 2 Pcs', 0, 5000, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 0, 'Emas Putih', 70, 'Berlian', 0, 'Tahan', 'Sangat Bagus', 'Lebih dari 7', '', '', '', 0, 0, '', 0, 0, 'Putih', 50000, 'Putih Polos', 'Kuku', 'Anting Tusuk Ikuti Foto, Pakai Kokot, 2 Fungsi, ', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 09:35:35', 'custom', 0, '', ''),
+(133, 132, 963, 50, 19, '2018-05-09 00:00:00', '2018-05-16 00:00:00', 574000, 0, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 40, 0, 'Emas Putih', 70, '0', 0, '', '', '', '', 'P= 17 CM , L=1cm', '', 0, 0, '', 0, 0, 'Putih', 0, '', '', 'Gelang sisik Naga uk. 17 cm, berat mau 40 gr, cap mtr 750', 'Manual', 0, 0, 0, '', 100, 0, 0, '2018-05-11 09:46:08', 'custom', 0, '', '0'),
+(134, 133, 964, 50, 19, '2018-05-09 00:00:00', '2018-05-16 00:00:00', 574000, 0, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 0, 0, 'Emas Putih', 70, '0', 0, '', '', '', '', '30 CM', '', 0, 0, '', 0, 0, 'Putih', 0, '', '', 'Gelang Sisik Naga  uk. 30cm untuk di kaki, berat mau 30-32 gr, cap mtr 750', 'Manual', 0, 0, 0, '', 100, 0, 0, '2018-05-11 09:54:04', 'custom', 0, '', '0'),
+(135, 134, 965, 49, 19, '2018-05-10 00:00:00', '2018-05-17 00:00:00', 574000, 1000000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 7, 1.5, 'Emas Kuning', 70, 'Zamrud hijau, pink', 0.43, 'Tidak Tahan', 'Kurang', '6,5 Sampai 7,5', 'Serat Halus', '0', '', 0, 0, '', 0, 0, 'Kuning', 70000, '0', 'Kuku', 'Liontin 3 bARIS', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 09:59:41', 'custom', 0, '0', '0'),
+(136, 135, 966, 49, 19, '2018-05-10 00:00:00', '2018-05-17 00:00:00', 574000, 1000000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 7, 1.5, 'Emas Kuning', 70, 'zamrud, Pink, hijau', 0.51, 'Tidak Tahan', 'Kurang', '6,5 Sampai 7,5', 'Serat Halus', '0', '', 0, 0, '', 0, 0, 'Kuning', 70000, '', 'Kuku', 'liontin 3 baris , pakai berlian poin 1 dan 1.5', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-11 10:02:55', 'custom', 0, '0', '0'),
+(137, 136, 967, 33, 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 574000, 850000, 0, 574000, 0, '', 0, 0, 'Standard', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 18, 1, 'Emas Putih', 70, 'topas', 0.56, 'Tidak Tahan', '', '', 'Sompel', '12', '', 0, 0, 'PRQ', 0, 3500, 'putih', 35000, '0', 'Mangkok Kuku', 'model ikuti contoh, dat. contoh 13.58 grm, kuku mau lembek', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-13 02:44:56', 'custom', 0, '0', 'sompel di bagian belakang'),
+(139, 138, 969, 33, 13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 574000, 1500000, 0, 574000, 0, '', 0, 0, 'Teliti', 'Tidak Ada', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 1, 15, 1, 'Emas Putih', 70, 'blue saphire', 1.5, 'Tidak Tahan', '', '', '', '21', '', 0, 0, '', 0, 0, 'putih', 50000, 'Krum Putih Polos', 'Mangkok Kuku', 'clp 01', 'Design', 0, 0, 0, '', 100, 0, 0, '2018-05-13 03:02:14', 'custom', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -2454,7 +2576,26 @@ INSERT INTO `produk` (`idProduk`, `kodeProduk`, `namaProduk`, `jenisProduk`, `ka
 (948, 'CNC-118', 'Ko Stiven-118-Bacan', 'Cincin', 'Tempahan', '', '', 0, 0, '6K5tno50b9', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-09 09:16:17'),
 (949, 'CNC-119', 'Tkm. Pelangi Mas-119', 'Cincin', 'Tempahan', '', '', 0, 0, 'uIxyBHclT8', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-09 09:20:59'),
 (950, 'CNC-120', 'tkm.mentari-120-Topas', 'Cincin', 'Tempahan', '', '', 0, 0, 'yvuqCiQiAe', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-09 10:55:20'),
-(951, 'CNC-121', 'Tkm. Pelangi Mas-121', 'Cincin', 'Tempahan', '', '', 0, 0, 'mZHBir1Boa', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-09 11:01:30');
+(951, 'CNC-121', 'Tkm. Pelangi Mas-121', 'Cincin', 'Tempahan', '', '', 0, 0, 'mZHBir1Boa', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-09 11:01:30'),
+(952, 'GLG-121', 'Tkm. Pelangi Mas-121-0', 'Gelang', 'Tempahan', '', '', 0, 0, 'YAu5Pi3UiK', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 06:22:38'),
+(953, 'CNC-122', 'Tkm. Kurnia-122-Yellow Saphire', 'Cincin', 'Tempahan', '', '', 0, 0, 'u0PuV1Cyj5', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 06:34:06'),
+(954, 'GLG-123', 'Tkm. Pelangi Mas-123-0', 'Gelang', 'Tempahan', '', '', 0, 0, 'LiEIwlK4Yv', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 06:39:51'),
+(955, 'CNC-124', 'Tkm. Asia Baru-124-Kecubung ', 'Cincin', 'Tempahan', '', '', 0, 0, '5HXRWReuSb', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 06:47:39'),
+(956, 'CNC-125', 'Tkm. Pelangi Mas-125-Topas Petak Segi', 'Cincin', 'Tempahan', '', '', 0, 0, 'lzxdYxJItj', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 07:48:33'),
+(957, 'CNC-126', 'Tkm. Pelangi Mas-126-berlian 5 pcs', 'Cincin', 'Tempahan', '', '', 0, 0, '4x7W76HwLC', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 07:52:46'),
+(958, 'CNC-127', 'Tkm. Pelangi Mas-127-Mutiara', 'Cincin', 'Tempahan', '', '', 0, 0, '6EOPlFtdxx', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 07:56:10'),
+(959, 'GLG-128', 'Tkm. Pelangi Mas-128-0', 'Gelang', 'Tempahan', '', '', 0, 0, 'W5cgtsD5IJ', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 07:59:21'),
+(960, 'CNC-129', 'Tkm. Pelangi Mas-129-0', 'Cincin', 'Tempahan', '', '', 0, 0, '0kMpizOg6O', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 08:02:45'),
+(961, 'LTN-130', 'Tkm. Asia Baru-130-Topas Oval', 'Liontin', 'Tempahan', '', '', 0, 0, 'NfVtNuAHhv', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 08:26:06'),
+(962, 'ATG-131', 'Tkm. Pelangi Mas-131-Berlian', 'Anting', 'Tempahan', '', '', 0, 0, '4vpbA8xDx7', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 09:35:35'),
+(963, 'GLG-132', 'tkm.mentari-132-0', 'Gelang', 'Tempahan', '', '', 0, 0, 'mxejxWPPam', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 09:46:08'),
+(964, 'GLG-133', 'tkm.mentari-133-0', 'Gelang', 'Tempahan', '', '', 0, 0, 'gJTcfbUJT1', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 09:54:04'),
+(965, 'LTN-134', 'Tkm. Awi Sogo-134-Zamrud hijau, pink', 'Liontin', 'Tempahan', '', '', 0, 0, 'uGYoQwP0dq', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 09:59:41'),
+(966, 'LTN-135', 'Tkm. Awi Sogo-135-zamrud, Pink, hijau', 'Liontin', 'Tempahan', '', '', 0, 0, '5LZ9iAVTM4', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-11 10:02:55'),
+(967, 'CNC-136', 'Tkm. Pelangi Mas-136-topas', 'Cincin', 'Tempahan', '', '', 0, 0, 'TSMqqyG7ZA', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-13 02:44:56'),
+(968, 'CNC-137', 'Tkm. Pelangi Mas-137-blue saphire', 'Cincin', 'Tempahan', '', '', 0, 0, 'EyoZmHZTiJ', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-13 02:51:58'),
+(969, 'CNC-138', 'Tkm. Pelangi Mas-138-blue saphire', 'Cincin', 'Tempahan', '', '', 0, 0, 'pgGitUu5Ze', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-13 03:02:14'),
+(970, 'CNC-139', 'Tkm. Pelangi Mas-139-Blue Saphire', 'Cincin', 'Tempahan', '', '', 0, 0, 'UV4kvvAuXo', NULL, NULL, NULL, NULL, 0, 'Tidak Tampil', '2018-05-13 03:13:42');
 
 -- --------------------------------------------------------
 
@@ -3565,7 +3706,299 @@ INSERT INTO `produkaktivitas` (`idProses`, `idProduk`, `idAktivitas`, `durasi`, 
 (1088, 918, 1011, 0, 0),
 (1089, 918, 1012, 0, 0),
 (1090, 918, 1013, 0, 0),
-(1091, 918, 1014, 0, 0);
+(1091, 918, 1014, 0, 0),
+(1092, 943, 1001, 0, 0),
+(1093, 943, 1002, 0, 0),
+(1094, 943, 1003, 0, 0),
+(1095, 943, 1004, 0, 0),
+(1096, 943, 1005, 0, 0),
+(1097, 943, 1006, 0, 0),
+(1098, 943, 1007, 0, 0),
+(1099, 943, 1008, 0, 0),
+(1100, 943, 1009, 0, 0),
+(1101, 943, 1010, 0, 0),
+(1102, 943, 1011, 0, 0),
+(1103, 943, 1012, 0, 0),
+(1104, 943, 1013, 0, 0),
+(1105, 943, 1014, 0, 0),
+(1106, 921, 1001, 0, 0),
+(1107, 921, 1002, 0, 0),
+(1108, 921, 1003, 0, 0),
+(1109, 921, 1004, 0, 0),
+(1110, 921, 1005, 0, 0),
+(1111, 921, 1006, 0, 0),
+(1112, 921, 1007, 0, 0),
+(1113, 921, 1008, 0, 0),
+(1114, 921, 1009, 0, 0),
+(1115, 921, 1010, 0, 0),
+(1116, 921, 1011, 0, 0),
+(1117, 921, 1012, 0, 0),
+(1118, 921, 1013, 0, 0),
+(1119, 921, 1014, 0, 0),
+(1120, 938, 1001, 0, 0),
+(1121, 938, 1002, 0, 0),
+(1122, 938, 1003, 0, 0),
+(1123, 938, 1004, 0, 0),
+(1124, 938, 1005, 0, 0),
+(1125, 938, 1006, 0, 0),
+(1126, 938, 1007, 0, 0),
+(1127, 938, 1008, 0, 0),
+(1128, 938, 1009, 0, 0),
+(1129, 938, 1010, 0, 0),
+(1130, 938, 1011, 0, 0),
+(1131, 938, 1012, 0, 0),
+(1132, 938, 1013, 0, 0),
+(1133, 938, 1014, 0, 0),
+(1134, 907, 1001, 0, 0),
+(1135, 907, 1002, 0, 0),
+(1136, 907, 1003, 0, 0),
+(1137, 907, 1004, 0, 0),
+(1138, 907, 1005, 0, 0),
+(1139, 907, 1006, 0, 0),
+(1140, 907, 1007, 0, 0),
+(1141, 907, 1008, 0, 0),
+(1142, 907, 1009, 0, 0),
+(1143, 907, 1010, 0, 0),
+(1144, 907, 1011, 0, 0),
+(1145, 907, 1012, 0, 0),
+(1146, 907, 1013, 0, 0),
+(1147, 907, 1014, 0, 0),
+(1148, 926, 1001, 0, 0),
+(1149, 926, 1002, 0, 0),
+(1150, 926, 1003, 0, 0),
+(1151, 926, 1004, 0, 0),
+(1152, 926, 1005, 0, 0),
+(1153, 926, 1006, 0, 0),
+(1154, 926, 1007, 0, 0),
+(1155, 926, 1008, 0, 0),
+(1156, 926, 1009, 0, 0),
+(1157, 926, 1010, 0, 0),
+(1158, 926, 1011, 0, 0),
+(1159, 926, 1012, 0, 0),
+(1160, 926, 1013, 0, 0),
+(1161, 926, 1014, 0, 0),
+(1162, 931, 1001, 0, 0),
+(1163, 931, 1002, 0, 0),
+(1164, 931, 1003, 0, 0),
+(1165, 931, 1004, 0, 0),
+(1166, 931, 1005, 0, 0),
+(1167, 931, 1006, 0, 0),
+(1168, 931, 1007, 0, 0),
+(1169, 931, 1008, 0, 0),
+(1170, 931, 1009, 0, 0),
+(1171, 931, 1010, 0, 0),
+(1172, 931, 1011, 0, 0),
+(1173, 931, 1012, 0, 0),
+(1174, 931, 1013, 0, 0),
+(1175, 931, 1014, 0, 0),
+(1176, 963, 1001, 0, 0),
+(1177, 963, 1002, 0, 0),
+(1178, 963, 1003, 0, 0),
+(1179, 963, 1004, 0, 0),
+(1180, 963, 1005, 0, 0),
+(1181, 963, 1006, 0, 0),
+(1182, 963, 1007, 0, 0),
+(1183, 963, 1008, 0, 0),
+(1184, 963, 1009, 0, 0),
+(1185, 963, 1010, 0, 0),
+(1186, 963, 1011, 0, 0),
+(1187, 963, 1012, 0, 0),
+(1188, 963, 1013, 0, 0),
+(1189, 963, 1014, 0, 0),
+(1190, 964, 1001, 0, 0),
+(1191, 964, 1002, 0, 0),
+(1192, 964, 1003, 0, 0),
+(1193, 964, 1004, 0, 0),
+(1194, 964, 1005, 0, 0),
+(1195, 964, 1006, 0, 0),
+(1196, 964, 1007, 0, 0),
+(1197, 964, 1008, 0, 0),
+(1198, 964, 1009, 0, 0),
+(1199, 964, 1010, 0, 0),
+(1200, 964, 1011, 0, 0),
+(1201, 964, 1012, 0, 0),
+(1202, 964, 1013, 0, 0),
+(1203, 964, 1014, 0, 0),
+(1204, 958, 1001, 0, 0),
+(1205, 958, 1002, 0, 0),
+(1206, 958, 1003, 0, 0),
+(1207, 958, 1004, 0, 0),
+(1208, 958, 1005, 0, 0),
+(1209, 958, 1006, 0, 0),
+(1210, 958, 1007, 0, 0),
+(1211, 958, 1008, 0, 0),
+(1212, 958, 1009, 0, 0),
+(1213, 958, 1010, 0, 0),
+(1214, 958, 1011, 0, 0),
+(1215, 958, 1012, 0, 0),
+(1216, 958, 1013, 0, 0),
+(1217, 958, 1014, 0, 0),
+(1218, 959, 1001, 0, 0),
+(1219, 959, 1002, 0, 0),
+(1220, 959, 1003, 0, 0),
+(1221, 959, 1004, 0, 0),
+(1222, 959, 1005, 0, 0),
+(1223, 959, 1006, 0, 0),
+(1224, 959, 1007, 0, 0),
+(1225, 959, 1008, 0, 0),
+(1226, 959, 1009, 0, 0),
+(1227, 959, 1010, 0, 0),
+(1228, 959, 1011, 0, 0),
+(1229, 959, 1012, 0, 0),
+(1230, 959, 1013, 0, 0),
+(1231, 959, 1014, 0, 0),
+(1232, 932, 1001, 0, 0),
+(1233, 932, 1002, 0, 0),
+(1234, 932, 1003, 0, 0),
+(1235, 932, 1004, 0, 0),
+(1236, 932, 1005, 0, 0),
+(1237, 932, 1006, 0, 0),
+(1238, 932, 1007, 0, 0),
+(1239, 932, 1008, 0, 0),
+(1240, 932, 1009, 0, 0),
+(1241, 932, 1010, 0, 0),
+(1242, 932, 1011, 0, 0),
+(1243, 932, 1012, 0, 0),
+(1244, 932, 1013, 0, 0),
+(1245, 932, 1014, 0, 0),
+(1246, 965, 1001, 0, 0),
+(1247, 965, 1002, 0, 0),
+(1248, 965, 1003, 0, 0),
+(1249, 965, 1004, 0, 0),
+(1250, 965, 1005, 0, 0),
+(1251, 965, 1006, 0, 0),
+(1252, 965, 1007, 0, 0),
+(1253, 965, 1008, 0, 0),
+(1254, 965, 1009, 0, 0),
+(1255, 965, 1010, 0, 0),
+(1256, 965, 1011, 0, 0),
+(1257, 965, 1012, 0, 0),
+(1258, 965, 1013, 0, 0),
+(1259, 965, 1014, 0, 0),
+(1260, 966, 1001, 0, 0),
+(1261, 966, 1002, 0, 0),
+(1262, 966, 1003, 0, 0),
+(1263, 966, 1004, 0, 0),
+(1264, 966, 1005, 0, 0),
+(1265, 966, 1006, 0, 0),
+(1266, 966, 1007, 0, 0),
+(1267, 966, 1008, 0, 0),
+(1268, 966, 1009, 0, 0),
+(1269, 966, 1010, 0, 0),
+(1270, 966, 1011, 0, 0),
+(1271, 966, 1012, 0, 0),
+(1272, 966, 1013, 0, 0),
+(1273, 966, 1014, 0, 0),
+(1274, 961, 1001, 0, 0),
+(1275, 961, 1002, 0, 0),
+(1276, 961, 1003, 0, 0),
+(1277, 961, 1004, 0, 0),
+(1278, 961, 1005, 0, 0),
+(1279, 961, 1006, 0, 0),
+(1280, 961, 1007, 0, 0),
+(1281, 961, 1008, 0, 0),
+(1282, 961, 1009, 0, 0),
+(1283, 961, 1010, 0, 0),
+(1284, 961, 1011, 0, 0),
+(1285, 961, 1012, 0, 0),
+(1286, 961, 1013, 0, 0),
+(1287, 961, 1014, 0, 0),
+(1288, 960, 1001, 0, 0),
+(1289, 960, 1002, 0, 0),
+(1290, 960, 1003, 0, 0),
+(1291, 960, 1004, 0, 0),
+(1292, 960, 1005, 0, 0),
+(1293, 960, 1006, 0, 0),
+(1294, 960, 1007, 0, 0),
+(1295, 960, 1008, 0, 0),
+(1296, 960, 1009, 0, 0),
+(1297, 960, 1010, 0, 0),
+(1298, 960, 1011, 0, 0),
+(1299, 960, 1012, 0, 0),
+(1300, 960, 1013, 0, 0),
+(1301, 960, 1014, 0, 0),
+(1302, 970, 1001, 0, 0),
+(1303, 970, 1002, 0, 0),
+(1304, 970, 1003, 0, 0),
+(1305, 970, 1004, 0, 0),
+(1306, 970, 1005, 0, 0),
+(1307, 970, 1006, 0, 0),
+(1308, 970, 1007, 0, 0),
+(1309, 970, 1008, 0, 0),
+(1310, 970, 1009, 0, 0),
+(1311, 970, 1010, 0, 0),
+(1312, 970, 1012, 0, 0),
+(1313, 970, 1013, 0, 0),
+(1314, 970, 1014, 0, 0),
+(1315, 969, 1001, 0, 0),
+(1316, 969, 1002, 0, 0),
+(1317, 969, 1003, 0, 0),
+(1318, 969, 1004, 0, 0),
+(1319, 969, 1005, 0, 0),
+(1320, 969, 1006, 0, 0),
+(1321, 969, 1007, 0, 0),
+(1322, 969, 1008, 0, 0),
+(1323, 969, 1009, 0, 0),
+(1324, 969, 1010, 0, 0),
+(1325, 969, 1011, 0, 0),
+(1326, 969, 1012, 0, 0),
+(1327, 969, 1013, 0, 0),
+(1328, 969, 1014, 0, 0),
+(1329, 925, 1004, 0, 0),
+(1330, 925, 1005, 0, 0),
+(1331, 925, 1006, 0, 0),
+(1332, 925, 1007, 0, 0),
+(1333, 925, 1008, 0, 0),
+(1334, 925, 1009, 0, 0),
+(1335, 925, 1010, 0, 0),
+(1336, 925, 1011, 0, 0),
+(1337, 925, 1012, 0, 0),
+(1338, 925, 1013, 0, 0),
+(1339, 925, 1014, 0, 0),
+(1340, 923, 1004, 0, 0),
+(1341, 923, 1005, 0, 0),
+(1342, 923, 1006, 0, 0),
+(1343, 923, 1007, 0, 0),
+(1344, 923, 1008, 0, 0),
+(1345, 923, 1009, 0, 0),
+(1346, 923, 1010, 0, 0),
+(1347, 923, 1011, 0, 0),
+(1348, 923, 1012, 0, 0),
+(1349, 923, 1013, 0, 0),
+(1350, 923, 1014, 0, 0),
+(1351, 884, 1004, 0, 0),
+(1352, 884, 1005, 0, 0),
+(1353, 884, 1006, 0, 0),
+(1354, 884, 1007, 0, 0),
+(1355, 884, 1008, 0, 0),
+(1356, 884, 1009, 0, 0),
+(1357, 884, 1010, 0, 0),
+(1358, 884, 1011, 0, 0),
+(1359, 884, 1012, 0, 0),
+(1360, 884, 1013, 0, 0),
+(1361, 884, 1014, 0, 0),
+(1362, 893, 1004, 0, 0),
+(1363, 893, 1005, 0, 0),
+(1364, 893, 1006, 0, 0),
+(1365, 893, 1007, 0, 0),
+(1366, 893, 1008, 0, 0),
+(1367, 893, 1009, 0, 0),
+(1368, 893, 1010, 0, 0),
+(1369, 893, 1011, 0, 0),
+(1370, 893, 1012, 0, 0),
+(1371, 893, 1013, 0, 0),
+(1372, 893, 1014, 0, 0),
+(1373, 854, 1004, 0, 0),
+(1374, 854, 1005, 0, 0),
+(1375, 854, 1006, 0, 0),
+(1376, 854, 1007, 0, 0),
+(1377, 854, 1008, 0, 0),
+(1378, 854, 1009, 0, 0),
+(1379, 854, 1010, 0, 0),
+(1380, 854, 1011, 0, 0),
+(1381, 854, 1012, 0, 0),
+(1382, 854, 1013, 0, 0),
+(1383, 854, 1014, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -4681,7 +5114,245 @@ INSERT INTO `rencanaproduksi` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`,
 (959, 92, 1011, '2018-05-11 00:00:00', '2018-05-11 00:00:00'),
 (960, 92, 1012, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
 (961, 92, 1013, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
-(962, 92, 1014, '2018-05-12 00:00:00', '2018-05-12 00:00:00');
+(962, 92, 1014, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(963, 114, 1001, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(964, 114, 1002, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(965, 114, 1003, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(966, 114, 1004, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(967, 114, 1005, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(968, 114, 1006, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(969, 114, 1007, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(970, 114, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(971, 114, 1009, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(972, 114, 1010, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(973, 114, 1011, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(974, 114, 1012, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(975, 114, 1013, '2018-05-17 00:00:00', '2018-05-17 00:00:00');
+INSERT INTO `rencanaproduksi` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`, `endDate`) VALUES
+(976, 114, 1014, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(977, 95, 1001, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(978, 95, 1002, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(979, 95, 1003, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(980, 95, 1004, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(981, 95, 1005, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(982, 95, 1006, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(983, 95, 1007, '2018-05-03 00:00:00', '2018-05-03 00:00:00'),
+(984, 95, 1008, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(985, 95, 1009, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(986, 95, 1010, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(987, 95, 1011, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(988, 95, 1012, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(989, 95, 1013, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(990, 95, 1014, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(991, 109, 1001, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(992, 109, 1002, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(993, 109, 1003, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(994, 109, 1004, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(995, 109, 1005, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(996, 109, 1006, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(997, 109, 1007, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(998, 109, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(999, 109, 1009, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1000, 109, 1010, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1001, 109, 1011, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1002, 109, 1012, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1003, 109, 1013, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1004, 109, 1014, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1005, 83, 1001, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1006, 83, 1002, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1007, 83, 1003, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1008, 83, 1004, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1009, 83, 1005, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1010, 83, 1006, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1011, 83, 1007, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1012, 83, 1008, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1013, 83, 1009, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1014, 83, 1010, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1015, 83, 1011, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1016, 83, 1012, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1017, 83, 1013, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1018, 83, 1014, '2018-05-02 00:00:00', '2018-05-02 00:00:00'),
+(1019, 97, 1001, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(1020, 97, 1002, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(1021, 97, 1003, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1022, 97, 1004, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1023, 97, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1024, 97, 1006, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1025, 97, 1007, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1026, 97, 1008, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1027, 97, 1009, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1028, 97, 1010, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1029, 97, 1011, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1030, 97, 1012, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1031, 97, 1013, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1032, 97, 1014, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1033, 102, 1001, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(1034, 102, 1002, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(1035, 102, 1003, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(1036, 102, 1004, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1037, 102, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1038, 102, 1006, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1039, 102, 1007, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1040, 102, 1008, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1041, 102, 1009, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1042, 102, 1010, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1043, 102, 1011, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1044, 102, 1012, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1045, 102, 1013, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1046, 102, 1014, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1047, 133, 1001, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1048, 133, 1002, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1049, 133, 1003, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1050, 133, 1004, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1051, 133, 1005, '2018-05-11 00:00:00', '2018-05-11 00:00:00'),
+(1052, 133, 1006, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1053, 133, 1007, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1054, 133, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1055, 133, 1009, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1056, 133, 1010, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1057, 133, 1011, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1058, 133, 1012, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1059, 133, 1013, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1060, 133, 1014, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1061, 134, 1001, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1062, 134, 1002, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1063, 134, 1003, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1064, 134, 1004, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1065, 134, 1005, '2018-05-12 00:00:00', '2018-05-12 00:00:00'),
+(1066, 134, 1006, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1067, 134, 1007, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1068, 134, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1069, 134, 1009, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1070, 134, 1010, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1071, 134, 1011, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1072, 134, 1012, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1073, 134, 1013, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1074, 134, 1014, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1075, 128, 1001, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1076, 128, 1002, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1077, 128, 1003, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1078, 128, 1004, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1079, 128, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1080, 128, 1006, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1081, 128, 1007, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1082, 128, 1008, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1083, 128, 1009, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1084, 128, 1010, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1085, 128, 1011, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1086, 128, 1012, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1087, 128, 1013, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1088, 128, 1014, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1089, 129, 1001, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1090, 129, 1002, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1091, 129, 1003, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1092, 129, 1004, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1093, 129, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1094, 129, 1006, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1095, 129, 1007, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1096, 129, 1008, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1097, 129, 1009, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1098, 129, 1010, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1099, 129, 1011, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1100, 129, 1012, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1101, 129, 1013, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1102, 129, 1014, '2018-05-19 00:00:00', '2018-05-19 00:00:00'),
+(1103, 103, 1001, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(1104, 103, 1002, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(1105, 103, 1003, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1106, 103, 1004, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1107, 103, 1005, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1108, 103, 1006, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1109, 103, 1007, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1110, 103, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1111, 103, 1009, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1112, 103, 1010, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1113, 103, 1011, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1114, 103, 1012, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1115, 103, 1013, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1116, 103, 1014, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1117, 135, 1001, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1118, 135, 1002, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1119, 135, 1003, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1120, 135, 1004, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1121, 135, 1005, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1122, 135, 1006, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1123, 135, 1007, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1124, 135, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1125, 135, 1009, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1126, 135, 1010, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1127, 135, 1011, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1128, 135, 1012, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1129, 135, 1013, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1130, 135, 1014, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1131, 136, 1001, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1132, 136, 1002, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1133, 136, 1003, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1134, 136, 1004, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1135, 136, 1005, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1136, 136, 1006, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1137, 136, 1007, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1138, 136, 1008, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1139, 136, 1009, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1140, 136, 1010, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1141, 136, 1011, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1142, 136, 1012, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1143, 136, 1013, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1144, 136, 1014, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1145, 131, 1001, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1146, 131, 1002, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1147, 131, 1003, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1148, 131, 1004, '2018-05-09 00:00:00', '2018-05-09 00:00:00'),
+(1149, 131, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1150, 131, 1006, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1151, 131, 1007, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1152, 131, 1008, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1153, 131, 1009, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1154, 131, 1010, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1155, 131, 1011, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1156, 131, 1012, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1157, 131, 1013, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1158, 131, 1014, '2018-05-19 00:00:00', '2018-05-19 00:00:00'),
+(1159, 130, 1001, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1160, 130, 1002, '2018-05-10 00:00:00', '2018-05-10 00:00:00'),
+(1161, 130, 1003, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1162, 130, 1004, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1163, 130, 1005, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1164, 130, 1006, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1165, 130, 1007, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1166, 130, 1008, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1167, 130, 1009, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1168, 130, 1010, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1169, 130, 1011, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1170, 130, 1012, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1171, 130, 1013, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1172, 130, 1014, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1173, 140, 1001, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+(1174, 140, 1002, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1175, 140, 1003, '2018-05-20 00:00:00', '2018-05-20 00:00:00'),
+(1176, 140, 1004, '2018-05-21 00:00:00', '2018-05-21 00:00:00'),
+(1177, 140, 1005, '2018-05-22 00:00:00', '2018-05-22 00:00:00'),
+(1178, 140, 1006, '2018-05-23 00:00:00', '2018-05-23 00:00:00'),
+(1179, 140, 1007, '2018-05-24 00:00:00', '2018-05-24 00:00:00'),
+(1180, 140, 1008, '2018-05-24 00:00:00', '2018-05-24 00:00:00'),
+(1181, 140, 1009, '2018-05-25 00:00:00', '2018-05-25 00:00:00'),
+(1182, 140, 1010, '2018-05-26 00:00:00', '2018-05-26 00:00:00'),
+(1183, 140, 1012, '2018-05-26 00:00:00', '2018-05-26 00:00:00'),
+(1184, 140, 1013, '2018-05-27 00:00:00', '2018-05-27 00:00:00'),
+(1185, 140, 1014, '2018-05-27 00:00:00', '2018-05-27 00:00:00'),
+(1186, 139, 1001, '2018-05-13 00:00:00', '2018-05-13 00:00:00'),
+(1187, 139, 1002, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(1188, 139, 1003, '2018-05-16 00:00:00', '2018-05-16 00:00:00'),
+(1189, 139, 1004, '2018-05-17 00:00:00', '2018-05-17 00:00:00'),
+(1190, 139, 1005, '2018-05-18 00:00:00', '2018-05-18 00:00:00'),
+(1191, 139, 1006, '2018-05-19 00:00:00', '2018-05-19 00:00:00'),
+(1192, 139, 1007, '2018-05-20 00:00:00', '2018-05-20 00:00:00'),
+(1193, 139, 1008, '2018-05-21 00:00:00', '2018-05-21 00:00:00'),
+(1194, 139, 1009, '2018-05-22 00:00:00', '2018-05-22 00:00:00'),
+(1195, 139, 1010, '2018-05-23 00:00:00', '2018-05-23 00:00:00'),
+(1196, 139, 1011, '2018-05-24 00:00:00', '2018-05-24 00:00:00'),
+(1197, 139, 1012, '2018-05-25 00:00:00', '2018-05-25 00:00:00'),
+(1198, 139, 1013, '2018-05-25 00:00:00', '2018-05-25 00:00:00'),
+(1199, 139, 1014, '2018-05-25 00:00:00', '2018-05-25 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -4832,7 +5503,62 @@ INSERT INTO `rencanaproduksi2` (`idRencana`, `idSPK`, `idAktivitas`, `startDate`
 (128, 15, 1011, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
 (129, 15, 1012, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
 (130, 15, 1013, '2018-05-06 00:00:00', '2018-05-06 00:00:00'),
-(131, 15, 1014, '2018-05-07 00:00:00', '2018-05-07 00:00:00');
+(131, 15, 1014, '2018-05-07 00:00:00', '2018-05-07 00:00:00'),
+(132, 32, 1004, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(133, 32, 1005, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(134, 32, 1006, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(135, 32, 1007, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(136, 32, 1008, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(137, 32, 1009, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(138, 32, 1010, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(139, 32, 1011, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(140, 32, 1012, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(141, 32, 1013, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(142, 32, 1014, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(143, 30, 1004, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(144, 30, 1005, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(145, 30, 1006, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(146, 30, 1007, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(147, 30, 1008, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(148, 30, 1009, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(149, 30, 1010, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(150, 30, 1011, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(151, 30, 1012, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(152, 30, 1013, '2018-05-04 00:00:00', '2018-05-04 00:00:00'),
+(153, 30, 1014, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(154, 22, 1004, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(155, 22, 1005, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(156, 22, 1006, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(157, 22, 1007, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(158, 22, 1008, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(159, 22, 1009, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(160, 22, 1010, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(161, 22, 1011, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(162, 22, 1012, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(163, 22, 1013, '2018-04-28 00:00:00', '2018-04-28 00:00:00'),
+(164, 22, 1014, '2018-05-05 00:00:00', '2018-05-05 00:00:00'),
+(165, 24, 1004, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(166, 24, 1005, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(167, 24, 1006, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(168, 24, 1007, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(169, 24, 1008, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(170, 24, 1009, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(171, 24, 1010, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(172, 24, 1011, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(173, 24, 1012, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(174, 24, 1013, '2018-04-30 00:00:00', '2018-04-30 00:00:00'),
+(175, 24, 1014, '2018-05-14 00:00:00', '2018-05-14 00:00:00'),
+(176, 18, 1004, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(177, 18, 1005, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(178, 18, 1006, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(179, 18, 1007, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(180, 18, 1008, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(181, 18, 1009, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(182, 18, 1010, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(183, 18, 1011, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(184, 18, 1012, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(185, 18, 1013, '2018-04-23 00:00:00', '2018-04-23 00:00:00'),
+(186, 18, 1014, '2018-05-12 00:00:00', '2018-05-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -4964,44 +5690,61 @@ INSERT INTO `spk` (`idSPK`, `nomorFaktur`, `nomorPO`, `idProduk`, `idCustomer`, 
 (65, 65, 65, 882, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-27 05:41:41', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (66, 66, 66, 883, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-27 05:53:23', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (67, 67, 67, 885, 61, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-28 03:39:22', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(69, 69, 69, 889, 33, 'Disetujui', '2018-05-09 16:12:23', 2, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 16:09:05', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 09:12:23', 'On progress', 'Proses Print', '0', '', '2018-05-09 00:00:00'),
+(69, 69, 69, 889, 33, 'Disetujui', '2018-05-09 16:12:23', 2, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 16:09:05', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-10 08:51:01', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
 (72, 72, 72, 892, 64, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-04-30 04:23:37', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (77, 76, 76, 901, 67, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:31:31', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (78, 77, 77, 902, 68, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:34:53', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (79, 78, 78, 903, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:37:11', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (81, 80, 80, 905, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:52:07', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (82, 81, 81, 906, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:55:16', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(83, 82, 82, 907, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-02 09:58:57', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(83, 82, 82, 907, 33, 'Disetujui', '2018-05-11 15:31:52', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-11 15:11:07', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 02:53:14', 'On progress', 'Sudah', '0', '', '2018-05-11 00:00:00'),
 (88, 87, 87, 914, 50, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-04 02:58:42', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (89, 88, 88, 915, 50, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-04 03:02:50', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (90, 89, 89, 916, 50, 'Disetujui', '2018-05-09 15:55:28', 2, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 15:53:13', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-10 08:35:12', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
-(92, 91, 91, 918, 71, 'Menunggu Persetujuan', '0000-00-00 00:00:00', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-10 12:09:56', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-10 08:45:46', 'On progress', 'Belum', '0', '', '2018-05-03 00:00:00'),
-(94, 93, 93, 920, 33, 'Disetujui', '2018-05-09 13:41:25', 2, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 13:35:48', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 06:41:25', 'On progress', 'Proses Print', 'Liontin nama ANGELIA JULITA', '', '2018-05-09 00:00:00'),
-(95, 94, 94, 921, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-04 05:20:37', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(96, 95, 95, 922, 33, 'Disetujui', '2018-05-09 16:30:31', 2, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 16:27:39', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 09:30:31', 'On progress', 'Proses Print', '0', '', '2018-05-10 00:00:00'),
-(97, 96, 96, 926, 56, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-05 03:33:54', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(92, 91, 91, 918, 71, 'Disetujui', '2018-05-10 15:49:48', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-10 12:09:56', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-10 08:50:15', 'On progress', 'Sudah', '0', '', '2018-05-03 00:00:00'),
+(94, 93, 93, 920, 33, 'Disetujui', '2018-05-09 13:41:25', 2, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 13:35:48', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-10 09:28:11', 'On progress', 'Sudah', 'Liontin nama ANGELIA JULITA', '', '2018-05-09 00:00:00'),
+(95, 94, 94, 921, 33, 'Disetujui', '2018-05-11 15:31:21', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-10 17:04:32', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:07:59', 'On progress', 'Sudah', '0', '', '0000-00-00 00:00:00'),
+(96, 95, 95, 922, 33, 'Disetujui', '2018-05-09 16:30:31', 2, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 16:27:39', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 08:32:18', 'On progress', 'Sudah', '0', '', '2018-05-10 00:00:00'),
+(97, 96, 96, 926, 56, 'Disetujui', '2018-05-11 15:31:12', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-11 15:16:44', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 02:52:44', 'On progress', 'Sudah', '0', '', '2018-05-11 00:00:00'),
 (98, 97, 97, 927, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-05 03:39:17', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (99, 98, 98, 928, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-05 03:42:02', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (101, 100, 100, 930, 72, 'Disetujui', '2018-05-09 13:17:21', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 12:03:40', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 06:25:44', 'On progress', 'Sudah', '0', '', '2018-05-08 00:00:00'),
-(102, 101, 101, 931, 73, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-08 05:15:14', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(103, 102, 102, 932, 49, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-08 05:20:05', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(102, 101, 101, 931, 73, 'Disetujui', '2018-05-11 15:30:58', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-11 15:27:02', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 02:52:00', 'On progress', 'Sudah', '0', '', '2018-05-05 00:00:00'),
+(103, 102, 102, 932, 49, 'Disetujui', '2018-05-12 13:16:24', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 13:12:47', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:08:08', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
 (104, 103, 103, 933, 33, 'Menunggu Persetujuan', '0000-00-00 00:00:00', 2, 'Belum Ada', '0000-00-00 00:00:00', 2, 'Sudah Ada', '2018-05-09 11:36:21', 2, 'Belum Disetujui', '0000-00-00 00:00:00', 2, 0, '2018-05-09 04:50:57', 'On progress', 'Belum', 'Cincin Cewek Diamond', '', '2018-05-08 00:00:00'),
 (105, 104, 104, 934, 50, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 11:41:15', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 04:41:15', 'On progress', 'Belum', '', '', '2018-04-19 00:00:00'),
 (106, 105, 105, 935, 75, 'Disetujui', '2018-05-09 12:11:08', 11, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 12:06:26', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 05:11:18', 'On progress', 'Sudah', 'cincin kawin ', '', '2018-05-08 00:00:00'),
 (107, 106, 106, 936, 48, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 12:37:12', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 05:37:12', 'On progress', 'Belum', '', '', '2018-05-12 00:00:00'),
 (108, 107, 107, 937, 76, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 05:44:50', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(109, 108, 108, 938, 77, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 05:59:46', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(109, 108, 108, 938, 77, 'Disetujui', '2018-05-11 15:32:05', 6, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-11 15:08:01', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-12 02:52:56', 'On progress', 'Sudah', '0', '', '2018-05-07 00:00:00'),
 (110, 109, 109, 939, 57, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 06:12:32', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (111, 110, 110, 940, 78, 'Disetujui', '2018-05-09 15:00:50', 2, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 14:51:49', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 08:01:08', 'On progress', 'Sudah', '0', '', '2018-05-07 00:00:00'),
 (112, 111, 111, 941, 52, 'Disetujui', '2018-05-09 15:37:17', 2, 'Belum Ada', '0000-00-00 00:00:00', 11, 'Sudah Ada', '2018-05-09 15:35:23', 11, 'Belum Disetujui', '0000-00-00 00:00:00', 11, 0, '2018-05-09 08:37:29', 'On progress', 'Sudah', '0', '', '2018-05-07 00:00:00'),
 (113, 112, 112, 942, 79, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 06:56:11', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
-(114, 113, 113, 943, 80, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 07:02:19', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(114, 113, 113, 943, 80, 'Disetujui', '2018-05-10 16:39:51', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-10 16:37:42', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 02:51:29', 'On progress', 'Sudah', '0', '', '2018-05-11 00:00:00'),
 (115, 114, 114, 944, 81, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Disetujui', '0000-00-00 00:00:00', 5, 0, '2018-05-09 07:03:15', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
 (117, 116, 116, 946, 64, 'Disetujui', '2018-05-09 16:06:02', 6, 'Belum Ada', '0000-00-00 00:00:00', 6, 'Sudah Ada', '2018-05-09 16:00:46', 6, 'Belum Disetujui', '0000-00-00 00:00:00', 6, 0, '2018-05-09 09:06:20', 'On progress', 'Sudah', '0', '', '2018-05-06 00:00:00'),
 (118, 117, 117, 947, 48, 'Disetujui', '2018-05-09 16:56:18', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 16:38:32', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 09:57:22', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
 (119, 118, 118, 948, 52, 'Disetujui', '2018-05-09 17:12:26', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-09 17:05:20', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-09 10:12:50', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
-(120, 119, 119, 949, 33, 'Disetujui', '2018-05-09 16:33:05', 6, 'Belum Ada', '0000-00-00 00:00:00', 6, 'Sudah Ada', '2018-05-09 16:24:35', 6, 'Belum Disetujui', '0000-00-00 00:00:00', 6, 0, '2018-05-09 09:33:05', 'On progress', 'Proses Print', '0', '', '2018-05-06 00:00:00'),
-(121, 120, 120, 950, 50, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Disetujui', '0000-00-00 00:00:00', 5, 0, '2018-05-09 10:55:20', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00');
+(120, 119, 119, 949, 33, 'Disetujui', '2018-05-09 16:33:05', 6, 'Belum Ada', '0000-00-00 00:00:00', 6, 'Sudah Ada', '2018-05-09 16:24:35', 6, 'Belum Disetujui', '0000-00-00 00:00:00', 6, 0, '2018-05-10 08:50:04', 'On progress', 'Sudah', '0', '', '2018-05-06 00:00:00'),
+(121, 120, 120, 950, 50, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Disetujui', '0000-00-00 00:00:00', 5, 0, '2018-05-09 10:55:20', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(122, 121, 121, 952, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 06:22:38', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(123, 122, 122, 953, 82, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 06:34:06', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(124, 123, 123, 954, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 06:39:51', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(125, 124, 124, 955, 56, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 06:47:39', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(126, 125, 125, 956, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 07:48:33', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(127, 126, 126, 957, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 07:52:46', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(128, 127, 127, 958, 33, 'Disetujui', '2018-05-12 13:43:48', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 10:00:59', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 06:44:10', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
+(129, 128, 128, 959, 33, 'Disetujui', '2018-05-12 13:11:24', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 10:24:52', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:08:04', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
+(130, 129, 129, 960, 33, 'Disetujui', '2018-05-12 17:22:14', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 17:17:57', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:08:26', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
+(131, 130, 130, 961, 56, 'Disetujui', '2018-05-12 13:39:10', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 13:32:33', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 06:44:05', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
+(132, 131, 131, 962, 64, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Ada', '0000-00-00 00:00:00', 5, 'Belum Disetujui', '0000-00-00 00:00:00', 5, 0, '2018-05-11 09:35:35', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(133, 132, 132, 963, 50, 'Disetujui', '2018-05-11 16:55:13', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-11 16:52:22', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-11 09:55:34', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
+(134, 133, 133, 964, 50, 'Disetujui', '2018-05-12 13:46:15', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-11 17:20:51', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-12 06:46:26', 'On progress', 'Sudah', '0', '', '2018-05-09 00:00:00'),
+(135, 134, 134, 965, 49, 'Disetujui', '2018-05-12 13:26:54', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 13:19:14', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:08:13', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
+(136, 135, 135, 966, 49, 'Disetujui', '2018-05-12 13:26:50', 6, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-12 13:22:37', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-14 06:08:18', 'On progress', 'Sudah', '0', '', '2018-05-12 00:00:00'),
+(137, 136, 136, 967, 33, 'Proses Desain', '0000-00-00 00:00:00', 0, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-13 02:44:56', 'On progress', 'Belum', '', '', '0000-00-00 00:00:00'),
+(139, 138, 138, 969, 33, 'Disetujui', '2018-05-13 11:06:50', 19, 'Belum Ada', '0000-00-00 00:00:00', 13, 'Sudah Ada', '2018-05-13 11:03:09', 13, 'Belum Disetujui', '0000-00-00 00:00:00', 13, 69.5, '2018-05-13 04:39:12', 'Done', 'Sudah', 'cincin cowok', '', '2018-05-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -5038,21 +5781,21 @@ INSERT INTO `spkmasal` (`idSPK`, `nomorFaktur`, `nomorPO`, `idProduk`, `idCustom
 (15, 15, 15, 824, 37, 'Disetujui', '2018-05-07 19:38:26', 19, 'Sudah Ada', '2018-05-07 19:37:29', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-07 12:38:26', 0, 'On progress'),
 (16, 16, 16, 851, 36, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-04-28 16:47:35', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-28 09:47:35', 0, 'On progress'),
 (17, 17, 17, 852, 31, 'Disetujui', '2018-04-28 13:35:20', 19, 'Sudah Ada', '2018-04-26 11:09:50', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 59, '2018-04-28 06:36:05', 0, 'On progress'),
-(18, 18, 18, 854, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-25 08:26:12', 0, 'On progress'),
+(18, 18, 18, 854, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-16 17:20:28', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-16 10:20:28', 0, 'On progress'),
 (19, 19, 19, 855, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-04-26 11:05:34', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-26 04:05:34', 0, 'On progress'),
 (20, 20, 20, 857, 47, 'Disetujui', '2018-04-28 14:21:53', 19, 'Sudah Ada', '2018-04-26 11:03:38', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 29.5, '2018-04-28 07:23:26', 0, 'On progress'),
 (21, 21, 21, 862, 38, 'Disetujui', '2018-04-28 16:48:06', 19, 'Sudah Ada', '2018-04-28 16:46:13', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 59, '2018-04-28 09:49:03', 0, 'On progress'),
-(22, 22, 22, 884, 35, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-28 03:29:00', 0, 'On progress'),
+(22, 22, 22, 884, 35, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-16 17:18:05', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-16 10:18:05', 0, 'On progress'),
 (23, 23, 23, 887, 37, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-28 04:00:51', 0, 'On progress'),
-(24, 24, 24, 893, 45, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-30 06:29:20', 0, 'On progress'),
+(24, 24, 24, 893, 45, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-16 17:19:17', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-16 10:19:17', 0, 'On progress'),
 (25, 25, 25, 894, 45, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-30 06:37:47', 0, 'On progress'),
 (26, 26, 26, 895, 45, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-30 06:47:48', 0, 'On progress'),
 (27, 27, 27, 896, 65, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-04-30 09:23:56', 0, 'On progress'),
 (28, 28, 28, 909, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-03 05:09:10', 0, 'On progress'),
 (29, 29, 29, 910, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-03 05:15:10', 0, 'On progress'),
-(30, 30, 30, 923, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-04 09:45:40', 0, 'On progress'),
+(30, 30, 30, 923, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-16 17:10:08', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-16 10:10:08', 0, 'On progress'),
 (31, 31, 31, 924, 36, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-05 03:15:01', 0, 'On progress'),
-(32, 32, 32, 925, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-05 03:23:02', 0, 'On progress');
+(32, 32, 32, 925, 31, 'Belum Ada', '0000-00-00 00:00:00', 19, 'Sudah Ada', '2018-05-16 17:09:30', 19, 'Belum Disetujui', '0000-00-00 00:00:00', 19, 0, '2018-05-16 10:09:30', 0, 'On progress');
 
 -- --------------------------------------------------------
 
@@ -5203,7 +5946,49 @@ INSERT INTO `stokbarang` (`idStok`, `idPIC`, `nomorPO`, `tipeBarang`, `kodeBaran
 (184, 9, 0, 'Material Dasar', '8', 5.99, 'gr', 'IN', 'Stok Opname', 'Valid', 0, '2018-05-09 20:27:37', 'bahan'),
 (185, 9, 0, 'Material Dasar', '9', 20.47, 'gr', 'IN', 'Stok Opname', 'Valid', 0, '2018-05-09 20:28:16', 'bahan campur'),
 (186, 9, 0, 'Material Dasar', '28', 208.59, 'gr', 'IN', 'Stok Opname', 'Valid', 0, '2018-05-09 20:29:34', 'sisa abu cor'),
-(187, 9, 0, 'Material Dasar', '39', 186.57, 'gr', 'IN', 'Stok Opname', 'Valid', 0, '2018-05-09 20:35:13', 'sisa bahan cor');
+(187, 9, 0, 'Material Dasar', '39', 186.57, 'gr', 'IN', 'Stok Opname', 'Valid', 0, '2018-05-09 20:35:13', 'sisa bahan cor'),
+(188, 9, 0, 'Material Dasar', '1', 25, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:15:09', ''),
+(189, 9, 0, 'Material Dasar', '40', 2, 'gr', 'IN', 'Balik Bahan', 'Valid', 0, '2018-05-13 11:15:09', ''),
+(190, 9, 0, 'Material Dasar', '1', 25, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:15:15', ''),
+(191, 9, 0, 'Material Dasar', '40', 2, 'gr', 'IN', 'Balik Bahan', 'Valid', 0, '2018-05-13 11:15:15', ''),
+(192, 2, 0, 'Produk Semi Jadi', '970', 23, 'gr', 'IN', 'Produksi', 'Valid', 0, '2018-05-13 11:17:19', ''),
+(193, 9, 0, 'Material Dasar', '35', 0.26, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:26:00', ''),
+(194, 9, 0, 'Material Dasar', '32', 0.22, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:26:00', ''),
+(195, 9, 0, 'Material Dasar', '25', 0.26, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:26:00', ''),
+(196, 9, 0, 'Material Dasar', '1', 10, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:26:00', ''),
+(197, 9, 0, 'Material Dasar', '24', 11.94, 'gr', 'IN', 'Balik Bahan', 'Valid', 0, '2018-05-13 11:26:00', ''),
+(198, 2, 0, 'Produk Semi Jadi', '969', 11.94, 'gr', 'IN', 'Produksi', 'Valid', 0, '2018-05-13 11:27:33', ''),
+(199, 2, 0, 'Produk Semi Jadi', '970', 17.35, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:34:06', ''),
+(200, 2, 0, 'Produk Jadi', '970', 17.35, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-13 11:36:10', ''),
+(201, 19, 0, 'Produk Jadi', '970', 17.35, 'gr', 'IN', 'Transfer', 'Valid', 0, '2018-05-13 11:36:10', ''),
+(202, 9, 0, 'Produk Semi Jadi', '969', 10.11, 'gr', 'OUT', 'Produksi', 'Valid', 0, '2018-05-13 11:38:49', ''),
+(203, 9, 139, 'Produk Jadi', '969', 10.11, 'gr', 'IN', 'Produksi', 'Valid', 0, '2018-05-13 11:38:49', ''),
+(204, 9, 0, 'Produk Jadi', '969', 10.11, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-13 11:39:12', ''),
+(205, 19, 0, 'Produk Jadi', '969', 10.11, 'gr', 'IN', 'Transfer', 'Valid', 0, '2018-05-13 11:39:12', ''),
+(206, 19, 0, 'Material Dasar', '41', 215.07, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:20:57', 'beli bahan dari ko effendi'),
+(207, 19, 0, 'Material Dasar', '21', 72.64, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:24:10', 'Dat Bahan Dari Ko Johan tgl 12/5/2018'),
+(208, 19, 0, 'Material Dasar', '17', 28.26, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:26:12', 'Dat . Bahan dari Asan tgl 15/5/2018 (retur)'),
+(209, 19, 0, 'Material Dasar', '3', 11.68, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:27:40', 'dat bahan dari kasandra tgl 15/5/2018'),
+(210, 19, 0, 'Material Dasar', '23', 15.43, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:29:03', 'Dat. Bahan fina dari Ko Awi Sogo tgl 15/5/2018'),
+(211, 19, 0, 'Material Dasar', '1', 400.2, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:29:53', 'Beli Bahan dari Cahaya 15/5/18'),
+(212, 19, 0, 'Material Dasar', '1', 400.2, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:31:08', 'Beli Bahan dari Cahaya 14/5/18'),
+(213, 9, 0, 'Material Dasar', '1', 400.2, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:31:08', 'Beli Bahan dari Cahaya 14/5/18'),
+(214, 19, 0, 'Material Dasar', '21', 72.64, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:32:21', 'Dat Bahan Dari Ko Johan tgl 12/5/2018'),
+(215, 9, 0, 'Material Dasar', '21', 72.64, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:32:21', 'Dat Bahan Dari Ko Johan tgl 12/5/2018'),
+(216, 19, 0, 'Material Dasar', '17', 28.26, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:32:53', 'Dat. Bahan Gelang dari Ko Asan '),
+(217, 9, 0, 'Material Dasar', '17', 28.26, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:32:53', 'Dat. Bahan Gelang dari Ko Asan '),
+(218, 19, 0, 'Material Dasar', '3', 11.68, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:33:40', 'dat bahan dari kasandra tgl 15/5/2018'),
+(219, 9, 0, 'Material Dasar', '3', 11.68, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:33:40', 'dat bahan dari kasandra tgl 15/5/2018'),
+(220, 19, 0, 'Material Dasar', '23', 15.43, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:34:17', 'dat bahan fina dari ko awi sogo'),
+(221, 9, 0, 'Material Dasar', '23', 15.43, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:34:17', 'dat bahan fina dari ko awi sogo'),
+(222, 19, 0, 'Material Dasar', '41', 215.07, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:34:54', 'beli bahan dari ko effendi'),
+(223, 9, 0, 'Material Dasar', '41', 215.07, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:34:54', 'beli bahan dari ko effendi'),
+(224, 19, 0, 'Material Dasar', '42', 5.97, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-15 09:38:36', 'balik bahan dari oheng'),
+(225, 19, 0, 'Material Dasar', '42', 5.97, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-15 09:38:57', 'balik bahan dari oheng'),
+(226, 9, 0, 'Material Dasar', '42', 5.97, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-15 09:38:57', 'balik bahan dari oheng'),
+(227, 19, 0, 'Material Dasar', '1', 101.02, 'gr', 'IN', 'Beli Material', 'Valid', 0, '2018-05-17 10:09:08', 'Beli Bahan dari Cahaya 17/5/18'),
+(228, 19, 0, 'Material Dasar', '1', 101.02, 'gr', 'OUT', 'Transfer', 'Valid', 0, '2018-05-17 10:09:43', 'Beli Bahan dari Cahaya 17/5/18'),
+(229, 9, 0, 'Material Dasar', '1', 101.02, 'gr', 'IN', 'Transfer', 'Pending', 0, '2018-05-17 10:09:43', 'Beli Bahan dari Cahaya 17/5/18');
 
 -- --------------------------------------------------------
 
@@ -5296,7 +6081,7 @@ INSERT INTO `user` (`idUser`, `username`, `password`, `nama`, `jabatan`, `level`
 (8, 'Hendra', '123', 'Hendra', 'Leader Produksi', 0, '', '', ' Jl. Selam I Gg. Saudara No. 30 Kel/desa Tegal S. Mandala I Kec. Medan Denai '),
 (9, 'Wenny', '123', 'Wenny Aleesa Ramadani', 'Leader Produksi', 0, '', '', ' Huta II Afd I Laras Kel/Desa Laras Kec. Bandar Huluan '),
 (10, 'Riki Andika', '123', 'Riki Andika', 'Leader Tempahan', 0, '', '', ' Dusun IX Pasar Kacang Kel/Desa Sei Muka Kec. Talawi '),
-(11, 'Vivi Eliza Elthia', '123', 'Vivi Eliza Elthia', 'Manager Sales & Marketing', 0, '', '', ' -   '),
+(11, 'Vivi', '123', 'Vivi Eliza Elthia', 'Manager Sales & Marketing', 0, '', '', ' -   '),
 (12, 'Swandie', '123', 'Maxim Swandie', 'Owner', 0, '', '', ' Jl. Kota Baru '),
 (13, 'Franziska SF', '123', 'Franziska SF', 'PPIC Tempahan', 0, '', '', ' Jl. Danau Melintang No. 81 MedanKel/Desa Sei Agul Kec. Medan Barat  '),
 (14, 'Rina Rahmadani', '123', 'Rina Rahmadani', 'Staff Accounting', 0, '', '', ' Jl. Kenanga XV No. 02 TG. Sari Kel Tanjung Sari Kec. Medan Selayang '),
@@ -5739,7 +6524,7 @@ ALTER TABLE `bomperak`
 -- AUTO_INCREMENT for table `bomtempahan`
 --
 ALTER TABLE `bomtempahan`
-  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idBOM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cashflow`
@@ -5757,7 +6542,7 @@ ALTER TABLE `currency`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `detailjurnal`
@@ -5781,7 +6566,7 @@ ALTER TABLE `detailpurchaseordertrading`
 -- AUTO_INCREMENT for table `factproduction`
 --
 ALTER TABLE `factproduction`
-  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `idProProd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT for table `factproduction2`
@@ -5805,7 +6590,7 @@ ALTER TABLE `factproductionservice`
 -- AUTO_INCREMENT for table `invoiceheader`
 --
 ALTER TABLE `invoiceheader`
-  MODIFY `idHeader` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idHeader` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `invoicemassal`
@@ -5835,7 +6620,7 @@ ALTER TABLE `invoicetempahanperseorangan`
 -- AUTO_INCREMENT for table `invoicetempahanpertokoan`
 --
 ALTER TABLE `invoicetempahanpertokoan`
-  MODIFY `idTempahan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTempahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -5859,7 +6644,7 @@ ALTER TABLE `katalog`
 -- AUTO_INCREMENT for table `kloter`
 --
 ALTER TABLE `kloter`
-  MODIFY `idGroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idGroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `kloter2`
@@ -5871,7 +6656,7 @@ ALTER TABLE `kloter2`
 -- AUTO_INCREMENT for table `materialdasar`
 --
 ALTER TABLE `materialdasar`
-  MODIFY `idMaterial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `idMaterial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `penilaian`
@@ -5889,7 +6674,7 @@ ALTER TABLE `pertanyaan`
 -- AUTO_INCREMENT for table `poberlian`
 --
 ALTER TABLE `poberlian`
-  MODIFY `idPOBerlian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idPOBerlian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `pomasal`
@@ -5907,19 +6692,19 @@ ALTER TABLE `poperak`
 -- AUTO_INCREMENT for table `potempahan`
 --
 ALTER TABLE `potempahan`
-  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `idPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=952;
+  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=971;
 
 --
 -- AUTO_INCREMENT for table `produkaktivitas`
 --
 ALTER TABLE `produkaktivitas`
-  MODIFY `idProses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1092;
+  MODIFY `idProses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1384;
 
 --
 -- AUTO_INCREMENT for table `produkpo`
@@ -5961,13 +6746,13 @@ ALTER TABLE `rekapproduksiline`
 -- AUTO_INCREMENT for table `rencanaproduksi`
 --
 ALTER TABLE `rencanaproduksi`
-  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=963;
+  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1200;
 
 --
 -- AUTO_INCREMENT for table `rencanaproduksi2`
 --
 ALTER TABLE `rencanaproduksi2`
-  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `idRencana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `rencanaproduksi3`
@@ -5997,7 +6782,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `spk`
 --
 ALTER TABLE `spk`
-  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `idSPK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `spkmasal`
@@ -6021,7 +6806,7 @@ ALTER TABLE `spkservice`
 -- AUTO_INCREMENT for table `stokbarang`
 --
 ALTER TABLE `stokbarang`
-  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `idStok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT for table `subspk`
