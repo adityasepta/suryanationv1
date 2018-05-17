@@ -2777,6 +2777,7 @@ class User extends CI_Controller {
         $idSPK=$produk[0]->idSPK;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
+         $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction2');
         redirect('user/listPOMasal');
