@@ -119,12 +119,18 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Tanggal Terima</label>
-                                                <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo set_value('tanggalMasuk'); ?>" required="">
+                                                <?php 
+                                                  $tglskg = new DateTime();
+                                                  $tglnow = $tglskg->format("Y-m-d");
+                                                  $tglpyl = strtotime("2 week",strtotime($tglnow));
+                                                  $tglweek = date("Y-m-d",$tglpyl);
+                                                ?>
+                                                <label>Tanggal Terima <?php echo $tglweek?></label>
+                                                <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo $tglnow ?>" required="">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Estimasi Penyelesaian</label>
-                                                <input type="date" placeholder="Estimasi Penyelesaian" name="tanggalEstimasiPenyelesaian" value="<?php echo set_value('tanggalEstimasiPenyelesaian'); ?>" class="form-control" required>
+                                                <input type="date" placeholder="Estimasi Penyelesaian" name="tanggalEstimasiPenyelesaian" value="<?php echo $tglweek ?>" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -650,7 +656,7 @@
                 document.getElementById('ukuranGelang').style.display = 'none';
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
-                document.getElementById('kodeProduk').value = 'CNC-';
+                document.getElementById('kodeProduk').value = 'CNC';
             } else if ($('#liontin').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
