@@ -4398,7 +4398,7 @@ class User extends CI_Controller {
                  
         //query insert produk
         $dataProduk = array(
-            'kodeProduk'        => $this->input->post('kodeProduk'),
+            'kodeProduk'        => $kodeProduk,
             'namaProduk'        => $namaProduk,
             'jenisProduk'       => $jenisProduk,
             'kategori'          => 'Tempahan',
