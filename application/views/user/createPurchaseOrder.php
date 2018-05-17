@@ -845,7 +845,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><select class="form-control m-b" name="zirkon[]" id="lstDropDown_A" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($zirkon); $i++) { ?><option value="<?php echo $zirkon[$i]->namaMaterial?>"><?php echo $zirkon[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" placeholder="Rp" name="hargaBatuZirkon[]" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><select class="form-control m-b" name="zirkon[]" id="lstDropDown_A'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($zirkon); $i++) { ?><option value="<?php echo $zirkon[$i]->namaMaterial?>"><?php echo $zirkon[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" id="hargaPoinZirkon'+x+'" placeholder="Rp" name="hargaBatuZirkon[]" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div><script>$("#lstDropDown_A'+x+'").change(function(){var hg=getHargaZirkon(document.getElementById("lstDropDown_A'+x+'").value);document.getElementById("hargaPoinZirkon'+x+'").value=hg;});</' + 'script>'); //add input box
                 }
             });
             
@@ -853,6 +853,23 @@
                 e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
             })
         });
+
+        function getHargaZirkon(n){
+            console.log(n);
+            var jenisCustomer = $("input[name='jenisCustomer']:checked").val();
+            <?php for ($i = 0; $i < count($zirkon); $i++) { ?>
+                var namaMaterial = "<?php echo $zirkon[$i]->namaMaterial?>";
+                if(jenisCustomer=="Toko"){
+                    var hargaMaterial = <?php echo $zirkon[$i]->hargaToko?>;
+                } else {
+                    var hargaMaterial = <?php echo $zirkon[$i]->hargaSatuan?>;
+                }
+
+                if(n==namaMaterial) {
+                    return hargaMaterial;
+                }
+            <?php } ?>
+         }
         // <div class="col-md-3"><label>Jumlah Batu Zirkon</label><input type="text" placeholder="Jumlah Batu Zirkon" name="jumlahBatuZirkon" class="form-control" value="<?php echo set_value('jumlahBatuZirkon'); ?>"></div>
     </script>
     <script type="text/javascript">
