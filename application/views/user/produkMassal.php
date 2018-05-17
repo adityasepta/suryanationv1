@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-md-3">
                     <a href="<?php echo base_url();?>user/produkMassal">
-                    <div class="widget style1 lazur-bg">
+                    <div class="widget style1 red-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <span>Produk</span>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="col-md-3">
                     <a href="<?php echo base_url();?>user/produkTrading">
-                    <div class="widget style1 red-bg">
+                    <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <span>Produk</span>

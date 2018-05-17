@@ -252,6 +252,46 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listProdukTempahan(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Tempahan'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukMassal(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Massal' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukPerak(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Perak' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukTrading(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Trading' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listSPK(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO ORDER BY a.nomorFaktur DESC");
@@ -1666,16 +1706,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
      public function findPOTrading($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
-        if($hasil->num_rows() > 0){
-            return $hasil->result();
-        } else{
-            return array();
-        }
-    }
-
-    public function listProdukTrading(){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produk where kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

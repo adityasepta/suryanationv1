@@ -1456,11 +1456,6 @@ class User extends CI_Controller {
 
     }
 
-    public function produk() {
-        $data['produk']=$this->mdl->listProduk();
-        $this->load->view('user/produk',$data);
-    }
-
     public function material() {
         $data['material']=$this->mdl->getMaterial();
         $data['pergerakan']=$this->mdl->getPergerakan();
@@ -6994,46 +6989,6 @@ class User extends CI_Controller {
         }
     }
 
-    public function produkTrading() {
-        $data['produk']=$this->mdl->listProdukTrading();
-        $this->load->view('user/produkTrading',$data);
-    }
-
-    public function tambahProdukTrading(){
-        $this->form_validation->set_rules('kodeProduk','Kode Produk', 'required');
-        
-        if ($this->form_validation->run() == FALSE){
-            $data['produk'] = $this->mdl->listProdukTrading($id);
-            //print_r($data['bom']);
-            $this->load->view('user/produkTrading',$data);
-        }
-        else {
-            //form submit dengan gambar dikosongkan
-           $dataProduk = array(
-                            'kodeProduk'    => $this->input->post('kodeProduk'),
-                            'namaProduk'   => $this->input->post('namaProduk'),
-                            'jenisProduk'   => $this->input->post('jenisProduk'),
-                            'satuan'   => $this->input->post('satuan'),
-                            'harga'        => $this->clean($this->input->post('harga')),
-                            'stok'         => $this->input->post('stok'),
-                    );
-                    //print_r($dataProduk);exit();
-                    $this->mdl->insertData("produkTrading",$dataProduk);
-                    $message = "Produk berhasil tambahkan";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location.href='".base_url("user/produkTrading")."';</script>";
-    }
-        
-    }
-
-    public function hapusProdukTrading($id){
-        $this->mdl->deleteData("idProduk",$id,"produkTrading");
-        $message = "Produk berhasil dihapus";
-        echo "<script type='text/javascript'>alert('$message');
-        window.location.href='".base_url("user/produkTrading")."';</script>";
-    }
-
-
     //Jabatan
     public function jabatan() {
         $data['jabatan']=$this->mdl->listJabatan();  
@@ -7579,6 +7534,27 @@ class User extends CI_Controller {
         }
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil membuat kloter SPK</div>');
         redirect('user/kanban');
+    }
+
+    // Produk
+    public function produk() {
+        $data['produk']=$this->mdl->listProdukTempahan();
+        $this->load->view('user/produk',$data);
+    }
+    
+    public function produkMassal() {
+        $data['produk']=$this->mdl->listProdukMassal();
+        $this->load->view('user/produkMassal',$data);
+    }
+
+    public function produkPerak() {
+        $data['produk']=$this->mdl->listProdukPerak();
+        $this->load->view('user/produkPerak',$data);
+    }
+
+    public function produkTrading() {
+        $data['produk']=$this->mdl->listProdukTrading();
+        $this->load->view('user/produkTrading',$data);
     }
 
 

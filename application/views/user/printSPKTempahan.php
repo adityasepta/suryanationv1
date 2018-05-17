@@ -330,7 +330,13 @@
                     </tr>
                 </tbody>
             </table>
-            
+            <hr style="border-top: 3px solid #282828;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <label>Gambar Sampel</label>
+                    <img src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive" style="max-height: 400px;">
+                </div>
+            </div>
         </section>
     </div>
     
