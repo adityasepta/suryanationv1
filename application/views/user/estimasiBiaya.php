@@ -213,6 +213,12 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"><?php echo $berlian[$i]->namaBerlian ?></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
+                                    <?php if($berlian[$i]->jenis!='Berlian') {?>
+                                    <div class="col-sm-2">
+                                        <input type="text" value="<?php echo $berlian[$i]->jumlah?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-sm-1" style="width:0;">X</div>
+                                    <?php } ?>
                                     <div class="col-sm-2">
                                         <input type="text" value="<?php echo $berlian[$i]->harga?>" class="form-control" readonly>
                                     </div>

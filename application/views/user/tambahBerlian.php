@@ -126,11 +126,15 @@
                                     </div>
                                     <div class="col-sm-1" style="width:0;"></div>
                                     <div class="col-md-2">
-                                        <label>Jumlah / Berat</label>
+                                        <label>Jumlah (Pcs)</label>
                                     </div>
                                     <div class="col-md-2">
                                         <label>Harga Satuan</label>
                                     </div>
+                                    <div class="col-md-2">
+                                        <label>Berat (Ct)</label>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
@@ -138,11 +142,7 @@
                                     <?php for ($y=0; $y < count($berlian) ; $y++) { ?>
                                         <div class="form-group row" id="del<?php echo $y ?>">
                                             <div class="col-md-4 ">
-                                                <select class="form-control m-b" name="kodeMaterial[]">
-                                                    <?php for ($i = 0; $i < count($material); $i++) { ?>
-                                                        <option value="<?php echo $material[$i]->kodeMaterial?>" <?php if($material[$i]->kodeMaterial == $berlian[$y]->kodeMaterial){?> selected <?php } ?> ><?php echo $material[$y]->kodeMaterial." - ".$material[$i]->namaMaterial?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <input type="text" name= "namaBerlian[]" placeholder="Nama Berlian" value="<?php echo $berlian[$y]->namaBerlian ?>" class="form-control" readonly>
                                             </div>
                                             <div class="col-sm-1" style="width:0;">:</div>
                                             <div class="col-md-2">
@@ -151,6 +151,11 @@
                                             <div class="col-md-2">
                                                 <input type="text" name= "harga[]" placeholder="Harga Berlian" value="<?php echo $berlian[$y]->harga ?>" class="form-control" required>
                                             </div>
+                                            <?php if($berlian[$y]->jenis=="Berlian") {?>
+                                            <div class="col-md-2">
+                                                <input type="text" name= "karat[]" placeholder="Berat Karat" value="<?php echo $berlian[$y]->karat ?>" class="form-control" required>
+                                            </div>
+                                            <?php } ?>
                                             <button type="button" class="btn remove_field" onclick="removeDummy<?php echo $y ?>()">Remove</button>
                                         </div>
 
