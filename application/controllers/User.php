@@ -7121,9 +7121,11 @@ class User extends CI_Controller {
 
     public function tambahCurrency() {
         $hargaEmas = $this->input->post('hargaEmas');
+        $hargaRupiah = $this->input->post('hargaRupiah');
 
         $dataCurrency = array(
             'hargaEmas'     => $hargaEmas,
+            'hargaRupiah'     => $hargaRupiah,
             'tanggal'       => date("Y-m-d H:i:s"),
         );
         $this->mdl->insertData('currency', $dataCurrency);
@@ -7133,9 +7135,11 @@ class User extends CI_Controller {
 
     public function editCurrency($idCurrency) {
         $hargaEmas = $this->input->post('hargaEmas');
+        $hargaRupiah = $this->input->post('hargaRupiah');
 
         $dataCurrency = array(
             'hargaEmas'     => $hargaEmas,
+            'hargaRupiah'     => $hargaRupiah,
         );
         $this->mdl->updateData('idCurrency',$idCurrency,'currency', $dataCurrency);
         

@@ -59,7 +59,7 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Daftar Harga Emas Per Hari</h5>
@@ -73,24 +73,32 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-6">
                                         <input type="text" class="form-control input-sm m-b-xs" placeholder="Harga Emas Saat Ini" name="hargaEmas">
                                     </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control input-sm m-b-xs" placeholder="Rupiah Per Dollar" name="hargaRupiah">
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8"></div>
                                     <div class="col-lg-4">
                                         <button class="btn btn-primary btn-sm btn-block" type="submit">Update</button>
                                     </div>
                                 </div>
-                                
+                                <hr>
                                 <?php echo form_close()?>
                             <?php } ?>
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                                 <thead>
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Harga Emas</th>
+                                    <th>Nilai Dollar (Rp)</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -103,6 +111,7 @@
                                         ?>
                                         <td><?php echo $tglsk ?></td>
                                         <td>Rp <?php echo number_format($p->hargaEmas,2)?></td>
+                                        <td>Rp <?php echo number_format($p->hargaRupiah,2)?></td>
                                         <td>
                                             <a href="#" data-toggle="modal" data-target="#curr<?php echo $p->idCurrency;?>" class="btn btn-xs btn-default">Edit</a>
                                         </td>
@@ -119,11 +128,15 @@
                                             <?php echo form_open_multipart('user/editCurrency/'.$p->idCurrency)?>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <label>Harga Emas</label>
                                                         <input type="text" name= "hargaEmas"  class="form-control" required value="<?php echo $p->hargaEmas; ?>">
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
+                                                        <label>Rupiah Per Dollar</label>
+                                                        <input type="text" name= "hargaRupiah"  class="form-control" required value="<?php echo $p->hargaRupiah; ?>">
+                                                    </div>
+                                                    <div class="col-md-4">
                                                         <label>Tanggal</label>
                                                         <input type="text" class="form-control" readonly="" value="<?php echo $tglsk?>">
                                                     </div>
