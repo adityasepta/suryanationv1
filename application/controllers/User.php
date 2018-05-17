@@ -7303,6 +7303,11 @@ class User extends CI_Controller {
 
         $this->mdl->insertData('stokbarang',$dataInventory);
 
+        $dataStatus = array(
+                'statusPengambilan' => 'Sudah'
+        );
+        $this->mdl->updateData('idSPK',$idSPK,'factproduction', $dataStatus);
+
         $message = "Berhasil mengambil barang, jangan lupa stock opname berlian !";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/kanban")."';</script>";
