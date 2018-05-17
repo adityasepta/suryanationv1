@@ -441,6 +441,15 @@ class mdl extends CI_Model {
             return array();
         }
     }
+    public function findSPK10($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE idSPK=$idSPK LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 
     public function findSPK2($idSPK){
         //Query mencari record berdasarkan ID
