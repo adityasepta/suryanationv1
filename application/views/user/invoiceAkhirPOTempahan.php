@@ -202,7 +202,7 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-2">
                                         <label>Berlian / Swarovski</label>
-                                        <!-- <a href="<?php echo base_url();?>user/tambahBerlian/<?php echo $nomorPO ?>" type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Update Berlian</a> -->
+                                        <a href="<?php echo base_url();?>user/tambahBerlian/<?php echo $nomorPO ?>" type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Update Berlian</a>
                                     </div>
                                     <div class="col-sm-1" style="width:0;"></div>
                                     <div class="col-md-1"></div>
@@ -213,10 +213,6 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2"><?php echo $berlian[$i]->namaBerlian ?></label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-1">
-                                        <input type="text" value="<?php echo $berlian[$i]->jumlah?>" class="form-control" readonly>
-                                    </div>
-                                    <div class="col-sm-1" style="width:0;">X</div>
                                     <div class="col-sm-2">
                                         <input type="text" value="<?php echo $berlian[$i]->harga?>" class="form-control" readonly>
                                     </div>
@@ -234,7 +230,7 @@
                                     <?php } ?>
                                     <div class="col-sm-1" style="width:0;">=</div>
                                     <div class="col-sm-2">
-                                        <input type="text" value="<?php if($berlian[$i]->jenis=='Berlian'){ $hargaPerBerlian=$berlian[$i]->jumlah*$berlian[$i]->karat*$berlian[$i]->harga*$gold['currentRupiah']; echo $hargaPerBerlian; } else { $hargaPerBerlian=$berlian[$i]->harga*$berlian[$i]->jumlah; echo $hargaPerBerlian;} ?>" class="form-control" readonly>
+                                        <input type="text" value="<?php if($berlian[$i]->jenis=='Berlian'){ $hargaPerBerlian=$berlian[$i]->karat*$berlian[$i]->harga*$gold['currentRupiah']; echo $hargaPerBerlian; } else { $hargaPerBerlian=$berlian[$i]->harga*$berlian[$i]->jumlah; echo $hargaPerBerlian;} ?>" class="form-control" readonly>
                                         
                                     </div>
                                 </div>
