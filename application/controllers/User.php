@@ -4373,7 +4373,7 @@ class User extends CI_Controller {
 
         //var ukuran jari
         if ($this->input->post('jenisProduk')=='Cincin'||$this->input->post('jenisProduk')=='Cincin Kawin') {
-            $ukurasnJari=$this->input->post('ukuranJari');
+            $ukuranJari=$this->input->post('ukuranJari');
         } else if ($this->input->post('jenisProduk')=='Gelang') {
             $ukuranJari=$this->input->post('diameter');
         } else {
