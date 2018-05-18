@@ -4285,10 +4285,8 @@ class User extends CI_Controller {
     public function tambahPO(){
         $poTerakhir = $this->mdl->poTerakhir();
         $lastPO = $poTerakhir[0]->nomorPO;
-        $nomorPO = $this->input->post('nomorPO');
+        $nomorPO = $lastPO+1;
         
-        if($lastPO==$nomorPO){ $nomorPO=$lastPO+1; }
-
         $kd=$this->input->post('kodeProduk');
         $kodeProduk=$kd.'-'.$nomorPO;
         $kode = $this->generateRandomString();
