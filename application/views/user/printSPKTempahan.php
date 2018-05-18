@@ -285,11 +285,6 @@
                                         <td><?php echo $beratAkhir ?> gr</td>
                                     </tr>
                                     <tr>
-                                        <td><b>Kuantitas</b></td>
-                                        <td width="1%" class="text-center">:</td>
-                                        <td colspan="4"><?php echo $kuantitas ?> </td>
-                                    </tr>
-                                    <tr>
                                         <td><b>Ukuran</b></td>
                                         <td width="1%" class="text-center">:</td>
                                         <td colspan="4"><?php echo $ukuranJari ?> </td>
