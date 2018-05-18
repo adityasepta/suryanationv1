@@ -299,6 +299,16 @@
                         <td>: <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
                         <?php } ?>
                     </tr>
+                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                    <tr>
+                        <td><b>Datang Berlian</b></td>
+                        <td>: <?php echo $datangBerlian ?> </td>
+                        <td><b>Berat</b></td>
+                        <td>: <?php echo $jumlahDatangBerlian ?> cr</td>
+                        <td><b>Harga / Gram</br></td>
+                        <td>: <?php echo "Rp ".number_format($upahPasangBerlian,2,',','.');?></td>
+                    </tr>
+                    <?php }?>
                     <tr>                  
                         <td><b>Berat Estimasi</b></td>
                         <td>: <?php echo $beratAkhir ?> gr </td>
@@ -317,7 +327,7 @@
                         <td>: <?php echo $poberlian[$b]->namaBerlian ?></td>
                         <td></td>
                         <td></td>
-                        <td><b>Harga</b></td>
+                        <td><b>Harga CZ</b></td>
                         <td>: <?php if($poberlian[$b]->jenis=='Berlian'){ echo '$ '.number_format($poberlian[$b]->harga,0,',','.');} else {echo 'Rp '.number_format($poberlian[$b]->harga,0,',','.');}?></td>
                     </tr>
                     <?php } ?>
@@ -400,7 +410,7 @@
                         <td>: <?php echo $krumWarna ?> </td>
                         <td><b>Keterangan</b></td>
                         <td>: <?php echo $keteranganKrum ?> </td>
-                        <td><b>Biaya</b></td>
+                        <td><b>Harga Krum</b></td>
                         <td>: Rp <?php echo number_format($hargaKrumWarna,2,',','.') ?></td>
                     </tr>
                     <tr>
