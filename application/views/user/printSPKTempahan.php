@@ -427,7 +427,7 @@
                                     <td width="1%" class="text-center">:</td>
                                     <td><?php echo $kadarBahan ?> %</td>
                                 </tr>
-                                <tr id="datangEmas">
+                                <tr id="datangEmas2">
                                     <td><b>Kadar</b></td>
                                     <td width="1%" class="text-center">:</td>
                                     <td><?php echo $kadarDatangEmas ?> %</td>
@@ -480,6 +480,7 @@
         var g = <?php echo $datangEmas?>;
         if(g==null||g==0){
             document.getElementById('datangEmas').style.display = 'none';
+            document.getElementById('datangEmas2').style.display = 'none';
         };
 
         // var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
