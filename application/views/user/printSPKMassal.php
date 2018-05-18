@@ -316,6 +316,7 @@
         var g = <?php echo $datangEmas?>;
         if(g==null||g==0){
             document.getElementById('datangEmas').style.display = 'none';
+            document.getElementById('datangEmas1').style.display = 'none';
         };
 
     });

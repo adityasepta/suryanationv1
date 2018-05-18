@@ -415,14 +415,11 @@
                 document.getElementById('kadarDatangEmas1').style.display = 'none';
             };
 
-            var i = <?php if($jumlahDatangBerlian!=null){echo $jumlahDatangBerlian;} else echo 0;?>;
-            if(i==null||i==0){
+            var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+            var j = <?php echo $jumlahDatangBerlian?>;
+            if(i==0&&j==0){
                 document.getElementById('datangBerlian').style.display = 'none';
                 document.getElementById('datangBerlian1').style.display = 'none';
-            };
-
-            var j = <?php echo $jumlahDatangBerlian?>;
-            if(j==null||j==0){
                 document.getElementById('jumlahDatangBerlian').style.display = 'none';
                 document.getElementById('jumlahDatangBerlian1').style.display = 'none';
             };

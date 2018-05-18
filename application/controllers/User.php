@@ -1082,7 +1082,7 @@ class User extends CI_Controller {
 
             $config['upload_path']     = './uploads/gambarDesain/'; 
             $config['allowed_types']   = 'jpg|jpeg|png'; 
-            $config['max_size']        = '6000';
+            $config['max_size']        = '8000';
             $config['file_name']       = $kode.'-d'.($i+1).'.jpg';
             $config['overwrite']        = TRUE;
 
@@ -1498,7 +1498,7 @@ class User extends CI_Controller {
 
                     $config['upload_path']     = './uploads/gambarProduk/'; 
                     $config['allowed_types']   = 'jpg|jpeg|png|bmp'; 
-                    $config['max_size']        = '2048';
+                    $config['max_size']        = '8048';
                     $config['file_name']       = $kode.($i+1).'.jpg';
                     $config['overwrite']        = TRUE;
 
@@ -1613,7 +1613,7 @@ class User extends CI_Controller {
 
                     $config['upload_path']     = './uploads/gambarProduk/'; 
                     $config['allowed_types']   = 'jpg|jpeg|png|bmp'; 
-                    $config['max_size']        = '2048';
+                    $config['max_size']        = '8048';
                     $config['file_name']       = $kode.($i+1).'.jpg';
                     $config['overwrite']        = TRUE;
 
@@ -3707,7 +3707,7 @@ class User extends CI_Controller {
                  
                  $config['upload_path']     = './uploads/gambarProduk/'; 
                  $config['allowed_types']   = 'jpg|png|jpeg|gif'; 
-                 $config['max_size']        = '2048';
+                 $config['max_size']        = '8048';
                  $config['file_name']       = $kode."-cust.jpg";
                  $config['overwrite']        = TRUE;
                 
@@ -4298,7 +4298,7 @@ class User extends CI_Controller {
             //load uploading file library
              $config['upload_path']     = './uploads/gambarProduk/'; 
              $config['allowed_types']   = 'jpg|jpeg|png'; 
-             $config['max_size']        = '3048';
+             $config['max_size']        = '8048';
              $config['file_name']       = $kode."-cust.jpg";
              $config['overwrite']        = TRUE;
             
