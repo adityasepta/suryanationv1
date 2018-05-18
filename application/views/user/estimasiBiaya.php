@@ -118,7 +118,7 @@
                                 <div class="col-sm-12">
                                     <label class="col-sm-2">Estimasi Berat Akhir </label>
                                     <div class="col-sm-1" style="width:0;">:</div>
-                                    <div class="col-sm-2"><input type="text" name="beratAkhir" id="beratAkhir" onchange="calc2();" value="<?php echo $dataPO[0]->beratAkhir;?>" class="form-control" required readonly>
+                                    <div class="col-sm-2"><input type="text" name="beratAkhir" id="beratAkhir" onchange="calc2();" value="<?php echo $dataPO[0]->beratAkhir;?>" class="form-control" required>
                                     </div>
                                     <div class="col-sm-1" style="width:0;">gram</div>
                                 </div>
