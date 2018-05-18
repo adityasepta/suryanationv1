@@ -305,7 +305,7 @@
                         <td>: <?php echo $datangBerlian ?> pcs</td>
                         <td><b>Berat</b></td>
                         <td>: <?php echo $jumlahDatangBerlian ?> cr</td>
-                        <td><b>Harga / Gram</br></td>
+                        <td><b>Harga Berlian</br></td>
                         <td>: <?php echo "Rp ".number_format($upahPasangBerlian,2,',','.');?></td>
                     </tr>
                     <?php }?>
