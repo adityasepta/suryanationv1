@@ -20,12 +20,24 @@
             <b><?php echo $m[$i]->jenisProduk?></b><br>
             <b><?php echo $m[$i]->tanggal?> -</b><br>
             <b><?php echo $m[$i]->tanggalSelesai?> </b><br>
+            <b><?php echo $m[$i]->keteranganPending?> </b><br>
         </div>
     </div>
+    <?php if($m[$i]->keteranganPending) {?>
+    <br>
+    <div class="row">
+        <div class="col-lg-5 text-center">
+            <button class="btn btn-warning">Pending</button>
+        </div>
+        <div class="col-lg-7" style="color:red">
+            <b><?php echo $m[$i]->keteranganPending?> </b>
+        </div>
+    </div>
+    <?php } ?>
 
     <div class="row">
         <br>
-        <div class="col-lg-12">
+        <div class="col-lg-5">
             <button data-toggle="modal" data-target="#detailx2<?php echo $m[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
