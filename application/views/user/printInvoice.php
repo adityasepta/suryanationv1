@@ -99,6 +99,9 @@
         list-style-type: none;
         margin-bottom: .5em;
     }
+    .less-space>tbody>tr>td {
+        padding: 4px;
+    }
     .headline-name {
         border-bottom: 1px solid black;
         padding-bottom: .5em;
@@ -151,8 +154,8 @@
             font-size: 12px;
         }
         body {
-            margin: 1em auto;
-            padding: 1em  2em 1em 2em;
+            margin: auto;
+            padding: 2px  2em 1em 2em;
             width: 100%;
         }
         section {
@@ -166,7 +169,7 @@
         }
 
         .header-section h3 {
-            margin: 20px auto;
+            margin: 2px auto;
             text-align: center;
         }
 
@@ -211,7 +214,7 @@
                     </a>
                 </div>
             </div> 
-            <table class="table no-border">
+            <table class="table no-border less-space">
                 <tbody>
                     <tr>
                         <td width="5%"></td>
@@ -225,7 +228,7 @@
                      </tr>
                      <tr>
                         <td width="5%"></td>
-                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
+                        <td width="45%" ><b>No PO / </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
                         <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
                      </tr>
                      
@@ -234,10 +237,11 @@
             <hr style="border-top: 3px solid #282828;">
         </header>
         <section id="detailProduk">
-            <table class="table no-border">
+            <table class="table no-border less-space">
                 <tbody>
                     <tr>
-                        <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                        <td colspan="2"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                        <td><b>Upah:</b>  Rp <?php echo number_format($upah,2,',','.') ?></td>
                     </tr>
                     <tr>
                         <td><b>Bahan:</b> <?php echo $bahan ?></td>
@@ -256,11 +260,10 @@
                     <tr>
                         <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
                         <td><b>Range Berat:</b> <?php echo $estimasi ?>gr</td>
-                        <td><b>Susut:</b> <?php echo $susut ?>gr</td>
                     </tr>
                     <tr>
-                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?></td>
-                        <td colspan="2"><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                        <td><b>Susut:</b> <?php echo $susut ?>gr</td>
+                        <td><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
                     </tr>
                     <?php for ($b=0; $b < count($poberlian) ; $b++) { ?>
                     <tr>
@@ -272,14 +275,16 @@
                     <tr id="namaBatu">
                         <td><b>Nama Batu:</b> <?php echo $namaBatu ?></td>
                         <td><b>Berat Batu:</b> <?php echo $beratBatu ?></td>
-                        <td><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
                     </tr>
                     <tr id="namaBatu1">
-                        <td><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
-                        <td><b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
+                        <td colspan="2"><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
                     </tr>
                     <tr id="namaBatu2">
-                        <td><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
+                        <td><b>Batu Thd Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
+                        <td><b>Batu Thd Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
+                    </tr>
+                    <tr id="namaBatu3">
+                        <td><b>Batu Thd Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
                         <td><b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></td>
                     </tr>
                     <tr>
@@ -331,9 +336,6 @@
                         <td><b>Biaya:</b> Rp <?php echo number_format($hargaKrumWarna,2,',','.') ?></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><b>Upah:</b>  Rp <?php echo number_format($upah,2,',','.') ?></td>
-                    </tr>
-                    <tr>
                         <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
                     </tr>
                 </tbody>
@@ -347,14 +349,14 @@
                     <h4><b>Panjar: Rp <?php echo number_format($panjar,2,',','.') ?></b></h4>
                 </div>
             </div>
-            <table class="table no-border">
+            <table class="table no-border ">
                 <tbody>
                     <tr>
                         <td width="60%">
-                            <div style="background-color: #e2e2e2; padding: 10px; border: 1px solid #282828">
+                            <div style="background-color: #e2e2e2; padding: 8px; border: 1px solid #282828; font-size: 10px;">
                                 <p><b>NB: JIKA BATAL / TUKAR DESAIN DIKENAKAN BIAYA SEBESAR RP 300.000,-</b></p>
-                                <p><b>Perhatian:</b></p>
-                                <ul>
+                                <p style="margin-top: -10px;"><b>Perhatian:</b></p>
+                                <ul style="margin-top: -10px;">
                                     <li>Perhiasan diambil dengan membawa bukti berupa surat</li>
                                     <li>Perhiasan tidak dapat diambil jika surat tidak dibawa / hilang</li>
                                     <li>Surat berlaku dalam waktu 1(satu) bulan, jika perhiasan tidak diambil maka uang panjar dianggap hilang</li>
@@ -388,6 +390,7 @@
             document.getElementById('namaBatu').style.display = 'none';
             document.getElementById('namaBatu1').style.display = 'none';
             document.getElementById('namaBatu2').style.display = 'none';
+            document.getElementById('namaBatu3').style.display = 'none';
         };
 
         // var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;
