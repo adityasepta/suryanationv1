@@ -118,12 +118,18 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
+                                                <?php 
+                                                  $tglskg = new DateTime();
+                                                  $tglnow = $tglskg->format("Y-m-d");
+                                                  $tglpyl = strtotime("2 week",strtotime($tglnow));
+                                                  $tglweek = date("Y-m-d",$tglpyl);
+                                                ?>
                                                 <label>Tanggal Terima</label>
-                                                <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo set_value('tanggalMasuk'); ?>" required="">
+                                                <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo $tglnow ?>" required="">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Estimasi Penyelesaian</label>
-                                                <input type="date" placeholder="Estimasi Penyelesaian" name="tanggalEstimasiPenyelesaian" value="<?php echo set_value('tanggalEstimasiPenyelesaian'); ?>" class="form-control">
+                                                <input type="date" placeholder="Estimasi Penyelesaian" name="tanggalEstimasiPenyelesaian" value="<?php echo $tglweek ?>" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>

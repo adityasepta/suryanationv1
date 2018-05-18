@@ -125,7 +125,7 @@
                                                   $tglpyl = strtotime("2 week",strtotime($tglnow));
                                                   $tglweek = date("Y-m-d",$tglpyl);
                                                 ?>
-                                                <label>Tanggal Terima <?php echo $tglweek?></label>
+                                                <label>Tanggal Terima</label>
                                                 <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo $tglnow ?>" required="">
                                             </div>
                                             <div class="col-md-4">
