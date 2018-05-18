@@ -301,13 +301,13 @@
                     </tr>
                     <tr>                  
                         <td><b>Berat Estimasi</b></td>
-                        <td>: <?php echo $beratAkhir ?> </td>
+                        <td>: <?php echo $beratAkhir ?> gr </td>
                         <td><b>Range Berat</b></td>
-                        <td colspan="3">: <?php echo $estimasi ?>gr</td>
+                        <td colspan="3">: <?php echo $estimasi ?> gr</td>
                     </tr>
                     <tr>
                         <td><b>Susut</b></td>
-                        <td>: <?php echo $susut ?> </td>
+                        <td>: <?php echo $susut ?> gr</td>
                         <td><b>Ukuran</b></td>
                         <td colspan="3">: <?php echo $ukuranJari ?></td>
                     </tr>
@@ -325,7 +325,7 @@
                         <td><b>Nama Batu</b></td>
                         <td>: <?php echo $namaBatu ?> </td>
                         <td><b>Berat Batu</b></td>
-                        <td colspan="3">: <?php echo $beratBatu ?>gr</td>
+                        <td colspan="3">: <?php echo $beratBatu ?> gr</td>
                     </tr>
                     <tr id="namaBatu1">
                         <td><b>Keterangan Batu</b></td>
