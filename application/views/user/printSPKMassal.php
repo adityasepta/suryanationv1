@@ -194,7 +194,7 @@
                                         <td>: <b> <?php echo $nomorTelepon;?></b></td>
                                      </tr>
                                      <tr>
-                                        <td><b>No PO / <?php echo $nomorPO;?></b></td>
+                                        <td><b>No SPK / <?php echo $nomorPO;?></b></td>
                                         <td></td>
                                      </tr>
                                 </tbody>

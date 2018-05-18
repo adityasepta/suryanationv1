@@ -11,18 +11,7 @@
     } 
 ?>
 
-<?php 
-    
-    $idakt = 1012;
-    $namakt = "Sleb";
-    $var = $kr[$i]->endDate;
-    $statr = "";
-    if((time()-(60*60*24)) < strtotime($var)) {
-        $statr = "success";
-    } else {
-        $statr = "danger";
-    } 
-?>
+
 
 <li class="<?php echo $statr ?>-element" id="taskx">
 
@@ -216,12 +205,11 @@
 
                                     <div class="col-sm-9">
 
-                                        
                                         <select id="<?php echo $kr[$i]->idProProd ?>-akt" required class="form-control" name="idAktivitas2">
                                       <?php for ($k=0; $k < count($akt) ; $k++) { 
                                             if($akt[$k]->idSPK == $kr[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
                                                 
-                                            
+                                                
                                                 <option value="<?php echo $akt[$k]->idAktivitas?>">
                                                     <?php echo $akt[$k]->namaAktivitas?>
                                                 </option>

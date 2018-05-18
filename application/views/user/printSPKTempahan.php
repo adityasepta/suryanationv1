@@ -158,7 +158,7 @@
             font-size: 12px;
         }
         body {
-            margin: auto;
+            margin: 1em auto;
             padding: 2px  2em 1em 2em;
             width: 100%;
         }
