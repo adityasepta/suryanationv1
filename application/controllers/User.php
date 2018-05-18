@@ -4353,9 +4353,9 @@ class User extends CI_Controller {
 
         //var nama produk
         if ($this->input->post('namaBatu')==NULL) {
-            $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO');
+            $namaProduk=$this->input->post('namaCustomer').'-'.$nomorPO;
         } else {
-            $namaProduk=$this->input->post('namaCustomer').'-'.$this->input->post('nomorPO').'-'.$this->input->post('namaBatu');
+            $namaProduk=$this->input->post('namaCustomer').'-'.$nomorPO.'-'.$this->input->post('namaBatu');
         };
 
         //var jenis produk
@@ -4444,7 +4444,7 @@ class User extends CI_Controller {
                     'jumlah'        => $this->input->post('datangEmas'),
                     'jenisPergerakanBarang'  => 'IN',
                     'hargaBeli'     => 0,
-                    'nomorPO'   => $this->input->post('nomorPO'),
+                    'nomorPO'   => $nomorPO,
                     'tanggal'   => date("Y-m-d H:i:s"),
                 );
                 $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
@@ -4462,7 +4462,7 @@ class User extends CI_Controller {
                     'jumlah'        => $this->input->post('datangEmas'),
                     'jenisPergerakanBarang'  => 'IN',
                     'hargaBeli'     => 0,
-                    'nomorPO'   => $this->input->post('nomorPO'),
+                    'nomorPO'   => $nomorPO,
                     'tanggal'   => date("Y-m-d H:i:s"),
                 );
                 $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory);  
@@ -5949,6 +5949,10 @@ class User extends CI_Controller {
     }
 
     public function tambahPOMasal(){
+        $poTerakhir = $this->mdl->poTerakhir2();
+        $lastPO = $poTerakhir[0]->nomorPO;
+        $nomorPO = $lastPO+1;
+
         $namaProduk=$this->input->post('namaCustomer').'-'.'Agregat';
         $getProdukPO=$this->mdl->getLastProdukPO();
         $kodeProduk=$getProdukPO[0]->idProdukAG+1;
@@ -6054,7 +6058,7 @@ class User extends CI_Controller {
         
         //eksekusi query insert
         $dataPO = array(
-            'nomorPO'           => $this->input->post('nomorPO'),
+            'nomorPO'           => $nomorPO,
             'idProduk'          => $idProduk,
             'idCustomer'        => $idCustomer,
             'idSalesPerson'     => $this->input->post('idSalesPerson'),
@@ -6085,7 +6089,7 @@ class User extends CI_Controller {
         $keteranganChild=$this->input->post('keteranganChild[]');
         for ($i=0; $i < count($idProdukChild); $i++) { 
             $dataProdukPO = array(
-                'nomorPO'           => $this->input->post('nomorPO'),
+                'nomorPO'           => $nomorPO,
                 'idProdukAG'        => $kodeProduk,
                 'idProdukChild'     => $idProdukChild[$i],
                 'keterangan'        => $keteranganChild[$i],
@@ -6100,8 +6104,8 @@ class User extends CI_Controller {
         $sp      = 'Belum Disetujui';
         $iduser  = ($this->session->userdata['logged_in']['iduser']);
         $dataSPK = array(
-            'nomorFaktur' => $this->input->post('nomorPO'),
-            'nomorPO' => $this->input->post('nomorPO'),
+            'nomorFaktur' => $nomorPO,
+            'nomorPO' => $nomorPO,
             'idProduk' => $idProduk,
             'idCustomer' => $idCustomer,
             'statusBOM' => $sb,
@@ -6115,7 +6119,6 @@ class User extends CI_Controller {
                 
         
         $data['pegawai'] = $this->mdl->listPegawai();
-        $nomorPO=$this->input->post('nomorPO');
         $data['dataPO'] = $this->mdl->findPOMassal($nomorPO);
         $data['produkPO'] = $this->mdl->getProdukPO($nomorPO);
         $this->load->view('user/invoicePOMassal',$data);
