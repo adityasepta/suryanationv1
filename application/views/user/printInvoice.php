@@ -302,7 +302,7 @@
                     <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
                     <tr>
                         <td><b>Datang Berlian</b></td>
-                        <td>: <?php echo $datangBerlian ?> </td>
+                        <td>: <?php echo $datangBerlian ?> pcs</td>
                         <td><b>Berat</b></td>
                         <td>: <?php echo $jumlahDatangBerlian ?> cr</td>
                         <td><b>Harga / Gram</br></td>

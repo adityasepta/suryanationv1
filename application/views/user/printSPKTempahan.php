@@ -279,10 +279,17 @@
                                         <td width="1%" class="text-center">:</td>
                                         <td colspan="4"><?php echo $datangEmas ?> gr</td>
                                     </tr>
+                                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                                    <tr>
+                                        <td><b>Datang Berlian</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td><?php echo $datangBerlian ?> pcs</td>
+                                    </tr>
+                                    <?php }?>
                                     <tr>
                                         <td><b>Berat Estimasi</b></td>
                                         <td width="1%" class="text-center">:</td>
-                                        <td><?php echo $beratAkhir ?> gr</td>
+                                        <td colspan="4"><?php echo $beratAkhir ?> gr</td>
                                     </tr>
                                     <tr>
                                         <td><b>Ukuran</b></td>
@@ -427,6 +434,13 @@
                                     <td width="1%" class="text-center">:</td>
                                     <td><?php echo $kadarDatangEmas ?> %</td>
                                 </tr>
+                                <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                                    <tr>
+                                        <td><b>Berat</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td><?php echo $jumlahDatangBerlian ?> cr</td>
+                                    </tr>
+                                    <?php }?>
                                 <tr>
                                     <td><b>Range Berat</b></td>
                                     <td width="1%" class="text-center">:</td>
