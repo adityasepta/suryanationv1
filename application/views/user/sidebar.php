@@ -43,10 +43,10 @@
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOService">PO Service</a> 
-                                </li> 
+                                </li>  -->
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOTrading">PO Trading</a> 
-                                </li> -->
+                                </li>
                             </ul> 
                         </li> 
                         <li> 

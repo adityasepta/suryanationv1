@@ -3994,10 +3994,12 @@ class User extends CI_Controller {
     }
 
     public function createPOTrading($idCustomer) {
-        $this->form_validation->set_message('is_unique','The %s is already taken');
-        $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[purchaseordertrading.nomorPO]');
+        $this->form_validation->set_rules('idCustomer', 'idCustomer','required');
+        //$this->form_validation->set_message('is_unique','The %s is already taken');
+        //$this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[purchaseordertrading.nomorPO]');
         $data['produk'] = $this->mdl->listProdukTrading();
         if ($this->form_validation->run() == FALSE){
+            
             //$data['BOMProduk'];
             if ($idCustomer==0){
                 $data['id'] = array(
@@ -4026,8 +4028,13 @@ class User extends CI_Controller {
                 $customer=$this->mdl->findCustomer();
                 $idCustomer=$customer[0]->idCustomer;
 
+                $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
+                if(!$data['poTerakhir']) { $nomorPO=1;} else {
+                    $nomorPO=$data['poTerakhir'][0]->nomorPO+1;
+                }
+                
                 $dataPOTrading= array(
-                            'nomorPO'           => $this->input->post('nomorPO'),
+                            'nomorPO'           => $nomorPO,
                             'idCustomer'        => $idCustomer,
                             'idSalesPerson'     => $this->input->post('idSalesPerson'),
                             'tanggalMasuk'      => $this->input->post('tanggalMasuk'),
@@ -4036,7 +4043,7 @@ class User extends CI_Controller {
                 //print_r($dataPOService);exit();
                 $this->mdl->insertData('purchaseordertrading',$dataPOTrading);
 
-                $data['PO'] = $this->mdl->findPOTrading($this->input->post('nomorPO'));
+                $data['PO'] = $this->mdl->findPOTrading($nomorPO);
                 $idPO = $data['PO'][0]->idPO;
 
                 redirect('user/createPOTradingDetail/'.$idPO);
@@ -4047,13 +4054,16 @@ class User extends CI_Controller {
         $this->form_validation->set_message('is_unique','The %s is already taken');
         $this->form_validation->set_rules('nomorPO', 'Nomor PO' ,'is_unique[purchaseordertrading.nomorPO]');
         $data['produk'] = $this->mdl->listProdukTrading();
+        $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
+        if(!$data['poTerakhir']) { $nomorPO=1;} else {
+            $nomorPO=$data['poTerakhir'][0]->nomorPO+1;
+        }
         if ($this->form_validation->run() == FALSE){
             //$data['BOMProduk'];
             $data['idPO'] = $idPO;
             $data['PO'] = $this->mdl->findPOTradingbyID($idPO);
             $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
             $data['pegawai'] = $this->mdl->listPegawai();
-            $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
             $data['listProduk'] = $this->mdl->listProdukTrading();
             $this->load->view('user/createPOTradingDetail',$data);
 
@@ -4161,6 +4171,12 @@ class User extends CI_Controller {
         $message = "Produk berhasil dihapus dari chart";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url('user/createPOTradingDetail/'.$idPO)."';</script>";
+    }
+
+    public function hapusPOTrading($idPO) {
+        $this->mdl->deleteData('idPO', $idPO, 'purchaseordertrading');
+        $this->mdl->deleteData('idPO', $idPO, 'detailpurchaseordertrading');
+        redirect('user/listPOTrading');
     }
 
     public function selesaiChart() {
