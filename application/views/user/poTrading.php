@@ -102,10 +102,11 @@
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <!-- <?=anchor('user/hapusPOTrading/' . $hasil->nomorPO, 'Delete', [
+                                        <?=anchor('user/hapusPOTrading/' . $hasil->idPO, 'Delete', [
                                           'class' => 'btn btn-danger btn-xs',
-                                          'role'  => 'button'
-                                        ])?> -->
+                                          'role'  => 'button',
+                                          'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'
+                                        ])?>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
