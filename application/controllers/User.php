@@ -432,9 +432,13 @@ class User extends CI_Controller {
 
     public function editPO($nomorPO) {
         $data['dataPO'] = $this->mdl->findPO($nomorPO);
+        $data['poberlian']=$this->mdl->getBerlian($nomorPO);
         $data['pegawai'] = $this->mdl->listPegawai();
+        $data['material']=$this->mdl->getMaterialBerlian(); 
+        $data['zirkon']=$this->mdl->getMaterialZirkon();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
-        $this->load->view('user/editPurchaseOrder',$data);
+        // print_r($data['berlian']);exit();
+        $this->load->view('user/editPurchaseOrder2',$data);
     }
 
     public function editPOMassal($nomorPO) {
