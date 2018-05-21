@@ -13,12 +13,14 @@
     <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
 
     <link href="<?php echo base_url();?>assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
 </head>
 
 <body>
+
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -47,12 +49,11 @@
                         <a href="<?php echo base_url();?>user/jurnal">Beranda</a>
                     </li>
                     <li class="active">
-                        <strong>Detail Jurnal</strong>
+                        <strong>Buku Besar</strong>
                     </li>
                 </ol>
             </div>
         </div>
-        
         <div class="wrapper wrapper-content animated fadeInUp">
             <div class="row">
                 <div class="col-lg-12">
@@ -147,7 +148,7 @@
                                 <?php } ?>
                             </div>
                             <div class="modal-body">
-                                <table class="table  dataTables-example">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                     <tr>
                                         <th>Tanggal</th>
@@ -215,19 +216,22 @@
                                         
                                         } 
                                     ?>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
+                                    
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
                                         <?php 
                                             $total = $debit-$kredit+$saldoAwal;
                                         ?>
-                                        <td class="text-left" colspan="4"><strong>Total</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($debit+$saldoAwal,2,".","."); ?></strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></td>
-                                    </tr>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="5"><strong class="text-navy">Balance</strong></td>
-                                        <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total,2,".","."); ?></strong></td>
-                                    </tr>
-                                    </tbody>
+                                        <th class="text-left" colspan="4"><strong>Total</strong></td>
+                                        <th class="text-right" ><strong>Rp. <?php echo number_format($debit+$saldoAwal,2,".","."); ?></strong></th>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left" colspan="5"><strong class="text-navy">Balance</strong></th>
+                                            <th class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total,2,".","."); ?></strong></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
 
@@ -236,7 +240,6 @@
                 </div>
             </div>
         </div>
-            
         <div class="footer">
             <div>
                 <strong>Copyright</strong> Surya Sumatera &copy; <?php echo date('Y');?>
@@ -248,25 +251,27 @@
 
 
     <!-- Mainly scripts -->
-    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+    
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
+    <!-- iCheck -->
+    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/dataTables/datatables.min.js"></script>
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
+                <?php $nama = $kodeAkun_pilih."-".$dari."-".$sampai;?>
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Buku Besar -<?php echo $nama?>'},
+                    {extend: 'pdf', title: 'Buku Besar -<?php echo $nama?>'},
 
                     {extend: 'print',
                      customize: function (win){
@@ -281,27 +286,6 @@
                 ]
 
             });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
 
         });
     </script>
