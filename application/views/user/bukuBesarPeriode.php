@@ -126,6 +126,7 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="modal-header">
+
                                 <h2 class="text-center"><b>Buku Besar</b></h2>
                                 <?php 
                                     if ($date1_pilih && $date2_pilih) {
@@ -135,9 +136,9 @@
                                     $sampai = $date2_pilih->format("d F Y");
                                     
                                 ?>
-                                <br>
-                                <p class="text-left"><b>Periode &nbsp;: <?php echo $dari ?> - <?php echo $sampai ?></b></p>
-                                <p class="text-left"><b>Akun &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
+                                <hr>
+                                <p class="text-left text-navy"><b>Periode &nbsp;: <?php echo $dari ?> - <?php echo $sampai ?></b></p>
+                                <p class="text-left text-navy"><b>Akun &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
                                     <?php foreach($akun as $akun) {?>
                                         <?php if($akun->kodeAkun==$kodeAkun_pilih) {
                                             $namaAkun_pilih=$akun->namaAkun;
@@ -145,7 +146,6 @@
                                         } ?>
                                     <?php } ?>
                                 <?php } ?>
-                                <hr>
                             </div>
                             <div class="modal-body">
                                 <table class="table table-striped">
