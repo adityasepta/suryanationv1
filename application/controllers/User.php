@@ -7158,6 +7158,7 @@ class User extends CI_Controller {
 
     public function deleteCashflow($idCashflow) {
         $this->mdl->deleteData('idCashflow', $idCashflow, 'cashflow');
+        $this->mdl->deleteData('idjurnal', $idCashflow, 'jurnal');
         $message = "Akun berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/cashflow")."';</script>";
