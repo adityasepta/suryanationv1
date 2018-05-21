@@ -2963,4 +2963,17 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         
         return $query->result();
     }
+
+    //BukuBesar
+    public function bukuBesarPeriode($kodeAkun,$dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal between '$date1' and '$date2' ORDER BY a.idCashflow, b.kategori");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 }
