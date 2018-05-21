@@ -7296,10 +7296,8 @@ class User extends CI_Controller {
             $data['date2_pilih'] = $date2; 
             $data['saldoAwal'] = $this->mdl->getSaldo($data['kodeAkun_pilih'],$data['date1_pilih'])->balance;
             $data['bukuBesar'] = $this->mdl->bukuBesarPeriode($data['kodeAkun_pilih'],$data['date1_pilih'],$data['date2_pilih']);
+            $this->load->view('user/bukuBesarPeriode',$data);
         }
-        //print_r($data['saldoAwal']);exit();
-        
-        $this->load->view('user/bukuBesarPeriode',$data);
     }
 
     public function ambil2($idSPK) {
