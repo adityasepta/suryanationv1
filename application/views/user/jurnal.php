@@ -66,7 +66,7 @@
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <span><?php echo date("d F Y") ?></span>
-                                    <h3 class="font-bold">Jurnal Hari Ini</h3>
+                                    <h3 class="font-bold">Jurnal Harian</h3>
                                 </div>
                             </div>
                         </div>
