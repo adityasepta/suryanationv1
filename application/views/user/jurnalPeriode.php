@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -62,7 +61,7 @@
                         <div class="ibox-content">
                             <?php echo form_open_multipart('user/cariJurnal/')?>
                             <?php 
-                              $tglskg = new DateTime();
+                              $tglskg = new DateTime($dateChosen);
                               $tglnow = $tglskg->format("Y-m-d");
                             ?>
                             <div class="row">
@@ -79,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <button class="btn btn-default btn-md" type="submit"><i class="fa fa-search"></i> Cari</button>
+                                    <button class="btn btn-primary btn-md" type="submit"><i class="fa fa-search"></i> Cari</button>
                                 </div>
                             </div>
                             <?php echo form_close();?>
@@ -152,23 +151,18 @@
                                         
                                         } 
                                     ?>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-left" ><strong>Total</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($debit,2,".","."); ?></strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-left"><strong class="text-navy">Balance</strong></td>
-                                        <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total=$debit-$kredit,2,".","."); ?></strong></td>
-                                    </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="text-left" ><strong>Total</strong></th>
+                                            <th class="text-right" ><strong>Rp. <?php echo number_format($debit,2,".","."); ?></strong></th>
+                                            <th class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" class="text-left"><strong class="text-navy">Balance</strong></th>
+                                            <th class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total=$debit-$kredit,2,".","."); ?></strong></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
 
@@ -206,8 +200,6 @@
             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
                     {extend: 'excel', title: 'ExampleFile'},
                     {extend: 'pdf', title: 'ExampleFile'},
 
