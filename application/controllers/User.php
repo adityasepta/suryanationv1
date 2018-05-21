@@ -7253,6 +7253,11 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
 
+    //Buku Besar
+    public function bukuBesar() {
+        $data['jurnal'] = $this->mdl->jurnalHariIni();
+        $this->load->view('user/jurnalPeriode',$data);
+    }
 
     public function ambil2($idSPK) {
 
