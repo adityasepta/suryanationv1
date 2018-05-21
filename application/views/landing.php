@@ -15,7 +15,7 @@
     <meta name="author" content="Nghia Minh Luong">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>Exist - Homepage 2</title>
+    <title>PT. Surya Sumatera</title>
     <!-- Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700%7CDroid+Serif:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,900" rel="stylesheet">
@@ -57,36 +57,9 @@
             <div class="ps-container-fluid">
                 <div class="left">
                     <ul class="menu">
-                        <li class="current-menu-item menu-item-has-children dropdown"><a href="index.html">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage #1</a></li>
-                                <li><a href="homepage-2.html">Homepage #2</a></li>
-                                <li><a href="homepage-3.html">Homepage #3</a></li>
-                                <li><a href="homepage-4.html">Homepage #4</a></li>
-                                <li><a href="homepage-5.html">Homepage #5</a></li>
-                                <li><a href="homepage-6.html">Homepage #6</a></li>
-                                <li><a href="homepage-7.html">Homepage #7</a></li>
-                                <li><a href="homepage-8.html">Homepage #8</a></li>
-                                <li><a href="homepage-9.html">Homepage #9</a></li>
-                                <li><a href="homepage-10.html">Homepage #10</a></li>
-                                <li><a href="homepage-11.html">Homepage #11</a></li>
-                                <li><a href="homepage-12.html">Homepage #12</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li class="menu-item-has-children dropdown"><a href="#">Blog</a>
-                            <ul class="sub-menu">
-                                <li class="menu-item-has-children dropdown"><a href="blog-grid.html">Blog-grid</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-grid.html">Blog Grid 1</a></li>
-                                        <li><a href="blog-grid-2.html">Blog Grid 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="blog-list.html">Blog List</a></li>
-                            </ul>
-                        </li>
+                        <li class="current-menu-item menu-item-has-children dropdown"><a href="index.html">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
                 </div>
                 <div class="center"><a class="ps-logo" href="index.html"><img src="<?php echo base_url();?>assets/img/logo.png" alt=""></a></div>
@@ -94,27 +67,14 @@
                     <div class="menu-toggle"><span></span></div>
                     <ul class="header__actions">
                         <li><a class="ps-search-btn" href="#"><i class="exist-search"></i></a></li>
-                        <li><a href="#"><i class="exist-user"></i></a></li>
-                        <li class="header__cart"><a class="ps-shopping" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="shopping-cart"><i class="exist-minicart"></i><span><i>0</i></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="shopping-cart" id="shopping-list">
-                                <li><span class="ps-product--shopping-cart"><a class="ps-product__thumbnail" href="product-detail.html"><img src="<?php echo base_url();?>assets/img/cart/1.jpg" alt=""></a><span class="ps-product__content"><a class="ps-product__title" href="#">T-shirt blue with slogan</a><span class="ps-product__quantity">1 x <span> $5250.00</span></span>
-                                    </span><a class="ps-product__remove" href="#"><i class="fa fa-trash"></i></a></span>
-                                </li>
-                                <li><span class="ps-product--shopping-cart"><a class="ps-product__thumbnail" href="product-detail.html"><img src="<?php echo base_url();?>assets/img/cart/2.jpg" alt=""></a><span class="ps-product__content"><a class="ps-product__title" href="#">T-shirt blue with slogan</a><span class="ps-product__quantity">1 x <span> $5250.00</span></span>
-                                    </span><a class="ps-product__remove" href="#"><i class="fa fa-trash"></i></a></span>
-                                </li>
-                                <li class="total">
-                                    <p>Total: <span> $5250.00</span></p><a class="ps-btn" href="#">Go to cart</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <li><a href="<?php echo base_url();?>Login"><i class="exist-user"></i></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="header__bottom">
             <div class="container">
-                <p><img src="<?php echo base_url();?>assets/img/icons/ship.png" alt=""> Free shipping and returns on all orders over<span> $100</span></p>
+                <p><i class="fa fa-diamond"></i> Menerima Tempahan <span>(Custom)</span> Cincin, Gelang, Liontin, dll</p>
             </div>
         </div>
     </header>
