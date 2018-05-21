@@ -47,7 +47,7 @@
                         <h2>Finance</h2>
                         <ol class="breadcrumb">
                             <li>
-                                <a href="<?php echo base_url();?>user/inventory">Beranda</a>
+                                <a href="<?php echo base_url();?>user">Beranda</a>
                             </li>
                             <li class="active">
                                 <strong>Jurnal</strong>
@@ -61,7 +61,7 @@
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="<?php echo base_url();?>user/jurnalHariIni">
+                        <a href="<?php echo base_url();?>user/jurnalHarian">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
                                 <div class="col-xs-12 text-center">

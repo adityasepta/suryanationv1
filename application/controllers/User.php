@@ -7180,8 +7180,13 @@ class User extends CI_Controller {
         $this->load->view('user/detailJurnal',$data);
     } 
 
-    public function jurnalHariIni() {
-        $data['jurnal'] = $this->mdl->jurnalHariIni();
+    public function jurnalHarian($date=0) {
+        if ($date==0){
+            $newDate=date('Y/m/d');
+        } else {
+            $newDate = date("Y/m/d", strtotime($date)); 
+        }
+        $data['jurnal'] = $this->mdl->jurnalHariIni($newDate);
         $this->load->view('user/jurnalPeriode',$data);
     } 
 
