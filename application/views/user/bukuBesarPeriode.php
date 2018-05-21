@@ -13,14 +13,12 @@
     <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -49,11 +47,12 @@
                         <a href="<?php echo base_url();?>user/jurnal">Beranda</a>
                     </li>
                     <li class="active">
-                        <strong>Buku Besar</strong>
+                        <strong>Detail Jurnal</strong>
                     </li>
                 </ol>
             </div>
         </div>
+        
         <div class="wrapper wrapper-content animated fadeInUp">
             <div class="row">
                 <div class="col-lg-12">
@@ -148,7 +147,7 @@
                                 <?php } ?>
                             </div>
                             <div class="modal-body">
-                                <table class="table table-striped">
+                                <table class="table  dataTables-example">
                                     <thead>
                                     <tr>
                                         <th>Tanggal</th>
@@ -237,6 +236,7 @@
                 </div>
             </div>
         </div>
+            
         <div class="footer">
             <div>
                 <strong>Copyright</strong> Surya Sumatera &copy; <?php echo date('Y');?>
@@ -248,36 +248,62 @@
 
 
     <!-- Mainly scripts -->
-    
+    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
-    <!-- iCheck -->
-    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        var max_fields      = 30; //maximum input boxes allowed
-        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-        var add_button      = $(".add_field_button"); //Add button ID
-        
-        var x = 1; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
-            e.preventDefault();
-            if(x < max_fields){ //max input box allowed
-                x++; //text box increment
-                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
-            }
+    <script src="<?php echo base_url();?>assets/js/plugins/dataTables/datatables.min.js"></script>
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
         });
-        
-        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent().parent('div').remove(); x--;
-        })
-    });
     </script>
 </body>
 

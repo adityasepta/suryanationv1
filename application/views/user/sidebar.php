@@ -115,6 +115,7 @@
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
                         <li><a href="<?php echo base_url()?>user/cashflow">Cashflow</a></li>
                         <li><a href="<?php echo base_url()?>user/jurnal">Jurnal</a></li>
+                        <li><a href="<?php echo base_url()?>user/bukuBesar">Buku Besar</a></li>
                         <li><a href="<?php echo base_url()?>user/revenue">Pendapatan</a></li>
                         <li><a href="<?php echo base_url()?>user/cost">Pengeluaran</a></li>
                         <li><a href="<?php echo base_url()?>user/profit">Keuntungan</a></li>
