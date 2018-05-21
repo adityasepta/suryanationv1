@@ -2968,10 +2968,22 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function bukuBesarPeriode($kodeAkun,$dari,$sampai) {
         $date1 = $newDate = date("Y/m/d", strtotime($dari));
         $date2 = $newDate = date("Y/m/d", strtotime($sampai));
-        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal between '$date1' and '$date2' ORDER BY a.idCashflow, b.kategori");
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal >= '$date1' and a.tanggal <= '$date2' ORDER BY a.idCashflow, b.kategori");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getSaldo($kodeAkun,$date) {
+        $date1 = $newDate = date("Y/m/d", strtotime($date));
+        $hasil = $this->db->query("SELECT (SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1')
+               -
+               (SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1') AS balance");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
         } else{
             return array();
         }

@@ -7271,16 +7271,17 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('date1','Tanggal 1', 'required');
         $this->form_validation->set_rules('date2','Tanggal 2', 'required');
 
-        $data['kodeAkun_pilih'] = 1001;
-        $data['date1_pilih'] = '2018/05/01';
-        $data['date2_pilih'] = '2018/05/31'; 
-
         $data['akun'] = $this->mdl->listAkun();
-        /*print_r($data['akun']);*/
 
-        if ($this->form_validation->run() == TRUE){
-            $data['status_bukubesar'] = FALSE;
-            $this->session->set_flashdata('msg2', '<div class="alert animated fadeInRight alert-danger">Pastikan  Provinsi, Tahun dan Bulan sudah terpilih.</div>');
+
+        if ($this->form_validation->run() == FALSE){
+            $date2=date('Y-m-d');
+            $date1=date('Y-m-d',strtotime("-1 months",strtotime($date2)));
+            $data['kodeAkun_pilih'] = 1001;
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+            $data['saldoAwal'] = $this->mdl->getSaldo($data['kodeAkun_pilih'],$data['date1_pilih'])->balance;
+            $data['bukuBesar'] = $this->mdl->bukuBesarPeriode($data['kodeAkun_pilih'],$data['date1_pilih'],$data['date2_pilih']);
             $this->load->view('user/bukuBesarPeriode',$data);
         }
         else {
@@ -7289,15 +7290,13 @@ class User extends CI_Controller {
             $date1 = $this->input->post('date1');      
             $date2 = $this->input->post('date2');
 
-            $data['kodeAkun_pilih'] = 1001;
-            $data['date1_pilih'] = '2018-05-01';
-            $data['date2_pilih'] = '2018-05-31'; 
-            // $data['kodeAkun_pilih'] = $kodeAkun;
-            // $data['date1_pilih'] = $date1;
-            // $data['date2_pilih'] = $date2; 
-
+            $data['kodeAkun_pilih'] = $kodeAkun;
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+            $data['saldoAwal'] = $this->mdl->getSaldo($data['kodeAkun_pilih'],$data['date1_pilih'])->balance;
             $data['bukuBesar'] = $this->mdl->bukuBesarPeriode($data['kodeAkun_pilih'],$data['date1_pilih'],$data['date2_pilih']);
         }
+        //print_r($data['saldoAwal']);exit();
         
         $this->load->view('user/bukuBesarPeriode',$data);
     }

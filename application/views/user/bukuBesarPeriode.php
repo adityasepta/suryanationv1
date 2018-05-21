@@ -13,6 +13,7 @@
     <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
 
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
@@ -53,10 +54,75 @@
                 </ol>
             </div>
         </div>
-        
-        <div class="row">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <?php echo form_open_multipart('user/bukuBesar/')?>
+                            <?php 
+                              $tglskg = new DateTime();
+                              $tglnow = $tglskg->format("Y-m-d");
+
+                              $one_month_ago = date("Y-m-d",strtotime("-1 months",strtotime($tglnow))); 
+                            ?>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Filter Laporan Buku Besar Berdasarkan Tanggal</h3>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Akun</label>
+                                    <div class="form-group">
+                                        <select name="kodeAkun" class="form-control" required="">
+                                            <?php foreach($akun as $akun1) {?>
+                                            <option value="<?php echo $akun1->kodeAkun?>" 
+                                                <?php if($akun1->kodeAkun==$kodeAkun_pilih) { 
+                                                    echo "selected ";}?>><?php echo $akun1->kodeAkun." - ".$akun1->namaAkun?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label>Periode Awal</label>
+                                    <div class="form-group">
+                                        <input type="date" name="date1" class="form-control" value="<?php echo $date1_pilih ?>" required="">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <labeL>Periode Akhir</label>
+                                    <div class="form-group">
+                                        <input type="date" name="date2" class="form-control" value="<?php echo $date2_pilih ?>" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button style="margin-top: 22px" class="btn btn-primary btn-md" type="submit"><i class="fa fa-search"></i> Cari</button>
+                                </div>
+                            </div>
+                            <?php echo form_close();?>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <script>
+                $(function() {
+                    $('html, body').animate({
+                        scrollTop: $("#scoll").offset().top-85
+                    }, 1000);
+                 });
+            </script>
+        <div class="row" id="scoll">
             <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated fadeInUp">
+                
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="modal-header">
@@ -94,6 +160,25 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                SALDO AWAL
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $kodeAkun_pilih ?></label>
+                                            </td>
+                                            <td>
+                                                <?php echo $namaAkun_pilih; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($saldoAwal,2,".","."); ?></label>
+                                            </td>
+                                            <td class="text-center">
+                                                <label class="text-muted">-</label>
+                                            </td>
+                                        </tr>
                                     <?php $debit=0; $kredit=0; for ($i=0; $i < count($bukuBesar); $i++) { ?>
                                         <tr>
                                             <td>
@@ -132,13 +217,16 @@
                                         } 
                                     ?>
                                     <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
+                                        <?php 
+                                            $total = $debit-$kredit+$saldoAwal;
+                                        ?>
                                         <td class="text-left" colspan="4"><strong>Total</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($debit,2,".","."); ?></strong></td>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($debit+$saldoAwal,2,".","."); ?></strong></td>
                                         <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></td>
                                     </tr>
                                     <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                         <td class="text-left" colspan="5"><strong class="text-navy">Balance</strong></td>
-                                        <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total=$debit-$kredit,2,".","."); ?></strong></td>
+                                        <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total,2,".","."); ?></strong></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -160,7 +248,7 @@
 
 
     <!-- Mainly scripts -->
-    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
+    
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
