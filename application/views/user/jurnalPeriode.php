@@ -197,10 +197,11 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
+
             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Jurnal Tanggal <?php $tglskg = new DateTime($dateChosen); $tglnow = $tglskg->format("d F Y"); echo $tglnow?>'},
                     {extend: 'pdf', title: 'ExampleFile'},
 
                     {extend: 'print',
@@ -239,16 +240,6 @@
 
 
         });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
     </script>
 </body>
 
