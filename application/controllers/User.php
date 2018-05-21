@@ -7180,6 +7180,11 @@ class User extends CI_Controller {
         $this->load->view('user/detailJurnal',$data);
     } 
 
+    public function cariJurnal() {
+        $date=$this->input->post('tanggal');
+        redirect('user/jurnalHarian/'.$date);
+    } 
+
     public function jurnalHarian($date=0) {
         if ($date==0){
             $newDate=date('Y/m/d');

@@ -67,6 +67,7 @@
                                         <?php 
                                             $tgl = new DateTime($cashflow[0]->tanggal);
                                             $tglmsk = $tgl->format("d F Y");
+                                            $tglmsk1= $tgl->format("Y-m-d");
                                         ?>
                                         <dl class="dl-horizontal">
                                             <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
@@ -91,11 +92,11 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label>Keterangan</label>
-                                                    <input type="text" name="keterangan" class="form-control" required>
+                                                    <input type="text" name="keterangan" value="<?php echo $cashflow[0]->keterangan; ?>" class="form-control" required>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Tanggal</label>
-                                                    <input type="date" name="tanggal" class="form-control" required>
+                                                    <input type="date" name="tanggal" value="<?php echo $tglmsk1?>" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
