@@ -282,7 +282,8 @@
                             $(win.document.body).find('table')
                                     .addClass('compact')
                                     .css('font-size', 'inherit');
-                    }
+                     }
+                    
                     }
                 ]
 
