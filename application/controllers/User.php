@@ -7279,6 +7279,7 @@ class User extends CI_Controller {
 
     public function createJurnal() {
         $data['listAkun'] = $this->mdl->listAkun();
+        $data['customer'] = $this->mdl->listCustomer();
         $this->load->view('user/createJurnal',$data);
     } 
 
@@ -7287,7 +7288,7 @@ class User extends CI_Controller {
         $dataAkun = array(
             'keterangan'      => $this->input->post('keterangan'),
             'tanggal'         => $this->input->post('tanggal'),
-            'idCashflow'      => $this->input->post('idCashflow'),
+            'idCustomer'      => $this->input->post('idCustomer'),
         );
         $idJurnal=$this->mdl->insertDataGetLast('jurnal', $dataAkun);
 

@@ -65,13 +65,24 @@
                             <div class="modal-body">
                                 <?php echo form_open_multipart('user/tambahJurnal/')?>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>Customer</label>
-                                        <input type="date" name="tanggal" class="form-control" required>
+                                        <select name="idCustomer" class="form-control">
+                                            <option value="">Tidak Ada Customer </option>
+                                            <?php foreach($customer as $customer) {?>
+                                            <option value="<?php echo $customer->idCustomer?>">
+                                                <?php echo $customer->namaCustomer?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <?php 
+                                          $tglskg = new DateTime();
+                                          $tglnow = $tglskg->format("Y-m-d");
+                                        ?>
                                         <label>Tanggal</label>
-                                        <input type="date" name="tanggal" class="form-control" required>
+                                        <input type="date" name="tanggal" value="<?php echo $tglnow ?>" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
