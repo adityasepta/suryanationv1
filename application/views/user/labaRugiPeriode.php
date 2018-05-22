@@ -129,32 +129,31 @@
                                 <?php } ?>
                             </div>
                             <div class="modal-body">
-                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Kode Tipe Akun</th>
-                                        <th class="text-center">Nomor Akun</th>
-                                        <th>Nama Akun</th>
-                                        <th class="text-center">Awal</th>
-                                        <th class="text-center">Berjalan</th>
-                                        <th class="text-center">Akhir</th>
+                                        <th width="10%">Kode Tipe Akun</th>
+                                        <th class="text-center" width="10%">Nomor Akun</th>
+                                        <th width="35%">Nama Akun</th>
+                                        <th class="text-center" width="15%">Awal</th>
+                                        <th class="text-center" width="15%">Berjalan</th>
+                                        <th class="text-center" width="15%">Akhir</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php $debit=0; $kredit=0; 
+                                    <?php $totalAwal=0; $totalBerjalan=0; $totalAkhir=0; 
 
                                     for ($i=0; $i < count($labaRugiAwal); $i++) { ?>
                                         <?php 
-                                            if($labaRugiAwal[$i]->kodeAkun==1001) {
+                                            if($labaRugiAwal[$i]->kodeTipeAkun==4000) {
                                             $awal = $labaRugiAwal[$i]->Deb - $labaRugiAwal[$i]->Kre;
                                             $berjalan = $labaRugiBerjalan[$i]->Deb - $labaRugiBerjalan[$i]->Kre;
                                             $akhir = $awal+$berjalan;
+                                            $totalAwal += $awal;
+                                            $totalBerjalan += $berjalan;
+                                            $totalAkhir += $akhir;
                                         ?>
                                         <tr>
-                                            <td>
-                                                <?php echo $i+1;?>
-                                            </td>
                                             <td>
                                                 <?php echo $labaRugiAwal[$i]->kodeTipeAkun ?>
                                             </td>
@@ -189,20 +188,122 @@
                                     ?>
                                     
                                     </tbody>
-                                    <!-- <tfoot>
+                                    <tfoot>
                                         <tr>
+                                        <th class="text-left" colspan="3"><strong>Total Pendapatan</strong></td>
+                                        <th class="text-right" ><strong>Rp. <?php echo number_format($totalAwal,2,".","."); ?></strong></th>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($totalBerjalan,2,".","."); ?></strong></th>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($totalAkhir,2,".","."); ?></strong></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th width="10%">Kode Tipe Akun</th>
+                                        <th class="text-center" width="10%">Nomor Akun</th>
+                                        <th width="35%">Nama Akun</th>
+                                        <th class="text-center" width="15%">Awal</th>
+                                        <th class="text-center" width="15%">Berjalan</th>
+                                        <th class="text-center" width="15%">Akhir</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <?php $totalAwal1=0; $totalBerjalan1=0; $totalAkhir1=0; 
+
+                                    for ($i=0; $i < count($labaRugiAwal); $i++) { ?>
                                         <?php 
-                                            $total = $debit-$kredit+$saldoAwal;
+                                            if($labaRugiAwal[$i]->kodeTipeAkun==5000) {
+                                            $awal = $labaRugiAwal[$i]->Deb - $labaRugiAwal[$i]->Kre;
+                                            $berjalan = $labaRugiBerjalan[$i]->Deb - $labaRugiBerjalan[$i]->Kre;
+                                            $akhir = $awal+$berjalan;
+                                            $totalAwal1 += $awal;
+                                            $totalBerjalan1 += $berjalan;
+                                            $totalAkhir1 += $akhir;
                                         ?>
-                                        <th class="text-left" colspan="4"><strong>Total</strong></td>
-                                        <th class="text-right" ><strong>Rp. <?php echo number_format($debit+$saldoAwal,2,".","."); ?></strong></th>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></th>
+                                        <tr>
+                                            <td>
+                                                <?php echo $labaRugiAwal[$i]->kodeTipeAkun ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <label><?php echo $labaRugiAwal[$i]->kodeAkun ?></label>
+                                            </td>
+                                            <td>
+                                                <?php echo $labaRugiAwal[$i]->namaAkun ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if($awal>0){
+                                                ?>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($awal,2,".","."); ?></label>
+                                                <?php } else {?><label class="text-muted">-</label> <?php } ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if($berjalan>0){
+                                                ?>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($berjalan,2,".","."); ?></label>
+                                                <?php } else {?><label class="text-muted">-</label> <?php } ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if($akhir>0){
+                                                ?>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($akhir,2,".","."); ?></label>
+                                                <?php } else {?><label class="text-muted">-</label> <?php } ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                            }
+                                        } 
+                                    ?>
+                                    
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                        <th class="text-left" colspan="3"><strong>Total Biaya</strong></td>
+                                        <th class="text-right" ><strong>Rp. <?php echo number_format($totalAwal1,2,".","."); ?></strong></th>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($totalBerjalan1,2,".","."); ?></strong></th>
+                                        <td class="text-right" ><strong>Rp. <?php echo number_format($totalAkhir1,2,".","."); ?></strong></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <table class="table table-striped table-bordered table-hover">
+                                    <?php 
+                                        $totalAwal2=0;
+                                        $totalBerjalan2=0;
+                                        $totalAkhir2 = 0;
+                                        $totalAwal2 = $totalAwal - $totalAwal1;
+                                        $totalBerjalan2 = $totalBerjalan - $totalBerjalan1;
+                                        $totalAkhir2 = $totalAkhir - $totalAkhir1;
+                                    ?>
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3" width="55%"></th>
+                                        <th class="text-center" width="15%">Awal</th>
+                                        <th class="text-center" width="15%">Berjalan</th>
+                                        <th class="text-center" width="15%">Akhir</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        <th class="text-left" colspan="3" width="55%"><strong>Total Laba (Rugi) Sebelum Pajak</strong></td>
+                                        <th class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAwal2,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalBerjalan2,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAkhir2,2,".","."); ?></strong></th>
                                         </tr>
                                         <tr>
-                                            <th class="text-left" colspan="5"><strong class="text-navy">Balance</strong></th>
-                                            <th class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total,2,".","."); ?></strong></th>
+                                        <th class="text-left" colspan="3" width="55%"><strong>Pajak (10%)</strong></td>
+                                        <th class="text-right" width="15%"><strong>Rp. <?php echo number_format($pajakTotalAwal=$totalAwal2*0.1,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($pajakTotalBerjalan=$totalBerjalan2*0.1,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($pajakTotalAkhir=$totalAkhir2*0.1,2,".","."); ?></strong></th>
                                         </tr>
-                                    </tfoot> -->
+                                        <tr>
+                                        <th class="text-left" colspan="3" width="55%"><strong>Total Laba Setelah Pajak</strong></td>
+                                        <th class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAwal2-$pajakTotalAwal,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalBerjalan2-$pajakTotalBerjalan,2,".","."); ?></strong></th>
+                                        <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAkhir2-$pajakTotalAkhir,2,".","."); ?></strong></th>
+                                        </tr>
+                                        <tr>
+                                    </tfoot>
                                 </table>
                             </div>
 
@@ -238,7 +339,28 @@
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
-                pageLength: 100,
+                <?php $nama = $dari."-".$sampai;?>
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'excel', title: 'Laba Rugi -<?php echo $nama?>'},
+                    {extend: 'pdf', title: 'Laba Rugi -<?php echo $nama?>'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                     }
+                    
+                    }
+                ]
+
+            });
+
+            $('.dataTables-example2').DataTable({
                 <?php $nama = $dari."-".$sampai;?>
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
