@@ -49,7 +49,7 @@
                         <a href="<?php echo base_url();?>user/jurnal">Beranda</a>
                     </li>
                     <li class="active">
-                        <strong>Buku Besar</strong>
+                        <strong>Laba Rugi</strong>
                     </li>
                 </ol>
             </div>
@@ -59,7 +59,7 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
-                            <?php echo form_open_multipart('user/bukuBesar/')?>
+                            <?php echo form_open_multipart('user/labaRugi/')?>
                             <?php 
                               $tglskg = new DateTime();
                               $tglnow = $tglskg->format("Y-m-d");
@@ -68,7 +68,7 @@
                             ?>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h3>Filter Laporan Buku Besar Berdasarkan Tanggal</h3>
+                                    <h3>Filter Laporan Laba Rugi Berdasarkan Tanggal</h3>
                                     <hr>
                                 </div>
                             </div>
@@ -77,20 +77,6 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label>Akun</label>
-                                    <div class="form-group">
-                                        <select name="kodeAkun" class="form-control" required="">
-                                            <?php foreach($akun as $akun1) {?>
-                                            <option value="<?php echo $akun1->kodeAkun?>" 
-                                                <?php if($akun1->kodeAkun==$kodeAkun_pilih) { 
-                                                    echo "selected ";}?>><?php echo $akun1->kodeAkun." - ".$akun1->namaAkun?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                
                                 <div class="col-md-3">
                                     <label>Periode Awal</label>
                                     <div class="form-group">
@@ -112,8 +98,8 @@
                         </div>
                     </div>
                 </div>
-            </div>  
-            <?php if($statusBuku) {?> 
+            </div>   
+            <?php if($statusLaba) {?> 
             <script>
                 $(function() {
                     $('html, body').animate({
@@ -121,7 +107,7 @@
                     }, 1000);
                  });
             </script>
-            <?php } ?>
+            <?php }?> 
         <div class="row" id="scoll">
             <div class="col-lg-12">
                 
@@ -129,7 +115,7 @@
                         <div class="ibox-content">
                             <div class="modal-header">
 
-                                <h2 class="text-center"><b>Buku Besar</b></h2>
+                                <h2 class="text-center"><b>Laba Rugi</b></h2>
                                 <?php 
                                     if ($date1_pilih && $date2_pilih) {
                                     $date1_pilih = new DateTime($date1_pilih);
@@ -140,87 +126,70 @@
                                 ?>
                                 <hr>
                                 <p class="text-left text-navy"><b>Periode &nbsp;: <?php echo $dari ?> - <?php echo $sampai ?></b></p>
-                                <p class="text-left text-navy"><b>Akun &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
-                                    <?php foreach($akun as $akun) {?>
-                                        <?php if($akun->kodeAkun==$kodeAkun_pilih) {
-                                            $namaAkun_pilih=$akun->namaAkun;
-                                            echo $kodeAkun_pilih." - ".$namaAkun_pilih;
-                                        } ?>
-                                    <?php } ?>
                                 <?php } ?>
                             </div>
                             <div class="modal-body">
                                 <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                     <tr>
-                                        <th>Tanggal</th>
-                                        <th>Uraian</th>
+                                        <th>No</th>
+                                        <th>Kode Tipe Akun</th>
                                         <th class="text-center">Nomor Akun</th>
                                         <th>Nama Akun</th>
-                                        <th class="text-center">Debit</th>
-                                        <th class="text-center">Kredit</th>
+                                        <th class="text-center">Awal</th>
+                                        <th class="text-center">Berjalan</th>
+                                        <th class="text-center">Akhir</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $debit=0; $kredit=0; 
+
+                                    for ($i=0; $i < count($labaRugiAwal); $i++) { ?>
+                                        <?php 
+                                            if($labaRugiAwal[$i]->kodeAkun==1001) {
+                                            $awal = $labaRugiAwal[$i]->Deb - $labaRugiAwal[$i]->Kre;
+                                            $berjalan = $labaRugiBerjalan[$i]->Deb - $labaRugiBerjalan[$i]->Kre;
+                                            $akhir = $awal+$berjalan;
+                                        ?>
                                         <tr>
                                             <td>
+                                                <?php echo $i+1;?>
                                             </td>
                                             <td>
-                                                SALDO AWAL
+                                                <?php echo $labaRugiAwal[$i]->kodeTipeAkun ?>
                                             </td>
                                             <td class="text-center">
-                                                <label><?php echo $kodeAkun_pilih ?></label>
+                                                <label><?php echo $labaRugiAwal[$i]->kodeAkun ?></label>
                                             </td>
                                             <td>
-                                                <?php echo $namaAkun_pilih; ?>
+                                                <?php echo $labaRugiAwal[$i]->namaAkun ?>
                                             </td>
                                             <td class="text-center">
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($saldoAwal,2,".","."); ?></label>
-                                            </td>
-                                            <td class="text-center">
-                                                <label class="text-muted">-</label>
-                                            </td>
-                                        </tr>
-                                    <?php $debit=0; $kredit=0; for ($i=0; $i < count($bukuBesar); $i++) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php 
-                                                    $tgl = new DateTime($bukuBesar[$i]->tanggal);
-                                                    $tglmsk = $tgl->format("d F Y");
-                                                    echo $tglmsk;
+                                                <?php if($awal>0){
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $bukuBesar[$i]->keterangan ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <label><?php echo $bukuBesar[$i]->kodeAkun ?></label>
-                                            </td>
-                                            <td>
-                                                <?php echo $bukuBesar[$i]->namaAkun ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <?php if($bukuBesar[$i]->kategori=="Debit"){
-                                                    $debit+=$bukuBesar[$i]->jumlah;
-                                                ?>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($bukuBesar[$i]->jumlah,2,".","."); ?></label>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($awal,2,".","."); ?></label>
                                                 <?php } else {?><label class="text-muted">-</label> <?php } ?>
                                             </td>
                                             <td class="text-center">
-                                                <?php if($bukuBesar[$i]->kategori=="Kredit"){
-                                                    $kredit+=$bukuBesar[$i]->jumlah;
+                                                <?php if($berjalan>0){
                                                 ?>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($bukuBesar[$i]->jumlah,2,".","."); ?></label>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($berjalan,2,".","."); ?></label>
+                                                <?php } else {?><label class="text-muted">-</label> <?php } ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if($akhir>0){
+                                                ?>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($akhir,2,".","."); ?></label>
                                                 <?php } else {?><label class="text-muted">-</label> <?php } ?>
                                             </td>
                                         </tr>
                                     <?php
-                                        
+                                            }
                                         } 
                                     ?>
                                     
                                     </tbody>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
                                         <?php 
                                             $total = $debit-$kredit+$saldoAwal;
@@ -233,7 +202,7 @@
                                             <th class="text-left" colspan="5"><strong class="text-navy">Balance</strong></th>
                                             <th class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total,2,".","."); ?></strong></th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> -->
                                 </table>
                             </div>
 
@@ -269,12 +238,12 @@
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
-                pageLength: 20,
-                <?php $nama = $kodeAkun_pilih."-".$dari."-".$sampai;?>
+                pageLength: 100,
+                <?php $nama = $dari."-".$sampai;?>
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    {extend: 'excel', title: 'Buku Besar -<?php echo $nama?>'},
-                    {extend: 'pdf', title: 'Buku Besar -<?php echo $nama?>'},
+                    {extend: 'excel', title: 'Laba Rugi -<?php echo $nama?>'},
+                    {extend: 'pdf', title: 'Laba Rugi -<?php echo $nama?>'},
 
                     {extend: 'print',
                      customize: function (win){
