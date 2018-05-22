@@ -7411,6 +7411,39 @@ class User extends CI_Controller {
         
     }
 
+    //Neraca
+    public function neraca() {
+        $date = date('Y-m-d H:i:s');
+
+        $this->form_validation->set_rules('kodeAkun','Kode Akun', 'required');
+        $this->form_validation->set_rules('date1','Tanggal 1', 'required');
+        $this->form_validation->set_rules('date2','Tanggal 2', 'required');
+
+        $data['akun'] = $this->mdl->listAkun();
+
+
+        if ($this->form_validation->run() == FALSE){
+            $date2=date('Y-m-d');
+            $date1=date('Y-m-d',strtotime("-1 year",strtotime($date2)));
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+            $data['saldoAwal'] = $this->mdl->getNeracaAwal($data['date1_pilih']);
+            $data['neraca'] = $this->mdl->getNeracaBerjalan($data['date1_pilih'],$data['date2_pilih']);
+            $this->load->view('user/neracaPeriode',$data);
+        }
+        else {
+            //Jika ada input
+            $date1 = $this->input->post('date1');      
+            $date2 = $this->input->post('date2');
+
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+            $data['saldoAwal'] = $this->mdl->getNeracaAwal($data['date1_pilih']);
+            $data['neraca'] = $this->mdl->getNeracaBerjalan($data['date1_pilih'],$data['date2_pilih']);
+            $this->load->view('user/neracaPeriode',$data);
+        }
+    }
+
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
         $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
