@@ -285,7 +285,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        <th class="text-left" colspan="3" width="55%"><strong>Total Laba (Rugi) Sebelum Pajak</strong></td>
+                                        <th class="text-left" colspan="3" width="55%"><strong>Total Laba (Rugi) Sebelum Pajak => Total Pendapatan - Total Biaya</strong></td>
                                         <th class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAwal2,2,".","."); ?></strong></th>
                                         <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalBerjalan2,2,".","."); ?></strong></th>
                                         <td class="text-right" width="15%"><strong>Rp. <?php echo number_format($totalAkhir2,2,".","."); ?></strong></th>
