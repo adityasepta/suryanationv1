@@ -79,9 +79,10 @@
                             <div class="ibox-title">
                                 <h5>Daftar Jurnal</h5>
                                 <div class="ibox-tools">
-                                    <!-- <a class="btn btn-xs btn-primary" href="#" data-toggle="modal" data-target="#tambahCashflow">
+
+                                    <a class="btn btn-xs btn-primary" href="<?php echo base_url('user/createJurnal');?>">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH JURNAL</strong></span></i>
-                                    </a> -->
+                                    </a>
                                 </div>
                             </div>
 

@@ -88,7 +88,8 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
+            <?php if($statusNeraca) {?>    
             <script>
                 $(function() {
                     $('html, body').animate({
@@ -96,6 +97,7 @@
                     }, 1000);
                  });
             </script>
+            <?php }?> 
         <div class="row" id="scoll">
             <div class="col-lg-12">
                 

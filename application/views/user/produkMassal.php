@@ -14,7 +14,7 @@
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <!-- FooTable -->
-    <link href="<?php echo base_url();?>assets/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
 </head>
@@ -126,19 +126,17 @@
                         </div>
 
                         <div class="ibox-content">
-                            <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
                             <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="20" data-filter=#filter>
+                            <table class="table datatables dataTables-example">
                                 <thead>
                                 <tr>
 
-                                    <th data-toggle="true">Kode Produk</th>
-                                    <th data-hide="phone">Nama</th>
-                                    <th data-hide="all">Deskripsi</th>
+                                    <th>Kode Produk</th>
+                                    <th>Nama</th>
                                     <th> Harga Jual</th>
                                     
-                                    <th data-hide="phone,tablet" >Kategori</th>
-                                    <th data-hide="phone"> Status Katalog</th>
+                                    <th>Kategori</th>
+                                    <th> Status Katalog</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
 
                                 </tr>
@@ -148,9 +146,6 @@
                                     <?php for ($j=0; $j < count($produk); $j++) { ?>
                                     <td> <?php echo $produk[$j]->kodeProduk?> </td>
                                     <td> <?php echo $produk[$j]->namaProduk?> </td>
-                                    <td>
-                                        <?php echo $produk[$j]->deskripsi?>
-                                    </td>
                                     <td>
                                         Rp. <?php echo number_format($produk[$j]->hargaJual,2,".","."); ?>
                                     </td>
@@ -247,15 +242,33 @@
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
     <!-- FooTable -->
-    <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/plugins/dataTables/datatables.min.js"></script>
     <!-- Page-Level Scripts -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 20,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'excel', title: 'Neraca'},
+                    {extend: 'pdf', title: 'Neraca?>'},
 
-            $('.footable').footable();
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                     }
+                    
+                    }
+                ]
+
+            });
 
         });
-
     </script>
 </body>
 

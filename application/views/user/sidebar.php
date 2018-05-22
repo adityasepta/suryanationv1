@@ -113,7 +113,6 @@
                     <a href="index.html"><i class="fa fa-money"></i> <span class="nav-label">Keuangan</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
-                        <li><a href="<?php echo base_url()?>user/cashflow">Cashflow</a></li>
                         <li><a href="<?php echo base_url()?>user/jurnal">Jurnal</a></li>
                         <li><a href="<?php echo base_url()?>user/bukuBesar">Buku Besar</a></li>
                         <li><a href="<?php echo base_url()?>user/neraca">Neraca</a></li>
