@@ -7350,6 +7350,7 @@ class User extends CI_Controller {
 
 
         if ($this->form_validation->run() == FALSE){
+            $data['statusBuku'] = FALSE;
             $date2=date('Y-m-d');
             $date1=date('Y-m-d',strtotime("-1 months",strtotime($date2)));
             $data['kodeAkun_pilih'] = 1001;
@@ -7361,6 +7362,7 @@ class User extends CI_Controller {
         }
         else {
             //Jika ada input
+            $data['statusBuku'] = TRUE;
             $kodeAkun = $this->input->post('kodeAkun');
             $date1 = $this->input->post('date1');      
             $date2 = $this->input->post('date2');
@@ -7371,6 +7373,44 @@ class User extends CI_Controller {
             $data['saldoAwal'] = $this->mdl->getSaldo($data['kodeAkun_pilih'],$data['date1_pilih'])->balance;
             $data['bukuBesar'] = $this->mdl->bukuBesarPeriode($data['kodeAkun_pilih'],$data['date1_pilih'],$data['date2_pilih']);
             $this->load->view('user/bukuBesarPeriode',$data);
+        }
+    }
+
+    //Laba Rugi
+    public function labaRugi() {
+        $date = date('Y-m-d H:i:s');
+
+        $this->form_validation->set_rules('date1','Tanggal 1', 'required');
+        $this->form_validation->set_rules('date2','Tanggal 2', 'required');
+
+
+        if ($this->form_validation->run() == FALSE){
+
+            $data['statusLaba'] = FALSE;
+            $date2=date('Y-m-d');
+            $date1=date('Y-m-d',strtotime("-1 year",strtotime($date2)));
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+
+            $data['labaRugiAwal'] = $this->mdl->labaRugiAwal($data['date1_pilih']);
+            $data['labaRugiBerjalan'] = $this->mdl->labaRugiBerjalan($data['date1_pilih'],$data['date2_pilih']);
+
+            $this->load->view('user/labaRugiPeriode',$data);
+        }
+        else {
+            //Jika ada input
+            $data['statusLaba'] = TRUE;
+
+            $date1 = $this->input->post('date1');      
+            $date2 = $this->input->post('date2');
+
+            $data['date1_pilih'] = $date1;
+            $data['date2_pilih'] = $date2; 
+
+            $data['labaRugiAwal'] = $this->mdl->labaRugiAwal($data['date1_pilih']);
+            $data['labaRugiBerjalan'] = $this->mdl->labaRugiBerjalan($data['date1_pilih'],$data['date2_pilih']);
+
+            $this->load->view('user/labaRugiPeriode',$data);
         }
     }
 
