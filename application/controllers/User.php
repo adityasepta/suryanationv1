@@ -1172,34 +1172,108 @@ class User extends CI_Controller {
     }
 
     public function createPegawai() {
-        $dataPegawai = array(
-            'username'          => $this->input->post('username'),
-            'password'          => $this->input->post('password'),
-            'nama'              => $this->input->post('nama'),
-            'jabatan'           => $this->input->post('jabatan'),
-            'level'             => '0',
-            'phone'             => $this->input->post('phone'),
-            'email'             => $this->input->post('email'),
-            'alamat'             => $this->input->post('alamat'),
-        );
-        //print_r($dataPegawai);exit();
-        $this->mdl->insertData('user', $dataPegawai);
-        redirect('user/pegawai');
+        if (isset($_FILES['userfile']['name'])&&!empty($_FILES['userfile']['name'])) {
+            $config['upload_path']   = './uploads/fotoUser/';
+            $config['allowed_types'] = 'jpg|png|bmp';
+            $config['max_size']      = '8000';
+            $config['overwrite']     = TRUE;
+            
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            
+            if (!$this->upload->do_upload()) {
+                 $data['error'] = array(
+                    'error' => $this->upload->display_errors()
+                );
+                $message       = "Perubahan gagal dilakukan, gambar tidak mendukung";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                redirect('user/pegawai');
+            } else {
+                $upload_data = $this->upload->data();
+                $file_name   = $upload_data['file_name'];
+
+                $dataPegawai = array(
+                    'username'      => $this->input->post('username'),
+                    'password'      => $this->input->post('password'),
+                    'nama'          => $this->input->post('nama'),
+                    'jabatan'       => $this->input->post('jabatan'),
+                    'phone'  => $this->input->post('phone'),
+                    'email'         => $this->input->post('email'),
+                    'fotoUser'      => $file_name,
+                    'dateCreated'       => date("Y-m-d H:i:s"),
+                );
+
+                $this->mdl->insertData('user', $dataPegawai);
+                redirect('user/pegawai');
+            }
+        } else {
+            $dataPegawai = array(
+                'username'      => $this->input->post('username'),
+                'password'      => $this->input->post('password'),
+                'nama'          => $this->input->post('nama'),
+                'jabatan'       => $this->input->post('jabatan'),
+                'phone'  => $this->input->post('phone'),
+                'email'         => $this->input->post('email'),
+                'dateCreated'       => date("Y-m-d H:i:s"),
+            );
+
+            $this->mdl->insertData('user', $dataPegawai);
+            redirect('user/pegawai');
+        }
+
+        
     }
 
     public function editPegawai($idUser) {
-        $dataPegawai = array(
-            'username'    => $this->input->post('username'),
-            'password'   => $this->input->post('password'),
-            'nama'   => $this->input->post('nama'),
-            'jabatan'     => $this->input->post('jabatan'),
-            'phone'             => $this->input->post('phone'),
-            'email'             => $this->input->post('email'),
-            'alamat'             => $this->input->post('alamat'),
-        );
-        //print_r($dataPegawai);exit();
-        $this->mdl->updateData('idUser', $idUser, 'user', $dataPegawai);
-        redirect('user/pegawai');
+        if (isset($_FILES['userfile']['name'])&&!empty($_FILES['userfile']['name'])) {
+            $config['upload_path']   = './uploads/fotoUser/';
+            $config['allowed_types'] = 'jpg|png|bmp';
+            $config['max_size']      = '8000';
+            $config['overwrite']     = TRUE;
+            
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            
+            if (!$this->upload->do_upload()) {
+                 $data['error'] = array(
+                    'error' => $this->upload->display_errors()
+                );
+                $message       = "Perubahan gagal dilakukan, gambar tidak mendukung";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                redirect('user/pegawai');
+            } else {
+                $upload_data = $this->upload->data();
+                $file_name   = $upload_data['file_name'];
+
+                $dataPegawai = array(
+                    'username'      => $this->input->post('username'),
+                    'password'      => $this->input->post('password'),
+                    'nama'          => $this->input->post('nama'),
+                    'jabatan'       => $this->input->post('jabatan'),
+                    'phone'  => $this->input->post('phone'),
+                    'email'         => $this->input->post('email'),
+                    'fotoUser'      => $file_name,
+                );
+
+                //print_r($dataPegawai);exit();
+                $this->mdl->updateData('idUser', $idUser, 'user', $dataPegawai);
+                redirect('user/pegawai');
+            }
+        } else {
+            $dataPegawai = array(
+                'username'      => $this->input->post('username'),
+                'password'      => $this->input->post('password'),
+                'nama'          => $this->input->post('nama'),
+                'jabatan'       => $this->input->post('jabatan'),
+                'phone'  => $this->input->post('phone'),
+                'email'         => $this->input->post('email'),
+            );
+
+            //print_r($dataPegawai);exit();
+            $this->mdl->updateData('idUser', $idUser, 'user', $dataPegawai);
+            redirect('user/pegawai');
+        }
+        
     }
 
     public function deletePegawai($idUser) {

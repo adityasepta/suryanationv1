@@ -68,50 +68,50 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div>
-                <a class="btn btn-xs btn-primary" href="href="#" data-toggle="modal" data-target="#tambahPegawai">
+                <a class="btn btn-xs btn-primary" href="#" data-toggle="modal" data-target="#tambahPegawai">
                         <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PEGAWAI</strong></span></i>
                 </a><br><br>
             </div>
             <div class="row">
             <?php foreach ($pegawai as $p) : ?>
                 <?php
-                    $idUser    = $p->idUser;
+                    $idUser         = $p->idUser;
                 if($this->input->post('is_submitted')){
-                    $username    = $set_value('username');
-                    $password    = $set_value('password');
-                    $nama        = $set_value('nama');
-                    $jabatan    = $set_value('jabatan');
-                    $level    = $set_value('level');
-                    $phone    = $set_value('phone');
-                    $email    = $set_value('email');
-                    $alamat    = $set_value('alamat');
+                    $username       = set_value('username');
+                    $password       = set_value('password');
+                    $nama           = set_value('nama');
+                    $jabatan        = set_value('jabatan');
+                    $level          = set_value('level');
+                    $phone          = set_value('phone');
+                    $email          = set_value('email');
+                    $dateCreated    = set_value('dateCreated');
                 }
                 else {
-                    $username    = $p->username;
-                    $password    = $p->password;
-                    $nama        = $p->nama;
-                    $jabatan    = $p->jabatan;
-                    $level    = $p->level;
-                    $phone    = $p->phone;
-                    $email    = $p->email;
-                    $alamat    = $p->alamat;
+                    $username       = $p->username;
+                    $password       = $p->password;
+                    $nama           = $p->nama;
+                    $jabatan        = $p->jabatan;
+                    $level          = $p->level;
+                    $phone          = $p->phone;
+                    $email          = $p->email;
+                    $dateCreated    = $p->dateCreated;
                 }
                 ?>
-                <div class="col-lg-6">
-                <div class="contact-box" style="height: 200px">
+                <div class="col-lg-4">
+                <div class="contact-box">
                     <div class="col-sm-4">
                         <div class="text-center">
-                            <img alt="image" class="img-circle m-t-xs img-responsive" src="<?php echo base_url();?>assets/img/profile_small.jpg" style= "display:block; margin:auto;">
+                            <img class="img-circle m-t-xs img-responsive" <?php if ($p->fotoUser!=NULL){?> src="<?php echo base_url();?>uploads/fotoUser/<?php echo $p->fotoUser?>" <?php } else { ?> src="<?php echo base_url();?>assets/img/profile_small.jpg" <?php } ?> alt="Image" style="display:block; margin:auto;">
                             <div class="m-t-xs font-bold"><?php echo $p->jabatan?></div>
                         </div>
                     </div>
                     <div class="col-sm-8">
                         <h3><strong><?php echo $p->nama?></strong></h3>
+                        <p><small>Bergabung pada <?php echo $dateCreated ?></small></p>
                         <p><i class="fa fa-phone"></i><?php echo " ".$p->phone?></p>
                         <p><i class="fa fa-envelope-square"></i><?php echo " ".$p->email?></p>
-                        <p><i class="fa fa-map-marker"></i><?php echo " ".$p->alamat?></p>
                         <address>
-                            <a href="href="#" data-toggle="modal" data-target="#desain<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
+                            <a href="#" data-toggle="modal" data-target="#update<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
                             <a href="<?php echo base_url('user/deletePegawai/' . $idUser) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data pegawai ini?')">Delete</a>
                         </address>
                     </div>
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="desain<?php echo $idUser;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="update<?php echo $idUser;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -128,68 +128,64 @@
                   </div>
                   <div class="modal-body">
                     <?php echo form_open_multipart('user/editPegawai/'.$idUser)?>
-                    <div class="form-group">
-                        <div class="row">
-                            
-                                    <div class="col-md-4">
-                                        <label>Nama</label>
-                                        <input type="text" name= "nama"  class="form-control" required value="<?= $nama?>">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Jabatan</label>
-                                        <select id="jabatan" class="form-control"  name="jabatan">
-                                            <?php
-                                            for ($i=0; $i < count($jabatana); $i++) { 
-                                            if($jabatana[$i]->namaJabatan == $jabatan) {
-                                            echo "<option value='".$jabatana[$i]->namaJabatan."' selected>".$jabatana[$i]->namaJabatan."</option>";
-                                            }
-                                            else {
-                                                echo "<option value='".$jabatana[$i]->namaJabatan."'>".$jabatana[$i]->namaJabatan."</option>";
-                                            }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>No Telepon</label>
-                                        <input type="number" name= "phone"  class="form-control" value="<?= $phone?>" >
-                                    </div>
-                            
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <img class="img-circle m-t-lg img-responsive" <?php if ($p->fotoUser!=NULL){?> src="<?php echo base_url();?>uploads/fotoUser/<?php echo $p->fotoUser?>" <?php } else { ?> src="<?php echo base_url();?>assets/img/profile_small.jpg" <?php } ?> alt="Image" style="display:block; margin:auto;">
+                                <br>
+                                <label for="file-upload" class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload"></i> Ubah Gambar
+                                </label>
+                                <input id="file-upload" type="file" name="userfile" />
+                                <!-- <a href="#" data-toggle="modal" data-target="#ubahGambar<?php echo $p->idUser;?>" class="btn btn-xs btn-default" >Ubah Foto</a> -->
+                            </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            
-                                    <div class="col-md-4">
-                                        <label>Username</label>
-                                        <input type="text" name= "username" class="form-control" required value="<?= $username?>">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Password</label>
-                                        <input type="text" name= "password"  class="form-control" required value="<?= $password?>">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Email</label>
-                                        <input type="text" name= "email"  class="form-control" value="<?= $email?>">
-                                    </div>
-                            
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" name= "nama"  class="form-control" required value="<?= $nama?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" name= "username" class="form-control" required value="<?= $username?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" name= "password"  class="form-control" required value="<?= $password?>">
+                            </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            
-                                    <div class="col-md-12">
-                                        <label>Alamat</label>
-                                        <textarea name= "alamat" class="form-control" required><?php echo $alamat;?></textarea>
-                                    </div>
-                            
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Jabatan</label>
+                                <select id="jabatan" class="form-control"  name="jabatan">
+                                    <?php
+                                    for ($i=0; $i < count($jabatana); $i++) { 
+                                    if($jabatana[$i]->namaJabatan == $jabatan) {
+                                    echo "<option value='".$jabatana[$i]->namaJabatan."' selected>".$jabatana[$i]->namaJabatan."</option>";
+                                    }
+                                    else {
+                                        echo "<option value='".$jabatana[$i]->namaJabatan."'>".$jabatana[$i]->namaJabatan."</option>";
+                                    }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>No Telepon</label>
+                                <input type="number" name= "phone"  class="form-control" value="<?= $phone?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name= "email"  class="form-control" value="<?= $email?>">
+                            </div>
                         </div>
                     </div>
-                    
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    <?php echo form_close()?> 
                   </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Save changes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-                <?php echo form_close()?> 
                 </div>
               </div>
             </div>
@@ -209,54 +205,56 @@
                     <?php echo form_open_multipart('user/createPegawai')?>
                     <div class="form-group">
                         <div class="row">
-                            
-                                    <div class="col-md-4">
-                                        <label>Nama</label>
-                                        <input type="text" name= "nama"  class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Jabatan</label>
-                                        <select id="jabatan" class="form-control"  name="jabatan">
-                                            <?php
-                                            for ($i=0; $i < count($jabatana); $i++) { 
-                                            /*if($j->nama!="Belum ada PIC") {*/
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <img class="img-circle m-t-lg img-responsive" <?php if ($p->fotoUser!=NULL){?> src="<?php echo base_url();?>uploads/fotoUser/<?php echo $p->fotoUser?>" <?php } else { ?> src="<?php echo base_url();?>assets/img/profile_small.jpg" <?php } ?> alt="Image" style="display:block; margin:auto;">
+                                    <br>
+                                    <label for="file-upload" class="custom-file-upload">
+                                        <i class="fa fa-cloud-upload"></i> Ubah Gambar
+                                    </label>
+                                    <input id="file-upload" type="file" name="userfile" />
+                                    <!-- <a href="#" data-toggle="modal" data-target="#ubahGambar<?php echo $p->idUser;?>" class="btn btn-xs btn-default" >Ubah Foto</a> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" name= "nama"  class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name= "username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" name= "password"  class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Jabatan</label>
+                                    <select id="jabatan" class="form-control"  name="jabatan">
+                                        <?php
+                                        for ($i=0; $i < count($jabatana); $i++) { 
+                                        if($jabatana[$i]->namaJabatan == $jabatan) {
+                                        echo "<option value='".$jabatana[$i]->namaJabatan."' selected>".$jabatana[$i]->namaJabatan."</option>";
+                                        }
+                                        else {
                                             echo "<option value='".$jabatana[$i]->namaJabatan."'>".$jabatana[$i]->namaJabatan."</option>";
-                                            }
-                                            /*}*/
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>No Telepon</label>
-                                        <input type="number" name= "phone"  class="form-control" >
-                                    </div>
-                            
-                        </div>
-                        <br>
-                        <div class="row">
-                           
-                                    <div class="col-md-4">
-                                        <label>Username</label>
-                                        <input type="text" name= "username" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Password</label>
-                                        <input type="text" name= "password"  class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Email</label>
-                                        <input type="text" name= "email"  class="form-control">
-                                    </div>
-                           
-                        </div>
-                        <br>
-                        <div class="row">
-                            
-                                    <div class="col-md-12">
-                                        <label>Alamat</label>
-                                        <textarea name= "alamat" class="form-control"></textarea>
-                                    </div>
-                            
+                                        }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>No Telepon</label>
+                                    <input type="number" name= "phone"  class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" name= "email"  class="form-control">
+                                </div>
+                            </div>
                         </div>
                     </div>
                   </div>
