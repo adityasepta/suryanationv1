@@ -413,7 +413,7 @@ class User extends CI_Controller {
         }
         $data['pegawai'] = $this->mdl->listPegawai();
         $data['poTerakhir'] = $this->mdl->poTerakhir2();
-        $data['listProduk'] = $this->mdl->listProduk();
+        $data['listProduk'] = $this->mdl->listProdukMassal();
 
         $this->load->view('user/createPOMasal',$data);
     }
@@ -7454,8 +7454,6 @@ class User extends CI_Controller {
     //Neraca
     public function neraca() {
         $date = date('Y-m-d H:i:s');
-
-        $this->form_validation->set_rules('kodeAkun','Kode Akun', 'required');
         $this->form_validation->set_rules('date1','Tanggal 1', 'required');
         $this->form_validation->set_rules('date2','Tanggal 2', 'required');
 
