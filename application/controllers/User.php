@@ -7391,7 +7391,7 @@ class User extends CI_Controller {
             $data['statusBuku'] = FALSE;
             $date2=date('Y-m-d');
             $date1=date('Y-m-d',strtotime("-1 months",strtotime($date2)));
-            $data['idCustomer_pilih'] = 21;
+            $data['idCustomer_pilih'] = 33;
             $data['date1_pilih'] = $date1;
             $data['date2_pilih'] = $date2; 
             $data['bukuBesar'] = $this->mdl->bukuBesarPiutang($data['idCustomer_pilih'],$data['date1_pilih'],$data['date2_pilih']);
