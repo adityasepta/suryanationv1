@@ -106,69 +106,133 @@
                                 <h2 class="text-center"><b>Neraca</b></h2>
                                 <?php 
                                     if ($date1_pilih && $date2_pilih) {
-                                    $date1_pilih = new DateTime($date1_pilih);
-                                    $date2_pilih = new DateTime($date2_pilih);
-                                    $dari = $date1_pilih->format("d F Y");
-                                    $sampai = $date2_pilih->format("d F Y");
-                                    
+                                        $date1_pilih = new DateTime($date1_pilih);
+                                        $date2_pilih = new DateTime($date2_pilih);
+                                        $dari = $date1_pilih->format("d F Y");
+                                        $sampai = $date2_pilih->format("d F Y");
+                                    }
                                 ?>
                                 <hr>
                                 <p class="text-left text-navy"><b>Periode &nbsp;: <?php echo $dari ?> - <?php echo $sampai ?></b></p>
                             </div>
                             <div class="modal-body">
-                                <table class="table table-striped table-bordered table-hover dataTables-example">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">Tipe Akun</th>
-                                        <th class="text-center">Kode Akun </th>
-                                        <th class="text-center">Nama Akun</th>
-                                        <th class="text-center">Awal</th>
-                                        <th class="text-center">Berjalan</th>
-                                        <th class="text-center">Akhir</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php for ($i=0; $i < count($neraca); $i++) { ?>
-                                        <?php if($neraca[$i]->kodeTipeAkun<3000) {?>
+                                <div class="row">
+                                
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
                                         <tr>
-                                            <td>
-                                                <?php echo $neraca[$i]->kodeTipeAkun ?>
-                                            </td>
-                                            <td>
-                                                <label><?php echo $neraca[$i]->kodeAkun ?></label>
-                                            </td>
-                                            <td>
-                                                <label><?php echo $neraca[$i]->namaAkun ?></label>
-                                            </td>
-                                            <td class="text-right">
-                                                Rp. <?php echo number_format($awal=$saldoAwal[$i]->deb-$saldoAwal[$i]->kre,2,',','.'); ?>
-                                            </td>
-                                            <td class="text-right">
-                                                Rp. <?php echo number_format($berjalan=$neraca[$i]->deb-$neraca[$i]->kre,2,',','.'); ?>
-                                            </td>
-                                            <td class="text-right">
-                                                Rp. <?php echo number_format($akhir=$awal+$akhir,2,',','.'); ?>
-                                            </td>
+                                            <th class="text-center">Tipe Akun</th>
+                                            <th class="text-center">Kode Akun </th>
+                                            <th class="text-center">Nama Akun</th>
+                                            <th class="text-center">Awal</th>
+                                            <th class="text-center">Berjalan</th>
+                                            <th class="text-center">Akhir</th>
                                         </tr>
-                                    <?php
-                                            $totalAwal+=$awal;
-                                            $totalBerjalan+=$berjalan;
-                                            $totalAkhir+=$akhir;
-                                            }
-                                        } 
+                                        </thead>
+                                        <tbody>
+                                        <?php $totalAwal=0; $totalBerjalan=0;$totalAkhir=0; for ($i=0; $i < count($neraca); $i++) { ?>
+                                            <?php if($neraca[$i]->kodeTipeAkun<3000) {?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $neraca[$i]->kodeTipeAkun ?>
+                                                </td>
+                                                <td>
+                                                    <label><?php echo $neraca[$i]->kodeAkun ?></label>
+                                                </td>
+                                                <td>
+                                                    <label><?php echo $neraca[$i]->namaAkun ?></label>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $awal=$saldoAwal[$i]->deb-$saldoAwal[$i]->kre;
+                                                    if($awal==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($awal,2,',','.'); }?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $berjalan=$neraca[$i]->deb-$neraca[$i]->kre;
+                                                    if($berjalan==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($berjalan,2,',','.'); }?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $akhir=$awal+$berjalan;
+                                                    if($akhir==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($akhir,2,',','.'); }?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                                $totalAwal+=$awal;
+                                                $totalBerjalan+=$berjalan;
+                                                $totalAkhir+=$akhir;
+                                                }
+                                            } 
 
-                                    ?>
-                                    
-                                    </tbody>
-                                    <tfoot>
+                                        ?>
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-left" colspan="3"><strong>Total</strong></td>
+                                                <th class="text-right" ><strong>Rp. <?php echo number_format($totalAwal,2,",","."); ?></strong></th>
+                                                <td class="text-right" ><strong>Rp. <?php echo number_format($totalBerjalan,2,",","."); ?></strong></th>
+                                                <td class="text-right" ><strong>Rp. <?php echo number_format($totalAkhir,2,",","."); ?></strong></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>    
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
                                         <tr>
-                                            <th class="text-left" colspan="3"><strong>Total</strong></td>
-                                            <th class="text-right" ><strong>Rp. <?php echo number_format($totalAwal,2,",","."); ?></strong></th>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($totalBerjalan,2,",","."); ?></strong></th>
-                                            <td class="text-right" ><strong>Rp. <?php echo number_format($totalAkhir,2,",","."); ?></strong></th>
+                                            <th class="text-center">Tipe Akun</th>
+                                            <th class="text-center">Kode Akun </th>
+                                            <th class="text-center">Nama Akun</th>
+                                            <th class="text-center">Awal</th>
+                                            <th class="text-center">Berjalan</th>
+                                            <th class="text-center">Akhir</th>
                                         </tr>
-                                    </tfoot>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        <?php $totalAwal=0; $totalBerjalan=0;$totalAkhir=0; for ($i=0; $i < count($neraca); $i++) { ?>
+                                            <?php if($neraca[$i]->kodeTipeAkun>=3000) {?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $neraca[$i]->kodeTipeAkun ?>
+                                                </td>
+                                                <td>
+                                                    <label><?php echo $neraca[$i]->kodeAkun ?></label>
+                                                </td>
+                                                <td>
+                                                    <label><?php echo $neraca[$i]->namaAkun ?></label>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $awal=$saldoAwal[$i]->deb-$saldoAwal[$i]->kre;
+                                                    if($awal==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($awal,2,',','.'); }?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $berjalan=$neraca[$i]->deb-$neraca[$i]->kre;
+                                                    if($berjalan==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($berjalan,2,',','.'); }?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?php $akhir=$awal+$berjalan;
+                                                    if($akhir==0){ echo '<p class="text-center">-</p>';} else {echo 'Rp '.number_format($akhir,2,',','.'); }?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                                $totalAwal+=$awal;
+                                                $totalBerjalan+=$berjalan;
+                                                $totalAkhir+=$akhir;
+                                                }
+                                            } 
+
+                                        ?>
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-left" colspan="3"><strong>Total</strong></td>
+                                                <th class="text-right" ><strong>Rp. <?php echo number_format($totalAwal,2,",","."); ?></strong></th>
+                                                <td class="text-right" ><strong>Rp. <?php echo number_format($totalBerjalan,2,",","."); ?></strong></th>
+                                                <td class="text-right" ><strong>Rp. <?php echo number_format($totalAkhir,2,",","."); ?></strong></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table> 
+                                </div>
                             </div>
 
                         </div>
