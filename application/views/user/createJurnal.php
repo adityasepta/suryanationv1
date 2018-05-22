@@ -100,8 +100,8 @@
                                     
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" type="submit">Save changes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" id="simpan" type="button" style="display: block;">Save changes</button>
+                                    <button class="btn btn-primary" id="simpan1" type="submit" style="display: none;">Save changes</button>
                                 </div>
                                 <?php echo form_close()?> 
                             </div>
@@ -139,12 +139,34 @@
         var wrapper         = $(".input_fields_wrap"); //Fields wrapper
         var add_button      = $(".add_field_button"); //Add button ID
         
+        var jml={};
         var x = 1; //initlal text box count
         $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select id="kate'+x+'" type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input id="jumla'+x+'" type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                
+            }
+        });
+
+        $('#simpan').on('click',function(){
+            var balance=0;
+            for(var i=2;i<=x;i++){
+                if(document.getElementById('kate'+i).value=='Debit'){
+                    balance+=parseFloat(document.getElementById('jumla'+i).value);
+                } else {
+                    balance-=parseFloat(document.getElementById('jumla'+i).value);
+                }
+            }
+            
+            if(x>=2&&balance==0){
+                document.getElementById('simpan').style.display='none';
+                document.getElementById('simpan1').style.display='block';
+            } else{
+                document.getElementById('simpan1').style.display='none';
+                document.getElementById('simpan').style.display='block';
+                alert('Jumlah Debit dan Kredit yang dimasukkan tidak seimbang (Balance)');
             }
         });
         
