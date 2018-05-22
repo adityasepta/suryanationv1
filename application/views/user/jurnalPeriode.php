@@ -199,7 +199,7 @@
         $(document).ready(function(){
 
             $('.dataTables-example').DataTable({
-                pageLength: 20,
+                pageLength: 50,
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {extend: 'excel', title: 'Jurnal Tanggal <?php $tglskg = new DateTime($dateChosen); $tglnow = $tglskg->format("d F Y"); echo $tglnow?>'},
