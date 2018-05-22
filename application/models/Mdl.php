@@ -264,7 +264,7 @@ class mdl extends CI_Model {
 
     public function listProdukMassal(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Massal' ");
+        $hasil = $this->db->query("SELECT idProduk,kodeProduk,namaProduk,jenisProduk,deskripsi,hargaJual,hargaModal,kategori,statusKatalog,gambar1 FROM produk WHERE kategori = 'Massal' ");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

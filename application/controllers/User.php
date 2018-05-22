@@ -7278,7 +7278,6 @@ class User extends CI_Controller {
     } 
 
     public function createJurnal($idCashflow) {
-        $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
         $data['listAkun'] = $this->mdl->listAkun();
         $this->load->view('user/createJurnal',$data);
     } 
@@ -7461,6 +7460,7 @@ class User extends CI_Controller {
 
 
         if ($this->form_validation->run() == FALSE){
+            $data['statusNeraca'] = FALSE;
             $date2=date('Y-m-d');
             $date1=date('Y-m-d',strtotime("-1 year",strtotime($date2)));
             $data['date1_pilih'] = $date1;
@@ -7470,6 +7470,7 @@ class User extends CI_Controller {
             $this->load->view('user/neracaPeriode',$data);
         }
         else {
+            $data['statusNeraca'] = TRUE;
             //Jika ada input
             $date1 = $this->input->post('date1');      
             $date2 = $this->input->post('date2');
