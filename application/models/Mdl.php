@@ -2879,7 +2879,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     //Jurnal
     public function listJurnal(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.* FROM jurnal a ORDER BY a.Jurnal DESC");
+        $hasil = $this->db->query("SELECT a.*,IFNULL((SELECT SUM(d.jumlah) FROM jurnal c LEFT JOIN detailjurnal d ON c.idJurnal=d.idJurnal WHERE c.idJurnal=a.idJurnal AND d.kategori='Debit'),0) AS jumlah FROM jurnal a ORDER BY a.idJurnal DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

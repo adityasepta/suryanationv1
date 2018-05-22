@@ -7277,7 +7277,7 @@ class User extends CI_Controller {
         $this->load->view('user/editJurnal',$data);
     } 
 
-    public function createJurnal($idCashflow) {
+    public function createJurnal() {
         $data['listAkun'] = $this->mdl->listAkun();
         $this->load->view('user/createJurnal',$data);
     } 

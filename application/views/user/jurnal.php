@@ -95,8 +95,6 @@
                                     <tr>
                                         <th>Nomor</th>
                                         <th>Keterangan</th>
-                                        <th>Kategori</th>
-                                        <th>Tipe Transaksi</th>
                                         <th>Jumlah</th>
                                         <th>Tanggal</th>
                                         <th>Aksi</th>
@@ -104,18 +102,14 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach($jurnal as $p) : 
-                                            $idCashflow    = $p->idCashflow;
+                                            $idJurnal    = $p->idJurnal;
                                             if($this->input->post('is_submitted')){
                                                 $keterangan     = set_value('keterangan');
-                                                $kategori       = set_value('kategori');
-                                                $tipeTransaksi  = set_value('tipeTransaksi');
                                                 $jumlah         = set_value('jumlah');
                                                 $tanggal        = set_value('tanggal');
                                             }
                                             else {
                                                 $keterangan     = $p->keterangan;
-                                                $kategori       = $p->kategori;
-                                                $tipeTransaksi  = $p->tipeTransaksi;
                                                 $jumlah         = $p->jumlah;
                                                 $tanggal        = $p->tanggal;
                                             }
@@ -125,85 +119,17 @@
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $p->idCashflow?></td>
+                                            <td><?php echo $p->idJurnal?></td>
                                             <td><?php echo $p->keterangan?></td>
-                                            <td><?php echo $p->kategori?></td>
-                                            <td><?php echo $p->tipeTransaksi?></td>
                                             <td>Rp <?php echo number_format($p->jumlah,2);?></td>
                                             <td><?php echo $tglmsk?></td>
-                                            <?php if($p->idJurnal==NULL) {?>
-                                            <td><a href="<?php echo base_url();?>user/createJurnal/<?php echo $p->idCashflow;?>" class="btn btn-xs btn-primary" >Tambah</a></td>
-                                            <?php } else { ?>
                                             <td><!-- Button trigger modal -->
                                                 <div class="btn-group">
-                                                    <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idCashflow;?>" class="btn btn-xs btn-info" >Lihat</a>
-                                                    <a href="<?php echo base_url()?>user/editJurnal/<?php echo $p->idCashflow;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                    <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-info" >Lihat</a>
+                                                    <a href="<?php echo base_url()?>user/editJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-warning" >Edit</a>
                                                 </div>
                                             </td>
-                                            <?php } ?>
                                          </tr>
-
-                                        <!-- Modal Tambah-->
-                                        <div class="modal inmodal fade" id="tambah<?php echo $p->idCashflow;?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                        <h3 class="modal-title">Tambah Jurnal</h3>
-                                                        <div class="row">
-                                                            <div class="col-md-6 text-left">
-                                                                <dl class="dl-horizontal">
-                                                                    <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
-                                                                    <dt>Keterangan :</dt><dd> <b class="text-success"><?php echo $keterangan; ?></b></dd>
-                                                                </dl>
-                                                            </div>
-                                                            <div class="col-md-6 text-left">
-                                                                <dl class="dl-horizontal">
-                                                                    <dt>Jumlah :</dt><dd> <b class="text-success">Rp <?php echo number_format($p->jumlah,2);?></b></dd>
-                                                                    <dt>Kategori :</dt><dd> <b class="text-success"><?php echo $p->kategori?></b></dd>
-                                                                    <dt>Tipe Transaksi :</dt><dd> <b class="text-success"><?php echo $p->tipeTransaksi?></b></dd>
-                                                                </dl>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="modal-body">
-                                                        <?php echo form_open_multipart('user/tambahJurnal/')?>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <input type="hidden" name="idCashflow" value="<?= $p->idCashflow ?>">
-                                                                <div class="form-group">
-                                                                    <div class="row">
-                                                                        <div class="col-md-8">
-                                                                            <label>Keterangan</label>
-                                                                            <input type="text" name="keterangan" class="form-control" required>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <label>Tanggal</label>
-                                                                            <input type="date" name="tanggal" class="form-control" required>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <div class="input_fields_wrap" >
-                                                                        <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Akun</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" type="submit">Save changes</button>
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                        <?php echo form_close()?> 
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <!-- End -->
                                         
                                         <?php endforeach; ?>
                                     </tbody>

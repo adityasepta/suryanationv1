@@ -61,44 +61,24 @@
                         <div class="ibox-content">
                             <div class="modal-header">
                                 <h2 class="text-center">Tambah Jurnal</h2>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <?php 
-                                            $tgl = new DateTime($cashflow[0]->tanggal);
-                                            $tglmsk = $tgl->format("d F Y");
-                                            $tglmsk1= $tgl->format("Y-m-d");
-                                        ?>
-                                        <dl class="dl-horizontal">
-                                            <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
-                                            <dt>Keterangan :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->keterangan; ?></b></dd>
-                                        </dl>
-                                    </div>
-                                    <div class="col-md-6 text-left">
-                                        <dl class="dl-horizontal">
-                                            <dt>Jumlah :</dt><dd> <b class="text-success">Rp <?php echo number_format($cashflow[0]->jumlah,2);?></b></dd>
-                                            <dt>Kategori :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->kategori?></b></dd>
-                                            <dt>Tipe Transaksi :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->tipeTransaksi?></b></dd>
-                                        </dl>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-body">
                                 <?php echo form_open_multipart('user/tambahJurnal/')?>
                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Customer</label>
+                                        <input type="date" name="tanggal" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Tanggal</label>
+                                        <input type="date" name="tanggal" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12">
-                                        <input type="hidden" name="idCashflow" value="<?= $cashflow[0]->idCashflow ?>">
                                         <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <label>Keterangan</label>
-                                                    <input type="text" name="keterangan" value="<?php echo $cashflow[0]->keterangan; ?>" class="form-control" required>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Tanggal</label>
-                                                    <input type="date" name="tanggal" value="<?php echo $tglmsk1?>" class="form-control" required>
-                                                </div>
-                                            </div>
+                                            <label>Keterangan</label>
+                                            <input type="text" name="keterangan" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <div class="input_fields_wrap" >
