@@ -115,6 +115,7 @@
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
                         <li><a href="<?php echo base_url()?>user/jurnal">Jurnal</a></li>
                         <li><a href="<?php echo base_url()?>user/bukuBesar">Buku Besar</a></li>
+                        <li><a href="<?php echo base_url()?>user/bukuBesarCustomer">Buku Besar Per Customer</a></li>
                         <li><a href="<?php echo base_url()?>user/neraca">Neraca</a></li>
                         <li><a href="<?php echo base_url()?>user/labaRugi">Laba Rugi</a></li>
                     </ul>
