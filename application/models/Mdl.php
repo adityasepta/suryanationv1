@@ -2987,10 +2987,34 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
+
+    public function getNeracaBerjalan($dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Kre FROM akun z WHERE z.kodeTipeAkun < 4000");
+        
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getNeracaAwal($kodeAkun,$date) {
+        $date1 = $newDate = date("Y/m/d", strtotime($date));
+        $hasil = $this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Kre FROM akun z WHERE z.kodeTipeAkun < 4000");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
     public function labaRugiBerjalan($dari,$sampai) {
         $date1 = $newDate = date("Y/m/d", strtotime($dari));
         $date2 = $newDate = date("Y/m/d", strtotime($sampai));
         $hasil=$this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Kre FROM akun z");
+
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
