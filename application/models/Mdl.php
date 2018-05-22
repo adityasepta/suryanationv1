@@ -1148,7 +1148,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     
     public function listCustomer(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM customer");
+        $hasil = $this->db->query("SELECT * FROM customer order by namaCustomer");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3025,6 +3025,18 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function labaRugiAwal($date) {
         $date1 = $newDate = date("Y/m/d", strtotime($date));
         $hasil=$this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Kre FROM akun z");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function bukuBesarPiutang($idCustomer,$dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT a.idJurnal,d.idCustomer,d.namaCustomer,a.keterangan,b.kodeAkun,b.jumlah,b.kategori,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun LEFT JOIN customer d ON a.idCustomer=d.idCustomer WHERE a.tanggal >= '$date1' and a.tanggal <= '$date2' AND d.idCustomer= $idCustomer ORDER BY b.kategori,idCustomer");
+
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
