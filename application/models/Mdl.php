@@ -2621,7 +2621,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
     public function findSPKService($nomorFaktur){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM spkservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN purchaseorderservice d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=1 LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM spkservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN purchaseorderservice d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
