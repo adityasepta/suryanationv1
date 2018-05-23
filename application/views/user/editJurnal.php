@@ -82,10 +82,11 @@
                                             
                                             <?php foreach($customer as $cs) {?>
                                             <option <?php $jm=0; if($cs->idCustomer==$jurnal[0]->idCustomer) { $jm=$jm+1;?> selected="" <?php } ?> value="<?php echo $cs->idCustomer?>"><?php echo $cs->namaCustomer?></option>
+                                            
+                                            <?php } ?>
                                             <?php if($jm<1){?>
-                                            <option selected="" value="">Tidak Ada Customer </option>
-                                            <?php } } ?>
-
+                                            <option <?php if($jurnal[0]->idCustomer==0) { ?> selected="" <?php } ?> value="0">Tidak Ada Customer </option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="col-md-6">

@@ -7459,7 +7459,7 @@ class User extends CI_Controller {
             $newDate = date("Y/m/d", strtotime($date)); 
         }
         $data['dateChosen'] = $newDate;
-        $data['jurnal'] = $this->mdl->jurnalHariIni($newDate);
+        $data['jurnal'] = $this->mdl->jurnalHarian($newDate);
         $this->load->view('user/jurnalPeriode',$data);
     } 
 

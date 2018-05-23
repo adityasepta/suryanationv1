@@ -2897,9 +2897,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function jurnalHariIni($date){
+    public function jurnalHarian($date){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.tanggal = '$date' ORDER BY a.idCashflow, b.kategori");
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.tanggal = '$date' ORDER BY a.idJurnal, b.kategori DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2968,7 +2968,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function bukuBesarPeriode($kodeAkun,$dari,$sampai) {
         $date1 = $newDate = date("Y/m/d", strtotime($dari));
         $date2 = $newDate = date("Y/m/d", strtotime($sampai));
-        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal >= '$date1' and a.tanggal <= '$date2' ORDER BY a.idCashflow, b.kategori");
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal >= '$date1' and a.tanggal <= '$date2' ORDER BY a.idJurnal, b.kategori");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();
@@ -3035,7 +3035,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     public function bukuBesarPiutang($idCustomer,$dari,$sampai) {
         $date1 = $newDate = date("Y/m/d", strtotime($dari));
         $date2 = $newDate = date("Y/m/d", strtotime($sampai));
-        $hasil = $this->db->query("SELECT a.idJurnal,d.idCustomer,d.namaCustomer,a.keterangan,b.kodeAkun,b.jumlah,b.kategori,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun LEFT JOIN customer d ON a.idCustomer=d.idCustomer WHERE a.tanggal >= '$date1' and a.tanggal <= '$date2' AND d.idCustomer= $idCustomer ORDER BY b.kategori,idCustomer");
+        $hasil = $this->db->query("SELECT a.idJurnal,d.idCustomer,d.namaCustomer,a.keterangan,b.kodeAkun,b.jumlah,b.kategori,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun LEFT JOIN customer d ON a.idCustomer=d.idCustomer WHERE c.kodeTipeAkun < 1300 AND a.tanggal >= '$date1' and a.tanggal <= '$date2' AND d.idCustomer= $idCustomer ORDER BY a.tanggal, idJurnal DESC");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();
