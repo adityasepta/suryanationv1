@@ -7338,6 +7338,14 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
 
+    public function hapusJurnal($idJurnal) {
+        $this->mdl->deleteData('idJurnal', $idJurnal, 'jurnal');
+        $this->mdl->deleteData('idJurnal', $idJurnal, 'detailJurnal');
+        $message = "Data Jurnal berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/jurnal")."';</script>";
+    }
+
     //Buku Besar
     public function bukuBesar() {
         $date = date('Y-m-d H:i:s');

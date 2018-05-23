@@ -100,8 +100,7 @@
                                     
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" id="simpan" type="button" style="display: block;">Save changes</button>
-                                    <button class="btn btn-primary" id="simpan1" type="submit" style="display: none;">Save changes</button>
+                                    <button class="btn btn-primary" id="simpan1" type="submit" >Save changes</button>
                                 </div>
                                 <?php echo form_close()?> 
                             </div>
@@ -150,7 +149,7 @@
             }
         });
 
-        $('#simpan').on('click',function(){
+        $(document).on('click','form button[type=submit]',function(e){
             var balance=0;
             for(var i=2;i<=x;i++){
                 if(document.getElementById('kate'+i).value=='Debit'){
@@ -161,12 +160,9 @@
             }
             
             if(x>=2&&balance==0){
-                document.getElementById('simpan').style.display='none';
-                document.getElementById('simpan1').style.display='block';
-            } else{
-                document.getElementById('simpan1').style.display='none';
-                document.getElementById('simpan').style.display='block';
+            } else {
                 alert('Jumlah Debit dan Kredit yang dimasukkan tidak seimbang (Balance)');
+                e.preventDefault();
             }
         });
         

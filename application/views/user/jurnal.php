@@ -127,6 +127,7 @@
                                                 <div class="btn-group">
                                                     <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-info" >Lihat</a>
                                                     <a href="<?php echo base_url()?>user/editJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                    <a href="<?php echo base_url()?>user/hapusJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-danger" >Hapus</a>
                                                 </div>
                                             </td>
                                          </tr>
