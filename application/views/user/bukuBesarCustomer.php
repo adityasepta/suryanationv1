@@ -176,14 +176,14 @@
                                                 <?php echo $bukuBesar[$i]->namaAkun ?>
                                             </td>
                                             <td class="text-center">
-                                                <?php if($bukuBesar[$i]->kategori=="Debit"){
+                                                <?php if($bukuBesar[$i]->kodeTipeAkun<1200){
                                                     $debit+=$bukuBesar[$i]->jumlah;
                                                 ?>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($bukuBesar[$i]->jumlah,2,".","."); ?></label>
                                                 <?php } else {?><label class="text-muted">-</label> <?php } ?>
                                             </td>
                                             <td class="text-center">
-                                                <?php if($bukuBesar[$i]->kategori=="Kredit"){
+                                                <?php if($bukuBesar[$i]->kodeTipeAkun==1200){
                                                     $kredit+=$bukuBesar[$i]->jumlah;
                                                 ?>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($bukuBesar[$i]->jumlah,2,".","."); ?></label>
