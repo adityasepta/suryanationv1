@@ -7270,10 +7270,10 @@ class User extends CI_Controller {
         $this->load->view('user/jurnalPeriode',$data);
     } 
 
-    public function editJurnal($idCashflow) {
-        $data['jurnal'] = $this->mdl->detailJurnal($idCashflow);
-        $data['cashflow'] = $this->mdl->findCashflow($idCashflow);
+    public function editJurnal($idJurnal) {
+        $data['jurnal'] = $this->mdl->detailJurnal($idJurnal);
         $data['listAkun'] = $this->mdl->listAkun();
+        $data['customer'] = $this->mdl->listCustomer();
         $this->load->view('user/editJurnal',$data);
     } 
 
@@ -7313,6 +7313,7 @@ class User extends CI_Controller {
     public function updateJurnal($idJurnal) {
         // print_r($this->input->post());exit();
         $dataAkun = array(
+            'idCustomer'      => $this->input->post('idCustomer'),
             'keterangan'      => $this->input->post('keterangan'),
             'tanggal'         => $this->input->post('tanggal'),
         );
