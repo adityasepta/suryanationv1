@@ -62,6 +62,7 @@
         $jenisProduk     = set_value('jenisProduk');
         $persenBiaya     = set_value('persenBiaya');
         $estimasi     = set_value('estimasi');
+        $ketBatu     = set_value('ketBatu');
   }
   else {
         $nomorPO           = $dataPO[0]->nomorPO;
@@ -124,6 +125,7 @@
         $jenisProduk   = $dataPO[0]->jenisProduk;
         $persenBiaya   = $dataPO[0]->persenBiaya;
         $estimasi   = $dataPO[0]->estimasi;
+        $ketBatu   = $dataPO[0]->keteranganBatu;
   }
   $tglmsk = new DateTime($tanggalMasuk);
   $tglmsk = $tglmsk->format("Y-m-d");
@@ -214,6 +216,11 @@
                             <?php echo form_open_multipart('user/updatePO/'.$idPO,'class="form-horizontal"')?>
                                 <div class="form-group">
                                     <input type="hidden" name="kodeGambar" class="form-control" value="<?php echo $dataPO[0]->kodeGambar; ?>">
+                                    <input type="hidden" name="nomorPO" class="form-control" value="<?php echo $dataPO[0]->nomorPO; ?>">
+                                    <input type="hidden" name="jenisProduk" class="form-control" value="<?php echo $dataPO[0]->jenisProduk; ?>">
+                                    <input type="hidden" name="idProduk" class="form-control" value="<?php echo $dataPO[0]->idProduk; ?>">
+                                    <input type="hidden" name="idStokBarang" class="form-control" value="<?php echo $dataPO[0]->idStokBarang; ?>">
+                                    <input type="hidden" name="jenisCustomer" class="form-control" value="<?php echo $dataPO[0]->jenisCustomer; ?>">
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -371,78 +378,78 @@
                                                 <input type="text" placeholder="gr" name="beratBatu" class="form-control" value="<?php echo $beratBatu; ?>">
                                             </div>
                                         </div>
-                                        <div id="detailBatuPermata" style="display: none;">
+                                        <div id="detailBatuPermata">
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Batu Terhadap Kruman <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapKruman'); if($a=="Tahan"){?> checked="" <?php } ?> checked="" value="Tahan" name="batuTerhadapKruman"> <i></i> Tahan </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapKruman; if($a=="Tahan"){?> checked="" <?php } ?> checked="" value="Tahan" name="batuTerhadapKruman"> <i></i> Tahan </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapKruman'); if($a=="Tidak Tahan"){?> checked="" <?php } ?> value="Tidak Tahan" name="batuTerhadapKruman"> <i></i> Tidak Tahan </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapKruman; if($a=="Tidak Tahan"){?> checked="" <?php } ?> value="Tidak Tahan" name="batuTerhadapKruman"> <i></i> Tidak Tahan </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapKruman'); if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapKruman"> <i></i> Tidak Ada </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapKruman; if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapKruman"> <i></i> Tidak Ada </label></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Batu Terhadap Pukulan <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapPukulan'); if($a=="Sangat Bagus"){?> checked="" <?php } ?> checked="" value="Sangat Bagus" name="batuTerhadapPukulan"> <i></i> Sangat Bagus </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapPukulan; if($a=="Sangat Bagus"){?> checked="" <?php } ?> checked="" value="Sangat Bagus" name="batuTerhadapPukulan"> <i></i> Sangat Bagus </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapPukulan'); if($a=="Bagus"){?> checked="" <?php } ?> value="Bagus" name="batuTerhadapPukulan"> <i></i> Bagus </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapPukulan; if($a=="Bagus"){?> checked="" <?php } ?> value="Bagus" name="batuTerhadapPukulan"> <i></i> Bagus </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapPukulan'); if($a=="Cukup"){?> checked="" <?php } ?> value="Cukup" name="batuTerhadapPukulan"> <i></i> Cukup </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapPukulan; if($a=="Cukup"){?> checked="" <?php } ?> value="Cukup" name="batuTerhadapPukulan"> <i></i> Cukup </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapPukulan'); if($a=="Kurang"){?> checked="" <?php } ?> value="Kurang" name="batuTerhadapPukulan"> <i></i> Kurang </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapPukulan; if($a=="Kurang"){?> checked="" <?php } ?> value="Kurang" name="batuTerhadapPukulan"> <i></i> Kurang </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapPukulan'); if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapPukulan"> <i></i> Tidak Ada </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapPukulan; if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapPukulan"> <i></i> Tidak Ada </label></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Batu Terhadap Goresan <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapGoresan'); if($a=="Kurang dari 6"){?> checked="" <?php } ?> checked="" value="Kurang dari 6" name="batuTerhadapGoresan"> <i></i> Kurang dari 6 </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapGoresan; if($a=="Kurang dari 6"){?> checked="" <?php } ?> checked="" value="Kurang dari 6" name="batuTerhadapGoresan"> <i></i> Kurang dari 6 </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapGoresan'); if($a=="6,5 Sampai 7,5"){?> checked="" <?php } ?> value="6,5 Sampai 7,5" name="batuTerhadapGoresan"> <i></i> 6,5 Sampai 7,5 </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapGoresan; if($a=="6,5 Sampai 7,5"){?> checked="" <?php } ?> value="6,5 Sampai 7,5" name="batuTerhadapGoresan"> <i></i> 6,5 Sampai 7,5 </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapGoresan'); if($a=="Lebih dari 7"){?> checked="" <?php } ?> value="Lebih dari 7" name="batuTerhadapGoresan"> <i></i> Lebih dari 7 </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapGoresan; if($a=="Lebih dari 7"){?> checked="" <?php } ?> value="Lebih dari 7" name="batuTerhadapGoresan"> <i></i> Lebih dari 7 </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('batuTerhadapGoresan'); if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapGoresan"> <i></i> Tidak Ada </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $batuTerhadapGoresan; if($a==""){?> checked="" <?php } ?> value="" name="batuTerhadapGoresan"> <i></i> Tidak Ada </label></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Keadaan Batu Tengah <br/><small class="text-navy">Pilih salah satu</small></label>
 
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a=="Mulus"){?> checked="" <?php } ?> checked="" value="Mulus" name="keadaanBatuTengah"> <i></i> Mulus </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $keadaanBatuTengah; if($a=="Mulus"){?> checked="" <?php } ?> checked="" value="Mulus" name="keadaanBatuTengah"> <i></i> Mulus </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a=="Serat Halus"){?> checked="" <?php } ?> value="Serat Halus" name="keadaanBatuTengah"> <i></i> Serat Halus </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $keadaanBatuTengah; if($a=="Serat Halus"){?> checked="" <?php } ?> value="Serat Halus" name="keadaanBatuTengah"> <i></i> Serat Halus </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a=="Serat Kasar"){?> checked="" <?php } ?> value="Serat Kasar" name="keadaanBatuTengah"> <i></i> Serat Kasar </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $keadaanBatuTengah; if($a=="Serat Kasar"){?> checked="" <?php } ?> value="Serat Kasar" name="keadaanBatuTengah"> <i></i> Serat Kasar </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a=="Sompel"){?> checked="" <?php } ?> value="Sompel" name="keadaanBatuTengah"> <i></i> Sompel </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $keadaanBatuTengah; if($a=="Sompel"){?> checked="" <?php } ?> value="Sompel" name="keadaanBatuTengah"> <i></i> Sompel </label></div>
                                                 </div>
                                                 <div class="col-sm-2" style="padding-top: 10px;">
-                                                    <div class="i-checks"><label> <input type="radio" <?php $a= set_value('keadaanBatuTengah'); if($a==""){?> checked="" <?php } ?> value="" name="keadaanBatuTengah"> <i></i> Tidak Ada </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" <?php $a= $keadaanBatuTengah; if($a==""){?> checked="" <?php } ?> value="" name="keadaanBatuTengah"> <i></i> Tidak Ada </label></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Keterangan Batu</label>
                                                 <div class="col-sm-10">
-                                                     <textarea type="text" class="form-control" name="ketBatu" rows="2"></textarea>
+                                                     <textarea type="text" class="form-control" name="ketBatu" rows="2" value="<?php echo $ketBatu?>"><?php echo $ketBatu?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -472,15 +479,8 @@
                                                 </div>
                                                 <div class="col-sm-1" style="width:0;"></div>
                                                 <div class="col-md-2">
-                                                    <label>Jumlah (Pcs)</label>
-                                                </div>
-                                                <div class="col-md-2">
                                                     <label>Harga Satuan</label>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <label>Berat (Ct)</label>
-                                                </div>
-                                                
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -492,20 +492,8 @@
                                                         </div>
                                                         <div class="col-sm-1" style="width:0;">:</div>
                                                         <div class="col-md-2">
-                                                            <input type="text" name= "jumlah[]" placeholder="Jumlah" value="<?php echo $poberlian[$y]->jumlah ?>" class="form-control" required>
-                                                        </div>
-                                                        <div class="col-md-2">
                                                             <input type="text" name= "harga[]" placeholder="Harga Berlian" value="<?php echo $poberlian[$y]->harga ?>" class="form-control" required>
                                                         </div>
-                                                        <?php if($poberlian[$y]->jenis=="Berlian") {?>
-                                                        <div class="col-md-2">
-                                                            <input type="text" name= "karat[]" placeholder="Berat Karat" value="<?php echo $poberlian[$y]->karat ?>" class="form-control" required>
-                                                        </div>
-                                                        <?php } else { ?>
-                                                        <div class="col-md-2">
-                                                            <input type="hidden" name= "karat[]" placeholder="Berat Karat" value="0" class="form-control" required>
-                                                        </div>
-                                                        <?php } ?>
                                                         <input type="hidden" name= "jenis[]" placeholder="Berat Karat" value="<?php echo $poberlian[$y]->jenis ?>" class="form-control">
                                                         <button type="button" class="btn remove_field" onclick="removeDummy<?php echo $y ?>()">Remove</button>
                                                     </div>
@@ -660,6 +648,12 @@
                                     <div class="col-sm-10">
                                         <img src="<?php echo base_url('uploads/gambarProduk/'.$dataPO[0]->kodeGambar.'-cust.jpg')?>" class="img img-responsive" style="max-height: 125px;">
                                     </div>
+                                    <div class="form-group"><label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <label>Insert Image(.JPG)</label>                
+                                        <input type="file" name="userfile" value="<?php echo set_value('userfile'); ?>">
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
@@ -885,7 +879,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->namaMaterial?>"><?php echo $material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Berlian Per Karat (Dollar)</label><input id="hargaPoin'+x+'" type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div><script>$("#lstDropDown_'+x+'").change(function(){var hg=getHarga(document.getElementById("lstDropDown_'+x+'").value);document.getElementById("hargaPoin'+x+'").value=hg;});</' + 'script>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-md-4"><label>Keterangan Poin Berlian</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($material); $i++) { ?><option value="<?php echo $material[$i]->namaMaterial?>"><?php echo $material[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Berlian Per Karat (Dollar)</label><input id="hargaPoin'+x+'" type="text" name= "harga[]" placeholder="Harga Berlian" class="form-control" required></div><input type="hidden" name= "jenis[]" placeholder="Berat Karat" value="Berlian" class="form-control"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div><script>$("#lstDropDown_'+x+'").change(function(){var hg=getHarga(document.getElementById("lstDropDown_'+x+'").value);document.getElementById("hargaPoin'+x+'").value=hg;});</' + 'script>'); //add input box
                 }
             });
 
@@ -923,7 +917,7 @@
                 e.preventDefault();
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><select class="form-control m-b" name="zirkon[]" id="lstDropDown_A'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($zirkon); $i++) { ?><option value="<?php echo $zirkon[$i]->namaMaterial?>"><?php echo $zirkon[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" id="hargaPoinZirkon'+x+'" placeholder="Rp" name="hargaBatuZirkon[]" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div><script>$("#lstDropDown_A'+x+'").change(function(){var hg=getHargaZirkon(document.getElementById("lstDropDown_A'+x+'").value);document.getElementById("hargaPoinZirkon'+x+'").value=hg;});</' + 'script>'); //add input box
+                    $(wrapper).append('<div class="form-group"><div class="col-sm-12"><div class="row"><div class="col-md-4"><label>Batu Zirkon</label><select class="form-control m-b" name="namaBerlian[]" id="lstDropDown_A'+x+'" style="" onKeyDown="fnKeyDownHandler_A(this, event);" onKeyUp="fnKeyUpHandler_A(this, event); return false;" onKeyPress = "return fnKeyPressHandler_A(this, event);"  onChange="fnChangeHandler_A(this);" onFocus="fnFocusHandler_A(this);"><option value="" style="font-family:Courier,monospace;color:#ff0000;background-color:#ffff00;">Lainnya...</option> <!-- This is the Editable Option --><?php for ($i = 0; $i < count($zirkon); $i++) { ?><option value="<?php echo $zirkon[$i]->namaMaterial?>"><?php echo $zirkon[$i]->namaMaterial?></option><?php } ?></select></div><div class="col-md-3"><label>Harga Batu Zirkon (/pcs)</label><input type="text" id="hargaPoinZirkon'+x+'" placeholder="Rp" name="harga[]" class="form-control good" value="<?php echo set_value('hargaBatuZirkon'); ?>"></div><div class="col-md-2"><input type="hidden" name= "jenis[]" placeholder="Berat Karat" value="Zirkon" class="form-control"><button class="btn remove_fields" style="margin-top:22px;">Remove</button> </div></div></div></div><script>$("#lstDropDown_A'+x+'").change(function(){var hg=getHargaZirkon(document.getElementById("lstDropDown_A'+x+'").value);document.getElementById("hargaPoinZirkon'+x+'").value=hg;});</' + 'script>'); //add input box
                 }
             });
             
