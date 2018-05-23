@@ -363,9 +363,11 @@
                     <?php $pt = explode(',',$pekerjaanTambahan);?>
                     <?php if(in_array("Enamel", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Enamel</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganEnamel ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaEnamel,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Enamel</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganEnamel ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaEnamel,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <?php if(in_array("Slap", $pt)){ ?>
