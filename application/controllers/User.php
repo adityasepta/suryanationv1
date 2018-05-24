@@ -5283,7 +5283,7 @@ class User extends CI_Controller {
 
              $data['jd'] = $this->mdl->getJadi();  
 
-            $this->load->view('user/statprod_view',$data);
+            $this->load->view('user/display_tempahan',$data);
 
         }
             
