@@ -112,8 +112,10 @@
                                             <td class="text-center"><?php echo $p->asal?></td>
                                             
                                             <td class="text-center"><!-- Button trigger modal -->
-                                                            <a href="<?php echo base_url()?>user/editMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-default">Edit</a>
+                                                <div class="btn-group">
+                                                            <a href="<?php echo base_url()?>user/editMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-warning">Edit</a>
                                                             <a href="<?php echo base_url()?>user/deleteMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus material ini?')">Hapus</a></td>
+                                                </div>
                                          </tr>
                                         <?php endforeach; ?>
                                     </tbody>
