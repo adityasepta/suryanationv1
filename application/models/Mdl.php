@@ -779,6 +779,13 @@ class mdl extends CI_Model {
         $result = $query->result();
         return $result;
     }
+
+    public function listKatalogByKategori($kategori) {
+        $sql    = "SELECT * from produk WHERE kategori='$kategori' AND statusKatalog='Tampil'";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
     
     public function getProd() {
         $sql    = "SELECT *,a.kodeProduk as kode FROM produk a, potempahan b where a.idProduk = b.idProduk";
