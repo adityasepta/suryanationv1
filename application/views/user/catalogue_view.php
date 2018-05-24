@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
     <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -47,31 +48,93 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue">
+                <div class="widget style1 <?php if($kategori=='All'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h3 class="font-bold">Semua</h3>
+                            <span>Produk</span>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Tempahan">
+                <div class="widget style1 <?php if($kategori=='Tempahan'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Tempahan</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Massal">
+                <div class="widget style1 <?php if($kategori=='Massal'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Massal</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Trading">
+                <div class="widget style1 <?php if($kategori=='Trading'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Trading</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Perak">
+                <div class="widget style1 <?php if($kategori=='Perak'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Perak</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <br>
             <?php for ($i=0; $i < count($produk) ; $i++) { ?>
-                <div class="col-md-3">
-                    <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>">
-                        <div class="ibox">
-                            <div class="ibox-content product-box">
+                <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>">
+                <div class="col-md-3">                    <div class="ibox">
+                        <div class="ibox-content product-box">
 
-                                <div class="product-imitation" style="height: 100%; position:relative; background: url('<?php echo base_url();?>uploads/gambarProduk/<?php echo $produk[$i]->gambar1?>')no-repeat; background-size: cover; background-position: center;">
+                            <div class="product-imitation" style="height: 100%; position:relative; background: url('<?php echo base_url();?>uploads/gambarProduk/<?php echo $produk[$i]->gambar1?>')no-repeat; background-size: cover; background-position: center;">
+                            </div>
+                            <div class="product-desc">
+                                <!-- <span class="product-price">
+                                    Rp. <?php echo  number_format($produk[$i]->hargaJual);?>
+                                </span> -->
+                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?></small>
+                                <div style="white-space: nowrap; width: 15em; overflow: hidden; text-overflow: ellipsis; ">
+                                    <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
                                 </div>
-                                <div class="product-desc">
-                                    <span class="product-price">
-                                        Rp. <?php echo  number_format($produk[$i]->hargaJual);?>
-                                    </span>
-                                    <small class="text-muted"><?php echo $produk[$i]->jenisProduk?></small>
-                                    <div style="white-space: nowrap; width: 15em; overflow: hidden; text-overflow: ellipsis; ">
-                                        <a href="#" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
-                                    </div>
-                                    
-                                    <div class="small m-t-xs">
-                                        Kode Produk <strong><?php echo $produk[$i]->kodeProduk?></strong>
-                                    </div>
+                                
+                                <div class="small m-t-xs">
+                                    Kode Produk <strong><?php echo $produk[$i]->kodeProduk?></strong>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
+                </a>
             <?php } ?>
         </div>
         </div>

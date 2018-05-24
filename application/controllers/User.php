@@ -2847,8 +2847,15 @@ class User extends CI_Controller {
         
     }
 
-    public function catalogue() {
-        $data['produk'] = $this->mdl->listKatalog();
+    public function catalogue($kategori="All") {
+        $data['kategori']=$kategori;
+        
+        if($kategori=="All"){
+            $data['produk'] = $this->mdl->listKatalog();
+        } else {
+            $data['produk'] = $this->mdl->listKatalogByKategori($kategori);
+        }
+        
         $this->load->view("user/catalogue_view",$data);
         
     }
