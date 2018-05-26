@@ -255,10 +255,11 @@
                                     
                                 </div>
                                 <div class="col-lg-9 table-responsive text-center">
-                                    <table data-page-size="4" class=" footable table  table-stripped">
+                                    <table data-page-size="5" class=" footable table  table-stripped">
 
                                         <thead>
                                             <tr>
+                                                <th class="text-center">Tanggal</th>
                                                 <th class="text-center">Arah</th>
                                                 <th class="text-center">Barang</th>
                                                 <th class="text-center">Kadar</th>
@@ -269,11 +270,11 @@
                                         <tbody>
                                             <?php for ($i=0; $i < count($st); ++$i) { ?>
                                                 <tr>
+                                                    <td><?php echo $st[$i]->tgl?>
                                                     <td><?php echo $st[$i]->jenis?></td>
                                                     <td><?php echo $st[$i]->nama?></td>
                                                     <td><?php echo $st[$i]->kadar?> %</td>
-                                                    <td><?php echo $st[$i]->jmlmasuk?> gr</td>
-
+                                                    <td><?php echo $st[$i]->jmlmasuk?> gr</td></td>
                                                 </tr>
                                             <?php }?>
                                         </tbody>
