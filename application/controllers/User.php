@@ -7736,7 +7736,7 @@ class User extends CI_Controller {
     public function ambil($idSPK) {
         $data['SPK'] = $this->mdl->findSPKMassalbySPK($idSPK);
         $data['beratAkhir'] = $this->mdl->findBeratProd($idSPK);
-        $nomorPO = $data['SPK']->nomorPO;
+        $nomorPO = $data['SPK'][0]->nomorPO;
         $data['produkpo']=$this->mdl->findProdukPO($nomorPO);
         for ($i=0; $i < count($data['produkpo']) ; $i++) { 
             $data['pergerakan']=$this->mdl->findPergerakan($data['produkpo'][$i]->nomorPO,$data['produkpo'][$i]->idProdukChild);
@@ -7753,6 +7753,7 @@ class User extends CI_Controller {
                 'tanggal' => date("Y-m-d H:i:s"),
                 
             );
+            //print_r($dataInventory);
             $this->mdl->insertData('stokbarang',$dataInventory);
         }
         $dataStatus = array(
