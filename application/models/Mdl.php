@@ -187,6 +187,19 @@ class mdl extends CI_Model {
         }
     }
 
+    public function getBOMProduct($id) {
+        $sql    = "SELECT * from billofmaterial a JOIN materialdasar b on a.kodeMaterial = b.idMaterial where kodeProduk='$id'";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function cekbom() {
+        $sql   = "SELECT * from billofmaterial";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
 
     public function cekjadwal() {
         $sql   = "SELECT * from rencanaproduksi";
@@ -739,6 +752,13 @@ class mdl extends CI_Model {
         $this->db->insert('produk', $dataProduk);
     }
 
+    public function findBOM($id) {
+        $sql    = "SELECT * from (SELECT idProduk,b.kodeProduk,namaProduk,idBOM,kodeMaterial,jumlah from billofmaterial a JOIN produk b on a.kodeProduk = b.idProduk) c JOIN materialdasar d on c.kodeMaterial=d.idMaterial where idProduk='$id'";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function getProduk() {
         $sql    = "SELECT * from produk";
         $query  = $this->db->query($sql);
@@ -769,6 +789,20 @@ class mdl extends CI_Model {
     
     public function getProd() {
         $sql    = "SELECT *,a.kodeProduk as kode FROM produk a, potempahan b where a.idProduk = b.idProduk";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getBOM() {
+        $sql    = "SELECT * from billofmaterial a JOIN materialdasar b on a.kodeMaterial = b.idMaterial";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function getBOMdistinct() {
+        $sql    = "SELECT distinct(kodeProduk) from billofmaterial a JOIN materialdasar b on a.kodeMaterial = b.idMaterial";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -900,6 +934,15 @@ class mdl extends CI_Model {
                  ->delete('materialdasar');
     }
 
+    public function insertBOM($dataBOM) {
+        $this->db->insert('billofmaterial', $dataBOM);
+    }
+
+    public function updateBOM($id, $dataBOM) {
+        $this->db->where('idBOM', $id)
+                 ->update('billofmaterial', $dataBOM);
+    }
+
     public function insertInventory($dataInventory) {
         $this->db->insert('stokbarang', $dataInventory);
     }
@@ -940,6 +983,12 @@ class mdl extends CI_Model {
         $result = $query->row();
         return $result;
     }
+
+    public function deleteBOM($id) {
+        $this->db->where('idBOM', $id)
+                 ->delete('billofmaterial');
+    }
+
 
     public function getSPK() {
         $sql    = "SELECT *, DATE_FORMAT (lastModified,'%d %M %Y') AS tglspk FROM spk WHERE idSPK IN (select DISTINCT(idSPK) FROM rencanaproduksi) ORDER BY lastModified DESC";
@@ -1004,6 +1053,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         //Query delete ... where id=...
         $this->db->where('idSPK', $idSPK)
                  ->delete('rencanaproduksi');
+    }
+
+    public function getStokBOM($nomorFaktur) {
+        $sql = "SELECT a.nomorFaktur, c.namaMaterial, CONCAT(c.stokMaterial,' ',c.satuan) as stok, CONCAT(b.jumlah,' ',c.satuan) as jml, CONCAT((round(c.stokMaterial - b.jumlah,1)),' ',c.satuan) as stokakhir, (c.stokMaterial - b.jumlah) as jum, c.safetyStock as ss from spk a, billofmaterial b, materialdasar c where a.idProduk = b.kodeProduk and b.kodeMaterial = c.idMaterial and a.nomorFaktur = $nomorFaktur";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
     }
 
     public function stokEmas() {
