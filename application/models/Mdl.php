@@ -959,7 +959,7 @@ class mdl extends CI_Model {
 
     public function getStokProduk() {
         $sql    = "SELECT * FROM (SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' 
-               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY tanggal";
+               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY idStok DESC";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
