@@ -20,7 +20,6 @@
             <b><?php echo $m[$i]->jenisProduk?></b><br>
             <b><?php echo $m[$i]->tanggal?> -</b><br>
             <b><?php echo $m[$i]->tanggalSelesai?> </b><br>
-            <b><?php echo $m[$i]->keteranganPending?> </b><br>
         </div>
     </div>
     <?php if($m[$i]->keteranganPending) {?>
