@@ -810,7 +810,7 @@ class mdl extends CI_Model {
 
     public function getMaterial() {
 
-        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan')";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan') ORDER BY namaMaterial";
 
         $query  = $this->db->query($sql);
         $result = $query->result();
@@ -1648,7 +1648,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getLastMovement($nomorPO, $idProduk) {
-        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' ";
+        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' AND tipePergerakan='Transfer' AND jenisPergerakanBarang='IN' AND kodeBarang=$idProduk";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -2444,16 +2444,15 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getYourStock($idPIC) {
-        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
+        $sql   = "SELECT a.jenis, a.nama, a.jmlmasuk, c.kadarBahan as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk, DATE_FORMAT(a.tanggal, '%d %M %Y') AS tanggal FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
+        UNION 
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
         UNION
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
         UNION
-        select a.jenis, a.nama, a.jmlmasuk, c.kadarBahan from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
-        UNION
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, potempahan c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi' or a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
-        
-
-        ORDER BY nama
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, produk b, potempahan c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi' or a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk
+ 
+ORDER BY tgl DESC,nama LIMIT 50
         ";
         $query = $this->db->query($sql);
         

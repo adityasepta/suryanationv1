@@ -75,16 +75,15 @@
                                 <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                        placeholder="Search in table">
                                 <div class="table-responsive">
-                                <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                <table class="footable table table-stripped" data-page-size="20" data-filter=#filter>
                                     <thead>
                                     <tr>
-                                        <th class="text-center">Kode</th>
                                         <th>Nama</th>
                                         <th class="text-center">Kadar Lokal</th>
                                         
                                         <th  class="text-center">Safety Stock</th>
+                                        <th  class="text-center">Kategori</th>
                                         <th  class="text-center">Asal</th>
-
                                         <th  class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
@@ -104,13 +103,12 @@
 
                                         ?>
                                         <tr>
-                                            <td class="text-center"><?php echo $p->kodeMaterial?></td>
                                             <td><?php echo $p->namaMaterial?></td>
                                             <td class="text-center"><?php echo $p->kadar?> %</td>
                                             
                                             <td class="text-center"><?php echo $p->safetyStock.'&nbsp'.$p->satuan?></td>
+                                            <td class="text-center"><?php echo $p->kategori?></td>
                                             <td class="text-center"><?php echo $p->asal?></td>
-                                            
                                             <td class="text-center"><!-- Button trigger modal -->
                                                 <div class="btn-group">
                                                             <a href="<?php echo base_url()?>user/editMaterial/<?php echo $p->idMaterial?>" class="btn btn-xs btn-warning">Edit</a>

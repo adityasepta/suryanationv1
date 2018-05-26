@@ -3682,7 +3682,6 @@ class User extends CI_Controller {
     public function next2($idKloter,$idAktivitas) {
 
         $kloter = $this->mdl->getIsiKloter($idKloter);
-
         for ($i=0; $i < count($kloter) ; $i++) { 
 
             $data = array(
@@ -5132,6 +5131,7 @@ class User extends CI_Controller {
 
         $proses = $this->mdl->getProsesDetail($idProProd);
 
+        $nomorPO = $spk[0]->nomorPO;
         $iduser = ($this->session->userdata['logged_in']['iduser']);
         $berat = $proses[0]->berat;
 
@@ -5143,6 +5143,7 @@ class User extends CI_Controller {
             'satuan' => 'gr',
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'OUT',
+            'nomorPO'   => $nomorPO,
             'tipePergerakan' => 'Transfer'
                 
         );
@@ -5162,6 +5163,7 @@ class User extends CI_Controller {
             'tanggal' => date("Y-m-d H:i:s"),
             'jenisPergerakanBarang' => 'IN',
             'tipePergerakan' => 'Transfer',
+            'nomorPO'   => $nomorPO,
             'statusTransfer' => 'Pending'
                 
         );
@@ -7669,7 +7671,6 @@ class User extends CI_Controller {
         $stok = $this->mdl->getLastMovement($nomorPO,$idProduk);
 
 
-
         $dataInventory = array(
                 'idPIC'         => $this->session->userdata['logged_in']['iduser'],
                 'tipeBarang'    => 'Produk Jadi',
@@ -7684,6 +7685,8 @@ class User extends CI_Controller {
                 
         );
 
+
+        //print_r($dataInventory);exit();
         $this->mdl->insertData('stokbarang',$dataInventory);
 
         $dataStatus = array(
