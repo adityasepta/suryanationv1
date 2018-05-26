@@ -109,8 +109,10 @@
                                             <td><?php echo $p->kodeAkun?></td>
                                             <td><?php echo $p->namaAkun?></td>
                                             <td><!-- Button trigger modal -->
+                                                            <div class="btn-group">
                                                             <a href="href="#" data-toggle="modal" data-target="#akun<?php echo $p->idAkun;?>" class="btn btn-xs btn-warning" >Edit</a>
                                                             <a href="<?php echo base_url()?>user/deleteAkun/<?php echo $p->idAkun?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus akun ini?')">Hapus</a></td>
+                                                            </div>
                                          </tr>
                                          <?php if($akun2) {?>
                                         <!-- Modal -->

@@ -5,7 +5,7 @@ class Login extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        
+        date_default_timezone_set("Asia/Jakarta");
         $this->load->helper('text');
         $this->load->helper('form');
         $this->load->model('mdl');
@@ -40,6 +40,7 @@ class Login extends CI_Controller {
                 'level' => $status[0]->level,
                 'iduser' => $status[0]->idUser,
                 'jabatan' => $status[0]->jabatan,
+                'fotoUser' => $status[0]->fotoUser,
             );
 
             $this->session->set_userdata('logged_in', $session_data);

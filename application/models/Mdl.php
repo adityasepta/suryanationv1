@@ -252,6 +252,46 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listProdukTempahan(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Tempahan'");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukMassal(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT idProduk,kodeProduk,namaProduk,jenisProduk,deskripsi,hargaJual,hargaModal,kategori,statusKatalog,gambar1 FROM produk WHERE kategori = 'Massal' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukPerak(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Perak' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listProdukTrading(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM produk WHERE kategori = 'Trading' ");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listSPK(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO ORDER BY a.nomorFaktur DESC");
@@ -435,6 +475,15 @@ class mdl extends CI_Model {
     public function findSPK($nomorFaktur){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+    public function findSPK10($idSPK){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE idSPK=$idSPK LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -730,6 +779,13 @@ class mdl extends CI_Model {
         $result = $query->result();
         return $result;
     }
+
+    public function listKatalogByKategori($kategori) {
+        $sql    = "SELECT * from produk WHERE kategori='$kategori' AND statusKatalog='Tampil'";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
     
     public function getProd() {
         $sql    = "SELECT *,a.kodeProduk as kode FROM produk a, potempahan b where a.idProduk = b.idProduk";
@@ -754,7 +810,7 @@ class mdl extends CI_Model {
 
     public function getMaterial() {
 
-        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan')";
+        $sql    = "SELECT * FROM `materialdasar` where asal = 'Asli' UNION SELECT * FROM materialdasar where (asal = 'Datang Emas' OR asal ='Balik Abu' OR asal ='Balik Bahan') ORDER BY namaMaterial";
 
         $query  = $this->db->query($sql);
         $result = $query->result();
@@ -902,7 +958,8 @@ class mdl extends CI_Model {
     }
 
     public function getStokProduk() {
-        $sql    = "SELECT * from ( SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, b.kadar, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama FROM stokbarang a, produk b, user c, pomasal d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') UNION SELECT a.*, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk, d.kadarBahan, c.nama as namapic FROM stokbarang a, produk b, user c, potempahan d where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and b.idProduk = d.idProduk AND (a.tipeBarang='Produk Jadi' OR a.tipeBarang='Produk Semi Jadi') ) a order by tanggal desc";
+        $sql    = "SELECT * FROM (SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' 
+               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY tanggal";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1099,7 +1156,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     
     public function listCustomer(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM customer");
+        $hasil = $this->db->query("SELECT * FROM customer order by namaCustomer");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1466,7 +1523,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getIsiKloter($idKloter) {
 
-        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c, potempahan pp where s.nomorPO = pp.nomorPO and s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
+        $sql   = "SELECT * FROM kloter k, spk s, produk p, potempahan pp LEFT JOIN customer c ON pp.idCustomer=c.idCustomer where s.nomorPO = pp.nomorPO and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -1592,7 +1649,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getLastMovement($nomorPO, $idProduk) {
-        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' ";
+        $sql = "SELECT * FROM `stokbarang` where nomorPO = $nomorPO and tipeBarang = 'Produk Jadi' AND tipePergerakan='Transfer' AND jenisPergerakanBarang='IN' AND kodeBarang=$idProduk";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1657,16 +1714,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
      public function findPOTrading($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
-        if($hasil->num_rows() > 0){
-            return $hasil->result();
-        } else{
-            return array();
-        }
-    }
-
-    public function listProdukTrading(){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM produk where kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2398,16 +2445,15 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
 
     public function getYourStock($idPIC) {
-        $sql   = "SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
+        $sql   = "SELECT a.jenis, a.nama, a.jmlmasuk, c.kadarBahan as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk, DATE_FORMAT(a.tanggal, '%d %M %Y') AS tanggal FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
+        UNION 
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaMaterial) as nama , SUM(a.jumlah) as jmlmasuk, max(b.kadar) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, materialdasar b where a.kodeBarang = b.kodeMaterial  and a.statusTransfer = 'Valid' AND a.tipeBarang='Material Dasar' and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idMaterial
         UNION
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, produk b, pomasal c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
         UNION
-        select a.jenis, a.nama, a.jmlmasuk, c.kadarBahan from (SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama, b.idProduk, SUM(a.jumlah) as jmlmasuk FROM stokbarang a, produk b where a.kodeBarang = b.idProduk and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk ORDER BY nama) a, produkpo b, pomasal c where a.idProduk = b.idProdukChild and b.nomorPO = c.nomorPO
-        UNION
-        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar FROM stokbarang a, produk b, potempahan c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi' or a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk 
-        
-
-        ORDER BY nama
+        SELECT a.jenisPergerakanBarang as jenis, max(b.namaProduk) as nama , SUM(a.jumlah) as jmlmasuk, max(c.kadarBahan) as kadar,DATE_FORMAT(a.tanggal, '%d %M %Y') AS tgl FROM stokbarang a, produk b, potempahan c where c.idProduk = b.idProduk and a.kodeBarang = b.idProduk  and a.statusTransfer = 'Valid' AND (a.tipeBarang='Produk Semi Jadi' or a.tipeBarang='Produk Jadi') and a.idPIC = $idPIC GROUP BY a.jenisPergerakanBarang, b.idProduk
+ 
+ORDER BY tgl DESC,nama LIMIT 50
         ";
         $query = $this->db->query($sql);
         
@@ -2582,7 +2628,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
     public function findSPKService($nomorFaktur){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM spkservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN purchaseorderservice d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=1 LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM spkservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN purchaseorderservice d ON a.nomorPO = d.nomorPO LEFT JOIN user e ON d.idSalesPerson=e.idUser WHERE nomorFaktur=$nomorFaktur LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2829,7 +2875,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getBerlian($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM poberlian a WHERE a.nomorPO=$nomorPO");
+        $hasil = $this->db->query("SELECT * FROM poberlian a WHERE a.nomorPO=$nomorPO ORDER BY jenis");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2840,7 +2886,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     //Jurnal
     public function listJurnal(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,b.idJurnal,b.keterangan AS keteranganJurnal, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tanggalCashflow FROM cashflow a LEFT JOIN jurnal b ON a.idCashflow=b.idCashflow ORDER BY a.idCashflow DESC");
+        $hasil = $this->db->query("SELECT a.*,IFNULL((SELECT SUM(d.jumlah) FROM jurnal c LEFT JOIN detailjurnal d ON c.idJurnal=d.idJurnal WHERE c.idJurnal=a.idJurnal AND d.kategori='Debit'),0) AS jumlah FROM jurnal a WHERE tanggal=CURDATE() ORDER BY a.idJurnal DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2848,9 +2894,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function detailJurnal($idCashflow){
+    public function detailJurnal($idJurnal){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.idCashflow=$idCashflow");
+        $hasil = $this->db->query("SELECT a.*,b.*,c.namaCustomer,c.nomorTelepon FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN customer c ON a.idCustomer=c.idCustomer WHERE a.idJurnal=$idJurnal");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2858,9 +2904,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function jurnalHariIni(){
+    public function jurnalHarian($date){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.tanggal = CURRENT_DATE ORDER BY a.idCashflow, b.kategori");
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE a.tanggal = '$date' ORDER BY a.idJurnal, b.kategori DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2870,9 +2916,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function stockPerMaterial($idUser){
 
-        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
+        $hasil = $this->db->query("SELECT * FROM (SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
         UNION
-        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC =$idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang");
+        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC =$idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang) al WHERE al.masuk-al.keluar!=0 ORDER BY namaBarang");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();
@@ -2923,5 +2969,85 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         $query = $this->db->query($sql);
         
         return $query->result();
+    }
+
+    //BukuBesar
+    public function bukuBesarPeriode($kodeAkun,$dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT a.*,b.*,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND a.tanggal >= '$date1' and a.tanggal <= '$date2' ORDER BY a.idJurnal, b.kategori");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getSaldo($kodeAkun,$date) {
+        $date1 = $newDate = date("Y/m/d", strtotime($date));
+        $hasil = $this->db->query("SELECT (SELECT IFNULL(SUM(b.jumlah),0) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1') - IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE c.kodeAkun=$kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1'),0) as balance");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+
+    public function getNeracaBerjalan($dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS kre FROM akun z WHERE z.kodeTipeAkun < 4000");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getNeracaAwal($date) {
+        $date1 = $newDate = date("Y/m/d", strtotime($date));
+        $hasil = $this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS kre FROM akun z WHERE z.kodeTipeAkun < 4000");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+    public function labaRugiBerjalan($dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil=$this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal >= '$date1' AND a.tanggal <= '$date2' GROUP BY b.kodeAkun),0) AS Kre FROM akun z");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function labaRugiAwal($date) {
+        $date1 = $newDate = date("Y/m/d", strtotime($date));
+        $hasil=$this->db->query("SELECT z.kodeTipeAkun, z.kodeAkun, z.namaAkun, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Debit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Deb, IFNULL((SELECT SUM(b.jumlah) FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun WHERE b.kodeAkun=z.kodeAkun AND b.kategori='Kredit' AND a.tanggal < '$date1' GROUP BY b.kodeAkun),0) AS Kre FROM akun z");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function bukuBesarPiutang($idCustomer,$dari,$sampai) {
+        $date1 = $newDate = date("Y/m/d", strtotime($dari));
+        $date2 = $newDate = date("Y/m/d", strtotime($sampai));
+        $hasil = $this->db->query("SELECT a.idJurnal,d.idCustomer,d.namaCustomer,a.keterangan,b.kodeAkun,b.jumlah,b.kategori,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun LEFT JOIN customer d ON a.idCustomer=d.idCustomer WHERE c.kodeTipeAkun < 1300 AND a.tanggal >= '$date1' and a.tanggal <= '$date2' AND d.idCustomer= $idCustomer ORDER BY a.tanggal, idJurnal DESC");
+
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
     }
 }

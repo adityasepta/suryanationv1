@@ -21,8 +21,8 @@
                     <ul class="nav nav-second-level"> 
                         <li><a href="<?php echo base_url();?>user/kanban">Kanban Tempahan</a></li>
                         <li><a href="<?php echo base_url();?>user/kanbanMassal">Kanban Massal</a></li> 
-                        <!--<li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> 
-                        <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> -->
+                        <!-- <li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> --> 
+                        <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> 
                     </ul> 
                 </li> 
                 <li> 
@@ -40,13 +40,13 @@
                                 </li> 
                                <!-- <li> 
                                     <a href="<?php echo base_url();?>user/listPOPerak">PO Perak</a> 
-                                </li> 
+                                </li>  -->
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOService">PO Service</a> 
                                 </li> 
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOTrading">PO Trading</a> 
-                                </li> -->
+                                </li>
                             </ul> 
                         </li> 
                         <li> 
@@ -58,20 +58,20 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKMasal">SPK Massal</a> 
                                 </li> 
-                                <!--<li> 
+                               <!--  <li> 
                                     <a href="<?php echo base_url();?>user/listSPKPerak">SPK Perak</a> 
-                                </li> 
+                                </li>  -->
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKService">SPK Service</a> 
-                                </li> -->
+                                </li> 
                             </ul> 
                         </li> 
                         <li>
                             <a href="#">Invoice Customer <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level"> 
-                                <li> 
+                                <!-- <li> 
                                     <a href="<?php echo base_url();?>user/listInvoiceTempahan">PO Tempahan</a> 
-                                </li>
+                                </li> -->
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listInvoiceMassal">PO Massal</a> 
                                 </li> 
@@ -113,11 +113,11 @@
                     <a href="index.html"><i class="fa fa-money"></i> <span class="nav-label">Keuangan</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/finance">Beranda</a></li>
-                        <li><a href="<?php echo base_url()?>user/cashflow">Cashflow</a></li>
                         <li><a href="<?php echo base_url()?>user/jurnal">Jurnal</a></li>
-                        <li><a href="<?php echo base_url()?>user/revenue">Pendapatan</a></li>
-                        <li><a href="<?php echo base_url()?>user/cost">Pengeluaran</a></li>
-                        <li><a href="<?php echo base_url()?>user/profit">Keuntungan</a></li>
+                        <li><a href="<?php echo base_url()?>user/bukuBesar">Buku Besar</a></li>
+                        <li><a href="<?php echo base_url()?>user/bukuBesarCustomer">Buku Besar Per Customer</a></li>
+                        <li><a href="<?php echo base_url()?>user/neraca">Neraca</a></li>
+                        <li><a href="<?php echo base_url()?>user/labaRugi">Laba Rugi</a></li>
                     </ul>
                 </li>
                 <li>

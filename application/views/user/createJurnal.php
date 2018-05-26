@@ -61,43 +61,35 @@
                         <div class="ibox-content">
                             <div class="modal-header">
                                 <h2 class="text-center">Tambah Jurnal</h2>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <?php 
-                                            $tgl = new DateTime($cashflow[0]->tanggal);
-                                            $tglmsk = $tgl->format("d F Y");
-                                        ?>
-                                        <dl class="dl-horizontal">
-                                            <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
-                                            <dt>Keterangan :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->keterangan; ?></b></dd>
-                                        </dl>
-                                    </div>
-                                    <div class="col-md-6 text-left">
-                                        <dl class="dl-horizontal">
-                                            <dt>Jumlah :</dt><dd> <b class="text-success">Rp <?php echo number_format($cashflow[0]->jumlah,2);?></b></dd>
-                                            <dt>Kategori :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->kategori?></b></dd>
-                                            <dt>Tipe Transaksi :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->tipeTransaksi?></b></dd>
-                                        </dl>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-body">
                                 <?php echo form_open_multipart('user/tambahJurnal/')?>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Customer</label>
+                                        <select name="idCustomer" class="form-control">
+                                            <option value="">Tidak Ada Customer </option>
+                                            <?php foreach($customer as $customer) {?>
+                                            <option value="<?php echo $customer->idCustomer?>">
+                                                <?php echo $customer->namaCustomer?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <?php 
+                                          $tglskg = new DateTime();
+                                          $tglnow = $tglskg->format("Y-m-d");
+                                        ?>
+                                        <label>Tanggal</label>
+                                        <input type="date" name="tanggal" value="<?php echo $tglnow ?>" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12">
-                                        <input type="hidden" name="idCashflow" value="<?= $cashflow[0]->idCashflow ?>">
                                         <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <label>Keterangan</label>
-                                                    <input type="text" name="keterangan" class="form-control" required>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Tanggal</label>
-                                                    <input type="date" name="tanggal" class="form-control" required>
-                                                </div>
-                                            </div>
+                                            <label>Keterangan</label>
+                                            <input type="text" name="keterangan" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <div class="input_fields_wrap" >
@@ -108,8 +100,7 @@
                                     
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" type="submit">Save changes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" id="simpan1" type="submit" >Save changes</button>
                                 </div>
                                 <?php echo form_close()?> 
                             </div>
@@ -147,12 +138,31 @@
         var wrapper         = $(".input_fields_wrap"); //Fields wrapper
         var add_button      = $(".add_field_button"); //Add button ID
         
+
         var x = 1; //initlal text box count
         $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select id="kate'+x+'" type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input id="jumla'+x+'" type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                
+            }
+        });
+
+        $(document).on('click','form button[type=submit]',function(e){
+            var balance=0;
+            for(var i=2;i<=x;i++){
+                if(document.getElementById('kate'+i).value=='Debit'){
+                    balance+=parseFloat(document.getElementById('jumla'+i).value);
+                } else {
+                    balance-=parseFloat(document.getElementById('jumla'+i).value);
+                }
+            }
+            
+            if(x>=2&&balance==0){
+            } else {
+                alert('Jumlah Debit dan Kredit yang dimasukkan tidak seimbang (Balance)');
+                e.preventDefault();
             }
         });
         

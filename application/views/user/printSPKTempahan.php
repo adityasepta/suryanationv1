@@ -89,7 +89,7 @@
     }
     section {
         clear: both;
-        margin-top: 3em;
+        margin-top: 1em;
     }
     li {
         list-style-type: disc;
@@ -98,6 +98,13 @@
     header > ul > li {
         list-style-type: none;
         margin-bottom: .5em;
+    }
+    .less-space>tbody>tr>td {
+        padding: 4px;
+    }
+    .holding>tbody>tr>td {
+        padding: 0px;
+        border-top: 0px;
     }
     .headline-name {
         border-bottom: 1px solid black;
@@ -152,7 +159,7 @@
         }
         body {
             margin: 1em auto;
-            padding: 1em  2em 1em 2em;
+            padding: 2px  2em 1em 2em;
             width: 100%;
         }
         section {
@@ -166,7 +173,7 @@
         }
 
         .header-section h3 {
-            margin: 20px auto;
+            margin: 2px auto;
             text-align: center;
         }
 
@@ -186,6 +193,7 @@
         margin: 0;  /* this affects the margin in the printer settings */
     }
     </style>
+    
 </head>
 
 <body>
@@ -205,132 +213,253 @@
                     </a>
                 </div>
             </div> 
-            <table class="table no-border">
+            <table class="table holding">
                 <tbody>
                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
-                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Konsumen</td>
+                                        <td>: <b><?php echo $namaCustomer;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nomor Telepon</td>
+                                        <td>: <b> <?php echo $nomorTelepon;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td><b>No SPK / <?php echo $nomorPO;?></b></td>
+                                        <td></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Tanggal Terima</td>
+                                        <td>: <b><?php echo $tglmsk;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Siap Tanggal</td>
+                                        <td>: <b> <?php echo $tglpyl;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
-                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
-                     </tr>
-                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%" ><b>Nomor SPK : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
-                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
-                     </tr>
-                     
                 </tbody>
             </table>
             <hr style="border-top: 3px solid #282828;">
         </header>
         <section id="detailProduk">
-            <table class="table no-border">
+            <table class="table no-border holding">
                 <tbody>
                     <tr>
-                        <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
-                    </tr>
-                    <tr>
-                        <td><b>Bahan:</b> <?php echo $bahan ?></td>
-                        <td><b>Kadar:</b> <?php echo $kadarBahan?>%</td>
-                    </tr>
-                    <tr id="datangEmas">
-                        <td><b>Datang Emas:</b> <?php echo $datangEmas ?>gr</td>
-                        <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
-                    </tr>
-                    <tr>
-                        <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
-                        <td><b>Range Berat:</b> <?php echo $estimasi ?>gr</td>
-                    </tr>
-                    <tr>
-                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
-                    </tr>
-                    <?php for ($b=0; $b < count($poberlian) ; $b++) { ?>
-                    <tr>
-                        <td><?php if(count($poberlian)>0 && $b==0){?><b>Berlian / Swarovski:<?php } ?></b></td>
-                        <td><?php echo $poberlian[$b]->namaBerlian ?></td>
-                    </tr>
-                    <?php } ?>
-                    <tr id="batu1">
-                        <td><b>Nama Batu:</b> <?php echo $namaBatu ?></td>
-                    </tr>
-                    <tr id="batu2">
-                        <td><b>Berat Batu:</b> <?php echo $beratBatu ?></td>
-                    </tr>
-                    <tr id="batu3">
-                        <td><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
-                    </tr>
-                    <tr id="batu4">
-                        <td><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
-                    </tr>
-                    <tr id="batu5">
-                        <td><b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
-                    </tr>
-                    <tr id="batu6">
-                        <td><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
-                    </tr>
-                    <tr id="batu7">
-                        <td><b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></td>
-                    </tr>
-                    <tr>
-                        <td><b>Metode:</b> <?php echo $metode ?></td>
-                    </tr>
-                    <tr>
-                        <td><b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?></td>
-                    </tr>
-                    
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td width="45%"><b>Jenis Produk</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $jenisProduk ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bahan</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $bahan ?></td>
+                                    </tr>
+                                    <tr id="datangEmas">
+                                        <td><b>Datang Emas</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $datangEmas ?> gr</td>
+                                    </tr>
+                                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                                    <tr>
+                                        <td><b>Datang Berlian</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td><?php echo $datangBerlian ?> pcs</td>
+                                    </tr>
+                                    <?php }?>
+                                    <tr>
+                                        <td><b>Berat Estimasi</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $beratAkhir ?> gr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ukuran</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $ukuranJari ?> </td>
+                                    </tr>
+                                    <?php for ($b=0; $b < count($poberlian) ; $b++) { ?>
+                                    <tr>
+                                        <td><?php if(count($poberlian)>0 && $b==0){?><b>Berlian / Swarovski:<?php } ?></b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="<?php echo 6-$b?>"><?php echo $poberlian[$b]->namaBerlian ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <tr id="batu1">
+                                        <td><b>Nama Batu</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $namaBatu ?> </td>
+                                    </tr>
+                                    <tr id="batu2">
+                                        <td><b>Berat Batu</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $beratBatu ?> </td>
+                                    </tr>
+                                    <tr id="batu3">
+                                        <td><b>Keterangan Batu</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $keteranganBatu ?> </td>
+                                    </tr>
+                                    <tr id="batu4">
+                                        <td><b>Batu Terhadap Pukulan</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $batuTerhadapPukulan ?> </td>
+                                    </tr>
+                                    <tr id="batu5">
+                                        <td><b>Batu Terhadap Goresan</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $batuTerhadapGoresan ?> </td>
+                                    </tr>
+                                    <tr id="batu6">
+                                        <td><b>Batu Terhadap Kruman</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $batuTerhadapKruman ?> </td>
+                                    </tr>
+                                    <tr id="batu7">
+                                        <td><b>Keadaan Batu Tengah</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $keadaanBatuTengah ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Metode</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $metode ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Tipe Ikatan</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $tipeIkatan ?> </td>
+                                    </tr>
+                                    
 
-                    <!-- Pekerjaan Tambahan -->
-                    <?php $pt = explode(',',$pekerjaanTambahan);?>
-                    <?php if(in_array("Enamel", $pt)){ ?>
-                    <tr>
-                        <td><b>(Tambahan) Enamel</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganEnamel ?></td>
-                    </tr>
-                    <?php } ?>
-                    <?php if(in_array("Slap", $pt)){ ?>
-                    <tr>
-                        <td><b>(Tambahan) Slap</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganSlap ?></td>
-                    </tr>
-                    <?php } ?>
-                    <?php if(in_array("Kombinasi", $pt)){ ?>
-                    <tr>
-                        <td><b>(Tambahan) Kombinasi</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganKombinasi ?></td>
-                    </tr>
-                    <?php } ?>
-                    <?php if(in_array("Laser Huruf", $pt)){ ?>
-                    <tr>
-                        <td><b>(Tambahan) Laser Huruf</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganLaserHuruf ?></td>
-                    </tr>
-                    <?php } ?>
-                    <?php if(in_array("Kode Cap", $pt)){ ?>
-                    <tr>
-                        <td><b>(Tambahan) Kode Cap</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganKodeCap ?></td>
-                    </tr>
-                    <?php } ?>
-                    <!--  -->
-                    <tr>
-                        <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"><b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                                    <!-- Pekerjaan Tambahan -->
+                                    <?php $pt = explode(',',$pekerjaanTambahan);?>
+                                    <?php if(in_array("Enamel", $pt)){ ?>
+                                    <tr>
+                                        <td width="25%"><b>(Tambahan) Enamel</b></td>
+                                        <td width="1%"></td>
+                                        <td><b>Keterangan</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td><?php echo $keteranganEnamel ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <?php if(in_array("Slap", $pt)){ ?>
+                                    <tr>
+                                        <td width="25%"><b>(Tambahan) Slap</b></td>
+                                        <td width="1%"></td>
+                                        <td><b>Keterangan</td>
+                                        <td width="10%" class="text-center">:</td>
+                                        <td><?php echo $keteranganSlap ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <?php if(in_array("Kombinasi", $pt)){ ?>
+                                    <tr>
+                                        <td width="25%"><b>(Tambahan) Kombinasi</b></td>
+                                        <td width="1%"></td>
+                                        <td><b>Keterangan</td>
+                                        <td width="10%" class="text-center">:</td>
+                                        <td colspan="2"><?php echo $keteranganKombinasi ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <?php if(in_array("Laser Huruf", $pt)){ ?>
+                                    <tr>
+                                        <td width="25%"><b>(Tambahan) Laser Huruf</b></td>
+                                        <td width="1%"></td>
+                                        <td><b>Keterangan</td>
+                                        <td width="10%" class="text-center">:</td>
+                                        <td colspan="2"><?php echo $keteranganLaserHuruf ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <?php if(in_array("Kode Cap", $pt)){ ?>
+                                    <tr>
+                                        <td width="25%"><b>(Tambahan) Kode Cap</b></td>
+                                        <td width="1%"></td>
+                                        <td><b>Keterangan</td>
+                                        <td width="10%" class="text-center">:</td>
+                                        <td colspan="2"><?php echo $keteranganKodeCap ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <!--  -->
+                                    <tr>
+                                        <td><b>Krum Warna</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $krumWarna ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Keterangan Krum</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $keteranganKrum ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Keterangan Lain</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td colspan="4"><?php echo $model ?> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                            <tbody>
+                                <tr>
+                                    <td width="45%"><b></b></td>
+                                    <td width="1%" class="text-center">&nbsp</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Kadar</b></td>
+                                    <td width="1%" class="text-center">:</td>
+                                    <td><?php echo $kadarBahan ?> %</td>
+                                </tr>
+                                <tr id="datangEmas2">
+                                    <td><b>Kadar</b></td>
+                                    <td width="1%" class="text-center">:</td>
+                                    <td><?php echo $kadarDatangEmas ?> %</td>
+                                </tr>
+                                <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                                    <tr>
+                                        <td><b>Berat</b></td>
+                                        <td width="1%" class="text-center">:</td>
+                                        <td><?php echo $jumlahDatangBerlian ?> cr</td>
+                                    </tr>
+                                    <?php }?>
+                                <tr>
+                                    <td><b>Range Berat</b></td>
+                                    <td width="1%" class="text-center">:</td>
+                                    <td><?php echo $estimasi ?> gr</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gambar Sampel</b></td>
+                                    <td width="1%" class="text-center">:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><img src="<?php echo base_url('uploads/gambarProduk/'.$kodeGambar.'-cust.jpg')?>" class="img img-responsive" style="max-height: 400px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            
         </section>
     </div>
     
@@ -360,6 +489,7 @@
         var g = <?php echo $datangEmas?>;
         if(g==null||g==0){
             document.getElementById('datangEmas').style.display = 'none';
+            document.getElementById('datangEmas2').style.display = 'none';
         };
 
         // var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;

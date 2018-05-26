@@ -100,6 +100,7 @@
                                     <td><?php echo $hasil->namaProduk?></td>
                                     
                                     <td class="text-center">
+                                        <div class="btn-group">
                                         <?=anchor('user/invoicePOMassal/' . $hasil->nomorPO, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
@@ -108,10 +109,11 @@
                                           'class' => 'btn btn-warning btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPOMassal/' . $hasil->nomorPO, 'Delete', [
+                                        <?=anchor('user/hapusPOMassal/' . $hasil->nomorPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
                                         ])?>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

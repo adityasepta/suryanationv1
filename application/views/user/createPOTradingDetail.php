@@ -164,7 +164,10 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <a class="btn btn-danger btn-md pull-left" href="<?php echo base_url('user/hapusPOTrading/'.$PO[0]->idPO)?>" onclick="return confirm('Apakah anda yakin akan membatalkan pesanan? Sistem akan menghapus po yang sudah dibuat sebelumnya')";>Batalkan pesanan</a>
+                                    </div>
+                                    <div class="col-sm-6">
                                         <a class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#checkout">Checkout</a>
                                     </div>
                                 </div>

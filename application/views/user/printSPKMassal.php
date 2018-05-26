@@ -66,6 +66,13 @@
         list-style-type: none;
         margin-bottom: .5em;
     }
+    .less-space>tbody>tr>td {
+        padding: 4px;
+    }
+    .holding>tbody>tr>td {
+        padding: 0px;
+        border-top: 0px;
+    }
     .headline-name {
         border-bottom: 1px solid black;
         padding-bottom: .5em;
@@ -119,7 +126,7 @@
         }
         body {
             margin: 1em auto;
-            padding: 1em  2em 1em 2em;
+            padding: 2px  2em 1em 2em;
             width: 100%;
         }
         section {
@@ -133,7 +140,7 @@
         }
 
         .header-section h3 {
-            margin: 20px auto;
+            margin: 2px auto;
             text-align: center;
         }
 
@@ -172,80 +179,131 @@
                     </a>
                 </div>
             </div> 
-            <table class="table no-border">
+            <table class="table holding">
                 <tbody>
                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
-                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Konsumen</td>
+                                        <td>: <b><?php echo $namaCustomer;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nomor Telepon</td>
+                                        <td>: <b> <?php echo $nomorTelepon;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td><b>No SPK / <?php echo $nomorPO;?></b></td>
+                                        <td></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Tanggal Terima</td>
+                                        <td>: <b><?php echo $tglmsk;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Siap Tanggal</td>
+                                        <td>: <b> <?php echo $tglpyl;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
-                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
-                     </tr>
-                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
-                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
-                     </tr>
-                     
                 </tbody>
             </table>
+            
             <hr style="border-top: 3px solid #282828;">
         </header>
         <section id="detailProduk">
-            <div class="col-lg-6">
-                <table class="table no-border">
-                    <tbody>
-                        <tr>
-                            <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
-                        </tr>
-                        <tr>
-                            <td><b>Bahan:</b> <?php echo $bahan ?></td>
-                            <td><b>Kadar:</b> <?php echo $kadarBahan; ?>%</td>
-                        </tr>
-                        <tr id="datangEmas">
-                            <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
-                            <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
-                        </tr>
-                        <tr>
-                            <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
-                        </tr>
-                        <tr>
-                            <td><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
-                        </tr>
-                        <tr>
-                            <td><b>Pekerjaan Tambahan:</b> <?php echo $pekerjaanTambahan ?></td>
-                        </tr>
-                        <tr>
-                            <td><b>Keterangan Tambahan:</b> <?php echo $keteranganTambahan ?></td>
-                        </tr>
-                        <tr>
-                            <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
-                        </tr>
-                        <tr>
-                            <td><b>Keterangan Krum:</b> <?php echo $keteranganKrum ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-lg-6">
-                <table class="table no-border">
-                    <tbody>
-                        <tr>
-                            <td><b>Model yang diproduksi : </b></td>
-                        </tr>
-                        <?php for($a=0; $a < count($produkPO); $a++) { ?>
-                        <tr>
-                            <td><b><?php echo $produkPO[$a]->namaProduk.' ('.$produkPO[$a]->kodeProduk.')'; ?> </b> <?php echo '| '.$produkPO[$a]->keterangan?></td>
-                        </tr>        
-                        <?php } ?>        
-                    </tbody>
-                </table>
+            <div class="col-lg-12">
+            <table class="table holding">
+                <tbody>
+                    <tr>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%"><b>Jenis Produk</td>
+                                        <td width="50%">: <?php echo $jenisProduk ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bahan</b></td>
+                                        <td>: <?php echo $bahan ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Kadar Bahan</b></td>
+                                        <td>: <?php echo $kadarBahan; ?>%</td>
+                                    </tr>
+                                    <tr id="datangEmas">
+                                        <td><b>Datang Emas</b></td>
+                                        <td>: <?php echo $datangEmas ?></td>
+                                    </tr>
+                                    <tr id="datangEmas1">
+                                        <td><b>Kadar Datang Emas</b></td>
+                                        <td>: </b> <?php echo $kadarDatangEmas ?>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Berat Estimasi</b></td>
+                                        <td>: <?php echo $beratAkhir ?>gr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ukuran</b></td>
+                                        <td>: <?php echo $ukuranJari ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Pekerjaan Tambahan</b></td>
+                                        <td>: <?php echo $pekerjaanTambahan ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Keterangan Tambahan</b></td>
+                                        <td>: <?php echo $keteranganTambahan ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Krum Warna</b></td>
+                                        <td>: <?php echo $krumWarna ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Keterangan Krum</b></td>
+                                        <td>: <?php echo $keteranganKrum ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Upah</b></td>
+                                        <td>: <?php echo $upah ?>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Keterangan Lain</b></td>
+                                        <td>: <?php echo $model ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Model yang diproduksi : </b></td>
+                                    </tr>
+                                    <?php for($a=0; $a < count($produkPO); $a++) { ?>
+                                    <tr>
+                                        <td><b><?php echo $produkPO[$a]->namaProduk; ?> </b> <?php echo '| '.$produkPO[$a]->keterangan?></td>
+                                    </tr>        
+                                    <?php } ?>        
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             </div>
         </section>
     </div>
@@ -258,6 +316,7 @@
         var g = <?php echo $datangEmas?>;
         if(g==null||g==0){
             document.getElementById('datangEmas').style.display = 'none';
+            document.getElementById('datangEmas1').style.display = 'none';
         };
 
     });

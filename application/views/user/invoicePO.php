@@ -188,13 +188,13 @@
                                                (Berat Akhir - Berat Batu + Susut)
                                             </td>
                                             <td class="text-center">
-                                                <label><?php echo $beratSisa=$beratAkhir-$beratBatu+$susut?> gr</label>
+                                                <label><?php echo $sisaBerat=$beratAkhir-$beratBatu+$susut?> gr</label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right">Rp. <?php echo number_format($hargaBahan,2,",","."); ?></label>
                                             </td>
                                             <td>
-                                               <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaAwal=$beratSisa*$hargaBahan,2,",","."); ?></label>
+                                               <label class="text-muted pull-right"> Rp. <?php if($dataPO[0]->jenisCustomer=="Toko"){ $hargaAwal=$sisaBerat*(($dataPO[0]->kadarBahan+$dataPO[0]->persenBiaya)/100)*$dataPO[0]->hargaBahan; }else{$hargaAwal=$sisaBerat*$dataPO[0]->hargaBahan;}; echo number_format($hargaAwal,2,',','.');?></label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -231,13 +231,13 @@
                                                 <?php echo $poberlian[$y]->namaBerlian ?>
                                             </td>
                                             <td class="text-center">
-                                                <label><?php echo $poberlian[$y]->jumlah?></label>
+                                                <label><?php if($poberlian[$y]->jenis=='Berlian'){echo $poberlian[$y]->karat.' Ct'; } else { echo $poberlian[$y]->jumlah.' Pcs';}?></label>
                                             </td>
                                             <td class="text-center">
                                                 <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->harga*$gold['currentRupiah']; echo '$ '.number_format($poberlian[$y]->harga,0,".",".").' (Rp. '.number_format($gold['currentRupiah'],0,".",".").')'; } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,0,".",".");} ?></label>
                                             </td>
                                             <td>
-                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,".","."); ?></label>
+                                                <label class="text-muted pull-right"> Rp. <?php if($poberlian[$y]->jenis=='Berlian'){ echo number_format($hargaPerBerlian=$poberlian[$y]->karat*$satuanBerlian,2,".",".");} else {echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,".",".");} ?></label>
                                             </td>
                                         </tr>
                                         <?php 
@@ -280,12 +280,21 @@
                                             <td class="text-center">
                                                 <label><?php echo $dataPO[0]->datangEmas;?> gr</label>
                                             </td>
+                                            <?php if($dataPO[0]->hargaDatangEmas==0) {?>
+                                            <td>
+                                                <label class="text-muted pull-right"><?php echo $dataPO[0]->kadarDatangEmas.'% ( Rp. '.number_format($gold['currentCurrency'],0,',','.').')'; ?></label>
+                                            </td>
+                                            <td>
+                                                <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->kadarDatangEmas/100*$gold['currentCurrency'],2,",","."); ?></label>
+                                            </td>
+                                            <?php } else { ?>
                                             <td>
                                                 <label class="text-muted pull-right">Rp. <?php echo number_format($dataPO[0]->hargaDatangEmas,2,",",".");?></label>
                                             </td>
                                             <td>
                                                 <label class="text-muted pull-right"> Rp. <?php echo number_format($totalDatangEmas=$dataPO[0]->datangEmas*$dataPO[0]->hargaDatangEmas,2,",","."); ?></label>
                                             </td>
+                                            <?php } ?>
                                         </tr>
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="3"><strong>Total Harga</strong></td>
@@ -406,14 +415,11 @@
                 document.getElementById('kadarDatangEmas1').style.display = 'none';
             };
 
-            var i = <?php if($jumlahDatangBerlian!=null){echo $jumlahDatangBerlian;} else echo 0;?>;
-            if(i==null||i==0){
+            var i = <?php if($datangBerlian!=null){echo $datangBerlian;} else echo 0;?>;
+            var j = <?php echo $jumlahDatangBerlian?>;
+            if(i==0&&j==0){
                 document.getElementById('datangBerlian').style.display = 'none';
                 document.getElementById('datangBerlian1').style.display = 'none';
-            };
-
-            var j = <?php echo $jumlahDatangBerlian?>;
-            if(j==null||j==0){
                 document.getElementById('jumlahDatangBerlian').style.display = 'none';
                 document.getElementById('jumlahDatangBerlian1').style.display = 'none';
             };

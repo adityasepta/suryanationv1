@@ -108,8 +108,10 @@
                                             <td style="width: 10%"><?php echo $no?></td>
                                             <td style="width: 80%"><?php echo $p->namaJabatan?></td>
                                             <td style="width: 10%"><!-- Button trigger modal -->
+                                                <div class="btn-group">
                                                 <a href="href="#" data-toggle="modal" data-target="#jabatan<?php echo $p->idJabatan;?>" class="btn btn-xs btn-warning" >Edit</a>
                                                 <a href="<?php echo base_url('user/deleteJabatan/' . $idJabatan) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus jabatan ini?')">Delete</a>
+                                            </div>
                                             </td>
                                          </tr>
                                          <?php if($jabatan) {?>

@@ -80,13 +80,13 @@
                             <table class="footable table table-stripped" data-page-size="20" data-filter=#filter>
                                 <thead>
                                 <tr>
-                                    <th data-hide="phone,tablet">Tanggal Masuk</th>
-                                    <th>Nomor PO</th>
-                                    <th>Nama Konsumen</th>
-                                    <th data-hide="phone,tablet">Jenis Produk</th>
-                                    <th data-hide="phone,tablet">Nama Produk</th>
-                                    <th data-hide="phone,tablet">Invoice</th>
-                                    <th class="text-center" data-hide="phone,tablet">Action</th>
+                                    <th width="13%" data-hide="phone,tablet">Tanggal Masuk</th>
+                                    <th width="7%">No PO</th>
+                                    <th width="17%">Nama Konsumen</th>
+                                    <th width="13%" data-hide="phone,tablet">Jenis Produk</th>
+                                    <th width="27%" data-hide="phone,tablet">Nama Produk</th>
+                                    <th width="8%" class="text-center" data-hide="phone,tablet">Invoice</th>
+                                    <th width="15%" class="text-center" data-hide="phone,tablet">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -106,6 +106,7 @@
                                          ])?>
                                     </td>
                                     <td class="text-center">
+                                        <div class="btn-group">
                                         <?=anchor('user/invoicePO/' . $hasil->nomorPO, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
@@ -114,10 +115,11 @@
                                           'class' => 'btn btn-warning btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPO/' . $hasil->nomorPO, 'Delete', [
+                                        <?=anchor('user/hapusPO/' . $hasil->nomorPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
                                         ])?>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

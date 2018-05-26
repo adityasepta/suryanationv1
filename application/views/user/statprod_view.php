@@ -331,7 +331,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>GIPS<span class="label label-success pull-right"><?php  echo count($k2)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> Gips <b>1004</b></p>
+                                    <p>Kumpulan dari SPK yang sedang proses <br> Gips <b>1005</b></p>
                                     <ul class="sortable-list connectList agile-list" id="gips">
                                         <?php for ($i=0; $i < count($k2) ; ++$i) { ?>
                                            <?php include('card/card-kloter2.php') ?>

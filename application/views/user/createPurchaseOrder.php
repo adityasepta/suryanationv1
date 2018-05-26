@@ -125,7 +125,7 @@
                                                   $tglpyl = strtotime("2 week",strtotime($tglnow));
                                                   $tglweek = date("Y-m-d",$tglpyl);
                                                 ?>
-                                                <label>Tanggal Terima <?php echo $tglweek?></label>
+                                                <label>Tanggal Terima</label>
                                                 <input type="date" placeholder="Tanggal Terima" name="tanggalMasuk" class="form-control" value="<?php echo $tglnow ?>" required="">
                                             </div>
                                             <div class="col-md-4">
@@ -514,7 +514,7 @@
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Mangkok Kuku"){?> checked="" <?php } ?> value="Mangkok Kuku" name="tipeIkatan"> <i></i> Mangkok Kuku </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
-                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Bungkus Kaku"){?> checked="" <?php } ?> value="Bungkus Kaku" name="tipeIkatan"> <i></i> Bungkus Kaku </label></div>
+                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Bungkus Kuku"){?> checked="" <?php } ?> value="Bungkus Kuku" name="tipeIkatan"> <i></i> Bungkus Kuku </label></div>
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Jepit"){?> checked="" <?php } ?> value="Jepit" name="tipeIkatan"> <i></i> Jepit </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">

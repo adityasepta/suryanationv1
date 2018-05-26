@@ -89,7 +89,7 @@
     }
     section {
         clear: both;
-        margin-top: 3em;
+        margin-top: 1em;
     }
     li {
         list-style-type: disc;
@@ -98,6 +98,18 @@
     header > ul > li {
         list-style-type: none;
         margin-bottom: .5em;
+    }
+    .less-space>tbody>tr>td {
+        padding: 4px;
+
+    }
+    .holding>tbody>tr>td {
+        padding: 0px;
+        border-top: 0px;
+        margin-bottom: -5px;
+    }
+    .table {
+        margin-bottom: -5px;
     }
     .headline-name {
         border-bottom: 1px solid black;
@@ -151,8 +163,8 @@
             font-size: 12px;
         }
         body {
-            margin: 1em auto;
-            padding: 1em  2em 1em 2em;
+            margin: auto;
+            padding: 2px  2em 1em 2em;
             width: 100%;
         }
         section {
@@ -166,7 +178,7 @@
         }
 
         .header-section h3 {
-            margin: 20px auto;
+            margin: 2px auto;
             text-align: center;
         }
 
@@ -211,130 +223,201 @@
                     </a>
                 </div>
             </div> 
-            <table class="table no-border">
+            <table class="table holding">
                 <tbody>
                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
-                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Konsumen</td>
+                                        <td>: <b><?php echo $namaCustomer;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nomor Telepon</td>
+                                        <td>: <b> <?php echo $nomorTelepon;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td><b>No PO / <b style="color: red;"><?php echo $nomorPO;?></b></td>
+                                        <td></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Tanggal Terima</td>
+                                        <td>: <b><?php echo $tglmsk;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Siap Tanggal</td>
+                                        <td>: <b> <?php echo $tglpyl;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
-                        <td width="50%">Siap Tanggal : <b> <?php echo $tglpyl;?></b></td>
-                     </tr>
-                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
-                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
-                     </tr>
-                     
                 </tbody>
             </table>
             <hr style="border-top: 3px solid #282828;">
         </header>
         <section id="detailProduk">
-            <table class="table no-border">
+            <table class="table no-border less-space">
                 <tbody>
                     <tr>
-                        <td colspan="3"><b>Jenis Produk : </b><?php echo $jenisProduk ?> </td>
+                        <td width="20%"><b>Jenis Produk</b></td>
+                        <td width="18%">: <?php echo $jenisProduk ?> </td>
+                        <td width="18%"></td>
+                        <td width="16%"></td>
+                        <td width="10%"><b>Upah</b></td>
+                        <td >: Rp <?php echo number_format($upah,2,',','.') ?></td>
                     </tr>
                     <tr>
-                        <td><b>Bahan:</b> <?php echo $bahan ?></td>
-                        <td><b>Kadar:</b> <?php echo $kadarBahan; if($jenisCustomer=="Toko"){ echo "% + Pen".$persenBiaya;}?>%</td>
-                        <td><b>Harga Per Gram:</b> <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaBahan,2,',','.');} else { echo "Rp ".number_format($hargaBahan,2,',','.');}?></td>
+                        <td><b>Bahan</b></td>
+                        <td>: <?php echo $bahan ?> </td>
+                        <td><b>Kadar</b></td>
+                        <td>: <?php echo $kadarBahan; if($jenisCustomer=="Toko"){ echo "% + Pen".$persenBiaya;}?>%</td>
+                        <td><b>Harga</b></td>
+                        <td>: <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaBahan,2,',','.');} else { echo "Rp ".number_format($hargaBahan,2,',','.');}?></td>
                     </tr>
                     <tr id="datangEmas">
-                        <td><b>Datang Emas:</b> <?php echo $datangEmas ?></td>
+                        <td><b>Datang Emas</b></td>
+                        <td>: <?php echo $datangEmas ?> </td>
                         <?php if($kadarDatangEmas!=0) {?>
-                        <td><b>Kadar:</b> <?php echo $kadarDatangEmas ?>%</td>
+                        <td><b>Kadar</b></td>
+                        <td colspan="3">: <?php echo $kadarDatangEmas ?>%</td>
                         <?php } else { ?>
+                        <td><b></b></td>
                         <td></td>
-                        <td><b>Harga Per Gram:</b> <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
+                        <td>Harga Per Gram</td>
+                        <td>: <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
                         <?php } ?>
                     </tr>
+                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
                     <tr>
-                        <td><b>Berat Estimasi:</b> <?php echo $beratAkhir ?>gr</td>
-                        <td><b>Range Berat:</b> <?php echo $estimasi ?>gr</td>
-                        <td><b>Susut:</b> <?php echo $susut ?>gr</td>
+                        <td><b>Datang Berlian</b></td>
+                        <td>: <?php echo $datangBerlian ?> pcs</td>
+                        <td><b>Berat</b></td>
+                        <td>: <?php echo $jumlahDatangBerlian ?> cr</td>
+                        <td><b>Harga Berlian</br></td>
+                        <td>: <?php echo "Rp ".number_format($upahPasangBerlian,2,',','.');?></td>
+                    </tr>
+                    <?php }?>
+                    <tr>                  
+                        <td><b>Berat Estimasi</b></td>
+                        <td>: <?php echo $beratAkhir ?> gr </td>
+                        <td><b>Range Berat</b></td>
+                        <td colspan="3">: <?php echo $estimasi ?> gr</td>
                     </tr>
                     <tr>
-                        <td><b>Kuantitas:</b> <?php echo $kuantitas ?></td>
-                        <td colspan="2"><b>Ukuran:</b> <?php echo $ukuranJari ?></td>
+                        <td><b>Susut</b></td>
+                        <td>: <?php echo $susut ?> gr</td>
+                        <td><b>Ukuran</b></td>
+                        <td colspan="3">: <?php echo $ukuranJari ?></td>
                     </tr>
                     <?php for ($b=0; $b < count($poberlian) ; $b++) { ?>
                     <tr>
-                        <td><?php if(count($poberlian)>0 && $b==0){?><b>Berlian / Swarovski:<?php } ?></b></td>
-                        <td><?php echo $poberlian[$b]->namaBerlian ?></td>
-                        <td><b>Harga:</b> <?php if($poberlian[$b]->jenis=='Berlian'){ echo '$ '.number_format($poberlian[$b]->harga,0,',','.');} else {echo 'Rp '.number_format($poberlian[$b]->harga,0,',','.');}?></td>
+                        <td><?php if(count($poberlian)>0 && $b==0){?><b>Berlian / Swarovski<?php } ?></b></td>
+                        <td>: <?php echo $poberlian[$b]->namaBerlian ?></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>Harga CZ</b></td>
+                        <td>: <?php if($poberlian[$b]->jenis=='Berlian'){ echo '$ '.number_format($poberlian[$b]->harga,0,',','.');} else {echo 'Rp '.number_format($poberlian[$b]->harga,0,',','.');}?></td>
                     </tr>
                     <?php } ?>
-                    <tr id="namaBatu">
-                        <td><b>Nama Batu:</b> <?php echo $namaBatu ?></td>
-                        <td><b>Berat Batu:</b> <?php echo $beratBatu ?></td>
-                        <td><b>Keterangan Batu:</b> <?php echo $keteranganBatu ?></td>
+                     <tr id="namaBatu">
+                        <td><b>Nama Batu</b></td>
+                        <td>: <?php echo $namaBatu ?> </td>
+                        <td><b>Berat Batu</b></td>
+                        <td colspan="3">: <?php echo $beratBatu ?> gr</td>
                     </tr>
                     <tr id="namaBatu1">
-                        <td><b>Batu Terhadap Pukulan:</b> <?php echo $batuTerhadapPukulan ?></td>
-                        <td><b>Batu Terhadap Goresan:</b> <?php echo $batuTerhadapGoresan ?></td>
+                        <td><b>Keterangan Batu</b></td>
+                        <td colspan="5">: <?php echo $keteranganBatu ?> </td>
                     </tr>
                     <tr id="namaBatu2">
-                        <td><b>Batu Terhadap Kruman:</b> <?php echo $batuTerhadapKruman ?></td>
-                        <td><b>Keadaan Batu Tengah:</b> <?php echo $keadaanBatuTengah ?></td>
+                        <td><b>Batu Thd Pukulan</b></td>
+                        <td>: <?php echo $batuTerhadapPukulan ?> </td>
+                        <td><b>Batu Thd Goresan</b></td>
+                        <td colspan="3">: <?php echo $batuTerhadapGoresan ?></td>
+                    </tr>
+                    <tr id="namaBatu3">
+                        <td><b>Batu Thd Kruman</b></td>
+                        <td>: <?php echo $batuTerhadapKruman ?> </td>
+                        <td><b>Keadaan Batu Tengah</b></td>
+                        <td colspan="3">: <?php echo $keadaanBatuTengah ?></td>
                     </tr>
                     <tr>
-                        <td><b>Metode:</b> <?php echo $metode ?></td>
-                        <td><b>Tipe Ikatan:</b> <?php echo $tipeIkatan ?></td>
+                        <td><b>Metode</b></td>
+                        <td>: <?php echo $metode ?> </td>
+                        <td><b>Tipe Ikatan</b></td>
+                        <td colspan="3">: <?php echo $tipeIkatan ?></td>
                     </tr>
-
                     <!-- Pekerjaan Tambahan -->
                     <?php $pt = explode(',',$pekerjaanTambahan);?>
                     <?php if(in_array("Enamel", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Enamel</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganEnamel ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaEnamel,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Enamel</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganEnamel ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaEnamel,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <?php if(in_array("Slap", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Slap</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganSlap ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaSlap,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Slap</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganSlap ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaSlap,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <?php if(in_array("Kombinasi", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Kombinasi</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganKombinasi ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaKombinasi,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Kombinasi</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganKombinasi ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaKombinasi,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <?php if(in_array("Laser Huruf", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Laser Huruf</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganLaserHuruf ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaLaserHuruf,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Laser Huruf</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganLaserHuruf ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaLaserHuruf,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <?php if(in_array("Kode Cap", $pt)){ ?>
                     <tr>
-                        <td><b>(Tambahan) Kode Cap</b></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganKodeCap ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($dataPO[0]->hargaKodeCap,2,',','.') ?></td>
+                        <td colspan="2"><b>(Tambahan) Kode Cap</b></td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganKodeCap ?></td>
+                        <td><b>Biaya</b></td>
+                        <td>: Rp <?php echo number_format($dataPO[0]->hargaKodeCap,2,',','.') ?></td>
                     </tr>
                     <?php } ?>
                     <!--  -->
                     <tr>
-                        <td><b>Krum Warna:</b> <?php echo $krumWarna ?></td>
-                        <td><b>Keterangan:</b> <?php echo $keteranganKrum ?></td>
-                        <td><b>Biaya:</b> Rp <?php echo number_format($hargaKrumWarna,2,',','.') ?></td>
+                        <td><b>Krum Warna</b></td>
+                        <td>: <?php echo $krumWarna ?> </td>
+                        <td><b>Keterangan</b></td>
+                        <td>: <?php echo $keteranganKrum ?> </td>
+                        <td><b>Harga Krum</b></td>
+                        <td>: Rp <?php echo number_format($hargaKrumWarna,2,',','.') ?></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><b>Upah:</b>  Rp <?php echo number_format($upah,2,',','.') ?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"><b>Keterangan Lain:</b> <?php echo $model ?></td>
+                        <td><b>Keterangan Lain</b></td>
+                        <td colspan="5">: <?php echo $model ?> </td>
                     </tr>
                 </tbody>
             </table>
@@ -347,14 +430,14 @@
                     <h4><b>Panjar: Rp <?php echo number_format($panjar,2,',','.') ?></b></h4>
                 </div>
             </div>
-            <table class="table no-border">
+            <table class="table no-border ">
                 <tbody>
                     <tr>
-                        <td width="60%">
-                            <div style="background-color: #e2e2e2; padding: 10px; border: 1px solid #282828">
+                        <td width="70%">
+                            <div style="background-color: #e2e2e2; padding: 8px; border: 1px solid #282828; font-size: 10px;">
                                 <p><b>NB: JIKA BATAL / TUKAR DESAIN DIKENAKAN BIAYA SEBESAR RP 300.000,-</b></p>
-                                <p><b>Perhatian:</b></p>
-                                <ul>
+                                <p style="margin-top: -10px;"><b>Perhatian:</b></p>
+                                <ul style="margin-top: -10px;">
                                     <li>Perhiasan diambil dengan membawa bukti berupa surat</li>
                                     <li>Perhiasan tidak dapat diambil jika surat tidak dibawa / hilang</li>
                                     <li>Surat berlaku dalam waktu 1(satu) bulan, jika perhiasan tidak diambil maka uang panjar dianggap hilang</li>
@@ -388,6 +471,7 @@
             document.getElementById('namaBatu').style.display = 'none';
             document.getElementById('namaBatu1').style.display = 'none';
             document.getElementById('namaBatu2').style.display = 'none';
+            document.getElementById('namaBatu3').style.display = 'none';
         };
 
         // var c = <?php if(count($poberlian)<1){echo 0;} else echo 1;?>;

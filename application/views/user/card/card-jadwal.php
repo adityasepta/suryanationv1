@@ -11,7 +11,7 @@
             Tgl Selesai<br>
         </div>
         <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo substr($j[$i]->namaCustomer,0,10) ?></b><br>
+            :&nbsp&nbsp<b><?php echo substr($j[$i]->namaCustomer,0,10).' / '.$j[$i]->nomorPO ?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->nama ?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->jenisProduk?></b><br>
             :&nbsp&nbsp<b><?php echo $j[$i]->tanggal?></b><br>

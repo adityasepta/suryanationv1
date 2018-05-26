@@ -106,6 +106,7 @@ else {
                                             <select class="form-control" name="kategori" id="kategori">
                                                 <option <?php $a=$kategori; if($a=="Emas"){?> selected <?php } ?> value="Emas">Emas</option>
                                                 <option <?php $a=$kategori; if($a=="Berlian"){?> selected <?php } ?> value="Berlian">Berlian</option>
+                                                <option <?php $a=$kategori; if($a=="Zirkon"){?> selected <?php } ?> value="Zirkon">Zirkon</option>
                                                 <option <?php $a=$kategori; if($a=="Non Emas"){?> selected <?php } ?> value="Non Emas">Non Emas</option>
                                             </select>
                                         </div>

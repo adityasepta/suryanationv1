@@ -71,45 +71,44 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="modal-header">
-                                <h2 class="text-center">Tambah Jurnal</h2>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <?php 
-                                            $tgls = new DateTime($cashflow[0]->tanggal);
-                                            $tglmsk = $tgls->format("d F Y");
-                                        ?>
-                                        <dl class="dl-horizontal">
-                                            <dt>Tanggal :</dt><dd> <b class="text-success"><?php echo $tglmsk?></b></dd>
-                                            <dt>Keterangan :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->keterangan; ?></b></dd>
-                                        </dl>
-                                    </div>
-                                    <div class="col-md-6 text-left">
-                                        <dl class="dl-horizontal">
-                                            <dt>Jumlah :</dt><dd> <b class="text-success">Rp <?php echo number_format($cashflow[0]->jumlah,2);?></b></dd>
-                                            <dt>Kategori :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->kategori?></b></dd>
-                                            <dt>Tipe Transaksi :</dt><dd> <b class="text-success"><?php echo $cashflow[0]->tipeTransaksi?></b></dd>
-                                        </dl>
-                                    </div>
-                                </div>
+                                <h2 class="text-center">Edit Jurnal</h2>
                             </div>
                             <div class="modal-body">
                                 <?php echo form_open_multipart('user/updateJurnal/'.$idJurnal)?>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Customer</label>
+                                        <select name="idCustomer" class="form-control">
+                                            
+                                            <?php foreach($customer as $cs) {?>
+                                            <option <?php $jm=0; if($cs->idCustomer==$jurnal[0]->idCustomer) { $jm=$jm+1;?> selected="" <?php } ?> value="<?php echo $cs->idCustomer?>"><?php echo $cs->namaCustomer?></option>
+                                            
+                                            <?php } ?>
+                                            <?php if($jm<1){?>
+                                            <option <?php if($jurnal[0]->idCustomer==0) { ?> selected="" <?php } ?> value="0">Tidak Ada Customer </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <?php 
+                                          $tglsk = new datetime($tanggal);
+                                          $tglnow = $tglsk->format("Y-m-d");
+                                        ?>
+                                        <label>Tanggal</label>
+                                        <input type="date" name="tanggal" value="<?php echo $tglnow ?>" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Keterangan</label>
+                                        <input type="text" name="keterangan" value="<?= $keterangan ?>" class="form-control" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12">
-                                        <input type="hidden" name="idCashflow" value="<?= $cashflow[0]->idCashflow ?>">
+                                        <br>
                                         <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <label>Keterangan</label>
-                                                    <input type="text" name="keterangan" value="<?= $keterangan ?>" class="form-control" required>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Tanggal</label>
-                                                    <input type="date" name="tanggal" value="<?php echo $jurnal[0]->tgl ?>" class="form-control" required>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <?php for ($y=0; $y < count($jurnal) ; $y++) { ?>
                                         <div class="form-group row" id="del<?php echo $y ?>">
                                             <div class="col-md-4"> 
@@ -122,14 +121,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Kategori</label>
-                                                <select type="text" name="kategori[]" class="form-control" required>
+                                                <select type="text" id="kate<?php echo $y+1 ?>" name="kategori[]" class="form-control" required>
                                                     <option value="Debit" <?php if($jurnal[$y]->kategori=="Debit"){?> selected <?php }?>>Debit</option>
                                                     <option value="Kredit" <?php if($jurnal[$y]->kategori=="Kredit"){?> selected <?php }?>>Kredit</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jumlah</label>
-                                                <input type="number" step="any" name="jumlah[]" value="<?php echo $jurnal[$y]->jumlah?>" class="form-control" required>
+                                                <input id="jumla<?php echo $y+1 ?>" type="number" step="any" name="jumlah[]" value="<?php echo $jurnal[$y]->jumlah?>" class="form-control" required>
                                             </div>
                                             <div class="col-md-2">
                                                 <button type="button" class="btn remove_field" style="margin-top:22px;" onclick="removeDummy<?php echo $y ?>()">Remove</button>
@@ -141,8 +140,8 @@
                                                 <button type="button" class="btn btn-info btn-sm add_field_button" style="margin-bottom: 5px;">Tambah Akun</button>
                                             </div>
                                         </div>
+                                        </div>
                                     </div>
-                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="submit">Save changes</button>
@@ -184,12 +183,34 @@
         var wrapper         = $(".input_fields_wrap"); //Fields wrapper
         var add_button      = $(".add_field_button"); //Add button ID
         
-        var x = 1; //initlal text box count
+        var x = <?php echo count($jurnal) ?>; //initlal text box count
         $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select id="kate'+x+'" type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input id="jumla'+x+'" type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
+                
+            }
+        });
+
+        $(document).on('click','form button[type=submit]',function(e){
+            var balance=0;
+            console.log(balance);
+            for(var i=1;i<=x;i++){
+                console.log(document.getElementById('kate'+i).value);
+                if(document.getElementById('kate'+i).value=='Debit'){
+                    balance+=parseFloat(document.getElementById('jumla'+i).value);
+                    console.log(balance);
+                } else {
+                    balance-=parseFloat(document.getElementById('jumla'+i).value);
+                    console.log(balance);
+                }
+            }
+            console.log(balance);
+            if(x>0&&balance==0){
+            } else {
+                alert('Jumlah Debit dan Kredit yang dimasukkan tidak seimbang (Balance)');
+                e.preventDefault();
             }
         });
         

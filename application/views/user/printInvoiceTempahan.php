@@ -255,13 +255,13 @@
                            <?php echo '('.$beratTotal.'gr - '.$beratBatu.'gr + '.$susut.'gr)'?>
                         </td>
                         <td class="text-center">
-                            <label><?php echo $beratSisa=$beratTotal-$beratBatu+$susut?> gr</label>
+                            <label><?php echo $sisaBerat=$beratTotal-$beratBatu+$susut?> gr</label>
                         </td>
                         <td>
                             <label class="text-muted pull-right">Rp. <?php echo number_format($hargaBahan,2,",","."); ?></label>
                         </td>
                         <td>
-                           <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaAwal=$beratSisa*$hargaBahan,2,",","."); ?></label>
+                           <label class="text-muted pull-right"> Rp. <?php if($dataPO[0]->jenisCustomer=="Toko"){ $hargaAwal=$sisaBerat*(($dataPO[0]->kadarBahan+$dataPO[0]->persenBiaya)/100)*$dataPO[0]->hargaBahan; }else{$hargaAwal=$sisaBerat*$dataPO[0]->hargaBahan;}; echo number_format($hargaAwal,2,',','.'); ?></label>
                         </td>
                     </tr>
                     <tr>
@@ -299,7 +299,7 @@
                             <?php if($poberlian[$y]->jenis=='Berlian'){ echo $poberlian[$y]->namaBerlian.' ('.$poberlian[$y]->karat.')';}else{echo $poberlian[$y]->namaBerlian;}?>
                         </td>
                         <td class="text-center">
-                            <label><?php echo $poberlian[$y]->jumlah?></label>
+                            <label><?php if($poberlian[$y]->jenis=='Berlian'){echo $poberlian[$y]->karat.' Ct'; } else { echo $poberlian[$y]->jumlah.' Pcs';}?></label>
                         </td>
                         <td class="text-center">
                             <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->karat*$poberlian[$y]->harga*$gold['currentRupiah']; echo '$ '.number_format($poberlian[$y]->harga,0,",",".").' (Rp. '.number_format($gold['currentRupiah'],0,",",".").')'; } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,0,",",".");} ?></label>
@@ -314,14 +314,14 @@
                             <?php echo $poberlian[$y]->namaBerlian ?>
                         </td>
                         <td class="text-center">
-                            <label><?php echo $poberlian[$y]->jumlah?></label>
+                            <label><?php if($poberlian[$y]->jenis=='Berlian'){echo $poberlian[$y]->karat.' Ct'; } else { echo $poberlian[$y]->jumlah.' Pcs';}?></label>
                         </td>
                         <td class="text-center">
-                            <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->karat*$poberlian[$y]->harga*$gold['currentRupiah']; echo 'Rp '.number_format($satuanBerlian,2,",","."); } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,2,",",".");} ?></label>
+                            <label class="text-muted pull-right"> <?php if($poberlian[$y]->jenis=='Berlian'){ $satuanBerlian=$poberlian[$y]->harga*$gold['currentRupiah']; echo 'Rp '.number_format($satuanBerlian,2,",","."); } else { $satuanBerlian=$poberlian[$y]->harga; echo 'Rp. '.number_format( $satuanBerlian,2,",",".");} ?></label>
 
                         </td>
                         <td>
-                            <label class="text-muted pull-right"> Rp. <?php echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,",","."); ?></label>
+                            <label class="text-muted pull-right"> Rp. <?php if($poberlian[$y]->jenis=='Berlian'){ echo number_format($hargaPerBerlian=$poberlian[$y]->karat*$satuanBerlian,2,".",".");} else {echo number_format($hargaPerBerlian=$poberlian[$y]->jumlah*$satuanBerlian,2,".",".");} ?></label>
                         </td>
                     </tr>
                     <?php } ?>

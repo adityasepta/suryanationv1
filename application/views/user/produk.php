@@ -61,7 +61,56 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             
 
-
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/produk">
+                    <div class="widget style1 red-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <span>Produk</span>
+                                <h3 class="font-bold">Tempahan</h3>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/produkMassal">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <span>Produk</span>
+                                <h3 class="font-bold">Massal</h3>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/produkTrading">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <span>Produk</span>
+                                <h3 class="font-bold">Trading</h3>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/produkPerak">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <span>Produk</span>
+                                <h3 class="font-bold">Perak</h3>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <?php echo $this->session->flashdata('msg'); ?>
@@ -118,9 +167,9 @@
                                     </td>
                                     <td class="text-right"><!-- Button trigger modal -->
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idProduk?>">Lihat</button>
-                                            <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default">Edit</a>
-                                            <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-default" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a>
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#detail<?php echo $produk[$j]->idProduk?>">Lihat</button>
+                                            <a href="<?php echo base_url()?>user/editProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-warning">Edit</a>
+                                            <a href="<?php echo base_url()?>user/deleteProduk/<?php echo $produk[$j]->idProduk?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">Hapus</a>
                                         </div>
                                     </td>
                                 </tr>

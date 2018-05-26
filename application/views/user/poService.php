@@ -109,6 +109,7 @@
                                     <td><?php echo "Rp ".number_format($hasil->totalHarga,2,".",".")?></td>
                                     
                                     <td class="text-center">
+                                        <div class="btn-group">
                                         <?=anchor('user/invoicePOService/' . $hasil->nomorPO, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
@@ -117,10 +118,11 @@
                                           'class' => 'btn btn-warning btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPOService/' . $hasil->nomorPO, 'Delete', [
+                                        <?=anchor('user/hapusPOService/' . $hasil->nomorPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
                                         ])?>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

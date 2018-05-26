@@ -14,12 +14,11 @@
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
 </head>
 
 <body>
-
     <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -54,9 +53,41 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated fadeInUp">
+        
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <?php echo form_open_multipart('user/cariJurnal/')?>
+                            <?php 
+                              $tglskg = new DateTime($dateChosen);
+                              $tglnow = $tglskg->format("Y-m-d");
+                            ?>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Filter Laporan Jurnal Berdasarkan Tanggal</h3>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-1">Pilih Tanggal</label>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="date" name="tanggal" class="form-control" value="<?php echo $tglnow ?>" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-primary btn-md" type="submit"><i class="fa fa-search"></i> Cari</button>
+                                </div>
+                            </div>
+                            <?php echo form_close();?>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="modal-header">
@@ -69,10 +100,9 @@
                                 ?>
                                 <p class="text-center text-navy"><b><?php echo $tglmsk ?></b></p>
                                 <?php } ?>
-                                <hr>
                             </div>
                             <div class="modal-body">
-                                <table class="table table-striped">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                     <tr>
                                         <th>Tanggal</th>
@@ -121,16 +151,18 @@
                                         
                                         } 
                                     ?>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="4"><strong>Total</strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($debit,2,".","."); ?></strong></td>
-                                        <td class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></td>
-                                    </tr>
-                                    <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
-                                        <td class="text-left" colspan="5"><strong class="text-navy">Balance</strong></td>
-                                        <td class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total=$debit-$kredit,2,".","."); ?></strong></td>
-                                    </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="text-left" ><strong>Total</strong></th>
+                                            <th class="text-right" ><strong>Rp. <?php echo number_format($debit,2,".","."); ?></strong></th>
+                                            <th class="text-right" ><strong>Rp. <?php echo number_format($kredit,2,".","."); ?></strong></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" class="text-left"><strong class="text-navy">Balance</strong></th>
+                                            <th class="text-right" ><strong class="text-navy">Rp. <?php echo number_format($total=$debit-$kredit,2,".","."); ?></strong></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
 
@@ -139,6 +171,7 @@
                 </div>
             </div>
         </div>
+            
         <div class="footer">
             <div>
                 <strong>Copyright</strong> Surya Sumatera &copy; <?php echo date('Y');?>
@@ -154,32 +187,60 @@
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
     <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
 
-    <!-- iCheck -->
-    <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        var max_fields      = 30; //maximum input boxes allowed
-        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-        var add_button      = $(".add_field_button"); //Add button ID
-        
-        var x = 1; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
-            e.preventDefault();
-            if(x < max_fields){ //max input box allowed
-                x++; //text box increment
-                $(wrapper).append('<div class="form-group row"><div class="col-md-4"> <label>Akun</label> <select class="form-control m-b" name="akun[]"><?php for ($i = 0; $i < count($listAkun); $i++) { ?> <option value="<?php echo $listAkun[$i]->kodeAkun?>"><?php echo $listAkun[$i]->kodeAkun." ".$listAkun[$i]->namaAkun." (".$listAkun[$i]->namaTipeAkun.")"?></option><?php } ?></select> </div><div class="col-md-2"><label>Kategori</label><select type="text" name="kategori[]" class="form-control" required><option value="Debit">Debit</option><option value="Kredit">Kredit</option></select></div><div class="col-md-4"><label>Jumlah</label><input type="number" step="any" name="jumlah[]" class="form-control" required></div><div class="col-md-2"><button class="btn remove_field" style="margin-top:22px;">Remove</button></div></div>'); //add input box
-            }
+    <script src="<?php echo base_url();?>assets/js/plugins/dataTables/datatables.min.js"></script>
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+
+            $('.dataTables-example').DataTable({
+                pageLength: 50,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'excel', title: 'Jurnal Tanggal <?php $tglskg = new DateTime($dateChosen); $tglnow = $tglskg->format("d F Y"); echo $tglnow?>'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
         });
-        
-        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent().parent('div').remove(); x--;
-        })
-    });
     </script>
 </body>
 

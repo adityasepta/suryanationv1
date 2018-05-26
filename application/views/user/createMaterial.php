@@ -80,6 +80,7 @@
                                             <select class="form-control" name="kategori" id="kategori">
                                                 <option value="Emas">Emas</option>
                                                 <option value="Berlian">Berlian</option>
+                                                <option value="Zirkon">Zirkon</option>
                                                 <option value="Non Emas">Non Emas</option>
                                             </select>
                                         </div>

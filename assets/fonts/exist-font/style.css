@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'exist-font';
+  src:  url('fonts/exist-font.eot?bqvxeq');
+  src:  url('fonts/exist-font.eot?bqvxeq#iefix') format('embedded-opentype'),
+    url('fonts/exist-font.ttf?bqvxeq') format('truetype'),
+    url('fonts/exist-font.woff?bqvxeq') format('woff'),
+    url('fonts/exist-font.svg?bqvxeq#exist-font') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="exist-"], [class*=" exist-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'exist-font' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.exist-play:before {
+  content: "\e913";
+  color: #fff;
+}
+.exist-compare:before {
+  content: "\e900";
+}
+.exist-freeship:before {
+  content: "\e901";
+}
+.exist-heart:before {
+  content: "\e902";
+}
+.exist-hotline:before {
+  content: "\e903";
+}
+.exist-leftarrow:before {
+  content: "\e904";
+}
+.exist-minicart:before {
+  content: "\e905";
+}
+.exist-money:before {
+  content: "\e906";
+}
+.exist-notification:before {
+  content: "\e907";
+}
+.exist-quickview:before {
+  content: "\e90c";
+}
+.exist-rightarrow:before {
+  content: "\e90d";
+}
+.exist-search:before {
+  content: "\e90e";
+}
+.exist-shipping:before {
+  content: "\e90f";
+}
+.exist-support:before {
+  content: "\e910";
+}
+.exist-user:before {
+  content: "\e911";
+}
+.exist-zoom:before {
+  content: "\e912";
+}
