@@ -279,6 +279,28 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
+                            <h5>Set Kadar Yang dibuat</h5>
+                        </div>
+                        <div class="ibox-content form-control">
+                            <?php echo form_open('User/setToleransi')?>
+                            <div class="col-md-2">
+                                <label>Kadar yang Dibuat</label>
+                                <input type="text" required name="kadarx" class="form-control" value="<?php echo $kloter[0]->kadarWenny ?>" > 
+                                <input type="hidden" value="<?php echo $Kloter ?>" name="idKloter">
+                                <!-- <input type="hidden" value="<?php echo $kloter[0]->idSPK ?>" name="idSPK"> -->
+                                <!-- <input type="hidden" value="<?php echo $subSPK[0]->idSubSPK ?>" name="idSubSPK"> -->
+                            </div>
+                            <div class="col-md-2">
+                                <br>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
                             <h5>Sesuai Kadar</h5>
                         </div>
                         <div class="ibox-content form-horizontal">

@@ -184,6 +184,18 @@
                                         <label>Nomor PO</label>
                                         <input type="text" required name="idSubSPK" class="form-control" value="<?php echo $subSPK[0]->nomorPO ?>" readonly> 
                                     </div>
+
+                                    <?php echo form_open('User/setToleransi2')?>
+                                    <div class="col-md-2">
+                                        <label>Kadar yang Dibuat</label>
+                                        <input type="text" required name="kadarx" class="form-control" value="<?php echo $subSPK[0]->kadarWenny ?>" > 
+                                        <input type="hidden" value="<?php echo $subSPK[0]->idSPK ?>" name="idSPK">
+                                        <input type="hidden" value="<?php echo $subSPK[0]->idSubSPK ?>" name="idSubSPK">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                                     
                                 <hr>

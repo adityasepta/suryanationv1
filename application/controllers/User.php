@@ -110,6 +110,7 @@ class User extends CI_Controller {
         $idProProd = $this->input->post('idProProd');
         $idAktivitas = $this->input->post('idAktivitas');
 
+        
         $idakt = $this->input->post('idakt');
         $cek = $this->mdl->cekPolishDalam($idSPK,1010);
         if (strlen($idakt) > 0 and count($cek) == 0) {
@@ -3382,7 +3383,7 @@ class User extends CI_Controller {
 
         for ($i=0; $i <count($spk) ; $i++) { 
             $data = array(
-                'kadarWenny' => $this->input->post('kadar')
+                'kadarWenny' => $this->input->post('kadarx')
             );
             $idSPK = $spk[$i]->idSPK;
             $this->mdl->updateData('idSPK',$idSPK, 'spk',$data);
@@ -3398,10 +3399,12 @@ class User extends CI_Controller {
         $idSPK = $this->input->post('idSPK');
         $idSubSPK = $this->input->post('idSubSPK');
         $data = array(
-                'kadarWenny' => $this->input->post('kadar')
+                'kadarWenny' => $this->input->post('kadarx')
 
             );
         $this->mdl->updateData('idSPK',$idSPK, 'spkmasal',$data);
+
+        
 
         $message = "Berhasil Konfirmasi Kadar";
             echo "<script type='text/javascript'>alert('$message');
