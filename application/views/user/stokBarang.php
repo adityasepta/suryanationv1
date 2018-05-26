@@ -136,7 +136,7 @@
                                     </h1>
                                 </div>
                                 <div class="col-lg-9 table-responsive text-center">
-                                    <table data-page-size="5" class=" footable table  table-stripped">
+                                    <table data-page-size="8" class=" footable table  table-stripped">
 
                                         <thead>
                                             <tr>
@@ -150,7 +150,7 @@
                                             <?php for ($i=0; $i < count($stok); $i++) { 
                                                 $stokSekarang=$stok[$i]->masuk-$stok[$i]->keluar;
 
-                                                if($stokSekarang>0 && $stok[$i]->statusTransfer=='Valid'){
+                                                if($stokSekarang!=0 && $stok[$i]->statusTransfer=='Valid'){
                                             ?>
                                                 <tr>
 

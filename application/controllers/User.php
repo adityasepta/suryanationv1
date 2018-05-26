@@ -7663,7 +7663,7 @@ class User extends CI_Controller {
     }
 
     public function ambil2($idSPK) {
-
+        
         $spk = $this->mdl->findSPK2($idSPK);
         $nomorPO = $spk[0]->nomorPO;
         $idProduk = $spk[0]->idProduk;
