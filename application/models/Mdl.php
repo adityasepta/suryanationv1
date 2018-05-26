@@ -1522,7 +1522,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getIsiKloter($idKloter) {
 
-        $sql   = "SELECT * FROM kloter k, spk s, produk p, customer c, potempahan pp where s.nomorPO = pp.nomorPO and s.idCustomer = c.idCustomer and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
+        $sql   = "SELECT * FROM kloter k, spk s, produk p, potempahan pp LEFT JOIN customer c ON pp.idCustomer=c.idCustomer where s.nomorPO = pp.nomorPO and k.idSPK = s.idSPK and s.idProduk = p.idProduk and k.idKloter = '$idKloter' ";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2916,9 +2916,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function stockPerMaterial($idUser){
 
-        $hasil = $this->db->query("SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
+        $hasil = $this->db->query("SELECT * FROM (SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaMaterial AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang, tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND tipeBarang = 'Material Dasar' group by kodeBarang , tipeBarang ) as b ON a.kodeBarang = b.kodeBarang JOIN materialdasar c ON c.kodeMaterial=a.kodeBarang 
         UNION
-        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC =$idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang");
+        SELECT a.kodeBarang, a.tipeBarang, a.statusTransfer, c.namaProduk AS namaBarang, a.MSK AS masuk, IFNULL(b.KLR,0) AS keluar, (a.MSK-b.KLR) as selisih FROM (SELECT kodeBarang, tipeBarang, statusTransfer, sum(jumlah) as MSK FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'IN' and idPIC =$idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) a LEFT JOIN ( SELECT kodeBarang,tipeBarang, statusTransfer, SUM(jumlah) as KLR FROM stokbarang where statusTransfer='Valid' AND jenisPergerakanBarang = 'OUT' and idPIC = $idUser AND (tipeBarang = 'Produk Jadi' OR tipeBarang ='Produk Semi Jadi') group by kodeBarang , tipeBarang) as b ON a.kodeBarang = b.kodeBarang JOIN produk c ON c.idProduk=a.kodeBarang) al WHERE al.masuk-al.keluar!=0 ORDER BY namaBarang");
 
         if($hasil->num_rows() > 0){
             return $hasil->result();

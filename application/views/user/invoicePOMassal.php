@@ -139,7 +139,7 @@
                                                 <dt>Kode Produk:</dt>  <dd><a href="#" class="text-navy"> <?php echo $kodeProduk ?> </a></dd>
                                                 <dt>Jenis Produk:</dt> <dd> <?php echo $jenisProduk ?></dd>
                                                 <dt>Bahan:</dt> <dd> <?php echo $bahan ?> </dd>
-                                                <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?> </dd>
+                                                <dt>Kadar Bahan:</dt> <dd> <?php echo $kadarBahan?>%</dd>
                                                 <dt>Harga Pasaran Bahan:</dt> <dd> <?php echo $hargaBahan?> </dd>
                                                 <dt>Ukuran Jari:</dt> <dd><?php echo $ukuranJari?></dd>
                                                 <dt>Tipe Konsumen:</dt> <dd><a href="#" class="text-navy"><?php echo $tipeCustomer?></a></dd>
@@ -150,9 +150,9 @@
                                                 <dt>Model:</dt> <dd> <?php echo $model ?></dd>
                                                 <dt>Krum Warna:</dt> <dd> <?php echo $krumWarna ?> </dd>
                                                 <dt>Keterangan Krum:</dt> <dd> <?php echo $keteranganKrum?> </dd>
-                                                <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?></a></dd>
-                                                <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?></dd>
-                                                <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?></dd>
+                                                <dt>Berat Yang Diinginkan:</dt> <dd><a href="#" class="text-navy"><?php echo $beratAkhir?>gr</a></dd>
+                                                <dt>Datang Emas:</dt> <dd>  <?php echo $datangEmas?>gr</dd>
+                                                <dt>Kadar Datang Emas:</dt> <dd>  <?php echo $kadarDatangEmas?>%</dd>
                                         </div>
                                     </div>
                                     <div class="row">
