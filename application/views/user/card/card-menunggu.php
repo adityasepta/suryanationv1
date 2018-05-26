@@ -10,7 +10,7 @@
 ?>
 
 
-<li class="<?php echo $statr ?>-element" id="task1">
+<li class="<?php echo $statr ?>-element" id="task1" style="word-wrap: break-word;">
     <div class="row">
         <div class="col-lg-5 text-center">
             <img src="<?php echo base_url('uploads/gambarDesain/'.$m[$i]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
@@ -29,13 +29,13 @@
         <div class="col-lg-5 text-center">
             <button class="btn btn-warning">Pending</button>
         </div>
-        <div class="col-lg-7" style="color:red">
-            <b><?php echo $m[$i]->keteranganPending?> </b>
+        <div class="col-lg-7" style="color:red;">
+            <b><?php echo substr($m[$i]->keteranganPending,0,20)?> </b>
         </div>
     </div>
     <?php } ?>
 
-    <div class="row">
+    <div class="row" style="word-wrap: break-word;">
         <br>
         <div class="col-lg-5">
             <button data-toggle="modal" data-target="#detailx2<?php echo $m[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
