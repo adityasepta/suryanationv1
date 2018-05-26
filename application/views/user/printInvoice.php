@@ -299,7 +299,7 @@
                         <td>: <?php if($jenisCustomer=="Toko"){ echo "Rp ".number_format($hargaDatangEmas,2,',','.');} else { echo "Rp ".number_format($hargaDatangEmas,2,',','.');}?></td>
                         <?php } ?>
                     </tr>
-                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)) {?>
+                    <?php if(($datangBerlian!=0 && $jumlahDatangBerlian!=0) || ($datangBerlian!=NULL && $jumlahDatangBerlian!=NULL)|| ($datangBerlian!=NULL && $jumlahDatangBerlian!=0)) {?>
                     <tr>
                         <td><b>Datang Berlian</b></td>
                         <td>: <?php echo $datangBerlian ?> pcs</td>
