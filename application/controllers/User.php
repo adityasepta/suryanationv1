@@ -5744,7 +5744,7 @@ class User extends CI_Controller {
         $idProduk = $this->input->post('idProduk[]');
 
         $idUser=$this->session->userdata['logged_in']['iduser'];
-
+        print_r($nomorPO);exit();
         for ($i=0; $i <count($berat) ; $i++) { 
 
             $data = array(  //menambahkan detil berat anak
