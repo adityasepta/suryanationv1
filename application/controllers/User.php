@@ -7697,9 +7697,10 @@ class User extends CI_Controller {
         );
         $this->mdl->updateData('idSPK',$idSPK,'factproduction', $dataStatus);
 
+        $jenisProduksi = "Tempahan";
         $message = "Berhasil mengambil barang, jangan lupa stock opname berlian !";
-        echo "<script type='text/javascript'>alert('$message');
-        window.location.href='".base_url("user/kanban")."';</script>";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        redirect('user/afterSales/'.$jenisProduksi.'/'.$nomorFaktur);
         
     }
 
@@ -7764,6 +7765,7 @@ class User extends CI_Controller {
         );
         $this->mdl->updateData('idSPK',$idSPK,'factproduction2', $dataStatus);
 
+        $data['jenisProduksi'] = "Massal";
         $message = "Produk sudah diambil customer";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/stokBarang")."';</script>";
@@ -8029,6 +8031,128 @@ class User extends CI_Controller {
         $data['produk']=$this->mdl->listProdukTrading();
         $this->load->view('user/produkTrading',$data);
     }
+
+    public function afterSales($jenisProduksi,$nomorFaktur) {
+        if ($jenisProduksi=='Tempahan') {
+            $data['dataSPK'] = $this->mdl->findSPK($nomorFaktur);
+        } else  {
+            $data['dataSPK'] = $this->mdl->findSPKMasal($nomorFaktur);
+        }
+        $data['jenisProduksi'] = $jenisProduksi;
+        $this->load->view('user/afterSales',$data);
+    }
+
+    public function tambahPenilaian($nomorPO,$jenisProduksi) {
+
+        $idCustomer = $this->input->post('idCustomer');
+        $idUser     = $this->session->userdata['logged_in']['iduser'];
+        $nomorPO = $this->input->post('nomorPO');
+        $jenisProduksi = $this->input->post('jenisProduksi');
+        $nilaiKecepatan = $this->input->post('kecepatan');
+        $nilaiKualitas = $this->input->post('kualitas');
+        $alasan1 = $this->input->post('alasan1');
+        $alasan2 = $this->input->post('alasan2');
+
+        if($alasan1 !=NULL) {
+            $alasan = $alasan1;
+        } else {
+            $alasan = $alasan2;
+        }
+        $data = array(
+                'idCustomer' => $idCustomer,
+                'idUser' => $idUser,
+                'nomorPO' => $nomorPO,
+                'jenisProduksi' => $jenisProduksi,
+                'nilaiKecepatan' => $nilaiKecepatan,
+                'nilaiKualitas' => $nilaiKualitas,
+                'alasan' => $alasan,
+                'dateCreated'  => date("Y-m-d H:i:s"),
+
+            );
+        $this->mdl->insertData('service',$data);
+
+        $message = "Penilaian customer berhasil ditambahkan";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/voiceofcustomer/")."';</script>";
+    }
+
+    public function voiceofcustomer() {
+        $date = date('Y-m-d H:i:s');
+        $this->form_validation->set_rules('tahun','Tahun', 'required');
+
+        if ($this->form_validation->run() == FALSE){
+            $data['tahun_pilih']=2018;
+        }
+        else {
+            //Jika ada input
+            $tahun = $this->input->post('tahun');
+            $data['jan1'] = $this->mdl->getJumlahSPK($tahun,1,5,5);
+            $data['jan2'] = $this->mdl->getJumlahSPK($tahun,1,5,1);
+            $data['jan3'] = $this->mdl->getJumlahSPK($tahun,1,3,5);
+            $data['jan4'] = $this->mdl->getJumlahSPK($tahun,1,3,1);
+            $data['jan5'] = $this->mdl->getJumlahSPK($tahun,1,1,1);
+            $data['feb1'] = $this->mdl->getJumlahSPK($tahun,2,5,5);
+            $data['feb2'] = $this->mdl->getJumlahSPK($tahun,2,5,1);
+            $data['feb3'] = $this->mdl->getJumlahSPK($tahun,2,3,5);
+            $data['feb4'] = $this->mdl->getJumlahSPK($tahun,2,3,1);
+            $data['feb5'] = $this->mdl->getJumlahSPK($tahun,2,1,1);
+            $data['mar1'] = $this->mdl->getJumlahSPK($tahun,3,5,5);
+            $data['mar2'] = $this->mdl->getJumlahSPK($tahun,3,5,1);
+            $data['mar3'] = $this->mdl->getJumlahSPK($tahun,3,3,5);
+            $data['mar4'] = $this->mdl->getJumlahSPK($tahun,3,3,1);
+            $data['mar5'] = $this->mdl->getJumlahSPK($tahun,3,1,1);
+            $data['apr1'] = $this->mdl->getJumlahSPK($tahun,4,5,5);
+            $data['apr2'] = $this->mdl->getJumlahSPK($tahun,4,5,1);
+            $data['apr3'] = $this->mdl->getJumlahSPK($tahun,4,3,5);
+            $data['apr4'] = $this->mdl->getJumlahSPK($tahun,4,3,1);
+            $data['apr5'] = $this->mdl->getJumlahSPK($tahun,4,1,1);
+            $data['mei1'] = $this->mdl->getJumlahSPK($tahun,5,5,5);
+            $data['mei2'] = $this->mdl->getJumlahSPK($tahun,5,5,1);
+            $data['mei3'] = $this->mdl->getJumlahSPK($tahun,5,3,5);
+            $data['mei4'] = $this->mdl->getJumlahSPK($tahun,5,3,1);
+            $data['mei5'] = $this->mdl->getJumlahSPK($tahun,5,1,1);
+            $data['jun1'] = $this->mdl->getJumlahSPK($tahun,6,5,5);
+            $data['jun2'] = $this->mdl->getJumlahSPK($tahun,6,5,1);
+            $data['jun3'] = $this->mdl->getJumlahSPK($tahun,6,3,5);
+            $data['jun4'] = $this->mdl->getJumlahSPK($tahun,6,3,1);
+            $data['jun5'] = $this->mdl->getJumlahSPK($tahun,6,1,1);
+            $data['jul1'] = $this->mdl->getJumlahSPK($tahun,8,5,5);
+            $data['jul2'] = $this->mdl->getJumlahSPK($tahun,8,5,1);
+            $data['jul3'] = $this->mdl->getJumlahSPK($tahun,8,3,5);
+            $data['jul4'] = $this->mdl->getJumlahSPK($tahun,8,3,1);
+            $data['jul5'] = $this->mdl->getJumlahSPK($tahun,8,1,1);
+            $data['agu1'] = $this->mdl->getJumlahSPK($tahun,8,5,5);
+            $data['agu2'] = $this->mdl->getJumlahSPK($tahun,8,5,1);
+            $data['agu3'] = $this->mdl->getJumlahSPK($tahun,8,3,5);
+            $data['agu4'] = $this->mdl->getJumlahSPK($tahun,8,3,1);
+            $data['agu5'] = $this->mdl->getJumlahSPK($tahun,8,1,1);
+            $data['sep1'] = $this->mdl->getJumlahSPK($tahun,9,5,5);
+            $data['sep2'] = $this->mdl->getJumlahSPK($tahun,9,5,1);
+            $data['sep3'] = $this->mdl->getJumlahSPK($tahun,9,3,5);
+            $data['sep4'] = $this->mdl->getJumlahSPK($tahun,9,3,1);
+            $data['sep5'] = $this->mdl->getJumlahSPK($tahun,9,1,1);
+            $data['okt1'] = $this->mdl->getJumlahSPK($tahun,10,5,5);
+            $data['okt2'] = $this->mdl->getJumlahSPK($tahun,10,5,1);
+            $data['okt3'] = $this->mdl->getJumlahSPK($tahun,10,3,5);
+            $data['okt4'] = $this->mdl->getJumlahSPK($tahun,10,3,1);
+            $data['okt5'] = $this->mdl->getJumlahSPK($tahun,10,1,1);
+            $data['nop1'] = $this->mdl->getJumlahSPK($tahun,11,5,5);
+            $data['nop2'] = $this->mdl->getJumlahSPK($tahun,11,5,1);
+            $data['nop3'] = $this->mdl->getJumlahSPK($tahun,11,3,5);
+            $data['nop4'] = $this->mdl->getJumlahSPK($tahun,11,3,1);
+            $data['nop5'] = $this->mdl->getJumlahSPK($tahun,11,1,1);
+            $data['des1'] = $this->mdl->getJumlahSPK($tahun,12,5,5);
+            $data['des2'] = $this->mdl->getJumlahSPK($tahun,12,5,1);
+            $data['des3'] = $this->mdl->getJumlahSPK($tahun,12,3,5);
+            $data['des4'] = $this->mdl->getJumlahSPK($tahun,12,3,1);
+            $data['des5'] = $this->mdl->getJumlahSPK($tahun,12,1,1);
+            
+            $data['tahun_pilih']=$tahun;
+        }
+        
+        $this->load->view('user/voiceofcustomer',$data);
+    }
+
 
 
 }
