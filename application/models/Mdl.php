@@ -3059,4 +3059,13 @@ ORDER BY tgl DESC,nama LIMIT 50
             return array();
         }
     }
+
+    public function getJumlahSPKTotal($tahun,$kualitas,$kecepatan) {
+        $hasil=$this->db->query("SELECT COUNT(*) as jumlah FROM `service` where YEAR(dateCreated)=$tahun AND nilaiKualitas=$kualitas AND nilaiKecepatan=$kecepatan");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 }

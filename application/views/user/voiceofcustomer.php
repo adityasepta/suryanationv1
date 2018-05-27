@@ -13,7 +13,7 @@
     <link href="<?php echo base_url();?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-
+    <link href="<?php echo base_url();?>assets/css/plugins/footable/footable.core.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
 </head>
@@ -107,22 +107,23 @@
                              </div>
                              <div class="row">
                                 <div class="col-lg-12" style="margin-bottom: 10px;">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                    <table class="table table-striped table-bordered table-hover footable">
                                     <thead>
                                     <tr>
-                                        <th width="16%">Penilaian</th>
-                                        <th width="7%">Jan</th>
-                                        <th width="7%">Feb</th>
-                                        <th width="7%">Mar</th>
-                                        <th width="7%">Apr</th>
-                                        <th width="7%">Mei</th>
-                                        <th width="7%">Jun</th>
-                                        <th width="7%">Jul</th>
-                                        <th width="7%">Agus</th>
-                                        <th width="7%">Sept</th>
-                                        <th width="7%">Okt</th>
-                                        <th width="7%">Nop</th>
-                                        <th width="7%">Des</th>
+                                        <th width="9%">Penilaian</th>
+                                        <th width="7%" data-hide="phone,tablet">Jan</th>
+                                        <th width="7%" data-hide="phone,tablet">Feb</th>
+                                        <th width="7%" data-hide="phone,tablet">Mar</th>
+                                        <th width="7%" data-hide="phone,tablet">Apr</th>
+                                        <th width="7%" data-hide="phone,tablet">Mei</th>
+                                        <th width="7%" data-hide="phone,tablet">Jun</th>
+                                        <th width="7%" data-hide="phone,tablet">Jul</th>
+                                        <th width="7%" data-hide="phone,tablet">Agus</th>
+                                        <th width="7%" data-hide="phone,tablet">Sept</th>
+                                        <th width="7%" data-hide="phone,tablet">Okt</th>
+                                        <th width="7%" data-hide="phone,tablet">Nop</th>
+                                        <th width="7%" data-hide="phone,tablet">Des</th>
+                                        <th width="7%" >Total</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -167,6 +168,9 @@
                                             <td>
                                                 <?php echo $des1[0]->jumlah;?> SPK
                                             </td>
+                                            <td>
+                                                <?php echo $total1[0]->jumlah;?> SPK
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -174,40 +178,43 @@
                                                 <img src="<?php echo base_url('assets/img/time-late.png')?>" height="42" width="42">
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jan2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $feb2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mar2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $apr2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mei2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jun2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jul2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $agu2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $sep2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $okt2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $nop2[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $des2[0]->jumlah;?> SPK
+                                            </td>
+                                            <td>
+                                                <?php echo $total2[0]->jumlah;?> SPK
                                             </td>
                                         </tr>
                                         <tr>
@@ -216,40 +223,43 @@
                                                 <img src="<?php echo base_url('assets/img/time-fast.png')?>" height="42" width="42">
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jan3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $feb3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mar3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $apr3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mei3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jun3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jul3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $agu3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $sep3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $okt3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $nop3[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $des3[0]->jumlah;?> SPK
+                                            </td>
+                                            <td>
+                                                <?php echo $total3[0]->jumlah;?> SPK
                                             </td>
                                         </tr>
                                         <tr>
@@ -258,40 +268,43 @@
                                                 <img src="<?php echo base_url('assets/img/time-late.png')?>" height="42" width="42">
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jan4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $feb4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mar4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $apr4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mei4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jun4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jul4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $agu4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $sep4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $okt4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $nop4[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $des4[0]->jumlah;?> SPK
+                                            </td>
+                                            <td>
+                                                <?php echo $total4[0]->jumlah;?> SPK
                                             </td>
                                         </tr>
                                         <tr>
@@ -300,47 +313,64 @@
                                                 <img src="<?php echo base_url('assets/img/time-late.png')?>" height="42" width="42">
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jan5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $feb5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mar5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $apr5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $mei5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jun5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $jul5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $agu5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $sep5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $okt5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $nop5[0]->jumlah;?> SPK
                                             </td>
                                             <td>
-                                                1 SPK
+                                                <?php echo $des5[0]->jumlah;?> SPK
+                                            </td>
+                                            <td>
+                                                <?php echo $total5[0]->jumlah;?> SPK
                                             </td>
                                         </tr>
-
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                    </tfoot>
+                                    <thead>
+                                    <tr>
+                                        <th width="16%">Total</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $jan1[0]->jumlah+$jan2[0]->jumlah+$jan3[0]->jumlah+$jan4[0]->jumlah+$jan5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $feb1[0]->jumlah+$feb2[0]->jumlah+$feb3[0]->jumlah+$feb4[0]->jumlah+$feb5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $mar1[0]->jumlah+$mar2[0]->jumlah+$mar3[0]->jumlah+$mar4[0]->jumlah+$mar5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $apr1[0]->jumlah+$apr2[0]->jumlah+$apr3[0]->jumlah+$apr4[0]->jumlah+$apr5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $mei1[0]->jumlah+$mei2[0]->jumlah+$mei3[0]->jumlah+$mei4[0]->jumlah+$mei5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $jun1[0]->jumlah+$jun2[0]->jumlah+$jun3[0]->jumlah+$jun4[0]->jumlah+$jun5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $jul1[0]->jumlah+$jul2[0]->jumlah+$jul3[0]->jumlah+$jul4[0]->jumlah+$jul5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $agu1[0]->jumlah+$agu2[0]->jumlah+$agu3[0]->jumlah+$agu4[0]->jumlah+$agu5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $sep1[0]->jumlah+$sep2[0]->jumlah+$sep3[0]->jumlah+$sep4[0]->jumlah+$sep5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $okt1[0]->jumlah+$okt2[0]->jumlah+$okt3[0]->jumlah+$okt4[0]->jumlah+$okt5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $nop1[0]->jumlah+$nop2[0]->jumlah+$nop3[0]->jumlah+$nop4[0]->jumlah+$nop5[0]->jumlah;?> SPK</th>
+                                        <th width="7%" data-hide="phone,tablet"><?php echo $des1[0]->jumlah+$des2[0]->jumlah+$des3[0]->jumlah+$des4[0]->jumlah+$des5[0]->jumlah;?> SPK</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
                                 </table>
                                 </div>  
                             </div>
@@ -381,6 +411,16 @@
                 radioClass: 'iradio_square-green',
             });
         });
+    </script>
+    <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
     </script>
 </body>
 

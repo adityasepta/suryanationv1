@@ -8086,6 +8086,7 @@ class User extends CI_Controller {
         else {
             //Jika ada input
             $tahun = $this->input->post('tahun');
+            $bulan = array (1,2,3,4,5,6,7,8,9,10,11,12);
             $data['jan1'] = $this->mdl->getJumlahSPK($tahun,1,5,5);
             $data['jan2'] = $this->mdl->getJumlahSPK($tahun,1,5,1);
             $data['jan3'] = $this->mdl->getJumlahSPK($tahun,1,3,5);
@@ -8146,7 +8147,11 @@ class User extends CI_Controller {
             $data['des3'] = $this->mdl->getJumlahSPK($tahun,12,3,5);
             $data['des4'] = $this->mdl->getJumlahSPK($tahun,12,3,1);
             $data['des5'] = $this->mdl->getJumlahSPK($tahun,12,1,1);
-            
+            $data['total1'] = $this->mdl->getJumlahSPKTotal($tahun,5,5);
+            $data['total2'] = $this->mdl->getJumlahSPKTotal($tahun,5,1);
+            $data['total3'] = $this->mdl->getJumlahSPKTotal($tahun,3,5);
+            $data['total4'] = $this->mdl->getJumlahSPKTotal($tahun,3,1);
+            $data['total5'] = $this->mdl->getJumlahSPKTotal($tahun,1,1);
             $data['tahun_pilih']=$tahun;
         }
         
