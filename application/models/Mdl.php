@@ -1713,7 +1713,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
      public function findPOTrading($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1762,7 +1762,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
     public function findPOTradingbyID($idPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE idPO='$idPO' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE idPO='$idPO' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
