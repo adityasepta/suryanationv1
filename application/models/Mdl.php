@@ -959,7 +959,7 @@ class mdl extends CI_Model {
 
     public function getStokProduk() {
         $sql    = "SELECT * FROM (SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' 
-               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY tanggal";
+               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY idStok DESC";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1713,7 +1713,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
      public function findPOTrading($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE nomorPO='$nomorPO' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1762,7 +1762,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
     }
     public function findPOTradingbyID($idPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN Customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE idPO='$idPO' LIMIT 1");
+        $hasil = $this->db->query("SELECT * FROM purchaseordertrading a LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user d ON a.idSalesPerson = d.idUser WHERE idPO='$idPO' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3044,6 +3044,15 @@ ORDER BY tgl DESC,nama LIMIT 50
         $date2 = $newDate = date("Y/m/d", strtotime($sampai));
         $hasil = $this->db->query("SELECT a.idJurnal,d.idCustomer,d.namaCustomer,a.keterangan,b.kodeAkun,b.jumlah,b.kategori,c.kodeTipeAkun,c.namaAkun, DATE_FORMAT(a.tanggal, '%Y-%m-%d') AS tgl FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN akun c ON b.kodeAkun = c.kodeAkun LEFT JOIN customer d ON a.idCustomer=d.idCustomer WHERE c.kodeTipeAkun < 1300 AND a.tanggal >= '$date1' and a.tanggal <= '$date2' AND d.idCustomer= $idCustomer ORDER BY a.tanggal, idJurnal DESC");
 
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function getJumlahSPK($tahun,$bulan,$kualitas,$kecepatan) {
+        $hasil=$this->db->query("SELECT COUNT(*) as jumlah FROM `service` where YEAR(dateCreated)=$tahun AND MONTH(dateCreated)=$bulan AND nilaiKualitas=$kualitas AND nilaiKecepatan=$kecepatan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

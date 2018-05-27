@@ -42,6 +42,11 @@
         list-style-type: none;
         margin-bottom: .5em;
     }
+    .holding>tbody>tr>td {
+        padding: 0px;
+        border-top: 0px;
+        margin-bottom: -5px;
+    }
     .headline-name {
         border-bottom: 1px solid black;
         padding-bottom: .5em;
@@ -154,23 +159,46 @@
                     </a>
                 </div>
             </div> 
-            <table class="table no-border">
+            <table class="table holding">
                 <tbody>
                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%">Nama Konsumen : <b><?php echo $namaCustomer;?></b></td>
-                        <td width="50%">Tanggal Terima : <b><?php echo $tglmsk;?></b></td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Konsumen</td>
+                                        <td>: <b><?php echo $namaCustomer;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nomor Telepon</td>
+                                        <td>: <b> <?php echo $nomorTelepon;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td><b>No PO / <b style="color: red;"><?php echo $nomorPO;?></b></td>
+                                        <td></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="50%">
+                            <table class="table no-border less-space">
+                                <tbody>
+                                    <tr>
+                                        <td>Tanggal Terima</td>
+                                        <td>: <b><?php echo $tglmsk;?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                     </tr>
+                                     <tr>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="45%" >Nomor Telepon : <b> <?php echo $nomorTelepon;?></b></td>
-                        <td width="50%">Nama Sales  : <b><?php echo $dataPO[0]->nama;?></b></td>
-                     </tr>
-                     <tr>
-                        <td width="5%"></td>
-                        <td width="45%" ><b>Nomor PO : </b><b style="color: red;"><?php echo $nomorPO;?></b></td>
-                        <td width="50%"></td>
-                     </tr>
                 </tbody>
             </table>
             <hr style="border-top: 3px solid #282828;">
@@ -212,6 +240,27 @@
                 </tfoot>
             </table>
             
+        </section>
+        <section id="footer">
+            <table class="table no-border ">
+                <tbody>
+                    <tr>
+                        <td width="70%">
+                        </td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Hormat Kami</b></p>
+                                <p style="margin-top: 40px;"><?php echo $dataPO[0]->nama ?></p>
+                            </div></td>
+                        <td width="20%">
+                            <div class="text-center">
+                                <p><b>Konsumen</b></p>
+                                <p style="margin-top: 40px;"><?php echo $namaCustomer ?></p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
         <!-- <section id="footer">
             <div class="row">
