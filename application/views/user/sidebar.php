@@ -124,6 +124,7 @@
                     <a href="index.html"><i class="fa fa-info-circle"></i> <span class="nav-label">Services</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/service">Beranda</a></li>
+                        <li><a href="<?php echo base_url()?>user/voiceofcustomer">Voice Of Customer</a></li>
                         <li><a href="<?php echo base_url()?>user/survey">Survey</a></li>
                     </ul>
                 </li>
