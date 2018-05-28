@@ -83,6 +83,15 @@ class mdl extends CI_Model {
         
     }
 
+    public function getAktivitasLanjut3() {
+        
+        $sql   = "SELECT a.idSPK, b.namaAktivitas, b.idAktivitas FROM rencanaproduksiservice a, aktivitasservice b where a.idaktivitas = b.idAktivitas and a.idaktivitas >= 1001 order by idaktivitas";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+        
+    }
+
     public function getAktivitasLanjut2() {
         
         $sql   = "SELECT a.idSPK, b.namaAktivitas, b.idAktivitas FROM rencanaproduksi2 a, aktivitas b where a.idaktivitas = b.idAktivitas and a.idaktivitas > 1006 order by idaktivitas";
@@ -1206,7 +1215,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listPOService(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM purchaseorderservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");
+        $hasil = $this->db->query("SELECT * FROM purchaseorderservice a LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC, a.nomorPO DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1356,9 +1365,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getProsesService($idAktivitas) {
 
-        $sql   = "SELECT  s.durasi,f.berat, f.statusBerat, f.kembali, r.endDate, r.startDate, DATE_FORMAT( r.endDate, '%m/%d/%Y %h:%m:%i' ) AS tgs , DATE_FORMAT( r.startDate, '%d %M %Y %h:%m:%i' ) AS tglmulai, DATE_FORMAT( r.endDate, '%d %M %Y %h:%m:%i' ) AS tglselesai, f.idAktivitas,f.idPIC,f.idSPK, f.statusWork, f.statusSPK, f.idProProd, po.nomorPO, s.nomorFaktur, po.tipeOrder, c.namaCustomer, k.nama AS namaSales, u.nama AS namaPIC, s.statusJadwal, DATE_FORMAT(tanggalMasuk, '%d %M %Y %h:%m:%i') AS tanggal FROM purchaseorderservice po, customer c, spkservice s, factproductionservice f, rencanaproduksiservice r, user u, user k WHERE po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork = 'On Progress'
+        $sql   = "SELECT  s.durasi,f.beratAwal,f.berat, f.statusBerat, f.kembali, r.endDate, r.startDate, DATE_FORMAT( r.endDate, '%m/%d/%Y %h:%m:%i' ) AS tgs , DATE_FORMAT( r.startDate, '%d %M %Y %h:%m:%i' ) AS tglmulai, DATE_FORMAT( r.endDate, '%d %M %Y %h:%m:%i' ) AS tglselesai, f.idAktivitas,f.idPIC,f.idSPK, f.statusWork, f.statusSPK, f.idProProd, po.nomorPO, s.nomorFaktur, po.tipeOrder, c.namaCustomer, k.nama AS namaSales, u.nama AS namaPIC, s.statusJadwal, DATE_FORMAT(tanggalMasuk, '%d %M %Y %h:%m:%i') AS tanggal FROM purchaseorderservice po, customer c, spkservice s, factproductionservice f, rencanaproduksiservice r, user u, user k WHERE po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND f.idPIC = u.idUser AND po.idSalesPerson = k.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork = 'On Progress'
             UNION
-            SELECT s.durasi,f.berat, f.statusBerat, f.kembali, r.endDate, r.startDate, DATE_FORMAT( r.endDate, '%m/%d/%Y %h:%m:%i' ) AS tgs , DATE_FORMAT( r.startDate, '%d %M %Y %h:%m:%i' ) AS tglmulai, DATE_FORMAT( r.endDate, '%d %M %Y %h:%m:%i' ) AS tglselesai, '0' as idPIC, f.idAktivitas, f.idSPK, f.statusWork, f.statusSPK, f.idProProd, po.nomorPO, s.nomorFaktur, po.tipeOrder, c.namaCustomer, u.nama AS namaSales, '-' AS namaPIC, s.statusJadwal, DATE_FORMAT(tanggalMasuk, '%d %M %Y %h:%m:%i') AS tanggal FROM purchaseorderservice po, customer c, spkservice s, factproductionservice f, rencanaproduksiservice r, user u WHERE po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND po.idSalesPerson = u.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork = 'Belum ada PIC'";
+            SELECT s.durasi,f.beratAwal,f.berat, f.statusBerat, f.kembali, r.endDate, r.startDate, DATE_FORMAT( r.endDate, '%m/%d/%Y %h:%m:%i' ) AS tgs , DATE_FORMAT( r.startDate, '%d %M %Y %h:%m:%i' ) AS tglmulai, DATE_FORMAT( r.endDate, '%d %M %Y %h:%m:%i' ) AS tglselesai, '0' as idPIC, f.idAktivitas, f.idSPK, f.statusWork, f.statusSPK, f.idProProd, po.nomorPO, s.nomorFaktur, po.tipeOrder, c.namaCustomer, u.nama AS namaSales, '-' AS namaPIC, s.statusJadwal, DATE_FORMAT(tanggalMasuk, '%d %M %Y %h:%m:%i') AS tanggal FROM purchaseorderservice po, customer c, spkservice s, factproductionservice f, rencanaproduksiservice r, user u WHERE po.idCustomer = c.idCustomer AND s.nomorPO = po.nomorPO AND f.idSPK = s.idSPK AND f.idSPK = r.idSPK AND f.idAktivitas = r.idAktivitas AND po.idSalesPerson = u.idUser AND f.idAktivitas = $idAktivitas AND f.statusWork = 'Belum ada PIC'";
         $query = $this->db->query($sql);
         
         return $query->result();
