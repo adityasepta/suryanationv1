@@ -8214,6 +8214,157 @@ class User extends CI_Controller {
         $this->load->view('user/voiceofcustomer',$data);
     }
 
+    //HR
+    public function listJobDesc() {
+        $data['listJobDesc'] = $this->mdl->listJobDesc();
+        $this->load->view('user/listJobDesc',$data);
+    }
+
+    public function createJobDesc() {
+        $dataJobDesc = array(
+            'namaJabatan'           => $this->input->post('namaJabatan'),
+            'bagian'                => $this->input->post('bagian'),
+            'unit'           => $this->input->post('unit'),
+            'kodeBagian'                => $this->input->post('kodeBagian'),
+            'fungsiUtama'           => $this->input->post('fungsiUtama'),
+            'tanggungJawab'                => $this->input->post('tanggungJawab'),
+            'wewenang'           => $this->input->post('wewenang'),
+            'targetPekerjaan'                => $this->input->post('targetPekerjaan'),
+            'spesifikasiJabatan'           => $this->input->post('spesifikasiJabatan')
+        );
+        //print_r($dataJobDesc);exit();
+        $this->mdl->insertData('jobdesc', $dataJobDesc);
+        redirect('user/listJobDesc');
+    }
+
+    public function editJobDesc($idJobDesc) {
+        $dataJobDesc = array(
+            'namaJabatan'           => $this->input->post('namaJabatan'),
+            'bagian'                => $this->input->post('bagian'),
+            'unit'           => $this->input->post('unit'),
+            'kodeBagian'                => $this->input->post('kodeBagian'),
+            'fungsiUtama'           => $this->input->post('fungsiUtama'),
+            'tanggungJawab'                => $this->input->post('tanggungJawab'),
+            'wewenang'           => $this->input->post('wewenang'),
+            'targetPekerjaan'                => $this->input->post('targetPekerjaan'),
+            'spesifikasiJabatan'           => $this->input->post('spesifikasiJabatan')
+        );
+        //print_r($dataPegawai);exit();
+        $this->mdl->updateData('idJobDesc', $idJobDesc, 'jobdesc', $dataJobDesc);
+        redirect('user/listJobDesc');
+    }
+
+    public function deleteJobDesc($idJobDesc) {
+        $this->mdl->deleteData('idJobDesc', $idJobDesc, 'jobdesc');
+        $message = "Data JobDesc berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/listJobDesc")."';</script>";
+    }
+
+    public function listSOP() {
+        $data['listSOP'] = $this->mdl->listSOP();
+        $this->load->view('user/listSOP',$data);
+    }
+
+    public function createSOP() {
+        //print_r($dataSOP);exit();
+        if($_FILES['userfile']['name'] != NULL){
+                //form sumbit dengan file diisi
+                //load uploading file library
+                 $config['upload_path']   = './uploads/lampiran/'; 
+                 $config['allowed_types'] = '*'; 
+                 $config['max_size']    = '8048';
+                 $config['overwrite']        = TRUE;
+                
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                    if ( !$this->upload->do_upload()){
+                        $error = array('error' => $this->upload->display_errors());
+                        $message = "Upload Gagal";
+                        echo "<script type='text/javascript'>alert('$message');
+                        </script>";
+                        $data['listSOP'] = $this->mdl->listSOP();
+                        $this->load->view('user/listSOP',$data);
+                    }
+                    else {
+                        $lampiran = $this->upload->data();
+                        $dataSOP = array(
+                                'namaSOP'              => set_value('namaSOP'),
+                                'tujuanSOP'              => $this->input->post('tujuanSOP'),
+                                'uraianSingkat'              => $this->input->post('uraianSingkat'),
+                                'lampiran'          => $lampiran['file_name']
+                        );
+                        //print_r($dataSOP);exit();
+                        $this->mdl->insertData('sop', $dataSOP);
+                        redirect('user/listSOP'); 
+                        }
+                    }
+            else {
+                //form submit dengan file dikosongkan
+                $dataSOP = array(
+                        'namaSOP'              => set_value('namaSOP'),
+                        'tujuanSOP'              => $this->input->post('tujuanSOP'),
+                        'uraianSingkat'              => $this->input->post('uraianSingkat')
+                );
+                //print_r($dataSOP);exit();
+                $this->mdl->insertData('sop', $dataSOP);
+                redirect('user/listSOP'); 
+            }
+    }
+
+    public function editSOP($idSOP) {
+        //print_r($dataSOP);exit();
+        if($_FILES['userfile']['name'] != NULL){
+                //form sumbit dengan file diisi
+                //load uploading file library
+                 $config['upload_path']   = './uploads/lampiran/'; 
+                 $config['allowed_types'] = '*'; 
+                 $config['max_size']    = '8048';
+                 $config['overwrite']        = TRUE;
+                
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                    if ( !$this->upload->do_upload()){
+                        $error = array('error' => $this->upload->display_errors());
+                        $message = "Upload Gagal";
+                        echo "<script type='text/javascript'>alert('$message');
+                        </script>";
+                        $data['listSOP'] = $this->mdl->listSOP();
+                        $this->load->view('user/listSOP',$data);
+                    }
+                    else {
+                        $lampiran = $this->upload->data();
+                        $dataSOP = array(
+                                'namaSOP'              => set_value('namaSOP'),
+                                'tujuanSOP'              => $this->input->post('tujuanSOP'),
+                                'uraianSingkat'              => $this->input->post('uraianSingkat'),
+                                'lampiran'          => $lampiran['file_name']
+                        );
+                        //print_r($dataSOP);exit();
+                        $this->mdl->updateData('idSOP', $idSOP, 'sop', $dataSOP);
+                        redirect('user/listSOP');
+                        }
+                    }
+            else {
+                //form submit dengan file dikosongkan
+                $dataSOP = array(
+                        'namaSOP'              => set_value('namaSOP'),
+                        'tujuanSOP'              => $this->input->post('tujuanSOP'),
+                        'uraianSingkat'              => $this->input->post('uraianSingkat')
+                );
+                //print_r($dataSOP);exit();
+                $this->mdl->updateData('idSOP', $idSOP, 'sop', $dataSOP);
+                redirect('user/listSOP');
+            }
+    }
+
+    public function deleteSOP($idSOP) {
+        $this->mdl->deleteData('idSOP', $idSOP, 'sop');
+        $message = "Data SOP berhasil dihapus";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/listSOP")."';</script>";
+    }
+
 
 
 }

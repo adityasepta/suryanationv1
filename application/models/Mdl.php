@@ -3077,4 +3077,24 @@ ORDER BY tgl DESC,nama LIMIT 50
             return array();
         }
     }
+
+     public function listJobDesc(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM jobdesc");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listSOP(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM sop");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
 }

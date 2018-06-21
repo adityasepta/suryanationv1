@@ -128,6 +128,13 @@
                         <li><a href="<?php echo base_url()?>user/survey">Survey</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-info-circle"></i> <span class="nav-label">Human Resource</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?php echo base_url()?>user/listJobDesc">Job Desc</a></li>
+                        <li><a href="<?php echo base_url()?>user/listSOP">SOP</a></li>
+                    </ul>
+                </li>
 
                 <li >
                     <a href="<?php echo base_url();?>user/logout"><i class="fa fa-sign-out"></i> <span class="nav-label">logout</span></a>
