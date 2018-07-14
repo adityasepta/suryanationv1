@@ -196,6 +196,7 @@
                                         <br>
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
+                                    <?php echo form_close(); ?>
                                 </div>
                                     
                                 <hr>
