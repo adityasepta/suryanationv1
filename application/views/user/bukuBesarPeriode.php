@@ -269,6 +269,7 @@
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
+                   "paging":   false,
                 pageLength: 20,
                 <?php $nama = $kodeAkun_pilih."-".$dari."-".$sampai;?>
                 dom: '<"html5buttons"B>lTfgitp',

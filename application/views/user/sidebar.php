@@ -21,7 +21,7 @@
                     <ul class="nav nav-second-level"> 
                         <li><a href="<?php echo base_url();?>user/kanban">Kanban Tempahan</a></li>
                         <li><a href="<?php echo base_url();?>user/kanbanMassal">Kanban Massal</a></li> 
-                        <!-- <li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> --> 
+                        <li><a href="<?php echo base_url();?>user/kanbanPerak">Kanban Perak</a></li> 
                         <li><a href="<?php echo base_url();?>user/kanbanService">Kanban Service</a></li> 
                     </ul> 
                 </li> 
@@ -38,9 +38,9 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOMasal">PO Massal</a> 
                                 </li> 
-                               <!-- <li> 
+                               <li> 
                                     <a href="<?php echo base_url();?>user/listPOPerak">PO Perak</a> 
-                                </li>  -->
+                                </li>
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listPOService">PO Service</a> 
                                 </li> 
@@ -58,9 +58,9 @@
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKMasal">SPK Massal</a> 
                                 </li> 
-                               <!--  <li> 
+                                <li> 
                                     <a href="<?php echo base_url();?>user/listSPKPerak">SPK Perak</a> 
-                                </li>  -->
+                                </li>
                                 <li> 
                                     <a href="<?php echo base_url();?>user/listSPKService">SPK Service</a> 
                                 </li> 
@@ -124,7 +124,15 @@
                     <a href="index.html"><i class="fa fa-info-circle"></i> <span class="nav-label">Services</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo base_url()?>user/service">Beranda</a></li>
+                        <li><a href="<?php echo base_url()?>user/voiceofcustomer">Voice Of Customer</a></li>
                         <li><a href="<?php echo base_url()?>user/survey">Survey</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-list-alt"></i> <span class="nav-label">Human Resource</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?php echo base_url()?>user/listJobDesc">Job Desc</a></li>
+                        <li><a href="<?php echo base_url()?>user/listSOP">SOP</a></li>
                     </ul>
                 </li>
 

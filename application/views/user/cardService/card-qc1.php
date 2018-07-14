@@ -1,7 +1,7 @@
 <?php 
-    $idakt = 1007;
-    $namakt= "QC + PASANG CZ";
-    $var = $bo[$i]->endDate;
+    $idakt = 1004;
+    $namakt= "QC 1";
+    $var = $qc[$i]->endDate;
     $statr = "";
     if((time()-(60*60*24)) < strtotime($var)) {
         $statr = "success";
@@ -15,15 +15,15 @@
     <div class="row">
         <div class="col-lg-4 text-center">
             No PO<br>
-            <b><?php echo $bo[$i]->nomorPO ?></b>
+            <b><?php echo $qc[$i]->nomorPO ?></b>
         </div>
         <div class="col-lg-4 text-center">
             No Faktur<br>
-            <b><?php echo $bo[$i]->nomorFaktur ?></b>
+            <b><?php echo $qc[$i]->nomorFaktur ?></b>
         </div>
         <div class="col-lg-4 text-center ">
             Tipe Order<br>
-            <b><?php echo $bo[$i]->tipeOrder ?></b>
+            <b><?php echo $qc[$i]->tipeOrder ?></b>
         </div>
     </div>
     
@@ -34,8 +34,8 @@
             PIC Proses
         </div>
         <div class="col-lg-8">
-            :&nbsp&nbsp<b><?php echo $bo[$i]->namaCustomer ?></b><br>
-            :&nbsp&nbsp<b><?php echo $bo[$i]->namaPIC ?></b>
+            :&nbsp&nbsp<b><?php echo $qc[$i]->namaCustomer ?></b><br>
+            :&nbsp&nbsp<b><?php echo $qc[$i]->namaPIC ?></b>
         </div>
 
     </div>
@@ -46,20 +46,20 @@
     <div class="row">
         <br>
         <div class="col-lg-6">
-            <?php if ($bo[$i]->statusWork == 'Belum ada PIC') { ?>
+            <?php if ($qc[$i]->statusWork == 'Belum ada PIC') { ?>
             <button class="btn btn-block btn-danger btn-xs">Belum ada PIC</button>
             <?php } else { ?>
             <button class="btn btn-block btn-warning btn-xs">On Progress</button>
             <?php } ?>
         </div>
         <div class="col-lg-6">
-            <?php if ($bo[$i]->durasi == '2') { ?>
+            <?php if ($qc[$i]->durasi == '2') { ?>
             <button class="btn btn-block btn-primary btn-xs">2 Jam</button>
-            <?php } else if ($bo[$i]->durasi == '4') { ?>
+            <?php } else if ($qc[$i]->durasi == '4') { ?>
             <button class="btn btn-block btn-warning btn-xs">3-4 Jam</button>
-            <?php } else if ($bo[$i]->durasi == '5') { ?>
+            <?php } else if ($qc[$i]->durasi == '5') { ?>
             <button class="btn btn-block btn-warning btn-xs">5 Jam</button>
-            <?php } else if ($bo[$i]->durasi == '24') { ?>
+            <?php } else if ($qc[$i]->durasi == '24') { ?>
             <button class="btn btn-block btn-default btn-xs">1 Hari</button>
             <?php } else {?>
             <button class="btn btn-block btn-danger btn-xs">Tunggu</button>
@@ -72,7 +72,7 @@
 
         <div class="col-lg-3">
             
-            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+            <button data-toggle="modal" data-target="#detail<?php echo $qc[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
         </div>
 
         <div class="col-lg-3">
@@ -86,27 +86,27 @@
         </div>
         
         <div class="col-lg-6">
-            <?php if ($bo[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $bo[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block" onclick="tambahpic<?php echo $bo[$i]->idProProd ?>();">Tambah PIC</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->berat == 0 ) {  ?>
-                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $bo[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->berat > 0 AND $bo[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
-                <button data-toggle="modal" data-target="#serah<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->statusBerat == 'Disetujui' ) { ?>                
-                <a  data-toggle="modal" data-target="#akt<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+            <?php if ($qc[$i]->statusWork == 'Belum ada PIC') { ?>
+                <button data-toggle="modal" data-target="#pic<?php echo $qc[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block" onclick="tambahpic<?php echo $qc[$i]->idProProd ?>();">Tambah PIC</button>
+            <?php } else if($qc[$i]->statusWork == 'On Progress' AND $qc[$i]->berat == 0 ) {  ?>
+                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $qc[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
+            <?php } else if($qc[$i]->statusWork == 'On Progress' AND $qc[$i]->berat > 0 AND $qc[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
+                <button data-toggle="modal" data-target="#serah<?php echo $qc[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
+            <?php } else if($qc[$i]->statusWork == 'On Progress' AND $qc[$i]->statusBerat == 'Disetujui' ) { ?>                
+                <a  data-toggle="modal" data-target="#akt<?php echo $qc[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
             <?php } ?>
         </div>
 
     </div>
 
-    <div class="modal inmodal fade" id="serah<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="serah<?php echo $qc[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Form Serah Terima</h3><br>
 
-                    <span >NO PO : <b class="text-success"><?php echo $bo[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $bo[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $bo[$i]->tipeOrder ?></b></span><br>
+                    <span >NO PO : <b class="text-success"><?php echo $qc[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $qc[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $qc[$i]->tipeOrder ?></b></span><br>
 
                 </div>
                 <div class="modal-body">
@@ -117,19 +117,19 @@
                         </div>
                         <div class="col-lg-3 text-center">
                             Berat Akhir<br>
-                            <b><?php echo $bo[$i]->berat ?> gr</b><br><br>
+                            <b><?php echo $qc[$i]->berat ?> gr</b><br><br>
                             PIC Proses<br>
-                            <b><?php echo $bo[$i]->namaPIC ?></b>
+                            <b><?php echo $qc[$i]->namaPIC ?></b>
                         </div>
                         <div class="col-lg-3 text-center">
                             Tanggal Mulai<br>
-                            <b><?php echo $bo[$i]->tglmulai ?></b>
+                            <b><?php echo $qc[$i]->tglmulai ?></b>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <br><br>
-                            <a href="<?php echo base_url('User/approveService/'.$bo[$i]->idProProd) ?>" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $bo[$i]->nomorFaktur ?>?')"  class="btn btn-lg btn-primary btn-block">Validasi</a>
+                            <a href="<?php echo base_url('User/approveService/'.$qc[$i]->idProProd) ?>" onclick="return confirm('Apakah anda yakin untuk menyetujui berat dari aktivitas produksi nomor faktur <?php echo $qc[$i]->nomorFaktur ?>?')"  class="btn btn-lg btn-primary btn-block">Validasi</a>
                         </div>
                     </div>
                 </div>
@@ -139,23 +139,23 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $qc[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Detail Proses Produksi</h3><br>
-                    <span >NO PO : <b class="text-success"><?php echo $bo[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $bo[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $bo[$i]->tipeOrder ?></b></span><br>
+                    <span >NO PO : <b class="text-success"><?php echo $qc[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $qc[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $qc[$i]->tipeOrder ?></b></span><br>
                 </div>
                 <div class="modal-body">
 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $bo[$i]->nomorFaktur ?>">Informasi Umum</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2<?php echo $bo[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $qc[$i]->nomorFaktur ?>">Informasi Umum</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2<?php echo $qc[$i]->nomorFaktur ?>">Jadwal</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="tab-1<?php echo $bo[$i]->nomorFaktur ?>" class="tab-pane active">
+                            <div id="tab-1<?php echo $qc[$i]->nomorFaktur ?>" class="tab-pane active">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-4 text-right ">
@@ -164,9 +164,9 @@
                                             PIC Proses<br>
                                         </div>
                                         <div class="col-lg-8">
-                                            :&nbsp&nbsp<b><?php echo $bo[$i]->namaCustomer ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $bo[$i]->namaSales ?></b><br>
-                                            :&nbsp&nbsp<b><?php echo $bo[$i]->namaPIC ?></b><br>
+                                            :&nbsp&nbsp<b><?php echo $qc[$i]->namaCustomer ?></b><br>
+                                            :&nbsp&nbsp<b><?php echo $qc[$i]->namaSales ?></b><br>
+                                            :&nbsp&nbsp<b><?php echo $qc[$i]->namaPIC ?></b><br>
                                         </div>
 
                                     </div>
@@ -183,7 +183,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $ijk=1; for ($ij=0; $ij < count($ds) ; $ij++) { 
-                                                    if ($ds[$ij]->nomorPO==$bo[$i]->nomorPO) { ?>
+                                                    if ($ds[$ij]->nomorPO==$qc[$i]->nomorPO) { ?>
                                                         <tr>
                                                             <td><?php echo $ijk; ?></td>
                                                             <td><?php echo $ds[$ij]->namaBarang?></td>
@@ -198,17 +198,17 @@
                                     <div class="row">
                                         <div class="col-lg-6 text-center">
                                             <b>Tanggal Mulai Pengerjaan</b><br>
-                                            <?php echo $bo[$i]->tglmulai ?></b>
+                                            <?php echo $qc[$i]->tglmulai ?></b>
                                         </div>
                                         <div class="col-lg-6 text-center">
                                             <b>Tanggal Selesai Pengerjaan</b><br>
-                                            <?php echo $bo[$i]->tglselesai ?></b>
+                                            <?php echo $qc[$i]->tglselesai ?></b>
                                         </div>
                                     </div>
                                     <br>
                                 </div>
                             </div>
-                            <div id="tab-2<?php echo $bo[$i]->nomorFaktur ?>" class="tab-pane">
+                            <div id="tab-2<?php echo $qc[$i]->nomorFaktur ?>" class="tab-pane">
                                 <div class="panel-body">
                                     <table class="table table-hover table-responsive">
                                         <thead>
@@ -223,13 +223,13 @@
                                             <tr>
                                                 <td class="text-center">1</td>
                                                 <td>Sales</td>
-                                                <td class="text-center"><?php echo $bo[$i]->tanggal?></td>
+                                                <td class="text-center"><?php echo $qc[$i]->tanggal?></td>
                                                 <td class="text-center"><label class="label label-xs label-primary">Diterima</label></td>
 
                                             </tr>
 
                                             <?php $no=2; for ($q=0; $q < count($r) ; ++$q) { 
-                                                if($r[$q]->idSPK == $bo[$i]->idSPK) { ?>
+                                                if($r[$q]->idSPK == $qc[$i]->idSPK) { ?>
 
                                                 <tr>
                                                     <td class="text-center"><?php echo $no ?></td>
@@ -260,24 +260,24 @@
                     </div>
                 </div>
 
-                <div class="modal inmodal fade" id="berat<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal inmodal fade" id="berat<?php echo $qc[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body">
 
                                 <?php echo form_open('User/setBeratService')?>
-                                <input type="hidden" step="any" name="beratAwal" readonly="" value="<?php echo $bo[$i]->beratAwal?>" class="form-control">
+                                <input type="hidden" step="any" name="beratAwal" readonly="" value="<?php echo $qc[$i]->beratAwal?>" class="form-control">
                                 <div class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
 
                                         <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
-                                        <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $bo[$i]->idProProd ?>"></div>
+                                        <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $qc[$i]->idProProd ?>"></div>
                                     </div>
                                 </div>
                                 
                                <div class="row">
                                     <div class="col-lg-6">
-                                        <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $bo[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
+                                        <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $qc[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
                                     </div>
                                     <div class="col-lg-6">
                                         <button type="submit" class="btn btn-block btn-success">Simpan</button>
@@ -289,7 +289,7 @@
                     </div>
                 </div>
 
-                <div class="modal inmodal fade" id="pic<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal inmodal fade" id="pic<?php echo $qc[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -302,16 +302,16 @@
                                         
                                         <?php 
 
-                                        $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$bo[$i]->idProProd.'()', 'id' =>  $bo[$i]->idProProd."-pic");
-                                        echo form_dropdown('staf', $staf, $bo[$i]->idPIC,$js);
+                                        $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$qc[$i]->idProProd.'()', 'id' =>  $qc[$i]->idProProd."-pic");
+                                        echo form_dropdown('staf', $staf, $qc[$i]->idPIC,$js);
                                         ?>
                                         
                                     </div>
                                     <div class="col-sm-2">
                               
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" step="any" name="beratAwal" value="<?php echo $bo[$i]->beratAwal?>" required class="form-control">
+                                            <input type="hidden" class="form-control" value="<?php echo $qc[$i]->idProProd?>" name="idProProd">
+                                            <input type="hidden" step="any" name="beratAwal" value="<?php echo $qc[$i]->beratAwal?>" required class="form-control">
                                         </div>
                                         
                                     </div>
@@ -321,21 +321,21 @@
                                     <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
 
                                         <div class="col-sm-4">
-                                            <input type="password" id="<?php echo $bo[$i]->idProProd?>-control?>-password-2" required  value="0" name="password2" class="form-control">
-                                            <input type="hidden" id="<?php echo $bo[$i]->idProProd?>-control?>-password-1" required value="0" name="password">
+                                            <input type="password" id="<?php echo $qc[$i]->idProProd?>-control?>-password-2" required  value="0" name="password2" class="form-control">
+                                            <input type="hidden" id="<?php echo $qc[$i]->idProProd?>-control?>-password-1" required value="0" name="password">
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="button" onclick="cekcontrol<?php echo $bo[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
+                                            <button type="button" onclick="cekcontrol<?php echo $qc[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
                                         </div>
                                         
                                     </div>
                                 </div>
                                 <div class="form-horizontal" >
                                     <div class="form-group">
-                                    <div class="col-lg-12 text-center" id='<?php echo $bo[$i]->idProProd?>-control?>-cek' style="display: none;">
+                                    <div class="col-lg-12 text-center" id='<?php echo $qc[$i]->idProProd?>-control?>-cek' style="display: none;">
                                         Password tidak cocok. Silahkan coba lagi.
                                     </div>
-                                    <div class="col-lg-12 text-center" id='<?php echo $bo[$i]->idProProd?>-control?>-cek1' style="display: none;">
+                                    <div class="col-lg-12 text-center" id='<?php echo $qc[$i]->idProProd?>-control?>-cek1' style="display: none;">
                                         Password valid.
                                     </div>
                                      </div>
@@ -345,10 +345,10 @@
                             
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
+                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $qc[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button type="submit" id="<?php echo $bo[$i]->idProProd?>-control" disabled="true"  class="btn btn-block btn-success">Simpan</button>
+                                    <button type="submit" id="<?php echo $qc[$i]->idProProd?>-control" disabled="true"  class="btn btn-block btn-success">Simpan</button>
                                 </div>
                             </div>
                             <?php echo form_close() ?>
@@ -356,7 +356,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal inmodal fade" id="akt<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal inmodal fade" id="akt<?php echo $qc[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -375,7 +375,7 @@
 
                                         <select required class="form-control" name="idAktivitas">
                                         <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
+                                            if($akt[$k]->idSPK == $qc[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
                                                 
                                             
                                                 <option value="<?php echo $akt[$k]->idAktivitas?>">
@@ -385,7 +385,7 @@
 
                                         <?php  }} ?>
                                         <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
+                                            if($akt[$k]->idSPK == $qc[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
                                                 
                                             
                                                 <option value="<?php echo $akt[$k]->idAktivitas?>">
@@ -403,8 +403,8 @@
                                         
                                         
                                     </div>
-                                    <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idSPK?>" name="idSPK">
+                                    <input type="hidden" class="form-control" value="<?php echo $qc[$i]->idProProd?>" name="idProProd">
+                                            <input type="hidden" class="form-control" value="<?php echo $qc[$i]->idSPK?>" name="idSPK">
                                             <input type="hidden" class="form-control" value="<?php echo $idakt?>" name="idakt">
                                     <div class="col-sm-2">
                               
@@ -427,12 +427,12 @@
 </li>
 
 <script type="text/javascript">
-        function tambahpic<?php echo $bo[$i]->idProProd ?>() {
-            passing<?php echo $bo[$i]->idProProd ?>();
+        function tambahpic<?php echo $qc[$i]->idProProd ?>() {
+            passing<?php echo $qc[$i]->idProProd ?>();
         };
 
-        function passing<?php echo $bo[$i]->idProProd ?>() {
-            var pic = document.getElementById('<?php echo $bo[$i]->idProProd ?>-pic');
+        function passing<?php echo $qc[$i]->idProProd ?>() {
+            var pic = document.getElementById('<?php echo $qc[$i]->idProProd ?>-pic');
             var idpic = pic.options[pic.selectedIndex].value;
             console.log(idpic);
             $.ajax({
@@ -446,27 +446,27 @@
                         var Vals = $.parseJSON(response);
                         /*console.log(Vals);*/
                         var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $bo[$i]->idProProd?>-control?>-password-1']").val(Vals[0].password);
+                        $("input[id='<?php echo $qc[$i]->idProProd?>-control?>-password-1']").val(Vals[0].password);
                     }
             });
         }
 </script>
 <script type="text/javascript">
-        function cekcontrol<?php echo $bo[$i]->idProProd?>() {
-            var password = document.getElementById('<?php echo $bo[$i]->idProProd ?>-control?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $bo[$i]->idProProd ?>-control?>-password-2').value;
+        function cekcontrol<?php echo $qc[$i]->idProProd?>() {
+            var password = document.getElementById('<?php echo $qc[$i]->idProProd ?>-control?>-password-1').value;
+            var password2 = document.getElementById('<?php echo $qc[$i]->idProProd ?>-control?>-password-2').value;
             console.log(password);
             console.log(password2);
-            var x = document.getElementById("<?php echo $bo[$i]->idProProd ?>-control?>-cek");
-            var y = document.getElementById("<?php echo $bo[$i]->idProProd ?>-control?>-cek1");
+            var x = document.getElementById("<?php echo $qc[$i]->idProProd ?>-control?>-cek");
+            var y = document.getElementById("<?php echo $qc[$i]->idProProd ?>-control?>-cek1");
 
             if(password==password2) {
-                $('#<?php echo $bo[$i]->idProProd ?>-control').prop('disabled', false);
+                $('#<?php echo $qc[$i]->idProProd ?>-control').prop('disabled', false);
                 x.style.display = "none";
                 y.style.display = "block";
             }
             else {
-                $('#<?php echo $bo[$i]->idProProd ?>-control').prop('disabled', true);
+                $('#<?php echo $qc[$i]->idProProd ?>-control').prop('disabled', true);
                 x.style.display = "block";
                 y.style.display = "none";
             }
