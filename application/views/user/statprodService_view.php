@@ -261,19 +261,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
-                            <div class="ibox">
-                                <div class="ibox-content">
-                                    <h3>QC 1<span class="label label-success pull-right"><?php echo count($qc)?></span></h3>
-                                    <p>Kumpulan dari SPK yang harus di QC untuk lanjut<br> ke proses berikutnya</p>
-                                    <ul class="sortable-list connectList agile-list" id="qc">
-                                        <?php for ($i=0; $i < count($qc) ; ++$i) { ?>
-                                           <?php include('cardService/card-qc1.php') ?>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">

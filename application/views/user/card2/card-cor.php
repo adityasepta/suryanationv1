@@ -198,6 +198,7 @@
                                 <b><?php echo $co[$i]->beratKecap ?> gr</b><br><br>
                                 
                             </div>
+
                             <div class="col-lg-3 text-center">
                                 &nbsp
                                 
@@ -349,6 +350,13 @@
                                                 <div class="form-group"><label class="col-sm-5 control-label">Balik Bahan</label>
 
                                                     <div class="col-sm-5"><input type="number" step="any" required="" value="<?php echo $co[$i]->kembali?>" name="kembali" class="form-control"></div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Tambahan</label>
+
+                                                    <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->beratTambahan?>" name="beratTambahan" class="form-control"></div>
                                                    
                                                 </div>
                                             </div>

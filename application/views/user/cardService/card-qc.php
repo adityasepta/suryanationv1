@@ -1,6 +1,5 @@
 <?php 
-    $idakt = 1007;
-    $namakt= "QC + PASANG CZ";
+
     $var = $bo[$i]->endDate;
     $statr = "";
     if((time()-(60*60*24)) < strtotime($var)) {
@@ -40,7 +39,13 @@
 
     </div>
     <br>
-    
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            
+            <!-- <span class="fa fa-warning text-muted"></span> -->
+
+        </div>
+    </div>
     
     
     <div class="row">
@@ -65,41 +70,38 @@
             <button class="btn btn-block btn-danger btn-xs">Tunggu</button>
             <?php } ?>
         </div>
-    </div>
 
-    <hr>
-    <div class="row">
-
-        <div class="col-lg-3">
-            
-            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-default btn-block"><span class="fa fa-plus-square"></span></button>
+        <div class="col-lg-6">
+            <br>    
+            <button data-toggle="modal" data-target="#detail<?php echo $bo[$i]->nomorFaktur ?>" class="btn btn-xs btn-default btn-block">Detail</button>
         </div>
 
         <div class="col-lg-3">
-
-            <?php if($statr == 'success') {?>
-                <button class="btn btn-block btn-xs btn-primary"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-check"></span></button>
-            <?php } else { ?>
-                <button class="btn btn-block btn-xs btn-danger"><span class="fa fa-calendar-o"></span>&nbsp&nbsp<span class="fa fa-times"></span></button>
-            <?php } ?>
-
+            <br>
+            <?php if($bo[$i]->berat == '0') {?>
+                <button onclick="return confirm('Berat belum diisi')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span>
+                </button>
+            <?php } else {?>
+                <?php if($bo[$i]->statusBerat == 'Belum Disetujui') {?>
+                 <button data-toggle="modal" data-target="#serah<?php echo $bo[$i]->nomorFaktur ?>" class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span></button>
+                <?php } else {?>
+                <button onclick="return confirm('Sudah disetujui')"  class="btn btn-xs btn-success btn-block"><span class="fa fa-check"></span>
+                </button>
+            <?php }} ?>
         </div>
         
-        <div class="col-lg-6">
-            <?php if ($bo[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $bo[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block" onclick="tambahpic<?php echo $bo[$i]->idProProd ?>();">Tambah PIC</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->berat == 0 ) {  ?>
-                <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $bo[$i]->idProProd ?>"  class="btn btn-xs btn-success btn-block">Tambah Berat</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->berat > 0 AND $bo[$i]->statusBerat == 'Belum Disetujui' ) { ?>                
-                <button data-toggle="modal" data-target="#serah<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Validasi Berat</button>
-            <?php } else if($bo[$i]->statusWork == 'On Progress' AND $bo[$i]->statusBerat == 'Disetujui' ) { ?>                
-                <a  data-toggle="modal" data-target="#akt<?php echo $bo[$i]->idProProd ?>" class="btn btn-xs btn-success btn-block">Lanjut Aktivitas</a>
+        <div class="col-lg-3">
+            <br>
+            <?php if($bo[$i]->statusBerat == 'Belum Disetujui') {?>
+            <button onclick="return confirm('Berat belum disetujui')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></button>
+            <?php } else {?>
+            <a href="<?php echo base_url('User/nextService/'.$bo[$i]->idAktivitas.'/'.$bo[$i]->idProProd.'/'.$bo[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin untuk melanjutkan aktivitas produksi nomor faktur <?php echo $bo[$i]->nomorFaktur ?>?')"  class="btn btn-xs btn-info btn-block"><span class="fa fa-arrow-right"></span></a>
             <?php } ?>
         </div>
-
+        
     </div>
 
-    <div class="modal inmodal fade" id="serah<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="serah<?php echo $bo[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -113,7 +115,7 @@
                     <div class="row">
                         <div class="col-lg-6 text-center">
                             Asal Aktivitas<br>
-                            <h1 class="text-success">Masak Soda + Cuci</h1>
+                            <h1 class="text-success">QC + Pasang CZ</h1>
                         </div>
                         <div class="col-lg-3 text-center">
                             Berat Akhir<br>
@@ -139,13 +141,20 @@
 
     
 
-    <div class="modal inmodal fade" id="detail<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="detail<?php echo $bo[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Detail Proses Produksi</h3><br>
+                    <!-- <span >NO FAKTUR : <b class="text-success">1423342</b> | NO BARANG : <b class="text-success">001</b> | TIPE : <b class="text-success">Custom</b></span><br> -->
+
+                    <!-- <span >NO PO : <b class="text-success"><?php echo $bo[$i]->nomorPO ?></b> | TIPE : <b class="text-success"><?php echo $bo[$i]->tipeOrder ?></b></span><br> -->
+
                     <span >NO PO : <b class="text-success"><?php echo $bo[$i]->nomorPO ?></b> | NO FAKTUR : <b class="text-success"><?php echo $bo[$i]->nomorFaktur ?></b> | TIPE : <b class="text-success"><?php echo $bo[$i]->tipeOrder ?></b></span><br>
+   <!--                  <h2><span class="fa fa-warning text-danger"></span>
+                    <span class="fa fa-warning text-danger"></span>
+                    <span class="fa fa-warning text-danger"></span></h2> -->
                 </div>
                 <div class="modal-body">
 
@@ -153,6 +162,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1<?php echo $bo[$i]->nomorFaktur ?>">Informasi Umum</a></li>
                             <li class=""><a data-toggle="tab" href="#tab-2<?php echo $bo[$i]->nomorFaktur ?>">Jadwal</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3<?php echo $bo[$i]->nomorFaktur ?>">Berat</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1<?php echo $bo[$i]->nomorFaktur ?>" class="tab-pane active">
@@ -195,6 +205,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <br>
                                     <div class="row">
                                         <div class="col-lg-6 text-center">
                                             <b>Tanggal Mulai Pengerjaan</b><br>
@@ -205,7 +216,6 @@
                                             <?php echo $bo[$i]->tglselesai ?></b>
                                         </div>
                                     </div>
-                                    <br>
                                 </div>
                             </div>
                             <div id="tab-2<?php echo $bo[$i]->nomorFaktur ?>" class="tab-pane">
@@ -235,7 +245,8 @@
                                                     <td class="text-center"><?php echo $no ?></td>
                                                     <td><?php echo $r[$q]->aktivitas ?></td>
                                                     <td class="text-center"><?php echo $r[$q]->sd ?></td>
-                                                    <td class="text-center"><?php if ($r[$q]->idAktivitas == $idakt) {?>
+                                                    <td class="text-center">
+                                                        <?php if ($r[$q]->idAktivitas == '1006') {?>
 
                                                         <label class="label label-xs label-warning">On Progress</label>
 
@@ -247,231 +258,157 @@
 
                                                         <label class="label label-xs label-danger"><?php echo $r[$q]->STATUS ?></label>
 
-                                                        <?php } ?></td>
+                                                        <?php } ?>
+                                                    </td>
                                                 </tr>
 
                                             <?php $no++; }} ?>
-                                            
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal inmodal fade" id="berat<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-
-                                <?php echo form_open('User/setBeratService')?>
-                                <input type="hidden" step="any" name="beratAwal" readonly="" value="<?php echo $bo[$i]->beratAwal?>" class="form-control">
-                                <div class="form-horizontal">
-                                    <div class="form-group"><label class="col-sm-5 control-label">Berat Akhir <?php echo $namakt ?></label>
-
-                                        <div class="col-sm-5"><input type="number" step="any" min="0" class="form-control" type="number" step="any" name="berat" class="form-control"></div>
-                                        <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $bo[$i]->idProProd ?>"></div>
-                                    </div>
-                                </div>
-                                
-                               <div class="row">
-                                    <div class="col-lg-6">
-                                        <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $bo[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-block btn-success">Simpan</button>
-                                    </div>
-                                </div>
-                                <?php echo form_close(); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal inmodal fade" id="pic<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <?php echo form_open('User/setPICService')?>
-                            <div class="form-horizontal">
-                                
-                                <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
-
-                                    <div class="col-sm-7">
-                                        
-                                        <?php 
-
-                                        $js = array( 'class' => 'form-control', 'onchange' => 'passing'.$bo[$i]->idProProd.'()', 'id' =>  $bo[$i]->idProProd."-pic");
-                                        echo form_dropdown('staf', $staf, $bo[$i]->idPIC,$js);
-                                        ?>
-                                        
-                                    </div>
-                                    <div class="col-sm-2">
-                              
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" step="any" name="beratAwal" value="<?php echo $bo[$i]->beratAwal?>" required class="form-control">
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-horizontal">
-                                    <div class="form-group"><label class="col-sm-3 control-label">Password PIC</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="password" id="<?php echo $bo[$i]->idProProd?>-control?>-password-2" required  value="0" name="password2" class="form-control">
-                                            <input type="hidden" id="<?php echo $bo[$i]->idProProd?>-control?>-password-1" required value="0" name="password">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="button" onclick="cekcontrol<?php echo $bo[$i]->idProProd?>();" class="btn btn-sm btn-primary btn-block">Cek</button>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="form-horizontal" >
-                                    <div class="form-group">
-                                    <div class="col-lg-12 text-center" id='<?php echo $bo[$i]->idProProd?>-control?>-cek' style="display: none;">
-                                        Password tidak cocok. Silahkan coba lagi.
-                                    </div>
-                                    <div class="col-lg-12 text-center" id='<?php echo $bo[$i]->idProProd?>-control?>-cek1' style="display: none;">
-                                        Password valid.
-                                    </div>
-                                     </div>
-                                </div>
-
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $bo[$i]->idProProd ?>" class="btn btn-danger btn-block">Kembali</button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="submit" id="<?php echo $bo[$i]->idProProd?>-control" disabled="true"  class="btn btn-block btn-success">Simpan</button>
-                                </div>
-                            </div>
-                            <?php echo form_close() ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal inmodal fade" id="akt<?php echo $bo[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h3 class="modal-title">Lanjutkan Aktivitas</h3><br>
-
-                        </div>
-
-                        <div class="modal-body">
-                            <?php echo form_open('User/setAktivitasService')?>
-                            <div class="form-horizontal">
-                                
-                                <div class="form-group">
-
-                                    <div class="col-sm-10">
-
-                                        <select required class="form-control" name="idAktivitas">
-                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas > $idakt) { ?>
+                            <div id="tab-3<?php echo $bo[$i]->nomorFaktur ?>" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <table class="table table-hover table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>Keterangan</th>
+                                                    <th class="text-center">Berat Akhir</th>                                                    
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 
-                                            
-                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
-                                                    <?php echo $akt[$k]->namaAktivitas?>
-                                                </option>
-                                            
+                                                <?php for ($z=0; $z < count($b) ; ++$z) { 
+                                                    if($b[$z]->idSPK == $bo[$i]->idSPK) {
+                                                ?>
 
-                                        <?php  }} ?>
-                                        <?php for ($k=0; $k < count($akt) ; $k++) { 
-                                            if($akt[$k]->idSPK == $bo[$i]->idSPK and $akt[$k]->idAktivitas < $idakt) { ?>
-                                                
-                                            
-                                                <option value="<?php echo $akt[$k]->idAktivitas?>">
-                                                    <?php echo $akt[$k]->namaAktivitas?> 
-                                                    <?php 
-                                                        if ($akt[$k]->idAktivitas < $idakt) {
-                                                            echo "<b> ---------- ( REWORK ) ---------- </b>";
-                                                        }
-                                                    ?>
-                                                </option>
-                                            
+                                                <tr>
+                                                    
+                                                    <td>Berat Akhir <?php echo $b[$z]->namaAktivitas ?></td>
+                                                    <td class="text-center"><?php echo $b[$z]->berat ?></td>
+                                                    <td class="text-center"><label class="label label-lg label-success"></label></td>
 
-                                        <?php  }} ?>
-                                        </select>
-                                        
-                                        
-                                    </div>
-                                    <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idSPK?>" name="idSPK">
-                                            <input type="hidden" class="form-control" value="<?php echo $idakt?>" name="idakt">
-                                    <div class="col-sm-2">
-                              
-                                        <button type="submit" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-block btn-success"><b>OK</b></button>
+                                                    <?php if ((int)$b[$z]->idAktivitas == 1006) { ?>
+
+                                                    <td  class="text-center"><button data-toggle="modal"  data-dismiss="modal" data-target="#<?php echo $b[$z]->idAktivitas ?><?php echo $bo[$i]->idSPK ?>" class="btn btn-xs btn-info ">Update Berat</button></td>
+
+                                                    <?php } else { ?>
+
+                                                    <td  class="text-center"><button data-toggle="modal" disabled data-dismiss="modal" data-target="#<?php echo $b[$z]->idAktivitas ?><?php echo $bo[$i]->idSPK ?>" class="btn btn-xs btn-info ">Update Berat</button></td>
+ 
+                                                    <?php } ?>
+
+                                                    <div class="modal inmodal fade" id="<?php echo $b[$z]->idAktivitas ?><?php echo $bo[$i]->idSPK ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php echo form_open('user/setBeratService')?>
+                                                                    <div class="form-horizontal">
+                                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Akhir <?php echo $b[$z]->namaAktivitas ?></label>
+
+                                                                            <div class="col-sm-7"><input type="text" name="berat" class="form-control"></div>
+                                                                            <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $b[$z]->idProProd ?>"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $bo[$i]->nomorFaktur ?>" class="btn btn-danger btn-block">Kembali</button>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php echo form_close()?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </tr>
+
+                                                <?php }} ?>
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                          
-                            <?php echo form_close() ?>
                         </div>
-                        
+
+
                     </div>
+                    
+                    
+                
+               
                 </div>
-            </div>
+
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $bo[$i]->nomorFaktur ?>"  class="btn btn-info btn-block btn-outline">Tambah PIC</button>
+
+                            <div class="modal inmodal fade" id="pic<?php echo $bo[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <?php echo form_open('User/setPICService')?>
+                                            <div class="form-horizontal">
+                                                
+                                                <div class="form-group"><label class="col-sm-3 control-label">Pilih / Ubah PIC</label>
+
+                                                    <div class="col-sm-7">
+
+                                                        
+                                                        <?php 
+
+                                                        $js = array( 'class' => 'form-control' );
+                                                        echo form_dropdown('staf', $staf, $bo[$i]->idPIC,$js);
+
+                                                        ?>
+                                                        
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                              
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" value="<?php echo $bo[$i]->idProProd?>" name="idProProd">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <button data-toggle="modal" data-dismiss="modal" data-target="#detail<?php echo $bo[$i]->nomorFaktur ?>" class="btn btn-danger btn-block">Kembali</button>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan</button>
+                                                </div>
+                                            </div>
+                                            <?php echo form_close() ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <a href="<?php echo base_url('user/invoicePOService/'.$bo[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
+                            <a href="<?php echo base_url('user/invoicePOService/'.$bo[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                            <button type="button" class="btn btn-danger btn-outline">Reject</button>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
     
     
 </li>
-
-<script type="text/javascript">
-        function tambahpic<?php echo $bo[$i]->idProProd ?>() {
-            passing<?php echo $bo[$i]->idProProd ?>();
-        };
-
-        function passing<?php echo $bo[$i]->idProProd ?>() {
-            var pic = document.getElementById('<?php echo $bo[$i]->idProProd ?>-pic');
-            var idpic = pic.options[pic.selectedIndex].value;
-            console.log(idpic);
-            $.ajax({
-                    // Change the link to the file you are using
-                    url: '<?php echo base_url();?>user/cariPegawai',
-                    type: 'post',
-                    // This just sends the value of the dropdown
-                    data: { idpic },
-                    success: function(response) {
-                        
-                        var Vals = $.parseJSON(response);
-                        /*console.log(Vals);*/
-                        var Vals    =   JSON.parse(response);
-                        $("input[id='<?php echo $bo[$i]->idProProd?>-control?>-password-1']").val(Vals[0].password);
-                    }
-            });
-        }
-</script>
-<script type="text/javascript">
-        function cekcontrol<?php echo $bo[$i]->idProProd?>() {
-            var password = document.getElementById('<?php echo $bo[$i]->idProProd ?>-control?>-password-1').value;
-            var password2 = document.getElementById('<?php echo $bo[$i]->idProProd ?>-control?>-password-2').value;
-            console.log(password);
-            console.log(password2);
-            var x = document.getElementById("<?php echo $bo[$i]->idProProd ?>-control?>-cek");
-            var y = document.getElementById("<?php echo $bo[$i]->idProProd ?>-control?>-cek1");
-
-            if(password==password2) {
-                $('#<?php echo $bo[$i]->idProProd ?>-control').prop('disabled', false);
-                x.style.display = "none";
-                y.style.display = "block";
-            }
-            else {
-                $('#<?php echo $bo[$i]->idProProd ?>-control').prop('disabled', true);
-                x.style.display = "block";
-                y.style.display = "none";
-            }
-        }
-    </script>
 
 
 

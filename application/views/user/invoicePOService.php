@@ -134,7 +134,6 @@
                                                         <th>Berat</th>
                                                         <th>Jumlah</th>
                                                         <th>Harga</th>
-                                                        <th>Keterangan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -147,12 +146,11 @@
                                                             <td><?php echo number_format($ds[$ij]->berat,2,".","."); ?> gram</td>
                                                             <td><?php echo $ds[$ij]->jumlah?></td>
                                                             <td>Rp. <?php echo number_format($ds[$ij]->harga,2,".","."); ?></td>
-                                                             <td><?php echo $ds[$ij]->keterangan?></td>
                                                         </tr>
                                                     <?php $ijk++; } ?>
                                                         <tr>
                                                             <td colspan="4" class="text-center"><b>Total Harga</b></td>
-                                                            <td colspan="2"><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
+                                                            <td><b>Rp. <?php echo number_format($jumlah,2,".","."); ?></b></td>
                                                         </tr>
                                                 </tbody>
                                             </table>
@@ -168,7 +166,6 @@
                                                         <th style="width: 50%">Nama Barang</th>
                                                         <th>Berat</th>
                                                         <th>Harga</th>
-                                                        <th>Keterangan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -180,18 +177,17 @@
                                                             <td style="width: 50%"><?php echo $ds[$ij]->namaBarang?></td>
                                                             <td>-</td>
                                                             <td>-</td>
-                                                            <td ><?php echo $ds[$ij]->keterangan?></td>
                                                         </tr>
                                                     <?php $ijk++; } ?>
                                                         <tr>
                                                             <td colspan="2" class="text-center"><b>Total Berat</b></td>
                                                             <td><b><?php echo $totalBerat." gr"; ?></b></td>
-                                                            <td colspan="2"></td>
+                                                            <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" class="text-center"><b>Total Harga</b></td>
                                                             <td></td>
-                                                            <td colspan="2"><b>Rp. <?php echo number_format($totalHarga,2,".","."); ?></b></td>
+                                                            <td><b>Rp. <?php echo number_format($totalHarga,2,".","."); ?></b></td>
                                                         </tr>
                                                 </tbody>
                                             </table>
