@@ -631,6 +631,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function cariPOMassal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN spkmasal b ON a.nomorPO=b.nomorPO WHERE a.nomorPO = '$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findProdukId($idProduk){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM produk WHERE idProduk = '$idProduk' LIMIT 1");

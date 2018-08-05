@@ -439,7 +439,7 @@ class User extends CI_Controller {
         $data['zirkon']=$this->mdl->getMaterialZirkon();
         $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
         // print_r($data['berlian']);exit();
-        $this->load->view('user/editPurchaseOrder2',$data);
+        $this->load->view('user/editPurchaseOrder',$data);
     }
 
     public function editPOMassal($nomorPO) {
@@ -606,7 +606,6 @@ class User extends CI_Controller {
 
     public function updatePO($idPO){
         $nomorPO = $this->input->post('nomorPO');
-    
         $kode=$this->input->post('kodeGambar');
         //jika ada gambar;
         if($_FILES['userfile']['name'] != NULL){
@@ -633,7 +632,7 @@ class User extends CI_Controller {
                 $data['material']=$this->mdl->getMaterialBerlian(); 
                 $data['zirkon']=$this->mdl->getMaterialZirkon();
                 $data['pekerjaan'] = explode(',',$data['dataPO'][0]->pekerjaanTambahan);
-                $this->load->view('user/editPurchaseOrder2',$data);
+                $this->load->view('user/editPurchaseOrder',$data);
             } else {
                 $gambar = $this->upload->data(); 
             }
@@ -3033,6 +3032,7 @@ class User extends CI_Controller {
         $produk=$this->mdl->findprodukByPO($nomorPO);
         $idProduk=$produk[0]->idProduk;
         $idSPK=$produk[0]->idSPK;
+        print_r($produk);exit();
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
@@ -3044,13 +3044,13 @@ class User extends CI_Controller {
     }
 
     public function hapusPOMassal($nomorPO){
-        $produk=$this->mdl->findprodukMassal($nomorPO);
+        $produk=$this->mdl->cariPOMassal($nomorPO);
         $idProduk=$produk[0]->idProduk;
         $idSPK=$produk[0]->idSPK;
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
-         $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
-        $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'spkmasal');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction2');
         redirect('user/listPOMasal');
     }
