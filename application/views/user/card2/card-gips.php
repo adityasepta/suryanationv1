@@ -245,7 +245,7 @@
 
                 <div class="modal-footer">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-3">
                             <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $gi[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Tambah PIC</button>
 
                             <div class="modal inmodal fade" id="pic<?php echo $gi[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -293,9 +293,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-9">
                             <a href="<?php echo base_url('user/invoicePOMassal/'.$gi[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                             <a href="<?php echo base_url('user/invoiceSPKMassal/'.$gi[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                            <a href="<?php echo base_url('user/createbommassal/'.$gi[$i]->idSubSPK) ?>" type="button" class="btn btn-default btn-outline ">Detail BOM</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>
                         </div>
                     </div>

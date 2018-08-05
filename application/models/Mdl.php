@@ -1878,7 +1878,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function listPOMassalByCustomer($idCustomer){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user f ON a.idSalesPerson=f.idUser LEFT JOIN spkmasal d ON a.nomorPO = d.nomorPO WHERE a.idCustomer=$idCustomer AND a.nomorPO NOT IN (SELECT e.nomorPO FROM invoicemassal e)");
+        $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer = c.idCustomer LEFT JOIN user f ON a.idSalesPerson=f.idUser LEFT JOIN spkmasal d ON a.nomorPO = d.nomorPO WHERE a.idCustomer=$idCustomer AND d.statusSPK = 'Done' AND a.nomorPO NOT IN (SELECT e.nomorPO FROM invoicemassal e)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3064,6 +3064,16 @@ ORDER BY tgl DESC,nama LIMIT 50
         $hasil=$this->db->query("SELECT COUNT(*) as jumlah FROM `service` where YEAR(dateCreated)=$tahun AND nilaiKualitas=$kualitas AND nilaiKecepatan=$kecepatan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function cekInvoicePOMasal($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM invoiceheader WHERE nomorPO='$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
         } else{
             return array();
         }
