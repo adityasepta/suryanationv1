@@ -3032,7 +3032,6 @@ class User extends CI_Controller {
         $produk=$this->mdl->findprodukByPO($nomorPO);
         $idProduk=$produk[0]->idProduk;
         $idSPK=$produk[0]->idSPK;
-        print_r($produk);exit();
         $this->mdl->deleteData('idProduk',$idproduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
@@ -3040,7 +3039,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('idSPK',$idSPK,'kloter');
          $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
 
-        redirect('user/purchaseOrder');
+        //redirect('user/purchaseOrder');
     }
 
     public function hapusPOMassal($nomorPO){
@@ -8164,6 +8163,20 @@ class User extends CI_Controller {
         $this->load->view('user/voiceofcustomer',$data);
     }
 
-
+    function hapusSemua(){
+        $nomor = array (203,225,228,252,303,304,317,344,347,350,363,374,375,376,377,378,382,384,386,396,398,399,401,403,404,405,407,408,412,414,415,416,418,422,424,425,426,427,428,430,431,432,433,434,435,436,438,439,442);
+        $tidakdihapus = array (350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422);
+        $fix = array_unique(array_merge($nomor,$tidakdihapus));
+        $po = $this->mdl->dapatPO();
+        //print_r($po);
+        for ($i=0; $i<count($po); $i++) { 
+            $nomorPO = $po[$i]->nomorPO; 
+            if(!in_array($nomorPO, $fix)) {
+                echo $nomorPO." not found";
+                $this->hapusPO($nomorPO);
+                echo " and deleted<br>";
+            }
+        }
+    }
 
 }

@@ -3088,4 +3088,15 @@ ORDER BY tgl DESC,nama LIMIT 50
             return array();
         }
     }
+
+    public function dapatPO() {
+        $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+
 }
