@@ -68,6 +68,15 @@
                         </div>
                         <div class="ibox-content">
                             <?php echo form_open_multipart('user/tambahPOMasal','class="form-horizontal"')?>
+<input id="selected" list="browsers" name="browser">
+<datalist id="browsers">
+    <option data-value="InternetExplorer" value="1"></option>
+    <option data-value="Firefox" value="2"></option>
+    <option data-value="Chrome" value="3"></option>
+    <option data-value="Opera" value="4"></option>
+    <option data-value="Safari" value="5"></option>
+</datalist>
+<input id="submit" name="submit">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -361,58 +370,14 @@
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
 
     <script src="<?php echo base_url();?>assets/js/inputmask.bundle.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
-            });
-        </script>
-   <!--  <script>
-    $(document).ready(function() {
-        // On change of the dropdown do the ajax
-        $("#pilih").on('click', function () {
-            // $("[id='Emas Putih']").prop('checked',true).iCheck('update');
-            $.ajax({
-                    // Change the link to the file you are using
-                    url: '<?php echo base_url();?>user/cariProduk',
-                    type: 'post',
-                    // This just sends the value of the dropdown
-                    data: { kodeProduk: $("#pilihProduk").val() },
-                    success: function(response) {
-                        
-                        // Parse the jSON that is returned
-                        // Using conditions here would probably apply
-                        // incase nothing is returned
-                        var Vals = $.parseJSON(response);
-                        console.log(Vals);
-                        // var Vals    =   JSON.parse(response);
-                        // These are the inputs that will populate
-                        $("input[name='kodeProduk']").val(Vals[0].kodeProduk);
-                        $("[id='"+Vals[0].jenisProduk+"']").prop('checked',true).iCheck('update');
-                        $("[id='"+Vals[0].bahan+"']").prop('checked',true).iCheck('update');
-                        $("input[name='kadarBahan']").val(Vals[0].kadarBahan);
-                        $("input[name='hargaBahan']").val(Vals[0].hargaBahan);
-                        $("input[name='ukuranJari']").val(Vals[0].ukuranJari);
-                        $("input[name='krumWarna']").val(Vals[0].krumWarna);
-                        $("input[name='keteranganKrum']").val(Vals[0].keteranganKrum);
-                        $("input[name='model']").val(Vals[0].model);
-
-                        $('#kodeProduk').prop('readonly', true);
-                        $("input[name='jenisProduk']").prop('disabled',true).iCheck('update');
-
-                        // document.getElementById("desainBelum").style.display = "none";
-                        // document.getElementById("desainAda").style.display = "block";
-                        // document.getElementById("desain1").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d1.jpg";
-                        // document.getElementById("desain2").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d2.jpg";
-                        // document.getElementById("desain3").src = "<?php echo base_url();?>uploads/gambarDesain/"+Vals[0].kodeGambar+"-d3.jpg";
-                        document.getElementById("custom").style.backgroundColor = "#f7f7f7";
-                    }
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
         });
-    });
-    </script> -->
+    </script>
     <script type="text/javascript">
         $('.good').inputmask("numeric", {
             radixPoint: ".",
@@ -424,7 +389,7 @@
             oncleared: function () { self.Value(''); }
         });
     </script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $(document).ready(function() {
             var max_fields      = 10; //maximum input boxes allowed
             var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -445,7 +410,7 @@
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
         }); 
-    </script>
+    </script> -->
 
     <script type="text/javascript">
     $(document).ready(function() {
@@ -458,7 +423,8 @@
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                
+                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><datalist id="listofproduk"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->namaProduk?></option><?php } ?></datalist><input type="text" id="prod'+x+'" name="idProdukChild" list="listofproduk" class="form-control"></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
             }
         });
         
@@ -466,6 +432,25 @@
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        var data = {}; 
+        $("#browsers option").each(function(i,el) {  
+           data[$(el).data("value")] = $(el).val();
+        });
+        // `data` : object of `data-value` : `value`
+        console.log(data, $("#browsers option").val());
+
+
+            $('#selected').on('change',function()
+            {
+                var vale = $('#selected').val();
+                
+                document.getElementById('submit').value=$('#browsers [value="' + vale + '"]').data('value');
+            });
+        });
     </script>
 </body>
 </html>

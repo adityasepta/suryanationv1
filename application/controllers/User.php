@@ -3028,17 +3028,15 @@ class User extends CI_Controller {
 
     public function hapusPO($nomorPO){
         
-        $spk=$this->mdl->findSPKTempahanbyPO($nomorPO);
-        $produk=$this->mdl->findprodukByPO($nomorPO);
-        $idProduk=$produk[0]->idProduk;
-        $idSPK=$produk[0]->idSPK;
-        print_r($produk);exit();
-        $this->mdl->deleteData('idProduk',$idproduk,'produk');
+        $spk=$this->mdl->cariPOTempahan($nomorPO);
+        $idProduk=$spk->idProduk;
+        $idSPK=$spk->idSPK;
+        $this->mdl->deleteData('idProduk',$idProduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'potempahan');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spk');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
         $this->mdl->deleteData('idSPK',$idSPK,'kloter');
-         $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
+        $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
 
         redirect('user/purchaseOrder');
     }
@@ -3047,7 +3045,7 @@ class User extends CI_Controller {
         $produk=$this->mdl->cariPOMassal($nomorPO);
         $idProduk=$produk[0]->idProduk;
         $idSPK=$produk[0]->idSPK;
-        $this->mdl->deleteData('idProduk',$idproduk,'produk');
+        $this->mdl->deleteData('idProduk',$idProduk,'produk');
         $this->mdl->deleteData('nomorPO',$nomorPO,'pomasal');
         $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spkmasal');
@@ -6245,6 +6243,7 @@ class User extends CI_Controller {
     }
 
     public function tambahPOMasal(){
+        print_r($this->input->post());exit();
         $poTerakhir = $this->mdl->poTerakhir2();
         $lastPO = $poTerakhir[0]->nomorPO;
         $nomorPO = $lastPO+1;
