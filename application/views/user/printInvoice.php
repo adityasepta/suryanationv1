@@ -238,8 +238,8 @@
                                         <td>: <b> <?php echo $nomorTelepon;?></b></td>
                                      </tr>
                                      <tr>
-                                        <td><b>No PO / <b style="color: red;"><?php echo $nomorPO;?></b></td>
-                                        <td></td>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
                                      </tr>
                                 </tbody>
                             </table>
@@ -256,8 +256,8 @@
                                         <td>: <b> <?php echo $tglpyl;?></b></td>
                                      </tr>
                                      <tr>
-                                        <td>Nama Sales</td>
-                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                        <td><b>No PO / <b style="color: red; font-size: 15px;"><?php echo $nomorPO;?></b></td>
+                                        <td></td>
                                      </tr>
                                 </tbody>
                             </table>
