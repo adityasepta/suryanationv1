@@ -45,7 +45,11 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <a href="<?php echo base_url('user/createInvoiceAkhirPO')?>" class="btn btn-xs btn-block btn-info">Print Invoice</a>
+            <?php echo form_open_multipart('user/createInvoiceAkhirPOMassal','class="form-horizontal"')?>
+            <input type="hidden" value="<?php echo $jd[$i]->idCustomer?>" name="idCustomer">
+            <input type="hidden" value="<?php echo $jd[$i]->nomorPO?>" name="nomorPO">
+            <button class="btn btn-xs btn-block btn-info" type="submit">Print Invoice</button>
+            <?php echo form_close()?>
         </div>
         <div class="col-lg-6">
             <a href="<?php echo base_url('user/ambil/'.$jd[$i]->idSPK)?>" onclick="return confirm('Apakah anda yakin akan memindah produk ini kepada customer ?')"  class="btn btn-xs btn-block btn-warning">Ambil</a>

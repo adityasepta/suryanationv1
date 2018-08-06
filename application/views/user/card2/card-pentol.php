@@ -448,14 +448,14 @@
                                 <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $gp[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Update PIC</button>
                             <?php } ?>
                         </div>
-                        <div class="col-lg-3">
+                        <!-- <div class="col-lg-3">
                             <?php if($gp[$i]->statusWork == 'On Progress') {?>
                                 <button data-toggle="modal" data-dismiss="modal" data-target="#berat<?php echo $gp[$i]->idProProd ?>"  class="btn btn-warning btn-block btn-outline">Tambah Berat</button>
                                 
                             <?php } else {?>
                                 <button disabled class="btn  btn-block ">Tambah Berat</button>
                             <?php } ?>
-                        </div>
+                        </div> -->
                             
                             <div class="modal inmodal fade" id="berat<?php echo $gp[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                 <div class="modal-dialog">
@@ -566,9 +566,10 @@
                             </div>
                         
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-9">
                             <a href="<?php echo base_url('user/invoicePOMassal/'.$gp[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                             <a href="<?php echo base_url('user/invoiceSPKMassal/'.$gp[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                            <a href="<?php echo base_url('user/createbommassal/'.$gp[$i]->idSubSPK) ?>" type="button" class="btn btn-default btn-outline ">Detail BOM</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>
                         </div>
                     </div>

@@ -5007,6 +5007,12 @@ class User extends CI_Controller {
 
     public function createInvoiceAkhirPOMassal() {
         $idCustomer=$this->input->post('idCustomer');
+        $nomorPO=$this->input->post('nomorPO');
+        $data['invoicePOMasal'] = $this->mdl->cekInvoicePOMasal($nomorPO);
+        if($data['invoicePOMasal']) {
+            $idHeader = $data['invoicePOMasal']->idHeader;
+            redirect('user/printInvoiceMassal/'.$idHeader);
+        }
         $data['PO'] = $this->mdl->listPOMassalByCustomer($idCustomer);
         $this->load->view('user/invoiceAkhirPOMassal',$data);
     }
