@@ -170,7 +170,7 @@
                     <h3>SURAT PERINTAH KERJA MASSAL</h3>
                 </div>
                 <div class="toolbox col-lg-8 text-right">
-                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/purchaseOrder'">
+                    <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.location='<?php echo base_url()?>user/listSPKMasal'">
                         <span style="vertical-align: middle"> < Kembali </span>
                     </a>&nbsp
                     <a style="color: #42B549; font-size: 14px; text-decoration: none;" href="javascript:window.print()">
@@ -194,8 +194,8 @@
                                         <td>: <b> <?php echo $nomorTelepon;?></b></td>
                                      </tr>
                                      <tr>
-                                        <td><b>No SPK / <?php echo $nomorPO;?></b></td>
-                                        <td></td>
+                                        <td>Nama Sales</td>
+                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
                                      </tr>
                                 </tbody>
                             </table>
@@ -212,8 +212,8 @@
                                         <td>: <b> <?php echo $tglpyl;?></b></td>
                                      </tr>
                                      <tr>
-                                        <td>Nama Sales</td>
-                                        <td>: <b><?php echo $dataPO[0]->nama;?></b></td>
+                                        <td><b style="font-size: 15px;">No SPK / <?php echo $nomorPO;?></b></td>
+                                        <td></td>
                                      </tr>
                                 </tbody>
                             </table>

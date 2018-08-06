@@ -1283,9 +1283,19 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
     
-     public function findSPKTempahanbyPO($nomorPO){
+    public function findSPKTempahanbyPO($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spk where nomorPO = '$nomorPO' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+    public function cariPOTempahan($nomorPO){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM potempahan a LEFT JOIN spk b ON a.nomorPO=b.nomorPO where a.nomorPO = '$nomorPO' LIMIT 1");
         if($hasil->num_rows() > 0){
             return $hasil->row();
         } else{
