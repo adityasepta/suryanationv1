@@ -232,9 +232,49 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listPORunning(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.* FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN spk d ON a.nomorPO=d.nomorPO WHERE d.statusSPK!='Done' ORDER BY a.nomorPO DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listPODone(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.* FROM potempahan a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN spk d ON a.nomorPO=d.nomorPO WHERE d.statusSPK='Done' ORDER BY a.nomorPO DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listPOMasal(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer ORDER BY a.tanggalMasuk DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listPOMasalRunning(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.* FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN spkmasal d ON a.nomorPO=d.nomorPO WHERE d.statusSPK!='Done' ORDER BY a.nomorPO DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listPOMasalDone(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,b.*,c.* FROM pomasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN spkmasal d ON a.nomorPO=d.nomorPO WHERE d.statusSPK='Done' ORDER BY a.nomorPO DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3099,14 +3139,14 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
-    public function dapatPO() {
+    /*public function dapatPO() {
         $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-    }
+    }*/
 
 
 }

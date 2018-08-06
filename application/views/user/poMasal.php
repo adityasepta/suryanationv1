@@ -49,7 +49,7 @@
                             <a href="<?php echo base_url();?>user/administration">Beranda</a>
                         </li>
                         <li class="active">
-                            <strong>PO Masal</strong>
+                            <strong>PO Masal Berjalan</strong>
                         </li>
                     </ol>
                 </div>
@@ -59,10 +59,36 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/listPOMasal">
+                    <div class="widget style1 red-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h3 class="font-bold">PO Masal Berjalan</h3>
+                                <span>Ada kanban</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/listPOMasalDone">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h3 class="font-bold">PO Masal Selesai</h3>
+                                <span>Tidak ada di kanban</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Daftar PO Masal</h5>
+                            <h5>Daftar PO Masal Berjalan</h5>
                             <div class="ibox-tools">
                                 <a class="btn btn-xs btn-info" href="<?php echo base_url();?>user/listInvoiceMassal" style="color:white;">
                                     <i class="fa fa-dedent"><span style="font-family: 'open sans'"><strong> INVOICE</strong></span></i>

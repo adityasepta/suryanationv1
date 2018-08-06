@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -49,7 +49,7 @@
                             <a href="<?php echo base_url();?>user/administration">Beranda</a>
                         </li>
                         <li class="active">
-                            <strong>PO Tempahan Berjalan</strong>
+                            <strong>PO Masal Selesai</strong>
                         </li>
                     </ol>
                 </div>
@@ -60,24 +60,24 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="<?php echo base_url();?>user/purchaseOrder">
-                    <div class="widget style1 red-bg">
+                    <a href="<?php echo base_url();?>user/listPOMasal">
+                    <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                <span>Produk</span>
-                                <h3 class="font-bold">PO Tempahan Berjalan</h3>
+                                <h3 class="font-bold">PO Masal Berjalan</h3>
+                                <span>Ada kanban</span>
                             </div>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a href="<?php echo base_url();?>user/purchaseOrderDone">
-                    <div class="widget style1 lazur-bg">
+                    <a href="<?php echo base_url();?>user/listPOMasalDone">
+                    <div class="widget style1 red-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                <span>Produk</span>
-                                <h3 class="font-bold">PO Tempahan Selesai</h3>
+                                <h3 class="font-bold">PO Masal Selesai</h3>
+                                <span>Tidak ada di kanban</span>
                             </div>
                         </div>
                     </div>
@@ -88,13 +88,13 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Daftar PO Tempahan Berjalan</h5>
+                            <h5>Daftar PO Masal Selesai</h5>
                             <div class="ibox-tools">
-                                <a class="btn btn-xs btn-white" href="<?php echo base_url();?>user/trackPO">
-                                    <i class="fa fa-search"></i><strong> TRACK PO</strong>
+                                <a class="btn btn-xs btn-info" href="<?php echo base_url();?>user/listInvoiceMassal" style="color:white;">
+                                    <i class="fa fa-dedent"><span style="font-family: 'open sans'"><strong> INVOICE</strong></span></i>
                                 </a>
                                 <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createPurchaseOrder">
-                                    <i class="fa fa-pencil"></i><strong> TAMBAH PO</strong>
+                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PO</strong></span></i>
                                 </a>
                             </div>
                         </div>
@@ -106,13 +106,12 @@
                             <table class="footable table table-stripped" data-page-size="20" data-filter=#filter>
                                 <thead>
                                 <tr>
-                                    <th width="13%" data-hide="phone,tablet">Tanggal Masuk</th>
-                                    <th width="7%">No PO</th>
-                                    <th width="17%">Nama Konsumen</th>
-                                    <th width="13%" data-hide="phone,tablet">Jenis Produk</th>
-                                    <th width="27%" data-hide="phone,tablet">Nama Produk</th>
-                                    <th width="8%" class="text-center" data-hide="phone,tablet">Invoice</th>
-                                    <th width="15%" class="text-center" data-hide="phone,tablet">Action</th>
+                                    <th data-hide="phone,tablet">Tanggal Masuk</th>
+                                    <th>Nomor PO</th>
+                                    <th>Nama Konsumen</th>
+                                    <th data-hide="phone,tablet">Jenis Produk</th>
+                                    <th data-hide="phone,tablet">Nama Produk</th>
+                                    <th class="text-center" data-hide="phone,tablet">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -125,23 +124,18 @@
                                     <td><?php echo $hasil->namaCustomer?></td>
                                     <td><?php echo $hasil->jenisProduk?></td>
                                     <td><?php echo $hasil->namaProduk?></td>
-                                    <td class="text-center">
-                                        <?=anchor('user/invoiceAkhirPOTempahan/' . $hasil->nomorPO, 'Invoice', [
-                                          'class' => 'btn btn-info btn-xs',
-                                          'role'  => 'button'
-                                         ])?>
-                                    </td>
+                                    
                                     <td class="text-center">
                                         <div class="btn-group">
-                                        <?=anchor('user/invoicePO/' . $hasil->nomorPO, 'Lihat', [
+                                        <?=anchor('user/invoicePOMassal/' . $hasil->nomorPO, 'Lihat', [
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/editPO/' . $hasil->nomorPO, 'Edit', [
+                                        <?=anchor('user/editPOMassal/' . $hasil->nomorPO, 'Edit', [
                                           'class' => 'btn btn-warning btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPO/' . $hasil->nomorPO, 'Hapus', [
+                                        <?=anchor('user/hapusPOMassal/' . $hasil->nomorPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button'
                                         ])?>
@@ -152,7 +146,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="6">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
