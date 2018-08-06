@@ -59,27 +59,44 @@
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/listSPKMasal">
+                    <div class="widget style1 red-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h3 class="font-bold">SPK Masal Berjalan</h3>
+                                <span>Ada kanban</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?php echo base_url();?>user/listSPKMasalDone">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h3 class="font-bold">SPK Masal Selesai</h3>
+                                <span>Tidak ada di kanban</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <?php echo $this->session->flashdata('msg'); ?>
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h5>Daftar SPK</h5>
+                                    <h5>Daftar SPK Berjalan</h5>
                                 </div>
                                 <div class="col-lg-6 text-right">
-
-                                    
-
                                 </div>
                             </div>
-
-                            
-                            
-                            
                         </div>
-
                         <div class="ibox-content">
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">

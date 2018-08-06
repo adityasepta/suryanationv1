@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <a href="<?php echo base_url();?>user/spk">
-                    <div class="widget style1 red-bg">
+                    <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <h3 class="font-bold">SPK Tempahan Berjalan</h3>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-3">
                     <a href="<?php echo base_url();?>user/spkDone">
-                    <div class="widget style1 lazur-bg">
+                    <div class="widget style1 red-bg">
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <h3 class="font-bold">SPK Tempahan Selesai</h3>
@@ -91,13 +91,12 @@
                         <div class="ibox-title">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h5>Daftar SPK Berjalan</h5>
+                                    <h5>Daftar SPK Selesai</h5>
                                 </div>
                                 <div class="col-lg-6 text-right">
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-
                         <div class="ibox-content">
                             <input type="text" class="form-control input-sm m-b-xs" id="filter"
                                    placeholder="Search in table">

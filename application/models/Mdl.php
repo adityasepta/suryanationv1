@@ -342,9 +342,49 @@ class mdl extends CI_Model {
         }
     }
 
+    public function listSPKRunning(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO WHERE a.statusSPK!='Done' ORDER BY a.nomorFaktur DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listSPKDone(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spk a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN potempahan d ON a.nomorPO = d.nomorPO WHERE a.statusSPK='Done' ORDER BY a.nomorFaktur DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function listSPKMasal(){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO ORDER BY a.nomorFaktur DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listSPKMasalRunning(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE a.statusSPK!='Done'ORDER BY a.nomorFaktur DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
+    public function listSPKMasalDone(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM spkmasal a LEFT JOIN produk b ON a.idProduk = b.idProduk LEFT JOIN customer c ON a.idCustomer=c.idCustomer LEFT JOIN pomasal d ON a.nomorPO = d.nomorPO WHERE a.statusSPK='Done'ORDER BY a.nomorFaktur DESC");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
