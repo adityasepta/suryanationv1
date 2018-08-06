@@ -68,15 +68,6 @@
                         </div>
                         <div class="ibox-content">
                             <?php echo form_open_multipart('user/tambahPOMasal','class="form-horizontal"')?>
-<input id="selected" list="browsers" name="browser">
-<datalist id="browsers">
-    <option data-value="InternetExplorer" value="1"></option>
-    <option data-value="Firefox" value="2"></option>
-    <option data-value="Chrome" value="3"></option>
-    <option data-value="Opera" value="4"></option>
-    <option data-value="Safari" value="5"></option>
-</datalist>
-<input id="submit" name="submit">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -424,33 +415,26 @@
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
                 
-                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><datalist id="listofproduk"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->namaProduk?></option><?php } ?></datalist><input type="text" id="prod'+x+'" name="idProdukChild" list="listofproduk" class="form-control"></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><datalist id="listofproduk"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->namaProduk?>" data-value="<?php echo $listProduk[$i]->idProduk?>"><?php } ?></datalist><input type="text" id="prod'+x+'" list="listofproduk" class="form-control"><input type="hidden" id="sb'+x+'" name="idProdukChild[]"></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
             }
+            var data = {}; 
+                $("#listofproduk option").each(function(i,el) {  
+                   data[$(el).data("value")] = $(el).val();
+                });
+
+                $('#prod'+x).on('change',function()
+                {
+                    var vale = $('#prod'+x).val();
+                    document.getElementById('sb'+x).value=$('#listofproduk [value="' + vale + '"]').data('value');
+            });
         });
+
+        
         
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-        var data = {}; 
-        $("#browsers option").each(function(i,el) {  
-           data[$(el).data("value")] = $(el).val();
-        });
-        // `data` : object of `data-value` : `value`
-        console.log(data, $("#browsers option").val());
-
-
-            $('#selected').on('change',function()
-            {
-                var vale = $('#selected').val();
-                
-                document.getElementById('submit').value=$('#browsers [value="' + vale + '"]').data('value');
-            });
-        });
     </script>
 </body>
 </html>

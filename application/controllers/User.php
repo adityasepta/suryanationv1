@@ -6269,7 +6269,6 @@ class User extends CI_Controller {
     }
 
     public function tambahPOMasal(){
-        print_r($this->input->post());exit();
         $poTerakhir = $this->mdl->poTerakhir2();
         $lastPO = $poTerakhir[0]->nomorPO;
         $nomorPO = $lastPO+1;
