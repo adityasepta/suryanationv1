@@ -3186,14 +3186,14 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
-    /*public function dapatPO() {
+    public function dapatPO() {
         $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-    }*/
+    }
 
 
 }

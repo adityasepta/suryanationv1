@@ -3057,6 +3057,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
         $this->mdl->deleteData('idSPK',$idSPK,'kloter');
         $this->mdl->deleteData('nomorPO',$nomorPO,'poberlian');
+        $this->mdl->deleteData('idSPK',$idSPK,'rencanaproduksi');
 
         redirect('user/purchaseOrder');
     }
@@ -3070,6 +3071,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('nomorPO',$nomorPO,'produkpo');
         $this->mdl->deleteData('nomorPO',$nomorPO,'spkmasal');
         $this->mdl->deleteData('idSPK',$idSPK,'factproduction2');
+        $this->mdl->deleteData('idSPK',$idSPK,'rencanaproduksi2');
         redirect('user/listPOMasal');
     }
 
@@ -8194,9 +8196,9 @@ class User extends CI_Controller {
         $this->load->view('user/voiceofcustomer',$data);
     }
 
-    /*function hapusSemua(){
-        $nomor = array (203,225,228,252,303,304,317,344,347,350,363,374,375,376,377,378,382,384,386,396,398,399,401,403,404,405,407,408,412,414,415,416,418,422,424,425,426,427,428,430,431,432,433,434,435,436,438,439,442);
-        $tidakdihapus = array (350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422);
+    function hapusSemua(){
+        $nomor = array (384,386,414,415,225,203,228,425,434,416,429,428,432,438,439,442,437,440,441,443,378,376,426,382,347,350,407,403,405,304,317,363,252,435,445,363,444,427,344,377,436,396,412);
+        $tidakdihapus = array (446,445,444,443,442,441,440,439,438,437,436,435,434,433,432,431,430,429,428,427,426,425,424,423,422,421,420,419,418,417,416,415,414,413,412,411,410,409,408,407,406,405,404,403,402,401,400,399,398,397,396,395,394,393,492,391,390,389,388,387,386,385,384,383,382,381,380,379,378,377,376,375,374,373,372,371,370,369,368,367,366,365,364,363,362,361,360,359,358,357,356,355,354,353,352,351,350);
         $fix = array_unique(array_merge($nomor,$tidakdihapus));
         $po = $this->mdl->dapatPO();
         //print_r($po);
@@ -8208,7 +8210,7 @@ class User extends CI_Controller {
                 echo " and deleted<br>";
             }
         }
-    }*/
+    }
 
     public function rejectBarang() {
         $idProProd = $this->input->post('idProProd');
