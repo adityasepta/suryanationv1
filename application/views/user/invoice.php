@@ -478,47 +478,59 @@
                 </div>
              
             </div>
-
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Desain Produk</h5>
-                        </div>
-                        <div class="ibox-content">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Desain Produk</h5>
+                            </div>
+                            <div class="ibox-content">
 
-                            <div class="row" >
-                                <div class="col-sm-12">
-                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
+                                <div class="row" >
+                                    <div class="col-sm-12">
+                                            <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-d1.jpg')?>"><br><br>
+                                        
+                                    </div>
                                     
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Thumbnail Produk</h5>
-                        </div>
-                        <div class="ibox-content">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Thumbnail Produk</h5>
+                            </div>
+                            <div class="ibox-content">
 
-                            <div class="row" >
-                                <div class="col-sm-12">
-                                        <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-thumb.jpg')?>"><br><br>
+                                <div class="row" >
+                                    <div class="col-sm-12">
+                                            <img onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" class="img img-responsive" src="<?php echo base_url('uploads/gambarDesain/'.$dataSPK[0]->kodeGambar.'-thumb.jpg')?>"><br><br>
+                                        
+                                    </div>
                                     
                                 </div>
-                                
+                                <hr>
+                                <label>Keterangan Desain</label>
+                                <span><?php echo $dataSPK[0]->keteranganDesain?></span>
                             </div>
-                            <hr>
-                            <label>Keterangan Desain</label>
-                            <span><?php echo $dataSPK[0]->keteranganDesain?></span>
                         </div>
-                    </div>
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <a href="<?php echo base_url();?>user/tambahDesain/<?php echo $nomorFaktur?>">
+                                    <div class="widget style1 lazur-bg">
+                                        <div class="row">
+                                            <div class="col-xs-12 text-center">
+                                                <h3 class="font-bold">Update Foto Desain</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                 </div>
-
             </div>
+            
         </div>
         <div class="footer">
             <div>
