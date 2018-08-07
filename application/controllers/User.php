@@ -951,7 +951,7 @@ class User extends CI_Controller {
     }
 
     public function spk() {
-        $data['listSPK'] = $this->mdl->listSPK();
+        $data['listSPK'] = $this->mdl->listSPKRunning();
         $data['cekbom'] = $this->mdl->cekbom();
         $data['cekjadwal'] = $this->mdl->cekjadwal();
         $data['klot'] = $this->mdl->getKloterSPK();
@@ -959,6 +959,17 @@ class User extends CI_Controller {
         $data['cb'] = $this->mdl->cekbom2();
 
         $this->load->view('user/spk',$data);
+    }
+
+    public function spkDone() {
+        $data['listSPK'] = $this->mdl->listSPKDone();
+        $data['cekbom'] = $this->mdl->cekbom();
+        $data['cekjadwal'] = $this->mdl->cekjadwal();
+        $data['klot'] = $this->mdl->getKloterSPK();
+        $data['cekklot'] = $this->mdl->cekkloter();
+        $data['cb'] = $this->mdl->cekbom2();
+
+        $this->load->view('user/spkDone',$data);
     }
 
     public function editSPK($nomorFaktur) {
@@ -7092,13 +7103,24 @@ class User extends CI_Controller {
 
     public function listSPKMasal()
     {
-        $data['listSPK']   = $this->mdl->listSPKMasal();
+        $data['listSPK']   = $this->mdl->listSPKMasalRunning();
         //$data['cekbom'] = $this->mdl->cekbom();
         $data['cekjadwal'] = $this->mdl->cekjadwal2();
         $data['klot']      = $this->mdl->getKloterSPK();
         $data['ceksub']    = $this->mdl->cekSubSPK();
         $data['cb']        = $this->mdl->cekbom2();
         $this->load->view('user/spkMasal', $data);
+    }
+
+    public function listSPKMasalDone()
+    {
+        $data['listSPK']   = $this->mdl->listSPKMasalDone();
+        //$data['cekbom'] = $this->mdl->cekbom();
+        $data['cekjadwal'] = $this->mdl->cekjadwal2();
+        $data['klot']      = $this->mdl->getKloterSPK();
+        $data['ceksub']    = $this->mdl->cekSubSPK();
+        $data['cb']        = $this->mdl->cekbom2();
+        $this->load->view('user/spkMasalDone', $data);
     }
 
     //Services
