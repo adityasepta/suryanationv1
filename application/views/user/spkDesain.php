@@ -186,7 +186,7 @@
 
                                         <input type="hidden"  name="idCustomer" value="<?= $idCustomer ?>" class="form-control">
                                         <input type="hidden"  name="idProduk" value="<?= $idProduk ?>" class="form-control">
-                                        <input type="hidden"  name="kodeProduk" value="<?= $kodeProduk ?>" class="form-control">
+                                        <input type="hidden"  name="statusDesain" value="<?php echo $dataSPK[0]->statusDesain ?>" class="form-control">
                                         <input type="hidden"  name="nomorFaktur" value="<?= $nomorFaktur ?>" class="form-control">
 
                                         <label>Upload Gambar Desain</label>        
