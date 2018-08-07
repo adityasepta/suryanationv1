@@ -270,7 +270,12 @@
                                             </div>
                                         <?php 
                                         } 
-                                            $kadarAkhir=($jumlahKadarSatuan/$jumlahKekurangan)*100;
+                                            if($jumlahKekurangan==0 && $jumlahKadarSatuan==0){
+                                                $kadarAkhir = 0;
+                                            } else {
+                                                $kadarAkhir=($jumlahKadarSatuan/$jumlahKekurangan)*100;    
+                                            }
+                                            
                                         ?>
                                         
                                     </div>                         

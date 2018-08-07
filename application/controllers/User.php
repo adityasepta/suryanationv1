@@ -8278,7 +8278,7 @@ class User extends CI_Controller {
                 'idPIC' => $staf,
                 'tipeBarang' => "Material Dasar",
                 'kodeBarang' => $km,
-                'jumlah' => $jumlahReject,
+                'jumlah' => $beratReject,
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Balik Bahan',
