@@ -143,7 +143,7 @@ class mdl extends CI_Model {
     public function getBerat() {
 
 
-        $sql = "SELECT a.*,b.nama FROM (SELECT f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali,idPIC  FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b on a.idPIC=b.idUser ORDER BY idSPK,idAktivitas";
+        $sql = "SELECT a.*,b.nama FROM (SELECT f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal,SUM(f.beratTambahan) as beratTambahan, SUM(f.kembali) as kembali,idPIC  FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b on a.idPIC=b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
         return $query->result();
@@ -2695,7 +2695,7 @@ ORDER BY tgl DESC,nama LIMIT 50
 
     public function getBerat22() {
 
-        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas,idProProd) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
+        $sql   = "SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal,SUM(f.beratTambahan) as beratTambahan, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction f, aktivitas2 a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas,idProProd) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas";
         $query = $this->db->query($sql);
         
         /*SELECT a.*,b.nama FROM (SELECT f.idProProd, f.idSPK, f.idSubSPK, f.idWadah, f.idAktivitas, a.namaAktivitas, SUM(f.berat) as berat, SUM(f.beratAwal) as beratAwal, SUM(f.kembali) as kembali, f.idPIC, f.statusBerat FROM factproduction2 f, aktivitas a WHERE f.idAktivitas = a.idAktivitas AND f.idAktivitas > 1002 GROUP BY idSPK,idAktivitas) a JOIN user b ON a.idPIC = b.idUser ORDER BY idSPK,idAktivitas*/
