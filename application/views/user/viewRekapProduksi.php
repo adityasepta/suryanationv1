@@ -42,13 +42,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-8">
-                <h2>RFQ</h2>
+                <h2>Rekap Produksi</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="<?php echo base_url();?>user/administration">Beranda</a>
                     </li>
                     <li class="active">
-                        <strong><a href="<?php echo base_url();?>user/Invoice">Request For Quotation</a></strong>
+                        <strong><a href="<?php echo base_url();?>user/Invoice">Rekap Produksi</a></strong>
                     </li>
                 </ol>
             </div>

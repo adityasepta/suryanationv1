@@ -86,9 +86,14 @@
                                 <input type="hidden" name="idPIC" value="<?php echo $user[0]->idUser;?>" class="form-control">
                                 <input type="hidden" name="jenisProduksi" value="<?php echo  $data['jenisProduksi'];?>" class="form-control">
                                 <div class="form-group"><label class="col-sm-2 control-label">Berat Kembalian</label>
-                                    <div class="col-sm-10"><input type="text" placeholder="Berat Kembalian" name="beratKembali" class="form-control" required="">
+                                    <div class="col-sm-6"><input type="text" placeholder="Berat Kembalian" name="beratKembali" class="form-control" required="">
+                                    </div>
+                                    <label class="col-sm-2 control-label">Kadar:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="kadar" value="<?php echo $kadarAkhir;?>" class="form-control" readonly>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Pilih SPK</label>  
                                     <div class="col-lg-10">
