@@ -122,7 +122,7 @@
             </div>
             <div class="col-lg-4">
                 :&nbsp&nbsp<b><?php echo $bo[$i]->namap ?></b><br>
-                :&nbsp&nbsp<b><?php echo $bo[$i]->jenisProduk?></b>
+                :&nbsp&nbsp<b><?php echo substr($bo[$i]->model,0,18)?></b>
                 
             </div>
             

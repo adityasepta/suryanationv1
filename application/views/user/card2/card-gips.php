@@ -93,7 +93,7 @@
         </div>
         <div class="col-lg-4">
             :&nbsp&nbsp<b><?php echo $gi[$i]->namap ?></b><br>
-            :&nbsp&nbsp<b><?php echo $gi[$i]->jenisProduk?></b>
+            :&nbsp&nbsp<b><?php echo substr($gi[$i]->model,0,18)?></b>
             
         </div>
         
