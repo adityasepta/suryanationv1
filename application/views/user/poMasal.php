@@ -127,18 +127,9 @@
                                     
                                     <td class="text-center">
                                         <div class="btn-group">
-                                        <?=anchor('user/invoicePOMassal/' . $hasil->nomorPO, 'Lihat', [
-                                          'class' => 'btn btn-primary btn-xs',
-                                          'role'  => 'button'
-                                         ])?>
-                                        <?=anchor('user/editPOMassal/' . $hasil->nomorPO, 'Edit', [
-                                          'class' => 'btn btn-warning btn-xs',
-                                          'role'  => 'button'
-                                         ])?>
-                                        <?=anchor('user/hapusPOMassal/' . $hasil->nomorPO, 'Hapus', [
-                                          'class' => 'btn btn-danger btn-xs',
-                                          'role'  => 'button'
-                                        ])?>
+                                            <a href="<?php echo base_url()?>user/invoicePOMassal/<?php echo $hasil->nomorPO?>" class="btn btn-xs btn-primary">Lihat</a>
+                                            <a href="<?php echo base_url()?>user/editPOMassal/<?php echo $hasil->nomorPO?>" class="btn btn-xs btn-warning">Edit</a>
+                                            <a href="<?php echo base_url()?>user/hapusPOMassal/<?php echo $hasil->nomorPO?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus PO ini?')">Hapus</a>
                                         </div>
                                     </td>
                                 </tr>

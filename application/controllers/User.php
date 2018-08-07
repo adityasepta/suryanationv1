@@ -1211,10 +1211,10 @@ class User extends CI_Controller {
     }
 
     public function uploadThumbnail() {
-        $kodeProduk=$this->input->post('kodeProduk');
+        $idProduk=$this->input->post('idProduk');
         $nomorFaktur=$this->input->post('nomorFaktur');
 
-        $produk = $this->mdl->findProduk($kodeProduk);
+        $produk = $this->mdl->findProdukId($idProduk);
         $kode=$produk[0]->kodeGambar;
 
         $this->load->library('upload');
@@ -1266,10 +1266,10 @@ class User extends CI_Controller {
 
     public function uploadDesain()
     {       
-        $kodeProduk=$this->input->post('kodeProduk');
-        $kodeProduk=$this->input->post('idProduk');
-        print_r($kodeProduk);exit();
+        // print_r($this->input->post());exit();
+        $idProduk=$this->input->post('idProduk');
         $nomorFaktur=$this->input->post('nomorFaktur');
+        $statusDesain=$this->input->post('statusDesain');
         $iduser = ($this->session->userdata['logged_in']['iduser']);
         $up=$this->input->post();
 
@@ -1286,7 +1286,7 @@ class User extends CI_Controller {
             }
         }
 
-        $produk = $this->mdl->findProduk($kodeProduk);
+        $produk = $this->mdl->findProdukId($idProduk);
         $kode=$produk[0]->kodeGambar;
         $a=0;
         print_r($kode);exit();
@@ -1313,14 +1313,14 @@ class User extends CI_Controller {
         }
 
         if($a==$b) {
-
-            $data = array(
-                'PICDesain' => $iduser,
-                'statusDesain' => 'Menunggu Persetujuan',
-                'keteranganDesain' => $this->input->post('keterangan')
-            );
-            $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
-
+            if($statusDesain!='Disetujui'){
+                $data = array(
+                    'PICDesain' => $iduser,
+                    'statusDesain' => 'Menunggu Persetujuan',
+                    'keteranganDesain' => $this->input->post('keterangan')
+                );
+                $this->mdl->updateData('nomorFaktur', $nomorFaktur, 'spk', $data);
+            }
             $message = "Foto produk telah berhasil disimpan, Silahkan Tambahkan Thumbnail";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
