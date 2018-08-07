@@ -73,7 +73,7 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
             $data['cb'] = $this->mdl->cekbom2();
-            $data['klot']      = $this->mdl->getKloterSPK();
+            $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
               
@@ -5296,7 +5296,7 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
             $data['cb'] = $this->mdl->cekbom2();
-            $data['klot']      = $this->mdl->getKloterSPK();
+            $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
               
@@ -8008,7 +8008,7 @@ class User extends CI_Controller {
         
         if ($this->form_validation->run() == FALSE){
             $data['kloter'] = $this->mdl->findKloter($idKloter);
-            $data['klot']   = $this->mdl->getKloterSPK();
+            $data['klot']   = $this->mdl->getKloterSPK10();
             $this->load->view('user/editKloter',$data);
         }
         else {

@@ -1502,6 +1502,13 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         return $query->result();  
     }
 
+    public function getKloterSPK10() {
+        $sql   = "SELECT * FROM spk s, produk p, potempahan d where s.idProduk = p.idProduk and s.nomorPO = d.nomorPO and s.statusJadwal = 'Sudah Ada' and s.statusDesain = 'Disetujui' and s.statusPrint = 'Sudah' and s.idSPK not in (SELECT idSPK from kloter)";
+        $query = $this->db->query($sql);
+        
+        return $query->result();  
+    }
+
     public function getNextAktivitas($idProduk, $idAktivitas) {
 
         $sql   = "SELECT * FROM `produkaktivitas` where idProduk = $idProduk and idAktivitas > $idAktivitas order by idAktivitas limit 1";
