@@ -6009,6 +6009,7 @@ class User extends CI_Controller {
             'berat' => $this->input->post('berat'),
             'kembali' => $this->input->post('kembali'),
             'beratAwal' => $this->input->post('beratAwal'),
+            'beratTambahan' => $this->input->post('beratTambahan'),
 
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
@@ -6028,8 +6029,8 @@ class User extends CI_Controller {
             'berat' => $this->input->post('berat'),
             'beratAwal' => $this->input->post('beratAwal'),
             'jumlah' => $this->input->post('jumlah'),
-            'kembali' => $this->input->post('kembali'),
-            'beratTambahan' => $this->input->post('beratTambahan'),
+            'kembali' => $this->input->post('kembali'),/*
+            'beratTambahan' => $this->input->post('beratTambahan'),*/
         );
         $this->mdl->updateData('idProProd', $idp, 'factproduction2', $data);
 
@@ -8208,5 +8209,31 @@ class User extends CI_Controller {
             }
         }
     }*/
+
+    public function rejectBarang() {
+        $idProProd = $this->input->post('idProProd');
+        $staf = $this->input->post('staf');
+        $jumlahReject = $this->input->post('jumlahReject');
+        $beratReject = $this->input->post('beratReject');
+        $idAktivitas = $this->input->post('idAktivitas');
+        $idProduk = $this->input->post('idProduk');
+
+        $proses = $this->mdl->getProsesDetail2($idProProd);
+        $idSPK = $proses[0]->idSPK;
+        $idSubSPK = $proses[0]->idSubSPK;
+        $idAkt = $proses[0]->idAktivitas;
+
+        $jumlahSetelahReject = $proses[0]->jumlahNow-$jumlahReject;
+        $jumlah = $proses[0]->jumlah-$jumlahReject;
+        $beratSetelahReject = $proses[0]->beratAwal-$beratReject;
+        
+        $wadah = $this->mdl->getWadahTerakhir();
+        $idWadah = (int)($wadah[0]->idWadah) + 1;  
+
+        $gh = $this->mdl->cekFactProduction($idSPK, $idAktivitas);
+        print_r($this->input->post());exit();
+
+    }
+
 
 }

@@ -353,13 +353,13 @@
                                                    
                                                 </div>
                                             </div>
-                                            <div class="form-horizontal">
+                                            <!-- <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Berat Tambahan</label>
 
                                                     <div class="col-sm-5"><input type="number" step="any" value="<?php echo $co[$i]->beratTambahan?>" name="beratTambahan" class="form-control"></div>
                                                    
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-horizontal">
                                                 <div class="form-group"><label class="col-sm-5 control-label">Jumlah Barang</label>
 

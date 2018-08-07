@@ -272,6 +272,7 @@
 
                                         <div class="col-sm-9">
                                             <input type="number" step="any" required name="beratAwal" value="" class="form-control">
+                                            <small>Berat maksimal adalah <b><?php echo $gp[$i]->berat+$gp[$i]->beratTambahan?></b> gr</small>
                                             
                                         </div>
                                     </div>
@@ -475,7 +476,11 @@
                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $gp[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="form-horizontal">
+                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Tambahan</label>
+                                                    <div class="col-sm-5"><input type="number" step="any" value="<?php echo $gp[$i]->beratTambahan?>" name="beratTambahan" class="form-control"></div>
+                                                </div>
+                                            </div>
                                            
                                             
                                             <div class="row">

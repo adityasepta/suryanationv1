@@ -170,7 +170,7 @@
                         </div>
                         <div class="col-lg-3 text-center">
                             Berat Awal<br>
-                            <b><?php echo $bt[$i]->beratAwal ?> gr</b><br><br>
+                            <b><?php echo $bt[$i]->beratAwal+$bt[$i]->beratTambahan ?> gr</b><br><br>
                             PIC Proses<br>
                             <b><?php echo $bt[$i]->namaPIC ?></b>
                         </div>
@@ -202,7 +202,8 @@
                     <div class="form-horizontal">
                         <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
 
-                            <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $bt[$i]->beratAwal?>" class="form-control"></div>
+                            <div class="col-sm-5"><input type="number" step="any" readonly="" value="<?php echo $bt[$i]->beratAwal+$bt[$i]->beratTambahan?>" class="form-control">
+                                <input type="hidden" step="any" name="beratAwal" readonly="" value="<?php echo $bt[$i]->beratAwal?>" class="form-control"></div>
                         </div>
                     </div>
                     <div class="form-horizontal">
