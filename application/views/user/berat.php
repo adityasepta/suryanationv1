@@ -128,8 +128,8 @@
                                                 
                                                 if ($bAwal!=0 && $bAkhir!=0) {
 
-                                                    $prosenHilang2 = round((($bAwal-$bAkhir-$kembali+$bTambahan)/$bAwal * 100),2);
-                                                    $beratHilang = round((($bAwal-$bAkhir-$kembali+$bTambahan)),2);
+                                                    $prosenHilang2 = round((($bAwal-$bAkhir+$bTambahan)/$bAwal * 100),2);
+                                                    $beratHilang = round((($bAwal-$bAkhir+$bTambahan)),2);
                                                     $beratHilang = $beratHilang." gr || "; 
                                                     $prosenHilang = $prosenHilang2." %"; 
                                                 
@@ -375,6 +375,7 @@
                                                                                     $selisih = round($bAwal-$bAkhir-$kembali+$bTambahan,2);
                                                                                     $prosen=round($selisih/$bAwal*100,2);?>
                                                                                     <td class="text-center"><?php echo $b[$z]->beratAwal." gr" ?></td>
+                                                                                    <td class="text-center"><?php echo $b[$z]->beratTambahan." gr" ?></td>
                                                                                     <td class="text-center"><?php echo $b[$z]->berat." gr" ?></td>
                                                                                     <td class="text-center"><?php echo $b[$z]->kembali." gr" ?></td>
                                                                                      <td class="text-center"><?php echo $selisih." gr || ".$prosen ?> %</td>

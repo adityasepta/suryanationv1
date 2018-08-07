@@ -1659,7 +1659,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getSPKTempahan($idUser){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur FROM factproduction a LEFT JOIN aktivitas c ON a.idAktivitas=c.idAktivitas LEFT JOIN spk d ON a.idSPK=d.idSPK WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
+        $hasil = $this->db->query("SELECT a.*, c.namaAktivitas, d.nomorFaktur, e.kadarBahan FROM factproduction a LEFT JOIN aktivitas c ON a.idAktivitas=c.idAktivitas LEFT JOIN spk d ON a.idSPK=d.idSPK LEFT JOIN potempahan e ON d.nomorPO=e.nomorPO WHERE a.idPIC=$idUser AND a.idProProd NOT IN (SELECT b.idProProd FROM rekapproduksiline b)");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -1709,7 +1709,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function findRekap($kodeRekapProduksi){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*, c.*, e.nama, e.jabatan, f.nomorFaktur FROM rekapproduksi a RIGHT JOIN rekapproduksiline b ON a.kodeRekapProduksi=b.kodeRekapProduksi LEFT JOIN factproduction c ON b.idProProd = c.idProProd LEFT JOIN user e ON a.idPIC = e.idUser LEFT JOIN spk f ON c.idSPK=f.idSPK WHERE a.kodeRekapProduksi = '$kodeRekapProduksi'");
+        $hasil = $this->db->query("SELECT a.*, c.*, e.nama, e.jabatan, f.nomorFaktur,g.namaAktivitas FROM rekapproduksi a RIGHT JOIN rekapproduksiline b ON a.kodeRekapProduksi=b.kodeRekapProduksi LEFT JOIN factproduction c ON b.idProProd = c.idProProd LEFT JOIN user e ON a.idPIC = e.idUser LEFT JOIN spk f ON c.idSPK=f.idSPK LEFT JOIN aktivitas2 g ON c.idAktivitas=g.idAktivitas  WHERE a.kodeRekapProduksi = '$kodeRekapProduksi'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3186,14 +3186,14 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
-    public function dapatPO() {
+    /*public function dapatPO() {
         $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-    }
+    }*/
 
 
 }

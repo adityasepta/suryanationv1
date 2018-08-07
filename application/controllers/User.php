@@ -4205,7 +4205,7 @@ class User extends CI_Controller {
                 'kadar'             => $this->input->post('kadar'),
                 'jenisProduksi'     => $jenisProduksi,
             );
-            // $this->mdl->insertData("rekapproduksi",$dataRekap);  
+            $this->mdl->insertData("rekapproduksi",$dataRekap);  
 
             $idProd=$this->input->post('idProProd[]');
             for ($i=0; $i < count($idProd) ; $i++) { 
@@ -4213,7 +4213,7 @@ class User extends CI_Controller {
                     'kodeRekapProduksi' => $kode,
                     'idProProd'         => $idProd[$i],
                 );
-                // $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
+                $this->mdl->insertData("rekapproduksiline",$dataRekapLine); 
             }
 
             $namaMaterial = $this->input->post('namaMaterial').' '.$this->input->post('kadar').'%';
@@ -4235,8 +4235,7 @@ class User extends CI_Controller {
                     'kadar'           => $this->input->post('kadar'),
                     'asal'            => 'Balik Abu',
                 );
-                print_r($dataMaterial);exit();
-                // $this->mdl->insertData('materialdasar',$dataMaterial);
+                $this->mdl->insertData('materialdasar',$dataMaterial);
 
                 $iduser = ($this->session->userdata['logged_in']['iduser']);
                 $dataInventory = array(
@@ -8196,7 +8195,7 @@ class User extends CI_Controller {
         $this->load->view('user/voiceofcustomer',$data);
     }
 
-    function hapusSemua(){
+    /*function hapusSemua(){
         $nomor = array (384,386,414,415,225,203,228,425,434,416,429,428,432,438,439,442,437,440,441,443,378,376,426,382,347,350,407,403,405,304,317,363,252,435,445,363,444,427,344,377,436,396,412);
         $tidakdihapus = array (446,445,444,443,442,441,440,439,438,437,436,435,434,433,432,431,430,429,428,427,426,425,424,423,422,421,420,419,418,417,416,415,414,413,412,411,410,409,408,407,406,405,404,403,402,401,400,399,398,397,396,395,394,393,492,391,390,389,388,387,386,385,384,383,382,381,380,379,378,377,376,375,374,373,372,371,370,369,368,367,366,365,364,363,362,361,360,359,358,357,356,355,354,353,352,351,350);
         $fix = array_unique(array_merge($nomor,$tidakdihapus));
@@ -8210,7 +8209,7 @@ class User extends CI_Controller {
                 echo " and deleted<br>";
             }
         }
-    }
+    }*/
 
     public function rejectBarang() {
         $idProProd = $this->input->post('idProProd');
