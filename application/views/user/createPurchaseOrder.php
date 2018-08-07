@@ -156,6 +156,7 @@
                                         <div class="i-checks" style="margin-top: 5px;"><label> <input id="cincinKawin" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Cincin Kawin"){?> checked="" <?php } ?> value="Cincin Kawin" name="jenisProduk" onclick="produkCheck();"><i></i> Cincin Kawin </label></div>
                                     </div>
                                     <div class="col-sm-4">
+                                        <div class="i-checks" style="margin-top: 5px;"><label> <input id="sisiknaga" type="radio" <?php $a= set_value('jenisProduk'); if($a=="Sisik Naga"){?> checked="" <?php } ?> value="Sisik Naga" name="jenisProduk" onclick="produkCheck();"><i></i> Sisik Naga </label></div>
                                         <div class="i-checks"><label> <input id="lainlain" type="radio" <?php $a= set_value('jenisProduk'); if($a!="Cincin" || $a!="Liontin" || $a!="Gelang" || $a!="Anting" || $a!="Mainan Nama" || $a!="Cincin Kawin"){?> checked="" <?php } ?> value="Lain Lain" name="jenisProduk" onclick="produkCheck();"> <i></i> Lain - Lain </label></div>
                                         <div><input id="jenisLain" type="text" placeholder="Jenis produk yang lain" name="jenisProdukDetail" class="form-control" value="<?php echo set_value('jenisProdukDetail'); ?>"></div>
                                     </div>
@@ -176,7 +177,7 @@
                                     </div>
                                     <div id="contentDetail" style="padding: 15px; background-color: #f7f7f7;">
                                         <div class="form-group">
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <label>Bahan <small class="text-navy"> Pilih salah satu</small></label>
@@ -187,14 +188,16 @@
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Emas Kuning"){?> checked="" <?php } ?> value="Emas Kuning" name="bahan" required> <i></i> Emas Kuning </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Swasa"){?> checked="" <?php } ?> value="Swasa" name="bahan"> <i></i> Swasa </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Rose Gold"){?> checked="" <?php } ?> value="Rose Gold" name="bahan"> <i></i> Rose Gold </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Emas Putih"){?> checked="" <?php } ?> value="Emas Putih" name="bahan"> <i></i> Emas Putih </label></div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Emas Putih"){?> checked="" <?php } ?> value="Emas Putih" name="bahan"> <i></i> Emas Putih </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Perak"){?> checked="" <?php } ?> value="Perak" name="bahan"> <i></i> Perak </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Emas Kuning + Putih"){?> checked="" <?php } ?> value="Emas Kuning + Putih" name="bahan"> <i></i> Emas Kuning + Putih </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('bahan'); if($a=="Emas Putih + Rosegold"){?> checked="" <?php } ?> value="Emas Putih + Rosegold" name="bahan"> <i></i> Emas Putih + Rosegold </label></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-7">
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label>Kadar (lokal)</label>
@@ -518,6 +521,7 @@
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Jepit"){?> checked="" <?php } ?> value="Jepit" name="tipeIkatan"> <i></i> Jepit </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
+                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a=="Tusuk"){?> checked="" <?php } ?> value="Tusuk" name="tipeIkatan"> <i></i> Tusuk </label></div>
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('tipeIkatan'); if($a==""){?> checked="" <?php } ?> value="" name="tipeIkatan"> <i></i> Tidak Ada </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
@@ -526,14 +530,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Metode <br/><small class="text-navy">Pilih salah satu</small></label>
-
+                                    <div class="col-sm-2" style="padding-top: 10px;">
+                                        <div class="i-checks"><label> <input type="radio" <?php $a= set_value('metode'); if($a=="Microsetting"){?> checked="" <?php } ?> value="Microsetting" name="metode" required> <i></i> Microsetting </label></div>
+                                    </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('metode'); if($a=="Design"){?> checked="" <?php } ?> value="Design" name="metode" required> <i></i> Design </label></div>
                                     </div>
                                     <div class="col-sm-2" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('metode'); if($a=="Manual"){?> checked="" <?php } ?> value="Manual" name="metode"> <i></i> Manual </label></div>
                                     </div>
-                                    <div class="col-sm-6" style="padding-top: 10px;">
+                                    <div class="col-sm-4" style="padding-top: 10px;">
                                         <div class="i-checks"><label> <input type="radio" <?php $a= set_value('metode'); if($a=="Inject"){?> checked="" <?php } ?> value="Inject" name="metode"> <i></i> Inject </label></div>
                                     </div>
                                 </div>
@@ -646,6 +652,7 @@
         $("#mainanNama").on("ifChanged", produkCheck);
         $("#anting").on("ifChanged", produkCheck);
         $("#gelang").on("ifChanged", produkCheck);
+        $("#sisiknaga").on("ifChanged", produkCheck);
         $("#toko").on("ifChanged", customerCheck);
         $("#perseorangan").on("ifChanged", customerCheck);
 
@@ -657,6 +664,13 @@
                 document.getElementById('jenisLain').style.display = 'none';
                 var nomorPO=document.getElementById('nomorPO').value;
                 document.getElementById('kodeProduk').value = 'CNC';
+            } else if ($('#sisiknaga').iCheck('update')[0].checked) {
+                document.getElementById('ukuranCincin').style.display = 'block';
+                document.getElementById('ukuranLiontin').style.display = 'none';
+                document.getElementById('ukuranGelang').style.display = 'none';
+                document.getElementById('jenisLain').style.display = 'none';
+                var nomorPO=document.getElementById('nomorPO').value;
+                document.getElementById('kodeProduk').value = 'SSN';
             } else if ($('#liontin').iCheck('update')[0].checked){
                 document.getElementById('ukuranLiontin').style.display = 'block';
                 document.getElementById('ukuranCincin').style.display = 'none';
@@ -733,8 +747,10 @@
                 document.getElementById('hargaBahan').value = (kadar+10)*currentPrice/100;
             } else if(bahan=='Rose Gold'){
                 document.getElementById('hargaBahan').value = (kadar+15)*currentPrice/100;
-            } else {
+            } else if(bahan=='Perak'){
                 document.getElementById('hargaBahan').value = 16000;
+            } else {
+                document.getElementById('hargaBahan').value =(kadar+10)*currentPrice/100;
             }
         }
         

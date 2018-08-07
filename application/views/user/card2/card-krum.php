@@ -127,7 +127,7 @@
             </div>
             <div class="col-lg-4">
                 :&nbsp&nbsp<b><?php echo $kr[$i]->namap ?></b><br>
-                :&nbsp&nbsp<b><?php echo $kr[$i]->jenisProduk?></b>
+                :&nbsp&nbsp<b><?php echo substr($kr[$i]->model,0,18)?></b>
                 
             </div>
             

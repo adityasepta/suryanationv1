@@ -125,7 +125,7 @@
             </div>
             <div class="col-lg-4">
                 :&nbsp&nbsp<b><?php echo $cz[$i]->namap ?></b><br>
-                :&nbsp&nbsp<b><?php echo $cz[$i]->jenisProduk?></b>
+                :&nbsp&nbsp<b><?php echo substr($cz[$i]->model,0,18)?></b>
                 
             </div>
             

@@ -13,7 +13,7 @@
 
 <li class="<?php echo $statr ?>-element" id="task1">
 
-
+<div class="tabs-container">
     <?php if(isset($display)) {?>
 
     <div class="row">
@@ -91,7 +91,7 @@
         </div>
         <div class="col-lg-4">
             :&nbsp&nbsp<b><?php echo $li[$i]->namap ?></b><br>
-            :&nbsp&nbsp<b><?php echo $li[$i]->jenisProduk?></b>
+            :&nbsp&nbsp<b><?php echo substr($li[$i]->model,0,18)?></b>
             
         </div>
         
@@ -305,7 +305,7 @@
         </div>
     </div>
     
-    
+</div>
 </li>
 
 
