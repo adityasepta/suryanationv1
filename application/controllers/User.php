@@ -1289,6 +1289,7 @@ class User extends CI_Controller {
         $produk = $this->mdl->findProdukId($idProduk);
         $kode=$produk[0]->kodeGambar;
         $a=0;
+        print_r($kode);exit();
         for($i=0; $i<$cpt; $i++)
         {           
             $_FILES['userfile']['name']= $files['userfile']['name'][$i];
@@ -1307,6 +1308,7 @@ class User extends CI_Controller {
 
             if($this->upload->do_upload()) {
                 $a++;
+
             };
         }
 
