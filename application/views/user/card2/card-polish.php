@@ -608,7 +608,67 @@
                             <a href="<?php echo base_url('user/invoicePOMassal/'.$po[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                             <a href="<?php echo base_url('user/invoiceSPKMassal/'.$po[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                             <a href="<?php echo base_url('user/createbommassal/'.$po[$i]->idSubSPK) ?>" type="button" class="btn btn-default btn-outline ">Detail BOM</a>
-                            <button type="button" class="btn btn-danger btn-outline">Reject</button>
+                            <button data-toggle="modal" data-dismiss="modal"  data-target="#reject<?php echo $po[$i]->idProProd ?>" class="btn btn-danger btn-outline">Reject</button>
+                        </div>
+
+                        <div class="modal inmodal fade" id="reject<?php echo $po[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Form Pengembalian Barang (Reject)</h3><br>
+                                    </div>
+                                    <?php
+                                    $atribut = array('id' => $po[$i]->idProProd."form");
+                                    echo form_open('User/rejectBarang',$atribut)?>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">Pilih PIC</label>
+                                                        <div class="col-sm-9">
+                                                            <?php 
+                                                            $js = array( 'class' => 'form-control', 'id' =>  $po[$i]->idProProd."-pic");
+                                                            echo form_dropdown('staf', $staf, $po[$i]->idPIC,$js);
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang Reject</label>
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $po[$i]->idProProd ?>-jml" type="number" step="any" name="jumlahReject" required min="1"  max=""  class="form-control">
+                                                                <small>jumlah maksimal adalah <b><?php echo $po[$i]->jumlahNow?></b> pcs</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Reject</label>
+
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $po[$i]->idProProd ?>-berat" type="number" step="any" required name="beratReject" value="" class="form-control">
+                                                                <small>berat maksimal adalah <b><?php echo ((float)$po[$i]->beratAwal-(float)$po[$i]->berat)?></b> gr</small>  
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <input type="hidden" value="<?php echo $po[$i]->idProProd?>" name="idProProd">
+                                            <input type="hidden" value="<?php echo $idakt?>" name="idAktivitas">
+                                            <input type="hidden" value="<?php echo $po[$i]->idProduk ?>" name="idProduk">
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <br><br>
+                                                <button type="submit" onclick="return confirm('Apakah anda yakin untuk mengembalikan barang dari aktivitas produksi nomor faktur <?php echo $po[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $po[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php echo form_close() ?>
+                            </div>
                         </div>
                     </div>
                     

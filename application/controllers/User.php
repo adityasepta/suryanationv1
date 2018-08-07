@@ -5935,7 +5935,7 @@ class User extends CI_Controller {
             $kadarWenny = $cx[0]->kadarWenny;
             $namaBahan = "Balik Bahan ".$kadarWenny."%";
 
-            $t = $this->mdl->cekMaterial('Emas',$kadarWenny);
+            $t = $this->mdl->cekMaterialBalikBahan('Emas',$kadarWenny);
             $d = count($t);
 
             if($d == 0) {
@@ -8226,12 +8226,66 @@ class User extends CI_Controller {
         $jumlahSetelahReject = $proses[0]->jumlahNow-$jumlahReject;
         $jumlah = $proses[0]->jumlah-$jumlahReject;
         $beratSetelahReject = $proses[0]->beratAwal-$beratReject;
-        
-        $wadah = $this->mdl->getWadahTerakhir();
-        $idWadah = (int)($wadah[0]->idWadah) + 1;  
+        if($proses[0]->jumlahNow==0){
+            $data = array (
+                'statusWork' => "Done",
+            );
+            $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+        }
+        $data = array (
+                'jumlahNow' => $jumlahSetelahReject,
+                'beratAwal' => $beratSetelahReject,
+            );
+        $data1 = array (
+                'jumlah' => $jumlah,
+            );
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+        $this->mdl->updateData('idSubSPK',$idSubSPK,'factproduction2',$data1);
 
-        $gh = $this->mdl->cekFactProduction($idSPK, $idAktivitas);
-        print_r($this->input->post());exit();
+        $cx = $this->mdl->findKadar($idSPK);
+
+            $kadarWenny = $cx[0]->kadarWenny;
+            $namaBahan = "Balik Bahan ".$kadarWenny."%";
+
+            $t = $this->mdl->cekMaterialBalikBahan('Emas',$kadarWenny);
+            $d = count($t);
+
+            if($d == 0) {
+
+                $f = $this->mdl->getLastKodeMaterial();
+                $km = $f[0]->kodeMaterial+1;
+
+                $dataMaterial = array(
+                    'kodeMaterial'    => $km,
+                    'namaMaterial'    => $namaBahan,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => 0,
+                    'safetyStock'     => 0,
+                    'kadar'           => $kadarWenny,
+                    'asal'            => 'Balik Bahan',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+            } else {
+
+                $km = $t[0]->kodeMaterial;
+
+            }
+
+            $data = array(
+                'idPIC' => $staf,
+                'tipeBarang' => "Material Dasar",
+                'kodeBarang' => $km,
+                'jumlah' => $jumlahReject,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
+                'tanggal' => date("Y-m-d H:i:s")
+                );
+
+            $this->mdl->insertData('stokbarang', $data);
+        redirect('User/kanbanmassal');
 
     }
 
