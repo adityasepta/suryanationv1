@@ -1267,6 +1267,8 @@ class User extends CI_Controller {
     public function uploadDesain()
     {       
         $kodeProduk=$this->input->post('kodeProduk');
+        $kodeProduk=$this->input->post('idProduk');
+        print_r($kodeProduk);exit();
         $nomorFaktur=$this->input->post('nomorFaktur');
         $iduser = ($this->session->userdata['logged_in']['iduser']);
         $up=$this->input->post();
@@ -1287,6 +1289,7 @@ class User extends CI_Controller {
         $produk = $this->mdl->findProduk($kodeProduk);
         $kode=$produk[0]->kodeGambar;
         $a=0;
+        print_r($kode);exit();
         for($i=0; $i<$cpt; $i++)
         {           
             $_FILES['userfile']['name']= $files['userfile']['name'][$i];
@@ -1305,6 +1308,7 @@ class User extends CI_Controller {
 
             if($this->upload->do_upload()) {
                 $a++;
+
             };
         }
 
