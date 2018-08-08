@@ -306,11 +306,7 @@
                     <div class="row">
                         
                             <div class="col-lg-3">
-                                <?php if($co[$i]->statusWork == 'Done') {?>
-                                    <button disabled class="btn btn-block ">Update PIC</button>
-                                <?php } else {?>
-                                    <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Update PIC</button>
-                                <?php } ?>
+                                    <button data-toggle="modal" data-dismiss="modal" data-target="#tmb<?php echo $co[$i]->idProProd ?>"  class="btn btn-info btn-block btn-outline">Tambahan</button>
                             </div>
                             <!-- <div class="col-lg-3">
                                 <?php if($co[$i]->statusWork == 'On Progress') {?>
@@ -457,9 +453,80 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="modal inmodal fade" id="tmb<?php echo $co[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Form Tambah Benang</h3><br>
+                                    </div>
+                                    <?php
+                                    $atribut = array('id' => $co[$i]->idProProd."form");
+                                    echo form_open('User/tambahBenang',$atribut)?>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">Pilih PIC</label>
+                                                        <div class="col-sm-9">
+                                                            <?php 
+                                                            $js = array( 'class' => 'form-control', 'id' =>  $co[$i]->idProProd."-pic");
+                                                            echo form_dropdown('staf', $staf, $co[$i]->idPIC,$js);
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Batang</label>
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $co[$i]->idProProd ?>-btg" type="number" step="any" name="beratBatang" required min="0"  max=""  class="form-control" value="<?php echo $co[$i]->kembali ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Benang</label>
+
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $co[$i]->idProProd ?>-bng" type="number" step="any" required name="beratBenang" value="<?php echo $co[$i]->beratTambahan ?>" class="form-control"> 
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Kembali</label>
+
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $co[$i]->idProProd ?>-kbl" type="number" step="any" required name="beratKembali" value="<?php echo $co[$i]->kembali2 ?>" class="form-control"> 
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <input type="hidden" value="<?php echo $co[$i]->idProProd?>" name="idProProd">
+                                            <input type="hidden" value="<?php echo $idakt?>" name="idAktivitas">
+                                            <input type="hidden" value="<?php echo $co[$i]->idProduk ?>" name="idProduk">
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <br><br>
+                                                <button type="submit" onclick="return confirm('Apakah anda yakin untuk menambahkan benang pada nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php echo form_close() ?>
+                            </div>
+                        </div>
                         
                         <div class="col-lg-9">
-                            <a href="<?php echo base_url('user/invoicePOMassal/'.$co[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
+                            <?php if($co[$i]->statusWork == 'Done') {?>
+                                <button disabled class="btn btn-default ">Update PIC</button>
+                            <?php } else {?>
+                                <button data-toggle="modal" data-dismiss="modal" data-target="#pic<?php echo $co[$i]->idProProd ?>"  class="btn btn-default btn-outline ">Update PIC</button>
+                            <?php } ?>
                             <a href="<?php echo base_url('user/invoiceSPKMassal/'.$co[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                             <a href="<?php echo base_url('user/createbommassal/'.$co[$i]->idSubSPK) ?>" type="button" class="btn btn-default btn-outline ">Detail BOM</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>

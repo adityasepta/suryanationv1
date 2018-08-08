@@ -4787,7 +4787,8 @@ class User extends CI_Controller {
         
         //Query Tambah PO
         $jenisCustomer=$this->input->post('jenisCustomer');
-        
+        $kadarBahan=$this->input->post('kadarBahan');
+        $kadarWenny=$kadarBahan-0.5;
         $dataPO = array(
             'nomorPO'           => $nomorPO,
             'idProduk'          => $idProduk,
@@ -4798,7 +4799,7 @@ class User extends CI_Controller {
             'tanggalEstimasiPenyelesaian'    => $this->input->post('tanggalEstimasiPenyelesaian'),
             'jenisCustomer'     => $jenisCustomer,
             'bahan'             => $this->input->post('bahan'),
-            'kadarBahan'        => $this->input->post('kadarBahan'),
+            'kadarBahan'        => $kadarBahan,
             'hargaBahan'        => $hargaBahan,
             'persenBiaya'       => $this->input->post('persenBiaya'),
             'kuantitas'         => $this->input->post('kuantitas'),
@@ -4896,6 +4897,7 @@ class User extends CI_Controller {
             'PICJadwal'             => $iduser,
             'statusPersetujuan'     => $sp,
             'PICPersetujuan'        => $iduser,
+            'kadarWenny'            => $kadarWenny,
         );
         $this->mdl->tambahSPK($dataSPK); 
 
@@ -6275,6 +6277,7 @@ class User extends CI_Controller {
     }
 
     public function tambahPOMasal(){
+        // print_r($this->input->post()); exit();
         $poTerakhir = $this->mdl->poTerakhir2();
         $lastPO = $poTerakhir[0]->nomorPO;
         $nomorPO = $lastPO+1;
@@ -6367,7 +6370,6 @@ class User extends CI_Controller {
                 );
                 $idStokBarang = $this->mdl->insertDataGetLast("stokbarang",$dataInventory); 
             }
-
             
         }
 
@@ -6382,6 +6384,9 @@ class User extends CI_Controller {
         );
         $idProduk=$this->mdl->insertDataGetLast('produk',$dataProduk);
         
+        $kadarBahan=$this->input->post('kadarBahan');
+        $kadarWenny=$kadarBahan-0.5;
+
         //eksekusi query insert
         $dataPO = array(
             'nomorPO'           => $nomorPO,
@@ -6403,7 +6408,7 @@ class User extends CI_Controller {
             'pekerjaanTambahan' => $pekerjaanTambahan,
             'keteranganTambahan'=> $this->input->post('keteranganTambahan'),
             'bahan'             => $this->input->post('bahan'),
-            'kadarBahan'        => $this->input->post('kadarBahan'),
+            'kadarBahan'        => $kadarBahan,
             'ukuranJari'        => $this->input->post('ukuranJari'),
             'krumWarna'         => $this->input->post('krumWarna'),
             'model'             => $this->input->post('model'),
@@ -6440,6 +6445,7 @@ class User extends CI_Controller {
             'PICJadwal' => $iduser,
             'statusPersetujuan' => $sp,
             'PICPersetujuan' => $iduser,
+            'kadarWenny' => $kadarWenny,
         );
         $this->mdl->insertData("spkmasal", $dataSPK);      
                 
@@ -8290,6 +8296,34 @@ class User extends CI_Controller {
                 );
 
             $this->mdl->insertData('stokbarang', $data);
+        redirect('User/kanbanmassal');
+
+    }
+
+    public function tambahBenang() {
+        // print_r($this->input->post());exit();
+        $idProProd = $this->input->post('idProProd');
+        $staf = $this->input->post('staf');
+        $beratBatang = $this->input->post('beratBatang');
+        $beratBenang = $this->input->post('beratBenang');
+        $beratKembali = $this->input->post('beratKembali');
+        $idAktivitas = $this->input->post('idAktivitas');
+        $idProduk = $this->input->post('idProduk');
+
+        $proses = $this->mdl->getProsesDetail2($idProProd);
+        $idSPK = $proses[0]->idSPK;
+        $idSubSPK = $proses[0]->idSubSPK;
+        $idAkt = $proses[0]->idAktivitas;
+
+        
+        $data = array (
+                'kembali'       => $beratBatang,
+                'beratTambahan' => $beratBenang,
+                'kembali2'      => $beratKembali,
+            );
+        $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
+
+        
         redirect('User/kanbanmassal');
 
     }
