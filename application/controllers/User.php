@@ -73,7 +73,7 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
             $data['cb'] = $this->mdl->cekbom2();
-            $data['klot']      = $this->mdl->getKloterSPK();
+            $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
               
@@ -1220,7 +1220,7 @@ class User extends CI_Controller {
         $this->load->library('upload');
 
         $config['upload_path']     = './uploads/gambarDesain/'; 
-        $config['allowed_types']   = 'jpg|jpeg|png'; 
+        $config['allowed_types']   = '*';
         $config['max_size']        = '6000';
         $config['file_name']       = $kode.'-thumb.jpg';
         $config['overwrite']        = TRUE;
@@ -1233,6 +1233,7 @@ class User extends CI_Controller {
             window.location.href='".base_url("user/spk")."';</script>";
             
         } else {
+            print_r($this->upload->display_errors());exit();
             $message = "Format Thumbnail tidak sesuai";
             echo "<script type='text/javascript'>alert('$message');
             window.location.href='".base_url("user/tambahDesain/".$nomorFaktur)."';</script>";
@@ -1289,7 +1290,7 @@ class User extends CI_Controller {
         $produk = $this->mdl->findProdukId($idProduk);
         $kode=$produk[0]->kodeGambar;
         $a=0;
-        print_r($kode);exit();
+
         for($i=0; $i<$cpt; $i++)
         {           
             $_FILES['userfile']['name']= $files['userfile']['name'][$i];
@@ -5298,7 +5299,7 @@ class User extends CI_Controller {
             $data['r'] = $this->mdl->getRecord();
             $data['b'] = $this->mdl->getBerat();
             $data['cb'] = $this->mdl->cekbom2();
-            $data['klot']      = $this->mdl->getKloterSPK();
+            $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
               
@@ -8014,7 +8015,7 @@ class User extends CI_Controller {
         
         if ($this->form_validation->run() == FALSE){
             $data['kloter'] = $this->mdl->findKloter($idKloter);
-            $data['klot']   = $this->mdl->getKloterSPK();
+            $data['klot']   = $this->mdl->getKloterSPK10();
             $this->load->view('user/editKloter',$data);
         }
         else {
@@ -8326,6 +8327,203 @@ class User extends CI_Controller {
         
         redirect('User/kanbanmassal');
 
+    public function resetBarangMasal(){
+        $idProProd = $this->input->post('idProProd');
+        $staf = $this->input->post('staf');
+        $beratReject = $this->input->post('beratReject');
+        $idAktivitas = $this->input->post('idAktivitas');
+        $idProduk = $this->input->post('idProduk');
+
+        $proses = $this->mdl->getProsesDetail($idProProd);
+        $idSPK = $proses[0]->idSPK;
+        $idAkt = $proses[0]->idAktivitas;
+
+
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
+
+        $sd      = 'Proses Desain';
+        $sb      = 'Belum Ada';
+        $sp      = 'Belum Disetujui';
+        $pr      = 'Belum';
+
+        $dataSPK = array(
+            'statusDesain' => $sd,
+            'statusBOM' => $sb,
+            'statusPrint' => $pr,
+            'statusPersetujuan' => $sp,
+            'statusSPK' => 'On progress',
+        );
+        $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+
+        $cx = $this->mdl->findKadarTempahan($idSPK);
+
+            $kadarWenny = $cx[0]->kadarWenny;
+            $namaBahan = "Balik Bahan ".$kadarWenny."%";
+
+            $t = $this->mdl->cekMaterialBalikBahan('Emas',$kadarWenny);
+            $d = count($t);
+
+            if($d == 0) {
+
+                $f = $this->mdl->getLastKodeMaterial();
+                $km = $f[0]->kodeMaterial+1;
+
+                $dataMaterial = array(
+                    'kodeMaterial'    => $km,
+                    'namaMaterial'    => $namaBahan,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => 0,
+                    'safetyStock'     => 0,
+                    'kadar'           => $kadarWenny,
+                    'asal'            => 'Balik Bahan',
+                );
+                
+                $this->mdl->insertData('materialdasar',$dataMaterial);
+
+            } else {
+
+                $km = $t[0]->kodeMaterial;
+
+            }
+
+            $data = array(
+                'idPIC' => $staf,
+                'tipeBarang' => "Material Dasar",
+                'kodeBarang' => $km,
+                'jumlah' => $beratReject,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
+                'tanggal' => date("Y-m-d H:i:s")
+                );
+
+            $this->mdl->insertData('stokbarang', $data);
+        redirect('User/kanban');
+    }
+
+    public function resetBarangMasal2(){
+        $idProProd = $this->input->post('idProProd');
+        $staf = $this->input->post('staf');
+        $beratReject = $this->input->post('beratReject');
+        $idAktivitas = $this->input->post('idAktivitas');
+        $idProduk = $this->input->post('idProduk');
+
+        $proses = $this->mdl->getProsesDetail($idProProd);
+        $idSPK = $proses[0]->idSPK;
+        $idAkt = $proses[0]->idAktivitas;
+
+
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
+
+        if($idAktivitas=='1001') {
+            $sd      = 'Proses Desain';
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Belum';
+
+            $dataSPK = array(
+                'statusDesain' => $sd,
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+        } else if ($idAktivitas=='1002') {
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Proses Print';
+
+            $dataSPK = array(
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+        } else if ($idAktivitas=='1003') {
+            $sd      = 'Disetujui';
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Sudah';
+
+            $dataSPK = array(
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1003,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+            );
+
+            $this->mdl->insertData('factproduction',$data);
+        }
+        redirect('User/kanban');
+    }
+
+    public function resetBarangMasal3(){
+        $idSPK= $this->input->post('idSPK');
+        $idAktivitas= $this->input->post('idAktivitas');
+
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
+
+        if($idAktivitas=='1001') {
+            $sd      = 'Proses Desain';
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Belum';
+
+            $dataSPK = array(
+                'statusDesain' => $sd,
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+        } else if ($idAktivitas=='1002') {
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Proses Print';
+
+            $dataSPK = array(
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+        } else if ($idAktivitas=='1003') {
+            $sd      = 'Disetujui';
+            $sb      = 'Belum Ada';
+            $sp      = 'Belum Disetujui';
+            $pr      = 'Sudah';
+
+            $dataSPK = array(
+                'statusBOM' => $sb,
+                'statusPrint' => $pr,
+                'statusPersetujuan' => $sp,
+                'statusSPK' => 'On progress',
+            );
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            $data = array(
+                'idSPK' => $idSPK,
+                'idAktivitas' => 1003,
+                'statusWork' => 'Belum ada PIC',
+                'statusSPK' => 'Active',
+            );
+
+            $this->mdl->insertData('factproduction',$data);
+        }
+        redirect('User/kanban');
     }
 
 
