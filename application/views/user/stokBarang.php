@@ -136,7 +136,7 @@
                                     </h1>
                                 </div>
                                 <div class="col-lg-9 table-responsive text-center">
-                                    <table data-page-size="8" class=" footable table  table-stripped">
+                                    <table data-page-size="15" class=" footable table  table-stripped">
 
                                         <thead>
                                             <tr>
@@ -250,7 +250,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-3">
                                     
                                 </div>
@@ -290,7 +290,7 @@
                                     </table>
                                     
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
