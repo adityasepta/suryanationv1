@@ -270,6 +270,15 @@
 
                                     </div>
                                 </div>
+                                <div class="form-horizontal">
+                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Akhir Kecap</label>
+
+                                        <div class="col-sm-9">
+                                            <input id="<?php echo $go[$i]->idProProd ?>-beratKecap" type="number" step="any" required name="beratKecap" value="0" class="form-control">
+                                        </div>
+
+                                    </div>
+                                </div>
                                 
                             </div>
                         </div>
@@ -290,7 +299,7 @@
     
 
     <div class="modal inmodal fade" id="serah<?php echo $go[$i]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -318,6 +327,9 @@
                             Berat Tambahan<br>
                             <b><?php echo $go[$i]->beratTambahan ?> gr</b><br><br>
                             <input type="hidden"  required value="<?php echo $go[$i]->beratTambahan ?>" name="beratTambahan">
+                            Berat Kecap (khusus beberapa barang)<br>
+                            <b id="<?php echo $go[$i]->idProProd ?>-beratKecap-d"></b><br><br>
+                            <input type="hidden" id="<?php echo $go[$i]->idProProd ?>-beratKecap-i" required  value="0" name="beratKecap">
                             Jumlah Barang<br>
                             <b id="<?php echo $go[$i]->idProProd ?>-jml-d"></b><br><br>
                             <input type="hidden" id="<?php echo $go[$i]->idProProd ?>-jml-i" required value="0" name="jumlah">
@@ -372,6 +384,7 @@
         function passing<?php echo $go[$i]->idProProd ?>() {
             var jumlah = document.getElementById('<?php echo $go[$i]->idProProd ?>-jml').value;
             var berat = document.getElementById('<?php echo $go[$i]->idProProd ?>-berat').value;
+            var beratKecap = document.getElementById('<?php echo $go[$i]->idProProd ?>-beratKecap').value;
             var pic = document.getElementById('<?php echo $go[$i]->idProProd ?>-pic');
             var nama = pic.options[pic.selectedIndex].text;
             var idpic = pic.options[pic.selectedIndex].value;
@@ -401,11 +414,13 @@
 
             document.getElementById('<?php echo $go[$i]->idProProd ?>-jml-d').innerHTML = jumlah + ' Pcs';
             document.getElementById('<?php echo $go[$i]->idProProd ?>-berat-d').innerHTML = berat + ' gr';
+            document.getElementById('<?php echo $go[$i]->idProProd ?>-beratKecap-d').innerHTML = beratKecap + ' gr';
             document.getElementById('<?php echo $go[$i]->idProProd ?>-pic-d').innerHTML = nama;
             document.getElementById('<?php echo $go[$i]->idProProd ?>-akt-d').innerHTML = namaakt;
 
             document.getElementById('<?php echo $go[$i]->idProProd ?>-jml-i').value = jumlah;
             document.getElementById('<?php echo $go[$i]->idProProd ?>-berat-i').value = berat;
+            document.getElementById('<?php echo $go[$i]->idProProd ?>-beratKecap-i').value = beratKecap;
             document.getElementById('<?php echo $go[$i]->idProProd ?>-pic-i').value = idpic;
             document.getElementById('<?php echo $go[$i]->idProProd ?>-akt-i').value = idakt;
 
@@ -635,7 +650,7 @@
                                                     <div class="form-horizontal">
                                                         <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang Reject</label>
                                                             <div class="col-sm-9">
-                                                                <input id="<?php echo $go[$i]->idProProd ?>-jml" type="number" step="any" name="jumlahReject" required min="1"  max=""  class="form-control">
+                                                                <input type="number" step="any" name="jumlahReject" required min="1"  max=""  class="form-control">
                                                                 <small>jumlah maksimal adalah <b><?php echo $go[$i]->jumlahNow?></b> pcs</small>
                                                             </div>
                                                         </div>
@@ -644,7 +659,7 @@
                                                         <div class="form-group"><label class="col-sm-3 control-label">Berat Reject</label>
 
                                                             <div class="col-sm-9">
-                                                                <input id="<?php echo $go[$i]->idProProd ?>-berat" type="number" step="any" required name="beratReject" value="" class="form-control">
+                                                                <input type="number" step="any" required name="beratReject" value="" class="form-control">
                                                                 <small>berat maksimal adalah <b><?php echo ((float)$go[$i]->beratAwal-(float)$go[$i]->berat)?></b> gr</small>  
                                                             </div>
 
