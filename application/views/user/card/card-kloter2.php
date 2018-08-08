@@ -1,4 +1,4 @@
-<?php $idakt = 1005 ?>
+<?php $idakt = 1005?>
 <li class="element" id="task1">
 
     
@@ -20,7 +20,6 @@
                 
                 <b><?php echo $gi[$x]->jenisProduk?></b><br>
 
-                
                 <div class="modal inmodal fade" id="detail<?php echo $gi[$x]->idProProd ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -237,12 +236,53 @@
 
     <?php }} ?>
         
-
-
-    
-
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
+            <button data-toggle="modal" data-target="#review<?php echo $k2[$i]->idKloter ?>"  class="btn btn-xs btn-warning">Lihat Lilin</button>
+            <div class="modal inmodal fade" id="review<?php echo $k2[$i]->idKloter ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h1>Lilin <?php echo $gi[$i]->nama ?></h1>
+                        </div>
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="form-horizontal">        
+                                        <div class="col-lg-9">
+                                            <label>Nama Kloter</label>
+                                            <input type="text" name="namakloter" class=" form-control" placeholder="Nama Kloter" required="" value="<?php echo $k2[$i]->nama?>" readonly="">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Kadar</label>
+                                            <input type="number" step="any" min="0" name="kadar" class=" form-control" placeholder="kadar" required="" value="<?php echo $k2[$i]->kadar?>" readonly="">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <br>
+                                            <label>Berat Lilin + Karet (gr)</label>
+                                            <input type="number" step="any" name="beratKotor" min="0" class=" form-control" placeholder="Berat Lilin + Karet (gr)" value="<?php echo $k2[$i]->beratKotor?>" readonly="">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <br>
+                                            <label>Berat Karet (gr)</label>
+                                            <input type="number" step="any" min="0" name="beratKaret" class=" form-control" placeholder="Berat Karet (gr)" value="<?php echo $k2[$i]->beratKaret?>" readonly="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="form-horizontal">
+                                         <div class="col-lg-12">
+                                            <img src="<?php echo base_url('uploads/gambarDesain/'.$k2[$i]->idKloter.'-lilin.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
+                                         </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
 
             <?php 
 

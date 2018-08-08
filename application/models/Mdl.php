@@ -1631,7 +1631,7 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
 
     public function getKloter($idAktivitas) {
 
-        $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar, MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = $idAktivitas and statusWork != 'Done' ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = $idAktivitas ORDER BY idKloter";
+        $sql   = "SELECT * FROM factproduction f JOIN (SELECT idKloter as idKloter, MAX(nama) AS nama, MAX(kadar) AS kadar,MAX(beratKotor) AS beratKotor,MAX(beratKaret) AS beratKaret,MAX(tgl_kloter) AS tgl_kloter, MIN(idSPK) AS idSPK FROM kloter WHERE idSPK IN( SELECT idSPK FROM factproduction WHERE idAKtivitas = $idAktivitas and statusWork != 'Done' ) GROUP BY idKloter ) t ON f.idSPK = t.idSPK WHERE f.idAktivitas = $idAktivitas ORDER BY idKloter";
         $query = $this->db->query($sql);
         
         return $query->result();
