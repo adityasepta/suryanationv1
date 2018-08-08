@@ -358,8 +358,18 @@
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><select class="form-control m-b" name="idProdukChild[]"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->idProduk?>"><?php echo $listProduk[$i]->kodeProduk." - ".$listProduk[$i]->namaProduk?></option><?php } ?></select></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
+                $(wrapper).append('<div class="form-group"><div class="col-md-4 "><label>Nama Produk</label><datalist id="listofproduk"><?php for ($i = 0; $i < count($listProduk); $i++) { ?><option value="<?php echo $listProduk[$i]->namaProduk?>" data-value="<?php echo $listProduk[$i]->idProduk?>"><?php } ?></datalist><input type="text" id="prod'+x+'" list="listofproduk" class="form-control"><input type="hidden" id="sb'+x+'" name="idProdukChild[]"></div><div class="col-md-6"><label>Keterangan</label><input type="text" name= "keteranganChild[]" placeholder="Berat / Ukuran" class="form-control" required></div><button class="btn remove_field" style="margin-top:22px;">Remove</button></div>'); //add input box
             }
+            var data = {}; 
+                $("#listofproduk option").each(function(i,el) {  
+                   data[$(el).data("value")] = $(el).val();
+                });
+
+                $('#prod'+x).on('change',function()
+                {
+                    var vale = $('#prod'+x).val();
+                    document.getElementById('sb'+x).value=$('#listofproduk [value="' + vale + '"]').data('value');
+            });
         });
         
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text

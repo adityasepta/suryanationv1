@@ -5916,6 +5916,7 @@ class User extends CI_Controller {
         $jumlah    = $proses[0]->jumlah;
         $beratAwal    = $proses[0]->berat;
         $beratKecap    = $proses[0]->beratKecap;
+        $beratTambahan    = $proses[0]->beratTambahan;
         $kembali    = $proses[0]->kembali;
 
         $data = array(
@@ -5998,7 +5999,15 @@ class User extends CI_Controller {
             
 
             $idPICBenang=$proses[0]->idPICBenang;
+
             if($idPICBenang!=0){
+                $beratPentol=$beratKecap+$beratTambahan;
+                $data = array(
+                    'beratAwal' => $beratPentol
+                );
+
+                $this->mdl->updateData('idProProd',$f,'factproduction2',$data);
+
                 $cx = $this->mdl->findKadar($idSPK);
                 $kadarWenny = $cx[0]->kadarWenny;
                 $namaBahan = "Balik Bahan ".$kadarWenny."%";
@@ -6057,11 +6066,6 @@ class User extends CI_Controller {
             $this->mdl->updateData2($where, 'factproduction2', $data);
 
         }
-
-
-
-        
-
 
        
         $this->session->set_flashdata('msg', '<div class="alert animated fadeInRight alert-success">Berhasil melanjutkan proses produksi</div>');
