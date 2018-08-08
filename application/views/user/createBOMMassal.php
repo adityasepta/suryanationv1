@@ -97,7 +97,11 @@
                                                 <?php } else { ?>
                                                 <a class="btn btn-xs btn-danger" disabled href="">Hapus</a>
                                                 <?php } ?>
-                                                
+                                                <?php  if($bom4[$i]->statusTambahan == 'Tidak') {?>
+                                                    <a class="btn btn-xs btn-primary" onclick="return confirm('Apakah anda yakin untuk menambahkan item ini ke Proses Benang?')"  href="<?php echo base_url('user/tambahCor/'.$bom4[$i]->idBOM.'/'.$idSubSPK)?>">Tambah ke Cor</a>
+                                                <?php } else { ?>
+                                                    <a class="btn btn-xs btn-warning" onclick="return confirm('Apakah anda yakin untuk membatalkan item ini dari Proses Benang?')"  href="<?php echo base_url('user/batalCor/'.$bom4[$i]->idBOM.'/'.$idSubSPK)?>">Batal</a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                              

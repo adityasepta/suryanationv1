@@ -120,7 +120,7 @@
             <div class="col-lg-4">
                 Produk<br>
                 Jenis
-                
+                <h1><?php echo $co[$i]->idProProd ?></h1>
             </div>
             <div class="col-lg-4">
                 :&nbsp&nbsp<b><?php echo $gp[$i]->namap ?></b><br>

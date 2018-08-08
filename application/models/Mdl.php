@@ -3200,6 +3200,28 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
+    public function cariBOMMassal($id){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM bommassal WHERE idBOM='$id' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+    public function findFactproduction2($idSubSPK,$idAktivitas){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idSubSPK='$idSubSPK' AND idAktivitas=$idAktivitas LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->row();
+        } else{
+            return array();
+        }
+    }
+
+
+
     /*public function dapatPO() {
         $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
         if($hasil->num_rows() > 0){

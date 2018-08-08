@@ -2235,6 +2235,58 @@ class User extends CI_Controller {
         window.location.href='".base_url("user/createBOMTempahan/".$idKloter)."';</script>";
     }
 
+    public function tambahCor($idBOM,$idSubSPK) {
+
+        $bom=$this->mdl->cariBOMMassal($idBOM);
+        $berat=$bom->jumlah;
+
+        $idAktivitas='1006';
+        $cor=$this->mdl->findFactproduction2($idSubSPK,$idAktivitas);
+        $idProProd=$cor->idProProd;
+        $beratTambahanCor=$cor->beratTambahanCor;
+        $beratTotal=$berat+$beratTambahanCor;
+        // print_r($idProProd);exit();
+
+        $dataBOM = array(
+            'statusTambahan' => 'Ditambahkan'
+            );
+        $this->mdl->updateData('idBOM',$idBOM, 'bommassal', $dataBOM);
+
+        $data = array(
+            'beratTambahanCor' => $beratTotal,
+            );
+        $this->mdl->updateData('idProProd',$idProProd, 'factproduction2', $data);
+
+        echo "<script type='text/javascript'>window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
+    }
+
+    public function batalCor($idBOM,$idSubSPK) {
+
+        $bom=$this->mdl->cariBOMMassal($idBOM);
+        $berat=$bom->jumlah;
+
+        $idAktivitas='1006';
+        $cor=$this->mdl->findFactproduction2($idSubSPK,$idAktivitas);
+        $idProProd=$cor->idProProd;
+        $beratTambahanCor=$cor->beratTambahanCor;
+        $beratTotal=$beratTambahanCor-$berat;
+        // print_r($idProProd);exit();
+
+        $dataBOM = array(
+            'statusTambahan' => 'Tidak'
+            );
+        $this->mdl->updateData('idBOM',$idBOM, 'bommassal', $dataBOM);
+
+        $data = array(
+            'beratTambahanCor' => $beratTotal,
+            );
+        $this->mdl->updateData('idProProd',$idProProd, 'factproduction2', $data);
+
+        echo "<script type='text/javascript'>window.location.href='".base_url("user/createbommassal/".$idSubSPK)."';</script>";
+
+    }
+
     
     public function tambahBOMMassal() {
 
@@ -5845,6 +5897,7 @@ class User extends CI_Controller {
     public function next3($idProduk, $idAktivitas, $idProProd, $idSPK, $idSubSPK, $idWadah)
     {
         $proses = $this->mdl->getProsesDetail2($idProProd);
+        
         $data = array(
                 'statusWork' => 'Done',
                 'RealisasiEndDate' => date("Y-m-d H:i:s")
@@ -5969,11 +6022,19 @@ class User extends CI_Controller {
 
             }
 
+            $idPICBenang=$proses[0]->idPICBenang;
+            if($idPICBenang!=0){
+                $beratBalik=$proses[0]->kembali2;
+            } else {
+                $beratBalik=$proses[0]->kembali;
+            }
+            
+
             $data = array(
                 'idPIC' => $idUser,
                 'tipeBarang' => "Material Dasar",
                 'kodeBarang' => $km,
-                'jumlah' => $proses[0]->kembali,
+                'jumlah' => $beratBalik,
                 'jenisPergerakanBarang' => "IN",
                 'satuan' => 'gr',
                 'tipePergerakan' => 'Balik Bahan',
@@ -8318,6 +8379,7 @@ class User extends CI_Controller {
 
         
         $data = array (
+                'idPICBenang'   => $staf,
                 'kembali'       => $beratBatang,
                 'beratTambahan' => $beratBenang,
                 'kembali2'      => $beratKembali,

@@ -484,6 +484,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan Benang</label>
+                                                            <div class="col-sm-9">
+                                                                <input id="<?php echo $co[$i]->idProProd ?>-tbbng" type="number" step="any" name="beratTambahanCor" readonly required min="0"  max=""  class="form-control" value="<?php echo $co[$i]->beratTambahanCor ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
                                                         <div class="form-group"><label class="col-sm-3 control-label">Berat Benang</label>
 
                                                             <div class="col-sm-9">
