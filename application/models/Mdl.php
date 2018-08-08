@@ -691,6 +691,16 @@ class mdl extends CI_Model {
         }
     }
 
+    public function findProProd($id){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM factproduction2 WHERE idProProd = '$id' LIMIT 1");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function findProdukByPO($nomorPO){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT * FROM potempahan a LEFT JOIN produk b ON a.idProduk=b.idProduk WHERE a.nomorPO = '$nomorPO' LIMIT 1");

@@ -519,7 +519,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <br><br>
-                                                <button type="submit" onclick="return confirm('Apakah anda yakin untuk menambahkan benang pada nomor faktur <?php echo $go[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $go[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Simpan</button>
+                                                <button type="submit" onclick="return confirm('Apakah anda yakin untuk menambahkan benang pada nomor faktur <?php echo $co[$i]->nomorFaktur ?> dan ID Sub SPK <?php echo $co[$i]->idSubSPK ?>?')"  class="btn btn-lg btn-primary btn-block">Simpan</button>
                                             </div>
                                         </div>
                                     </div>
