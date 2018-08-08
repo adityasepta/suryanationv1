@@ -8326,6 +8326,7 @@ class User extends CI_Controller {
 
         
         redirect('User/kanbanmassal');
+    }
 
     public function resetBarangMasal(){
         $idProProd = $this->input->post('idProProd');
