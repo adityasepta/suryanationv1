@@ -120,7 +120,50 @@
                 <div class="modal-footer">
                     <a href="<?php echo base_url('user/invoicePO/'.$p[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                     <a href="<?php echo base_url('user/invoice/'.$p[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
-                    <button type="button" class="btn btn-danger btn-outline">Reject</button>
+                    <button data-toggle="modal" data-dismiss="modal"  data-target="#reject<?php echo $p[$i]->nomorFaktur ?>" class="btn btn-danger btn-outline">Reset</button>
+                </div>
+
+                <div class="modal inmodal fade" id="reject<?php echo $p[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Form Reset Produksi</h3><br>
+                            </div>
+                            <?php echo form_close(); ?>
+                            <?php
+                            $atribut = array('id' => $p[$i]->nomorFaktur."form");
+                            echo form_open('User/resetBarangMasal3',$atribut)?>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-horizontal">
+                                            <div class="form-horizontal">
+                                                <div class="form-group"><label class="col-sm-3 control-label">Barang Reset Ke Aktivitas</label>
+
+                                                    <div class="col-sm-9">
+                                                        <select required class="form-control" name="idAktivitas">
+                                                            <option value="1001">Desain</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                    <input type="hidden" value="<?php echo $p[$i]->idSPK ?>" name="idSPK">
+                                
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <br><br>
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo form_close() ?>
+                    </div>
                 </div>
             </div>
         </div>
