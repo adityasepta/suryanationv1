@@ -428,16 +428,18 @@
                                     </div>
                                 </div>
                             </div>
-                           
                         </div>
-
-
                     </div>
-                    
-                    
-                
-               
                 </div>
+
+                <?php 
+                $ids=$gp[$i]->idSubSPK;
+                $sql ="SELECT * FROM factproduction2 WHERE idSubSPK=$ids AND idAktivitas=1006";
+                $query = $this->db->query($sql);
+                foreach ($query->result()  as $hasil) {
+                    $beratTambahan=$hasil->beratTambahan;
+                }
+                ?>
 
                 <div class="modal-footer">
                     <div class="row">
@@ -475,7 +477,12 @@
                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $gp[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>
-                                           
+                                            <div class="form-horizontal">
+                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Tambahan </label>
+
+                                                    <div class="col-sm-5"><input type="number" step="any" name="beratTambahan" value="<?php echo $beratTambahan ?>" readonly class="form-control"></div>
+                                                </div>
+                                            </div>
                                             
                                             <div class="row">
                                                 <div class="col-lg-6">

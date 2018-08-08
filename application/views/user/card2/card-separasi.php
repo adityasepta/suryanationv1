@@ -281,14 +281,65 @@
 
                 <div class="modal-footer">
                     <div class="row">
-                        
-                        <div class="col-lg-7">
+                        <div class="col-lg-3">
+                            <button data-toggle="modal" data-dismiss="modal" data-target="#pohon<?php echo $sp[$i]->nomorFaktur ?>"  class="btn btn-info btn-block btn-outline">Daftar Pohon</button>
+                        </div>
+                        <div class="col-lg-9">
                             <a href="<?php echo base_url('user/invoicePOMassal/'.$sp[$i]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                             <a href="<?php echo base_url('user/invoiceSPKMassal/'.$sp[$i]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
                             <button type="button" class="btn btn-danger btn-outline">Reject</button>
                         </div>
                     </div>
-                    
+                    <div class="modal inmodal fade" id="pohon<?php echo $sp[$i]->nomorFaktur ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Daftar Pohon untuk nomor faktur <?php echo $sp[$i]->nomorFaktur ?></h3><br>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <?php $b=0; for ($c=0; $c < count($ceksub) ; $c++) { 
+                                                    if($sp[$i]->idSPK==$ceksub[$c]->idSPK) {
+                                                        $b++;
+                                                    }
+                                                } 
+                                            ?>
+                                            <?php if($b>0){ ?>
+                                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nomor Pohon</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php for ($c=0; $c < count($ceksub) ; $c++) { 
+                                                        if($sp[$i]->idSPK==$ceksub[$c]->idSPK) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $ceksub[$c]->idSubSPK?></td>
+                                                            <td><a href="<?php echo base_url('user/hapusSubSPK/'.$ceksub[$c]->idSubSPK) ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger">Hapus</a></td>
+                                                        </tr>
+                                                    <?php } } ?>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <ul class="pagination pull-right"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                            <?php } else { ?>
+                                            <h2 class="text-center">Belum ada pohon yang dibuat untuk nomor Faktur <?php echo $sp[$i]->nomorFaktur?></h2>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
