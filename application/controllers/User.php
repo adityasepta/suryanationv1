@@ -8477,8 +8477,8 @@ class User extends CI_Controller {
         $idAkt = $proses[0]->idAktivitas;
 
 
-        //$this->mdl->deleteData('idSPK',$idSPK,'factproduction');
-        //$this->mdl->deleteData('idSPK',$idSPK,'kloter');
+        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
 
         if($idAktivitas=='1001') {
             $sd      = 'Proses Desain';
@@ -8493,8 +8493,8 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            print_r("desain");
-            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            //print_r("desain");
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
         } else if ($idAktivitas=='1002') {
             $sb      = 'Belum Ada';
             $sp      = 'Belum Disetujui';
@@ -8506,8 +8506,8 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            print_r("printing");
-            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            //print_r("printing");
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
         } else if ($idAktivitas=='1003') {
             $sd      = 'Disetujui';
             $sb      = 'Belum Ada';
@@ -8520,15 +8520,15 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
             $data = array(
                 'idSPK' => $idSPK,
                 'idAktivitas' => 1003,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
             );
-            print_r("lilin");
-            //$this->mdl->insertData('factproduction',$data);
+            //print_r("lilin");
+            $this->mdl->insertData('factproduction',$data);
         }
 
         if($beratReject!=0) {
@@ -8555,7 +8555,7 @@ class User extends CI_Controller {
                     'asal'            => 'Balik Bahan',
                 );
                 
-                //$this->mdl->insertData('materialdasar',$dataMaterial);
+                $this->mdl->insertData('materialdasar',$dataMaterial);
 
             } else {
 
@@ -8573,10 +8573,9 @@ class User extends CI_Controller {
                 'tipePergerakan' => 'Balik Bahan',
                 'tanggal' => date("Y-m-d H:i:s")
                 );
-            print_r("nambahberat");
-            //$this->mdl->insertData('stokbarang', $data);
+            //print_r("nambahberat");
+            $this->mdl->insertData('stokbarang', $data);
         }
-        exit();
         redirect('User/kanban');
     }
 
