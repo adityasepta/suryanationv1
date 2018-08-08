@@ -537,7 +537,6 @@
                                                     <div class="col-sm-2"><input type="hidden"  name="idProProd"  value="<?php echo $go[$i]->idProProd ?>"></div>
                                                 </div>
                                             </div>
-                                            
                                            
                                             
                                             
