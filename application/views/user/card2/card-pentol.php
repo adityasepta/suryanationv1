@@ -598,7 +598,7 @@
                                                     <div class="form-horizontal">
                                                         <div class="form-group"><label class="col-sm-3 control-label">Jumlah Barang Reject</label>
                                                             <div class="col-sm-9">
-                                                                <input id="<?php echo $gp[$i]->idProProd ?>-jml" type="number" step="any" name="jumlahReject" required min="1"  max=""  class="form-control">
+                                                                <input  type="number" step="any" name="jumlahReject" required min="1"  max=""  class="form-control">
                                                                 <small>jumlah maksimal adalah <b><?php echo $gp[$i]->jumlahNow?></b> pcs</small>
                                                             </div>
                                                         </div>
@@ -607,7 +607,7 @@
                                                         <div class="form-group"><label class="col-sm-3 control-label">Berat Reject</label>
 
                                                             <div class="col-sm-9">
-                                                                <input id="<?php echo $gp[$i]->idProProd ?>-berat" type="number" step="any" required name="beratReject" value="" class="form-control">
+                                                                <input  type="number" step="any" required name="beratReject" value="" class="form-control">
                                                                 <small>berat maksimal adalah <b><?php echo ((float)$gp[$i]->beratAwal-(float)$gp[$i]->berat)?></b> gr</small>  
                                                             </div>
 

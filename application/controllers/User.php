@@ -5647,6 +5647,7 @@ class User extends CI_Controller {
         $staf = $this->input->post('staf');
         $jumlah = $this->input->post('jumlah');
         $beratAwal = $this->input->post('beratAwal');
+        $beratKecap = $this->input->post('beratKecap');
         $beratTambahan = 0;
         $idAktivitas = $this->input->post('idAktivitas');
         $idProduk = $this->input->post('idProduk');
@@ -5661,60 +5662,111 @@ class User extends CI_Controller {
 
         $gh = $this->mdl->cekFactProduction($idSPK, $idAktivitas);
 
-
         //$b = 0;
 
         if(count($gh) == 0) { //NO REWORK
 
-            $data = array(
+            if($beratKecap>0) {
+                $data = array(  
+                    'idProProdAsal' => $idProProd,
+                    'idSPK' => $idSPK,
+                    'idSubSPK' => $idSubSPK,
+                    'idWadah' => $idWadah,
+                    'idPIC' => $staf,
+                    'statusSPK' => 'Active',
+                    'statusWork' => 'On Progress',
+                    'idAktivitas' => $idAktivitas,
+                    'statusBerat' => 'Belum Disetujui',
+                    'jumlah'    => $proses[0]->jumlah,
+                    'jumlahNow'    => $jumlah,
+                    'beratAwal' => $beratKecap,
+                    'beratTambahan' => $beratTambahan,
+                    'RealisasiStartDate' => date("Y-m-d H:i:s")
+                );
+
+                $b = $this->mdl->insertDataGetLast('factproduction2', $data); //idproprod anyar
+
+                $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+                $tr = $this->input->post('idAktivitasAwal');   //untuk gp
+
+                if($tr > 0) {
+                    $beratAkhir = (float)$proses[0]->berat;    //kalo gp gak diupdate
+                    $beratKecapAkhir = (float)$proses[0]->beratKecap;
+                } else {
+                    $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                    $beratKecapAkhir = (float)$proses[0]->beratKecap + (float)$beratKecap;
+
+                }
                 
-                'idProProdAsal' => $idProProd,
-                'idSPK' => $idSPK,
-                'idSubSPK' => $idSubSPK,
-                'idWadah' => $idWadah,
-                'idPIC' => $staf,
-                'statusSPK' => 'Active',
-                'statusWork' => 'On Progress',
-                'idAktivitas' => $idAktivitas,
-                'statusBerat' => 'Belum Disetujui',
-                'jumlah'    => $proses[0]->jumlah,
-                'jumlahNow'    => $jumlah,
-                'beratAwal' => $beratAwal,
-                'beratTambahan' => $beratTambahan,
-                'RealisasiStartDate' => date("Y-m-d H:i:s")
 
-            );
+                if($jmlakhir > 0) {
+                    $statusWork = 'On Progress';
+                } else {
+                    $statusWork = 'Done';
+                }
 
-            $b = $this->mdl->insertDataGetLast('factproduction2', $data); //idproprod anyar
+                $data = array(
+                        
+                        'statusBerat' => 'Disetujui',
+                        'berat' => $beratAkhir,
+                        'beratKecap' => $beratKecapAkhir,
+                        'jumlahNow' => $jmlakhir,
+                        'statusWork' => $statusWork,
+                        'RealisasiEndDate' => date("Y-m-d H:i:s")
+                        
+                );
 
-            $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
-            $tr = $this->input->post('idAktivitasAwal');   //untuk gp
-
-            if($tr > 0) {
-                $beratAkhir = (float)$proses[0]->berat;    //kalo gp gak diupdate
+                $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
             } else {
-                $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                $data = array(  
+                    'idProProdAsal' => $idProProd,
+                    'idSPK' => $idSPK,
+                    'idSubSPK' => $idSubSPK,
+                    'idWadah' => $idWadah,
+                    'idPIC' => $staf,
+                    'statusSPK' => 'Active',
+                    'statusWork' => 'On Progress',
+                    'idAktivitas' => $idAktivitas,
+                    'statusBerat' => 'Belum Disetujui',
+                    'jumlah'    => $proses[0]->jumlah,
+                    'jumlahNow'    => $jumlah,
+                    'beratAwal' => $beratAwal,
+                    'beratTambahan' => $beratTambahan,
+                    'RealisasiStartDate' => date("Y-m-d H:i:s")
+                );
 
+                $b = $this->mdl->insertDataGetLast('factproduction2', $data); //idproprod anyar
+
+                $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+                $tr = $this->input->post('idAktivitasAwal');   //untuk gp
+
+                if($tr > 0) {
+                    $beratAkhir = (float)$proses[0]->berat;    //kalo gp gak diupdate
+                } else {
+                    $beratAkhir = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+
+                }
+                
+
+                if($jmlakhir > 0) {
+                    $statusWork = 'On Progress';
+                } else {
+                    $statusWork = 'Done';
+                }
+
+                $data = array(
+                        
+                        'statusBerat' => 'Disetujui',
+                        'berat' => $beratAkhir,
+                        'jumlahNow' => $jmlakhir,
+                        'statusWork' => $statusWork,
+                        'RealisasiEndDate' => date("Y-m-d H:i:s")
+                        
+                );
+
+                $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
             }
             
-
-            if($jmlakhir > 0) {
-                $statusWork = 'On Progress';
-            } else {
-                $statusWork = 'Done';
-            }
-
-            $data = array(
-                    
-                    'statusBerat' => 'Disetujui',
-                    'berat' => $beratAkhir,
-                    'jumlahNow' => $jmlakhir,
-                    'statusWork' => $statusWork,
-                    'RealisasiEndDate' => date("Y-m-d H:i:s")
-                    
-            );
-
-            $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
 
         } else {
 
