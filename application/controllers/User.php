@@ -1246,7 +1246,7 @@ class User extends CI_Controller {
         $this->load->library('upload');
 
         $config['upload_path']     = './uploads/gambarDesain/'; 
-        $config['allowed_types']   = 'jpg|jpeg'; 
+        $config['allowed_types']   = '*'; 
         $config['max_size']        = '6000';
         $config['file_name']       = $kloter.'-lilin.jpg';
         $config['overwrite']        = TRUE;
@@ -8357,7 +8357,7 @@ class User extends CI_Controller {
         );
         $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
 
-        $cx = $this->mdl->findKadarTempahan($idSPK);
+            $cx = $this->mdl->findKadarTempahan($idSPK);
 
             $kadarWenny = $cx[0]->kadarWenny;
             $namaBahan = "Balik Bahan ".$kadarWenny."%";
@@ -8415,8 +8415,8 @@ class User extends CI_Controller {
         $idAkt = $proses[0]->idAktivitas;
 
 
-        $this->mdl->deleteData('idSPK',$idSPK,'factproduction');
-        $this->mdl->deleteData('idSPK',$idSPK,'kloter');
+        //$this->mdl->deleteData('idSPK',$idSPK,'factproduction');
+        //$this->mdl->deleteData('idSPK',$idSPK,'kloter');
 
         if($idAktivitas=='1001') {
             $sd      = 'Proses Desain';
@@ -8431,7 +8431,8 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            print_r("desain");
+            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
         } else if ($idAktivitas=='1002') {
             $sb      = 'Belum Ada';
             $sp      = 'Belum Disetujui';
@@ -8443,7 +8444,8 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            print_r("printing");
+            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
         } else if ($idAktivitas=='1003') {
             $sd      = 'Disetujui';
             $sb      = 'Belum Ada';
@@ -8456,16 +8458,63 @@ class User extends CI_Controller {
                 'statusPersetujuan' => $sp,
                 'statusSPK' => 'On progress',
             );
-            $this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
+            //$this->mdl->updateData('idSPK',$idSPK, 'spk', $dataSPK);
             $data = array(
                 'idSPK' => $idSPK,
                 'idAktivitas' => 1003,
                 'statusWork' => 'Belum ada PIC',
                 'statusSPK' => 'Active',
             );
-
-            $this->mdl->insertData('factproduction',$data);
+            print_r("lilin");
+            //$this->mdl->insertData('factproduction',$data);
         }
+
+        if($beratReject!=0) {
+            $cx = $this->mdl->findKadarTempahan($idSPK);
+
+            $kadarWenny = $cx[0]->kadarWenny;
+            $namaBahan = "Balik Bahan ".$kadarWenny."%";
+
+            $t = $this->mdl->cekMaterialBalikBahan('Emas',$kadarWenny);
+            $d = count($t);
+
+            if($d == 0) {
+
+                $f = $this->mdl->getLastKodeMaterial();
+                $km = $f[0]->kodeMaterial+1;
+
+                $dataMaterial = array(
+                    'kodeMaterial'    => $km,
+                    'namaMaterial'    => $namaBahan,
+                    'satuan'          => 'gr',
+                    'stokMaterial'    => 0,
+                    'safetyStock'     => 0,
+                    'kadar'           => $kadarWenny,
+                    'asal'            => 'Balik Bahan',
+                );
+                
+                //$this->mdl->insertData('materialdasar',$dataMaterial);
+
+            } else {
+
+                $km = $t[0]->kodeMaterial;
+
+            }
+
+            $data = array(
+                'idPIC' => $staf,
+                'tipeBarang' => "Material Dasar",
+                'kodeBarang' => $km,
+                'jumlah' => $beratReject,
+                'jenisPergerakanBarang' => "IN",
+                'satuan' => 'gr',
+                'tipePergerakan' => 'Balik Bahan',
+                'tanggal' => date("Y-m-d H:i:s")
+                );
+            print_r("nambahberat");
+            //$this->mdl->insertData('stokbarang', $data);
+        }
+        exit();
         redirect('User/kanban');
     }
 

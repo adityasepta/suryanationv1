@@ -192,6 +192,15 @@
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <div class="form-horizontal">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label">Pilih Penerima Berat Barang Reject</label>
+                                                                    <div class="col-sm-9">
+                                                                        <?php 
+                                                                        $js = array( 'class' => 'form-control', 'id' =>  $co[$i]->idProProd."-pic");
+                                                                        echo form_dropdown('staf', $staf, $co[$i]->idPIC,$js);
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="form-horizontal">
                                                                     <div class="form-group"><label class="col-sm-3 control-label">Barang Reset Ke Aktivitas</label>
 
@@ -201,6 +210,15 @@
                                                                                 <option value="1002">Printing</option>
                                                                                 <option value="1003">Lilin/Waxing</option>
                                                                             </select>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-horizontal">
+                                                                    <div class="form-group"><label class="col-sm-3 control-label">Berat Barang Reject</label>
+
+                                                                        <div class="col-sm-9">
+                                                                            <input id="<?php echo $co[$i]->idProProd ?>-berat" type="number" step="any" required name="beratReject" value="" class="form-control">
                                                                         </div>
 
                                                                     </div>
