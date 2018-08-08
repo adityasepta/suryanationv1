@@ -8,7 +8,7 @@
     <?php for ($x=0; $x < count($co) ; $x++) { ?>
 
         <?php if($k3[$i]->idKloter == $co[$x]->idKloter) { ?>
-
+            
         <div class="row">
             <div class="col-lg-4 text-center">
                 <img src="<?php echo base_url('uploads/gambarDesain/'.$co[$x]->kodeGambar.'-thumb.jpg')?>"  class="img-responsive" onerror="this.onerror=null;this.src='<?php echo base_url('assets/img/noimage2.png')?>';" >
@@ -175,6 +175,7 @@
                                     <div class="col-lg-12 text-right ">
                                         <a href="<?php echo base_url('user/invoicePO/'.$co[$x]->nomorPO) ?>" type="button" class="btn btn-default btn-outline ">Detail PO</a>
                                         <a href="<?php echo base_url('user/invoice/'.$co[$x]->nomorFaktur) ?>" type="button" class="btn btn-default btn-outline ">Detail SPK</a>
+                                        <a href="<?php echo base_url('user/createBOMTempahan/'.$co[$x]->idKloter) ?>" type="button" class="btn btn-default btn-outline ">Detail BOM</a>
                                         <button data-toggle="modal" data-dismiss="modal"  data-target="#reject<?php echo $co[$i]->idProProd ?>" class="btn btn-danger btn-outline">Reset</button>
                                     </div>
 
