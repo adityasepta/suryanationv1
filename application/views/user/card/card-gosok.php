@@ -421,18 +421,31 @@
                                     <?php echo form_close(); ?>
                                     <?php
                                     $atribut = array('id' => $go[$i]->idProProd."form");
-                                    echo form_open('User/resetBarangMasal',$atribut)?>
+                                    echo form_open('User/resetBarangMasal2',$atribut)?>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-horizontal">
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label">Pilih Penerima Barang</label>
+                                                        <label class="col-sm-3 control-label">Pilih Penerima Berat Barang Reject</label>
                                                         <div class="col-sm-9">
                                                             <?php 
                                                             $js = array( 'class' => 'form-control', 'id' =>  $go[$i]->idProProd."-pic");
                                                             echo form_dropdown('staf', $staf, $go[$i]->idPIC,$js);
                                                             ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Barang Reset Ke Aktivitas</label>
+
+                                                            <div class="col-sm-9">
+                                                                <select required class="form-control" name="idAktivitas">
+                                                                    <option value="1001">Desain</option>
+                                                                    <option value="1002">Printing</option>
+                                                                    <option value="1003">Lilin/Waxing</option>
+                                                                </select>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <div class="form-horizontal">
@@ -449,7 +462,6 @@
                                             </div>
                                         </div>
                                             <input type="hidden" value="<?php echo $go[$i]->idProProd?>" name="idProProd">
-                                            <input type="hidden" value="<?php echo $idakt?>" name="idAktivitas">
                                             <input type="hidden" value="<?php echo $go[$i]->idProduk ?>" name="idProduk">
                                         
                                         <div class="row">
