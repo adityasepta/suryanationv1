@@ -295,11 +295,11 @@
             ?>
             
             <?php if ($gi[$i]->statusWork == 'Belum ada PIC') { ?>
-                <button data-toggle="modal" data-target="#pic<?php echo $gi[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC - <?php echo $gi[$i]->nama ?></button>
+                <button data-toggle="modal" data-target="#pic<?php echo $gi[$i]->idKloter ?>"  class="btn btn-xs btn-success btn-block">Tambah PIC - <?php echo substr($k2[$i]->nama, 0,7) ?>...</button>
             <?php } else if($gi[$i]->statusWork == 'On Progress' AND $asd == 0 ) {  ?>
-                <a href="<?php echo base_url('user/createBOMTempahan/'.$k2[$i]->idKloter)?>" class="btn btn-xs btn-success btn-block">Tambah BOM - <?php echo $gi[$i]->nama ?></a>
+                <a href="<?php echo base_url('user/createBOMTempahan/'.$k2[$i]->idKloter)?>" class="btn btn-xs btn-success btn-block">Tambah BOM - <?php echo substr($k2[$i]->nama, 0,7) ?>...</a>
             <?php } else  { ?>                          
-                <a href="<?php echo base_url('user/next2/'.$k2[$i]->idKloter.'/'.$idakt) ?>" class="btn btn-block btn-success btn-xs" onclick="return confirm('Apakah anda yakin untuk finalisasi Kloter dengan nama kloter <?php echo $k2[$i]->nama ?> ?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas - <?php echo $gi[$i]->nama ?></a>
+                <a href="<?php echo base_url('user/next2/'.$k2[$i]->idKloter.'/'.$idakt) ?>" class="btn btn-block btn-success btn-xs" onclick="return confirm('Apakah anda yakin untuk finalisasi Kloter dengan nama kloter <?php echo $k2[$i]->nama ?> ?')"  class="btn btn-xs btn-success btn-block">Lanjut Aktivitas - <?php echo substr($k2[$i]->nama, 0,7) ?>...</a>
             <?php } ?>
             
         </div>

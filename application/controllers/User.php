@@ -76,7 +76,7 @@ class User extends CI_Controller {
             $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
-              
+            
             $data['gi'] = $this->mdl->getProses(1005);
             $data['co'] = $this->mdl->getProses(1006);
 
@@ -92,7 +92,7 @@ class User extends CI_Controller {
             $data['bt'] = $this->mdl->getProses(1013);
              $data['do'] = $this->mdl->getProses(1014);
 
-             $data['jd'] = $this->mdl->getJadi();  
+             $data['jd'] = $this->mdl->getJadi();
 
             $this->load->view('user/statprod_view',$data);
 
@@ -5328,7 +5328,7 @@ class User extends CI_Controller {
 
         } else {
 
-            $data['s'] = $this->mdl->getSales();
+           $data['s'] = $this->mdl->getSales();
             $data['j'] = $this->mdl->getPenjadwalan();
             $data['d'] = $this->mdl->getDesain();
             $data['m'] = $this->mdl->getMenunggu();
@@ -5360,7 +5360,7 @@ class User extends CI_Controller {
             $data['klot']      = $this->mdl->getKloterSPK10();
             //$data['k'] = $this->mdl->getIsiKloter();
 
-              
+            
             $data['gi'] = $this->mdl->getProses(1005);
             $data['co'] = $this->mdl->getProses(1006);
 

@@ -548,7 +548,7 @@
                             <div class="col-lg-6">
                                 
                                 <label style="margin-top: 8px">
-                                &nbsp&nbsp&nbspNo Faktur : <b><?php echo $klot[$i]->nomorFaktur?></b> - Kadar : <b><?php echo $klot[$i]->kadarBahan?></b> %
+                                &nbsp&nbsp&nbspNo Faktur : <b><?php echo $klot[$i]->nomorFaktur?></b> - <b><?php echo $klot[$i]->bahan?></b> <b><?php echo $klot[$i]->kadarBahan?> %
                                 </label>
                             </div>
                         </div>

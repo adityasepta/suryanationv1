@@ -48,6 +48,7 @@
         document.getElementById('txt').innerHTML =
         h + ":" + m + ":" + s;
         var t = setTimeout(startTime, 500);
+        console.log(t);
     }
     function checkTime(i) {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
