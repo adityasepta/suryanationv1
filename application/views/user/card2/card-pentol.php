@@ -465,9 +465,9 @@
                                         <div class="modal-body">
                                             <?php echo form_open('user/setBerat2')?>
                                             <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Awal <?php echo $namakt ?></label>
+                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Awal + Tambahan</label>
 
-                                                    <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $gp[$i]->beratAwal+$gp[$i]->beratTambahan?>" class="form-control"></div>
+                                                    <div class="col-sm-5"><input type="number" step="any" name="beratAwal" readonly="" value="<?php echo $gp[$i]->beratAwal?>" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-horizontal">
@@ -475,12 +475,6 @@
 
                                                     <div class="col-sm-5"><input type="number" step="any"  name="berat" class="form-control"></div>
                                                     <div class="col-sm-2"><input type="hidden" name="idProProd" readonly class="form-control" value="<?php echo $gp[$i]->idProProd ?>"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-horizontal">
-                                                <div class="form-group"><label class="col-sm-5 control-label">Berat Tambahan </label>
-
-                                                    <div class="col-sm-5"><input type="number" step="any" name="beratTambahan" value="<?php echo $beratTambahan ?>" readonly class="form-control"></div>
                                                 </div>
                                             </div>
                                             
