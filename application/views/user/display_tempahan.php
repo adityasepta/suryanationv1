@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="<?php echo $rf ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="<?php echo base_url();?>assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
