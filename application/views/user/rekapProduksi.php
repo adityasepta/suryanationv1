@@ -63,11 +63,6 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Daftar Kembalian</h5>
-                            <div class="ibox-tools">
-                                <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal">
-                                    <i class="fa fa-pencil"></i><strong> TAMBAH PENGEMBALIAN</strong>
-                                </a>
-                            </div>
                         </div>
 
                         <div class="ibox-content">

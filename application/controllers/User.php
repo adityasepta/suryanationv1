@@ -2318,6 +2318,7 @@ class User extends CI_Controller {
         if(strlen($idKloter) > 0) {
 
             $data['material'] = $this->mdl->findNamaMaterial('Alloy Putih');
+
             $idMaterial = $data['material'][0]->idMaterial;
             $jmlbutuh = $this->input->post('beratAlloy');
 

@@ -289,7 +289,7 @@
                                     </div>
                                     <label class="col-sm-2 control-label">Kadar:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="kadar" value="<?php echo $kadarAkhir;?>" class="form-control" readonly>
+                                        <input type="text" name="kadar" value="<?php echo $kadarAkhir;?>" class="form-control" >
                                     </div>
                                 </div>
                                 
