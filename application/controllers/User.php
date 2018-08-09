@@ -5661,7 +5661,6 @@ class User extends CI_Controller {
         $idWadah = (int)($wadah[0]->idWadah) + 1;  
 
         $gh = $this->mdl->cekFactProduction($idSPK, $idAktivitas);
-
         //$b = 0;
 
         if(count($gh) == 0) { //NO REWORK
@@ -5697,7 +5696,7 @@ class User extends CI_Controller {
                     $beratKecapAkhir = (float)$proses[0]->beratKecap + (float)$beratKecap;
 
                 }
-                
+                //print_r($beratKecapAkhir);exit();
 
                 if($jmlakhir > 0) {
                     $statusWork = 'On Progress';
@@ -5769,59 +5768,109 @@ class User extends CI_Controller {
             
 
         } else {
+            if($beratKecap>0) {
+                $proses2 = $this->mdl->getProsesDetail2($gh[0]->idProProd);
 
-            $proses2 = $this->mdl->getProsesDetail2($gh[0]->idProProd);
+                $xx = $gh[0]->idProProd;
+                $ba = $proses2[0]->beratAwal; //60
+                $jm = $proses2[0]->jumlahNow; //5
+                $newBerat = $beratKecap + $ba; //100 + 60
+                $newJumlah = $jumlah + $jm; //10 + 5
 
-            $xx = $gh[0]->idProProd;
-            $ba = $proses2[0]->beratAwal; //60
-            $jm = $proses2[0]->jumlahNow; //5
-            $newBerat = $beratAwal + $ba; //100 + 60
-            $newJumlah = $jumlah + $jm; //10 + 5
+                $data = array(
+                    'beratAwal' => $newBerat,
+                    'jumlahNow' => $newJumlah,
+                );
+               $this->mdl->updateData('idProProd',$xx,'factproduction2',$data);
 
-            $data = array(
-                'beratAwal' => $newBerat,
-                'jumlahNow' => $newJumlah,
-            );
+                $jmlx = $proses[0]->jumlahNow;
+                $jmlc = $jmlx-$jumlah;
 
+                $tr = $this->input->post('idAktivitasAwal');   //untuk gp
 
-           $this->mdl->updateData('idProProd',$xx,'factproduction2',$data);
-
-            $jmlx = $proses[0]->jumlahNow;
-            $jmlc = $jmlx-$jumlah;
-
-            $tr = $this->input->post('idAktivitasAwal');   //untuk gp
-
-            if($tr > 0) {
-                $bx = (float)$proses[0]->berat;    //kalo gp gak diupdate
-            } else {
-                if ($idAkt > $idAktivitas) {
-                    $bx = (float)$proses[0]->berat; //update jml    
+                if($tr > 0) {
+                    $bx = (float)$proses[0]->berat;    //kalo gp gak diupdate
+                    $bxk = (float)$proses[0]->beratKecap;
                 } else {
-                    $bx = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                    if ($idAkt > $idAktivitas) {
+                        $bx = (float)$proses[0]->berat; //update jml    
+                        $bxk = (float)$proses[0]->beratKecap;
+                    } else {
+                        
+                        $bx = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                        $bxk = (float)$proses[0]->beratKecap + (float)$beratKecap;
+                    }
+                    
+
+                };          
+
+                $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+
+                if($jmlakhir > 0) {
+                    $statusWork = 'On Progress';
+                } else {
+                    $statusWork = 'Done';
                 }
-                
 
-            };
+                $data = array(
+                    'statusWork' => $statusWork,
+                    'berat' => $bx,
+                    'jumlahNow' => $jmlc,
+                    'beratKecap' => $bxk,
+                );
 
-            
+                $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
 
-            $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
-
-            if($jmlakhir > 0) {
-                $statusWork = 'On Progress';
             } else {
-                $statusWork = 'Done';
+                $proses2 = $this->mdl->getProsesDetail2($gh[0]->idProProd);
+
+                $xx = $gh[0]->idProProd;
+                $ba = $proses2[0]->beratAwal; //60
+                $jm = $proses2[0]->jumlahNow; //5
+                $newBerat = $beratAwal + $ba; //100 + 60
+                $newJumlah = $jumlah + $jm; //10 + 5
+
+                $data = array(
+                    'beratAwal' => $newBerat,
+                    'jumlahNow' => $newJumlah,
+                );
+
+
+               $this->mdl->updateData('idProProd',$xx,'factproduction2',$data);
+
+                $jmlx = $proses[0]->jumlahNow;
+                $jmlc = $jmlx-$jumlah;
+
+                $tr = $this->input->post('idAktivitasAwal');   //untuk gp
+
+                if($tr > 0) {
+                    $bx = (float)$proses[0]->berat;    //kalo gp gak diupdate
+                } else {
+                    if ($idAkt > $idAktivitas) {
+                        $bx = (float)$proses[0]->berat; //update jml    
+                    } else {
+                        $bx = (float)$proses[0]->berat + (float)$beratAwal; //update jml
+                    }
+                    
+
+                };
+                
+                $jmlakhir = (int)$proses[0]->jumlahNow - (int)$jumlah; //hitung new jml
+
+                if($jmlakhir > 0) {
+                    $statusWork = 'On Progress';
+                } else {
+                    $statusWork = 'Done';
+                }
+
+                $data = array(
+                    'statusWork' => $statusWork,
+                    'berat' => $bx,
+                    'jumlahNow' => $jmlc,
+                );
+
+                $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
             }
-
-            $data = array(
-                'statusWork' => $statusWork,
-                'berat' => $bx,
-                'jumlahNow' => $jmlc,
-            );
-
-            $this->mdl->updateData('idProProd',$idProProd,'factproduction2',$data);
-
-
         }
 
 
