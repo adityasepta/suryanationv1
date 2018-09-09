@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $newurl = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
 //$config['base_url']    = "$http" . $_SERVER['SERVER_NAME'] . ":8080" . $newurl;
 
-$config['base_url'] = 'localhost:8080/suryanationv1';
+
+$config['base_url'] = 'http://localhost:8080/suryanationv1';
 /*
 |--------------------------------------------------------------------------
 | Index File
