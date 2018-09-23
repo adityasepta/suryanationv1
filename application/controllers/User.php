@@ -1830,6 +1830,7 @@ class User extends CI_Controller {
                         'gambar3'           => $file2,
                         'gambar4'           => $file3,
                         'stok'              => $this->input->post('stok'),
+                        'kategoriProdukTrading'  => $this->input->post('kategoriProdukTrading'),
                     );
 
                     $this->mdl->insertData("produk",$dataProduk);
@@ -1860,6 +1861,7 @@ class User extends CI_Controller {
                     'kategori'          => $this->input->post('kategori'),
                     'statusKatalog'     => $this->input->post('statusKatalog'),
                     'stok'              => $this->input->post('stok'),
+                    'kategoriProdukTrading'  => $this->input->post('kategoriProdukTrading'),
                 );
                 //print_r($dataProduk);exit();
                 $this->mdl->insertData("produk",$dataProduk);
@@ -1945,6 +1947,7 @@ class User extends CI_Controller {
                         'gambar3'           => $file2,
                         'gambar4'           => $file3,
                         'stok'              => $this->input->post('stok'),
+                        'kategoriProdukTrading'  => $this->input->post('kategoriProdukTrading'),
                     );
 
                     $this->mdl->updateData("idProduk",$id,"produk",$dataProduk);
@@ -1975,6 +1978,7 @@ class User extends CI_Controller {
                     'kategori'          => $this->input->post('kategori'),
                     'statusKatalog'     => $this->input->post('statusKatalog'),
                     'stok'              => $this->input->post('stok'),
+                    'kategoriProdukTrading'  => $this->input->post('kategoriProdukTrading'),
                 );
                 //print_r($dataProduk);exit();
                 $this->mdl->updateData("idProduk",$id,"produk",$dataProduk);
@@ -3541,12 +3545,12 @@ class User extends CI_Controller {
             $data['li'] = $this->mdl->getProsesService(1001);
             $data['gi'] = $this->mdl->getProsesService(1002);  
             $data['co'] = $this->mdl->getProsesService(1003);
+            $data['qc1'] = $this->mdl->getProsesService(1004);
+            $data['gp'] = $this->mdl->getProsesService(1005);  
+            $data['go'] = $this->mdl->getProsesService(1006);  
+            $data['bo'] = $this->mdl->getProsesService(1007);  
 
-            $data['gp'] = $this->mdl->getProsesService(1004);  
-            $data['go'] = $this->mdl->getProsesService(1005);  
-            $data['bo'] = $this->mdl->getProsesService(1006);  
-
-            $data['do'] = $this->mdl->getProsesService(1007);
+            $data['do'] = $this->mdl->getProsesService(1008);
   
 
             $this->load->view('user/statprodService_view',$data);

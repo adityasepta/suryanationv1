@@ -11,6 +11,7 @@ if($this->input->post('is_submitted')){
     $hargaModal     = set_value('hargaModal');
     $statusKatalog     = set_value('statusKatalog');
     $stok      = set_value('stok');
+    $kategoriProdukTrading  = set_value('kategoriProdukTrading');
 
 }
 else {
@@ -25,6 +26,7 @@ else {
     $statusKatalog     = $produk[0]->statusKatalog;
     $stok      = $produk[0]->stok;
     $kodeGambar  = $produk[0]->kodeGambar;
+    $kategoriProdukTrading  = $produk[0]->kategoriProdukTrading;
 }
 ?>
 
@@ -134,7 +136,7 @@ else {
                                                 </div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label">Deskripsi</label>
-                                                <div class="col-sm-10"><textarea required name="deskripsi" value="<?= $deskripsi ?>" class="form-control" rows="8"><?= $deskripsi?></textarea></div>
+                                                <div class="col-sm-10"><textarea name="deskripsi" value="<?= $deskripsi ?>" class="form-control" rows="8"><?= $deskripsi?></textarea></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Harga Modal</label>
@@ -161,9 +163,15 @@ else {
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-sm-2 control-label">Stok</label>
+                                                <div class="col-md-2">
+                                                    <input type="numeric name="stok" class="form-control" value="<?= $stok ?>" step="any">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="col-sm-2 control-label">Kategori Produk</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control"  name="kategori">
+                                                    <select class="form-control"  name="kategori" id="kategoriProduk">
                                                         <option value="Katalog" <?php $a= $kategori; if($a=="Katalog"){?> selected="" <?php } ?> required>Katalog</option>
                                                         <option value="Tempahan" <?php $a= $kategori; if($a=="Tempahan"){?> selected="" <?php } ?>>Tempahan</option>
                                                         <option value="Massal" <?php $a= $kategori; if($a=="Massal"){?> selected="" <?php } ?>>Massal</option>
@@ -172,6 +180,19 @@ else {
                                                     </select>
                                                 </div>
                                                 
+                                            </div>
+                                            <div class="form-group" id="kategoriTrading">
+                                                <label class="col-sm-2 control-label">Kategori Produk Trading</label>
+                                                <div class="col-md-4">
+                                                    <select name="kategoriProdukTrading" required="" class="form-control">
+                                                      <option value="Kotak perhiasan" <?php $a= $kategoriProdukTrading; if($a=="Kotak perhiasan"){?> selected="" <?php } ?>>Kotak perhiasan</option>
+                                                      <option value="Alat pertukangan" <?php $a= $kategoriProdukTrading; if($a=="Alat pertukangan"){?> selected="" <?php } ?>>Alat pertukangan</option>
+                                                      <option value="Obat - obatan" <?php $a= $kategoriProdukTrading; if($a=="Obat - obatan"){?> selected="" <?php } ?>>Obat - obatan</option>
+                                                      <option value="Zircon" <?php $a= $kategoriProdukTrading; if($a=="Zircon"){?> selected="" <?php } ?>>Zircon</option>
+                                                      <option value="Berlian" <?php $a= $kategoriProdukTrading; if($a=="Berlian"){?> selected="" <?php } ?>>Berlian</option>
+                                                      <option value="Mesin Produksi" <?php $a= $kategoriProdukTrading; if($a=="Mesin Produksi"){?> selected="" <?php } ?>>Mesin Produksi</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Status Katalog</label>
@@ -287,6 +308,16 @@ else {
             prefix: 'Rp ', //Space after $, this will not truncate the first character.
             rightAlign: false,
             oncleared: function () { self.Value(''); }
+        });
+
+        $('#kategoriProduk').on("click",function() {
+            var produkKategori = document.getElementById('kategoriProduk').value;
+            console.log(produkKategori);
+            if (produkKategori=="Trading") {
+                $('#kategoriTrading').prop('hidden', false);
+            } else { 
+                $('#kategoriTrading').prop('hidden', true);
+            }
         });
     </script>
 </body>

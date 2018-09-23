@@ -513,11 +513,11 @@
                     </div>
 
                     <div class="form-horizontal">
-                            <div class="form-group"><label class="col-sm-3 control-label">Berat Tambahan</label>
+                            <div class="form-group"><label class="col-sm-3 control-label">Berat Batu</label>
 
                                 <div class="col-sm-7">
                                     <input type="number" step="any" name="beratTambahan" value="<?php echo $bt[$i]->beratTambahan?>" required class="form-control">
-                                    <small>berat tambahan yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz</b>, dll. Apabila lebih dari satu maka berat diakumulasi</small>
+                                    <small>berat yang ditambahkan terhadap peroduk dalam aktivitas ini, seperti berat <b>batu cz,batu tengah</b>,dll. Apabila lebih dari satu maka berat diakumulasi. Jika tidak ada diisi 0.</small>
                                 </div>
                                 
                             </div>

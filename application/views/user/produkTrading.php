@@ -138,6 +138,7 @@
                                     <th> Harga Jual</th>
                                     
                                     <th data-hide="phone,tablet" >Kategori</th>
+                                    <th data-hide="phone"> Kategori Produk</th>
                                     <th data-hide="phone"> Status Katalog</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
 
@@ -157,6 +158,9 @@
                                      
                                     <td>
                                         <?php echo $produk[$j]->kategori?>
+                                    </td>
+                                    <td>
+                                        <?php echo $produk[$j]->kategoriProdukTrading?>
                                     </td>
                                     <td>
                                         <?php if($produk[$j]->statusKatalog=="Tampil"){ ?>
