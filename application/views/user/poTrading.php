@@ -103,7 +103,7 @@
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPOTrading/' . $hasil->idPO, 'Hapus', [
+                                        <?=anchor('user/hapusPOTrading/' . $hasil->nomorPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'

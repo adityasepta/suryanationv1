@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <a href="<?php echo base_url();?>user/catalogue">
-                            <div class="widget style1 <?php if($kategori=='All'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                            <div class="widget style1 red-bg">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <h4 class="font-bold">Semua</h4>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-md-3">
                             <a href="<?php echo base_url();?>user/catalogue/Tempahan">
-                            <div class="widget style1 <?php if($kategori=='Tempahan'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                            <div class="widget style1 lazur-bg">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <h4 class="font-bold">Tempahan</h4>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-2">
                             <a href="<?php echo base_url();?>user/catalogue/Massal">
-                            <div class="widget style1 <?php if($kategori=='Massal'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                            <div class="widget style1 lazur-bg">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <h4 class="font-bold">Massal</h4>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-md-2">
                             <a href="<?php echo base_url();?>user/catalogue/Trading">
-                            <div class="widget style1 <?php if($kategori=='Trading'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                            <div class="widget style1 lazur-bg">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <h4 class="font-bold">Trading</h4>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-md-2">
                             <a href="<?php echo base_url();?>user/catalogue/Perak">
-                            <div class="widget style1 <?php if($kategori=='Perak'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                            <div class="widget style1 lazur-bg">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <h4 class="font-bold">Perak</h4>
@@ -104,7 +104,7 @@
                     <div class="search-form">
                         <form action="<?php echo base_url();?>user/search?>" method="POST">
                             <div class="input-group">
-                                <input type="text" placeholder="Cari Produk" name="searchParam" class="form-control input-lg">
+                                <input type="text" placeholder="Cari Produk" name="searchParam" value="<?php echo $parameter ?>" class="form-control input-lg">
                                 <div class="input-group-btn">
                                     <button class="btn btn-lg btn-primary" type="submit">
                                         Search
@@ -113,6 +113,7 @@
                             </div>
                         </form>
                     </div>
+                    <h5><?php echo count($produk) ?> results found for: <span class="text-navy"><?php echo $parameter ?></span></h5>
                 </div>
             </div>
             <?php for ($i=0; $i < count($produk) ; $i++) { ?>

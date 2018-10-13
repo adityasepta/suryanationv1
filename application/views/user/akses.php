@@ -54,7 +54,7 @@
             </div>
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">
-                        <h2>Role</h2>
+                        <h2>Pengaturan Hak Akses</h2>
                         <ol class="breadcrumb">
                             <li>
                                 <a href="<?php echo base_url();?>user">Beranda</a>
@@ -123,7 +123,7 @@
                                          <?php if($akses) {?>
                                             <!-- Modal -->
                                             <div class="modal fade" id="role<?php echo $idUser;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                              <div class="modal-dialog modal-lg" role="document">
+                                              <div class="modal-dialog modal-md" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -135,13 +135,8 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <label>Nama</label>
-                                                                <select class="form-control"  name="idUser">
-                                                                <?php $ky=count($pegawai); for ($i=0; $i < $ky ; $i++) { ?> 
-                                                                    <option value="<?php echo $pegawai[$i]->idUser ?>" <?php $a= $idUser; if($a==$pegawai[$i]->idUser){?> selected="" <?php } ?>> 
-                                                                        <?php echo $pegawai[$i]->nama.' - '.$pegawai[$i]->jabatan;?>
-                                                                    </option>
-                                                                <?php } ?>
-                                                                </select>
+                                                                <h3><?php echo $pegawai[0]->nama.' - '.$pegawai[0]->jabatan;?></h3>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -158,9 +153,9 @@
 
                                                                 <?php for ($i=0; $i < count($role) ; $i++) { ?>
                                                                     <?php if(in_array($role[$i]->kodeRole, $kode)) {?>
-                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" checked> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" checked> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->namaRole;?></label></div> 
                                                                     <?php } else {?>
-                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]"> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div> 
+                                                                        <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]"> <i></i><?php echo $role[$i]->kodeRole.' - '.$role[$i]->namaRole;?></label></div> 
                                                                     <?php }?>
                                                                 <?php } ?>
                                                             </div>
@@ -216,7 +211,7 @@
                                                 <div class="col-md-12">
                                                     <label>Akses</label>
                                                         <?php for ($i=0; $i < count($role); $i++) { ?>
-                                                            <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" > <i></i> <?php echo $role[$i]->kodeRole.' - '.$role[$i]->deskripsi;?></label></div>
+                                                            <div class="i-checks"><label> <input type="checkbox" value="<?php echo $role[$i]->kodeRole?>" name="kodeRole[]" > <i></i> <?php echo $role[$i]->kodeRole.' - '.$role[$i]->namaRole;?></label></div>
                                                         <?php } ?>
                                                 </div>
                                             </div>

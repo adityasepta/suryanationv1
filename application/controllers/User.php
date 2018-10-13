@@ -29,11 +29,14 @@ class User extends CI_Controller {
         );
         $this->load->vars($currentPrice);
 
+        $akses['hak'] = $this->mdl->checkAkses($idUser);
+        $this->load->vars($akses);
+
     }
 
     public function index() {
 
-        redirect('user/kanbanmassal');
+        // redirect('user/kanbanmassal');
 
             $this->load->view('user/dashboardutama_view');
     }
@@ -2932,7 +2935,7 @@ class User extends CI_Controller {
 
     public function catalogue($kategori="All") {
         $data['kategori']=$kategori;
-        
+        $data['listCustomer'] = $this->mdl->listCustomer();
         if($kategori=="All"){
             $data['produk'] = $this->mdl->listKatalog();
         } else {
@@ -2942,6 +2945,21 @@ class User extends CI_Controller {
         $this->load->view("user/catalogue_view",$data);
         
     }
+
+    public function search() {
+        $param=$this->input->post('searchParam');
+        redirect('user/searchProduct/'.$param);
+        
+    }
+
+    public function searchProduct($param) {
+        $data['produk'] = $this->mdl->searchProduct($param);
+        $data['listCustomer'] = $this->mdl->listCustomer();
+        $data['parameter'] = $param;
+        $this->load->view("user/searchProduct",$data);
+        
+    }
+
 
     public function batalDesain($nomorFaktur){
         $this->mdl->deleteData('nomorPO',$nomorFaktur,'potempahan');
@@ -4506,6 +4524,48 @@ class User extends CI_Controller {
                 window.location.href='".base_url("user/listPOService")."';</script>";
     }
 
+    public function tambahPOTrading() {
+        $data['poTerakhir'] = $this->mdl->poTerakhirTrading();
+        if(!$data['poTerakhir']) { $nomorPO=1;} else {
+            $nomorPO=$data['poTerakhir'][0]->nomorPO+1;
+        }
+        
+        $dataPOTrading= array(
+            'nomorPO'           => $nomorPO,
+            'idCustomer'        => $this->input->post('idCustomer'),
+            'idSalesPerson'     => $this->session->userdata['logged_in']['iduser'],
+            'tanggalMasuk'      => date("Y-m-d H:i:s"),
+            'tipeOrder'         => 'trading',
+            'totalHarga'         => $this->cart->total(),
+        );
+        //print_r($dataPOService);exit();
+        $this->mdl->insertData('purchaseordertrading',$dataPOTrading);
+
+        foreach ($this->cart->contents() as $items) {
+
+            $dataDetailPOTrading= array(
+                'nomorPO'       => $nomorPO,
+                'idProduk'      => $items['id'],
+                'jumlah'        => $items['qty'],
+                'harga'         => $items['price'],
+            );
+            //print_r($dataBOM);//exit();
+            $this->mdl->insertData('detailpurchaseordertrading',$dataDetailPOTrading);
+
+            $data = array(
+                'rowid' => $items['rowid'], 
+                'qty' => 0, 
+            );
+            $this->cart->update($data);
+
+        }
+
+        $message = "PO Trading berhasil dibuat";
+        echo "<script type='text/javascript'>alert('$message');
+        window.location.href='".base_url("user/listPOTrading")."';</script>";
+
+    }
+
 
     public function cariProduk2() {
         $kodeProduk = $this->input->post('kodeProduk');
@@ -4538,8 +4598,8 @@ class User extends CI_Controller {
     }
 
     public function hapusPOTrading($idPO) {
-        $this->mdl->deleteData('idPO', $idPO, 'purchaseordertrading');
-        $this->mdl->deleteData('idPO', $idPO, 'detailpurchaseordertrading');
+        $this->mdl->deleteData('nomorPO', $nomorPO, 'purchaseordertrading');
+        $this->mdl->deleteData('nomorPO', $nomorPO, 'detailpurchaseordertrading');
         redirect('user/listPOTrading');
     }
 
@@ -8053,6 +8113,7 @@ class User extends CI_Controller {
     public function createRole() {
         $dataRole = array(
             'kodeRole'          => $this->input->post('kodeRole'),
+            'namaRole'          => $this->input->post('namaRole'),
             'deskripsi'          => $this->input->post('deskripsi'),
         );
         //print_r($dataPegawai);exit();
@@ -8062,7 +8123,7 @@ class User extends CI_Controller {
 
     public function editRole($idRole) {
         $dataRole = array(
-            'kodeRole'          => $this->input->post('kodeRole'),
+            'namaRole'          => $this->input->post('namaRole'),
             'deskripsi'          => $this->input->post('deskripsi'),
         );
         //print_r($dataPegawai);exit();
@@ -8081,7 +8142,7 @@ class User extends CI_Controller {
     public function akses() {
         $data['akses']=$this->mdl->listAkses();
         $data['akses2']=$this->mdl->listAkses1();  
-        $data['pegawai']=$this->mdl->listPegawai(); 
+        $data['pegawai']=$this->mdl->listPegawaiAkses(); 
         $data['role']=$this->mdl->listRole();  
         $this->load->view('user/akses',$data);
     }
@@ -8801,5 +8862,52 @@ class User extends CI_Controller {
         redirect('User/kanban');
     }
 
+    //Cart
+    function add_to_cart(){ 
+        $data = array(
+            'id' => $this->input->post('product_id'), 
+            'name' => $this->input->post('product_name'), 
+            'price' => $this->input->post('product_price'), 
+            'qty' => $this->input->post('quantity'), 
+        );
+        $this->cart->insert($data);
+        echo $this->show_cart(); 
+    }
+ 
+    function show_cart(){ 
+        $output = '';
+        $no = 0;
+        foreach ($this->cart->contents() as $items) {
+            $no++;
+            $output .='
+                <tr>
+                    <td>'.$items['name'].'</td>
+                    <td>'.$items['qty'].'</td>
+                    <td>'.number_format($items['subtotal']).'</td>
+                    <td class="text-center"><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+                </tr>
+            ';
+        }
+        $output .= '
+            <tr>
+                <th colspan="2">Total</th>
+                <th colspan="2">'.'Rp '.number_format($this->cart->total()).'</th>
+            </tr>
+        ';
+        return $output;
+    }
+ 
+    function load_cart(){ 
+        echo $this->show_cart();
+    }
+ 
+    function delete_cart(){ 
+        $data = array(
+            'rowid' => $this->input->post('row_id'), 
+            'qty' => 0, 
+        );
+        $this->cart->update($data);
+        echo $this->show_cart();
+    }
 
 }

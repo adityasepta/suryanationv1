@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <label>Bahan <small class="text-navy"> Pilih salah satu</small></label>
@@ -265,14 +265,16 @@
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Emas Kuning"){?> checked="" <?php } ?> value="Emas Kuning" name="bahan" required> <i></i> Emas Kuning </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Swasa"){?> checked="" <?php } ?> value="Swasa" name="bahan"> <i></i> Swasa </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Rose Gold"){?> checked="" <?php } ?> value="Rose Gold" name="bahan"> <i></i> Rose Gold </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Emas Putih"){?> checked="" <?php } ?> value="Emas Putih" name="bahan"> <i></i> Emas Putih </label></div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Emas Putih"){?> checked="" <?php } ?> value="Emas Putih" name="bahan"> <i></i> Emas Putih </label></div>
                                                         <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Perak"){?> checked="" <?php } ?> value="Perak" name="bahan"> <i></i> Perak </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Emas Kuning + Putih"){?> checked="" <?php } ?> value="Emas Kuning + Putih" name="bahan"> <i></i> Emas Kuning + Putih </label></div>
+                                                        <div class="i-checks"><label> <input type="radio" <?php $a= $bahan; if($a=="Emas Putih + Rosegold"){?> checked="" <?php } ?> value="Emas Putih + Rosegold" name="bahan"> <i></i> Emas Putih + Rosegold </label></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-7">
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label>Kadar (lokal)</label>
@@ -643,16 +645,17 @@
                                     <label class="col-sm-2 control-label">Keterangan Lain</label>
                                     <div class="col-sm-10"><textarea type="text" name="model" class="form-control" value="<?php echo $model; ?>"><?php echo $model; ?></textarea></div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Foto Sampel</label>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Foto Sampel</label>
                                     <div class="col-sm-10">
                                         <img src="<?php echo base_url('uploads/gambarProduk/'.$dataPO[0]->kodeGambar.'-cust.jpg')?>" class="img img-responsive" style="max-height: 125px;">
                                     </div>
-                                    <div class="form-group"><label class="col-sm-2 control-label"></label>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">-</label>
                                     <div class="col-sm-10">
                                         <label>Insert Image(.JPG)</label>                
                                         <input type="file" name="userfile" value="<?php echo set_value('userfile'); ?>">
                                     </div>
-                                </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">

@@ -208,6 +208,13 @@ class mdl extends CI_Model {
         return $query->result();
     }
 
+    public function checkAkses($idUser) {
+        $sql   = "SELECT * from akses WHERE idUser=$idUser ";
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+
     public function getjadwal($nomorFaktur) {
         $sql   = "SELECT *, DATE_FORMAT(r.startDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(r.endDate, '%Y-%m-%d') AS tglend,DATE_FORMAT(r.startDate, '%d %M %Y' ) as sd, DATE_FORMAT(r.endDate, '%d %M %Y' ) as ed FROM aktivitas2 a, rencanaproduksi r, spk s where s.idSPK = r.idSPK and a.idAktivitas = r.idAktivitas and s.nomorFaktur = '$nomorFaktur' order by r.idAktivitas";
         $query = $this->db->query($sql);
@@ -3240,16 +3247,25 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
+    public function searchProduct($param){
+        //Query mencari record berdasarkan ID
 
+        $a = "%" . $param . "%";
+        $sql    = "SELECT * FROM produk a WHERE a.namaProduk LIKE '$a' AND statusKatalog='Tampil'";  
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
 
-    /*public function dapatPO() {
-        $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
+    public function listPegawaiAkses(){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT * FROM user a LEFT JOIN (SELECT * FROM akses GROUP BY idUser) b ON a.idUser=b.idUser WHERE a.idUser != 0 AND b.idUser IS NULL  ORDER BY nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-    }*/
+    }
 
 
 }
