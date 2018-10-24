@@ -265,22 +265,8 @@
                         <div class="col-lg-4" style="vertical-align: top; top: 0%">
                             <div class="ibox">
                                 <div class="ibox-content">
-                                    <h3>QC<span class="label label-success pull-right"><?php echo count($gp)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> QC1 <b>1004</b></p>
-                                    <ul class="sortable-list connectList agile-list" id="gosok">
-                                        <?php for ($i=0; $i < count($qc1) ; ++$i) { ?>
-                                           <?php include('cardService/card-qc1.php') ?>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4" style="vertical-align: top; top: 0%">
-                            <div class="ibox">
-                                <div class="ibox-content">
                                     <h3>DREASING + KRUM<span class="label label-success pull-right"><?php echo count($gp)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> DREASING + KRUM <b>1005</b></p>
+                                    <p>Kumpulan dari SPK yang sedang proses <br> DREASING + KRUM <b>1004</b></p>
                                     <ul class="sortable-list connectList agile-list" id="gosok">
                                         <?php for ($i=0; $i < count($gp) ; ++$i) { ?>
                                            <?php include('cardService/card-dreasing.php') ?>
@@ -294,7 +280,7 @@
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <h3>PEN<span class="label label-success pull-right"><?php echo count($go)?></span></h3>
-                                    <p>Kumpulan dari SPK yang sedang proses <br> PEN <b>1006</b></p>
+                                    <p>Kumpulan dari SPK yang sedang proses <br> PEN <b>1005</b></p>
                                     <ul class="sortable-list connectList agile-list" id="gosok">
                                         <?php for ($i=0; $i < count($go) ; ++$i) { ?>
                                            <?php include('cardService/card-pen.php') ?>

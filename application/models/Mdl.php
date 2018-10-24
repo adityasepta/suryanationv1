@@ -208,13 +208,6 @@ class mdl extends CI_Model {
         return $query->result();
     }
 
-    public function checkAkses($idUser) {
-        $sql   = "SELECT * from akses WHERE idUser=$idUser ";
-        $query = $this->db->query($sql);
-        
-        return $query->result();
-    }
-
     public function getjadwal($nomorFaktur) {
         $sql   = "SELECT *, DATE_FORMAT(r.startDate, '%Y-%m-%d') AS tglmsk, DATE_FORMAT(r.endDate, '%Y-%m-%d') AS tglend,DATE_FORMAT(r.startDate, '%d %M %Y' ) as sd, DATE_FORMAT(r.endDate, '%d %M %Y' ) as ed FROM aktivitas2 a, rencanaproduksi r, spk s where s.idSPK = r.idSPK and a.idAktivitas = r.idAktivitas and s.nomorFaktur = '$nomorFaktur' order by r.idAktivitas";
         $query = $this->db->query($sql);
@@ -1073,7 +1066,7 @@ class mdl extends CI_Model {
 
     public function getStokProduk() {
         $sql    = "SELECT * FROM (SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaMaterial, c.nama as namapic FROM stokbarang a, materialdasar b, user c where a.kodeBarang = b.kodeMaterial and a.idPIC = c.idUser AND a.tipeBarang='Material Dasar' 
-               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY idStok DESC";
+               UNION SELECT a.idStok,a.idPIC,a.nomorPO,a.tipeBarang,a.kodeBarang,a.jumlah,a.satuan,a.jenisPergerakanBarang,a.tipePergerakan,a.statusTransfer,a.hargaBeli,a.tanggal,a.keterangan, DATE_FORMAT (a.tanggal,'%d %M %Y') AS tgl, b.namaProduk,  c.nama FROM stokbarang a, produk b, user c where a.kodeBarang = b.idproduk and a.idPIC = c.idUser and (a.tipeBarang!='Material Dasar')) a ORDER BY idStok DESC LIMIT 150";
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -1862,9 +1855,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function findPOTradingDetail($nomorPO){
+    public function findPOTradingDetail($idPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE nomorPO='$nomorPO' AND kategori='trading'");
+        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE idPO='$idPO' AND kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -2399,16 +2392,6 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         
         return $query->result();
     }
-
-    public function cekFactProduction2($idSPK,$idAktivitas) {
-
-        $sql   = "SELECT * FROM `factproduction2` where idSubSPK = $idSPK and idAktivitas = $idAktivitas and statusWork = 'On Progress'" ;
-        
-        $query = $this->db->query($sql);
-        
-        return $query->result();
-    }
-
 
     public function getBerat3() {
 
@@ -3042,16 +3025,6 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
-    public function jurnalPerDate($date){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.*,IFNULL((SELECT SUM(d.jumlah) FROM jurnal c LEFT JOIN detailjurnal d ON c.idJurnal=d.idJurnal WHERE c.idJurnal=a.idJurnal AND d.kategori='Debit'),0) AS jumlah FROM jurnal a WHERE tanggal='$date' ORDER BY a.idJurnal DESC");
-        if($hasil->num_rows() > 0){
-            return $hasil->result();
-        } else{
-            return array();
-        }
-    }
-
     public function detailJurnal($idJurnal){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT a.*,b.*,c.namaCustomer,c.nomorTelepon FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN customer c ON a.idCustomer=c.idCustomer WHERE a.idJurnal=$idJurnal");
@@ -3257,25 +3230,16 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
-    public function searchProduct($param){
-        //Query mencari record berdasarkan ID
 
-        $a = "%" . $param . "%";
-        $sql    = "SELECT * FROM produk a WHERE (a.namaProduk LIKE '$a' OR a.kategoriProdukTrading LIKE '$a' OR a.jenisProduk LIKE '$a') AND statusKatalog='Tampil'";  
-        $query  = $this->db->query($sql);
-        $result = $query->result();
-        return $result;
-    }
 
-    public function listPegawaiAkses(){
-        //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT a.* FROM user a LEFT JOIN (SELECT * FROM akses GROUP BY idUser) b ON a.idUser=b.idUser WHERE a.idUser != 0 AND b.idAkses IS NULL  ORDER BY nama");
+    /*public function dapatPO() {
+        $hasil=$this->db->query("SELECT nomorPO FROM potempahan");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
             return array();
         }
-    }
+    }*/
 
 
 }

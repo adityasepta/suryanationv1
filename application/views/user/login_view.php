@@ -16,16 +16,13 @@
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div>
-                <img src="<?php base_url()?>assets/img/logoss.png" height="250" width="250">
-                <!-- <h1 class="logo-name">SS</h1> -->
 
-                
+                <h1 class="logo-name">SS</h1>
+                <p>Silahkan login dengan akun anda </p>
 
             </div>
 
             <div class="m-t" >
-                <br>
-                <p>Silahkan login dengan akun anda </p>
                 <?php echo form_open('Login/proseslogin')?>
                 <div class="form-group">
                     <input type="text" name="username" class="form-control" placeholder="Username" required="">
@@ -36,7 +33,7 @@
                 <?php if(isset($err)) {?>
                     <span class="text-danger">username atau passwsord salah</span>
                 <?php } ?>
-                <button type="submit" class="btn btn-success block full-width m-b">Login</button>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
                 <?php echo form_close()?>
             </div>
 

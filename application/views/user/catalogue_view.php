@@ -37,106 +37,98 @@
         </div>
         </nav>
         </div>
-        <div class="wrapper wrapper-content">
-        
+            <div class="wrapper wrapper-content">
         <div class="row">
-            <div class="col-lg-8">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="<?php echo base_url();?>user/catalogue">
-                            <div class="widget style1 <?php if($kategori=='All'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
-                                <div class="row">
-                                    <div class="col-xs-12 text-center">
-                                        <h4 class="font-bold">Semua</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="<?php echo base_url();?>user/catalogue/Tempahan">
-                            <div class="widget style1 <?php if($kategori=='Tempahan'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
-                                <div class="row">
-                                    <div class="col-xs-12 text-center">
-                                        <h4 class="font-bold">Tempahan</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="<?php echo base_url();?>user/catalogue/Massal">
-                            <div class="widget style1 <?php if($kategori=='Massal'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
-                                <div class="row">
-                                    <div class="col-xs-12 text-center">
-                                        <h4 class="font-bold">Massal</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="<?php echo base_url();?>user/catalogue/Trading">
-                            <div class="widget style1 <?php if($kategori=='Trading'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
-                                <div class="row">
-                                    <div class="col-xs-12 text-center">
-                                        <h4 class="font-bold">Trading</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="<?php echo base_url();?>user/catalogue/Perak">
-                            <div class="widget style1 <?php if($kategori=='Perak'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
-                                <div class="row">
-                                    <div class="col-xs-12 text-center">
-                                        <h4 class="font-bold">Perak</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="hr-line-dashed"></div>
-                    <div class="search-form">
-                        <form action="<?php echo base_url();?>user/search?>" method="POST">
-                            <div class="input-group">
-                                <input type="text" placeholder="Cari Produk" name="searchParam" class="form-control input-lg">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-lg btn-primary" type="submit">
-                                        Search
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Kalatog Produk</h5>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue">
+                <div class="widget style1 <?php if($kategori=='All'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h3 class="font-bold">Semua</h3>
+                            <span>Produk</span>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Tempahan">
+                <div class="widget style1 <?php if($kategori=='Tempahan'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Tempahan</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Massal">
+                <div class="widget style1 <?php if($kategori=='Massal'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Massal</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Trading">
+                <div class="widget style1 <?php if($kategori=='Trading'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Trading</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url();?>user/catalogue/Perak">
+                <div class="widget style1 <?php if($kategori=='Perak'){ echo 'red-bg';}else{echo 'lazur-bg';}?>">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>Produk</span>
+                            <h3 class="font-bold">Perak</h3>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <br>
             <?php for ($i=0; $i < count($produk) ; $i++) { ?>
                 <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>">
-                <div class="col-md-4">                    <div class="ibox">
+                <div class="col-md-3">                    <div class="ibox">
                         <div class="ibox-content product-box">
 
                             <div class="product-imitation" style="height: 100%; position:relative; background: url('<?php echo base_url();?>uploads/gambarProduk/<?php echo $produk[$i]->gambar1?>')no-repeat; background-size: cover; background-position: center;">
                             </div>
                             <div class="product-desc">
-                                <span class="product-price">
+                                <!-- <span class="product-price">
                                     Rp. <?php echo  number_format($produk[$i]->hargaJual);?>
-                                </span>
-                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?> &#9679 <strong><?php echo $produk[$i]->kodeProduk?></strong></small>
+                                </span> -->
+                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?></small>
                                 <div style="white-space: nowrap; width: 15em; overflow: hidden; text-overflow: ellipsis; ">
-                                    <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>" class="product-name"> <?php echo substr($produk[$i]->namaProduk,0,20)?></a>
+                                    <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
                                 </div>
                                 
                                 <div class="small m-t-xs">
-                                    Stok <span class="<?php if($produk[$i]->stok<=0){ echo "text-danger";} else { echo "text-navy";} ?>"><?php echo $produk[$i]->stok?> item</span>
-                                </div>
-                                <div class="m-t text-righ">
-
-                                    <button href="#" class="add_cart btn btn-xs btn-outline btn-primary" data-productid="<?php echo $produk[$i]->idProduk;?>" data-productname="<?php echo $produk[$i]->namaProduk;?>" data-productprice="<?php echo $produk[$i]->hargaJual;?>" data-productqty="8"><i class="fa fa-shopping-cart"></i>  Tambahkan</button>
+                                    Kode Produk <strong><?php echo $produk[$i]->kodeProduk?></strong>
                                 </div>
                             </div>
                         </div>
@@ -144,46 +136,6 @@
                 </div>
                 </a>
             <?php } ?>
-            </div>
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5><i class="fa fa-shopping-cart"></i>  Keranjang</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <?php echo form_open_multipart('user/tambahPOTrading')?>
-                        <div class="row" style="padding: 5px;">
-                            <div class="form-group">
-                                <label>Nama Customer</label>
-                                <datalist id="listofcustomer"><?php for ($i = 0; $i < count($listCustomer); $i++) { ?><option value="<?php echo $listCustomer[$i]->namaCustomer?>" data-value="<?php echo $listCustomer[$i]->idCustomer?>"><?php } ?>
-                                </datalist>
-                                <input type="text" id="cust" list="listofcustomer" class="form-control" required="">
-                                <input type="hidden" id="idCust" name="idCustomer" class="form-control">
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Items</th>
-                                        <th>Qty</th>
-                                        <th>Harga</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="detail_cart">
-                 
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row" style="padding: 5px;">
-                            <button class="btn btn-sm btn-success btn-block" type="submit"><strong>Checkout</strong></button>
-                        </div>
-                        <?php echo form_close()?>
-                    </div>
-                </div>
-            </div>
         </div>
         </div>
         <div class="footer">
@@ -197,65 +149,247 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="<?php echo base_url();?>assets/js/jquery-2.1.1.js"></script>
-    <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/jquery-2.1.1.js"></script>
+    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/flot/jquery.flot.time.js"></script>
+
+    <!-- Peity -->
+    <script src="<?php echo base_url()?>assets/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/demo/peity-demo.js"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="<?php echo base_url();?>assets/js/inspinia.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/pace/pace.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/inputmask.bundle.js"></script>
-    
-    <!-- slick carousel-->
-    <script src="<?php echo base_url();?>assets/js/plugins/slick/slick.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/inspinia.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/pace/pace.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.add_cart').click(function(){
-                var product_id    = $(this).data("productid");
-                var product_name  = $(this).data("productname");
-                var product_price = $(this).data("productprice");
-                var quantity      = 1;
-                $.ajax({
-                    url : "<?php echo site_url('user/add_to_cart');?>",
-                    method : "POST",
-                    data : {product_id: product_id, product_name: product_name, product_price: product_price, quantity: quantity},
-                    success: function(data){
-                        $('#detail_cart').html(data);
-                    }
-                });
-            });
-     
-             
-            $('#detail_cart').load("<?php echo site_url('user/load_cart');?>");
-     
-             
-            $(document).on('click','.romove_cart',function(){
-                var row_id=$(this).attr("id"); 
-                $.ajax({
-                    url : "<?php echo site_url('user/delete_cart');?>",
-                    method : "POST",
-                    data : {row_id : row_id},
-                    success :function(data){
-                        $('#detail_cart').html(data);
-                    }
-                });
-            });
-        });
+    <!-- jQuery UI -->
+    <script src="<?php echo base_url()?>assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Jvectormap -->
+    <script src="<?php echo base_url()?>assets/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!-- EayPIE -->
+    <script src="<?php echo base_url()?>assets/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+
+    <!-- Sparkline -->
+    <script src="<?php echo base_url()?>assets/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="<?php echo base_url()?>assets/js/demo/sparkline-demo.js"></script>
+
+
+    <!-- ChartJS-->
+    <script src="<?php echo base_url()?>assets/js/plugins/chartJs/Chart.min.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/js/demo/chartjs-demo.js"></script> -->
+    <script type="text/javascript">  
+    var lineData = {
+        labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Nopember", "Desember"],
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(26,179,148,0.1)",
+                strokeColor: "rgba(26,179,148,0.7)",
+                pointColor: "rgba(26,179,148,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: [28, 48, 40, 19, 35, 27, 30,28, 48, 40, 19, 50]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        scaleShowGridLines: true,
+        scaleGridLineColor: "rgba(0,0,0,.05)",
+        scaleGridLineWidth: 1,
+        bezierCurve: true,
+        bezierCurveTension: 0.4,
+        pointDot: true,
+        pointDotRadius: 4,
+        pointDotStrokeWidth: 1,
+        pointHitDetectionRadius: 20,
+        datasetStroke: true,
+        datasetStrokeWidth: 2,
+        datasetFill: true,
+        responsive: true,
+    };
+
+
+    var ctx = document.getElementById("orderChart").getContext("2d");
+    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
     </script>
-    <script type="text/javascript">
-        $('#cust').on('change', function() { 
-            var data = {}; 
-            $("#listofcustomer option").each(function(i,el) {  
-               data[$(el).data("value")] = $(el).val();
+
+    <script>
+        $(document).ready(function() {
+            $('.chart').easyPieChart({
+                barColor: '#f8ac59',
+//                scaleColor: false,
+                scaleLength: 5,
+                lineWidth: 4,
+                size: 80
             });
 
-            var vale = $('#cust').val();
-            document.getElementById('idCust').value=$('#listofcustomer [value="' + vale + '"]').data('value');
-            
-        });
-        
+            $('.chart2').easyPieChart({
+                barColor: '#1c84c6',
+//                scaleColor: false,
+                scaleLength: 5,
+                lineWidth: 4,
+                size: 80
+            });
+
+            var data2 = [
+                [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
+                [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
+                [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
+                [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
+                [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
+                [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
+                [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
+                [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
+            ];
+
+            var data3 = [
+                [gd(2012, 1, 1), 800], [gd(2012, 1, 2), 500], [gd(2012, 1, 3), 600], [gd(2012, 1, 4), 700],
+                [gd(2012, 1, 5), 500], [gd(2012, 1, 6), 456], [gd(2012, 1, 7), 800], [gd(2012, 1, 8), 589],
+                [gd(2012, 1, 9), 467], [gd(2012, 1, 10), 876], [gd(2012, 1, 11), 689], [gd(2012, 1, 12), 700],
+                [gd(2012, 1, 13), 500], [gd(2012, 1, 14), 600], [gd(2012, 1, 15), 700], [gd(2012, 1, 16), 786],
+                [gd(2012, 1, 17), 345], [gd(2012, 1, 18), 888], [gd(2012, 1, 19), 888], [gd(2012, 1, 20), 888],
+                [gd(2012, 1, 21), 987], [gd(2012, 1, 22), 444], [gd(2012, 1, 23), 999], [gd(2012, 1, 24), 567],
+                [gd(2012, 1, 25), 786], [gd(2012, 1, 26), 666], [gd(2012, 1, 27), 888], [gd(2012, 1, 28), 900],
+                [gd(2012, 1, 29), 178], [gd(2012, 1, 30), 555], [gd(2012, 1, 31), 993]
+            ];
+
+
+            var dataset = [
+                {
+                    label: "Number of orders",
+                    data: data3,
+                    color: "#1ab394",
+                    bars: {
+                        show: true,
+                        align: "center",
+                        barWidth: 24 * 60 * 60 * 600,
+                        lineWidth:0
+                    }
+
+                }, {
+                    label: "Payments",
+                    data: data2,
+                    yaxis: 2,
+                    color: "#1C84C6",
+                    lines: {
+                        lineWidth:1,
+                            show: true,
+                            fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 0.2
+                            }, {
+                                opacity: 0.4
+                            }]
+                        }
+                    },
+                    splines: {
+                        show: false,
+                        tension: 0.6,
+                        lineWidth: 1,
+                        fill: 0.1
+                    },
+                }
+            ];
+
+
+            var options = {
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    clolor: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+                ],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#000000",
+                    position: "nw"
+                },
+                grid: {
+                    hoverable: false,
+                    borderWidth: 0
+                }
+            };
+
+            function gd(year, month, day) {
+                return new Date(year, month - 1, day).getTime();
+            }
+
+            var previousPoint = null, previousLabel = null;
+
+            $.plot($("#flot-dashboard-chart"), dataset, options);
+
+            var mapData = {
+                "US": 298,
+                "SA": 200,
+                "DE": 220,
+                "FR": 540,
+                "CN": 120,
+                "AU": 760,
+                "BR": 550,
+                "IN": 200,
+                "GB": 120,
+            };
+
+            $('#world-map').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: "transparent",
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 0.9,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 0
+                    }
+                },
+
+                series: {
+                    regions: [{
+                        values: mapData,
+                        scale: ["#1ab394", "#22d6b1"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+            });
     </script>
 </body>
 </html>

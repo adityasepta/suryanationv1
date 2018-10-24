@@ -291,7 +291,7 @@
                                                     <td class="text-center"><?php echo $b[$z]->berat ?></td>
                                                     <td class="text-center"><label class="label label-lg label-success"></label></td>
 
-                                                    <?php if ((int)$b[$z]->idAktivitas == 1007) { ?>
+                                                    <?php if ((int)$b[$z]->idAktivitas == 1006) { ?>
 
                                                     <td  class="text-center"><button data-toggle="modal"  data-dismiss="modal" data-target="#<?php echo $b[$z]->idAktivitas ?><?php echo $bo[$i]->idSPK ?>" class="btn btn-xs btn-info ">Update Berat</button></td>
 

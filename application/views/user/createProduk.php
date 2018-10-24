@@ -131,15 +131,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Stok</label>
-                                                <div class="col-md-2">
-                                                    <input type="numeric name="stok" class="form-control" value="<?php echo set_value('stok'); ?>" step="any">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-sm-2 control-label">Kategori Produk</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control"  name="kategori" id="kategoriProduk">
+                                                    <select class="form-control"  name="kategori">
                                                         <option value="Katalog" <?php $a= set_value('kategori'); if($a=="Katalog"){?> selected="" <?php } ?> required>Katalog</option>
                                                         <option value="Tempahan" <?php $a= set_value('kategori'); if($a=="Tempahan"){?> selected="" <?php } ?>>Tempahan</option>
                                                         <option value="Massal" <?php $a= set_value('kategori'); if($a=="Massal"){?> selected="" <?php } ?>>Massal</option>
@@ -148,19 +142,6 @@
                                                     </select>
                                                 </div>
                                                 
-                                            </div>
-                                            <div class="form-group" id="kategoriTrading">
-                                                <label class="col-sm-2 control-label">Kategori Produk Trading</label>
-                                                <div class="col-md-4">
-                                                    <select name="kategoriProdukTrading" required="" class="form-control">
-                                                      <option value="Kotak perhiasan" <?php $a= set_value('kategoriProdukTrading'); if($a=="Kotak perhiasan"){?> selected="" <?php } ?>>Kotak perhiasan</option>
-                                                      <option value="Alat pertukangan" <?php $a= set_value('kategoriProdukTrading'); if($a=="Alat pertukangan"){?> selected="" <?php } ?>>Alat pertukangan</option>
-                                                      <option value="Obat - obatan" <?php $a= set_value('kategoriProdukTrading'); if($a=="Obat - obatan"){?> selected="" <?php } ?>>Obat - obatan</option>
-                                                      <option value="Zircon" <?php $a= set_value('kategoriProdukTrading'); if($a=="Zircon"){?> selected="" <?php } ?>>Zircon</option>
-                                                      <option value="Berlian" <?php $a= set_value('kategoriProdukTrading'); if($a=="Berlian"){?> selected="" <?php } ?>>Berlian</option>
-                                                      <option value="Mesin Produksi" <?php $a= set_value('kategoriProdukTrading'); if($a=="Mesin Produksi"){?> selected="" <?php } ?>>Mesin Produksi</option>
-                                                    </select>
-                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Status Katalog</label>
@@ -250,7 +231,6 @@
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/js/plugins/iCheck/icheck.min.js"></script>
         <script>
-            $('#kategoriTrading').prop('hidden', true);
             $(document).ready(function () {
                 $('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
@@ -293,16 +273,6 @@
         function imageIsLoaded<?php echo $i;?>(e) {
             $('#myImg<?php echo $i;?>').attr('src', e.target.result);
         };
-
-        $('#kategoriProduk').on("click",function() {
-            var produkKategori = document.getElementById('kategoriProduk').value;
-            console.log(produkKategori);
-            if (produkKategori=="Trading") {
-                $('#kategoriTrading').prop('hidden', false);
-            } else { 
-                $('#kategoriTrading').prop('hidden', true);
-            }
-        });
     </script>
     <?php } ?>
 

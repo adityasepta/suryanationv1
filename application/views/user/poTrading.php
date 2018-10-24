@@ -67,7 +67,7 @@
                                 <!-- <a class="btn btn-xs btn-default" href="<?php echo base_url();?>user/trackPO" style="color:black;">
                                     <i class="fa fa-search"><span style="font-family: 'open sans'"><strong> TRACK PO</strong></span></i>
                                 </a> -->
-                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/catalogue">
+                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createPurchaseOrder">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PO</strong></span></i>
                                 </a>
                             </div>
@@ -103,7 +103,7 @@
                                           'class' => 'btn btn-primary btn-xs',
                                           'role'  => 'button'
                                          ])?>
-                                        <?=anchor('user/hapusPOTrading/' . $hasil->nomorPO, 'Hapus', [
+                                        <?=anchor('user/hapusPOTrading/' . $hasil->idPO, 'Hapus', [
                                           'class' => 'btn btn-danger btn-xs',
                                           'role'  => 'button',
                                           'onclick'=>'return confirm(\'Apakah Anda Yakin?\')'

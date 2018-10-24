@@ -77,22 +77,12 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        <h5>Daftar Jurnal</h5>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <?php 
-                                          $tglskg = new DateTime("Now");
-                                          $tglnow = $tglskg->format("Y-m-d");
-                                        ?>
-                                        <input type="date" name="datepick" id="dateselect" value="<?php echo $tglnow?>" class="form-control">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <a class="btn btn-md btn-primary" href="<?php echo base_url('user/createJurnal');?>">
-                                        <span style="font-family: 'open sans'"><strong> TAMBAH JURNAL</strong></span>
-                                        </a>
-                                    </div>
+                                <h5>Daftar Jurnal</h5>
+                                <div class="ibox-tools">
+
+                                    <a class="btn btn-xs btn-primary" href="<?php echo base_url('user/createJurnal');?>">
+                                    <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH JURNAL</strong></span></i>
+                                    </a>
                                 </div>
                             </div>
 
@@ -110,8 +100,39 @@
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="listJurnal">
+                                    <tbody>
+                                        <?php foreach($jurnal as $p) : 
+                                            $idJurnal    = $p->idJurnal;
+                                            if($this->input->post('is_submitted')){
+                                                $keterangan     = set_value('keterangan');
+                                                $jumlah         = set_value('jumlah');
+                                                $tanggal        = set_value('tanggal');
+                                            }
+                                            else {
+                                                $keterangan     = $p->keterangan;
+                                                $jumlah         = $p->jumlah;
+                                                $tanggal        = $p->tanggal;
+                                            }
+
+                                            $tgl = new DateTime($p->tanggal);
+                                            $tglmsk = $tgl->format("d F Y");
+                                        ?>
+
+                                        <tr>
+                                            <td><?php echo $p->idJurnal?></td>
+                                            <td><?php echo $p->keterangan?></td>
+                                            <td>Rp <?php echo number_format($p->jumlah,2);?></td>
+                                            <td><?php echo $tglmsk?></td>
+                                            <td><!-- Button trigger modal -->
+                                                <div class="btn-group">
+                                                    <a href="<?php echo base_url()?>user/detailJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-info" >Lihat</a>
+                                                    <a href="<?php echo base_url()?>user/editJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                    <a href="<?php echo base_url()?>user/hapusJurnal/<?php echo $p->idJurnal;?>" class="btn btn-xs btn-danger" >Hapus</a>
+                                                </div>
+                                            </td>
+                                         </tr>
                                         
+                                        <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                     <tr>
@@ -161,24 +182,7 @@
         });
 
     </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-            $('#listJurnal').load("<?php echo site_url('user/load_jurnal');?>");
-             
-            $(document).on('change','#dateselect',function(){
-                var date= $('#dateselect').val(); 
-                $.ajax({
-                    url : "<?php echo site_url('user/load_more_jurnal');?>",
-                    method : "POST",
-                    data : {datepick : date},
-                    success :function(data){
-                        $('#listJurnal').html(data);
-                    }
-                });
-            });
-        });
-    </script>
+    
 </body>
 
 </html>

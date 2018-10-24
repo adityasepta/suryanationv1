@@ -55,7 +55,7 @@
         </div>
         
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -96,7 +96,6 @@
                                             <th>Nomor Faktur</th>
                                             <th>Aktivitas</th>
                                             <th class="text-center">Berat Awal</th>
-                                            <th class="text-center">Berat Tambahan</th>
                                             <th class="text-center">Berat Akhir</th>
                                             <th class="text-center">Berat Kembali</th>
                                             <th class="text-center">Susut</th>
@@ -108,11 +107,8 @@
                                             $jumlahBerat=0;
                                             $beratAwal=0;
                                             $beratAkhir=0; 
-                                            $beratTambahan=0;
-                                            $beratTambahanTotal=0; 
                                             $beratAwalTotal=0;
                                             $beratAkhirTotal=0;
-                                            $jumlahBeratTambahan=0;
                                             for ($i=0; $i < count($rekap) ; $i++) { 
                                         ?>
                                             <?php if($rekap[$i]->idAktivitas=='1006') {?>
@@ -125,9 +121,6 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $beratAwalC=$rekap[$i]->beratAwal?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php echo $beratTambahanC=$rekap[$i]->beratTambahan?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $beratAkhirC=$rekap[$i]->berat ?>
@@ -143,7 +136,6 @@
                                                 <td class="text-center">
                                                     <?php echo $beratAwalK=$rekap[$i]->berat?>
                                                 </td>
-                                                <td class="text-center">0</td>
                                                 <td class="text-center">
                                                     <?php echo $beratAkhirK=$rekap[$i]->beratKecap+$rekap[$i]->kembali ?>
                                                 </td>
@@ -164,9 +156,6 @@
                                                     <?php echo $beratAwal=$rekap[$i]->beratAwal?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo $beratTambahan=$rekap[$i]->beratTambahan?>
-                                                </td>
-                                                <td class="text-center">
                                                     <?php echo $beratAkhir=$rekap[$i]->berat ?>
                                                 </td>
                                                 <td class="text-center">-</td>
@@ -176,19 +165,16 @@
                                             <?php } ?>
                                         <?php 
                                                 $jumlahBeratAwal+=$beratAwalTotal;
-                                                $jumlahBeratTambahan+=$beratTambahan;
                                                 $jumlahBerat+=$beratAkhirTotal;
-
                                             } 
                                         ?>
                                         
                                         <tr style="background-color: rgba(0,0,0,0.1);" bgcolor="#F1F1F1">
                                             <td class="text-left" colspan="2"><strong>Total Berat</strong></td>
                                             <td class="text-center" ><strong><?php echo $jumlahBeratAwal; ?> Gram</strong></td>
-                                            <td class="text-center" ><strong><?php echo $jumlahBeratTambahan; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $jumlahBerat; ?> Gram</strong></td>
                                             <td class="text-center" ><strong><?php echo $rekap[0]->beratKembali; ?> Gram</strong></td>
-                                            <td class="text-center" ><strong><?php $susut=$jumlahBeratAwal+$jumlahBeratTambahan-($jumlahBerat+$rekap[0]->beratKembali); echo number_format($susut,2) ?> Gram</strong></td>
+                                            <td class="text-center" ><strong><?php $susut=$jumlahBeratAwal-($jumlahBerat+$rekap[0]->beratKembali); echo number_format($susut,2) ?> Gram</strong></td>
                                         </tr>
                                         </tbody>
                                     </table>

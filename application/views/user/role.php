@@ -90,7 +90,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Role</th>
-                                        <th>Nama Role</th>
                                         <th>Deskripsi</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -101,32 +100,26 @@
                                             $idRole    = $p->idRole;
                                             if($this->input->post('is_submitted')){
                                                 $kodeRole    = $set_value('kodeRole');
-                                                $namaRole    = $set_value('namaRole');
                                                 $deskripsi    = $set_value('deskripsi');
                                             }
                                             else {
                                                 $kodeRole    = $p->kodeRole;
-                                                $namaRole    = $p->namaRole;
                                                 $deskripsi    = $p->deskripsi;
                                             }
                                         ?>
                                         <tr>
-                                            <td style="width: 5%"><?php echo $no?></td>
-                                            <td style="width: 15%"><?php echo $p->kodeRole?></td>
-                                            <td style="width: 20%"><?php echo $p->namaRole?></td>
-                                            <td style="width: 45%"><?php echo $p->deskripsi?></td>
-                                            <td style="width: 15%"><!-- Button trigger modal -->
-                                                <div class="btn-group">
-                                                    <a href="#" data-toggle="modal" data-target="#role<?php echo $p->idRole;?>" class="btn btn-xs btn-warning" >Edit</a>
-                                                <a href="<?php echo base_url('user/deleteRole/' . $idRole) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Hapus</a>
-                                                </div>
-                                                
+                                            <td style="width: 10%"><?php echo $no?></td>
+                                            <td style="width: 30%"><?php echo $p->kodeRole?></td>
+                                            <td style="width: 50%"><?php echo $p->deskripsi?></td>
+                                            <td style="width: 10%"><!-- Button trigger modal -->
+                                                <a href="href="#" data-toggle="modal" data-target="#role<?php echo $p->idRole;?>" class="btn btn-xs btn-warning" >Edit</a>
+                                                <a href="<?php echo base_url('user/deleteRole/' . $idRole) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Delete</a>
                                             </td>
                                          </tr>
                                          <?php if($role) {?>
                                         <!-- Modal -->
                                         <div class="modal fade" id="role<?php echo $idRole;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                          <div class="modal-dialog modal-md" role="document">
+                                          <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                               <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -136,23 +129,15 @@
                                                 <?php echo form_open_multipart('user/editRole/'.$idRole)?>
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Kode Role</label>
-                                                            <input type="text" name= "kodeRole"  class="form-control" required readonly="" value="<?= $kodeRole?>">
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <label>Nama Role</label>
-                                                            <input type="text" name= "namaRole"  class="form-control" required value="<?= $namaRole?>">
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <br>
-                                                            <label>Deskripsi</label>
-                                                            <textarea type="text" name= "deskripsi"  class="form-control" required value="<?= $deskripsi?>" ><?= $deskripsi?></textarea>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-3">
+                                                    <label>kodeRole</label>
+                                                    <input type="text" name= "kodeRole"  class="form-control" required value="<?= $kodeRole?>">
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <label>Deskripsi</label>
+                                                    <textarea type="text" name= "deskripsi"  class="form-control" required value="<?= $deskripsi?>" ><?= $deskripsi?></textarea>
+                                                </div>
+                                            </div>
                                                 </div>
                                                 
                                               </div>
@@ -178,7 +163,7 @@
                                 </table>
                                 <!-- Modal -->
                                 <div class="modal fade" id="tambahRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                  <div class="modal-dialog modal-md" role="document">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -188,19 +173,11 @@
                                         <?php echo form_open_multipart('user/createRole')?>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <label>Kode Role</label>
-                                                    <input type="text" placeholder="Contoh: PRD" name= "kodeRole"  class="form-control" required >
+                                                <div class="col-md-3">
+                                                    <label>kodeRole</label>
+                                                    <input type="text" name= "kodeRole"  class="form-control" required >
                                                 </div>
-                                                <div class="col-md-8">
-                                                    <label>Nama Role</label>
-                                                    <input type="text" name= "namaRole" placeholder="Contoh: Production"  class="form-control" required >
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <br>
+                                                <div class="col-md-9">
                                                     <label>Deskripsi</label>
                                                     <textarea type="text" name= "deskripsi"  class="form-control" required ></textarea>
                                                 </div>
