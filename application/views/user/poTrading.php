@@ -67,7 +67,7 @@
                                 <!-- <a class="btn btn-xs btn-default" href="<?php echo base_url();?>user/trackPO" style="color:black;">
                                     <i class="fa fa-search"><span style="font-family: 'open sans'"><strong> TRACK PO</strong></span></i>
                                 </a> -->
-                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/createPurchaseOrder">
+                                <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>user/catalogue">
                                     <i class="fa fa-pencil"><span style="font-family: 'open sans'"><strong> TAMBAH PO</strong></span></i>
                                 </a>
                             </div>

@@ -1862,9 +1862,9 @@ SELECT c.idAktivitas,c.namaAktivitas,'' as startDate , '' as endDate FROM aktivi
         }
     }
 
-    public function findPOTradingDetail($idPO){
+    public function findPOTradingDetail($nomorPO){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE idPO='$idPO' AND kategori='trading'");
+        $hasil = $this->db->query("SELECT * FROM detailpurchaseordertrading a LEFT JOIN produk p on a.idProduk = p.idProduk WHERE nomorPO='$nomorPO' AND kategori='trading'");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{
@@ -3042,6 +3042,16 @@ ORDER BY tgl DESC,nama LIMIT 50
         }
     }
 
+    public function jurnalPerDate($date){
+        //Query mencari record berdasarkan ID
+        $hasil = $this->db->query("SELECT a.*,IFNULL((SELECT SUM(d.jumlah) FROM jurnal c LEFT JOIN detailjurnal d ON c.idJurnal=d.idJurnal WHERE c.idJurnal=a.idJurnal AND d.kategori='Debit'),0) AS jumlah FROM jurnal a WHERE tanggal='$date' ORDER BY a.idJurnal DESC");
+        if($hasil->num_rows() > 0){
+            return $hasil->result();
+        } else{
+            return array();
+        }
+    }
+
     public function detailJurnal($idJurnal){
         //Query mencari record berdasarkan ID
         $hasil = $this->db->query("SELECT a.*,b.*,c.namaCustomer,c.nomorTelepon FROM jurnal a LEFT JOIN detailjurnal b ON a.idJurnal=b.idJurnal LEFT JOIN customer c ON a.idCustomer=c.idCustomer WHERE a.idJurnal=$idJurnal");
@@ -3251,7 +3261,7 @@ ORDER BY tgl DESC,nama LIMIT 50
         //Query mencari record berdasarkan ID
 
         $a = "%" . $param . "%";
-        $sql    = "SELECT * FROM produk a WHERE a.namaProduk LIKE '$a' AND statusKatalog='Tampil'";  
+        $sql    = "SELECT * FROM produk a WHERE (a.namaProduk LIKE '$a' OR a.kategoriProdukTrading LIKE '$a' OR a.jenisProduk LIKE '$a') AND statusKatalog='Tampil'";  
         $query  = $this->db->query($sql);
         $result = $query->result();
         return $result;
@@ -3259,7 +3269,7 @@ ORDER BY tgl DESC,nama LIMIT 50
 
     public function listPegawaiAkses(){
         //Query mencari record berdasarkan ID
-        $hasil = $this->db->query("SELECT * FROM user a LEFT JOIN (SELECT * FROM akses GROUP BY idUser) b ON a.idUser=b.idUser WHERE a.idUser != 0 AND b.idUser IS NULL  ORDER BY nama");
+        $hasil = $this->db->query("SELECT a.* FROM user a LEFT JOIN (SELECT * FROM akses GROUP BY idUser) b ON a.idUser=b.idUser WHERE a.idUser != 0 AND b.idAkses IS NULL  ORDER BY nama");
         if($hasil->num_rows() > 0){
             return $hasil->result();
         } else{

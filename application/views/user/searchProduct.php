@@ -127,7 +127,7 @@
                                 <span class="product-price">
                                     Rp. <?php echo  number_format($produk[$i]->hargaJual);?>
                                 </span>
-                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?> - <strong><?php echo $produk[$i]->kodeProduk?></strong></small>
+                                <small class="text-muted"><?php echo $produk[$i]->jenisProduk?> &#9679 <strong><?php echo $produk[$i]->kodeProduk?></strong></small>
                                 <div style="white-space: nowrap; width: 15em; overflow: hidden; text-overflow: ellipsis; ">
                                     <a href="<?php echo base_url();?>user/detailProduk/<?php echo $produk[$i]->idProduk?>" class="product-name"> <?php echo $produk[$i]->namaProduk?></a>
                                 </div>

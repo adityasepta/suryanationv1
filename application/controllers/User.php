@@ -2928,6 +2928,7 @@ class User extends CI_Controller {
     }
 
     public function detailProduk($idProduk) {
+        $data['listCustomer'] = $this->mdl->listCustomer();
         $data['produk'] = $this->mdl->detailProduk($idProduk);
         $this->load->view("user/detailProduk",$data);
         
@@ -2948,11 +2949,13 @@ class User extends CI_Controller {
 
     public function search() {
         $param=$this->input->post('searchParam');
+
         redirect('user/searchProduct/'.$param);
         
     }
 
     public function searchProduct($param) {
+        $param = str_replace('%20', ' ', $param);
         $data['produk'] = $this->mdl->searchProduct($param);
         $data['listCustomer'] = $this->mdl->listCustomer();
         $data['parameter'] = $param;
@@ -4552,6 +4555,15 @@ class User extends CI_Controller {
             //print_r($dataBOM);//exit();
             $this->mdl->insertData('detailpurchaseordertrading',$dataDetailPOTrading);
 
+            //Update Stok
+            $dataPO=$this->mdl->findProduk2($items['id']);
+            $st=$dataPO->stok-1;
+            $dataStok = array(
+                'stok' => $st,
+            );
+            $this->mdl->updateData('idProduk',$items['id'],'produk',$dataStok);
+            
+            //Menghapus produk di cart
             $data = array(
                 'rowid' => $items['rowid'], 
                 'qty' => 0, 
@@ -4597,7 +4609,7 @@ class User extends CI_Controller {
         window.location.href='".base_url('user/createPOTradingDetail/'.$idPO)."';</script>";
     }
 
-    public function hapusPOTrading($idPO) {
+    public function hapusPOTrading($nomorPO) {
         $this->mdl->deleteData('nomorPO', $nomorPO, 'purchaseordertrading');
         $this->mdl->deleteData('nomorPO', $nomorPO, 'detailpurchaseordertrading');
         redirect('user/listPOTrading');
@@ -4641,15 +4653,14 @@ class User extends CI_Controller {
     public function invoicePOTrading($nomorPO){
         $data['dataPO'] = $this->mdl->findPOTrading($nomorPO);
         $idPO = $data['dataPO'][0]->idPO;
-        $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
+        $data['detailPO'] = $this->mdl->findPOTradingDetail($nomorPO);
         // print_r($data);exit();
         $this->load->view('user/invoicePOTrading',$data);
     }
 
     public function printInvoiceTrading($nomorPO){
         $data['dataPO'] = $this->mdl->findPOTrading($nomorPO);
-        $idPO = $data['dataPO'][0]->idPO;
-        $data['detailPO'] = $this->mdl->findPOTradingDetail($idPO);
+        $data['detailPO'] = $this->mdl->findPOTradingDetailbyPO($nomorPO);
         $this->load->view('user/printInvoiceTrading',$data);
     }
 
@@ -7782,10 +7793,47 @@ class User extends CI_Controller {
 
     //Jurnal
     public function jurnal() {
-        $data['jurnal'] = $this->mdl->listJurnal();
-        $data['listAkun'] = $this->mdl->listAkun();
-        $this->load->view('user/jurnal',$data);
+        $this->load->view('user/jurnal');
     } 
+
+    function data_jurnal($datePick){
+        
+        $data['jurnal'] = $this->mdl->jurnalPerDate($datePick);
+        $output = '';
+        $no = 0;
+        foreach ($data['jurnal'] as $jurnals) { 
+            $no++;
+            $output .='
+                <tr>
+                    <td>'.$jurnals->idJurnal.'</td>
+                    <td>'.$jurnals->keterangan.'</td>
+                    <td>Rp '.number_format($jurnals->jumlah,2).'</td>
+                    <td>'.$datePick.'</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="<?php echo base_url()?>user/detailJurnal/'.$jurnals->idJurnal.'" class="btn btn-xs btn-info" >Lihat</a>
+                            <a href="<?php echo base_url()?>user/editJurnal/'.$jurnals->idJurnal.'" class="btn btn-xs btn-warning" >Edit</a>
+                            <a href="<?php echo base_url()?>user/hapusJurnal/'.$jurnals->idJurnal.'" class="btn btn-xs btn-danger" >Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+            ';
+        }
+
+        return $output;
+        
+    }
+ 
+    function load_jurnal(){ 
+        $datePick=date('Y-m-d');
+        echo $this->data_jurnal($datePick);
+    }
+
+    function load_more_jurnal(){ 
+        $datePick=$this->input->post('datepick');
+        echo $this->data_jurnal($datePick);
+    }
+
 
     public function detailJurnal($idCashflow) {
         $data['jurnal'] = $this->mdl->detailJurnal($idCashflow);
@@ -7881,6 +7929,7 @@ class User extends CI_Controller {
         $this->mdl->deleteData('idJurnal', $idJurnal, 'jurnal');
         $this->mdl->deleteData('idJurnal', $idJurnal, 'detailJurnal');
         $message = "Data Jurnal berhasil dihapus";
+        echo $this->data_jurnal();
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/jurnal")."';</script>";
     }
@@ -8148,7 +8197,7 @@ class User extends CI_Controller {
     }
 
     public function createAkses() {
-        /*print_r($this->input->post());exit();*/
+        // print_r($this->input->post());exit();
         $idUser = $this->input->post('idUser');
         $role=$this->input->post('kodeRole[]');
         $jumlahRole = count($role);
@@ -8181,8 +8230,8 @@ class User extends CI_Controller {
         redirect('user/akses');
     }
 
-    public function deleteAkses($idAkses) {
-        $this->mdl->deleteData('idAkses', $idAkses, 'akses');
+    public function deleteAkses($idUser) {
+        $this->mdl->deleteData('idUser', $idUser, 'akses');
         $message = "Data Akses berhasil dihapus";
         echo "<script type='text/javascript'>alert('$message');
         window.location.href='".base_url("user/akses")."';</script>";

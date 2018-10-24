@@ -116,7 +116,7 @@
                                             <td style="width: 10%"><!-- Button trigger modal -->
                                                 <div class="btn-group">
                                                 <a href="href="#" data-toggle="modal" data-target="#role<?php echo $p->idUser;?>" class="btn btn-xs btn-warning" >Edit</a>
-                                                <a href="<?php echo base_url('user/deleteRole/' . $idUser) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Delete</a>
+                                                <a href="<?php echo base_url('user/deleteAkses/' . $idUser) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus role ini?')">Delete</a>
                                                 </div>
                                             </td>
                                          </tr>
@@ -196,7 +196,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <label>Nama</label>
-                                                    <select class="form-control"  name="idUser">
+                                                    <select class="form-control" name="idUser">
                                                     <?php $ky=count($pegawai); for ($i=0; $i < $ky ; $i++) { ?> 
                                                         <option value="<?php echo $pegawai[$i]->idUser ?>"> 
                                                             <?php echo $pegawai[$i]->nama.' - '.$pegawai[$i]->jabatan;?>

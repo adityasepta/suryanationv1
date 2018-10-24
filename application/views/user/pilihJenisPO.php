@@ -119,21 +119,6 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-3">
-                    <a type="button" data-toggle="modal" data-target="#trading">
-                        <div class="ibox">
-                            <div class="ibox-content product-box">
-
-                                <div >
-                                    <img src="<?php echo base_url();?>assets/img/trading.jpg" style="object-fit: cover; width: 100%;" >
-                                </div>
-                                <div class="product-desc">
-                                    <h2 href="#" class="product-name text-center" style="font-size: 30px;"> TRADING</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
 
                 <!-- Modal Tempahan -->
                 <div class="modal inmodal fade" id="tempahan" tabindex="-1" role="dialog"  aria-hidden="true">
